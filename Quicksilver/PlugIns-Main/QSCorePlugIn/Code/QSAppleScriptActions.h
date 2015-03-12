@@ -33,8 +33,8 @@
 // IdOb = Indirect Object
 #define kQSIndirectParameter 'IdOb'
 
-@interface QSAppleScriptActions : QSActionProvider
+@interface QSAppleScriptActions : QSActionProvider <QSFileActionProvider>
 - (QSObject*)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;
--(NSAppleEventDescriptor *)eventDescriptorForObject:(QSObject *)iObject;
+- (NSAppleEventDescriptor *)eventDescriptorForObject:(QSObject *)iObject;
 @end
 

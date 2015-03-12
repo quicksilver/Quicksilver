@@ -371,6 +371,7 @@
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */; };
 		CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CDC9099C1AB203CB00AB4C0E /* QSAppleScriptActions.m in Sources */ = {isa = PBXBuildFile; fileRef = E18000F607B2B48800010DB0 /* QSAppleScriptActions.m */; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
@@ -382,6 +383,7 @@
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDD6F3FA17EB4DED00ACE129 /* QSIntValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */; };
+		CDD9BE531AB2024900F212A2 /* test.scpt in Resources */ = {isa = PBXBuildFile; fileRef = CDD9BE521AB2024900F212A2 /* test.scpt */; };
 		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
 		CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */; };
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
@@ -1415,10 +1417,8 @@
 		CD1732541683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
 		CD1732551683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
 		CD29AEAB195663770052C893 /* Core Support Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Core Support Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD29AEAF195663770052C893 /* Core Support Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Core Support Tests-Info.plist"; sourceTree = "<group>"; };
 		CD29AEB1195663770052C893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD29AEB3195663770052C893 /* Core_Support_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Core_Support_Tests.m; sourceTree = "<group>"; };
-		CD29AEB5195663770052C893 /* Core Support Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Core Support Tests-Prefix.pch"; sourceTree = "<group>"; };
 		CD2FFBCE16792D350028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBCF16792D3B0028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBD016792D490028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
@@ -1695,6 +1695,8 @@
 		CDD3096D160B860A00CD34EC /* countBadge5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge5.tiff; sourceTree = "<group>"; };
 		CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSIntValueTransformer.h; sourceTree = "<group>"; };
 		CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSIntValueTransformer.m; sourceTree = "<group>"; };
+		CDD9BE521AB2024900F212A2 /* test.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; name = test.scpt; path = Tests/TestData/test.scpt; sourceTree = "<group>"; };
+		CDD9BE541AB202F000F212A2 /* Core Support Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Core Support Tests-Info.plist"; sourceTree = "<group>"; };
 		CDDB44E31518C53300800B66 /* QSCrashReporter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSCrashReporter.xib; sourceTree = "<group>"; };
 		CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCrashReporterWindowController.h; sourceTree = "<group>"; };
 		CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCrashReporterWindowController.m; sourceTree = "<group>"; };
@@ -2584,6 +2586,7 @@
 		6615227B14F43347006FDCB4 /* TestData */ = {
 			isa = PBXGroup;
 			children = (
+				CDD9BE521AB2024900F212A2 /* test.scpt */,
 				6615228314F43355006FDCB4 /* PathWildcardsData */,
 			);
 			name = TestData;
@@ -2624,6 +2627,7 @@
 		666E460F150227D40034E60A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CDD9BE541AB202F000F212A2 /* Core Support Tests-Info.plist */,
 				666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */,
 				66D11C6515022A75002EE6E5 /* QSEffectsTests-Info.plist */,
 				66448D9714F42790000FA2E2 /* QSFoundationTests-Info.plist */,
@@ -2687,15 +2691,14 @@
 				CD29AEB3195663770052C893 /* Core_Support_Tests.m */,
 				CD29AEAE195663770052C893 /* Supporting Files */,
 			);
-			path = "Core Support Tests";
+			name = "Core Support Tests";
+			path = "Tests/Core Support Tests";
 			sourceTree = "<group>";
 		};
 		CD29AEAE195663770052C893 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CD29AEAF195663770052C893 /* Core Support Tests-Info.plist */,
 				CD29AEB0195663770052C893 /* InfoPlist.strings */,
-				CD29AEB5195663770052C893 /* Core Support Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -4366,6 +4369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */,
+				CDD9BE531AB2024900F212A2 /* test.scpt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4647,6 +4651,7 @@
 			files = (
 				CD29AEB4195663770052C893 /* Core_Support_Tests.m in Sources */,
 				CD29AEBF195665450052C893 /* QSDirectoryParser.m in Sources */,
+				CDC9099C1AB203CB00AB4C0E /* QSAppleScriptActions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6205,7 +6210,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Core Support Tests/Core Support Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -6216,7 +6220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				INFOPLIST_FILE = "PropertyLists/Core Support Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -6244,14 +6248,13 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Core Support Tests/Core Support Tests-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				INFOPLIST_FILE = "PropertyLists/Core Support Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
