@@ -100,8 +100,6 @@
 	<string>Recent Folders (Finder)</string>
 	<key>QSPresetFinderSpecificSearchPlaces</key>
 	<string>Finder Specific Search Places</string>
-	<key>QSPresetFinderToolbarItems</key>
-	<string>Finder Toolbar Items</string>
 	<key>QSPresetFirefoxBookmarks</key>
 	<string>Firefox Bookmarks</string>
 	<key>QSPresetGlobalPrefsRecentFolders</key>

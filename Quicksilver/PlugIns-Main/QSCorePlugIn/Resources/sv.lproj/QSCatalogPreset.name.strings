@@ -100,8 +100,6 @@
     <string>Senaste mappar (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finderspecifika sökvägar</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finders verktygsfält</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox-bokmärken</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>

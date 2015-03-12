@@ -66,28 +66,6 @@
 					<key>source</key>
 					<string>QSDefaultsObjectSource</string>
 				</dict>
-				<dict>
-					<key>ID</key>
-					<string>QSPresetFinderToolbarItems</string>
-					<key>name</key>
-					<string>Finder Toolbar Items</string>
-					<key>settings</key>
-					<dict>
-						<key>bundle</key>
-						<string>com.apple.finder</string>
-						<key>keypath</key>
-						<array>
-							<string>NSToolbar Configuration Browser</string>
-							<string>TB Item Plists</string>
-							<string>*</string>
-							<string>_CFURLAliasData</string>
-						</array>
-						<key>type</key>
-						<integer>3</integer>
-					</dict>
-					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
-				</dict>
 			</array>
 			<key>icon</key>
 			<string>FinderIcon</string>
