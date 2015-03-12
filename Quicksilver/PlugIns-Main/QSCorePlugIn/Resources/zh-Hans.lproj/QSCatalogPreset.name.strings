@@ -100,8 +100,6 @@
     <string>最近使用的文件夹(Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder特定搜索位置</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder工具栏项目</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox书签</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>

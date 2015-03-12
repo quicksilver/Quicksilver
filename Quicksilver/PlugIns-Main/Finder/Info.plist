@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>17A5</string>
+	<string>17A6</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
 	<key>QSPlugIn</key>
@@ -55,32 +55,10 @@
 						<string>com.apple.sidebarlists</string>
 						<key>keypath</key>
 						<array>
-							<string>favorites</string>
-							<string>VolumesList</string>
+							<string>favoriteitems</string>
+							<string>CustomListItems</string>
 							<string>*</string>
 							<string>Alias</string>
-						</array>
-						<key>type</key>
-						<integer>3</integer>
-					</dict>
-					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
-				</dict>
-				<dict>
-					<key>ID</key>
-					<string>QSPresetFinderToolbarItems</string>
-					<key>name</key>
-					<string>Finder Toolbar Items</string>
-					<key>settings</key>
-					<dict>
-						<key>bundle</key>
-						<string>com.apple.finder</string>
-						<key>keypath</key>
-						<array>
-							<string>NSToolbar Configuration Browser</string>
-							<string>TB Item Plists</string>
-							<string>*</string>
-							<string>_CFURLAliasData</string>
 						</array>
 						<key>type</key>
 						<integer>3</integer>

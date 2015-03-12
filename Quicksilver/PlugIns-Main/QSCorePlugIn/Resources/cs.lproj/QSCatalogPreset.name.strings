@@ -100,8 +100,6 @@
     <string>Poslední položky (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Místa hledání Finder</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Položky řádku nabídek Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Záložky Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
