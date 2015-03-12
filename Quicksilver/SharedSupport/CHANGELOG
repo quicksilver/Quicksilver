@@ -7,10 +7,12 @@
 ### Fixed ###
 
   * Update grabicon.com API for web search favorite icons (#2024)
+  * Change the location used to get Finder sidebar items (#2038)
 
 ### Changed ###
 
   * Remove the work-around from #2003, as it's no longer needed (#2026)
+  * Remove the Finder Toolbar Items catalog preset (#2038)
 
 ## Changes - 1.2.2 (4011) ##
 
