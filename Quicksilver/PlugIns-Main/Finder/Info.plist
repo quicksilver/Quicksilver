@@ -55,8 +55,8 @@
 						<string>com.apple.sidebarlists</string>
 						<key>keypath</key>
 						<array>
-							<string>favorites</string>
-							<string>VolumesList</string>
+							<string>favoriteitems</string>
+							<string>CustomListItems</string>
 							<string>*</string>
 							<string>Alias</string>
 						</array>
