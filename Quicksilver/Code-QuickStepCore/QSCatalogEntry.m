@@ -270,16 +270,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     @synchronized (self) {
         if (self.isPreset) {
             [[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
-            return;
+        } else {
+            self.info[kItemEnabled] = @(enabled);
+            if (enabled && self.contents.count == 0) {
+                [self scanForced:YES];
+            }
         }
-
-        self.info[kItemEnabled] = @(enabled);
-        if (enabled && self.contents.count == 0) {
-            [self scanForced:YES];
-        }
-
-        [QSLib writeCatalog:self];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
