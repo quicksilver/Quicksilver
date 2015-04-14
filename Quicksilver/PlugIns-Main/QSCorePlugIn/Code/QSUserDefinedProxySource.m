@@ -10,20 +10,6 @@
 
 @implementation QSUserDefinedProxySource
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSControlTextDidEndEditingNotification object:synonymName];
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidEndEditingNotification object:synonymName];
-}
-
 #pragma mark Catalog Entry
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry
@@ -179,6 +165,11 @@
     [targetPickerWindow setFrame:targetRect display:YES];
     [[targetPickerWindow searchObjView] setFrame:NSMakeRect(0, 0, targetRect.size.width, targetRect.size.height)];
     [targetPickerWindow makeKeyAndOrderFront:self];
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    [self save];
 }
 
 - (void)save
