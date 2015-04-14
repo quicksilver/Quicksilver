@@ -438,6 +438,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         _name = [newName copy];
         self.info[kItemName] = _name;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
 }
 
 - (id)imageAndText { return self; }
@@ -478,6 +479,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         }
         _icon = icon;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
 }
 
 - (NSString *)getCount {
