@@ -116,8 +116,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	return self;
 }
 
-#warning doesn't look used, and doesn't *actually* update enabled...
 - (void)enable {
+    /* This is a bit of a misnomer.
+     * It doesn't actually "enable" the entry (as in add the entry to the catalog)
+     * but actually means "your object source can start listening for whatever it needs to listen to"
+     * Currently this is only used by the "watch" option to the FSObjectSource, but this *is* the
+     * dawn of an answer to the asynchronous loading of catalog entries.
+     * Called by -[QSLibrarian enableEntries]
+     */
 	if ([self.source respondsToSelector:@selector(enableEntry:)]) {
 		[self.source enableEntry:self];
     }
