@@ -208,11 +208,10 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)dealloc {
+    /* Warning: we are a singleton, as the OS will just reap memory this will *never* be called */
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self writeCatalog:self];
+    [self writeCatalog:self];
 }
-
-
 
 - (void)writeCatalog:(id)sender {
 	NSFileManager *manager = [NSFileManager defaultManager];
