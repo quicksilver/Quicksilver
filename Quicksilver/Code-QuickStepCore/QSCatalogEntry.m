@@ -255,8 +255,8 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 - (BOOL)isEnabled {
     @synchronized (self) {
-        /* Check our enabled state, defaulting to YES if not defined yet. */
         if (self.isPreset) {
+            /* Check our enabled state, defaulting to YES if not defined yet. */
             NSNumber *value = [[QSLibrarian sharedInstance] presetIsEnabled:self];
             return (value != nil ? value.boolValue : YES);
         }
