@@ -270,7 +270,7 @@ static CGFloat searchSpeed = 0.0;
 	[scanTask startTask:self];
 
 	for (id loopItem in entries) {
-		[loopItem scanForced:NO];
+		[loopItem scanForced:YES];
 	}
 	[scanTask stopTask:self];
 }
