@@ -25,6 +25,9 @@
 
 #import "NSURL+NDCarbonUtilities.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 /*
  * category implementation NSURL (NDCarbonUtilities)
  */
@@ -212,4 +215,4 @@
 @end
 
 
-
+#pragma clang diagnostic pop
