@@ -342,7 +342,7 @@ NDHotKeyEvent		* hotKeyEvent;
 	{
 		[anEncoder encodeObject:[NSNumber numberWithUnsignedShort:keyCode] forKey:kArchivingKeyCodeKey];
 		[anEncoder encodeObject:[NSNumber numberWithUnsignedShort:character] forKey:kArchivingCharacterKey];
-		[anEncoder encodeObject:[NSNumber numberWithUnsignedInt:modifierFlags] forKey:kArchivingModifierFlagsKey];
+		[anEncoder encodeObject:[NSNumber numberWithUnsignedInteger:modifierFlags] forKey:kArchivingModifierFlagsKey];
         
 		[anEncoder encodeObject:NSStringFromSelector( selectorReleased ) forKey:kArchivingSelectorReleasedCodeKey];
 		[anEncoder encodeObject:NSStringFromSelector( selectorPressed ) forKey:kArchivingSelectorPressedCodeKey];
@@ -390,7 +390,7 @@ NDHotKeyEvent		* hotKeyEvent;
 	return [NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithUnsignedShort:[self keyCode]], kArchivingKeyCodeKey,
             [NSString stringWithCharacters:&character length:1] , kArchivingCharacterKey,
-            [NSNumber numberWithUnsignedInt:[self modifierFlags]], kArchivingModifierFlagsKey,
+            [NSNumber numberWithUnsignedInteger:[self modifierFlags]], kArchivingModifierFlagsKey,
             NSStringFromSelector( selectorPressed ), kArchivingSelectorPressedCodeKey,
             NSStringFromSelector( selectorReleased ), kArchivingSelectorReleasedCodeKey,
             nil];
@@ -976,7 +976,7 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 			
 			OSStatus err = UCKeyTranslate((UCKeyboardLayout *) theKeyboardLayoutData,
 										  aKeyCode, kUCKeyActionDown, 0,
-										  keyboardType, kUCKeyTranslateNoDeadKeysMask,
+										  (UInt32)keyboardType, kUCKeyTranslateNoDeadKeysMask,
 										  &deadKeyState, 8, &len, s);
 			
 			if(err == noErr && len > 0)
