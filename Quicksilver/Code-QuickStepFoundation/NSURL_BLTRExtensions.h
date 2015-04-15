@@ -27,3 +27,9 @@
 - (NSURL *)URLByReallyResolvingSymlinksInPath;
 
 @end
+
+@interface NSURL (QSBookmarkHelpers)
++ (instancetype)URLByResolvingBookmarkAtURL:(NSURL *)bookmarkURL options:(NSURLBookmarkResolutionOptions)options bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error;
+- (BOOL)writeBookmarkToURL:(NSURL *)destinationURL options:(NSURLBookmarkFileCreationOptions)options error:(NSError **)error;
+- (NSData *)bookmarkData;
+@end
