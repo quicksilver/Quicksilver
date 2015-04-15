@@ -131,6 +131,9 @@
 
 @end
 
+@interface QSWindow () <NSFileManagerDelegate>
+@end
+
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {

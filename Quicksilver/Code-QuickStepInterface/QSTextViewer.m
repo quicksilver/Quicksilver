@@ -22,6 +22,9 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	return tv;
 }
 
+@interface QSTextViewer () <NSFileManagerDelegate>
+@end
+
 @implementation QSTextViewer
 
 - (id)initWithWindow:(id)window {

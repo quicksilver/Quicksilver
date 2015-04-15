@@ -8,9 +8,11 @@
 
 #import "QSSimpleWebWindowController.h"
 #import "QSWindow.h"
-
-
 #import <WebKit/WebKit.h>
+
+@interface QSSimpleWebWindowController () <NSFileManagerDelegate>
+@end
+
 @implementation QSSimpleWebWindowController
 
 - (id)initWithWindow:(id)window {
