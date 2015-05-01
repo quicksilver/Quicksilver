@@ -156,25 +156,26 @@ static NSImage *prefsCatalogImage = nil;
     
     NSString *file = [[dObject objectForType:QSFilePathType] stringByStandardizingPath];
     NSString *uniqueString = [NSString uniqueString];
-    
-    NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
-    [childDict setObject:uniqueString forKey:kItemID];
-	[childDict setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
 
-    [childDict setObject:[file lastPathComponent] forKey:kItemName];
-	[childDict setObject:@"QSFileSystemObjectSource" forKey:kItemSource];
+    NSDictionary *childDict = @{
+                                kItemID: uniqueString,
+                                kItemEnabled: @(YES),
+                                kItemName: [file lastPathComponent],
+                                kItemSource: @"QSFileSystemObjectSource",
+                                kItemPath: [dObject arrayForType:QSFilePathType],
+                                kItemModificationDate: @([NSDate timeIntervalSinceReferenceDate]),
+                                kItemSettings: @{
+                                        kItemPath: file,
+                                        }
+                                };
 
-    [childDict setObject:[dObject arrayForType:QSFilePathType] forKey:kItemPath];
-    [childDict setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-    
     QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
-    
+
     [[parentEntry children] addObject:childEntry];
-    [[childEntry info] setObject:[NSMutableDictionary dictionaryWithObject:file forKey:kItemPath] forKey:kItemSettings];
-    [[childEntry info] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+
     [childEntry scanForced:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:childEntry];
     [dObject setObject:uniqueString forType:QSCatalogEntryPboardType];
     
     [self show:dObject];

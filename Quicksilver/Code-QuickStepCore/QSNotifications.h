@@ -7,10 +7,6 @@
 #define QSReleaseCaches @"QSReleaseCaches"
 #define QSCatalogStructureChanged @"QSCatalogStructureChanged"
 #define QSCatalogIndexingCompleted @"QSCatalogIndexingCompleted"
-#define QSCatalogEntryChanged @"QSCatalogEntryChanged"
-#define QSCatalogEntryIsIndexing @"QSCatalogEntryIsIndexing"
-#define QSCatalogEntryIndexed @"QSCatalogEntryIndexed"
-#define QSCatalogEntryInvalidated @"QSCatalogEntryInvalidated"
 #define QSCatalogSourceInvalidated @"QSCatalogSourceInvalidated"
 
 #define QSDebugLogRequest @"QSDebugLogRequest"

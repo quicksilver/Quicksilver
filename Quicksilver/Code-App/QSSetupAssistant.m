@@ -78,7 +78,7 @@
 	// [setupTabView removeTabViewItem:[setupTabView tabViewItemAtIndex:[setupTabView indexOfTabViewItemWithIdentifier:@"network"]]];
 	//[setupTabView removeTabViewItem:[setupTabView tabViewItemAtIndex:[setupTabView indexOfTabViewItemWithIdentifier:@"features"]]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installStatusChanged:) name:@"QSPlugInUpdatesFinished" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIsIndexing object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIsIndexingNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexingFinished:) name:QSCatalogIndexingCompleted object:nil];
 
 	[[self window] setLevel:NSNormalWindowLevel];
@@ -145,7 +145,7 @@
 	}
 }
 - (void)catalogIndexed:(NSNotification *)notif {
-	if ([[notif name] isEqualToString:QSCatalogEntryIsIndexing])
+	if ([[notif name] isEqualToString:QSCatalogEntryIsIndexingNotification])
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [(QSCatalogEntry *)[notif object] name]]];
 }
 

@@ -10,20 +10,6 @@
 
 @implementation QSUserDefinedProxySource
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSControlTextDidEndEditingNotification object:synonymName];
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidEndEditingNotification object:synonymName];
-}
-
 #pragma mark Catalog Entry
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry
@@ -181,6 +167,11 @@
     [targetPickerWindow makeKeyAndOrderFront:self];
 }
 
+- (void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    [self save];
+}
+
 - (void)save
 {
 	// update catalog entry
@@ -210,6 +201,6 @@
 	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
     [[self selection] scanAndCache];
 	[self populateFields];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 @end

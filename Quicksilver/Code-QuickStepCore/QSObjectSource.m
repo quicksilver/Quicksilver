@@ -7,6 +7,7 @@
 #import "QSResourceManager.h"
 #import "QSNotifications.h"
 #import "QSCatalogEntry.h"
+#import "QSCatalogEntry_Private.h"
 
 @implementation QSObjectSource
 
