@@ -76,7 +76,8 @@ NSMutableDictionary *bindingsDict = nil;
 	allowNonActions = YES;
 	allowText = YES;
     updatesSilently = NO;
-	resultController = [[QSResultController alloc] initWithFocus:self];
+    // FIXME: Look, a view that owns a controller...
+	resultController = [[QSResultController alloc] initWithObjectView:self];
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
     [self setTextCellFontColor:[NSColor blackColor]];
     
