@@ -36,13 +36,26 @@
 
 NSMutableDictionary *kindDescriptions = nil;
 
-@interface QSResultController () <NSTableViewDataSource, NSWindowDelegate>
+@interface QSResultController () <NSTableViewDataSource, NSWindowDelegate> {
+@private
+
+    NSInteger _selectedResult;
+    QSObject *_selectedItem;
+
+    BOOL _shouldSaveWindowSize;
+    NSArray *_currentResults;
+    NSInteger _scrollViewTrackingRect;
+    NSUInteger _windowHeight;
+
+    QSIconLoader *_resultIconLoader;
+    QSIconLoader *_resultChildIconLoader;
+
+    NSTimer *_childrenLoadTimer;
+}
 
 @end
 
 @implementation QSResultController
-
-@synthesize resultTable=resultTable,currentResults,selectedItem,searchStringField;
 
 + (void)initialize {
     if (!kindDescriptions)
@@ -60,54 +73,54 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"rowHeight"]) {
         if ([change objectForKey:NSKeyValueChangeNewKey]) {
-            [(QSObjectCell *)[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell] setShowDetails:([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0)];
+            QSObjectCell *nameCell = (QSObjectCell *)[[_resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell];
+            BOOL shouldShowDetails = ([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0);
+            [nameCell setShowDetails:shouldShowDetails];
+            return;
         }
     }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 #pragma mark -
 #pragma mark Lifetime
 - (id)init {
 	self = [self initWithWindowNibName:@"ResultWindow"];
-	if (self) {
-        _objectView = nil;
-		loadingIcons = NO;
-		loadingChildIcons = NO;
-		iconTimer = nil;
-		childrenLoadTimer = nil;
-		selectedItem = nil;
-		loadingRange = NSMakeRange(0, 0);
-		scrollViewTrackingRect = 0;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
-	}
+    if (!self) return nil;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
+
 	return self;
 }
 
 - (id)initWithObjectView:(QSSearchObjectView *)objectView {
+    NSParameterAssert(objectView != nil);
+
     self = [self init];
-    if (self) {
-        _objectView = objectView;
-	}
+    if (!self) return nil;
+
+    _objectView = objectView;
+
     return self;
 }
 
 - (void)windowDidLoad {
 	[(QSWindow *)[self window] setHideOffset:NSMakePoint(32, 0)];
 	[(QSWindow *)[self window] setShowOffset:NSMakePoint(16, 0)];
-    windowHeight = [[self window] frame].size.height;
+    _windowHeight = [[self window] frame].size.height;
 	[self setupResultTable];
 
-	[splitView setAutosaveName:@"QSResultWindowSplitView"];
+	[_splitView setAutosaveName:@"QSResultWindowSplitView"];
     
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-		NSView *tableView = [resultTable enclosingScrollView];
+		NSView *tableView = [_resultTable enclosingScrollView];
 		[tableView removeFromSuperview];
-		[tableView setFrame:[splitView frame]];
-		[tableView setAutoresizingMask:[splitView autoresizingMask]];
+		[tableView setFrame:[_splitView frame]];
+		[tableView setAutoresizingMask:[_splitView autoresizingMask]];
 
-		[[splitView superview] addSubview:tableView];
-		resultChildTable = nil;
-		[splitView removeFromSuperview];
+		[[_splitView superview] addSubview:tableView];
+		_resultChildTable = nil;
+		[_splitView removeFromSuperview];
 	}
     NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
     [sucd addObserver:self
@@ -116,7 +129,7 @@ NSMutableDictionary *kindDescriptions = nil;
               context:nil];
     [[self window] bind:@"backgroundColor" toObject:sucd withKeyPath:@"values.QSAppearance2B" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
     
-    for (NSView *view in @[searchModeField, searchStringField, selectionView]) {
+    for (NSView *view in @[_searchModeField, _searchStringField, _selectionView]) {
         [view bind:@"textColor" toObject:sucd withKeyPath:@"values.QSAppearance2T" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
     }
     
@@ -139,16 +152,15 @@ NSMutableDictionary *kindDescriptions = nil;
         
         [t setOpaque:NO];
     };
-    b(resultTable);
-    b(resultChildTable);
-
+    b(_resultTable);
+    b(_resultChildTable);
 }
 
 - (void)dealloc {
 	NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
 	[sucd removeObserver:self forKeyPath:@"values.QSAppearance3B"];
     
-    for (QSTableView *t in @[resultTable, resultChildTable]) {
+    for (QSTableView *t in @[_resultTable, _resultChildTable]) {
         [[[t tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
         [t unbind:@"backgroundColor"];
         [t unbind:@"highlightColor"];
@@ -161,37 +173,36 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark -
 #pragma mark Accessors, Utilities
 
-
 - (void)updateScrollViewTrackingRect {
 	NSView *view = [[self window] contentView];
-	if (scrollViewTrackingRect) [view removeTrackingRect:scrollViewTrackingRect];
-	scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
+	if (_scrollViewTrackingRect) [view removeTrackingRect:_scrollViewTrackingRect];
+	_scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
 }
 
 - (IBAction)setSearchFilterAllActivated {
-	if ([filterCatalog state] == NSOffState) {
-		[filterCatalog setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterCatalogString];
+	if ([_filterCatalog state] == NSOffState) {
+		[_filterCatalog setState:NSOnState];
+		[_filterResults setState:NSOffState];
+		[_snapToBest setState:NSOffState];
+		[_searchModeField setStringValue:filterCatalogString];
 	}
 }
 
 - (IBAction)setSearchFilterActivated {
-	if ([filterResults state] == NSOffState) {
-		[filterResults setState:NSOnState];
-		[filterCatalog setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterResultsString];
+	if ([_filterResults state] == NSOffState) {
+		[_filterResults setState:NSOnState];
+		[_filterCatalog setState:NSOffState];
+		[_snapToBest setState:NSOffState];
+		[_searchModeField setStringValue:filterResultsString];
 	}
 }
 
 - (IBAction)setSearchSnapActivated {
-	if ([snapToBest state] == NSOffState) {
-		[snapToBest setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[filterCatalog setState:NSOffState];
-		[searchModeField setStringValue:snapToBestString];
+	if ([_snapToBest state] == NSOffState) {
+		[_snapToBest setState:NSOnState];
+		[_filterResults setState:NSOffState];
+		[_filterCatalog setState:NSOffState];
+		[_searchModeField setStringValue:snapToBestString];
 	}
 }
 
@@ -200,14 +211,14 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)sortByName:(id)sender{
-	[sortByName setState:NSOnState];
-	[sortByScore setState:NSOffState];
+	[_sortByName setState:NSOnState];
+	[_sortByScore setState:NSOffState];
     [self.objectView sortByName:sender];
 }
 
 - (IBAction)sortByScore:(id)sender {
-	[sortByName setState:NSOffState];
-	[sortByScore setState:NSOnState];
+	[_sortByName setState:NSOffState];
+	[_sortByScore setState:NSOnState];
     [self.objectView sortByScore:sender];
 }
 
@@ -221,9 +232,9 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)loadChildren {
-	if (NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) )
+	if (NSEqualRects(NSZeroRect, [_resultChildTable visibleRect]) )
         return;
-	[resultChildTable reloadData];
+	[_resultChildTable reloadData];
 }
 
 /*- (void)setSplitLocation {
@@ -253,47 +264,46 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
     QSGCDMainAsync(^{
-        if (loader == resultIconLoader) {
-            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
-        } else if (loader == resultChildIconLoader) {
-            [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
+        if (loader == _resultIconLoader) {
+            [_resultTable setNeedsDisplayInRect:[_resultTable rectOfRow:m]];
+        } else if (loader == _resultChildIconLoader) {
+            [_resultChildTable setNeedsDisplayInRect:[_resultChildTable rectOfRow:m]];
         }
     });
 }
 
 - (BOOL)iconsAreLoading {
-    BOOL resultsIconLoading = [resultIconLoader isLoading];
-    return (resultsIconLoading ? YES : [resultChildIconLoader isLoading]);
+    return [_resultIconLoader isLoading] || [_resultChildIconLoader isLoading];
 }
 
 - (QSIconLoader *)resultIconLoader {
-	if (!resultIconLoader) {
+	if (!_resultIconLoader) {
 		[self setResultIconLoader:[QSIconLoader loaderWithArray:[self currentResults]]];
-		[resultIconLoader setDelegate:self];
+		[_resultIconLoader setDelegate:self];
 	}
-	return resultIconLoader;
+	return _resultIconLoader;
 }
 
 - (void)setResultIconLoader:(QSIconLoader *)aResultIconLoader {
 	//NSLog(@"setloader %@", aResultIconLoader);
-	if (resultIconLoader != aResultIconLoader) {
-		[resultIconLoader invalidate];
-		resultIconLoader = aResultIconLoader;
+	if (_resultIconLoader != aResultIconLoader) {
+		[_resultIconLoader invalidate];
+		_resultIconLoader = aResultIconLoader;
 	}
 }
 
 - (QSIconLoader *)resultChildIconLoader {
-    if (!resultChildIconLoader) {
-        [self setResultChildIconLoader:[QSIconLoader loaderWithArray:[selectedItem children]]];
-        [resultChildIconLoader setDelegate:self];
+    if (!_resultChildIconLoader) {
+        [self setResultChildIconLoader:[QSIconLoader loaderWithArray:[_selectedItem children]]];
+        [_resultChildIconLoader setDelegate:self];
     }
-    return resultChildIconLoader;
+    return _resultChildIconLoader;
 }
 
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
-	if (resultChildIconLoader != aResultChildIconLoader) {
-		[resultChildIconLoader invalidate];
-		resultChildIconLoader = aResultChildIconLoader;
+	if (_resultChildIconLoader != aResultChildIconLoader) {
+		[_resultChildIconLoader invalidate];
+		_resultChildIconLoader = aResultChildIconLoader;
 	}
 }
 
@@ -304,15 +314,15 @@ NSMutableDictionary *kindDescriptions = nil;
         if ([[self window] isVisible]) {
             QSObject *object = [notif object];
             // if updated object is is in the results, update it in the list
-            NSUInteger ind = [currentResults indexOfObject:object];
+            NSUInteger ind = [_currentResults indexOfObject:object];
             if (ind != NSNotFound) {
-                [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
+                [_resultTable setNeedsDisplayInRect:[_resultTable rectOfRow:ind]];
             }
             // if updated object is is in the child results, update it in the list
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
                 ind = [[[self selectedItem] children] indexOfObject:object];
                 if (ind != NSNotFound) {
-                    [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
+                    [_resultChildTable setNeedsDisplayInRect:[_resultChildTable rectOfRow:ind]];
                 }
             }
         }
@@ -349,26 +359,26 @@ NSMutableDictionary *kindDescriptions = nil;
         [self setCurrentResults:[self.objectView resultArray]];
         [self updateStatusString];
         
-        [resultTable reloadData];
+        [_resultTable reloadData];
         
         //visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
         //	NSLog(@"arraychanged %d", [[self currentResults] count]);
         //[self threadedIconLoad];
-        [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
+        [[self resultIconLoader] loadIconsInRange:[_resultTable rowsInRect:[_resultTable visibleRect]]];
     });
 }
 
 - (NSRect)windowFrame {
     NSRect windowFrame = [[self window] frame];
-    NSUInteger resultCount = [currentResults count];
-    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
-    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+    NSUInteger resultCount = [_currentResults count];
+    NSUInteger verticalSpacing = [_resultTable intercellSpacing].height;
+    NSUInteger newWindowHeight =  (([_resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
         // Be sure to chose the taller of the two: results list or results child list
-        NSUInteger childResultHeight = (([resultChildTable rowHeight] + [resultChildTable intercellSpacing].height) * [resultChildTable numberOfRows]) + 31;
+        NSUInteger childResultHeight = (([_resultChildTable rowHeight] + [_resultChildTable intercellSpacing].height) * [_resultChildTable numberOfRows]) + 31;
         newWindowHeight = MAX(newWindowHeight, childResultHeight);
     }
-    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+    windowFrame.size.height =  newWindowHeight > _windowHeight || [_currentResults count] == 0 ? _windowHeight : newWindowHeight;
     if (windowFrame.size.height != [[self window] frame].size.height) {
         windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
     }
@@ -376,26 +386,26 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)updateSelectionInfo {
-	selectedResult = [resultTable selectedRow];
+	_selectedResult = [_resultTable selectedRow];
     
-	if (selectedResult < 0 || ![[self currentResults] count]) return;
-	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
+	if (_selectedResult < 0 || ![[self currentResults] count]) return;
+	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:_selectedResult];
     
-	if (selectedItem != newSelectedItem) {
+	if (_selectedItem != newSelectedItem) {
 		[self setSelectedItem:newSelectedItem];
-		[resultChildTable noteNumberOfRowsChanged];
+		[_resultChildTable noteNumberOfRowsChanged];
         [self updateStatusString];
-		
+
 		NSEvent *event = [NSApp currentEvent];
 		// Check the event can have isARepeat called on it safely. From the docs for -[NSEvent isARepeat]: "Raises an NSInternalInconsistencyException if sent to an NSFlagsChanged event or other non-key event."
 		BOOL validKeyEvent = ([event type] == NSKeyDown) || ([event type] == NSKeyUp);
 		if ([event modifierFlags] & NSFunctionKeyMask && validKeyEvent && [event isARepeat]) {
-			if ([childrenLoadTimer isValid]) {
-				[childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+			if ([_childrenLoadTimer isValid]) {
+				[_childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 			} else {
 				// ***warning  * this should be triggered by the keyUp
                 if (![NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO]) {
-                    childrenLoadTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO];
+                    _childrenLoadTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO];
                 }
 			}
 		} else {
@@ -406,15 +416,15 @@ NSMutableDictionary *kindDescriptions = nil;
     
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == self.objectView) {
         NSRect windowFrame = [self windowFrame];
-        shouldSaveWindowSize = NO;
+        _shouldSaveWindowSize = NO;
         [[self window] setFrame:windowFrame display:YES animate:YES];
-        shouldSaveWindowSize = YES;
+        _shouldSaveWindowSize = YES;
     }
     
     /* Restart the icon loading for the children view */
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
         [self setResultChildIconLoader:nil];
-        [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+        [[self resultChildIconLoader] loadIconsInRange:[_resultChildTable rowsInRect:[_resultChildTable visibleRect]]];
     }
 }
 
@@ -422,11 +432,11 @@ NSMutableDictionary *kindDescriptions = nil;
 {
     // HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
     // NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
-    NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
-    if ([resultTable rowHeight] < 34 && [selectedItem details]) {
-        status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, [selectedItem details]];
+    NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)_selectedResult + 1, (long)[[self currentResults] count]];
+    if ([_resultTable rowHeight] < 34 && [_selectedItem details]) {
+        status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, [_selectedItem details]];
     }
-    [(NSTextField *)selectionView setStringValue:status];
+    [(NSTextField *)_selectionView setStringValue:status];
 }
 
 #pragma mark -
@@ -469,18 +479,18 @@ NSMutableDictionary *kindDescriptions = nil;
 
 // called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
-    if (!shouldSaveWindowSize) {
+    if (!_shouldSaveWindowSize) {
         return;
     }
-    [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
-	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
-		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+    [[self resultIconLoader] loadIconsInRange:[_resultTable rowsInRect:[_resultTable visibleRect]]];
+	if (!NSEqualRects(NSZeroRect, [_resultChildTable visibleRect]) && [self numberOfRowsInTableView:_resultChildTable])
+		[[self resultChildIconLoader] loadIconsInRange:[_resultChildTable rowsInRect:[_resultChildTable visibleRect]]];
 
 	[self updateScrollViewTrackingRect];
     
     // saves size for result window when it is resized
     [[self window] saveFrameUsingName:@"QSResultWindow"];
-    windowHeight = [self window].frame.size.height;
+    _windowHeight = [self window].frame.size.height;
 }
 
 #pragma mark -
@@ -498,7 +508,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview {
 	//NSLog(@"collapse");
-	return subview != [resultTable enclosingScrollView];
+	return subview != [_resultTable enclosingScrollView];
 	// if (subview == infoBox) return YES;
 	// else return NO;
 }
@@ -530,7 +540,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
 	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
-        CGFloat split = NSWidth([[resultChildTable enclosingScrollView] frame]) / NSWidth([splitView frame]);
+        CGFloat split = NSWidth([[_resultChildTable enclosingScrollView] frame]) / NSWidth([_splitView frame]);
         [[NSUserDefaults standardUserDefaults] setFloat:split
                                                  forKey:kResultTableSplit];
     }
@@ -542,75 +552,50 @@ NSMutableDictionary *kindDescriptions = nil;
 //Table Methods
 
 - (void)setupResultTable {
-	//NSLog(@"setup result");
-	NSTableColumn *tableColumn = nil;
-	//  QSImageAndTextCell *imageAndTextCell = nil;
-	//NSImageCell *imageCell = nil;
+	[_resultTable setTarget:self];
 
-	[resultTable setTarget:self];
-
-	[resultTable setAction:@selector(tableViewAction:)];
-	[resultTable setDoubleAction:@selector(tableViewDoubleAction:)];
-	[resultTable setVerticalMotionCanBeginDrag:NO];
-
-	//	[resultTable setRowHeight:36];
-	// imageAndTextCell = [[[QSImageAndTextCell alloc] init] autorelease];
-	// [imageAndTextCell setEditable: YES];
-	//  [imageAndTextCell setFont:[NSFont systemFontOfSize:11]];
-	//  [imageAndTextCell setWraps:NO];
-	//[imageAndTextCell setScrollable:YES];
+	[_resultTable setAction:@selector(tableViewAction:)];
+	[_resultTable setDoubleAction:@selector(tableViewDoubleAction:)];
+	[_resultTable setVerticalMotionCanBeginDrag:NO];
 
 	QSObjectCell *objectCell = [[QSObjectCell alloc] init];
-	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_NAME];
-    if ([resultTable rowHeight] < 34.0) {
+	NSTableColumn *tableColumn = [_resultTable tableColumnWithIdentifier:COLUMNID_NAME];
+    if ([_resultTable rowHeight] < 34.0) {
         [objectCell setShowDetails:NO];
     }
 	[tableColumn setDataCell:objectCell];
 
-	tableColumn = [resultChildTable tableColumnWithIdentifier: COLUMNID_NAME];
+	tableColumn = [_resultChildTable tableColumnWithIdentifier:COLUMNID_NAME];
 	[tableColumn setDataCell:objectCell];
 
-	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_RANK];
+	tableColumn = [_resultTable tableColumnWithIdentifier:COLUMNID_RANK];
 
 	NSCell *rankCell = [[QSRankCell alloc] init];
 	[tableColumn setDataCell:rankCell];
 
 	//[searchModePopUp setEnabled:fALPHA];
 
-	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_EQUIV];
+	tableColumn = [_resultTable tableColumnWithIdentifier:COLUMNID_EQUIV];
 	[[tableColumn dataCell] setFont:[NSFont systemFontOfSize:9]];
 	[[tableColumn dataCell] setTextColor:[NSColor darkGrayColor]];
 
-	[resultTable removeTableColumn:tableColumn];
+	[_resultTable removeTableColumn:tableColumn];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultTable enclosingScrollView] contentView]];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childViewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultChildTable enclosingScrollView] contentView]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewChanged:) name:NSViewBoundsDidChangeNotification object:[[_resultTable enclosingScrollView] contentView]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childViewChanged:) name:NSViewBoundsDidChangeNotification object:[[_resultChildTable enclosingScrollView] contentView]];
 }
 
 - (void)viewChanged:(NSNotification*)notif {
-	NSRange newRange = [resultTable rowsInRect:[resultTable visibleRect]];
-    
-	//  NSLog(@"%d-%d are visible %d", visibleRange.location, visibleRange.location+visibleRange.length, [self iconsAreLoading]);
-    
-	//[self iconsAreLoading];
-	//	NSBeep();
-    [[self resultIconLoader] loadIconsInRange:newRange];
-	//	[self threadedIconLoad];
-    
-	// loadingRange = newRange;
+    [[self resultIconLoader] loadIconsInRange:[_resultTable rowsInRect:[_resultTable visibleRect]]];
 }
 
 - (void)childViewChanged:(NSNotification*)notif {
-	NSRange newRange = [resultChildTable rowsInRect:[resultChildTable visibleRect]];
-	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
-	//s NSLog(@"%d-%d are visible", visibleRange.location, visibleRange.location+visibleRange.length); /
-	// [self threadedChildIconLoad];
-    [[self resultChildIconLoader] loadIconsInRange:newRange];
+    [[self resultChildIconLoader] loadIconsInRange:[_resultChildTable rowsInRect:[_resultChildTable visibleRect]]];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-	if (tableView == resultChildTable) {
-		return [[selectedItem children] count];
+	if (tableView == _resultChildTable) {
+		return [[_selectedItem children] count];
 	} else {
 		return [[self currentResults] count];
 	}
@@ -628,14 +613,14 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	NSRectFill(clipRect);
 
-	id object = [[self currentResults] objectAtIndex:rowIndex];
-	[[(QSObject *)object name] drawInRect:clipRect withAttributes:nil];
+	QSObject *object = [[self currentResults] objectAtIndex:rowIndex];
+	[[object name] drawInRect:clipRect withAttributes:nil];
 
 	return NO;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-	if (tableView == resultTable && [[self currentResults] count] > (NSUInteger)row) {
+	if (tableView == _resultTable && [[self currentResults] count] > (NSUInteger)row) {
 		QSObject *thisObject = [[self currentResults] objectAtIndex:row];
 
 		if ([[tableColumn identifier] isEqualToString:COLUMNID_TYPE]) {
@@ -659,7 +644,7 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:COLUMNID_NAME]) {
 		NSArray *array = [self currentResults];
-		if (aTableView == resultChildTable) array = [selectedItem children];
+		if (aTableView == _resultChildTable) array = [_selectedItem children];
         
         // avoid attempting to access objects in a nonexistent array or an index out of bounds
         if (!array || rowIndex >= (NSInteger)[array count]) {
@@ -701,11 +686,11 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-	if (aNotification && [aNotification object] != resultTable) return;
+	if (aNotification && [aNotification object] != _resultTable) return;
 
-	if (selectedResult != -1 && selectedResult != [resultTable selectedRow]) {
-		selectedResult = [resultTable selectedRow];
-        [self.objectView selectIndex:[resultTable selectedRow]];
+	if (_selectedResult != -1 && _selectedResult != [_resultTable selectedRow]) {
+		_selectedResult = [_resultTable selectedRow];
+        [self.objectView selectIndex:[_resultTable selectedRow]];
 		[self updateSelectionInfo];
 	}
 }
@@ -732,4 +717,5 @@ NSMutableDictionary *kindDescriptions = nil;
 - (IBAction)tableViewDoubleAction:(id)sender {
     [[self.objectView controller] executeCommand:self];
 }
+
 @end
