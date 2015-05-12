@@ -36,6 +36,10 @@
 
 NSMutableDictionary *kindDescriptions = nil;
 
+@interface QSResultController () <NSTableViewDataSource, NSWindowDelegate>
+
+@end
+
 @implementation QSResultController
 
 @synthesize resultTable=resultTable,currentResults,selectedItem,searchStringField;
@@ -66,7 +70,7 @@ NSMutableDictionary *kindDescriptions = nil;
 - (id)init {
 	self = [self initWithWindowNibName:@"ResultWindow"];
 	if (self) {
-        focus = nil;
+        _objectView = nil;
 		loadingIcons = NO;
 		loadingChildIcons = NO;
 		iconTimer = nil;
@@ -79,10 +83,10 @@ NSMutableDictionary *kindDescriptions = nil;
 	return self;
 }
 
-- (id)initWithFocus:(id)myFocus {
+- (id)initWithObjectView:(QSSearchObjectView *)objectView {
     self = [self init];
     if (self) {
-        focus = myFocus;
+        _objectView = objectView;
 	}
     return self;
 }
@@ -192,19 +196,19 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)setSearchMode:(id)sender {
-    [focus setSearchMode:[sender tag]];
+    [self.objectView setSearchMode:[sender tag]];
 }
 
 - (IBAction)sortByName:(id)sender{
 	[sortByName setState:NSOnState];
 	[sortByScore setState:NSOffState];
-    [focus sortByName:sender];
+    [self.objectView sortByName:sender];
 }
 
 - (IBAction)sortByScore:(id)sender {
 	[sortByName setState:NSOffState];
 	[sortByScore setState:NSOnState];
-    [focus sortByScore:sender];
+    [self.objectView sortByScore:sender];
 }
 
 - (void)bump:(NSInteger)i {
@@ -307,30 +311,30 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark Actions
 - (IBAction)defineMnemonic:(id)sender {
 	//	NSLog(@"%d", [resultTable clickedRow]);
-	if (![focus mnemonicDefined])
-		[focus defineMnemonic:sender];
+	if (![self.objectView mnemonicDefined])
+		[self.objectView defineMnemonic:sender];
 	else
-		[focus removeMnemonic:sender];
+		[self.objectView removeMnemonic:sender];
 }
 
 - (IBAction)setScore:(id)sender {return;}
 
 - (IBAction)clearMnemonics:(id)sender {
-	[focus removeImpliedMnemonic:sender];
+	[self.objectView removeImpliedMnemonic:sender];
 }
 
 - (IBAction)omitItem:(id)sender {
-	[[QSLibrarian sharedInstance] setItem:[focus objectValue] isOmitted:YES];
+	[[QSLibrarian sharedInstance] setItem:[self.objectView objectValue] isOmitted:YES];
 }
 
 - (IBAction)assignAbbreviation:(id)sender {
-	[[QSLibrarian sharedInstance] assignCustomAbbreviationForItem:[focus objectValue]];
+	[[QSLibrarian sharedInstance] assignCustomAbbreviationForItem:[self.objectView objectValue]];
 }
 
 - (void)arrayChanged:(NSNotification*)notif {
     QSGCDMainSync(^{
         [self setResultIconLoader:nil];
-        [self setCurrentResults:[focus resultArray]];
+        [self setCurrentResults:[self.objectView resultArray]];
         [self updateStatusString];
         
         [resultTable reloadData];
@@ -388,7 +392,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == self.objectView) {
         NSRect windowFrame = [self windowFrame];
         shouldSaveWindowSize = NO;
         [[self window] setFrame:windowFrame display:YES animate:YES];
@@ -435,13 +439,13 @@ NSMutableDictionary *kindDescriptions = nil;
 
 			case '\r': //Return
 					  //[self sendAction:[self action] to:[self target]];
-				[[focus controller] executeCommand:self];
+				[[self.objectView controller] executeCommand:self];
 				break;
 			case '\t': //Tab
 			case 25: //Back Tab
 			case 27: //Escape
 				[[self window] orderOut:self];
-				[focus keyDown:theEvent];
+				[self.objectView keyDown:theEvent];
 				return;
 		}
 	}
@@ -652,7 +656,7 @@ NSMutableDictionary *kindDescriptions = nil;
 		QSObject *thisObject = [array objectAtIndex:rowIndex];
 
 		[aCell setRepresentedObject:thisObject];
-        [aCell setState:[focus objectIsInCollection:thisObject]];
+        [aCell setState:[self.objectView objectIsInCollection:thisObject]];
 	}
 	if ([[aTableColumn identifier] isEqualToString:COLUMNID_RANK]) {
 		NSArray *array = [self currentResults];
@@ -676,7 +680,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	NSArray *array = [self currentResults];
 	QSObject *thisObject = [array objectAtIndex:row];
 
-    return [thisObject rankMenuWithTarget:focus];
+    return [thisObject rankMenuWithTarget:self.objectView];
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard {
@@ -689,7 +693,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	if (selectedResult != -1 && selectedResult != [resultTable selectedRow]) {
 		selectedResult = [resultTable selectedRow];
-        [focus selectIndex:[resultTable selectedRow]];
+        [self.objectView selectIndex:[resultTable selectedRow]];
 		[self updateSelectionInfo];
 	}
 }
@@ -708,12 +712,12 @@ NSMutableDictionary *kindDescriptions = nil;
 
 		NSArray *array = [self currentResults];
 		QSObject *thisObject = [array objectAtIndex:[sender clickedRow]];
-        [NSMenu popUpContextMenu:[thisObject rankMenuWithTarget:focus] withEvent:theEvent forView:sender];
+        [NSMenu popUpContextMenu:[thisObject rankMenuWithTarget:self.objectView] withEvent:theEvent forView:sender];
 
 	}
 }
 
 - (IBAction)tableViewDoubleAction:(id)sender {
-    [[focus controller] executeCommand:self];
+    [[self.objectView controller] executeCommand:self];
 }
 @end

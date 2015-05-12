@@ -11,10 +11,10 @@
 
 // These tags are set within Interface Builder, and are used to define the current search mode
 typedef NS_ENUM(NSUInteger, QSSearchMode) {
-	SearchFilterAll = 1, // Filter Catalog
-	SearchFilter = 2, // Filter Results
-	SearchSnap = 3, // Snap to Best
-	SearchShuffle = 4, // Not Sure (not used?)
+	QSSearchModeFilterAll = 1, // Filter Catalog
+	QSSearchModeFilter = 2, // Filter Results
+	QSSearchModeSnap = 3, // Snap to Best
+	QSSearchModeShuffle = 4, // Not Sure (not used?)
 };
 
 @class QSResultController;
