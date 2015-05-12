@@ -83,7 +83,7 @@
 	[self applyIconToMenuItem:item];
 	[item setRepresentedObject:self];
 
-	if (0) {
+	if (/* DISABLES CODE */ (0)) {
 		NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:12] , NSFontAttributeName, nil];
 		NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:[self name] attributes:attrs];
 		[item setAttributedTitle:attrTitle];
