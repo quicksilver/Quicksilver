@@ -31,7 +31,7 @@
     // populate and set up search
     [searchObjView setDropMode:QSSelectDropMode];
     [searchObjView setAllowText:NO];
-    [searchObjView setSearchMode:SearchFilterAll];
+    [searchObjView setSearchMode:QSSearchModeAll];
     [searchObjView setObjectValue:[wc representedObject]];
 }
 
