@@ -5,55 +5,30 @@
 @class QSObjectView, QSSearchObjectView, QSTableView;
 
 @interface QSResultController : NSWindowController
-{
- @public
-	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
-	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
-	IBOutlet NSTextField *	selectionView;
-	IBOutlet NSSplitView *	splitView;
-	IBOutlet QSTableView *	resultTable;
-	IBOutlet QSTableView *	resultChildTable;
-	QSIconLoader *resultIconLoader;
-	QSIconLoader *resultChildIconLoader;
-	IBOutlet NSTextField *	resultCountField;
 
-	IBOutlet NSMenuItem *filterCatalog; // NSMenuItem (see ResultController.xib)
-	IBOutlet NSMenuItem *filterResults; // NSMenuItem (see ResultController.xib)
-	IBOutlet NSMenuItem *snapToBest; //  NSMenuItem (see ResultController.xib)
- 	IBOutlet NSMenu *searchModeMenu; // NSMenu opened when clicking the gear (see ResultController.xib)
-	IBOutlet NSMenuItem *sortByScore; // NSMenuItem (see ResultController.xib)
-	IBOutlet NSMenuItem *sortByName; // NSMenuItem (see ResultController.xib)
-	
-	NSInteger selectedResult;
-	QSObject *selectedItem;
-	BOOL browsing;
-	BOOL needsReload;
-    BOOL shouldSaveWindowSize;
-	NSRange loadingRange;
-	NSArray *currentResults;
-	QSSearchObjectView *focus;
-	NSInteger scrollViewTrackingRect;
-    NSUInteger windowHeight;
-
-//	NSArray **sourceArrayPointer;
-	NSTimer *iconTimer;
-	NSTimer *childrenLoadTimer;
-	BOOL loadingIcons;
-	BOOL loadingChildIcons;
-	BOOL iconLoadValid;
-	BOOL childIconLoadValid;
-
-  //  NSRange visibleRange;
-   // NSRange visibleChildRange;
-}
-
-
-@property (strong) IBOutlet QSTableView *resultTable;
 @property (strong) IBOutlet QSSearchObjectView *objectView;
 
 @property (strong) NSArray *currentResults;
 @property (strong) QSObject *selectedItem;
-@property (strong) NSTextField *searchStringField;
+
+// TODO: Most of you are meant to become private
+@property (strong) IBOutlet QSTableView *resultTable;
+
+@property (strong) IBOutlet NSTextField *searchStringField;	// What the user types when searching (seen in the results view)
+@property (strong) IBOutlet NSTextField *searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
+@property (strong) IBOutlet NSTextField *selectionView;
+@property (strong) IBOutlet NSSplitView *splitView;
+@property (strong) IBOutlet QSTableView *resultChildTable;
+
+@property (strong) IBOutlet NSTextField *resultCountField;
+
+// FIXME: Isn't that a little too much outlets ?
+@property (strong) IBOutlet NSMenuItem *filterCatalog;  // NSMenuItem (see ResultController.xib)
+@property (strong) IBOutlet NSMenuItem *filterResults;  // NSMenuItem (see ResultController.xib)
+@property (strong) IBOutlet NSMenuItem *snapToBest;     // NSMenuItem (see ResultController.xib)
+@property (strong) IBOutlet NSMenu     *searchModeMenu; // NSMenu opened when clicking the gear (see ResultController.xib)
+@property (strong) IBOutlet NSMenuItem *sortByScore;    // NSMenuItem (see ResultController.xib)
+@property (strong) IBOutlet NSMenuItem *sortByName;     // NSMenuItem (see ResultController.xib)
 
 + (id)sharedInstance;
 
