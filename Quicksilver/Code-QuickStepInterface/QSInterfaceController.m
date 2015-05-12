@@ -105,7 +105,7 @@
 	// [aSelector setInitiatesDrags:NO];
 	[aSelector setDropMode:QSRejectDropMode];
 
-	[aSelector setSearchMode:SearchFilter];
+	[aSelector setSearchMode:QSSearchModeFilter];
 	[aSelector setAllowNonActions:NO];
 	// only store history for the first pane
 	dSelector.recordsHistory = YES;
@@ -371,7 +371,7 @@
         }
     }
 	[self updateControl:iSelector withArray:indirects];
-	[iSelector setSearchMode:(indirects?SearchFilter:SearchFilterAll)];
+	[iSelector setSearchMode:(indirects ? QSSearchModeFilter : QSSearchModeAll)];
 }
 
 - (void)updateViewLocations {
@@ -413,7 +413,7 @@
     [self clearObjectView:dSelector];
     [dSelector setSourceArray:array];
     [dSelector setResultArray:array];
-    [dSelector setSearchMode:SearchFilter];
+    [dSelector setSearchMode:QSSearchModeFilter];
     if (dObject) {
         // show an item from this array if set
         [dSelector selectObjectValue:dObject];
@@ -699,7 +699,7 @@
     
 	[[self window] makeFirstResponder:dSelector];
     
-	[dSelector setSearchMode:SearchFilterAll];
+	[dSelector setSearchMode:QSSearchModeAll];
 }
 
 - (IBAction)activateInTextMode:(id)sender {
