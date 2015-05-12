@@ -4,7 +4,7 @@
 
 @class QSObjectView, QSSearchObjectView, QSTableView;
 
-@interface QSResultController : NSWindowController <NSTableViewDataSource, NSWindowDelegate>
+@interface QSResultController : NSWindowController
 {
  @public
 	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
@@ -49,11 +49,15 @@
 
 
 @property (strong) IBOutlet QSTableView *resultTable;
+@property (strong) IBOutlet QSSearchObjectView *objectView;
+
 @property (strong) NSArray *currentResults;
 @property (strong) QSObject *selectedItem;
 @property (strong) NSTextField *searchStringField;
 
 + (id)sharedInstance;
+
+- (id)initWithObjectView:(QSObjectView *)objectView;
 
 - (IBAction)defineMnemonic:(id)sender;
 - (IBAction)setScore:(id)sender;
@@ -61,7 +65,6 @@
 - (IBAction)omitItem:(id)sender;
 - (IBAction)assignAbbreviation:(id)sender;
 
-- (id)initWithFocus:(id)myFocus;
 
 //- (void)setSplitLocation;
 
