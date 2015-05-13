@@ -27,7 +27,7 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
-// These should be localizable, but I'm not sure how to do that
+// FIXME: These should be localizable, but I'm not sure how to do that
 #define filterResultsString @"Filter Results"
 #define filterCatalogString @"Filter Catalog"
 #define snapToBestString @"Snap to Best"
