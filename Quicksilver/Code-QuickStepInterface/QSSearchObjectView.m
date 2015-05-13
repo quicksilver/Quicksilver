@@ -186,7 +186,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)rescoreSelectedItem {
 	if (![self objectValue]) return;
-	//[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
+    // FIXME: This leaks the fact that rank data is effectively global
 	[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
 	if ([[resultController window] isVisible])
 		[resultController.resultTable reloadData];
