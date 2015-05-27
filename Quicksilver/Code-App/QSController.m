@@ -499,7 +499,6 @@ static QSController *defaultController = nil;
 
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path {
 	QSObject *drop = [QSObject objectWithPasteboard:pb];
-	NSLog(@"got droplet item");
 	[self setDropletProxy:drop];
 	[self executeCommandAtPath:path];
 	[self setDropletProxy:nil];
