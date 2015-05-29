@@ -12,7 +12,7 @@
 
 #import "QSObject_FileHandling.h"
 
-#include "QSUTI.h"
+#import "QSUTI.h"
 
 #import "NSBundle_BLTRExtensions.h"
 
