@@ -259,9 +259,6 @@ static id _sharedInstance;
 	[childDict setObject:title forKey:kItemName];
 	[childDict setObject:sourceString forKey:kItemSource];
 
-	if ([sourceString isEqualToString:@"QSGroupObjectSource"])
-		[childDict setObject:[NSMutableArray arrayWithCapacity:0] forKey:kItemChildren];
-
 	QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
 	[[parentEntry children] addObject:childEntry];
     [self reloadData];
