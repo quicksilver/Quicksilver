@@ -8,7 +8,7 @@
 
 #import "QSTypes.h"
 
-NSString *QSFilePathType = @"public.data";
+NSString *QSFilePathType = @"public.item";
 NSString *QSTextType = @"public.utf8-plain-text";
 NSString *QSAliasDataType = @"public.data.alias";
 NSString *QSAliasFilePathType = @"public.alias";

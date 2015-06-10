@@ -57,7 +57,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
     } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
         [pasteboard setString:pbData[0] forType:type];
-	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeData]){
+	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeItem]){
         [pasteboard setData:[NSPropertyListSerialization dataWithPropertyList:pbData format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil] forType:NSFilenamesPboardType];
     } else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
         if (![pbData isKindOfClass:[NSArray class]]) {
@@ -252,8 +252,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
             // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
-			includeTypes = @[(__bridge NSString *)kUTTypeData];
-            [types addObject:(__bridge NSString *)kUTTypeData];
+			includeTypes = @[(__bridge NSString *)kUTTypeItem];
+            [types addObject:(__bridge NSString *)kUTTypeItem];
 		//			[pboard declareTypes:includeTypes owner:self];
         } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html

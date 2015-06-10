@@ -128,7 +128,7 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
         return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
     }
     if ([cleanType isEqualToString:NSFilenamesPboardType]) {
-        return (__bridge NSString *)kUTTypeData; // QSFilePathType
+        return (__bridge NSString *)kUTTypeItem; // QSFilePathType
     }
     return uti ? uti : type;
 }
