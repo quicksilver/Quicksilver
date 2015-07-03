@@ -94,7 +94,7 @@
 		<key>default</key>
 		<string>Suppress HotKeys in Command</string>
 		<key>title</key>
-		<string>Disable Trigger HotKeys when Quicksilver is focused</string>
+		<string>Disable Keyboard Triggers when Quicksilver is focused</string>
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>

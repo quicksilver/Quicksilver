@@ -28,7 +28,7 @@
 - (void)awakeFromNib { [self addObserver:self forKeyPath:@"currentTrigger" options:0 context:nil];
     [self addObserver:self forKeyPath:@"hotKey" options:0 context:nil];}
 
-- (NSString *)name { return @"HotKey";  }
+- (NSString *)name { return @"Keyboard";  }
 
 - (NSView *)settingsView {
 	if (!settingsView)

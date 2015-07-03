@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
-		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.SystemVersion">14E46</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
+		<string key="IBDocument.AppKitVersion">1348.17</string>
+		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">3084</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSArrayController</string>
@@ -67,7 +67,7 @@
 				<string key="NSWindowContentMaxSize">{434, 389}</string>
 				<string key="NSWindowContentMinSize">{384, 5}</string>
 				<object class="NSView" key="NSWindowView" id="1069623505">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSBox" id="252940124">
@@ -91,7 +91,7 @@
 								<int key="NSCellFlags2">0</int>
 								<string key="NSContents">Box</string>
 								<object class="NSFont" key="NSSupport" id="26">
-									<string key="NSName">LucidaGrande</string>
+									<bool key="IBIsSystemFont">YES</bool>
 									<double key="NSSize">11</double>
 									<int key="NSfFlags">3100</int>
 								</object>
@@ -104,9 +104,14 @@
 										<bytes key="NSWhite">MQA</bytes>
 									</object>
 								</object>
-								<object class="NSColor" key="NSTextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwLjgwMDAwMDAxAA</bytes>
+								<object class="NSColor" key="NSTextColor" id="594018366">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">labelColor</string>
+									<object class="NSColor" key="NSColor" id="97697295">
+										<int key="NSColorSpace">3</int>
+										<bytes key="NSWhite">MAA</bytes>
+									</object>
 								</object>
 							</object>
 							<reference key="NSContentView" ref="300928499"/>
@@ -131,7 +136,7 @@
 										<int key="NSCellFlags2">4194304</int>
 										<string key="NSContents">Reopening the current application shows all windows</string>
 										<object class="NSFont" key="NSSupport">
-											<string key="NSName">LucidaGrande</string>
+											<bool key="IBIsSystemFont">YES</bool>
 											<double key="NSSize">9</double>
 											<int key="NSfFlags">3614</int>
 										</object>
@@ -140,7 +145,7 @@
 											<int key="NSColorSpace">6</int>
 											<string key="NSCatalogName">System</string>
 											<string key="NSColorName">controlColor</string>
-											<object class="NSColor" key="NSColor">
+											<object class="NSColor" key="NSColor" id="837178132">
 												<int key="NSColorSpace">3</int>
 												<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 											</object>
@@ -149,13 +154,11 @@
 											<int key="NSColorSpace">6</int>
 											<string key="NSCatalogName">System</string>
 											<string key="NSColorName">controlTextColor</string>
-											<object class="NSColor" key="NSColor" id="97697295">
-												<int key="NSColorSpace">3</int>
-												<bytes key="NSWhite">MAA</bytes>
-											</object>
+											<reference key="NSColor" ref="97697295"/>
 										</object>
 									</object>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 								</object>
 								<object class="NSButton" id="1015507299">
 									<reference key="NSNextResponder" ref="101516704"/>
@@ -227,6 +230,7 @@
 										<reference key="NSTextColor" ref="832287653"/>
 									</object>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 								</object>
 								<object class="NSPopUpButton" id="561114353">
 									<reference key="NSNextResponder" ref="101516704"/>
@@ -342,7 +346,7 @@
 									<object class="NSButtonCell" key="NSCell" id="619889797">
 										<int key="NSCellFlags">67108864</int>
 										<int key="NSCellFlags2">131072</int>
-										<string key="NSContents">Suppress HotKeys while command window is open</string>
+										<string key="NSContents">Suppress Keyboard Triggers while command window is open</string>
 										<reference key="NSSupport" ref="26"/>
 										<reference key="NSControlView" ref="334393924"/>
 										<int key="NSButtonFlags">1211912448</int>
@@ -413,6 +417,7 @@
 												<reference key="NSTextColor" ref="832287653"/>
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 										</object>
 										<object class="NSTextField" id="129582009">
 											<reference key="NSNextResponder" ref="957404793"/>
@@ -433,6 +438,7 @@
 												<reference key="NSTextColor" ref="832287653"/>
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 										</object>
 										<object class="NSPopUpButton" id="622969515">
 											<reference key="NSNextResponder" ref="957404793"/>
@@ -589,6 +595,7 @@
 												</object>
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 										</object>
 										<object class="NSTextField" id="907061319">
 											<reference key="NSNextResponder" ref="957404793"/>
@@ -601,7 +608,7 @@
 												<int key="NSCellFlags2">272629760</int>
 												<string type="base64-UTF8" key="NSContents">c3VidGV4dAo</string>
 												<object class="NSFont" key="NSSupport">
-													<string key="NSName">LucidaGrande</string>
+													<bool key="IBIsSystemFont">YES</bool>
 													<double key="NSSize">10</double>
 													<int key="NSfFlags">2843</int>
 												</object>
@@ -613,6 +620,7 @@
 												</object>
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 										</object>
 									</array>
 									<string key="NSFrame">{{2, 2}, {415, 95}}</string>
@@ -630,10 +638,7 @@
 								<string key="NSContents">Box</string>
 								<reference key="NSSupport" ref="26"/>
 								<reference key="NSBackgroundColor" ref="1042140687"/>
-								<object class="NSColor" key="NSTextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwLjgwMDAwMDAxAA</bytes>
-								</object>
+								<reference key="NSTextColor" ref="594018366"/>
 							</object>
 							<reference key="NSContentView" ref="957404793"/>
 							<int key="NSBorderType">3</int>
@@ -647,6 +652,7 @@
 							<string key="NSFrame">{{159, 350}, {255, 19}}</string>
 							<reference key="NSSuperview" ref="1069623505"/>
 							<reference key="NSNextKeyView" ref="919402519"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSearchFieldCell" key="NSCell" id="39462769">
 								<int key="NSCellFlags">342884416</int>
@@ -681,17 +687,20 @@
 											<integer value="1" key="NSAccessibilityEncodedAttributesValueType"/>
 										</dictionary>
 									</array>
+									<reference key="NSControlView" ref="292479345"/>
 									<string key="NSAction">_searchFieldCancel:</string>
 									<reference key="NSTarget" ref="39462769"/>
-									<int key="NSButtonFlags">138428416</int>
+									<int key="NSButtonFlags">138690560</int>
 									<int key="NSButtonFlags2">0</int>
 									<string key="NSKeyEquivalent"/>
 									<int key="NSPeriodicDelay">400</int>
 									<int key="NSPeriodicInterval">75</int>
 								</object>
 								<int key="NSMaximumRecents">255</int>
+								<bytes key="NSSearchFieldFlags">BgAAAA</bytes>
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+							<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 						</object>
 						<object class="NSPopUpButton" id="704564148">
 							<reference key="NSNextResponder" ref="1069623505"/>
@@ -770,12 +779,12 @@
 							<array class="NSMutableArray" key="NSSubviews">
 								<object class="NSClipView" id="302670196">
 									<reference key="NSNextResponder" ref="919402519"/>
-									<int key="NSvFlags">2304</int>
+									<int key="NSvFlags">2322</int>
 									<array class="NSMutableArray" key="NSSubviews">
 										<object class="NSTableView" id="30421908">
 											<reference key="NSNextResponder" ref="302670196"/>
 											<int key="NSvFlags">4352</int>
-											<string key="NSFrameSize">{412, 329}</string>
+											<string key="NSFrameSize">{411.5, 329}</string>
 											<reference key="NSSuperview" ref="302670196"/>
 											<reference key="NSNextKeyView" ref="611630023"/>
 											<bool key="NSEnabled">YES</bool>
@@ -839,9 +848,9 @@
 														<int key="NSCellFlags">337641472</int>
 														<int key="NSCellFlags2">67108864</int>
 														<object class="NSFont" key="NSSupport">
-															<string key="NSName">LucidaGrande</string>
+															<bool key="IBIsSystemFont">YES</bool>
 															<double key="NSSize">12</double>
-															<int key="NSfFlags">16</int>
+															<int key="NSfFlags">4883</int>
 														</object>
 														<reference key="NSControlView" ref="30421908"/>
 														<reference key="NSBackgroundColor" ref="1042140687"/>
@@ -855,7 +864,12 @@
 											</array>
 											<double key="NSIntercellSpacingWidth">3</double>
 											<double key="NSIntercellSpacingHeight">2</double>
-											<reference key="NSBackgroundColor" ref="345034984"/>
+											<object class="NSColor" key="NSBackgroundColor">
+												<int key="NSColorSpace">6</int>
+												<string key="NSCatalogName">System</string>
+												<string key="NSColorName">controlBackgroundColor</string>
+												<reference key="NSColor" ref="837178132"/>
+											</object>
 											<object class="NSColor" key="NSGridColor">
 												<int key="NSColorSpace">3</int>
 												<bytes key="NSWhite">MC44MDAwMDAwMSAwLjI1AA</bytes>
@@ -879,6 +893,7 @@
 									<reference key="NSDocView" ref="30421908"/>
 									<reference key="NSBGColor" ref="345034984"/>
 									<int key="NScvFlags">4</int>
+									<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 								</object>
 								<object class="NSScroller" id="76062934">
 									<reference key="NSNextResponder" ref="919402519"/>
@@ -887,6 +902,8 @@
 									<reference key="NSSuperview" ref="919402519"/>
 									<reference key="NSNextKeyView" ref="302670196"/>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<string key="NSControlAction">_doScroller:</string>
+									<reference key="NSControlTarget" ref="919402519"/>
 									<reference key="NSTarget" ref="919402519"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSPercent">0.92352938652038574</double>
@@ -899,6 +916,8 @@
 									<reference key="NSNextKeyView" ref="76062934"/>
 									<bool key="NSEnabled">YES</bool>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<string key="NSControlAction">_doScroller:</string>
+									<reference key="NSControlTarget" ref="919402519"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="919402519"/>
 									<string key="NSAction">_doScroller:</string>
@@ -919,10 +938,9 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{434, 389}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="252940124"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 877}}</string>
 				<string key="NSMinSize">{384, 27}</string>
 				<string key="NSMaxSize">{434, 411}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -965,7 +983,7 @@
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<array class="NSMutableArray" key="connectionRecords">
+			<array key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">_window</string>
@@ -1952,7 +1970,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="334393924"/>
-						<string key="toolTip">Ignore global HotKeys when command is active</string>
+						<string key="toolTip">Ignore Keyboard Triggers when command is active</string>
 					</object>
 				</object>
 				<string key="139.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2030,19 +2048,20 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
+		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<real value="1070" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
-			<real value="4500" key="NS.object.0"/>
+			<integer value="4600" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NSMenuCheckmark">{11, 11}</string>
-			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="NSMenuCheckmark">{12, 12}</string>
+			<string key="NSMenuMixedState">{10, 2}</string>
 			<string key="NSSwitch">{15, 15}</string>
 		</dictionary>
 	</data>

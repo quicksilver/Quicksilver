@@ -898,7 +898,7 @@ bWludXRlcy4gWW91IGNhbiAgYWx0ZXIgdGhlIGZyZXF1ZW5jeSBiZWxvdy4</bytes>
 												<object class="NSTextFieldCell" key="NSCell" id="507315464">
 													<int key="NSCellFlags">67108864</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string key="NSContents">Quicksilver is never further away than a single Hot Key. Select your preferred HotKey below, or change it at any time in the “Command” pane in the preferences.</string>
+													<string key="NSContents">Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the “Command” pane in the preferences.</string>
 													<reference key="NSSupport" ref="654267372"/>
 													<reference key="NSControlView" ref="403660588"/>
 													<reference key="NSBackgroundColor" ref="596208864"/>
@@ -1051,7 +1051,7 @@ bWludXRlcy4gWW91IGNhbiAgYWx0ZXIgdGhlIGZyZXF1ZW5jeSBiZWxvdy4</bytes>
 												<object class="NSTextFieldCell" key="NSCell" id="502123321">
 													<int key="NSCellFlags">67108864</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string key="NSContents">Hot Key:</string>
+													<string key="NSContents">Shortcut:</string>
 													<reference key="NSSupport" ref="442445785"/>
 													<reference key="NSControlView" ref="67895681"/>
 													<reference key="NSBackgroundColor" ref="596208864"/>
