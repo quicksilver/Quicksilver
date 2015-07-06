@@ -16,41 +16,7 @@
 
 #import "NSBundle_BLTRExtensions.h"
 
-#if 0
-@implementation QSEncapsulatedTextCell
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
-	BOOL isKey = [[controlView window] isKeyWindow];
-	if (isFirstResponder)
-		[[[NSColor selectedTextBackgroundColor] colorWithAlphaComponent:(isKey?0.5:0.25)] set];
-	else
-		[[[NSColor blackColor] colorWithAlphaComponent:(isKey?0.10:0.05)] set];
-	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	[roundRect appendBezierPathWithRoundedRectangle:NSInsetRect(cellFrame, 0.5, 0.5) withRadius:NSHeight(cellFrame) /2];
-	[roundRect fill];
-	if (isFirstResponder)
-		[[NSColor alternateSelectedControlColor] set];
-	else
-		[[NSColor grayColor] set];
-	[roundRect stroke];
-	[super drawWithFrame:cellFrame inView:controlView];
-}
-- (NSPoint)cellBaselineOffset { return NSZeroPoint; }
-- (BOOL)wantsToTrackMouse { return nil; }
-@end
-#endif
-
-//static NSMutableDictionary *typeSets;
-
 @implementation QSFileSystemObjectSource
-#if 0
-+ (void)initialize {
-	typeSets = [[NSMutableDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FileTypeGroups" ofType:@"plist"]]retain];
-	[typeSets setObject:[NSImage imageUnfilteredFileTypes] forKey:@"QSImageFileTypes"];
-	[typeSets setObject:[NSMovie movieUnfilteredFileTypes] forKey:@"QSMovieFileTypes"];
-	[typeSets setObject:[NSSound soundUnfilteredFileTypes] forKey:@"QSSoundFileTypes"];
-}
-#endif
 
 + (NSMenu *)parserMenuForPath:(NSString *)path {
 	NSMenu *_parserMenu = [[NSMenu alloc] initWithTitle:kQSFSParsers];
@@ -71,27 +37,6 @@
 	}
 	return _parserMenu;
 }
-
-#if 0
-+ (NSMenu *)typeSetsMenu {
-
-	NSMenu *typeSetsMenu = [[NSMenu alloc] initWithTitle:@"Types"];
-
-	[typeSetsMenu addItemWithTitle:@"Add Set" action:nil keyEquivalent:@""];
-
-	NSMenuItem *item;
-	for(NSString *key in typeSets) {
-		//  [[NSBundle mainBundle] localizedStringForKey:theID value:theID table:@"QSCatalogPreset.name"];
-
-		item = (NSMenuItem *)[typeSetsMenu addItemWithTitle:[[NSBundle mainBundle] safeLocalizedStringForKey:key value:key table:@"FileTypeGroupNames"] action:nil keyEquivalent:@""];
-		[item setRepresentedObject:key];
-	}
-	item = (NSMenuItem *)[typeSetsMenu addItemWithTitle:@"Edit..." action:@selector(editSets:) keyEquivalent:@""];
-	[item setTarget:self];
-
-	return typeSetsMenu;
-}
-#endif
 
 - (id)init {
 	self = [super init];
@@ -275,19 +220,6 @@
 }
 
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
-
-#if 0
-- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView { return [typeSets count];  }
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-	if ([[tableColumn identifier] isEqualToString:@"Set"]) {
-		return [[typeSets allKeys] objectAtIndex:row];
-		return @"name";
-	} else if ([[tableColumn identifier] isEqualToString:@"Types"]) {
-		return [[typeSets objectForKey:[[typeSets allKeys] objectAtIndex:row]]componentsJoinedByString:@", "];
-	}
-	return nil;
-}
-#endif
 
 - (IBAction)endContainingSheet:(id)sender {
 	NSWindow *win = [sender window];
