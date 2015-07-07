@@ -26,7 +26,7 @@
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return YES; }
 - (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"Quicksilver"]; }
 - (NSArray *)objectsForEntry:(NSDictionary *)dict {
-	if ([[dict objectForKey:@"userInfo"] isEqualToString:@"commands"])
+	if ([[dict objectForKey:kItemID] isEqualToString:@"QSPresetCommandHistory"])
 		return [QSHist recentCommands];
 	else
 		return [QSHist recentObjects];

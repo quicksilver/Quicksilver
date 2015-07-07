@@ -2146,8 +2146,6 @@
 					<integer>3</integer>
 					<key>enabled</key>
 					<false/>
-					<key>userInfo</key>
-					<string>commands</string>
 					<key>ID</key>
 					<string>QSPresetCommandHistory</string>
 				</dict>
@@ -2162,8 +2160,6 @@
 					<integer>1</integer>
 					<key>name</key>
 					<string>Recent Objects</string>
-					<key>userInfo</key>
-					<string>objects</string>
 				</dict>
 			</array>
 			<key>catalogPath</key>
