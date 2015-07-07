@@ -250,13 +250,7 @@ static id _sharedInstance;
 	}
 
 	NSMutableDictionary *childDict = [NSMutableDictionary dictionaryWithCapacity:5];
-	[childDict setObject:[NSString uniqueString] forKey:kItemID];
 	[childDict setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
- 	NSString *title = [[NSBundle bundleForClass:NSClassFromString(sourceString)] safeLocalizedStringForKey:sourceString value:sourceString table:@"QSObjectSource.name"];
-	if ([title isEqualToString:sourceString])
-		title = [[NSBundle mainBundle] safeLocalizedStringForKey:sourceString value:sourceString table:@"QSObjectSource.name"];
-
-	[childDict setObject:title forKey:kItemName];
 	[childDict setObject:sourceString forKey:kItemSource];
 
 	QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];

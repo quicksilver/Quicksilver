@@ -82,6 +82,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
     _children = [NSMutableArray array];
     _info = [NSMutableDictionary dictionary];
+    _info[kItemID] = [NSString uniqueString];
 
     return self;
 }
@@ -435,14 +436,32 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         if (self.isSeparator) {
             return @"";
         }
+
+		if (_name) return _name;
+
 #warning this is tampering with localization
-        if (!_name) {
-            _name = self.info[kItemName];
-        }
-        if (!_name) {
-            NSString *ID = self.identifier;
-            _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
-        }
+
+		NSString *ID = self.identifier;
+		NSArray *bundles = @[[NSBundle bundleForClass:[self.source class]], [NSBundle mainBundle]];
+		for (NSBundle *bundle in bundles) {
+			_name = [bundle safeLocalizedStringForKey:ID value:nil table:@"QSCatalogPreset.name"];
+			if (_name) break;
+		}
+
+		if (!_name) {
+			NSString *sourceString = NSStringFromClass([self.source class]);
+			for (NSBundle *bundle in bundles) {
+				_name = [bundle safeLocalizedStringForKey:sourceString value:nil table:@"QSObjectSource.name"];
+				if (_name) break;
+			}
+		}
+
+
+		// Check to see if the name isn't hardcoded in our info
+		if (!_name) {
+			_name = self.info[kItemName];
+		}
+
         return [_name copy];
     }
 }
