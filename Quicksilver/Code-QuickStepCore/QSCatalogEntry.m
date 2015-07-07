@@ -753,7 +753,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (NSMutableDictionary *)sourceSettings {
-    return self.info[kItemSettings];
+    NSMutableDictionary *settings = self.info[kItemSettings];
+    if (!settings) {
+        settings = [[NSMutableDictionary alloc] init];
+        self.info[kItemSettings] = settings;
+    }
+    return settings;
 }
 
 
