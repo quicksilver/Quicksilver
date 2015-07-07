@@ -66,7 +66,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return keyPaths;
 }
 
-+ (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict {
++ (instancetype)entryWithDictionary:(NSDictionary *)dict {
 	return [[QSCatalogEntry alloc] initWithDictionary:dict];
 }
 
@@ -89,7 +89,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return self;
 }
 
-- (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [self init];
 	if (!self) {
         return nil;
