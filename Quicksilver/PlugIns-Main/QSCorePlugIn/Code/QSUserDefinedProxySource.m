@@ -198,9 +198,7 @@
         [settings setObject:[target identifier] forKey:@"target"];
         [settings setObject:[target primaryType] forKey:@"targetType"];
     }
-	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-    [[self selection] scanAndCache];
+    [self.selection refresh:YES];
 	[self populateFields];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 @end

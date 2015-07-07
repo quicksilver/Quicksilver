@@ -262,6 +262,13 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 
+/**
+ * Mark the entry as refreshed/modified.
+ *
+ * @param rescan If YES, the entry will be rescanned immediately.
+ */
+- (void)refresh:(BOOL)rescan;
+
 /* FIXME: Yuck! */
 - (void)invalidateIndex:(NSNotification *)notif;
 @end

@@ -167,9 +167,8 @@
 	} else if (sender == entryTypePopUp) {
 		[settings setObject:[NSNumber numberWithInteger:[[sender selectedItem] tag]] forKey:kDefaultsObjectSourceType];
 	}
-	[[self currentEntry] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+    [self.selection refresh:NO];
 	[self populateFields];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"CatalogEntryChanged" object:[self currentEntry]];
 }
 
 @end

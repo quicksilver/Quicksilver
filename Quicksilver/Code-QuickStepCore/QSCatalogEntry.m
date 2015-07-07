@@ -728,6 +728,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return [[self contents] objectsAtIndexes:enabled];
 }
 
+- (void)refresh:(BOOL)rescan {
+    self.info[kItemModificationDate] = @([NSDate timeIntervalSinceReferenceDate]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
+    if (rescan) [self scanAndCache];
+}
+
 - (QSCatalogEntry *)uniqueCopy {
 	NSMutableDictionary *newDictionary = [self.info mutableCopy];
 	if (self.isPreset) {

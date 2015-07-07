@@ -211,12 +211,8 @@
 		else
 			[settings removeObjectForKey:kItemParser];
 	}
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-    
-    [[self selection] scanAndCache];
+    [self.selection refresh:YES];
 	[self populateFields];
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
@@ -306,8 +302,7 @@
 	[itemLocationField setStringValue:[[[openPanel URL] path] stringByAbbreviatingWithTildeInPath]];
 	[self setValueForSender:itemLocationField];
 	[[self selection] setName:[[openPanel URL] lastPathComponent]];
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
+    [self.selection refresh:NO];
 	return YES;
 }
 
