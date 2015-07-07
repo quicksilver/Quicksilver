@@ -195,6 +195,10 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	return [[NSFileManager.defaultManager attributesOfItemAtPath:self.indexLocation error:NULL] objectForKey:NSFileModificationDate];
 }
 
+- (NSDate *)modificationDate {
+    return self.info[kItemModificationDate];
+}
+
 - (BOOL)canBeDeleted {
 	if (self.isPreset) {
         return NO;

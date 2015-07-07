@@ -69,6 +69,9 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 /** The receiver's last index date. */
 @property (retain) NSDate *indexDate;
 
+/** The receiver's last modification date. */
+@property (readonly, retain) NSDate *modificationDate;
+
 /** The contents of the receiver. */
 @property (readonly, retain) NSArray *contents;
 
