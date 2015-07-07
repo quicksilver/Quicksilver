@@ -148,7 +148,7 @@
 	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
 
 	NSString *path = [settings objectForKey:kItemPath];
-	[itemLocationField setStringValue:(path?path:@"")];
+	[itemLocationField setStringValue:(path ? path : @"")];
 	NSString *fullPath = [self fullPathForSettings:settings];
 
 	NSString *parser = [settings objectForKey:kItemParser];
@@ -334,8 +334,8 @@
 	if ([lastModificationDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
-	 return modDate == nil;
+    NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
+    return modDate == nil;
 }
 
 @end
