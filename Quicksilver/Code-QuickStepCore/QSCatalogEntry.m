@@ -179,18 +179,17 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	return NO;
 }
 
-- (NSDate *)lastScanDate {
-	/* tiennou: The one with the latest scan date ? Really ? */
+- (NSDate *)indexationDate {
 	if ([[self type] isEqualToString:@"Group"]) {
 		// It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
-		NSDate *latestScan = nil;
+		NSDate *latestIndexDate = nil;
 		for (QSCatalogEntry *child in [self children]) {
-			NSDate *childScanDate = [child lastScanDate];
-			if (childScanDate && (childScanDate > latestScan || latestScan == nil)) {
-				latestScan = childScanDate;
+			NSDate *childIndexDate = [child indexationDate];
+            if (childIndexDate && ([childIndexDate compare:latestIndexDate] == NSOrderedDescending || latestIndexDate == nil)) {
+				latestIndexDate = childIndexDate;
 			}
 		}
-		return latestScan;
+		return latestIndexDate;
 	}
 	return [[NSFileManager.defaultManager attributesOfItemAtPath:self.indexLocation error:NULL] objectForKey:NSFileModificationDate];
 }
@@ -552,8 +551,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
 
-        self.indexDate = [NSDate date];
-
         @try {
             NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
             [writeArray writeToFile:self.indexLocation atomically:YES];
@@ -586,18 +583,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             isValid = NO;
         }
         if (isValid) {
-            if (!self.indexDate)
-                self.indexDate = [[manager attributesOfItemAtPath:indexLocation error:NULL] fileModificationDate];
-            NSNumber *modInterval = self.info[kItemModificationDate];
-            if (modInterval) {
-                NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-                if ([specDate compare:self.indexDate] == NSOrderedDescending) {
-                    isValid = NO; //Catalog Specification is more recent than index
-                }
+            if ([self.modificationDate compare:self.indexationDate] == NSOrderedDescending) {
+                isValid = NO; //Catalog Specification is more recent than index
             }
         }
         if (isValid) {
-            isValid = [self.source indexIsValidFromDate:self.indexDate forEntry:self.info];
+            isValid = [self.source indexIsValidFromDate:self.indexationDate forEntry:self.info];
         }
     });
     return isValid;
