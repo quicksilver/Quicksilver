@@ -80,10 +80,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         return nil;
     }
 
-    _name = nil;
-    _indexDate = nil;
     _children = [NSMutableArray array];
-    _contents = nil;
     _info = [NSMutableDictionary dictionary];
 
     return self;
