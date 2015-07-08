@@ -352,7 +352,7 @@
 			<key>color</key>
 			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=</data>
 			<key>description</key>
-			<string>Act on hot keys and other triggers</string>
+			<string>Act on keyboard shortcuts and other events</string>
 			<key>icon</key>
 			<string>Pref-Triggers</string>
 			<key>name</key>

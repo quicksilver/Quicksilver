@@ -127,8 +127,8 @@
 		4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */; };
 		4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45516ADCDEF004BA4BE /* QSAdvancedPrefPane.strings */; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
@@ -1064,7 +1064,7 @@
 		4D002D52131147FF009040B7 /* Quicksilver.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver.pch; sourceTree = "<group>"; };
 		4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Finder Plugin.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D002D88131149A3009040B7 /* Primer Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Primer Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HotKey Triggers.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D002DAD13114A2E009040B7 /* Keyboard Triggers.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Keyboard Triggers.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00307513116304009040B7 /* Quicksilver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver.h; sourceTree = "<group>"; };
 		4D00307F13116376009040B7 /* QSFancyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFancyTableView.h; sourceTree = "<group>"; };
 		4D00308013116376009040B7 /* QSFancyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFancyTableView.m; sourceTree = "<group>"; };
@@ -2450,7 +2450,7 @@
 				4D002D021311465B009040B7 /* Bezel Interface.qsplugin */,
 				4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */,
 				4D002D88131149A3009040B7 /* Primer Interface.qsplugin */,
-				4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */,
+				4D002DAD13114A2E009040B7 /* Keyboard Triggers.qsplugin */,
 				66448D9614F42790000FA2E2 /* QSFoundationTests.xctest */,
 				666E45EE150225EA0034E60A /* QSCoreTests.xctest */,
 				CD61BBB8192B18FA00040609 /* Quicksilver Tests.xctest */,
@@ -3826,9 +3826,9 @@
 			productReference = 4D002D88131149A3009040B7 /* Primer Interface.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		4D002DAC13114A2E009040B7 /* HotKey Triggers */ = {
+		4D002DAC13114A2E009040B7 /* Keyboard Triggers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D002DB113114A2E009040B7 /* Build configuration list for PBXNativeTarget "HotKey Triggers" */;
+			buildConfigurationList = 4D002DB113114A2E009040B7 /* Build configuration list for PBXNativeTarget "Keyboard Triggers" */;
 			buildPhases = (
 				4D002DA913114A2E009040B7 /* Resources */,
 				4D002DAA13114A2E009040B7 /* Sources */,
@@ -3839,9 +3839,9 @@
 			dependencies = (
 				4D002DB313114A33009040B7 /* PBXTargetDependency */,
 			);
-			name = "HotKey Triggers";
+			name = "Keyboard Triggers";
 			productName = "HotKey Triggers";
-			productReference = 4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */;
+			productReference = 4D002DAD13114A2E009040B7 /* Keyboard Triggers.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		66448D9514F42790000FA2E2 /* QSFoundationTests */ = {
@@ -4146,7 +4146,7 @@
 				4D002D011311465B009040B7 /* Bezel Interface */,
 				4D002D60131148C2009040B7 /* Finder Plugin */,
 				4D002D87131149A3009040B7 /* Primer Interface */,
-				4D002DAC13114A2E009040B7 /* HotKey Triggers */,
+				4D002DAC13114A2E009040B7 /* Keyboard Triggers */,
 				7F0399E9080EE58D001A9FA3 /* Preflight */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
 				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
@@ -4919,7 +4919,7 @@
 		};
 		4D002DBA13114A7C009040B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4D002DAC13114A2E009040B7 /* HotKey Triggers */;
+			target = 4D002DAC13114A2E009040B7 /* Keyboard Triggers */;
 			targetProxy = 4D002DB913114A7C009040B7 /* PBXContainerItemProxy */;
 		};
 		4D002DBC13114A7C009040B7 /* PBXTargetDependency */ = {
@@ -5019,7 +5019,7 @@
 		};
 		CD34CCDE192B97C000AC63A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4D002DAC13114A2E009040B7 /* HotKey Triggers */;
+			target = 4D002DAC13114A2E009040B7 /* Keyboard Triggers */;
 			targetProxy = CD34CCDD192B97C000AC63A6 /* PBXContainerItemProxy */;
 		};
 		CD61BBC5192B18FA00040609 /* PBXTargetDependency */ = {
@@ -6377,7 +6377,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		4D002DB113114A2E009040B7 /* Build configuration list for PBXNativeTarget "HotKey Triggers" */ = {
+		4D002DB113114A2E009040B7 /* Build configuration list for PBXNativeTarget "Keyboard Triggers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D002DAF13114A2E009040B7 /* Debug */,

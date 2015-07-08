@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D002DAC13114A2E009040B7"
-               BuildableName = "HotKey Triggers.qsplugin"
-               BlueprintName = "HotKey Triggers"
+               BuildableName = "Keyboard Triggers.qsplugin"
+               BlueprintName = "Keyboard Triggers"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D002DAC13114A2E009040B7"
-            BuildableName = "HotKey Triggers.qsplugin"
-            BlueprintName = "HotKey Triggers"
+            BuildableName = "Keyboard Triggers.qsplugin"
+            BlueprintName = "Keyboard Triggers"
             ReferencedContainer = "container:Quicksilver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
