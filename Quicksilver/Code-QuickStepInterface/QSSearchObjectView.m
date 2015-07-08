@@ -32,6 +32,7 @@
 #define pUserKeyBindingsPath QSApplicationSupportSubPath(@"KeyBindings.qskeys", NO)
 #define MAX_HISTORY_COUNT 20
 #define SEARCH_RESULT_DELAY 0.05f
+#define kQSSmartSpace @"smartspace"
 
 NSMutableDictionary *bindingsDict = nil;
 
@@ -1337,7 +1338,7 @@ NSMutableDictionary *bindingsDict = nil;
     QSAction *action = [[self actionSelector] objectValue];
     if (behavior == 7) {
         // override smart defaults with type-specific behavior (if defined)
-        NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:@"smartspace"];
+        NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:kQSSmartSpace];
         if (typeBehavior) {
             behavior = [typeBehavior integerValue];
         }
