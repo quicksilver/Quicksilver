@@ -32,6 +32,7 @@
 #define pUserKeyBindingsPath QSApplicationSupportSubPath(@"KeyBindings.qskeys", NO)
 #define MAX_HISTORY_COUNT 20
 #define SEARCH_RESULT_DELAY 0.05f
+#define kQSSmartSpace @"smartspace"
 
 NSMutableDictionary *bindingsDict = nil;
 
@@ -1333,8 +1334,15 @@ NSMutableDictionary *bindingsDict = nil;
 {
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 
-    QSObject * newSelectedObject = [[super objectValue] resolvedObject];
+    QSObject *newSelectedObject = [[super objectValue] resolvedObject];
     QSAction *action = [[self actionSelector] objectValue];
+    if (behavior == 7) {
+        // override smart defaults with type-specific behavior (if defined)
+        NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:kQSSmartSpace];
+        if (typeBehavior) {
+            behavior = [typeBehavior integerValue];
+        }
+    }
 
 	switch(behavior) {
 		case 1: //Normal
@@ -1376,8 +1384,6 @@ NSMutableDictionary *bindingsDict = nil;
             }
             // Show child contents but only if object isn't a URL or text file
             else if ([newSelectedObject hasChildren] &&
-                    ![[newSelectedObject primaryType] isEqualToString:QSURLType] &&
-                    ![[newSelectedObject primaryType] isEqualToString:QSSearchURLType] &&
                     !QSTypeConformsTo([newSelectedObject fileUTI], (__bridge NSString *)kUTTypePlainText))
             {
                 [self moveRight:sender];

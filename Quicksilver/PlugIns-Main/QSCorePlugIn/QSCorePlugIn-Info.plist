@@ -2069,6 +2069,8 @@
 				<string>DefaultBookmarkIcon</string>
 				<key>name</key>
 				<string>URLs</string>
+				<key>smartspace</key>
+				<integer>6</integer>
 			</dict>
 			<key>qs.process</key>
 			<dict>
