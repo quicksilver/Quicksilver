@@ -152,14 +152,8 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)registerPresets:(NSArray *)newPresets inBundle:(NSBundle *)bundle scan:(BOOL)scan {
 	for (NSMutableDictionary *dict in newPresets) {
-        // Set `bundle` before the entry gets created
-		dict[@"bundle"] = bundle;
 		QSCatalogEntry *entry = [QSCatalogEntry entryWithDictionary:dict];
 		NSString *path = [dict objectForKey:@"catalogPath"];
-
-		NSArray *grandchildren = [entry deepChildrenWithGroups:YES leaves:YES disabled:YES];
-
-		[grandchildren setValue:bundle forKey:@"bundle"];
 
         QSCatalogEntry *parent = nil;
 		if ([path isEqualToString:@"/"])

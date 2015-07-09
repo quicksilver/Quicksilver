@@ -34,7 +34,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 	NSMutableArray *_children;
     dispatch_queue_t scanQueue;
-	NSBundle *bundle;
 }
 
 @property (getter=isScanning) BOOL scanning;
