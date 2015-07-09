@@ -2,7 +2,7 @@
 
 ### New ###
 
-  * "Smart" spacebar behavior in Command Preferences: When hitting spacebar, Quicksilver will attempt to choose the desired behavior between Quick Look, right-arrow, text-entry mode, jump to third pane (#925, #1803)
+  * "Smart" spacebar behavior in Command Preferences: When hitting spacebar, Quicksilver will attempt to choose the desired behavior between Quick Look, right-arrow, text-entry mode, jump to third pane (#925, #1803, #2072)
   * Menu bar icon tweaked to be more consistent with Yosemite (#2017)
 
 ### Fixed ###
@@ -16,6 +16,7 @@
 
   * Remove the work-around from #2003, as it's no longer needed (#2026)
   * Remove the Finder Toolbar Items catalog preset (#2038)
+  * References to "hot key" changed to the OS X standard "keyboard shortcut" (#1359, #2070)
 
 ### Development ###
 
