@@ -18,10 +18,6 @@
 
 CGFloat QSMinScore = 0.333333;
 
-static NSInteger presetSort(QSCatalogEntry *item1, QSCatalogEntry *item2, void *librarian) {
-	return [[item1 name] caseInsensitiveCompare:[item2 name]];
-}
-
 QSLibrarian *QSLib = nil;
 
 #ifdef DEBUG
@@ -166,7 +162,9 @@ static CGFloat searchSpeed = 0.0;
 		}
 		[parent.children addObject:entry];
 #warning oh yeah, while we're at it, sort on each loop !
-		[parent.children sortUsingFunction:presetSort context:(__bridge void *)(self)];
+        [parent.children sortUsingComparator:^NSComparisonResult(QSCatalogEntry *obj1, QSCatalogEntry *obj2) {
+            return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
+        }];
 		if (scan) [entry scanForced:YES];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];
