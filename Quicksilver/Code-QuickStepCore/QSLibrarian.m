@@ -161,12 +161,9 @@ static CGFloat searchSpeed = 0.0;
 		else if (path)
 			parent = [catalog childWithPath:path];
 
-		//NSLog(@"adding %@ to %p %@\r%@", entry, parent, parent, nil, [dict description]);
 		if (!parent) {
 			parent = [catalog childWithPath:@"QSPresetModules"];
-			//		NSLog(@"register failed %@ %@ %@", parent, path, [entry identifier]);
 		}
-//		children = [parent getChildren];
 		[parent.children addObject:entry];
 #warning oh yeah, while we're at it, sort on each loop !
 		[parent.children sortUsingFunction:presetSort context:(__bridge void *)(self)];
