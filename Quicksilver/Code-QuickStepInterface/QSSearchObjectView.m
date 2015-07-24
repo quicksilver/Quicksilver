@@ -1158,15 +1158,12 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
-	// Is there a key up from the '/' character after 0.25s
-	if ([[upEvent charactersIgnoringModifiers] isEqualToString:@"/"]) {
+	if (upEvent) {
 		[self moveRight:self];
 	// If '/' is still held down (i.e. no key up in the 0.5s passed), go to root
-	} else if(!upEvent) {
+	} else {
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
 		upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-		if (!upEvent)
-			[self moveRight:self];
 	}
     
 	return YES;
