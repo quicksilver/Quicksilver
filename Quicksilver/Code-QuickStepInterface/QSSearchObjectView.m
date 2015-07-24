@@ -1163,7 +1163,6 @@ NSMutableDictionary *bindingsDict = nil;
 	// If '/' is still held down (i.e. no key up in the 0.5s passed), go to root
 	} else {
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
-		upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
 	}
     
 	return YES;
