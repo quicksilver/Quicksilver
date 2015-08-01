@@ -17,6 +17,7 @@
   * Remove the work-around from #2003, as it's no longer needed (#2026)
   * Remove the Finder Toolbar Items catalog preset (#2038)
   * References to "hot key" changed to the OS X standard "keyboard shortcut" (#1359, #2070)
+  * Right-arrowing into a URL will now include links to anchors (#2005)
 
 ### Development ###
 
