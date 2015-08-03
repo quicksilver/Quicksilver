@@ -11,6 +11,8 @@
   * Change the location used to get Finder sidebar items (#2038)
   * Droplets no longer fail with an error on the Console (#2060, #2061)
   * Correctly ignore "concealed" pasteboard items (#2061)
+  * Quicksilver won't ignore `/` when typing quickly (#2077, #2078)
+  * Holding `/` too long won't descend into the hard drive (#2078)
 
 ### Changed ###
 
