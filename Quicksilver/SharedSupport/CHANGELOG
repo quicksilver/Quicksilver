@@ -4,6 +4,7 @@
 
   * "Smart" spacebar behavior in Command Preferences: When hitting spacebar, Quicksilver will attempt to choose the desired behavior between Quick Look, right-arrow, text-entry mode, jump to third pane (#925, #1803, #2072)
   * Menu bar icon tweaked to be more consistent with Yosemite (#2017)
+  * Hidden preference to disable the crash reporter (#1837, #2082)
 
 ### Fixed ###
 
@@ -13,6 +14,7 @@
   * Correctly ignore "concealed" pasteboard items (#2061)
   * Quicksilver won't ignore `/` when typing quickly (#2077, #2078)
   * Holding `/` too long won't descend into the hard drive (#2078)
+  * Quicksilver won't hang if a string value is unavailable (#2080)
 
 ### Changed ###
 
