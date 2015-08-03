@@ -35,7 +35,7 @@
 	<key>AppLaunchAsRootAction</key>
 	<string>Launch %@ as root</string>
 	<key>AppOpenFileAction</key>
-	<string>Open %@ with %@</string>
+	<string>Open %$1@ with %$2@</string>
 	<key>AppQuitAction</key>
 	<string>Quit %@</string>
 	<key>AppQuitOthersAction</key>
