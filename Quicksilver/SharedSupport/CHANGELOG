@@ -15,6 +15,7 @@
   * Quicksilver won't ignore `/` when typing quickly (#2077, #2078)
   * Holding `/` too long won't descend into the hard drive (#2078)
   * Quicksilver won't hang if a string value is unavailable (#2080)
+  * Large Type that appears behind the screen saver can be dismissed without relaunching Quicksilver (#1903, #2081)
 
 ### Changed ###
 
