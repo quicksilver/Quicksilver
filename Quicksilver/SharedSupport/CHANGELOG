@@ -24,6 +24,7 @@
 ### Development ###
 
   * Catalog Entry API clean-up and modernization (#2049, #2063)
+  * Use Travis to test builds (#2021)
 
 ## Changes - 1.2.2 (4011) ##
 
