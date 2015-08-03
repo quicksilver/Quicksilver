@@ -5,7 +5,7 @@
 	<key>QSCommandExecuteAtTimeAction</key>
 	<string>Execute %@ at Time</string>
 	<key>QSCreateFileAction</key>
-	<string>Create a new File containing %@ in Folder %@</string>
+	<string>Create a new File containing %1$@ in Folder %2$@</string>
 	<key>QSCommandAddTriggerAction</key>
 	<string>Add %@ as Trigger</string>
 	<key>QSCommandExecuteAction</key>
@@ -13,13 +13,13 @@
 	<key>AppShowHideAction</key>
 	<string>Toggle Visibility of %@</string>
 	<key>FileAlwaysOpenTypeWithAction</key>
-	<string>Always Open %@&apos;s Filetype With %@</string>
+	<string>Always Open %1$@&apos;s Filetype With %2$@</string>
 	<key>QSCommandSaveAction</key>
 	<string>Save %@ to File</string>
 	<key>PasteboardPasteActionAsPlainText</key>
 	<string>Paste %@ as Plain Text</string>
 	<key>QSCreateFileTemplate</key>
-	<string>In Folder %@ Create a new Template File %@</string>
+	<string>Create a new Template File %2$@ in Folder %1$@ </string>
 	<key>QSCommandExecuteAfterDelayAction</key>
 	<string>Execute %@ after Delay</string>
 	<key>AppActivateAction</key>
@@ -47,9 +47,9 @@
 	<key>AppRootLaunchAction</key>
 	<string>Launch %@ as Root</string>
 	<key>AppleScriptOpenFilesAction</key>
-	<string>Open %@ with %@</string>
+	<string>Open %1$@ with %2$@</string>
 	<key>AppleScriptProcessTextAction</key>
-	<string>Process %@ with %@</string>
+	<string>Process %1$@ with %2$@</string>
 	<key>AppleScriptRunAction</key>
 	<string>Run Script: %@</string>
 	<key>AppleScriptRunTextAction</key>
@@ -61,7 +61,7 @@
 	<key>FileCompressAction</key>
 	<string>Compress %@</string>
 	<key>FileCopyToAction</key>
-	<string>Copy %@ to %@</string>
+	<string>Copy %1$@ to %2$@</string>
 	<key>FileDecompressAction</key>
 	<string>Decompress %@</string>
 	<key>FileDeleteAction</key>
@@ -97,9 +97,9 @@
 	<key>FileToTrashAction</key>
 	<string>Move %@ to Trash</string>
 	<key>ItemSendToContactEmailAction</key>
-	<string>Email %@ to a %@</string>
+	<string>Email %1$@ to a %2$@</string>
 	<key>ItemSendToContactIMAction</key>
-	<string>IM %@ to %@</string>
+	<string>IM %1$@ to %2$@</string>
 	<key>PasteboardCopyAction</key>
 	<string>Copy %@ to clipboard</string>
 	<key>PasteboardPasteAction</key>
@@ -187,6 +187,6 @@
 	<key>URLSearchAction</key>
 	<string>Search %@</string>
 	<key>URLSearchForAction</key>
-	<string>Search for %@ at %@</string>
+	<string>Search for %1$@ at %2$@</string>
 </dict>
 </plist>
