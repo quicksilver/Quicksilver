@@ -136,6 +136,8 @@
     <string>Terminalde dizine git</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Man sayfasını göster</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Kataloğa ekle</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Katalog girisini yeniden tara</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Komutu dosyaya kaydet</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Tetikleyici ekle</string>
+    <string>Tetikleyici ekle…</string>
     <key>QSCommandExecuteAction</key>
     <string>Çalıştır</string>
     <key>QSCommandExecuteAfterDelayAction</key>

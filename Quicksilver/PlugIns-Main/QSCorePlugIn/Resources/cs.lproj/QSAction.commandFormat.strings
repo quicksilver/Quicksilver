@@ -76,6 +76,8 @@
     <string>Získat absolutní cestu %@</string>
     <key>FileGetURLAction</key>
     <string>Získat file:// URL cestu %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Vytvořit zástupce %@ do %@</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Dokončit %@</string>
     <key>ProcessSuspendAction</key>
     <string>Pozastavit %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>%@ přidat do katalogu</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Znovu načíst %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Odstranit %@ z položek po přihlášení</string>
     <key>QSNewFolderAction</key>
-    <string>Vytvořit novou složku %# v %@</string>
+    <string>Vytvořit novou složku %2$@ v %1$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Vykonat %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Nastavit visačku %# položce %@</string>
+    <string>Nastavit visačku %2$@ položce %1$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Nastavit mnemotechnickou pomůcku %@ na %#</string>
+    <string>Nastavit mnemotechnickou pomůcku %1$@ na %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Odstranit %@ z katalogu</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Přehrát %@</string>
     <key>QSTextDiffAction</key>
-    <string>Najít rozdíly mezi %@ a %#</string>
+    <string>Najít rozdíly mezi %1$@ a %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Zobrazit dialog: „%@“</string>
     <key>QSTextSpeakAction</key>

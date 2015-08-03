@@ -40,5 +40,7 @@
     <string>Zprávy Objective-C</string>
     <key>QSProxyObjectSource</key>
     <string>Proxies</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonymum</string>
   </dict>
 </plist>

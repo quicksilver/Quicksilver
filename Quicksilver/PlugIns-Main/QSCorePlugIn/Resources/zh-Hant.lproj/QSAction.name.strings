@@ -136,6 +136,8 @@
     <string>於終端機中前往資料夾</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Show Man Page</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>重新掃描目錄條目</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>儲存指令至檔案...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>增加觸發器</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>執行</string>
     <key>QSCommandExecuteAfterDelayAction</key>

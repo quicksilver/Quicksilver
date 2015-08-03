@@ -136,6 +136,8 @@
     <string>터미널에서 경로로 이동</string>
     <key>QSCLTermShowManPageAction</key>
     <string>매뉴얼 화면 보여주기</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>전체 보관함 다시 살피기</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>명령을 파일로 저장...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>단축 기능 추가</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>실행</string>
     <key>QSCommandExecuteAfterDelayAction</key>

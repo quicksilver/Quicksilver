@@ -136,6 +136,8 @@
     <string>Wechsel zum Verzeichnis im Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Hilfeseite anzeigen</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Katalogeintrag neu durchsuchen</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Befehl as Datei speichern...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Schalter hinzufügen</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Ausführen</string>
     <key>QSCommandExecuteAfterDelayAction</key>

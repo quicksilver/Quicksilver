@@ -73,7 +73,7 @@
     <key>QSPresetDeveloperFrameworks</key>
     <string>Frameworks</string>
     <key>QSPresetDeveloperOtherDocs</key>
-    <string>Joná dokumentace</string>
+    <string>Jiná dokumentace</string>
     <key>QSPresetDeveloperPreferencePaneDocs</key>
     <string>Panely předvoleb</string>
     <key>QSPresetDeveloperPrivateFrameworks</key>
@@ -100,6 +100,8 @@
     <string>Poslední položky (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Místa hledání Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Položky řádku nabídek Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Záložky Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>

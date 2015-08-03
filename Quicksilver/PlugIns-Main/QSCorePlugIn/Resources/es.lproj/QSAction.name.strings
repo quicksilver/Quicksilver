@@ -136,6 +136,8 @@
     <string>Ir a Carpeta en Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Mostrar Página Man</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Re-escanear entrada de catálogo</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Guardar Comando en Archivo...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Agregar Detonador</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Ejecutar</string>
     <key>QSCommandExecuteAfterDelayAction</key>

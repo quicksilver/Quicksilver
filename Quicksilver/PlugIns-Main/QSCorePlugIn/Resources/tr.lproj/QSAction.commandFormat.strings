@@ -76,20 +76,22 @@
     <string>%@ öğesinin mutlak yörüngesini al</string>
     <key>FileGetURLAction</key>
     <string>%@ öğesinin file:// URL&apos;sini al</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>%@ öğesine %# içinde kısayol oluştur</string>
+    <string>%1$@ öğesine %2$@ içinde kısayol oluştur</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>%@ öğesine %# içinde Arma oluştur</string>
+    <string>%1$@ öğesine %2$@ içinde Arma oluştur</string>
     <key>FileMakeLinkInAction</key>
-    <string>%@ öğesine %# içinde bağ oluştur</string>
+    <string>%1$@ öğesine %2$@ içinde bağ oluştur</string>
     <key>FileMoveToAction</key>
-    <string>%@ öğesini %# konumuna taşı</string>
+    <string>%1$@ öğesini %2$@ konumuna taşı</string>
     <key>FileOpenAction</key>
     <string>Aç: %@</string>
     <key>FileOpenWithAction</key>
-    <string>%@ öğesini %# ile aç</string>
+    <string>%1$@ öğesini %2$@ ile aç</string>
     <key>FileRenameAction</key>
-    <string>%@ öğesini %# olarak yeniden adlandır</string>
+    <string>%1$@ öğesini %2$@ olarak yeniden adlandır</string>
     <key>FileRevealAction</key>
     <string>Göster: %@</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>Sürdür: %@</string>
     <key>ProcessSuspendAction</key>
     <string>Beklet: %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>%@ öğesini Kataloğa ekle</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Yeniden tara: %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Oturum açma öğelerinden çıkar: %@</string>
     <key>QSNewFolderAction</key>
-    <string>%# adlı yeni bir dizini %@ içinde oluştur</string>
+    <string>%2$@ adlı yeni bir dizini %1$@ içinde oluştur</string>
     <key>QSObjCSendMessageAction</key>
     <string>Çalıştır: %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>%@ öğesinin etiketini %# yap</string>
+    <string>%1$@ öğesinin etiketini %2$@ yap</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>%@ öğesinin anımsatıcısını %# yap</string>
+    <string>%1$@ öğesinin anımsatıcısını %2$@ yap</string>
     <key>QSObjectOmitAction</key>
     <string>Katalogdan yoksay: %@</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Oynat: %@</string>
     <key>QSTextDiffAction</key>
-    <string>%@ ile %# arasındaki farkları bul</string>
+    <string>%1$@ ile %2$@ arasındaki farkları bul</string>
     <key>QSTextShowDialogAction</key>
     <string>İletişim kutusunu göster: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

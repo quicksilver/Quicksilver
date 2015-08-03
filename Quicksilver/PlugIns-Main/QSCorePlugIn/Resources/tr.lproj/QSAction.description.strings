@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Uygulamayı yeniden başlatır</string>
     <key>AppShowHideAction</key>
-    <string>Uygulama görünürlüğünü değiştirir</string>
+    <string>Uygulama görünürlüğünü aç/kapa</string>
     <key>QSLargeTypeAction</key>
     <string>Metni genişçe görüntüler</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>iTunes çalma listesinden müzik çalar</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>iTunes parçası çalar</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Kabuk betiği çalıştırır</string>
     <key>ShellScriptRunAction</key>
     <string>Kabuk betiği çalıştır</string>
     <key>URLFindWithAction</key>

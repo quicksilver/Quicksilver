@@ -76,20 +76,22 @@
     <string>%@ 에 대한 절대 경로 가져오기</string>
     <key>FileGetURLAction</key>
     <string>%@ 에 대한 file:// URL 가져오기</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>%@ 의 가상본을 %# 에 만들기</string>
+    <string>%1$@ 의 가상본을 %2$@ 에 만들기</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>%@ 의 하드 링크를 %# 에 만들기</string>
+    <string>%1$@ 의 하드 링크를 %2$@ 에 만들기</string>
     <key>FileMakeLinkInAction</key>
-    <string>%@ 의 링크를 %# 에 만들기</string>
+    <string>%1$@ 의 링크를 %2$@ 에 만들기</string>
     <key>FileMoveToAction</key>
-    <string>%@ 을(를) %# 으로(로) 옮기기</string>
+    <string>%1$@ 을(를) %2$@ 으로(로) 옮기기</string>
     <key>FileOpenAction</key>
     <string>%@ 열기</string>
     <key>FileOpenWithAction</key>
-    <string>%@ 을(를) %# 으로(로) 열기</string>
+    <string>%1$@ 을(를) %2$@ 으로(로) 열기</string>
     <key>FileRenameAction</key>
-    <string>%@ 의 이름을 %# 으로(로) 바꾸기</string>
+    <string>%1$@ 의 이름을 %2$@ 으로(로) 바꾸기</string>
     <key>FileRevealAction</key>
     <string>%@ 보이기</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>%@ 재개</string>
     <key>ProcessSuspendAction</key>
     <string>%@ 일시 정지</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>%@ 다시 읽기</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>로그인 항목에서 %@ 없에기</string>
     <key>QSNewFolderAction</key>
-    <string>%# 이름으로 %@ 안에 새 폴더 만들기</string>
+    <string>%2$@ 이름으로 %1$@ 안에 새 폴더 만들기</string>
     <key>QSObjCSendMessageAction</key>
     <string>%@ 실행</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>%@ 에 %# 꼬리표 달기</string>
+    <string>%1$@ 에 %2$@ 꼬리표 달기</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>%@ 의 줄임말로 %# 설정</string>
+    <string>%1$@ 의 줄임말로 %2$@ 설정</string>
     <key>QSObjectOmitAction</key>
     <string>보관함에서 %@ 생략</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>%@ 재생</string>
     <key>QSTextDiffAction</key>
-    <string>%@ 와(과) %# 의 차이점 찾기</string>
+    <string>%1$@ 와(과) %2$@ 의 차이점 찾기</string>
     <key>QSTextShowDialogAction</key>
     <string>대화창 보이기: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

@@ -40,5 +40,7 @@
     <string>Objective-C消息</string>
     <key>QSProxyObjectSource</key>
     <string>代理</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonym</string>
   </dict>
 </plist>

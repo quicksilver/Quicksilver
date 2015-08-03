@@ -7,7 +7,7 @@
     <key>QSCreateFileAction</key>
     <string>Skapa en ny fil som innehåller %@ i mappen %@</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Lägg till %@ som utlösare</string>
+    <string>Lägg till %@ som trigger</string>
     <key>QSCommandExecuteAction</key>
     <string>Utför %@</string>
     <key>AppShowHideAction</key>
@@ -17,9 +17,9 @@
     <key>QSCommandSaveAction</key>
     <string>Spara %@ som fil</string>
     <key>PasteboardPasteActionAsPlainText</key>
-    <string>Klistra in %@ som oformaterad text</string>
+    <string>Klistra in %@ som ren text</string>
     <key>QSCreateFileTemplate</key>
-    <string>In Folder %@ Create a new Template File %@</string>
+    <string>I mappen %@ skapa en ny</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Utför %@ efter fördröjning</string>
     <key>AppActivateAction</key>
@@ -63,9 +63,9 @@
     <key>FileCopyToAction</key>
     <string>Kopiera %@ till %@</string>
     <key>FileDecompressAction</key>
-    <string>Packa upp %@</string>
+    <string>Expandera %@</string>
     <key>FileDeleteAction</key>
-    <string>Ta bort %@</string>
+    <string>Radera %@</string>
     <key>FileGetHFSPathAction</key>
     <string>Hämta HFS-sökväg för %@</string>
     <key>FileGetInfoAction</key>
@@ -76,22 +76,24 @@
     <string>Hämta absolut sökväg för %@</string>
     <key>FileGetURLAction</key>
     <string>Hämta file://-URL för %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Skapa alias av %@ i %#</string>
+    <string>Skapa alias av %1$@ i %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Skapa hård länk till %@ i %#</string>
+    <string>Skapa hård länk till %1$@ i %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Skapa länk till %@ i %#</string>
+    <string>Skapa länk till %1$@ i %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Flytta %@ till %#</string>
+    <string>Flytta %1$@ till %2$@</string>
     <key>FileOpenAction</key>
     <string>Öppna %@</string>
     <key>FileOpenWithAction</key>
-    <string>Öppna %@ med %#</string>
+    <string>Öppna %1$@ med %2$@</string>
     <key>FileRenameAction</key>
-    <string>Byt namn från %@ till %#</string>
+    <string>Byt namn från %1$@ till %2$@</string>
     <key>FileRevealAction</key>
-    <string>Avslöja %@</string>
+    <string>Visa</string>
     <key>FileToTrashAction</key>
     <string>Flytta %@ till papperskorgen</string>
     <key>ItemSendToContactEmailAction</key>
@@ -112,6 +114,8 @@
     <string>Återuppta %@</string>
     <key>ProcessSuspendAction</key>
     <string>Avbryt %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Lägg till %@ i katalogen</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Skanna %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -131,9 +135,9 @@
     <key>QSObjCSendMessageAction</key>
     <string>Utför %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Sätt etikett för %@ till %#</string>
+    <string>Sätt etikett för %1$@ till %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Sätt påminnelse för %@ till %#</string>
+    <string>Sätt mnemonic för %1$@ till %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Utelämna %@ från katalog</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Spela %@</string>
     <key>QSTextDiffAction</key>
-    <string>Differentiera %@ och %#</string>
+    <string>Differentiera %1$@ och %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Visa dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

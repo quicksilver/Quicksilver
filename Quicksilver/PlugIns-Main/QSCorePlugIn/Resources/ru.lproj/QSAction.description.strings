@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Перезапустить приложение</string>
     <key>AppShowHideAction</key>
-    <string>Переключить видимость приложения</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Показать большими буквами</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Проиграть музыку из плейлиста</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Проиграть композицию в iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Выполнить шеллскрипт</string>
     <key>ShellScriptRunAction</key>
     <string>Выполнить шеллскрипт</string>
     <key>URLFindWithAction</key>

@@ -19,7 +19,7 @@
     <key>AppQuitAction</key>
     <string>Avsluta</string>
     <key>AppRelaunchAction</key>
-    <string>Starta på nytt</string>
+    <string>Starta om</string>
     <key>AppReopenAction</key>
     <string>Öppna</string>
     <key>AppRootLaunchAction</key>
@@ -59,9 +59,9 @@
     <key>FileDecompressAction</key>
     <string>Packa upp</string>
     <key>FileDeleteAction</key>
-    <string>Ta bort (radera)</string>
+    <string>Radera (permanent)</string>
     <key>FileGetInfoAction</key>
-    <string>Hämta info</string>
+    <string>Visa info</string>
     <key>FileGetPathAction</key>
     <string>Hämta sökväg</string>
     <key>FileGetPosixPathAction</key>
@@ -69,7 +69,7 @@
     <key>FileGetURLAction</key>
     <string>Hämta fil-URL</string>
     <key>FileGetHFSPathAction</key>
-    <string>Hämta fil-plats</string>
+    <string>Visa plats för fil</string>
     <key>FileMakeAliasInAction</key>
     <string>Skapa alias i...</string>
     <key>FileMakeHardLinkInAction</key>
@@ -101,7 +101,7 @@
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Klistra in som oformaterad text</string>
     <key>ProcessKillAction</key>
-    <string>Tvångsavsluta (stäng)</string>
+    <string>Tvångsavsluta (Kill)</string>
     <key>ProcessLowerPriorityAction</key>
     <string>Sänk prioritet</string>
     <key>ProcessRaisePriorityAction</key>
@@ -121,9 +121,9 @@
     <key>QSCLExecuteAction</key>
     <string>Kör</string>
     <key>QSCLExecuteTextAction</key>
-    <string>Kör kommando i skal</string>
+    <string>Kör kommando i shell</string>
     <key>QSCLExecuteShellCommandAction</key>
-    <string>Kör kommando i skal</string>
+    <string>Kör kommando i shell</string>
     <key>QSCLExecuteWithArgsAction</key>
     <string>Kör [...]</string>
     <key>QSCLTermExecuteTextAction</key>
@@ -133,37 +133,39 @@
     <key>QSCLTermExecuteWithArgsAction</key>
     <string>Kör i Terminal [...]</string>
     <key>QSCLTermShowDirectoryAction</key>
-    <string>Gå till mapp i Terminal</string>
+    <string>Gå till katalog i Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Visa manualsida</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Lägg till i katalog</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Skanna katalogpost</string>
+    <string>Skanna om katalogpost</string>
     <key>QSCatalogEntryShowAction</key>
     <string>Visa post i katalog</string>
     <key>QSCommandSaveAction</key>
     <string>Spara kommando till fil...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Lägg till utlösare</string>
+    <string>Lägg till trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Kör</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Kör efter fördröjning...</string>
     <key>QSComposeEmailItemAction</key>
-    <string>E-posta objekt... (komponera)</string>
+    <string>E-posta objekt... (skriv)</string>
     <key>QSCommandExecuteAtTimeAction</key>
     <string>Kör vid tidpunkt...</string>
     <key>QSComposeEmailItemReverseAction</key>
-    <string>E-posta till (komponera)</string>
+    <string>E-posta till (skriv)</string>
     <key>QSCreateFileAction</key>
     <string>Skapa fil [...]</string>
     <key>QSCreateFileTemplate</key>
-    <string>Skapa ny...∂</string>
+    <string>Skapa ny...</string>
     <key>QSDialNumberAction</key>
     <string>Ring</string>
     <key>QSEditAction</key>
-    <string>Redigera∂</string>
+    <string>Redigera</string>
     <key>QSEmailAction</key>
-    <string>E-post</string>
+    <string>E-posta</string>
     <key>QSEmailItemAction</key>
     <string>E-posta objekt... (skicka)</string>
     <key>QSEmailItemReverseAction</key>
@@ -191,7 +193,7 @@
     <key>QSObjCSendMessageAction</key>
     <string>Kör</string>
     <key>QSObjectSearchChildrenAction</key>
-    <string>Sökresultat</string>
+    <string>Sök i resultat</string>
     <key>QSObjectShowChildMenu</key>
     <string>Visa innehållsmeny</string>
     <key>QSObjectShowMenu</key>

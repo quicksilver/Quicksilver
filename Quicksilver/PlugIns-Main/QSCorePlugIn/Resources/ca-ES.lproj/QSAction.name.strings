@@ -136,6 +136,8 @@
     <string>Vés al directori en el Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Mostrar la pàgina del Man(ual)</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Tornar a reexaminar l&apos;entrada del catàleg</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Desar comandament en un fitxer…</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Afegir disparador</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Executar</string>
     <key>QSCommandExecuteAfterDelayAction</key>

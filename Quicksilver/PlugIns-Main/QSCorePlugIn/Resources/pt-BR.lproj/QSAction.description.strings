@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Reabre um aplicativo</string>
     <key>AppShowHideAction</key>
-    <string>Toggile Application visibility</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Show Text as Large Type</string>
     <key>AppleScriptRunTextAction</key>
@@ -61,11 +61,11 @@
     <key>QSObjectAssignMnemonic</key>
     <string>Assign a Search Abbreviation for the Item</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>Execute an AppleScript with File</string>
+    <string>Executa um AppleScript com Arquivo</string>
     <key>QSCatalogEntryShowAction</key>
-    <string>Show Catalog Entry in Catalog Preferences</string>
+    <string>Mostra Item do Catálogo nas Preferências de Catálogo</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Show Source of Item in Catalog Preferences</string>
+    <string>Mostra Fonte do Item nas Preferências de Catálogo</string>
     <key>QSCreateFileTemplate</key>
     <string>Create a New File from a Template</string>
     <key>QSCommandExecuteAfterDelayAction</key>
@@ -73,15 +73,15 @@
     <key>FileMakeAliasInAction</key>
     <string>Make a new Alias in a Folder</string>
     <key>QSNewFolderAction</key>
-    <string>Create a New Folder with a Name</string>
+    <string>Criar uma nova pasta com o nome</string>
     <key>URLOpenWithAction</key>
     <string>Open URL with an alternative Application</string>
     <key>FileGetURLAction</key>
     <string>Get file:// type URL for File</string>
     <key>QSObjectShowActionMenu</key>
-    <string>Show Menu of available Actions</string>
+    <string>Mostrar menu de ações disponivéis </string>
     <key>AppQuitOthersAction</key>
-    <string>Quit all other Applications</string>
+    <string>Fecha todos outras aplicações</string>
     <key>URLEmailAction</key>
     <string>Escreva um E-mail usando mailto:</string>
     <key>AppleScriptProcessTextAction</key>
@@ -159,7 +159,7 @@
     <key>ProcessSuspendAction</key>
     <string>Suspende um processo que está sendo executado</string>
     <key>QSCreateFileAction</key>
-    <string>Create new file with text [... in folder]</string>
+    <string>Criar nova arquivo com texto [... na pasta]</string>
     <key>QSDialNumberAction</key>
     <string>Disca um número</string>
     <key>QSEditAction</key>
@@ -170,8 +170,6 @@
     <string>Toca música de uma Playlist do iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Toca uma música do iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Executa um Script Shell</string>
     <key>ShellScriptRunAction</key>
     <string>Executa um Script Shell</string>
     <key>URLFindWithAction</key>

@@ -76,20 +76,22 @@
     <string>Absoluten Pfad von %@ anzeigen</string>
     <key>FileGetURLAction</key>
     <string>Zeige file://-URL von %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Erzeuge Alias von %@ in %#</string>
+    <string>Erzeuge Alias von %1$@ in %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Erzeuge Hardlink von %@ in %#</string>
+    <string>Erzeuge Hardlink von %1$@ in %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Erzeuge Link von %@ in %#</string>
+    <string>Erzeuge Link von %1$@ in %2$@</string>
     <key>FileMoveToAction</key>
-    <string>%@ nach %# verschieben</string>
+    <string>%1$@ nach %2$@ verschieben</string>
     <key>FileOpenAction</key>
     <string>%@ öffnen</string>
     <key>FileOpenWithAction</key>
-    <string>Öffne %@ mit %#</string>
+    <string>Öffne %1$@ mit %2$@</string>
     <key>FileRenameAction</key>
-    <string>%@ in %# umbenennen</string>
+    <string>%1$@ in %2$@ umbenennen</string>
     <key>FileRevealAction</key>
     <string>Zeige %@ im Finder</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>%@ wiederaufnehmen</string>
     <key>ProcessSuspendAction</key>
     <string>%@ aussetzen</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>%@ erneut einlesen</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>%@ aus Anmeldeobjekten entfernen</string>
     <key>QSNewFolderAction</key>
-    <string>Erzeuge neuen Ordner %# in %@</string>
+    <string>Erzeuge neuen Ordner %2$@ in %1$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Ausführen von %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Setze Etikett von %@ zu %#</string>
+    <string>Setze Etikett von %1$@ zu %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Ändert die Merkhilfe von %@ zu %#</string>
+    <string>Ändert die Merkhilfe von %1$@ zu %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>%@ aus Katalog entfernen</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Spiele %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diff von %@ und %#</string>
+    <string>Diff von %1$@ und %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Zeige Dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

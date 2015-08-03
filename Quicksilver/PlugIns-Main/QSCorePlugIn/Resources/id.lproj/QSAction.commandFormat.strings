@@ -76,20 +76,22 @@
     <string>Dapatkan alamat mutlak dari %@</string>
     <key>FileGetURLAction</key>
     <string>Dapatkan alamat URL file:// dari %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Buat alias dari %@ di %#</string>
+    <string>Buat alias dari %1$@ di %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Buat tautan keras untuk %@ di %# </string>
+    <string>Buat tautan keras untuk %1$@ di %2$@ </string>
     <key>FileMakeLinkInAction</key>
-    <string>Buat tautan untuk %@ di %#</string>
+    <string>Buat tautan untuk %1$@ di %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Pindahkan %@ ke %#</string>
+    <string>Pindahkan %1$@ ke %2$@</string>
     <key>FileOpenAction</key>
     <string>Buka %@</string>
     <key>FileOpenWithAction</key>
-    <string>Buka %@ dengan %#</string>
+    <string>Buka %1$@ dengan %2$@</string>
     <key>FileRenameAction</key>
-    <string>Ubah nama %@ menjadi %#</string>
+    <string>Ubah nama %1$@ menjadi %2$@</string>
     <key>FileRevealAction</key>
     <string>Tampilkan %@</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>Lanjutkan %@</string>
     <key>ProcessSuspendAction</key>
     <string>Tunda %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Pindai ulang %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Buang %@ dari butir-butir login</string>
     <key>QSNewFolderAction</key>
-    <string>Buat folder baru di %@ bernama %#</string>
+    <string>Buat folder baru di %1$@ bernama %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Jalankan %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Pasang label dari %@ dengan %#</string>
+    <string>Pasang label dari %1$@ dengan %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Pasang mnemonic dari %@ dengan %#</string>
+    <string>Pasang mnemonic dari %1$@ dengan %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Abaikan %@ dari katalog</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Mainkan %@</string>
     <key>QSTextDiffAction</key>
-    <string>Tampilkan Diff dari %@ dan %#</string>
+    <string>Tampilkan Diff dari %1$@ dan %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Tampilkan kotak dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

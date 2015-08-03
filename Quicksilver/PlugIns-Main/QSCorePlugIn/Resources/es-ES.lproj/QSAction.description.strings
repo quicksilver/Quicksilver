@@ -23,7 +23,7 @@
     <key>FileDeleteAction</key>
     <string>Borrar un archivo permanentemente (no se envía a la papelera)</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Agregar un Gatillo para un comando de Quicksilver</string>
+    <string>Agregar un disparador para un comando de Quicksilver</string>
     <key>QSObjectShowChildMenu</key>
     <string>Mostrar un menú enseñando los derivados de un artículo</string>
     <key>QSCommandExecuteAction</key>
@@ -170,8 +170,6 @@
     <string>Reproduce música de una Lista de Reproducción de iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Reproduce una pista de iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Ejecutar un shell script</string>
     <key>ShellScriptRunAction</key>
     <string>Ejecuta Script de Shell</string>
     <key>URLFindWithAction</key>

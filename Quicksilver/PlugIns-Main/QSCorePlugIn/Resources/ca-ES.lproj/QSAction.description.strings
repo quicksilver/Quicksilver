@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Reiniciar l&apos;aplicació</string>
     <key>AppShowHideAction</key>
-    <string>Canviar la visibilitat de l&apos;aplicació</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Mostrar text com a tipografia ampliada</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Reproduir música a partir d&apos;una llista de reproducció d&apos;iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Reprodueix una pista d&apos;iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Executar un script de línia de comandaments</string>
     <key>ShellScriptRunAction</key>
     <string>Executar un script de linea de comandaments</string>
     <key>URLFindWithAction</key>

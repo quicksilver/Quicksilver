@@ -76,20 +76,22 @@
     <string>取得 %@ 的絕對路徑</string>
     <key>FileGetURLAction</key>
     <string>取得 %@ 的 file:// 網址</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>製作 %@ 的替身於 %#</string>
+    <string>製作 %1$@ 的替身於 %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>製作 %@ 的永久連結於 %#</string>
+    <string>製作 %1$@ 的永久連結於 %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>製作 %@ 的連結於 %#</string>
+    <string>製作 %1$@ 的連結於 %2$@</string>
     <key>FileMoveToAction</key>
-    <string>移動 %@ 至 %#</string>
+    <string>移動 %1$@ 至 %2$@</string>
     <key>FileOpenAction</key>
     <string>開啟 %@</string>
     <key>FileOpenWithAction</key>
-    <string>以 %# 開啟 %@</string>
+    <string>以 %2$@ 開啟 %1$@</string>
     <key>FileRenameAction</key>
-    <string>重新命名 %@ 為 %#</string>
+    <string>重新命名 %1$@ 為 %2$@</string>
     <key>FileRevealAction</key>
     <string>顯示 %@</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>恢復 %@</string>
     <key>ProcessSuspendAction</key>
     <string>暫停 %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>重新掃描 %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>從登入啟動項目中移除 %@</string>
     <key>QSNewFolderAction</key>
-    <string>在 %@ 中製作新資料夾 %#</string>
+    <string>在 %1$@ 中製作新資料夾 %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>執行 %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>將 %@ 的標籤設為 %#</string>
+    <string>將 %1$@ 的標籤設為 %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>將 %@ 的助記符設為 %#</string>
+    <string>將 %1$@ 的助記符設為 %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>從目錄中忽略 %@</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>播放 %@</string>
     <key>QSTextDiffAction</key>
-    <string>區別 %@ 與 %#</string>
+    <string>區別 %1$@ 與 %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>顯示對話：&quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

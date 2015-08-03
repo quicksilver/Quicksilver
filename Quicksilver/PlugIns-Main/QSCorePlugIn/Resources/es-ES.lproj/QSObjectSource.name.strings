@@ -40,5 +40,7 @@
     <string>Mensajes Objective-C</string>
     <key>QSProxyObjectSource</key>
     <string>Proxies</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Sinónimo</string>
   </dict>
 </plist>

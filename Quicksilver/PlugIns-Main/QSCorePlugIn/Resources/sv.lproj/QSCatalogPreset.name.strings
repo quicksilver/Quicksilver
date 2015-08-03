@@ -35,9 +35,9 @@
     <key>QSPresetBuffers</key>
     <string>Buffertinnehåll</string>
     <key>QSPresetCaminoBookmarks</key>
-    <string>Caminos bokmärken</string>
+    <string>Camino-bokmärken</string>
     <key>QSPresetClassicApplications</key>
-    <string>Applications (Mac OS 9)</string>
+    <string>Program (Mac OS 9)</string>
     <key>QSPresetClipboardContents</key>
     <string>Urklippsinnehåll</string>
     <key>QSPresetCommandHistory</key>
@@ -87,11 +87,11 @@
     <key>QSPresetDevices</key>
     <string>Enheter</string>
     <key>QSPresetDockApplications</key>
-    <string>Dock-program</string>
+    <string>Program i Dock</string>
     <key>QSPresetDockGroup</key>
     <string>Dock</string>
     <key>QSPresetDockOthers</key>
-    <string>Dockfiler och mappar</string>
+    <string>Filer och mappar i Dock</string>
     <key>QSPresetFavorites</key>
     <string>Favoriter</string>
     <key>QSPresetFinderGroup</key>
@@ -100,6 +100,8 @@
     <string>Senaste mappar (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finderspecifika sökvägar</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Objekt i Finders verktygsfält</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox-bokmärken</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -107,7 +109,7 @@
     <key>QSPresetHome</key>
     <string>Hem</string>
     <key>QSPresetICabBookmarks</key>
-    <string>iCabs bokmärken</string>
+    <string>iCab-bokmärken</string>
     <key>QSPresetInternalMessages</key>
     <string>Interna kommandon</string>
     <key>QSPresetInternalObjects</key>
@@ -137,33 +139,33 @@
     <key>QSPresetMiscellaneousGroup</key>
     <string>Övrigt</string>
     <key>QSPresetModules</key>
-    <string>Insticksprogram</string>
+    <string>Insticksfiler</string>
     <key>QSPresetMozillaBookmarks</key>
-    <string>Mozillas bokmärken</string>
+    <string>Mozilla-bokmärken</string>
     <key>QSPresetNNWSubscriptions</key>
     <string>NetNewsWire-prenumerationer</string>
     <key>QSPresetNUDCContacts</key>
     <string>Now Contact</string>
     <key>QSPresetNetscapeBookmarks</key>
-    <string>Netscapes bokmärken</string>
+    <string>Netscape-bokmärken</string>
     <key>QSPresetNetworkLocations</key>
     <string>Nätverksplatser</string>
     <key>QSPresetOldCaminoBookmarks</key>
-    <string>Caminos bokmärlen (gamla)</string>
+    <string>Camino-bokmärken (gamla)</string>
     <key>QSPresetOmniWebBookmarks</key>
-    <string>OmniWebs bokmärken</string>
+    <string>OmniWeb-bokmärken</string>
     <key>QSPresetOmniWebFavorites</key>
-    <string>OmniWebs favoriter</string>
+    <string>OmniWeb-favoriter</string>
     <key>QSPresetOmniWebGroup</key>
     <string>OmniWeb</string>
     <key>QSPresetOmniWebHistory</key>
-    <string>OmniWebs historik</string>
+    <string>OmniWeb-historik</string>
     <key>QSPresetOmniWebServerBookmarks</key>
-    <string>OmniWebs bokmärken (server)</string>
+    <string>OmniWeb-bokmärken (server)</string>
     <key>QSPresetOmniWebShortcuts</key>
-    <string>OmniWebs genvägar</string>
+    <string>OmniWeb-genvägar</string>
     <key>QSPresetOperaBookmarks</key>
-    <string>Operas bokmärken</string>
+    <string>Opera-bokmärken</string>
     <key>QSPresetPathFinderGroup</key>
     <string>Path Finder</string>
     <key>QSPresetPathFinderRecentFiles</key>
@@ -177,7 +179,7 @@
     <key>QSPresetPrinters</key>
     <string>Skrivare</string>
     <key>QSPresetQSCatalogEntries</key>
-    <string>Katalogposter för Quicksilver</string>
+    <string>Quicksilver-katalogposter</string>
     <key>QSPresetQSDefaultLinks</key>
     <string>Ursprungliga URL:er</string>
     <key>QSPresetQSExtraScripts</key>
@@ -191,7 +193,7 @@
     <key>QSPresetRecentItems</key>
     <string>Senaste objekt</string>
     <key>QSPresetRecentSelections</key>
-    <string>Senaste val</string>
+    <string>Senaste markering</string>
     <key>QSPresetRecentServers</key>
     <string>Senaste servrar</string>
     <key>QSPresetFavoriteServers</key>
@@ -205,11 +207,11 @@
     <key>QSPresetRunningProcesses</key>
     <string>Aktiva program och processer</string>
     <key>QSPresetSafariBookmarks</key>
-    <string>Safaris bokmärken</string>
+    <string>Safari-bokmärken</string>
     <key>QSPresetSafariGroup</key>
     <string>Safari</string>
     <key>QSPresetSafariHistory</key>
-    <string>Safaris historik</string>
+    <string>Safari-historik</string>
     <key>QSPresetScriptsGroup</key>
     <string>Skript</string>
     <key>QSPresetShelves</key>
@@ -217,9 +219,9 @@
     <key>QSPresetSidebarItems</key>
     <string>Finders sidofält</string>
     <key>QSPresetSogudiShortcuts</key>
-    <string>Sogudis genvägar</string>
+    <string>Sogudi-genvägar</string>
     <key>QSPresetSpeakableItems</key>
-    <string>Speakable Items</string>
+    <string>Talbara objekt</string>
     <key>QSPresetSpecial</key>
     <string>Special</string>
     <key>QSPresetSystemGroup</key>
@@ -251,6 +253,6 @@
     <key>QSPresetiTunesScripts</key>
     <string>iTunes-skript</string>
     <key>QSPresetRemovableVolumes</key>
-    <string>Nätverk och borttagningsbara skivor</string>
+    <string>Nätverk och borttagbara skivor</string>
   </dict>
 </plist>

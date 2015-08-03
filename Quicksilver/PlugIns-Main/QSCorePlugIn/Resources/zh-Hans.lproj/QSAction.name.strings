@@ -136,6 +136,8 @@
     <string>在终端中进入目录</string>
     <key>QSCLTermShowManPageAction</key>
     <string>显示手册页面</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>重新扫描类别条目</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>保存命令到文件...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>添加触发器</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>运行</string>
     <key>QSCommandExecuteAfterDelayAction</key>

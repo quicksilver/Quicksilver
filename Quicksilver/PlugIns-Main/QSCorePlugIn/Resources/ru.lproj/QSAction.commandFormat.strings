@@ -76,20 +76,22 @@
     <string>Получить абсолютный путь %@</string>
     <key>FileGetURLAction</key>
     <string>Получить file:// URL %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Создать псевдоним %@ в %#</string>
+    <string>Создать псевдоним %1$@ в %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Создать жесткую ссылку %@ в %#</string>
+    <string>Создать жесткую ссылку %1$@ в %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Создать ссылку на %@ в %#</string>
+    <string>Создать ссылку на %1$@ в %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Переместить %@ в %#</string>
+    <string>Переместить %1$@ в %2$@</string>
     <key>FileOpenAction</key>
     <string>Открыть %@</string>
     <key>FileOpenWithAction</key>
-    <string>Открыть %@ в %#</string>
+    <string>Открыть %1$@ в %2$@</string>
     <key>FileRenameAction</key>
-    <string>Переименовать %@ в %#</string>
+    <string>Переименовать %1$@ в %2$@</string>
     <key>FileRevealAction</key>
     <string>Показать размещение %@</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>Продолжить %@</string>
     <key>ProcessSuspendAction</key>
     <string>Приостановить %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Пересканировать %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Убрать %@ из элементов входа</string>
     <key>QSNewFolderAction</key>
-    <string>Создать в %@ папку %#</string>
+    <string>Создать в %1$@ папку %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Исполнить %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Установить на %@ метку %#</string>
+    <string>Установить на %1$@ метку %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Установить %# как мнемонику %@</string>
+    <string>Установить %2$@ как мнемонику %1$@</string>
     <key>QSObjectOmitAction</key>
     <string>Убрать %@ из каталога</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Проиграть %@</string>
     <key>QSTextDiffAction</key>
-    <string>Разница между %@ и %#</string>
+    <string>Разница между %1$@ и %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Показать сообщение &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

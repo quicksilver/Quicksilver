@@ -76,20 +76,22 @@
     <string>Pega o caminho absoluto de %@</string>
     <key>FileGetURLAction</key>
     <string>Pega file:// URL de %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Faça apelido de %@ em %#</string>
+    <string>Faça apelido de %1$@ em %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Faça um link manual para %@ em %#</string>
+    <string>Faça um link manual para %1$@ em %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Faça link para %@ em %#</string>
+    <string>Faça link para %1$@ em %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Move %@ para %#</string>
+    <string>Move %1$@ para %2$@</string>
     <key>FileOpenAction</key>
     <string>Abre %@</string>
     <key>FileOpenWithAction</key>
-    <string>Abre %@ com %#</string>
+    <string>Abre %1$@ com %2$@</string>
     <key>FileRenameAction</key>
-    <string>Renomeia %@ para %#</string>
+    <string>Renomeia %1$@ para %2$@</string>
     <key>FileRevealAction</key>
     <string>Revela %@</string>
     <key>FileToTrashAction</key>
@@ -112,6 +114,8 @@
     <string>Retorna %@</string>
     <key>ProcessSuspendAction</key>
     <string>Suspende %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Adicionar  %@ para o Catalógo</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Fazer nova varredura de %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -123,17 +127,17 @@
     <key>QSLargeTypeAction</key>
     <string>Mostrar &quot;%@&quot; em fonte grande</string>
     <key>QSLoginItemAddAction</key>
-    <string>Add %@ to login items</string>
+    <string>Adiciona %@ aos itens de login</string>
     <key>QSLoginItemRemoveAction</key>
     <string>Retira %@ de itens de login</string>
     <key>QSNewFolderAction</key>
-    <string>Criar uma nova pasta em %@ chamada %#</string>
+    <string>Criar uma nova pasta em %1$@ chamada %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Executa %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Ajusta etiqueta de %@ para %#</string>
+    <string>Ajusta etiqueta de %1$@ para %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Set mnemonic of %@ to %#</string>
+    <string>Ajusta mnemônica de %1$@ para %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ do catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Tocar %@</string>
     <key>QSTextDiffAction</key>
-    <string>Dieferenças entre %@ e %#</string>
+    <string>Dieferenças entre %1$@ e %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Mostra diálogo: &quot;#@&quot;</string>
     <key>QSTextSpeakAction</key>
@@ -175,7 +179,7 @@
     <key>URLJSAction</key>
     <string>Executa %@</string>
     <key>URLOpenAction</key>
-    <string>Open %@</string>
+    <string>Abre %@</string>
     <key>URLOpenActionInBackground</key>
     <string>Abre %@ em plano de fundo</string>
     <key>URLOpenWithAction</key>

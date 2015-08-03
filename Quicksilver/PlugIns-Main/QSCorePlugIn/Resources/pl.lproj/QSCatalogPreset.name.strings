@@ -100,12 +100,14 @@
     <string>Ostatnie katalogi (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Typowe miejsca wyszukiwania Findera</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Rzeczy z paska narzędzi Findera</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Zakładki Firefoxa</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
     <string>Ostatnie katalogi (Otwierane i zapisywane)</string>
     <key>QSPresetHome</key>
-    <string>Home</string>
+    <string>Katalog domowy</string>
     <key>QSPresetICabBookmarks</key>
     <string>Zakładki iCab</string>
     <key>QSPresetInternalMessages</key>
@@ -143,7 +145,7 @@
     <key>QSPresetNNWSubscriptions</key>
     <string>Subskrypcje NetNewsWire</string>
     <key>QSPresetNUDCContacts</key>
-    <string>Now Contact</string>
+    <string>Nowy kontakt</string>
     <key>QSPresetNetscapeBookmarks</key>
     <string>Zakładki Netscape&apos;a</string>
     <key>QSPresetNetworkLocations</key>
@@ -219,7 +221,7 @@
     <key>QSPresetSogudiShortcuts</key>
     <string>Skróty Sogudi</string>
     <key>QSPresetSpeakableItems</key>
-    <string>Speakable Items</string>
+    <string>Wymawialne elementy</string>
     <key>QSPresetSpecial</key>
     <string>Specjalne</string>
     <key>QSPresetSystemGroup</key>

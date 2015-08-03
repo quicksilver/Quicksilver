@@ -40,5 +40,7 @@
     <string>Pesan-pesan Objective-C</string>
     <key>QSProxyObjectSource</key>
     <string>Proksi</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonym</string>
   </dict>
 </plist>

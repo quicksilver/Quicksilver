@@ -39,6 +39,8 @@
     <key>QSObjCMessageSource</key>
     <string>Objective C-meddelanden</string>
     <key>QSProxyObjectSource</key>
-    <string>Mellanhänder</string>
+    <string>Proxies</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonym</string>
   </dict>
 </plist>

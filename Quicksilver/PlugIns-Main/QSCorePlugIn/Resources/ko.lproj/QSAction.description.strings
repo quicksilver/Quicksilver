@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>응용 프로그램을 다시 실행합니다.</string>
     <key>AppShowHideAction</key>
-    <string>응용 프로그램의 숨김 여부를 변경합니다.</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>큰 글자로 화면에 보여줍니다.</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>iTunes 재생 목록에서 음악 재생</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>iTunes 트랙을 재생합니다.</string>
-    <key>QSShellScriptRunAction</key>
-    <string>명령 쉘 스크립트를 실행합니다.</string>
     <key>ShellScriptRunAction</key>
     <string>명령 쉘 스크립트 실행합니다.</string>
     <key>URLFindWithAction</key>
