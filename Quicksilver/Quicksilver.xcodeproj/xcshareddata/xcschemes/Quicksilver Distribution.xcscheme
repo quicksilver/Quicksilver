@@ -26,7 +26,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -42,16 +42,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "66D11C6315022A75002EE6E5"
-               BuildableName = "QSEffectsTests.octest"
-               BlueprintName = "QSEffectsTests"
-               ReferencedContainer = "container:Quicksilver.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "66448D9514F42790000FA2E2"
                BuildableName = "QSFoundationTests.xctest"
                BlueprintName = "QSFoundationTests"
@@ -59,12 +49,12 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "66D11C8A15022B08002EE6E5"
-               BuildableName = "QSInterfaceTests.octest"
-               BlueprintName = "QSInterfaceTests"
+               BlueprintIdentifier = "CD61BBB7192B18FA00040609"
+               BuildableName = "Quicksilver Tests.xctest"
+               BlueprintName = "Quicksilver Tests"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -72,9 +62,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD61BBB7192B18FA00040609"
-               BuildableName = "Quicksilver Tests.xctest"
-               BlueprintName = "Quicksilver Tests"
+               BlueprintIdentifier = "CD29AEAA195663770052C893"
+               BuildableName = "Core Support Tests.xctest"
+               BlueprintName = "Core Support Tests"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -98,7 +88,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
@@ -128,7 +119,8 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"

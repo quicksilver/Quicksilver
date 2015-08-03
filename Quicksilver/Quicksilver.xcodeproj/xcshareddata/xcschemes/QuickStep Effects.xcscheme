@@ -28,17 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "66D11C6315022A75002EE6E5"
-               BuildableName = "QSEffectsTests.octest"
-               BlueprintName = "QSEffectsTests"
-               ReferencedContainer = "container:Quicksilver.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E1E5F9B107B1FD100044D6EF"
+            BuildableName = "QSEffects.framework"
+            BlueprintName = "QuickStep Effects"
+            ReferencedContainer = "container:Quicksilver.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -67,6 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E1E5F9B107B1FD100044D6EF"
+            BuildableName = "QSEffects.framework"
+            BlueprintName = "QuickStep Effects"
+            ReferencedContainer = "container:Quicksilver.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

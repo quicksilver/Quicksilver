@@ -1,7 +1,15 @@
 #!/bin/zsh
 
-## Quicksilver Release build
+## test
+if ! which xctool &> /dev/null
+then
+    echo "Tests require xctool (available via Homebrew)"
+    exit 78
+fi
+xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver Distribution" test
+xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver" -configuration Debug test
 
+## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' -showBuildSettings | sort -u > $SETTINGS
