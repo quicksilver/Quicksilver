@@ -302,9 +302,10 @@
         QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] firstEntryContainingObject:self];
         NSString *entryName = [theEntry name];
         if (!entryName) {
-            entryName = @"Unknown Source";
+            entryName = NSLocalizedString(@"Unknown Source", @"The entry that created this object is unknown");
         }
-        stringValue = [NSString stringWithFormat:@"Unnamed Item from %@", entryName];
+        NSString *localizedStringFormat = NSLocalizedString(@"Unnamed Item from %@", @"Unable to dtermine a name for this object");
+        stringValue = [NSString stringWithFormat:localizedStringFormat, entryName];
     }
     return stringValue;
 }
