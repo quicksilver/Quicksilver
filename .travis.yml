@@ -1,4 +1,3 @@
 language: objective-c
-script: ./.travis_test.sh
-notifications:
-  email: false
+xcode_project: Quicksilver/Quicksilver.xcodeproj # path to your xcodeproj folder
+xcode_scheme: "Quicksilver Distribution"
