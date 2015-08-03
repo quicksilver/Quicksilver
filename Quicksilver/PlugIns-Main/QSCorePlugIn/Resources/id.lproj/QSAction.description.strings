@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Jalankan ulang Aplikasi</string>
     <key>AppShowHideAction</key>
-    <string>Ubah visibilitas Aplikasi</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Tampilkan Teks sebagai Ukuran Besar</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Mainkan musik dari Playlist iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Mainkan sebuah track iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Jalankan sebuah Skrip Shell</string>
     <key>ShellScriptRunAction</key>
     <string>Jalankan Skrip Shell</string>
     <key>URLFindWithAction</key>

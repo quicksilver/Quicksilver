@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>重启程序</string>
     <key>AppShowHideAction</key>
-    <string>切换程序可见性</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>放大显示文本</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>从iTunes播放列表播放音乐</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>播放iTunes曲目</string>
-    <key>QSShellScriptRunAction</key>
-    <string>运行Shell脚本</string>
     <key>ShellScriptRunAction</key>
     <string>执行Shell脚本</string>
     <key>URLFindWithAction</key>

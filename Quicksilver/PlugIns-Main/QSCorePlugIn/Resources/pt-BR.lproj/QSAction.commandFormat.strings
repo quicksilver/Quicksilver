@@ -76,6 +76,8 @@
     <string>Pega o caminho absoluto de %@</string>
     <key>FileGetURLAction</key>
     <string>Pega file:// URL de %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Faça apelido de %@ em %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Retorna %@</string>
     <key>ProcessSuspendAction</key>
     <string>Suspende %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Adicionar  %@ para o Catalógo</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Fazer nova varredura de %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -123,7 +127,7 @@
     <key>QSLargeTypeAction</key>
     <string>Mostrar &quot;%@&quot; em fonte grande</string>
     <key>QSLoginItemAddAction</key>
-    <string>Add %@ to login items</string>
+    <string>Adiciona %@ aos itens de login</string>
     <key>QSLoginItemRemoveAction</key>
     <string>Retira %@ de itens de login</string>
     <key>QSNewFolderAction</key>
@@ -133,7 +137,7 @@
     <key>QSObjectAssignLabelAction</key>
     <string>Ajusta etiqueta de %@ para %#</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Set mnemonic of %@ to %#</string>
+    <string>Ajusta mnemônica de %@ para %#</string>
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ do catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -175,7 +179,7 @@
     <key>URLJSAction</key>
     <string>Executa %@</string>
     <key>URLOpenAction</key>
-    <string>Open %@</string>
+    <string>Abre %@</string>
     <key>URLOpenActionInBackground</key>
     <string>Abre %@ em plano de fundo</string>
     <key>URLOpenWithAction</key>

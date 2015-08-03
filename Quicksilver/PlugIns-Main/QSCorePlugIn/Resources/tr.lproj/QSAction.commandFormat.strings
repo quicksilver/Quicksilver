@@ -76,6 +76,8 @@
     <string>%@ öğesinin mutlak yörüngesini al</string>
     <key>FileGetURLAction</key>
     <string>%@ öğesinin file:// URL&apos;sini al</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>%@ öğesine %# içinde kısayol oluştur</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Sürdür: %@</string>
     <key>ProcessSuspendAction</key>
     <string>Beklet: %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>%@ öğesini Kataloğa ekle</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Yeniden tara: %@</string>
     <key>QSCatalogEntryShowAction</key>

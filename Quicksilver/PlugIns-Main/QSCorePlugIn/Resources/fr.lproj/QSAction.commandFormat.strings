@@ -76,6 +76,8 @@
     <string>Obtenir le chemin absolu de %@</string>
     <key>FileGetURLAction</key>
     <string>Obtenir l&apos;URL file:// de %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Créer un alias de %@ dans %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Reprendre %@</string>
     <key>ProcessSuspendAction</key>
     <string>Suspendre %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Ajouter %@ au Catalogue</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Rescanner %@</string>
     <key>QSCatalogEntryShowAction</key>

@@ -40,5 +40,7 @@
     <string>Objective-C 메시지</string>
     <key>QSProxyObjectSource</key>
     <string>프록시</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonym</string>
   </dict>
 </plist>

@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>QSCaminoBookmarksParser</key>
-    <string>Caminos bokmärken</string>
+    <string>Camino-bokmärken</string>
     <key>QSDirectoryParser</key>
     <string>Mappinnehåll</string>
     <key>QSHTMLLinkParser</key>
@@ -11,18 +11,18 @@
     <key>QSTextLineParser</key>
     <string>Textrader</string>
     <key>QSOldCaminoBookmarksParser</key>
-    <string>Caminos bokmärken (gamla)</string>
+    <string>Camino-bokmärken (gamla)</string>
     <key>QSOmniWebShortcutsParser</key>
-    <string>OmniWebs genvägar</string>
+    <string>OmniWeb-genvägar</string>
     <key>QSOperaBookmarksParser</key>
-    <string>Operas bokmärken</string>
+    <string>Opera-bokmärken</string>
     <key>QSPresetOmniWebHistoryParser</key>
-    <string>OmniWebs historik</string>
+    <string>OmniWeb-historik</string>
     <key>QSSafariBookmarksParser</key>
-    <string>Safaris bokmärken</string>
+    <string>Safari-bokmärken</string>
     <key>QSSafariHistoryParser</key>
-    <string>Safaris historik</string>
+    <string>Safari-historik</string>
     <key>QSSogudiLinkParser</key>
-    <string>Sogudis genvägar</string>
+    <string>Sogudi-genvägar</string>
   </dict>
 </plist>

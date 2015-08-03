@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Eine Anwendung neu starten</string>
     <key>AppShowHideAction</key>
-    <string>Die Sichtbarkeit der Anwendung umschalten (Anzeigen/Verstecken)</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Zeige Text in großer Schrift auf dem Bildschirm</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Spielt iTunes-Wiedergabeliste ab</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Spielt iTunes-Musikstück</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Führe Shell Skript aus</string>
     <key>ShellScriptRunAction</key>
     <string>Führt Shellskript-Programm aus</string>
     <key>URLFindWithAction</key>

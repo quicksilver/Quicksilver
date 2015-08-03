@@ -76,6 +76,8 @@
     <string>获取 %@ 的绝对路径</string>
     <key>FileGetURLAction</key>
     <string>获取 %@ 的 file:// 地址</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>在 %# 创建 %@ 的别名</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>恢复 %@</string>
     <key>ProcessSuspendAction</key>
     <string>挂起 %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>重新扫描 %@</string>
     <key>QSCatalogEntryShowAction</key>

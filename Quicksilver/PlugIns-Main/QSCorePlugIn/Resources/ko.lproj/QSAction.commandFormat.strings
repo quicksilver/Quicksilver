@@ -76,6 +76,8 @@
     <string>%@ 에 대한 절대 경로 가져오기</string>
     <key>FileGetURLAction</key>
     <string>%@ 에 대한 file:// URL 가져오기</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>%@ 의 가상본을 %# 에 만들기</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>%@ 재개</string>
     <key>ProcessSuspendAction</key>
     <string>%@ 일시 정지</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>%@ 다시 읽기</string>
     <key>QSCatalogEntryShowAction</key>

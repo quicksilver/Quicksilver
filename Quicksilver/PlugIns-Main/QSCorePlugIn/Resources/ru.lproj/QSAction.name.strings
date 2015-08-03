@@ -136,6 +136,8 @@
     <string>Перейти к папке в терминале</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Показать страницу справки MAN</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Пересканировать элемент каталога</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Сохранить команду в файл...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Добавить триггер</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Выполнить</string>
     <key>QSCommandExecuteAfterDelayAction</key>

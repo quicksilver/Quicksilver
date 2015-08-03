@@ -136,6 +136,8 @@
     <string>Pergi ke Direktori di Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Tampilkan Halaman Manual</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Pindah Ulang Entri Katalog</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Simpan Perintah ke Berkas...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Tambahkan Pemicu</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Jalankan</string>
     <key>QSCommandExecuteAfterDelayAction</key>

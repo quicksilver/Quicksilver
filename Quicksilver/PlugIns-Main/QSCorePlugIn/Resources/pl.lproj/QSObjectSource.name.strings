@@ -40,5 +40,7 @@
     <string>Wiadomości Objective-C</string>
     <key>QSProxyObjectSource</key>
     <string>Objekty Proxy</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Synonim</string>
   </dict>
 </plist>

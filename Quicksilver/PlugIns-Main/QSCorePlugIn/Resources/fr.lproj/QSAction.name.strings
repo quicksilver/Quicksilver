@@ -136,6 +136,8 @@
     <string>Aller au répertoire dans le Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Afficher la page du manuel</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Actualiser le catalogue</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Enregistrer la commande dans un fichier...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Ajouter un déclencheur</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Exécuter</string>
     <key>QSCommandExecuteAfterDelayAction</key>

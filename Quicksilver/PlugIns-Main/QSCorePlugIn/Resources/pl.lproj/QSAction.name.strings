@@ -136,6 +136,8 @@
     <string>Idź do katalogu w Terminalu</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Pokaż stronę główną</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Dodaj do katalogu</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Przeskanuj ponownie wpis w katalogu </string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Zapisz polecenie do pliku...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Dodaj wyzwalacz</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Uruchom</string>
     <key>QSCommandExecuteAfterDelayAction</key>

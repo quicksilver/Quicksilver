@@ -100,6 +100,8 @@
     <string>Последние папки (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Места поиска Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Элементы тулбара Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Закладки Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>

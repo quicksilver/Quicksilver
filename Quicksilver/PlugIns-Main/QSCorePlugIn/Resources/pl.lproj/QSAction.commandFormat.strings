@@ -75,7 +75,9 @@
     <key>FileGetPosixPathAction</key>
     <string>Uzyskaj pełną ścieżkę %@</string>
     <key>FileGetURLAction</key>
-    <string>Wyświetl adres URL file:// pliku %@</string>
+    <string>Wyświetl adres URL pliku %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Utwórz skrót %@ w %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Kontynuuj %@</string>
     <key>ProcessSuspendAction</key>
     <string>Zawieś %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Dodaj %@ do Katalogu</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Ponownie zeskanuj %@</string>
     <key>QSCatalogEntryShowAction</key>

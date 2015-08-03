@@ -136,6 +136,8 @@
     <string>Přejít do složky v Terminálu</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Zobrazit Man stránky</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Přidat do katalogu</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Znovu načíst záznam v katalogu</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Uložit příkazy do souboru…</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Přidat spouštěč</string>
+    <string>Přidat spouštěč…</string>
     <key>QSCommandExecuteAction</key>
     <string>Spustit</string>
     <key>QSCommandExecuteAfterDelayAction</key>

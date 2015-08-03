@@ -40,5 +40,7 @@
     <string>Objective-C İletileri</string>
     <key>QSProxyObjectSource</key>
     <string>Vekil Sunucular/Proxy</string>
+    <key>QSUserDefinedProxySource</key>
+    <string>Eşanlamlı</string>
   </dict>
 </plist>

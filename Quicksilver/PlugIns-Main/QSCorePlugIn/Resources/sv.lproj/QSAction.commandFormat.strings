@@ -7,7 +7,7 @@
     <key>QSCreateFileAction</key>
     <string>Skapa en ny fil som innehåller %@ i mappen %@</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Lägg till %@ som utlösare</string>
+    <string>Lägg till %@ som trigger</string>
     <key>QSCommandExecuteAction</key>
     <string>Utför %@</string>
     <key>AppShowHideAction</key>
@@ -17,9 +17,9 @@
     <key>QSCommandSaveAction</key>
     <string>Spara %@ som fil</string>
     <key>PasteboardPasteActionAsPlainText</key>
-    <string>Klistra in %@ som oformaterad text</string>
+    <string>Klistra in %@ som ren text</string>
     <key>QSCreateFileTemplate</key>
-    <string>In Folder %@ Create a new Template File %@</string>
+    <string>I mappen %@ skapa en ny</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Utför %@ efter fördröjning</string>
     <key>AppActivateAction</key>
@@ -63,9 +63,9 @@
     <key>FileCopyToAction</key>
     <string>Kopiera %@ till %@</string>
     <key>FileDecompressAction</key>
-    <string>Packa upp %@</string>
+    <string>Expandera %@</string>
     <key>FileDeleteAction</key>
-    <string>Ta bort %@</string>
+    <string>Radera %@</string>
     <key>FileGetHFSPathAction</key>
     <string>Hämta HFS-sökväg för %@</string>
     <key>FileGetInfoAction</key>
@@ -76,6 +76,8 @@
     <string>Hämta absolut sökväg för %@</string>
     <key>FileGetURLAction</key>
     <string>Hämta file://-URL för %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Skapa alias av %@ i %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -91,7 +93,7 @@
     <key>FileRenameAction</key>
     <string>Byt namn från %@ till %#</string>
     <key>FileRevealAction</key>
-    <string>Avslöja %@</string>
+    <string>Visa</string>
     <key>FileToTrashAction</key>
     <string>Flytta %@ till papperskorgen</string>
     <key>ItemSendToContactEmailAction</key>
@@ -112,6 +114,8 @@
     <string>Återuppta %@</string>
     <key>ProcessSuspendAction</key>
     <string>Avbryt %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Lägg till %@ i katalogen</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Skanna %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -133,7 +137,7 @@
     <key>QSObjectAssignLabelAction</key>
     <string>Sätt etikett för %@ till %#</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Sätt påminnelse för %@ till %#</string>
+    <string>Sätt mnemonic för %@ till %#</string>
     <key>QSObjectOmitAction</key>
     <string>Utelämna %@ från katalog</string>
     <key>QSObjectSearchChildrenAction</key>

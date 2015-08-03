@@ -76,6 +76,8 @@
     <string>Dapatkan alamat mutlak dari %@</string>
     <key>FileGetURLAction</key>
     <string>Dapatkan alamat URL file:// dari %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Buat alias dari %@ di %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Lanjutkan %@</string>
     <key>ProcessSuspendAction</key>
     <string>Tunda %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Pindai ulang %@</string>
     <key>QSCatalogEntryShowAction</key>

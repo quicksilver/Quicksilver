@@ -76,6 +76,8 @@
     <string>取得 %@ 的絕對路徑</string>
     <key>FileGetURLAction</key>
     <string>取得 %@ 的 file:// 網址</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>製作 %@ 的替身於 %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>恢復 %@</string>
     <key>ProcessSuspendAction</key>
     <string>暫停 %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>重新掃描 %@</string>
     <key>QSCatalogEntryShowAction</key>

@@ -136,6 +136,8 @@
     <string>Vai a in Terminale</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Mostra Pagina Man</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Ricarica Elemento nel Catalogo</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Salva il comando nel File ...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Aggiungi Trigger</string>
+    <string>Add Trigger…</string>
     <key>QSCommandExecuteAction</key>
     <string>Esegui</string>
     <key>QSCommandExecuteAfterDelayAction</key>

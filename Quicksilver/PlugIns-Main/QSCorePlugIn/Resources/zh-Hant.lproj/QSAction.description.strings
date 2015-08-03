@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>重新啟動應用程式</string>
     <key>AppShowHideAction</key>
-    <string>切換應用程式可見屬性</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>以大型字體顯示文字</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>撥放 iTunes 撥放清單中的音樂</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>撥放 iTunes 音軌</string>
-    <key>QSShellScriptRunAction</key>
-    <string>執行 Shell Script</string>
     <key>ShellScriptRunAction</key>
     <string>執行 Shell Script</string>
     <key>URLFindWithAction</key>

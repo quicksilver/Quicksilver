@@ -9,9 +9,9 @@
     <key>AppHideOthersAction</key>
     <string>Esconder Otros</string>
     <key>AppLaunchAction</key>
-    <string>Lanzar</string>
+    <string>Ejecutar</string>
     <key>AppLaunchAgainAction</key>
-    <string>Lanzar Otra Copia</string>
+    <string>Ejecutar otra copia</string>
     <key>AppOpenFileAction</key>
     <string>Abrir Archivo...</string>
     <key>AppQuitOthersAction</key>
@@ -136,6 +136,8 @@
     <string>Ir a Carpeta en Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Mostrar Página Man</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Añadir al catálogo</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Re-escanear entrada de catálogo</string>
     <key>QSCatalogEntryShowAction</key>
@@ -143,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Guardar Comando en Archivo...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Agregar Detonador</string>
+    <string>Añadir disparadores...</string>
     <key>QSCommandExecuteAction</key>
     <string>Ejecutar</string>
     <key>QSCommandExecuteAfterDelayAction</key>

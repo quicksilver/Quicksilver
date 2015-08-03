@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Znovu spustí aplikaci</string>
     <key>AppShowHideAction</key>
-    <string>Přepne viditelnost aplikace</string>
+    <string>Přepnout viditelnost aplikace</string>
     <key>QSLargeTypeAction</key>
     <string>Zobrazí text velkými písmeny</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Přehraje hudbu ze seznamu skladeb iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Přehraje skladbu iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Spustí Shell skript</string>
     <key>ShellScriptRunAction</key>
     <string>Spustí Shell skript</string>
     <key>URLFindWithAction</key>

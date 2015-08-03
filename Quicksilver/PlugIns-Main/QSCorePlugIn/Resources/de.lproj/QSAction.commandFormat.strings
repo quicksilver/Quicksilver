@@ -76,6 +76,8 @@
     <string>Absoluten Pfad von %@ anzeigen</string>
     <key>FileGetURLAction</key>
     <string>Zeige file://-URL von %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Erzeuge Alias von %@ in %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>%@ wiederaufnehmen</string>
     <key>ProcessSuspendAction</key>
     <string>%@ aussetzen</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>%@ erneut einlesen</string>
     <key>QSCatalogEntryShowAction</key>

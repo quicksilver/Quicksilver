@@ -7,7 +7,7 @@
     <key>QSCreateFileAction</key>
     <string>Crear un archivo llamado %@ en %@</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Agregar %@ como un Gatillo</string>
+    <string>Agregar %@ como un disparador</string>
     <key>QSCommandExecuteAction</key>
     <string>Ejecutar %@</string>
     <key>AppShowHideAction</key>
@@ -76,6 +76,8 @@
     <string>Obtener camino absoluto de %@</string>
     <key>FileGetURLAction</key>
     <string>Obtener URL file:// de %@</string>
+    <key>New item</key>
+    <string></string>
     <key>FileMakeAliasInAction</key>
     <string>Hacer alias de %@ en %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
     <string>Continuar %@</string>
     <key>ProcessSuspendAction</key>
     <string>Suspender %@</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Añadir %@ al catálogo</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Re-escanear %@</string>
     <key>QSCatalogEntryShowAction</key>

@@ -100,6 +100,8 @@
     <string>최근 폴더 (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder 한정 검색 구역</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Finder 도구 상자 항목</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox 책갈피</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>

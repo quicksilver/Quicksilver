@@ -31,7 +31,7 @@
     <key>AppRelaunchAction</key>
     <string>Rilancia Applicazione</string>
     <key>AppShowHideAction</key>
-    <string>Cambia Visibilità dell&apos;Applicazione</string>
+    <string>Toggle Application visibility</string>
     <key>QSLargeTypeAction</key>
     <string>Mostra Testo con Caratteri Grandi</string>
     <key>AppleScriptRunTextAction</key>
@@ -170,8 +170,6 @@
     <string>Esegui musica da una Playlist di iTunes</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>Esegui una Traccia di iTunes</string>
-    <key>QSShellScriptRunAction</key>
-    <string>Esegui uno Script di Shell</string>
     <key>ShellScriptRunAction</key>
     <string>Esegui Script di Shell</string>
     <key>URLFindWithAction</key>
