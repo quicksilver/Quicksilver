@@ -1,7 +1,10 @@
 #!/bin/zsh
 
-## Quicksilver Release build
+## test
+xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver Distribution" test
+xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver" -configuration Debug test
 
+## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' -showBuildSettings | sort -u > $SETTINGS
