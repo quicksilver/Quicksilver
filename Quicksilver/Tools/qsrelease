@@ -1,6 +1,11 @@
 #!/bin/zsh
 
 ## test
+if ! which xctool &> /dev/null
+then
+    echo "Tests require xctool (available via Homebrew)"
+    exit 78
+fi
 xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver Distribution" test
 xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver" -configuration Debug test
 
