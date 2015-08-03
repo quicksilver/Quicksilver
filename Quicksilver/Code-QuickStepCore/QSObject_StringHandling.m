@@ -298,7 +298,16 @@
     if (!stringValue) {
         stringValue = [self displayName];
     }
-    NSAssert([stringValue isKindOfClass:[NSString class]], @"Object %@ does not have a valid string value (%@)", self, stringValue);
+    if (!stringValue) {
+        QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] firstEntryContainingObject:self];
+        NSString *entryName = [theEntry name];
+        if (!entryName) {
+            entryName = NSLocalizedString(@"Unknown Source", @"The entry that created this object is unknown");
+        }
+        NSString *localizedStringFormat = NSLocalizedString(@"Unnamed Item from %@", @"Unable to dtermine a name for this object");
+        stringValue = [NSString stringWithFormat:localizedStringFormat, entryName];
+        NSLog(@"No string value could be determined for object with ID %@ from %@", [self identifier], entryName);
+    }
     return stringValue;
 }
 
