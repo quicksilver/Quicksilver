@@ -16,6 +16,7 @@
   * Holding `/` too long won't descend into the hard drive (#2078)
   * Quicksilver won't hang if a string value is unavailable (#2080)
   * Large Type that appears behind the screen saver can be dismissed without relaunching Quicksilver (#1903, #2081)
+  * Fixed placeholders in localized string formats. Localizers should re-check translations (#1907, #2083)
 
 ### Changed ###
 
