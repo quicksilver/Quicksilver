@@ -718,8 +718,15 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkForCrash {
-    
+    // TODO - if the crash reporter is hidden, we need an option to send crashes automatically
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    // hidden pref to disable the crash reporter from showing
+    if ([defaults boolForKey:@"QSRestartAutomaticallyWithoutCrashReporter"]) {
+        return;
+    }
+    
     // obtain the last known crash date from the prefs
     NSDate *lastKnownCrashDate = [defaults objectForKey:kLastKnownCrashDate];
     
