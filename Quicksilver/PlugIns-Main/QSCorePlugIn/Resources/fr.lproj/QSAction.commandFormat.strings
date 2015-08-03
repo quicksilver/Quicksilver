@@ -79,9 +79,9 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Créer un alias de %@ dans %#</string>
+    <string>Créer un alias de %1$@ dans %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Créer un lien dur de %@ dans %#</string>
+    <string>Créer un lien dur de %1$@ dans %2$@</string>
     <key>FileMakeLinkInAction</key>
     <string>Créer un lien de %@ dans %@</string>
     <key>FileMoveToAction</key>
@@ -91,7 +91,7 @@
     <key>FileOpenWithAction</key>
     <string>Ouvrir %@ avec %@</string>
     <key>FileRenameAction</key>
-    <string>Renommer %@ en %#</string>
+    <string>Renommer %1$@ en %2$@</string>
     <key>FileRevealAction</key>
     <string>Révéler %@</string>
     <key>FileToTrashAction</key>
@@ -131,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Ne plus lancer %@ à l&apos;ouverture de session</string>
     <key>QSNewFolderAction</key>
-    <string>Nouveau dossier dans %@ nommé %#</string>
+    <string>Nouveau dossier dans %1$@ nommé %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Exécuter %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Définir la famille de %@ à %#</string>
+    <string>Définir la famille de %1$@ à %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Définir la mnémonique de %@ à %#</string>
+    <string>Définir la mnémonique de %1$@ à %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Omettre %@ du Catalogue</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -163,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Lire %@</string>
     <key>QSTextDiffAction</key>
-    <string>Obtenir les différences entre %@ et %#</string>
+    <string>Obtenir les différences entre %1$@ et %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Montrer le dialogue: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

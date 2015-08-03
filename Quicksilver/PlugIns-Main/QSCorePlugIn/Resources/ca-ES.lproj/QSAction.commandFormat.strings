@@ -79,19 +79,19 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Crear un alies de %@ a %#</string>
+    <string>Crear un alies de %1$@ a %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Crear un Hard Link de %@ a %#</string>
+    <string>Crear un Hard Link de %1$@ a %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Crear un vincle de %@ a %#</string>
+    <string>Crear un vincle de %1$@ a %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Moure %@ a %#</string>
+    <string>Moure %1$@ a %2$@</string>
     <key>FileOpenAction</key>
     <string>Obrir %@</string>
     <key>FileOpenWithAction</key>
-    <string>Obrir %@ amb %#</string>
+    <string>Obrir %1$@ amb %2$@</string>
     <key>FileRenameAction</key>
-    <string>Cambiar el nom de %@ a %#</string>
+    <string>Cambiar el nom de %1$@ a %2$@</string>
     <key>FileRevealAction</key>
     <string>Mostrar on es %@</string>
     <key>FileToTrashAction</key>
@@ -131,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Eliminar %@ dels ítems del Login</string>
     <key>QSNewFolderAction</key>
-    <string>Crea una nova carpeta a %@ anomenada %#</string>
+    <string>Crea una nova carpeta a %1$@ anomenada %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Executa %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Establir l&apos;etiqueta de %@ a %#</string>
+    <string>Establir l&apos;etiqueta de %1$@ a %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Establir el mnemònic de %@ a %#</string>
+    <string>Establir el mnemònic de %1$@ a %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Ometre %@ del catàleg</string>
     <key>QSObjectSearchChildrenAction</key>

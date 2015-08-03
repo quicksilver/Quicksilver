@@ -79,19 +79,19 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Utwórz skrót %@ w %#</string>
+    <string>Utwórz skrót %1$@ w %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Utwórz dowiązanie twarde dla %@ w %#</string>
+    <string>Utwórz dowiązanie twarde dla %1$@ w %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Utwórz łącze do %@ w %#</string>
+    <string>Utwórz łącze do %1$@ w %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Przenieś %@ do %#</string>
+    <string>Przenieś %1$@ do %2$@</string>
     <key>FileOpenAction</key>
     <string>Otwórz %@</string>
     <key>FileOpenWithAction</key>
-    <string>Otwórz %@ w %#</string>
+    <string>Otwórz %1$@ w %2$@</string>
     <key>FileRenameAction</key>
-    <string>Zmień nazwę %@ w %#</string>
+    <string>Zmień nazwę %1$@ w %2$@</string>
     <key>FileRevealAction</key>
     <string>Pokaż %@</string>
     <key>FileToTrashAction</key>
@@ -131,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Usuń %@ z listy automatycznie uruchamiających się przy logowaniu aplikacji</string>
     <key>QSNewFolderAction</key>
-    <string>Utwórz w %@ nowy katalog o nazwie %#</string>
+    <string>Utwórz w %1$@ nowy katalog o nazwie %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Uruchom %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Ustaw etykietę %@ na %#</string>
+    <string>Ustaw etykietę %1$@ na %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Ustaw mnemonik %@ na %#</string>
+    <string>Ustaw mnemonik %1$@ na %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Pomiń %@ z katalogu</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -163,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Odtwórz %@</string>
     <key>QSTextDiffAction</key>
-    <string>Różnice między %@ i %#</string>
+    <string>Różnice między %1$@ i %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Pokaż dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

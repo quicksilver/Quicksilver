@@ -79,19 +79,19 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Make alias of %@ in %#</string>
+    <string>Make alias of %1$@ in %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Make hard link to %@ in %#</string>
+    <string>Make hard link to %1$@ in %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Make link to %@ in %#</string>
+    <string>Make link to %1$@ in %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Move %@ to %#</string>
+    <string>Move %1$@ to %2$@</string>
     <key>FileOpenAction</key>
     <string>Open %@</string>
     <key>FileOpenWithAction</key>
-    <string>Open %@ with %#</string>
+    <string>Open %1$@ with %2$@</string>
     <key>FileRenameAction</key>
-    <string>Rename %@ to %#</string>
+    <string>Rename %1$@ to %2$@</string>
     <key>FileRevealAction</key>
     <string>Reveal %@</string>
     <key>FileToTrashAction</key>
@@ -131,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Remove %@ from log-in items</string>
     <key>QSNewFolderAction</key>
-    <string>Make new folder in %@ named %#</string>
+    <string>Make new folder in %1$@ named %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Execute %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Set label of %@ to %#</string>
+    <string>Set label of %1$@ to %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Set mnemonic of %@ to %#</string>
+    <string>Set mnemonic of %1$@ to %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Omit %@ from catalogue</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -163,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Play %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diff %@ and %#</string>
+    <string>Diff %1$@ and %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Show dialogue: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

@@ -79,19 +79,19 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Hacer alias de %@ en %#</string>
+    <string>Hacer alias de %1$@ en %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Hacer enlace fijo a %@ en %#</string>
+    <string>Hacer enlace fijo a %1$@ en %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Hacer enlace a %@ en %#</string>
+    <string>Hacer enlace a %1$@ en %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Mover %@ a %#</string>
+    <string>Mover %1$@ a %2$@</string>
     <key>FileOpenAction</key>
     <string>Abrir %@</string>
     <key>FileOpenWithAction</key>
-    <string>Abrir %@ con %#</string>
+    <string>Abrir %1$@ con %2$@</string>
     <key>FileRenameAction</key>
-    <string>Renombrar %@ a %#</string>
+    <string>Renombrar %1$@ a %2$@</string>
     <key>FileRevealAction</key>
     <string>Revelar %@</string>
     <key>FileToTrashAction</key>
@@ -131,13 +131,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Remover %@ de los items de inicio</string>
     <key>QSNewFolderAction</key>
-    <string>Crear nueva carpeta en %@ llamada %#</string>
+    <string>Crear nueva carpeta en %1$@ llamada %2$@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Ejecutar %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Poner etiqueta de %@ a %#</string>
+    <string>Poner etiqueta de %1$@ a %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Establecer mnemónico de %@ a %#</string>
+    <string>Establecer mnemónico de %1$@ a %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ del catálogo</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -163,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Reproducir %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diff %@ y %#</string>
+    <string>Diff %1$@ y %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Mostrar diálogo: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>
