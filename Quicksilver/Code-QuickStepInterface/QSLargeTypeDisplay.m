@@ -91,7 +91,7 @@ void QSShowLargeType(NSString *aString) {
     
 	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
     [_largeTypeWindows addObject:largeTypeWindow];
-	[largeTypeWindow setIgnoresMouseEvents:YES];
+	[largeTypeWindow setIgnoresMouseEvents:NO];
 	[largeTypeWindow setFrame:centerRectInRect(windowRect, screenRect) display:YES];
 	[largeTypeWindow setBackgroundColor: [NSColor clearColor]];
 	[largeTypeWindow setOpaque:NO];
