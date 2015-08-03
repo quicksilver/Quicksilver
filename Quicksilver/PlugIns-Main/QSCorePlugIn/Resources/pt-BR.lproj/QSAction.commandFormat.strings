@@ -77,19 +77,19 @@
     <key>FileGetURLAction</key>
     <string>Pega file:// URL de %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Faça apelido de %@ em %#</string>
+    <string>Faça apelido de %@ em %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Faça um link manual para %@ em %#</string>
+    <string>Faça um link manual para %@ em %@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Faça link para %@ em %#</string>
+    <string>Faça link para %@ em %@</string>
     <key>FileMoveToAction</key>
-    <string>Move %@ para %#</string>
+    <string>Move %@ para %@</string>
     <key>FileOpenAction</key>
     <string>Abre %@</string>
     <key>FileOpenWithAction</key>
-    <string>Abre %@ com %#</string>
+    <string>Abre %@ com %@</string>
     <key>FileRenameAction</key>
-    <string>Renomeia %@ para %#</string>
+    <string>Renomeia %@ para %@</string>
     <key>FileRevealAction</key>
     <string>Revela %@</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Retira %@ de itens de login</string>
     <key>QSNewFolderAction</key>
-    <string>Criar uma nova pasta em %@ chamada %#</string>
+    <string>Criar uma nova pasta em %@ chamada %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Executa %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Ajusta etiqueta de %@ para %#</string>
+    <string>Ajusta etiqueta de %@ para %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Set mnemonic of %@ to %#</string>
+    <string>Set mnemonic of %@ to %@</string>
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ do catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Tocar %@</string>
     <key>QSTextDiffAction</key>
-    <string>Dieferenças entre %@ e %#</string>
+    <string>Dieferenças entre %@ e %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Mostra diálogo: &quot;#@&quot;</string>
     <key>QSTextSpeakAction</key>

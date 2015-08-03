@@ -77,9 +77,9 @@
     <key>FileGetURLAction</key>
     <string>Obtenir l&apos;URL file:// de %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Créer un alias de %@ dans %#</string>
+    <string>Créer un alias de %@ dans %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Créer un lien dur de %@ dans %#</string>
+    <string>Créer un lien dur de %@ dans %@</string>
     <key>FileMakeLinkInAction</key>
     <string>Créer un lien de %@ dans %@</string>
     <key>FileMoveToAction</key>
@@ -89,7 +89,7 @@
     <key>FileOpenWithAction</key>
     <string>Ouvrir %@ avec %@</string>
     <key>FileRenameAction</key>
-    <string>Renommer %@ en %#</string>
+    <string>Renommer %@ en %@</string>
     <key>FileRevealAction</key>
     <string>Révéler %@</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Ne plus lancer %@ à l&apos;ouverture de session</string>
     <key>QSNewFolderAction</key>
-    <string>Nouveau dossier dans %@ nommé %#</string>
+    <string>Nouveau dossier dans %@ nommé %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Exécuter %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Définir la famille de %@ à %#</string>
+    <string>Définir la famille de %@ à %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Définir la mnémonique de %@ à %#</string>
+    <string>Définir la mnémonique de %@ à %@</string>
     <key>QSObjectOmitAction</key>
     <string>Omettre %@ du Catalogue</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Lire %@</string>
     <key>QSTextDiffAction</key>
-    <string>Obtenir les différences entre %@ et %#</string>
+    <string>Obtenir les différences entre %@ et %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Montrer le dialogue: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

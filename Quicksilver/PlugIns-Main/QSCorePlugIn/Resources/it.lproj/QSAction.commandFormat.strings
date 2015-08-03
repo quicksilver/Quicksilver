@@ -77,9 +77,9 @@
     <key>FileGetURLAction</key>
     <string>Ottieni file:// URL di %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Crea alias di %@ in %#</string>
+    <string>Crea alias di %@ in %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Crea collegamento di %@ in %#</string>
+    <string>Crea collegamento di %@ in %@</string>
     <key>FileMakeLinkInAction</key>
     <string>Crea collegamento a %@ in %@</string>
     <key>FileMoveToAction</key>
@@ -89,7 +89,7 @@
     <key>FileOpenWithAction</key>
     <string>Apri %@ con %@</string>
     <key>FileRenameAction</key>
-    <string>Rinomina %@ in %#</string>
+    <string>Rinomina %@ in %@</string>
     <key>FileRevealAction</key>
     <string>Mostra %@</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Rimuovi %@ dagli elementi di login</string>
     <key>QSNewFolderAction</key>
-    <string>Crea nuova cartella in %@ di nome %#</string>
+    <string>Crea nuova cartella in %@ di nome %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Esegui %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Imposta etichetta di %@ a %#</string>
+    <string>Imposta etichetta di %@ a %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Imposta etichetta di %@ a %#</string>
+    <string>Imposta etichetta di %@ a %@</string>
     <key>QSObjectOmitAction</key>
     <string>Ometti %@ dal catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Riproduci %@</string>
     <key>QSTextDiffAction</key>
-    <string>Differenza tra %@ e %#</string>
+    <string>Differenza tra %@ e %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Mostra dialogo: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

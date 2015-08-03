@@ -77,19 +77,19 @@
 	<key>FileGetURLAction</key>
 	<string>Get file:// URL of %@</string>
 	<key>FileMakeAliasInAction</key>
-	<string>Make alias of %@ in %#</string>
+	<string>Make alias of %@ in %@</string>
 	<key>FileMakeHardLinkInAction</key>
-	<string>Make hard link to %@ in %#</string>
+	<string>Make hard link to %@ in %@</string>
 	<key>FileMakeLinkInAction</key>
-	<string>Make link to %@ in %#</string>
+	<string>Make link to %@ in %@</string>
 	<key>FileMoveToAction</key>
-	<string>Move %@ to %#</string>
+	<string>Move %@ to %@</string>
 	<key>FileOpenAction</key>
 	<string>Open %@</string>
 	<key>FileOpenWithAction</key>
-	<string>Open %@ with %#</string>
+	<string>Open %@ with %@</string>
 	<key>FileRenameAction</key>
-	<string>Rename %@ to %#</string>
+	<string>Rename %@ to %@</string>
 	<key>FileRevealAction</key>
 	<string>Reveal %@</string>
 	<key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
 	<key>QSLoginItemRemoveAction</key>
 	<string>Remove %@ from login items</string>
 	<key>QSNewFolderAction</key>
-	<string>Make new folder in %@ named %#</string>
+	<string>Make new folder in %@ named %@</string>
 	<key>QSObjCSendMessageAction</key>
 	<string>Execute %@</string>
 	<key>QSObjectAssignLabelAction</key>
-	<string>Set label of %@ to %#</string>
+	<string>Set label of %@ to %@</string>
 	<key>QSObjectAssignMnemonic</key>
-	<string>Set mnemonic of %@ to %#</string>
+	<string>Set mnemonic of %@ to %@</string>
 	<key>QSObjectOmitAction</key>
 	<string>Omit %@ from catalog</string>
 	<key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
 	<key>QSSoundPlayAction</key>
 	<string>Play %@</string>
 	<key>QSTextDiffAction</key>
-	<string>Diff %@ and %#</string>
+	<string>Diff %@ and %@</string>
 	<key>QSTextShowDialogAction</key>
 	<string>Show dialog: \"%@\"</string>
 	<key>QSTextSpeakAction</key>

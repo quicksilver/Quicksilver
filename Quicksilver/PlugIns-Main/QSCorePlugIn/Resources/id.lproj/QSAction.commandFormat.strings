@@ -77,19 +77,19 @@
     <key>FileGetURLAction</key>
     <string>Dapatkan alamat URL file:// dari %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Buat alias dari %@ di %#</string>
+    <string>Buat alias dari %@ di %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Buat tautan keras untuk %@ di %# </string>
+    <string>Buat tautan keras untuk %@ di %@ </string>
     <key>FileMakeLinkInAction</key>
-    <string>Buat tautan untuk %@ di %#</string>
+    <string>Buat tautan untuk %@ di %@</string>
     <key>FileMoveToAction</key>
-    <string>Pindahkan %@ ke %#</string>
+    <string>Pindahkan %@ ke %@</string>
     <key>FileOpenAction</key>
     <string>Buka %@</string>
     <key>FileOpenWithAction</key>
-    <string>Buka %@ dengan %#</string>
+    <string>Buka %@ dengan %@</string>
     <key>FileRenameAction</key>
-    <string>Ubah nama %@ menjadi %#</string>
+    <string>Ubah nama %@ menjadi %@</string>
     <key>FileRevealAction</key>
     <string>Tampilkan %@</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Buang %@ dari butir-butir login</string>
     <key>QSNewFolderAction</key>
-    <string>Buat folder baru di %@ bernama %#</string>
+    <string>Buat folder baru di %@ bernama %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Jalankan %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Pasang label dari %@ dengan %#</string>
+    <string>Pasang label dari %@ dengan %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Pasang mnemonic dari %@ dengan %#</string>
+    <string>Pasang mnemonic dari %@ dengan %@</string>
     <key>QSObjectOmitAction</key>
     <string>Abaikan %@ dari katalog</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Mainkan %@</string>
     <key>QSTextDiffAction</key>
-    <string>Tampilkan Diff dari %@ dan %#</string>
+    <string>Tampilkan Diff dari %@ dan %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Tampilkan kotak dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>
