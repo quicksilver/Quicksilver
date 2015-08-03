@@ -306,6 +306,7 @@
         }
         NSString *localizedStringFormat = NSLocalizedString(@"Unnamed Item from %@", @"Unable to dtermine a name for this object");
         stringValue = [NSString stringWithFormat:localizedStringFormat, entryName];
+        NSLog(@"No string value could be determined for object with ID %@ from %@", [self identifier], entryName);
     }
     return stringValue;
 }
