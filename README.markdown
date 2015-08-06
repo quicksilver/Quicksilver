@@ -23,6 +23,10 @@ Now if anything happens you can always restore the exact state Quicksilver was i
 
     rm -r ~/Library/Caches/*Quicksilver
 
+## Getting Started with Development ##
+
+[The Map](The_Map.md) should give you a head start if you're approaching this project for the first time.
+
 ## Multiple copies of Quicksilver.app on your Mac ##
 
 Having multiple copies of Quicksilver.app on the system can cause issues with the Services System in OS X and AppleScript.
