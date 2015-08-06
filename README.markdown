@@ -1,36 +1,29 @@
-About Quicksilver on Github
-===============================
+# About Quicksilver on Github #
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
-This master branch contains the source for the currently released Quicksilver.
+The `master` branch contains the source for the currently released Quicksilver.
 
 If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article"). For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
 
+## Where to download Quicksilver? ##
 
-Where to download Quicksilver?
-------------------------------
+Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system.
 
-Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system. The minimum runtime requirement for the current version of Quicksilver is Mac OS X 10.7 ("Lion").
-
-
-Before Trying the Source Code
------------------------------
+## Before Trying the Source Code ##
 
 Before building and testing Quicksilver, **ALWAYS BACKUP** your user data!  
-This is easily done by backing up the following 2 folders and preference file:
+This is easily done by backing up the following:
 
-(`<user>` stands for your short user name):
+  * `~/Library/Application Support/Quicksilver`
+  * `~/Library/Caches/Quicksilver`
+  * `~/Library/Preferences/com.blacktree.Quicksilver.plist`
 
-`/Users/<user>/Library/Application Support/Quicksilver`  
-`/Users/<user>/Library/Caches/Quicksilver`  
-`/Users/<user>/Library/Preferences/com.blacktree.Quicksilver.plist`  
+Now if anything happens you can always restore the exact state Quicksilver was in before your were trying out this version. When switching between versions, you should generally clear caches with
 
-Now if anything happens you can always restore the exact state Quicksilver was in before your were trying out this version. 
+    rm -r ~/Library/Caches/*Quicksilver
 
-
-Multiple copies of Quicksilver.app on your Mac
--------------------------------------------------
+## Multiple copies of Quicksilver.app on your Mac ##
 
 Having multiple copies of Quicksilver.app on the system can cause issues with the Services System in OS X and AppleScript.
 
@@ -38,15 +31,11 @@ Specifically, Services will not register properly when the pasteboard server (`/
 
 In order to ensure that the Services System and AppleScript work correctly, zip any old Quicksilver.app packages you want to keep, so you only have one Quicksilver.app file on your filesystem. Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
 
+## Development ##
 
-Development
------------
+You should be able to build Quicksilver by following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver).
 
-You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver).
-
-
-Legal Stuff 
------------
+## Legal Stuff ##
 
 By downloading and/or using this software you agree to the following terms of use:
 
