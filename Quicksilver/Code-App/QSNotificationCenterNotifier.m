@@ -12,7 +12,6 @@
 
 - (void)displayNotificationWithAttributes:(NSDictionary *)attributes
 {
-#ifdef MAC_OS_X_VERSION_10_8
 	NSString *title = [attributes objectForKey:QSNotifierTitle];
 	NSString *subtitle = [attributes objectForKey:QSNotifierText];
 	NSString *details = [[attributes objectForKey:QSNotifierDetails] string];
@@ -23,7 +22,6 @@
 	[message setInformativeText:details];
 	
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:message];
-#endif
 }
 
 @end
