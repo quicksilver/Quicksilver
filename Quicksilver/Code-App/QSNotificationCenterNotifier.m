@@ -15,11 +15,13 @@
 	NSString *title = [attributes objectForKey:QSNotifierTitle];
 	NSString *subtitle = [attributes objectForKey:QSNotifierText];
 	NSString *details = [[attributes objectForKey:QSNotifierDetails] string];
+    NSImage *icon = [attributes objectForKey:QSNotifierIcon];
 	
 	NSUserNotification *message = [[NSUserNotification alloc] init];
 	[message setTitle:title];
 	[message setSubtitle:subtitle];
 	[message setInformativeText:details];
+    [message setContentImage:icon];
 	
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:message];
 }
