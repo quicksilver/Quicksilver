@@ -22,6 +22,7 @@
 	[message setSubtitle:subtitle];
 	[message setInformativeText:details];
     [message setContentImage:icon];
+    [message setHasActionButton:NO];
 	
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:message];
 }
