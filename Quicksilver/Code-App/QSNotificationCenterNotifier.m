@@ -27,4 +27,12 @@
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:message];
 }
 
+#pragma mark NSUserNotificationCenter delegate methods
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    // there's no in-app equivalent for these notifications, so always show them
+    return YES;
+}
+
 @end
