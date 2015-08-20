@@ -48,9 +48,9 @@ static QSController *defaultController = nil;
     QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
     [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
-    if (![NSApplication isMountainLion]) {
+    if (![NSApplication isMavericks]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.8+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.8 Lion",@"10.3–10.7"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.9+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.9 Lion",@"10.3–10.8"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
 		// Quit - we don't want to be running :)
 		[NSApp terminate:nil];
 	}
