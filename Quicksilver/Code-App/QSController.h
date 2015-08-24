@@ -68,6 +68,7 @@
 
 - (NSString *)crashReportPath;
 - (void)showDockIcon;
+- (void)requestRelaunch:(id)sender;
 
 @end
 

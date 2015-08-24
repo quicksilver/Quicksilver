@@ -98,7 +98,7 @@
 	[defaults setBool:flag forKey:@"QSResultsShowChildren"];
 
 	[defaults synchronize];
-	[NSApp requestRelaunch:nil];
+	[[QSController sharedInstance] requestRelaunch:nil];
 }
 
 - (void)updateKeyboardPopUp {
@@ -278,7 +278,7 @@
     if (![defaults objectForKey:@"QSShowMenuIcon"])
         [defaults setInteger:1 forKey:@"QSShowMenuIcon"];
     [defaults synchronize];
-	[NSApp requestRelaunch:nil];
+	[[QSController sharedInstance] requestRelaunch:nil];
 }
 
 - (IBAction)checkNow:(id)sender {

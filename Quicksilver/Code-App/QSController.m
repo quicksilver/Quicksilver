@@ -803,6 +803,19 @@ static QSController *defaultController = nil;
 	[nc postNotificationName:QSInterfaceChangedNotification object:self];
 }
 
+- (void)requestRelaunch:(id)sender
+{
+    NSUserNotification *relaunchAlert = [[NSUserNotification alloc] init];
+    [relaunchAlert setIdentifier:QSRelaunchRequestedUserNotification];
+    NSString *title = NSLocalizedString(@"Relaunch Necessary", nil);
+    NSString *details = NSLocalizedString(@"Quicksilver needs to be relaunched for some changes to take effect", nil);
+    NSString *button = NSLocalizedString(@"Relaunch", nil);
+    [relaunchAlert setTitle:title];
+    [relaunchAlert setInformativeText:details];
+    [relaunchAlert setActionButtonTitle:button];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:relaunchAlert];
+}
+
 /* Deprecated. It's defined in Core Plugin */
 - (id) finderProxy { return [QSReg performSelector:@selector(FSBrowserMediator)]; }
 
