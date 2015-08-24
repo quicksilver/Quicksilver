@@ -11,6 +11,7 @@
 #import "QSTaskViewer.h"
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
+#import "QSNotificationCenterHandler.h"
 
 
 #import "QSIntValueTransformer.h"
@@ -119,6 +120,8 @@ static QSController *defaultController = nil;
 
 		if (![QSApplicationSupportPath length])
 			QSApplicationSupportPath = [self applicationSupportFolder];
+        self.notificationHandler = [[QSNotificationCenterHandler alloc] init];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self.notificationHandler];
 	}
 	return self;
 }
@@ -645,16 +648,24 @@ static QSController *defaultController = nil;
             NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
-				[NSApp activateIgnoringOtherApps:YES];
-				NSInteger selection = NSRunAlertPanel(NSLocalizedString(@"Running from a new location",nil), NSLocalizedString(@"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?",nil), NSLocalizedString(@"Move and Relaunch",nil), NSLocalizedString(@"Don't Move",nil), nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
-				if (selection)
-					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
+                NSUserNotification *locationAlert = [[NSUserNotification alloc] init];
+                [locationAlert setIdentifier:QSLocationChangedUserNotification];
+                [locationAlert setTitle:NSLocalizedString(@"Running from a new location", nil)];
+                [locationAlert setInformativeText:NSLocalizedString(@"The previous version of Quicksilver was located in America. Would you like to move this new version to that location?", nil)];
+                [locationAlert setActionButtonTitle:NSLocalizedString(@"Move and Relaunch", nil)];
+                [locationAlert setUserInfo:@{@"source": bundlePath, @"destination": lastLocation}];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:locationAlert];
 			}
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
-				[NSApp activateIgnoringOtherApps:YES];
-				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
-				if (selection == 1)
-					[self showReleaseNotes:self];
+                NSUserNotification *releaseAlert = [[NSUserNotification alloc] init];
+                [releaseAlert setIdentifier:QSReleaseNotesUserNotification];
+                NSString *title = NSLocalizedString(@"Quicksilver has been updated", nil);
+                NSString *details = NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?", nil);
+                NSString *button = NSLocalizedString(@"Show Release Notes", nil);
+                [releaseAlert setTitle:title];
+                [releaseAlert setInformativeText:details];
+                [releaseAlert setActionButtonTitle:button];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:releaseAlert];
 			}
 			if (lastVersion < [@"3929" hexIntValue] && [[NSRunningApplication currentApplication] executableArchitecture] == NSBundleExecutableArchitectureX86_64) {
 				// first time-running a 64-bit version
@@ -682,7 +693,6 @@ static QSController *defaultController = nil;
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
 			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[[QSDownloads downloadsLocation] path]];
 			if (shouldInstall) {
-				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
 				NSInteger selection = NSRunAlertPanel(NSLocalizedString(@"Would you like to install Quicksilver?",nil), NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil), NSLocalizedString(@"Install in \"Applications\"",nil), NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Choose Location...",nil));
 				NSString *installPath = nil;
