@@ -182,11 +182,9 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setName:(NSString *)value {
-    QSGCDMainSync(^{
-        if (name != value) {
-            name = [value copy];
-        }
-    });
+    if (name != value) {
+        name = [value copy];
+    }
 }
 
 - (NSString *)status {
@@ -194,22 +192,18 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setStatus:(NSString *)value {
-    QSGCDMainSync(^{
-        if (status != value) {
-            status = [value copy];
-        }
-    });
+    if (status != value) {
+        status = [value copy];
+    }
 }
 
 - (CGFloat) progress {
 	return progress;
 }
 - (void)setProgress:(CGFloat)value {
-    QSGCDMainSync(^{
-        if (progress != value) {
-            progress = value;
-        }
-    });
+    if (progress != value) {
+        progress = value;
+    }
 }
 
 - (QSObject *)result {
@@ -226,9 +220,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setCancelAction:(SEL)value {
-    QSGCDMainSync(^{
-        cancelAction = value;
-    });
+    cancelAction = value;
 }
 
 - (id)cancelTarget {
@@ -262,11 +254,9 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setIcon:(NSImage *)newIcon {
-    QSGCDMainSync(^{
-        if (icon != newIcon) {
-            icon = newIcon;
-        }
-    });
+    if (icon != newIcon) {
+        icon = newIcon;
+    }
 }
 
 
