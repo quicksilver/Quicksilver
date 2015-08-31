@@ -558,7 +558,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearObjectValue {
-	[self updateHistory];
     browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
@@ -601,7 +600,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)selectObject:(QSBasicObject *)obj {
 	NSInteger index = 0;
-	//[self updateHistory];
 	if (obj) {
 		index = (NSInteger)[resultArray indexOfObject:obj];
 		//NSLog(@"index %d %@", index, obj);
@@ -969,10 +967,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)resignFirstResponder {  
-    
-    if ([self isEqual:[self directSelector]] && [self objectValue]) {
-        [self updateHistory];
-    }
 	[resultTimer invalidate];
 	[self hideResultView:self];
 	[self setShouldResetSearchString:YES];
@@ -1322,6 +1316,8 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)shortCircuit:(id)sender {
+	[self updateHistory];
+	[self saveMnemonic];
 	[[self controller] shortCircuit:self];
 	[resultTimer invalidate];
 }
@@ -1576,6 +1572,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
 		[self updateHistory];
+		[self saveMnemonic];
 		[self setSearchArray:sourceArray];
 	}
 	[partialString appendString:aString];
@@ -1754,8 +1751,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 }
 - (void)moveRight:(id)sender {
+	[self updateHistory];
+	[self saveMnemonic];
 	[self browse:1];
-
 }
 - (void)moveLeft:(id)sender {
 	[self browse:-1];
@@ -1927,6 +1925,8 @@ NSMutableDictionary *bindingsDict = nil;
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
             [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
+            [self updateHistory];
+            [self saveMnemonic];
         }
         else {
             NSBeep();
