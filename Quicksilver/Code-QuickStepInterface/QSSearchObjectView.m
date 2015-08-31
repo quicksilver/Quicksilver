@@ -1681,7 +1681,7 @@ NSMutableDictionary *bindingsDict = nil;
 	// [NSDictionary dictionaryWithObjectsAndKeys:[self objectValue] , @"object", nil];
 	//
 
-    id objectValue = [self objectValue];
+    id objectValue = [[[self objectValue] splitObjects] lastObject];
 	if (objectValue) {
        [QSHist addObject:objectValue];
     }
