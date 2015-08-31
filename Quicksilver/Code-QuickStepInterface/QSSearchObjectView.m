@@ -1673,6 +1673,11 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)updateHistory {
 	if (!recordsHistory) return;
     
+    // only store history for the first pane
+    if (self != [self directSelector]) {
+        return;
+    }
+    
     // Only alter the history array if we're not browsing the history
     if (browsingHistory) {
         return;
