@@ -9,6 +9,7 @@
 #import "NSObject+ReaperExtensions.h"
 #import <QSFoundation/QSFoundation.h>
 
+#define STOP_DELAY 0.5
 #define HIDE_DELAY 1.0
 #define SHOW_DELAY 0.05
 
@@ -164,7 +165,7 @@ static QSTaskViewer * _sharedInstance;
 
     QSTaskViewController *removedController = self.taskControllers[task.identifier];
 
-    QSGCDMainAsync(^{
+    QSGCDMainDelayed(STOP_DELAY, ^{
         [self.taskControllers removeObjectForKey:task.identifier];
         [removedController.view removeFromSuperview];
 
