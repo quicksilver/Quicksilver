@@ -28,11 +28,13 @@
 }
 
 - (void)awakeFromNib {
+    [self.progressIndicator bind:@"hidden" toObject:self.task withKeyPath:@"showProgress" options:@{NSValueTransformerNameBindingOption: NSNegateBooleanTransformerName}];
     [self.progressIndicator setUsesThreadedAnimation:YES];
 }
 
 - (void)dealloc {
     [self.progressIndicator unbind:@"isIndeterminate"];
+    [self.progressIndicator unbind:@"hidden"];
 }
 
 - (IBAction)cancel:(id)sender {

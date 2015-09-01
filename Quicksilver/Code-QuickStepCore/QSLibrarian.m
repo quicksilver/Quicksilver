@@ -743,6 +743,7 @@ static CGFloat searchSpeed = 0.0;
         scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
         scanTask.name = @"Updating Catalog";
         scanTask.icon = [QSResourceManager imageNamed:@"Catalog.icns"];
+        scanTask.showProgress = YES;
     }
     return scanTask;
 }
