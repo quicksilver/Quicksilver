@@ -13,7 +13,7 @@
 #define SHOW_DELAY 0.05
 
 @interface QSTaskViewer (QSRedeclarations)
-- (QSDockingWindow *)window;
+@property (strong) QSDockingWindow *window;
 @end
 
 @interface QSTaskViewer ()
