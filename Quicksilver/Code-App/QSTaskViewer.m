@@ -153,9 +153,9 @@ static QSTaskViewer * _sharedInstance;
 
     QSGCDMainAsync(^{
         self.taskControllers[task.identifier] = taskController;
-    });
 
-    [self updateTaskView];
+        [self updateTaskView];
+    });
 }
 
 - (void)removeTask:(NSNotification *)notif {
@@ -167,9 +167,10 @@ static QSTaskViewer * _sharedInstance;
     QSGCDMainAsync(^{
         [self.taskControllers removeObjectForKey:task.identifier];
         [removedController.view removeFromSuperview];
+
+        [self updateTaskView];
     });
 
-    [self updateTaskView];
 }
 
 - (void)updateTask:(NSNotification *)notif {
