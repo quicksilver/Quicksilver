@@ -21,7 +21,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableDictionary *enabledPresetsDictionary;
 	NSMutableSet *defaultSearchSet;
 	NSMutableSet *omittedIDs;
-	QSTask *scanTask;
 	QSTaskController *activityController;
 
 	NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
@@ -48,6 +47,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 
 @property (retain) QSThreadSafeMutableDictionary *objectDictionary;
 @property (retain) QSObject *pasteboardObject;
+@property (retain, readonly) QSTask *scanTask;
 
 + (id)sharedInstance;
 + (void)removeIndexes;
@@ -119,7 +119,5 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)pruneInvalidChildren:(id)sender;
 - (void)loadCatalogInfo;
 - (void)initCatalog;
-- (QSTask *)scanTask;
-- (void)setScanTask:(QSTask *)value;
 
 @end

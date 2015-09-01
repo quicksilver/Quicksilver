@@ -63,10 +63,6 @@ static CGFloat searchSpeed = 0.0;
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
         _objectDictionary = [[QSThreadSafeMutableDictionary alloc] init];
-        
-		scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
-		[scanTask setName:@"Updating Catalog"];
-		[scanTask setIcon:[QSResourceManager imageNamed:@"Catalog.icns"]];
 
 		//Initialize Variables
 		appSearchArrays = nil;
@@ -263,13 +259,13 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)reloadSource:(NSNotification *)notif {
 	NSArray *entries = [entriesBySource objectForKey:[notif object]];
-	[scanTask setStatus:[NSString stringWithFormat:@"Reloading Index for %@", [entries lastObject]]];
-	[scanTask start];
+    self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
+    [self.scanTask start];
 
 	for (id loopItem in entries) {
 		[loopItem scanForced:NO];
 	}
-	[scanTask stop];
+	[self.scanTask stop];
 }
 
 - (void)reloadEntrySources:(NSNotification *)notif {
@@ -343,6 +339,7 @@ static CGFloat searchSpeed = 0.0;
 	//	NSLog(@"cant find entry %@", theID);
 	return entry;
 }
+
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
     NSIndexSet *matchedIndexes = [entries indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSCatalogEntry *entry, NSUInteger idx, BOOL *stop) {
@@ -545,21 +542,21 @@ static CGFloat searchSpeed = 0.0;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         @autoreleasepool {
-            scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
-            scanTask.progress = -1;
-            [scanTask start];
+            self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
+            self.scanTask.progress = -1;
+            [self.scanTask start];
 
             scannerCount++;
             NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
-                scanTask.progress = (CGFloat)i / c;
+                self.scanTask.progress = (CGFloat)i / c;
                 [[children objectAtIndex:i] scanForced:force];
             }
 
-            scanTask.progress = 1.0;
-            [scanTask stop];
+            self.scanTask.progress = 1.0;
+            [self.scanTask stop];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
             scannerCount--;
@@ -741,13 +738,13 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (QSTask *)scanTask {
-	return scanTask;
-}
-
-- (void)setScanTask:(QSTask *)value {
-	if (scanTask != value) {
-		scanTask = value;
-	}
+    QSTask *scanTask = [QSTasks taskWithIdentifier:@"QSLibrarianScanTask"];
+    if (!scanTask) {
+        scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
+        scanTask.name = @"Updating Catalog";
+        scanTask.icon = [QSResourceManager imageNamed:@"Catalog.icns"];
+    }
+    return scanTask;
 }
 
 @end
