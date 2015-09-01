@@ -194,6 +194,7 @@ static QSTaskViewer * _sharedInstance;
             }
             i++;
         }
+        self.tasksView.needsDisplay = YES;
 
         NSUInteger taskCount = self.taskControllers.count;
         if (taskCount == 0) {
