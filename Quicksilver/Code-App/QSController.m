@@ -1076,6 +1076,9 @@ static QSController *defaultController = nil;
 	}
     
 	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
+
+    // make sure we're visible on the first activation
+    [NSApp unhideWithoutActivation];
     
 	QSApplicationCompletedLaunch = YES;
 }
