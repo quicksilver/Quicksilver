@@ -19,6 +19,7 @@
 #import "QSFoundation.h"
 
 #import "QSURLDownloadWrapper.h"
+#import "QSNotificationCenterHandler.h"
 
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
@@ -837,13 +838,19 @@
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
         BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-        if (!relaunch) {
-            NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plugins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
-        }
 		if (relaunch) {
 			[NSApp relaunch:self];
-		}
+        } else {
+            NSUserNotification *relaunchAlert = [[NSUserNotification alloc] init];
+            [relaunchAlert setIdentifier:QSRelaunchRequestedUserNotification];
+            NSString *title = NSLocalizedString(@"Relaunch Necessary", nil);
+            NSString *details = NSLocalizedString(@"Quicksilver needs to be relaunched for some changes to take effect", nil);
+            NSString *button = NSLocalizedString(@"Relaunch", nil);
+            [relaunchAlert setTitle:title];
+            [relaunchAlert setInformativeText:details];
+            [relaunchAlert setActionButtonTitle:button];
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:relaunchAlert];
+        }
 		updatingPlugIns = NO;
 		warnedOfRelaunch = YES;
 		return YES;
