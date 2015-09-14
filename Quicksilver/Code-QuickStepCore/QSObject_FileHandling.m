@@ -39,13 +39,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
         NSString *sflStandardized = [sflPath stringByStandardizingPath];
         if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
-            NSDictionary *sflData = [NSDictionary dictionaryWithContentsOfFile:sflStandardized];
-            for (id obj in sflData[@"$objects"]) {
-                if ([obj isKindOfClass:[NSString class]]) {
-                    url = [NSURL URLWithString:obj];
-                    if ([url isFileURL]) {
-                        [documentsArray addObject:[url path]];
-                    }
+            NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
+            for (id item in sflData[@"items"]) {
+                // item's class is SFLListItem
+                url = [item URL];
+                if ([url isFileURL]) {
+                    [documentsArray addObject:[url path]];
                 }
             }
         }
