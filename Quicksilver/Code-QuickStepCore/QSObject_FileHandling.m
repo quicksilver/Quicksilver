@@ -32,6 +32,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		return nil;
 	}
 
+    NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
+    NSURL *url;
+    if ([NSApplication isElCapitan]) {
+        NSString *sflPath = [NSString stringWithFormat:@"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.sfl", bundleIdentifier];
+        NSString *sflStandardized = [sflPath stringByStandardizingPath];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
+            NSDictionary *sflData = [NSDictionary dictionaryWithContentsOfFile:sflStandardized];
+            for (id obj in sflData[@"$objects"]) {
+                if ([obj respondsToSelector:@selector(hasPrefix:)] && [obj hasPrefix:@"file://"]) {
+                    url = [NSURL URLWithString:obj];
+                    [documentsArray addObject:[url path]];
+                }
+            }
+        }
+        return documentsArray;
+    }
+    // drop10.10: recent documents before El Capitan
 	// make sure latest changes are available
 	CFPreferencesSynchronize((__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 							 kCFPreferencesCurrentUser,
@@ -42,9 +59,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 																		  kCFPreferencesAnyHost));
 	NSArray *recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
 
-	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
 	NSData *bookmarkData;
-	NSURL *url;
 	NSError *err;
 	for(NSDictionary *documentStorage in recentDocuments) {
 		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
@@ -291,6 +306,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
             // Does the app have valid recent documents
             if (bundleIdentifier) {
+                if ([NSApplication isElCapitan]) {
+                    NSString *sflPath = [NSString stringWithFormat:@"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.sfl", bundleIdentifier];
+                    if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
+                        return YES;
+                    }
+                }
+                // drop10.10: recent documents before El Capitan
                 NSDictionary *recentDocuments = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
                                                                                        (__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
                                                                                        kCFPreferencesCurrentUser,
