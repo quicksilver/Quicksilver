@@ -18,6 +18,7 @@
 #import "QSObject_PropertyList.h"
 #include "QSLocalization.h"
 #import "QSDownloads.h"
+#import "QSPaths.h"
 #import <sys/mount.h>
 
 #import "NSApplication_BLTRExtensions.h"
@@ -35,7 +36,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
     NSURL *url;
     if ([NSApplication isElCapitan]) {
-        NSString *sflPath = [NSString stringWithFormat:@"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.sfl", bundleIdentifier];
+        NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
         NSString *sflStandardized = [sflPath stringByStandardizingPath];
         if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
             NSDictionary *sflData = [NSDictionary dictionaryWithContentsOfFile:sflStandardized];
@@ -307,7 +308,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             // Does the app have valid recent documents
             if (bundleIdentifier) {
                 if ([NSApplication isElCapitan]) {
-                    NSString *sflPath = [NSString stringWithFormat:@"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.sfl", bundleIdentifier];
+                    NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
                     if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
                         return YES;
                     }
