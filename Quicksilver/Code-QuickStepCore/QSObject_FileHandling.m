@@ -41,9 +41,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
             NSDictionary *sflData = [NSDictionary dictionaryWithContentsOfFile:sflStandardized];
             for (id obj in sflData[@"$objects"]) {
-                if ([obj respondsToSelector:@selector(hasPrefix:)] && [obj hasPrefix:@"file://"]) {
+                if ([obj isKindOfClass:[NSString class]]) {
                     url = [NSURL URLWithString:obj];
-                    [documentsArray addObject:[url path]];
+                    if ([url isFileURL]) {
+                        [documentsArray addObject:[url path]];
+                    }
                 }
             }
         }
