@@ -19,7 +19,6 @@
 #import "QSFoundation.h"
 
 #import "QSURLDownloadWrapper.h"
-#import "QSNotificationCenterHandler.h"
 
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
@@ -842,13 +841,14 @@
 			[NSApp relaunch:self];
         } else {
             NSUserNotification *relaunchAlert = [[NSUserNotification alloc] init];
-            [relaunchAlert setIdentifier:QSRelaunchRequestedUserNotification];
+            [relaunchAlert setIdentifier:@"QSRelaunchRequested"];
             NSString *title = NSLocalizedString(@"Relaunch Necessary", nil);
             NSString *details = NSLocalizedString(@"Quicksilver needs to be relaunched for some changes to take effect", nil);
             NSString *button = NSLocalizedString(@"Relaunch", nil);
             [relaunchAlert setTitle:title];
             [relaunchAlert setInformativeText:details];
             [relaunchAlert setActionButtonTitle:button];
+            [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
             [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:relaunchAlert];
         }
 		updatingPlugIns = NO;
@@ -869,14 +869,20 @@
 			}
 		}
 		BOOL suggestRelaunch = (!liveLoaded || relaunchForObsoletes);
-		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, suggestRelaunch?@"Relaunch required (⌘⌃Q)":nil, QSNotifierText, nil]);
+        NSUserNotification *pluginAlert = [[NSUserNotification alloc] init];
+        NSString *alertID = [NSString stringWithFormat:@"QSInstalled:%@", [plugin identifier]];
+        [pluginAlert setIdentifier:alertID];
+        NSString *relaunchRequired = NSLocalizedString(@"Relaunch required (⌘⌃Q)", nil);
+        NSString *details = suggestRelaunch ? relaunchRequired : nil;
+        [pluginAlert setTitle:title];
+        [pluginAlert setInformativeText:details];
+        [pluginAlert setContentImage:image];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:pluginAlert];
 	}
 	return YES;
 }
 
 - (BOOL)installPlugInsFromFiles:(NSArray *)fileList {
-	//NSBeep();
-
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger selection = [defaults boolForKey:kClickInstallWithoutAsking];
 
@@ -1092,6 +1098,22 @@
 - (BOOL)showNotifications { return showNotifications;  }
 - (void)setShowNotifications: (BOOL)flag {
 	showNotifications = flag;
+}
+
+#pragma mark NSUserNotificationCenter delegate methods
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    if ([[notification identifier] isEqualToString:@"QSRelaunchRequested"]) {
+        [NSApp relaunch:nil];
+        return;
+    }
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    // there's no in-app equivalent for these notifications, so always show them
+    return YES;
 }
 
 @end

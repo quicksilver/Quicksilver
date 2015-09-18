@@ -28,6 +28,7 @@
 #define kCrashReporterURL       @"http://qs0.qsapp.com/crashreports/reporter.php"
 // Wiki page detailing why we collect crash reports
 #define kCrashReportsWikiURL     @"http://qsapp.com/wiki/Crash_Reports"
+#define kReleaseNotesURL        @"http://qsapp.com/changelog.php"
 
 extern NSString *QSApplicationSupportPath;
 NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL create);

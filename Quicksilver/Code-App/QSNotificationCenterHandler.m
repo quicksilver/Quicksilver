@@ -27,6 +27,7 @@
     }
     if ([[notification identifier] isEqualToString:QSRelaunchRequestedUserNotification]) {
         [NSApp relaunch:nil];
+        return;
     }
 }
 

@@ -20,7 +20,7 @@ typedef enum {
 } QSPluginUpdateStatus;
 
 @class QSPlugIn;
-@interface QSPlugInManager : NSObject <QSURLDownloadDelegate> {
+@interface QSPlugInManager : NSObject <QSURLDownloadDelegate, NSUserNotificationCenterDelegate> {
 	BOOL startupLoadComplete;
 
 	NSMutableDictionary 			*localPlugIns; 	// Most recent version of every plugin on this machine. Includes restricted.
