@@ -43,7 +43,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             for (id item in sflData[@"items"]) {
                 // item's class is SFLListItem
                 url = [item URL];
-                if ([url isFileURL]) {
+                if (url && [url isFileURL]) {
                     [documentsArray addObject:[url path]];
                 }
             }
