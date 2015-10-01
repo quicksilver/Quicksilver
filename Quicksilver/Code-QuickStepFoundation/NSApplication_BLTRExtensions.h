@@ -112,4 +112,18 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  */
 + (BOOL)isMavericks;
 
+/**
+ Checks, if system is at least Mac OS X 10.10 (Yosemite)
+ 
+ @returns YES, if 10.10+. NO otherwise
+ */
++ (BOOL)isYosemite;
+
+/**
+ Checks, if system is at least Mac OS X 10.11 (ElCapitan)
+ 
+ @returns YES, if 10.11+. NO otherwise
+ */
++ (BOOL)isElCapitan;
+
 @end

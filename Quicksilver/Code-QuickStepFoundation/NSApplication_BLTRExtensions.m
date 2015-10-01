@@ -201,4 +201,8 @@
     return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 10);
 }
 
++ (BOOL)isElCapitan {
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 11);
+}
+
 @end
