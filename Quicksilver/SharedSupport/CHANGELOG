@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Checking "Hide" in Login Items will no longer prevent Quicksilver from appearing (#1170, #2094)
+  * Recent documents are available under OS X 10.11 (#2079, #2100)
 
 ## Changes - 1.3.0 (4012) ##
 
