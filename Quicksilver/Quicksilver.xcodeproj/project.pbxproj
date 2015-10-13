@@ -394,6 +394,8 @@
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
+		D450B6C41B82DEAF0010D14B /* QSNotificationCenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D450B6C21B82DEAF0010D14B /* QSNotificationCenterHandler.h */; };
+		D450B6C51B82DEAF0010D14B /* QSNotificationCenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D450B6C31B82DEAF0010D14B /* QSNotificationCenterHandler.m */; };
 		D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */; };
 		D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */; };
 		D46D3C5C16B33C2800387EA9 /* AppearanceBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */; };
@@ -1921,6 +1923,8 @@
 		D42A065716E1381F00BFD9C8 /* TestQSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestQSObject.m; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
 		D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSICloudDocumentSource.m; sourceTree = "<group>"; };
+		D450B6C21B82DEAF0010D14B /* QSNotificationCenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotificationCenterHandler.h; sourceTree = "<group>"; };
+		D450B6C31B82DEAF0010D14B /* QSNotificationCenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNotificationCenterHandler.m; sourceTree = "<group>"; };
 		D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotificationCenterNotifier.h; sourceTree = "<group>"; };
 		D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNotificationCenterNotifier.m; sourceTree = "<group>"; };
 		D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppearanceBack@2x.png"; sourceTree = "<group>"; };
@@ -3082,6 +3086,8 @@
 				7F60F12707FA134600922645 /* QSMainPreferencePanes.m */,
 				92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */,
 				92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */,
+				D450B6C21B82DEAF0010D14B /* QSNotificationCenterHandler.h */,
+				D450B6C31B82DEAF0010D14B /* QSNotificationCenterHandler.m */,
 				D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */,
 				D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */,
 				E18001F007B2BBB900010DB0 /* QSPlugInsPrefPane.h */,
@@ -3564,6 +3570,7 @@
 				7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */,
 				92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */,
 				4D00307613116304009040B7 /* Quicksilver.h in Headers */,
+				D450B6C41B82DEAF0010D14B /* QSNotificationCenterHandler.h in Headers */,
 				CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */,
 				D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */,
 			);
@@ -4664,6 +4671,7 @@
 				7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */,
 				7F9703E309AFEFCB00E9EA77 /* QSDropletApplication.m in Sources */,
 				7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */,
+				D450B6C51B82DEAF0010D14B /* QSNotificationCenterHandler.m in Sources */,
 				7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */,
 				7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */,
 				92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */,

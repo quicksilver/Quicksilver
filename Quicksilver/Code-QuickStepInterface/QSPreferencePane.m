@@ -131,9 +131,6 @@
 - (void)didUnselect {}
 - (void)didReselect {}
 - (void)paneLoadedByController:(id)controller {}
-- (void)requestRelaunch {
-	[NSApp requestRelaunch:nil];
-}
 
 - (id)preferencesSplitView {
     return nil;

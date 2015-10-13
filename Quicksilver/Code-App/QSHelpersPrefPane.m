@@ -10,6 +10,7 @@
 #import "QSResourceManager.h"
 #import "QSRegistry.h"
 #import "QSMacros.h"
+#import "QSController.h"
 
 #import "NSBundle_BLTRExtensions.h"
 
@@ -135,7 +136,9 @@
 		if (![anObject isEqual:[defaults objectForKey:mediatorType]]) {
 			[defaults setObject:anObject forKey:mediatorType];
 			[QSReg removePreferredInstanceOfTable:mediatorType];
-			if ([settings objectForKey:@"requiresRelaunch"]) [NSApp requestRelaunch:self];
+            if ([settings objectForKey:@"requiresRelaunch"]) {
+                [[QSController sharedInstance] requestRelaunch:nil];
+            }
 		}
 	}
 }

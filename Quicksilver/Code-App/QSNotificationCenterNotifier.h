@@ -7,6 +7,6 @@
 //  Display notifications using Notification Center introduced with 10.8
 //
 
-@interface QSNotificationCenterNotifier : NSObject <QSNotifier>
+@interface QSNotificationCenterNotifier : NSObject <QSNotifier, NSUserNotificationCenterDelegate>
 
 @end

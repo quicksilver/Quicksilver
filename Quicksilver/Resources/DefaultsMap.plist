@@ -71,7 +71,7 @@
 			<key>2</key>
 			<string>Developer Previews</string>
 		</dict>
-		<key>requestRelaunch</key>
+		<key>requiresRelaunch</key>
 		<true/>
 		<key>title</key>
 		<string>Application Update Type</string>

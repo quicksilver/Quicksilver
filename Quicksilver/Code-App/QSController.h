@@ -1,5 +1,6 @@
 @class QSObject;
 @class QSInterfaceController;
+@class QSNotificationCenterHandler;
 
 @protocol QSDropletHandling
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path;
@@ -18,6 +19,7 @@
 }
 
 @property (strong) NSString* crashReportPath;
+@property (strong) QSNotificationCenterHandler *notificationHandler;
 
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
@@ -66,6 +68,7 @@
 
 - (NSString *)crashReportPath;
 - (void)showDockIcon;
+- (void)requestRelaunch:(id)sender;
 
 @end
 

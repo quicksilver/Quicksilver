@@ -25,7 +25,6 @@
 @interface NSApplication (Relaunching)
 - (IBAction)relaunch:(id)sender;
 - (BOOL)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath;
-- (void)requestRelaunch:(id)sender;
 - (void)relaunchFromPath:(NSString *)path;
 - (void)relaunchAtPath:(NSString *)launchPath movedFromPath:(NSString *)newPath;
 @end

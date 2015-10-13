@@ -8,9 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define QSUpdateAvailableUserNotification @"QSUpdateAvailableUserNotification"
+#define QSUpdateDownloadedUserNotification @"QSUpdateDownloadedUserNotification"
+#define QSUpdateInstalledUserNotification @"QSUpdateInstalledUserNotification"
+
 @class QSTask, QSURLDownload;
 
-@interface QSUpdateController : NSObject {
+@interface QSUpdateController : NSObject <NSUserNotificationCenterDelegate> {
 	NSTimer *updateTimer;
 	BOOL doStartupCheck;
 	QSURLDownload *appDownload;
@@ -18,6 +22,7 @@
 	NSString *tempPath;
 	QSTask *updateTask;
 	BOOL shouldCancel;
+    NSUserNotificationCenter *userNotificationCenter;
 }
 
 + (id)sharedInstance;

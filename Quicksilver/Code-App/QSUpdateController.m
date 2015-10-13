@@ -145,8 +145,15 @@ typedef enum {
     [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
     switch (check) {
         case kQSUpdateCheckError:
-            if (!quiet)
-                NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
+            if (!quiet) {
+                NSUserNotification *connectionAlert = [[NSUserNotification alloc] init];
+                [connectionAlert setIdentifier:@"QSConnectionErrorUserNotification"];
+                NSString *title = NSLocalizedString(@"Internet Connection Error", nil);
+                NSString *details = NSLocalizedString(@"Unable to check for updates. Please verify your connection.", nil);
+                [connectionAlert setTitle:title];
+                [connectionAlert setInformativeText:details];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:connectionAlert];
+            }
             return NO;
         break;
         case kQSUpdateCheckUpdateAvailable:
@@ -157,12 +164,19 @@ typedef enum {
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 #endif
             } else {
-                NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
-                if (selection == 1) {
-                    [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-                } else if (selection == -1) {  //Go to web site
-                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-                }
+                NSUserNotification *updateAlert = [[NSUserNotification alloc] init];
+                [updateAlert setIdentifier:QSUpdateAvailableUserNotification];
+                NSString *title = NSLocalizedString(@"Update Available", nil);
+                NSString *localDetails = NSLocalizedString(@"A new version of Quicksilver is available. Update from %@ → %@?", nil);
+                NSString *currentBuild = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+                NSString *details = [NSString stringWithFormat:localDetails, currentBuild, newVersion];
+                NSString *button = NSLocalizedString(@"Download", nil);
+                [updateAlert setTitle:title];
+                [updateAlert setInformativeText:details];
+                [updateAlert setActionButtonTitle:button];
+                [updateAlert setUserInfo:@{@"updateController": self}];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:updateAlert];
             }
             return YES;
         break;
@@ -173,8 +187,15 @@ typedef enum {
             if (updateStatus == QSPluginUpdateStatusNoUpdates) {
                 updated = NO;
                 NSLog(@"Quicksilver is up to date.");
-                if (!quiet)
-                    NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+                if (!quiet) {
+                    NSUserNotification *upToDateAlert = [[NSUserNotification alloc] init];
+                    [upToDateAlert setIdentifier:@"QSUpToDateUserNotification"];
+                    NSString *title = NSLocalizedString(@"You're up-to-date!", nil);
+                    NSString *details = NSLocalizedString(@"You have the latest version of Quicksilver and installed plugins.", nil);
+                    [upToDateAlert setTitle:title];
+                    [upToDateAlert setInformativeText:details];
+                    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:upToDateAlert];
+                }
             }
             return updated;
         break;
@@ -329,34 +350,18 @@ typedef enum {
 }
 
 - (void)finishAppInstall {
-	NSString *path = [appDownload destination];
-    
-    NSInteger selection;
-    
     BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
     if (!update) {
-        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
-        update = (selection == NSAlertDefaultReturn);
-    }
-    
-    BOOL installSuccessful = NO;
-    if (update) {
-        installSuccessful = [self installAppFromDiskImage:path];
-        if (!installSuccessful) {
-            selection = NSRunInformationalAlertPanel(@"Installation Failed", @"It was not possible to decompress downloaded file.", @"Cancel Update", @"Download manually", nil);
-            if (selection == NSAlertAlternateReturn)
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-        }
-    }
-    if (installSuccessful) {
-        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-        if (!relaunch) {
-            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
-        }
-        if (relaunch) {
-            [NSApp relaunchFromPath:nil];
-        }
+        NSUserNotification *downloadedAlert = [[NSUserNotification alloc] init];
+        [downloadedAlert setIdentifier:QSUpdateDownloadedUserNotification];
+        NSString *title = NSLocalizedString(@"Download Successful", nil);
+        NSString *details = NSLocalizedString(@"A new version of Quicksilver has been downloaded. Would you like to install it?", nil);
+        NSString *button = NSLocalizedString(@"Install", nil);
+        [downloadedAlert setTitle:title];
+        [downloadedAlert setInformativeText:details];
+        [downloadedAlert setActionButtonTitle:button];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:downloadedAlert];
     }
 
 	[updateTask stopTask:nil];
@@ -471,5 +476,66 @@ typedef enum {
 
 }
 
+#pragma mark NSUserNotificationCenter delegate methods
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    if ([[notification identifier] isEqualToString:QSUpdateAvailableUserNotification]) {
+        if (notification.activationType == NSUserNotificationActivationTypeContentsClicked) {
+            // open release notes URL if message clicked
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kReleaseNotesURL]];
+            return;
+        }
+        QSGCDMainAsync(^{
+            [self installAppUpdate];
+        });
+        return;
+    }
+    if ([[notification identifier] isEqualToString:QSUpdateDownloadedUserNotification]) {
+        // install
+        NSString *path = [appDownload destination];
+        BOOL installSuccessful = [self installAppFromDiskImage:path];
+        if (installSuccessful) {
+            BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
+            if (relaunch) {
+                [NSApp relaunchFromPath:nil];
+            } else {
+                NSUserNotification *installAlert = [[NSUserNotification alloc] init];
+                [installAlert setIdentifier:QSUpdateInstalledUserNotification];
+                NSString *title = NSLocalizedString(@"Installation Successful", nil);
+                NSString *details = NSLocalizedString(@"A new version of Quicksilver has been installed. Relaunch to start using it.", nil);
+                NSString *button = NSLocalizedString(@"Relaunch", nil);
+                NSString *cancel = NSLocalizedString(@"Later", @"Install update later");
+                [installAlert setTitle:title];
+                [installAlert setInformativeText:details];
+                [installAlert setActionButtonTitle:button];
+                [installAlert setOtherButtonTitle:cancel];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:installAlert];
+            }
+        } else {
+            NSUserNotification *installFailAlert = [[NSUserNotification alloc] init];
+            [installFailAlert setIdentifier:@"QSInstallFailedUserNotification"];
+            NSString *title = NSLocalizedString(@"Installation Failed", nil);
+            NSString *details = NSLocalizedString(@"It was not possible to decompress downloaded file.", nil);
+            [installFailAlert setTitle:title];
+            [installFailAlert setInformativeText:details];
+            [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:installFailAlert];
+        }
+        return;
+    }
+    if ([[notification identifier] isEqualToString:QSUpdateInstalledUserNotification]) {
+        [NSApp relaunchFromPath:nil];
+        return;
+    }
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    // there's no in-app equivalent for these notifications, so always show them
+    return YES;
+}
+    
 @end
 

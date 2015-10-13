@@ -74,11 +74,6 @@
 
 @implementation NSApplication (Relaunching)
 
-- (void)requestRelaunch:(id)sender {
-    if (NSRunAlertPanel(@"Relaunch required", @"Quicksilver needs to be relaunched for some changes to take effect", @"Relaunch", @"Later", nil))
-		[self relaunch:self];
-}
-
 // Use a method taken from Sparkle that deals with: Authentication, Quarantine and more
 - (BOOL)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
     return [SUPlainInstaller copyPathWithAuthentication:newPath overPath:launchPath temporaryName:nil error:nil];
