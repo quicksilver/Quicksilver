@@ -1,5 +1,9 @@
 ## Changes - 1.3.2 (4014) ##
 
+### Fixed ###
+
+  * HTTP connections to qsapp.com now use TLS to work with App Transport Security in El Capitan (#2114, #2123)
+
 ### Development ###
 
   * Change the deployment target to OS X 10.9 (#2118)
