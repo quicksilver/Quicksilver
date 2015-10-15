@@ -539,7 +539,7 @@ resource 'aete' (0, "Quicksilver") {
 			},
 
 			"get indirect types",
-			"Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			"Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at https://qsapp.com/wiki/AppleScript_Types",
 			'DAED', 'giob',
 			'****',
 			"value to return to Quicksilver",
@@ -550,7 +550,7 @@ resource 'aete' (0, "Quicksilver") {
 			},
 
 			"get direct types",
-			"Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			"Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at https://qsapp.com/wiki/AppleScript_Types",
 			'DAED', 'gdob',
 			'****',
 			"value to return to Quicksilver",
