@@ -32,7 +32,7 @@ require 'plist'
 # MAIN SCRIPT
 
 DEFAULT_USER = "qs"
-DEFAULT_HOST = "http://qs0.qsapp.com/plugins"
+DEFAULT_HOST = "https://qs0.qsapp.com/plugins"
 
 options = Trollop::options do
   banner "Usage: qs-push-plugin [-h|--help] [ARGS]"
