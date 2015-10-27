@@ -71,19 +71,29 @@
             // Do nothing. Still add the file to the catalog, just we will know little about it.
             // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
-		if ([resources[NSURLIsSymbolicLinkKey] boolValue] || [resources[NSURLIsAliasFileKey] boolValue]) {
-            /* If this is an alias, try to resolve it to get the remaining checks right */
-            NSString *targetFile = [manager resolveAliasAtPath:file];
-            if (targetFile) {
-                aliasSource = [NDAlias aliasWithContentsOfFile:file];
-                aliasFile = file;
-                file = targetFile;
-                [manager fileExistsAtPath:file isDirectory:&isDirectory];
-                [[NSURL fileURLWithPath:file] getResourceValue:&type forKey:NSURLTypeIdentifierKey error:nil];
+        NSURL *targetURL = nil;
+        if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
+            targetURL = [theURL URLByReallyResolvingSymlinksInPath];
+        } else if ([resources[NSURLIsAliasFileKey] boolValue]) {
+            BOOL stale = NO;
+            NSURL *targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
+                                                          options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
+                                              bookmarkDataIsStale:&stale
+                                                            error:&err];
+            if (!targetURL) {
+                NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
             }
-		} else {
+        } else {
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
+        if (targetURL) {
+            /* This was a symlink or an alias, grab the correct information */
+            aliasSource = [NDAlias aliasWithContentsOfFile:file];
+            aliasFile = file;
+            file = [targetURL path];
+            [manager fileExistsAtPath:file isDirectory:&isDirectory];
+            [[NSURL fileURLWithPath:file] getResourceValue:&type forKey:NSURLTypeIdentifierKey error:nil];
+		}
         if (!type) {
             type = resources[NSURLTypeIdentifierKey];
         }
