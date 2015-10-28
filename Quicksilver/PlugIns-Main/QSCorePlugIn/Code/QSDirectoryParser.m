@@ -76,10 +76,10 @@
             targetURL = [theURL URLByReallyResolvingSymlinksInPath];
         } else if ([resources[NSURLIsAliasFileKey] boolValue]) {
             BOOL stale = NO;
-            NSURL *targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
-                                                          options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
-                                              bookmarkDataIsStale:&stale
-                                                            error:&err];
+            targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
+                                                   options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
+                                       bookmarkDataIsStale:&stale
+                                                     error:&err];
             if (!targetURL) {
                 NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
             }
