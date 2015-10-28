@@ -161,9 +161,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 return @"iCloud";
             } else {
                 NSString *pathDetails = [path stringByAbbreviatingWithTildeInPath];
-                if (UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], kUTTypeResolvable)) {
-                    NSString *extraInfo = [[object fileUTI] isEqualToString:(__bridge NSString *)kUTTypeSymLink] ? NSLocalizedString(@"symlink", @"Extra details shown for symlink files, in the UI") : NSLocalizedString(@"alias", @"Extra details shown for alias files, in the UI");
-                    pathDetails = [pathDetails stringByAppendingFormat:@" (%@)", extraInfo];
+                if (QSTypeConformsTo([object fileUTI], (NSString *)kUTTypeSymLink)) {
+                    pathDetails = [[path stringByResolvingSymlinksInPath] stringByAbbreviatingWithTildeInPath];
+                } else if ([object isAlias]) {
+                    NSURL *fileURL = [NSURL fileURLWithPath:path];
+                    NSURL *resolvedURL = [NSURL URLByResolvingBookmarkAtURL:fileURL
+                                                                    options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting bookmarkDataIsStale:NULL
+                                                                      error:NULL];
+                    pathDetails = [resolvedURL path];
                 }
                 return pathDetails;
             }
