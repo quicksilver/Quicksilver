@@ -17,7 +17,10 @@
 - (NSArray *)resultsForSearchString:(NSString *)searchString inFolders:(NSSet *)paths
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneSearching:) name:NSMetadataQueryDidFinishGatheringNotification object:nil];
-	NSPredicate *search = [NSPredicate predicateFromMetadataQueryString:searchString];
+    NSPredicate *search = [NSPredicate predicateWithFormat:searchString];
+    if (!search) {
+        search = [NSPredicate predicateFromMetadataQueryString:searchString];
+    }
 	[self setPredicate:search];
 	if (![paths isEqual:nil]) {
 		NSMutableArray *pathURLs = [NSMutableArray array];
