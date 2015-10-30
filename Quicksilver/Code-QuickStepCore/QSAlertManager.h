@@ -63,4 +63,19 @@ typedef void (^QSAlertHandler)(QSAlertResponse);
  */
 - (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window;
 
+/**
+ * Display a notification
+ *
+ * Note that (<=10.9) there can only be 2 buttons on a notification, the second always dismiss the notification without informing the caller.
+ * Clicking the notification will give you QSAlertResponseFirst, the button will be QSAlertResponseSecond. The rest is ignored.
+ */
+- (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(QSAlertHandler)handler;
+
+/**
+ * Create a notification from the given parameters and display it.
+ *
+ * @see notifyWithNotification:completionHandler:
+ */
+- (void)notifyWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completionHandler:(QSAlertHandler)handler;
+
 @end

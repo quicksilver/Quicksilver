@@ -1,8 +1,10 @@
 #import "QSAlertManager.h"
 
-@interface QSAlertManager ()
+@interface QSAlertManager () <NSUserNotificationCenterDelegate>
 
 @property (assign) NSInteger returnCode;
+
+@property (retain) NSMutableDictionary *notificationHandlers;
 
 @end
 
@@ -15,6 +17,17 @@
         defaultManager = [[self alloc] init];
     });
     return defaultManager;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (!self) return nil;
+
+    _notificationHandlers = [NSMutableDictionary dictionary];
+
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+
+    return self;
 }
 
 #pragma mark -
@@ -120,6 +133,59 @@
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     self.returnCode = returnCode;
     [NSApp stopModal];
+}
+
+- (void)notifyWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completionHandler:(QSAlertHandler)handler {
+    NSUserNotification *notif = [[NSUserNotification alloc] init];
+    notif.title = title;
+    notif.informativeText = message;
+
+    if (buttons.count > 0) {
+        notif.actionButtonTitle = buttons[0];
+    }
+    if (buttons.count > 1) {
+        notif.otherButtonTitle = buttons[1];
+    }
+
+    [self notifyWithNotification:notif completionHandler:handler];
+}
+
+- (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(QSAlertHandler)handler {
+    if (!notif.identifier) {
+        notif.identifier = [[NSUUID UUID] UUIDString];
+    }
+
+    self.notificationHandlers[notif.identifier] = handler;
+
+    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notif];
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
+    QSAlertHandler handler = self.notificationHandlers[notification.identifier];
+
+    QSAlertResponse response = QSAlertResponseOK;
+    // Convert activation type to alert response
+    switch (notification.activationType) {
+        case NSUserNotificationActivationTypeContentsClicked:
+            response = QSAlertResponseFirst;
+            break;
+
+        case NSUserNotificationActivationTypeActionButtonClicked:
+            response = QSAlertResponseSecond;
+            break;
+
+        default:
+            break;
+    }
+
+    if (!handler) handler(response);
+
+    [self.notificationHandlers removeObjectForKey:notification.identifier];
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
+    // For now, always notify
+    return YES;
 }
 
 @end
