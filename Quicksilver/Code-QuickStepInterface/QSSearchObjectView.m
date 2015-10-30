@@ -63,7 +63,7 @@ NSMutableDictionary *bindingsDict = nil;
 	sourceArray = nil;
 	searchArray = nil;
 	resultArray = nil;
-	recordsHistory = YES;
+	self.recordsHistory = YES;
 	shouldResetSearchArray = YES;
 	allowNonActions = YES;
 	allowText = YES;
@@ -346,7 +346,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)allowNonActions { return allowNonActions;  }
 - (void)setAllowNonActions:(BOOL)flag {
 	allowNonActions = flag;
-	recordsHistory = flag;
+	self.recordsHistory = flag;
 }
 
 - (void)setResultsPadding:(CGFloat)aResultsPadding { resultsPadding = aResultsPadding; }
@@ -1668,19 +1668,12 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)updateHistory {
-	if (!recordsHistory) return;
-    
-    // only store history for the first pane
-    if (self != [self directSelector]) {
-        return;
-    }
-    
+	if (!self.recordsHistory) return;
+	
     // Only alter the history array if we're not browsing the history
     if (browsingHistory) {
         return;
     }
-	// [NSDictionary dictionaryWithObjectsAndKeys:[self objectValue] , @"object", nil];
-	//
 
     id objectValue = [[[self objectValue] splitObjects] lastObject];
 	if (objectValue) {

@@ -53,7 +53,6 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	BOOL vFlip;
 	NSText *currentEditor;
 
-	BOOL 			recordsHistory; //ACC
 	NSMutableArray *historyArray;
 	NSInteger 			historyIndex;
 	NSMutableArray *parentStack; // The parents for the current browse session
@@ -88,6 +87,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 }
 
 @property (assign) BOOL updatesSilently;
+@property (assign) BOOL recordsHistory;
 @property (strong) QSResultController *resultController;
 @property (strong) QSAction *alternateActionCounterpart;
 @property (strong) NSTextView *textModeEditor;
