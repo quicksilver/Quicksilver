@@ -107,6 +107,10 @@
 
 	[aSelector setSearchMode:SearchFilter];
 	[aSelector setAllowNonActions:NO];
+	// only store history for the first pane
+	dSelector.recordsHistory = YES;
+	aSelector.recordsHistory = NO;
+	iSelector.recordsHistory = NO;
 
 	[self hideIndirectSelector:nil];
 
