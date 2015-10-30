@@ -20,7 +20,7 @@
 #pragma mark -
 #pragma mark NSAlert
 
-- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(void (^)(NSModalResponse response))handler {
+- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler {
     NSParameterAssert(alert != nil);
 
     QSGCDMainAsync(^{
@@ -39,19 +39,51 @@
             response = [alert runModal];
         }
 
-        if (handler) handler(response);
+        QSAlertResponse realResponse = QSAlertResponseOK;
+        if (response >= 1000) {
+            // Standard NSAlert button-index-clicked response
+            realResponse = response - 1000;
+        } else {
+            // Compatible NSRunAlertPanel response, convert
+            if (response == NSAlertDefaultReturn) {
+                realResponse = QSAlertResponseFirst;
+            } else if (response == NSAlertOtherReturn) {
+                realResponse = QSAlertResponseSecond;
+            } else if (response == NSAlertAlternateReturn) {
+                realResponse = QSAlertResponseThird;
+            }
+        }
+
+        if (handler) handler(realResponse);
     });
+}
+
+- (void)beginAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler {
+    NSParameterAssert(title != nil);
+    NSParameterAssert(message != nil);
+
+    // Configure the alert
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = title;
+    alert.informativeText = message;
+    for (NSString *buttonTitle in buttons) {
+        [alert addButtonWithTitle:buttonTitle];
+    }
+
+    alert.alertStyle = style;
+
+    [self beginAlert:alert onWindow:window completionHandler:handler];
 }
 
 - (void)alertDidEnd:(NSAlert *)sheet returnCode:(NSInteger)theReturnCode contextInfo:(void *)contextInfo {
     [NSApp stopModalWithCode:theReturnCode];
 }
 
-- (NSModalResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window {
-    __block NSModalResponse alertResponse = NSAlertErrorReturn;
+- (QSAlertResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window {
+    __block QSAlertResponse alertResponse = QSAlertResponseOK;
     __block dispatch_semaphore_t alertSemaphore = dispatch_semaphore_create(0);
 
-    [self beginAlert:alert onWindow:window completionHandler:^(NSModalResponse response) {
+    [self beginAlert:alert onWindow:window completionHandler:^(QSAlertResponse response) {
         alertResponse = response;
         dispatch_semaphore_signal(alertSemaphore);
     }];
@@ -66,7 +98,7 @@
     return alertResponse;
 }
 
-- (NSModalResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window {
+- (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window {
     NSParameterAssert(title != nil);
     NSParameterAssert(buttons != nil);
     NSAssert(buttons.count > 1, @"Must have at least one button");

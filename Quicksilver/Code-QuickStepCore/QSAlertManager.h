@@ -7,6 +7,19 @@ NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg,
 NSInteger QSRunInformationalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) QS_DEPRECATED;
 NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) QS_DEPRECATED;
 
+typedef NS_ENUM(NSInteger, QSAlertResponse) {
+    QSAlertResponseOK = 0,
+    QSAlertResponseCancel = 1,
+
+    QSAlertResponseFirst = 0,
+    QSAlertResponseSecond = 1,
+    QSAlertResponseThird = 2,
+    /* Other button indexes can be returned */
+};
+
+
+typedef void (^QSAlertHandler)(QSAlertResponse);
+
 @interface QSAlertManager : NSObject
 
 /**
@@ -23,7 +36,9 @@ NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSStri
  *  @param window  An (optional) window to which the alert will be attached.
  *  @param handler The completion block to call.
  */
-- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(void (^)(NSModalResponse response))handler;
+- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler;
+
+- (void)beginAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler;
 
 /**
  *  Display an alert synchronously
@@ -33,7 +48,7 @@ NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSStri
  *
  *  @return The button that was used to dismiss the alert.
  */
-- (NSModalResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window;
+- (QSAlertResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window;
 
 /**
  *  Display an alert synchronously (and conveniently)
@@ -46,6 +61,6 @@ NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSStri
  *
  *  @return The button that was used to dismiss the alert.
  */
-- (NSModalResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window;
+- (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window;
 
 @end
