@@ -43,7 +43,11 @@ OSSpinLockUnlock(&_lock);
 #pragma mark - NSObject
 
 - (id)init {
-    return [self initWithCapacity:0];
+    if ((self = [super init])) {
+        _dictionary = [[NSMutableDictionary alloc] init];
+        _lock = OS_SPINLOCK_INIT;
+    }
+    return self;
 }
 
 - (id)initWithObjects:(NSArray *)objects forKeys:(NSArray *)keys {

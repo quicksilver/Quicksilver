@@ -694,39 +694,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 //	return YES;
 //}
 
-- (void)registerPlugInFrameworks {
-	return;
-	NSFileManager *fm = [NSFileManager defaultManager];
-
-	NSString *frameworksPath = [[bundle bundlePath] stringByAppendingPathComponent:@"Contents/Frameworks"];
-
-	if ([fm fileExistsAtPath:frameworksPath]) {
-		char *var = getenv("DYLD_FRAMEWORK_PATH");
-		NSString *frameworkVar = var?[NSString stringWithUTF8String:var] :@"";
-		frameworkVar = [frameworkVar stringByAppendingFormat:@":%@", frameworksPath];
-		setenv("DYLD_FRAMEWORK_PATH", [frameworkVar UTF8String] , YES);
-		NSLog(@"Adding Framework Search Path: %@", frameworksPath);
-
-		//	NSString *testpath = [frameworksPath stringByAppendingPathComponent:[[fm contentsOfDirectoryAtPath:frameworksPath error:nil] lastObject]];
-
-		//	NSLog(@"bund %@", [NSBundle bundleWithPath:testpath]);
-		//[[NSBundle bundleWithPath:testpath] load];
-		//		NSLog(@"%s", getenv("DYLD_FRAMEWORK_PATH") );
-
-	}
-
-	NSString *librariesPath = [[bundle bundlePath] stringByAppendingPathComponent:@"Contents/Libraries"];
-	if ([fm fileExistsAtPath:librariesPath]) {
-		char *var = getenv("DYLD_FRAMEWORK_PATH");
-		NSString *libraryVar = var?[NSString stringWithUTF8String:getenv("DYLD_FRAMEWORK_PATH")] :@"";
-		libraryVar = [libraryVar stringByAppendingFormat:@":%@", librariesPath];
-		setenv("DYLD_FRAMEWORK_PATH", [libraryVar UTF8String] , YES);
-		NSLog(@"Adding Library Search Path:\r%@", librariesPath);
-	}
-
-	//NSLog(@"DYLD %s", dyld_framework_path);
-}
-
 - (BOOL)_registerPlugIn {
     if (![self isSupported]) {
         NSString *unsupportedFolder = @"PlugIns (disabled)";
@@ -747,7 +714,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #endif
 	
 	[QSReg registerBundle:bundle];
-	[self registerPlugInFrameworks];
 
 	if ([[bundle objectForInfoDictionaryKey:@"NSAppleScriptEnabled"] boolValue])
 		[[NSScriptSuiteRegistry sharedScriptSuiteRegistry] loadSuitesFromBundle:bundle];

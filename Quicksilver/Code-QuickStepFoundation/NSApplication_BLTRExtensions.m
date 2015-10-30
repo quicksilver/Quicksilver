@@ -147,7 +147,11 @@
 + (NSString *)macOSXFullVersion {
 	return [NSString stringWithFormat:@"%i.%i.%i",(int)[self macOSXMajorVersion],(int)[self macOSXMinorVersion],(int)[self macOSXBugfixVersion]];
 }
-
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10
+#error Switch to [[NSProcessInfo processInfo] operatingSystemVersion]
+#else
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 + (SInt32)macOSXMajorVersion {
     SInt32 versionMajor;
     Gestalt (gestaltSystemVersionMajor, &versionMajor);
@@ -171,6 +175,8 @@
     Gestalt (gestaltSystemVersion, &version);
     return version;
 }
+#pragma clang diagnostic pop
+#endif
 
 + (NSString *)macOSXReleaseVersion {
     return [NSString stringWithFormat:@"%i.%i", (int)[self macOSXMajorVersion], (int)[self macOSXMinorVersion]];

@@ -25,9 +25,11 @@
 
 
 #import "NSAppleEventDescriptor+NDCoercion.h"
-#import "NSURL+NDCarbonUtilities.h"
 #import "NSValue+NDFourCharCode.h"
-#import "NDProgrammerUtilities.h"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 
 NSString		* NDAppleEventDescriptorCoercionError = @"AppleEventDescriptorCoercionError",
 				* NDAppleEventDescriptorCoercionObject = @"object";
@@ -1347,7 +1349,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 - (NSAppleEventDescriptor *)sendWithSendMode:(AESendMode)aSendMode sendPriority:(AESendPriority)aSendPriority timeOutInTicks:(SInt32)aTimeOutInTicks idleProc:(AEIdleUPP)anIdleProc filterProc:(AEFilterUPP)aFilterProc
 {
 	AEDesc	theResult = { typeNull, NULL };
-	NDLogOSStatus( AESend( [self aeDesc], &theResult, aSendMode, aSendPriority, aTimeOutInTicks, anIdleProc, aFilterProc ) );
+	AESend( [self aeDesc], &theResult, aSendMode, aSendPriority, aTimeOutInTicks, anIdleProc, aFilterProc );
 	return [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theResult];
 }
 
@@ -1403,7 +1405,7 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 			NSLog(@"Script Object Specifier %@ of unhandled type %@", aSpecifier, [aSpecifier class]);
 	}
 	else	// if a nil specifier then return a typeNull descriptor
-		theResult = NDLogOSStatus(AECreateDesc( typeNull, NULL, 0, aDesc ));
+		theResult = AECreateDesc( typeNull, NULL, 0, aDesc );
 
 	return theResult;
 }
@@ -1421,13 +1423,13 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 		NSCAssert( theContainerClassDesc != nil, @"Coercsion of NSScriptObjectSpecifiers to NSAppleEventDescriptor can only occur with NSScriptObjectSpecifiers that have there container class specifiers set.");
 		
 		/* nil container specifier means the container is the application and the container desc should be typeNull */
-		if( theContainerSpecifier == nil || NDLogFalse(aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) ) )
+		if( theContainerSpecifier == nil || aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) )
 		{
 			long int		theIndex = [aSpecifier index]+1;
-			if( NDLogOSStatus( AECreateDesc( typeSInt32, &theIndex, sizeof( theIndex ), &theKeyData ) ) )
+			if( AECreateDesc( typeSInt32, &theIndex, sizeof( theIndex ), &theKeyData ) )
 			{
 				DescType		theKeyDesc = [theContainerClassDesc appleEventCodeForKey:[aSpecifier key]];
-				theResult = NDLogOSStatus( CreateObjSpecifier( theKeyDesc, &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc) );
+				theResult = CreateObjSpecifier( theKeyDesc, &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc);
 				AEDisposeDesc(&theKeyData);
 			}
 			AEDisposeDesc(&theContainerDesc);
@@ -1453,16 +1455,16 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 
 		NSCAssert( theContainerClassDesc != nil, @"Coercsion of NSScriptObjectSpecifiers to NSAppleEventDescriptor can only occur with NSScriptObjectSpecifiers that have there container class specifiers set.");
 
-		if( theContainerSpecifier == nil || NDLogFalse(aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) ) )
+		if( theContainerSpecifier == nil || aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) )
 		{
 			NSString			* theName = [aSpecifier name];
 			NSUInteger			theLength = [theName length];
 			unichar				* theCharacters = malloc( theLength * sizeof(unichar) );
 			[theName getCharacters:theCharacters];
-			if( NDLogOSStatus( AECreateDesc( typeUnicodeText, theCharacters, theLength, &theKeyData ) ) )
+			if( AECreateDesc( typeUnicodeText, theCharacters, theLength, &theKeyData ) )
 			{
 				DescType		theKeyDesc = [theContainerClassDesc appleEventCodeForKey:[aSpecifier key]];
-				theResult = NDLogOSStatus( CreateObjSpecifier( theKeyDesc, &theContainerDesc, formName, &theKeyData, NO, aDesc) );
+				theResult = CreateObjSpecifier( theKeyDesc, &theContainerDesc, formName, &theKeyData, NO, aDesc);
 				AEDisposeDesc(&theKeyData);
 			}
 			AEDisposeDesc(&theContainerDesc);
@@ -1489,12 +1491,12 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 		NSCAssert( theContainerClassDesc != nil, @"Coercsion of NSScriptObjectSpecifiers to NSAppleEventDescriptor can only occur with NSScriptObjectSpecifiers that have there container class specifiers set.");
 		
 		/* nil container specifier means the container is the application and the container desc should be typeNull */
-		if( theContainerSpecifier == nil || NDLogFalse(aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) ) )
+		if( theContainerSpecifier == nil || aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) )
 		{
 			DescType		theKeyDesc = [theContainerClassDesc appleEventCodeForKey:[aSpecifier key]];
-			if( NDLogOSStatus( AECreateDesc( typeType, &theKeyDesc, sizeof(theKeyDesc), &theKeyData ) ) )
+			if( AECreateDesc( typeType, &theKeyDesc, sizeof(theKeyDesc), &theKeyData ) )
 			{
-				theResult = NDLogOSStatus( CreateObjSpecifier( formPropertyID, &theContainerDesc, formPropertyID, &theKeyData, NO, aDesc) );
+				theResult = CreateObjSpecifier( formPropertyID, &theContainerDesc, formPropertyID, &theKeyData, NO, aDesc);
 				AEDisposeDesc(&theKeyData);
 			}
 			AEDisposeDesc(&theContainerDesc);
@@ -1517,7 +1519,7 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 		{
 			if( aeDescForObjectSpecifier( &theEndDesc, [aSpecifier endSpecifier] ) )
 			{
-				theResult = NDLogOSStatus( CreateRangeDescriptor( &theStartDesc, &theEndDesc, NO, aDesc) );
+				theResult = CreateRangeDescriptor( &theStartDesc, &theEndDesc, NO, aDesc);
 				AEDisposeDesc(&theEndDesc);
 			}
 			else
@@ -1546,7 +1548,7 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 			AEInitializeDesc(&theContainerDesc);	// need to initialize it to typeNull in case it is not set
 						
 			/* nil container specifier means the container is the application and the container desc should be typeNull */
-			if( theContainerSpecifier == nil || NDLogFalse(aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) ) )
+			if( theContainerSpecifier == nil || aeDescForObjectSpecifier( &theContainerDesc, theContainerSpecifier  ) )
 			{
 				id		theIdentifier = [aSpecifier uniqueID];
 				if( [theIdentifier isKindOfClass:[NSString class]] )
@@ -1554,18 +1556,18 @@ static BOOL aeDescForObjectSpecifier( AEDesc * aDesc, NSScriptObjectSpecifier * 
 					NSUInteger			theLength = [(NSString*)theIdentifier length];
 					unichar				* theCharacters = malloc( theLength * sizeof(unichar) );
 					[theIdentifier getCharacters:theCharacters];
-					if( NDLogOSStatus( AECreateDesc( typeUnicodeText, theCharacters, theLength, &theKeyData ) ) )
+					if( AECreateDesc( typeUnicodeText, theCharacters, theLength, &theKeyData ) )
 					{
-						theResult = NDLogOSStatus( CreateObjSpecifier( [[aSpecifier keyClassDescription] appleEventCode], &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc) );
+						theResult = CreateObjSpecifier( [[aSpecifier keyClassDescription] appleEventCode], &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc);
 						AEDisposeDesc(&theKeyData);
 					}
 				}
 				else if( [theIdentifier isKindOfClass:[NSNumber class]] )
 				{
 					long int	theIndex = [(NSNumber*)theIdentifier unsignedIntValue];
-					if( NDLogOSStatus( AECreateDesc( typeSInt32, &theIndex, sizeof( theIndex ), &theKeyData ) ) )
+					if( AECreateDesc( typeSInt32, &theIndex, sizeof( theIndex ), &theKeyData ) )
 					{
-						theResult = NDLogOSStatus( CreateObjSpecifier( [[aSpecifier keyClassDescription] appleEventCode], &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc) );
+						theResult = CreateObjSpecifier( [[aSpecifier keyClassDescription] appleEventCode], &theContainerDesc, formAbsolutePosition, &theKeyData, NO, aDesc);
 						AEDisposeDesc(&theKeyData);
 					}
 					AEDisposeDesc(&theContainerDesc);
@@ -1669,8 +1671,6 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 		
 		NSScriptClassDescription	* theClassDesc = [[NSScriptSuiteRegistry sharedScriptSuiteRegistry] classDescriptionWithAppleEventCode:theTypeDesc];
 
-NDUntestedMethod();
-
 		theResultSpecifier = [[[NSRelativeSpecifier allocWithZone:[theContainerSpec zone]] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] relativePosition:theRelativePos == kAEPrevious ? NSRelativeBefore : NSRelativeAfter baseSpecifier:theContainerSpec] autorelease];
 		
 		return theResultSpecifier;
@@ -1681,3 +1681,5 @@ NDUntestedMethod();
 	{
 	}
 #endif
+
+#pragma clang diagnostic pop

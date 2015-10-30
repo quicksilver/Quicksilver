@@ -28,9 +28,9 @@ NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg,
 
 	NSInteger returnVal = -1;
 	if (attachToWin == nil)
-		returnVal = NSRunAlertPanel(title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = NSRunAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg);
 	else {
-		returnVal = QSRunSheet(NSGetAlertPanel(title, msg, defaultButton, alternateButton, otherButton), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = QSRunSheet(NSGetAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
 	}
 
 	[onlyOneAlertSheetAtATimeLock unlock];
@@ -44,9 +44,9 @@ NSInteger QSRunInformationalAlertSheet(NSWindow *attachToWin, NSString *title, N
 
 	NSInteger returnVal = -1;
 	if (attachToWin == nil)
-		returnVal = NSRunInformationalAlertPanel(title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = NSRunInformationalAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg);
 	else
-		returnVal = QSRunSheet(NSGetInformationalAlertPanel(title, msg, defaultButton, alternateButton, otherButton), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = QSRunSheet(NSGetInformationalAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
 
 	[onlyOneAlertSheetAtATimeLock unlock];
 	return returnVal;
@@ -58,9 +58,9 @@ NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSStri
 	[onlyOneAlertSheetAtATimeLock lock];
 	NSInteger returnVal = -1;
 	if (attachToWin == nil)
-		returnVal = NSRunCriticalAlertPanel(title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = NSRunCriticalAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg);
 	else
-		returnVal = QSRunSheet(NSGetCriticalAlertPanel(title, msg, defaultButton, alternateButton, otherButton), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
+		returnVal = QSRunSheet(NSGetCriticalAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, msg), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
 
 	[onlyOneAlertSheetAtATimeLock unlock];
 	return returnVal;
