@@ -651,7 +651,7 @@ static QSController *defaultController = nil;
                 NSUserNotification *locationAlert = [[NSUserNotification alloc] init];
                 [locationAlert setIdentifier:QSLocationChangedUserNotification];
                 [locationAlert setTitle:NSLocalizedString(@"Running from a new location", nil)];
-                [locationAlert setInformativeText:NSLocalizedString(@"The previous version of Quicksilver was located in America. Would you like to move this new version to that location?", nil)];
+                [locationAlert setInformativeText:NSLocalizedString(@"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?", nil)];
                 [locationAlert setActionButtonTitle:NSLocalizedString(@"Move and Relaunch", nil)];
                 [locationAlert setUserInfo:@{@"source": bundlePath, @"destination": lastLocation}];
                 [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:locationAlert];
