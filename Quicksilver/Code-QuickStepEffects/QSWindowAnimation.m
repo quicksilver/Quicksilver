@@ -115,7 +115,7 @@
 		CGSSetWindowAlpha(cgs, wid, alpha);
 
 		if ([childWindows count]) {
-			CGSSetWindowAlpha(cgs, [[childWindows lastObject] windowNumber] , alpha);
+			CGSSetWindowAlpha(cgs, (int)[[childWindows lastObject] windowNumber] , alpha);
 		}
 		if (progress == 1.0f)
 			[_window setAlphaValue:alpha];
@@ -123,7 +123,7 @@
 	}
 	if (brightFt) {
 		CGFloat brightness = (*brightFt) (self, _percent);
-		CGSSetWindowListBrightness(cgs, &wid, &brightness, 1);
+		CGSSetWindowListBrightness(cgs, &wid, (float *)&brightness, 1);
 	}
 	if (progress == 1.0f)
 	[self finishAnimation];
@@ -140,7 +140,7 @@
 - (void)setWindow:(NSWindow *)aWindow {
 	if(_window != aWindow){
 		_window = aWindow;
-		wid = [aWindow windowNumber];
+		wid = (int)[aWindow windowNumber];
 	}
 }
 
@@ -174,7 +174,7 @@
 		//	[_window setAlphaValue:1.0f];
 
 	}
-	CGSSetWindowListBrightness(cgs, &wid, &_brightA, 1);
+	CGSSetWindowListBrightness(cgs, &wid, (float *)&_brightA, 1);
 
 }
 
