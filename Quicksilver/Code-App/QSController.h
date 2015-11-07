@@ -69,10 +69,4 @@
 
 @end
 
-#if 0
-@interface QSController (ErrorHandling)
-- (void)registerForErrors;
-@end
-#endif
-
 #define QSCon [QSController sharedInstance]

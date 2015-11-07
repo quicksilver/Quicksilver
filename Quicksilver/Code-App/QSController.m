@@ -22,10 +22,6 @@
 - (void)handleURL:(NSURL *)url;
 @end
 
-@interface QSController (ErrorHandling)
-- (void)registerForErrors;
-@end
-
 static QSController *defaultController = nil;
 
 @implementation QSController
@@ -832,9 +828,7 @@ static QSController *defaultController = nil;
 	[self startMenuExtraConnection];
 
     QSGetLocalizationStatus();
-#ifdef DEBUG
-	[self registerForErrors];
-#endif
+
     // Honor dock preference (if statement true if icon is NOT set to hide)
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:kHideDockIcon]) {
@@ -1117,42 +1111,5 @@ static QSController *defaultController = nil;
 	NSLog(@"Print %@ using %@ show %@", fileNames, printSettings, showPrintPanels ? @"YES" : @"NO");
 	return NSPrintingFailure;
 }
-
-@end
-
-void QSSignalHandler(int i) {
-	printf("signal %d", i);
-	NSLog(@"Current Tasks %@", [[QSTaskController sharedInstance] tasks]);
-	[NSApp activateIgnoringOtherApps:YES];
-	NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"An error has occured",nil), NSLocalizedString(@"Quicksilver must be relaunched to regain stability.",nil), NSLocalizedString(@"Relaunch",nil), NSLocalizedString(@"Quit",nil), nil, i);
-	NSLog(@"result %ld", (long)result);
-	if (result == 1)
-		[NSApp relaunch:nil];
-	exit(-1);
-}
-
-@implementation QSController (ErrorHandling)
-- (void)registerForErrors {
-	signal(SIGBUS, QSSignalHandler);
-	signal(SIGSEGV, QSSignalHandler);
-
-#ifdef DEBUG
-	NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
-	[handler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
-	[handler setDelegate:self];
-#endif
-}
-
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
-    NSLog(@"Exception raised: %@", exception);
-	[exception printStackTrace];
-	return NO;
-} // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
-
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(NSUInteger)aMask {
-
-	return YES;
-}
-
 
 @end
