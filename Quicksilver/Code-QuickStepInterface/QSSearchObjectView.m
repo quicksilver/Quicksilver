@@ -746,7 +746,8 @@ NSMutableDictionary *bindingsDict = nil;
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-    
+        editorFrame = NSIntegralRect(editorFrame);
+
         [[self textModeEditor] setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
         [[self textModeEditor] setFocusRingType:NSFocusRingTypeNone];        
         [[self textModeEditor] setDelegate: self];
