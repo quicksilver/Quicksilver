@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment version="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSAppearancePrefPane">
@@ -13,8 +13,8 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="&lt;&lt; do not localize >>" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="PrefPane">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="&lt;&lt; do not localize &gt;&gt;" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="PrefPane">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="379" width="384" height="300"/>
@@ -28,6 +28,7 @@
                     <button toolTip="Enable eye-candy" id="98">
                         <rect key="frame" x="17" y="233" width="245" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="check" title="Superfluous visual effects" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="194">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -39,6 +40,7 @@
                     <textField verticalHuggingPriority="750" id="100">
                         <rect key="frame" x="17" y="257" width="132" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Select Interface:" id="195">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -48,6 +50,7 @@
                     <button id="101">
                         <rect key="frame" x="193" y="101" width="164" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="check" title="Bezels are glass" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="196">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -59,6 +62,7 @@
                     <button id="103">
                         <rect key="frame" x="193" y="81" width="164" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="check" title="Bezels have shadows" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="197">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -70,6 +74,7 @@
                     <popUpButton toolTip="Interface type" verticalHuggingPriority="750" id="105">
                         <rect key="frame" x="148" y="252" width="110" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <popUpButtonCell key="cell" type="push" title="Window" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="115" id="198">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -87,6 +92,7 @@
                     <colorWell toolTip="Background color for the selected pane in the main window" id="106">
                         <rect key="frame" x="134" y="98" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1A" id="154">
@@ -99,11 +105,13 @@
                     <imageView toolTip="Background" id="107">
                         <rect key="frame" x="111" y="125" width="24" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceBack" id="199"/>
                     </imageView>
                     <colorWell toolTip="Text color of the result window header/footer text" id="108">
                         <rect key="frame" x="157" y="75" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance2T" id="IBR-rL-rZK">
@@ -116,6 +124,7 @@
                     <colorWell toolTip="Text color in the main window" id="109">
                         <rect key="frame" x="157" y="98" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1T" id="157">
@@ -128,6 +137,7 @@
                     <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="112">
                         <rect key="frame" x="19" y="204" width="324" height="4"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
@@ -135,11 +145,13 @@
                     <imageView toolTip="Text" id="113">
                         <rect key="frame" x="157" y="125" width="24" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceText" id="200"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" id="114">
                         <rect key="frame" x="17" y="75" width="88" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Result Headers:" id="201">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -149,6 +161,7 @@
                     <textField verticalHuggingPriority="750" id="116">
                         <rect key="frame" x="17" y="52" width="88" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Result Lists:" id="202">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -158,6 +171,7 @@
                     <colorWell toolTip="Color of the results list selected row" id="117">
                         <rect key="frame" x="134" y="52" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3A" id="161">
@@ -170,6 +184,7 @@
                     <colorWell toolTip="Text color in the results list rows" id="118">
                         <rect key="frame" x="157" y="52" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3T" id="163">
@@ -182,11 +197,13 @@
                     <imageView toolTip="Selection &amp; Accents" id="119">
                         <rect key="frame" x="134" y="125" width="24" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceSelection" id="203"/>
                     </imageView>
                     <colorWell toolTip="Background color of the main window" id="121">
                         <rect key="frame" x="111" y="98" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1B" id="137">
@@ -199,6 +216,7 @@
                     <colorWell toolTip="Background color of the results list" id="122">
                         <rect key="frame" x="111" y="52" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3B" id="144">
@@ -211,6 +229,7 @@
                     <colorWell toolTip="Header and footer background color in the result list" id="123">
                         <rect key="frame" x="111" y="75" width="24" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance2B" id="140">
@@ -223,6 +242,7 @@
                     <textField verticalHuggingPriority="750" id="124">
                         <rect key="frame" x="17" y="98" width="88" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Main Window:" id="204">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -232,6 +252,7 @@
                     <button verticalHuggingPriority="750" id="125">
                         <rect key="frame" x="110" y="28" width="72" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Defaults" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" inset="2" id="205">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="miniSystem"/>
@@ -243,6 +264,7 @@
                     <textField toolTip="Unused" verticalHuggingPriority="750" id="127">
                         <rect key="frame" x="138" y="79" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="206">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -252,6 +274,7 @@
                     <button toolTip="Click to customise the interface" verticalHuggingPriority="750" id="188">
                         <rect key="frame" x="253" y="249" width="95" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Customize" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="209">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -263,6 +286,7 @@
                     <button toolTip="Preview the colour changes in the interface" verticalHuggingPriority="750" id="190">
                         <rect key="frame" x="253" y="128" width="95" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Preview" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="210">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -274,6 +298,7 @@
                     <textField verticalHuggingPriority="750" id="211">
                         <rect key="frame" x="17" y="279" width="136" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Interface" id="212">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -283,6 +308,7 @@
                     <textField verticalHuggingPriority="750" id="213">
                         <rect key="frame" x="35" y="214" width="272" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Make the interface pop in and out" id="214">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -292,6 +318,7 @@
                     <textField verticalHuggingPriority="750" id="215">
                         <rect key="frame" x="17" y="181" width="113" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Colors" id="216">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -301,6 +328,7 @@
                     <textField verticalHuggingPriority="750" id="217">
                         <rect key="frame" x="17" y="164" width="329" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Use the palette below to alter the colors of the interface" id="218">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -308,16 +336,19 @@
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <animations/>
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="132" userLabel="Shared Defaults"/>
         <view id="111">
             <rect key="frame" x="0.0" y="0.0" width="125" height="1"/>
             <autoresizingMask key="autoresizingMask"/>
+            <animations/>
         </view>
         <view id="110">
             <rect key="frame" x="0.0" y="0.0" width="125" height="1"/>
             <autoresizingMask key="autoresizingMask"/>
+            <animations/>
         </view>
     </objects>
     <resources>
