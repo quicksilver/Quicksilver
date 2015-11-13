@@ -22,7 +22,7 @@
         return nil;
     }
 
-    _task = task;
+    self.representedObject = task;
 
     return self;
 }
@@ -35,6 +35,14 @@
 - (void)dealloc {
     [self.progressIndicator unbind:@"isIndeterminate"];
     [self.progressIndicator unbind:@"hidden"];
+}
+
+- (QSTask *)task {
+    return [self representedObject];
+}
+
+- (void)setTask:(QSTask *)task {
+    self.representedObject = task;
 }
 
 - (IBAction)cancel:(id)sender {
