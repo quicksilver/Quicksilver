@@ -28,6 +28,11 @@ QSLibrarian *QSLib = nil;
 static CGFloat searchSpeed = 0.0;
 #endif
 
+@interface QSLibrarian ()
+
+@property (retain) QSTask *scanTask;
+@end
+
 @implementation QSLibrarian
 
 + (id)sharedInstance {
@@ -110,6 +115,11 @@ static CGFloat searchSpeed = 0.0;
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSIndirectProxyImage"];
 #endif
 		[self loadShelfArrays];
+
+        _scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
+        _scanTask.name = @"Updating Catalog";
+        _scanTask.icon = [QSResourceManager imageNamed:@"Catalog.icns"];
+        _scanTask.showProgress = YES;
 	}
 
 	return self;
@@ -734,18 +744,6 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)setShelfArrays:(NSMutableDictionary *)newShelfArrays {
 	shelfArrays = newShelfArrays;
-}
-
-
-- (QSTask *)scanTask {
-    QSTask *scanTask = [QSTasks taskWithIdentifier:@"QSLibrarianScanTask"];
-    if (!scanTask) {
-        scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
-        scanTask.name = @"Updating Catalog";
-        scanTask.icon = [QSResourceManager imageNamed:@"Catalog.icns"];
-        scanTask.showProgress = YES;
-    }
-    return scanTask;
 }
 
 @end
