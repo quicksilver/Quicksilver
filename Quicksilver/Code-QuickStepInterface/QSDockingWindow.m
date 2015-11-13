@@ -250,8 +250,8 @@
 }
 
 - (void)saveFrame {
-	if ([self autosaveName]) {
-		[self saveFrameUsingName:[self autosaveName]];
+	if ([self frameAutosaveName]) {
+		[self saveFrameUsingName:[self frameAutosaveName]];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
@@ -266,11 +266,19 @@
 		[super orderOut:sender];
 	}
 }
-- (NSString *)autosaveName { return autosaveName;  }
+
+- (NSString *)autosaveName { return self.frameAutosaveName;  }
+
+- (BOOL)setFrameAutosaveName:(NSString *)name {
+    BOOL success = [super setFrameAutosaveName:name];
+    if (!success) return NO;
+
+    [self setFrameUsingName:self.frameAutosaveName force:YES];
+    [self updateTrackingRect:self];
+    return YES;
+}
 
 - (void)setAutosaveName:(NSString *)newAutosaveName {
-	autosaveName = newAutosaveName;
-	[self setFrameUsingName:autosaveName force:YES];
-	[self updateTrackingRect:self];
+    [self setFrameAutosaveName:newAutosaveName];
 }
 @end
