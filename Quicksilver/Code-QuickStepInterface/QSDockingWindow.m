@@ -31,7 +31,6 @@
 }
 
 - (void)awakeFromNib {
-	[self center];
 	// Notification for when the menu items list is opened in a docking window (e.g. clipboard menu)
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
 	// Notification for when the menu item list is closed in a docking window
