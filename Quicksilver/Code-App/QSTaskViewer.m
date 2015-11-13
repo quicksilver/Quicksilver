@@ -150,11 +150,11 @@ static QSTaskViewer * _sharedInstance;
     QSTask *task = notif.object;
 //    NSLog(@"Adding task: %@", task);
 
-    QSTaskViewController *taskController = [QSTaskViewController controllerWithTask:task];
+    if (!self.taskControllers[task.identifier]) {
+        self.taskControllers[task.identifier] = [QSTaskViewController controllerWithTask:task];
+    }
 
     QSGCDMainAsync(^{
-        self.taskControllers[task.identifier] = taskController;
-
         [self updateTaskView];
     });
 }
