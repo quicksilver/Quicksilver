@@ -2,8 +2,8 @@
 
 ### Fixed ###
 
-  * prevent a crash when switching to text-entry mode (#2111, #2152)
-  * allow `$` variables in Spotlight queries (#2140, #2141)
+  * Prevent a crash when switching to text-entry mode (#2111, #2152)
+  * Allow `$` variables in Spotlight queries (#2140, #2141)
 
 ### Development ###
 
