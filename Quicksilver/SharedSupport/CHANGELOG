@@ -4,6 +4,10 @@
 
   * Prevent a crash when switching to text-entry mode (#2111, #2152)
   * Allow `$` variables in Spotlight queries (#2140, #2141)
+  * Symbolic links to applications will work correctly with Path Finder (#2030, #2142)
+  * Avoid hangs caused by accessing unavailable network volumes (#1977, #2142)
+  * Fixed right-arrowing into symbolic links for the first and third panes (#1884, #1952, #2142)
+  * More reliable indexing of symbolic links to applications (#1498, #2142)
 
 ### Development ###
 
