@@ -40,53 +40,70 @@
 #ifdef DEBUG
     NSDate *startDate = [NSDate date];
 #endif
-	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
+	BOOL isDirectory;
+    NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
 
 	if (depth) depth--;
+
+    NSArray *properties = @[NSURLIsSymbolicLinkKey, NSURLIsAliasFileKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey];
     
-    NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLIsSymbolicLinkKey,NSURLIsPackageKey,nil] options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:nil];
+    NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL:[NSURL fileURLWithPath:path]
+                                      includingPropertiesForKeys:properties
+                                                         options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                    errorHandler:nil];
 	if (!enumerator) return nil;
 
-	NSString *file, *aliasFile, *type;
 	NSMutableArray *array = [NSMutableArray array];
-	NDAlias *aliasSource;
-	QSObject *obj;
-    
-	for (NSURL *theURL in enumerator) {
-        type = nil;
-        file = [theURL path];
-		aliasSource = nil; aliasFile = nil;
+
+    for (NSURL *theURL in enumerator) {
+        NSString *file = [theURL path];
+
+        NSString *type = nil;
+
+		NDAlias *aliasSource = nil; // So we can keep track of which alias was resolved
+        NSString *aliasFile = nil;
+
         NSError *err;
-        NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsAliasFileKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
-        if (err) {
+        NSDictionary *resources = [theURL resourceValuesForKeys:properties error:&err];
+        if (!resources) {
             // Do nothing. Still add the file to the catalog, just we will know little about it.
             // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
-		if ([resources[NSURLIsSymbolicLinkKey] boolValue] || [resources[NSURLIsAliasFileKey] boolValue]) {
-            /* If this is an alias, try to resolve it to get the remaining checks right */
-            NSString *targetFile = [manager resolveAliasAtPath:file];
-            if (targetFile) {
-                aliasSource = [NDAlias aliasWithContentsOfFile:file];
-                aliasFile = file;
-                file = targetFile;
-                [manager fileExistsAtPath:file isDirectory:&isDirectory];
-                [[NSURL fileURLWithPath:file] getResourceValue:&type forKey:NSURLTypeIdentifierKey error:nil
-                ];
+        NSURL *targetURL = nil;
+        if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
+            targetURL = [theURL URLByReallyResolvingSymlinksInPath];
+        } else if ([resources[NSURLIsAliasFileKey] boolValue]) {
+            BOOL stale = NO;
+            targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
+                                                   options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
+                                       bookmarkDataIsStale:&stale
+                                                     error:&err];
+            if (!targetURL) {
+                NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
             }
-		} else {
+        } else {
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
+        if (targetURL) {
+            /* This was a symlink or an alias, grab the correct information */
+            aliasSource = [NDAlias aliasWithContentsOfFile:file];
+            aliasFile = file;
+            file = [targetURL path];
+            [manager fileExistsAtPath:file isDirectory:&isDirectory];
+            [[NSURL fileURLWithPath:file] getResourceValue:&type forKey:NSURLTypeIdentifierKey error:nil];
+		}
         if (!type) {
             type = resources[NSURLTypeIdentifierKey];
         }
-        // if we are an alias or the file has no reason to be included
+
+        // Check if the type is wanted, or not
         BOOL include = NO;
         if (![types count]) {
             include = YES;
         } else {
-            for(NSString * requiredType in types) {
+            for (NSString *requiredType in types) {
                 if (QSTypeConformsTo(type, requiredType)) {
                     include = YES;
                     break;
@@ -100,7 +117,7 @@
         }
         
         if (include) {
-            obj = [QSObject fileObjectWithFileURL:theURL];
+            QSObject *obj = [QSObject fileObjectWithFileURL:theURL];
             if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
             if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
             if (obj) [array addObject:obj];

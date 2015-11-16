@@ -100,3 +100,31 @@ NSString *QSPasswordForHostUserType(NSString *host, NSString *user, SecProtocolT
 }
 
 @end
+
+@implementation NSURL (QSBookmarkHelpers)
++ (instancetype)URLByResolvingBookmarkAtURL:(NSURL *)bookmarkURL options:(NSURLBookmarkResolutionOptions)options bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error {
+
+    NSData *bookmarkData = [[self class] bookmarkDataWithContentsOfURL:bookmarkURL error:error];
+    if (!bookmarkData) return nil;
+
+    return [self URLByResolvingBookmarkData:bookmarkData options:options relativeToURL:nil bookmarkDataIsStale:isStale error:error];
+}
+
+- (BOOL)writeBookmarkToURL:(NSURL *)destinationURL options:(NSURLBookmarkFileCreationOptions)options error:(NSError **)error {
+    NSData *bookmarkData = [self bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile|options
+                          includingResourceValuesForKeys:nil
+                                           relativeToURL:nil
+                                                   error:error];
+    if (bookmarkData == nil) {
+        return NO;
+    }
+    return [NSURL writeBookmarkData:bookmarkData toURL:destinationURL options:options error:error];
+}
+
+- (NSData *)bookmarkData {
+    return [self bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
+          includingResourceValuesForKeys:nil
+                           relativeToURL:nil
+                                   error:NULL];
+}
+@end

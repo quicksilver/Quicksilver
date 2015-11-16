@@ -161,9 +161,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 return @"iCloud";
             } else {
                 NSString *pathDetails = [path stringByAbbreviatingWithTildeInPath];
-                if (UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], kUTTypeResolvable)) {
-                    NSString *extraInfo = [[object fileUTI] isEqualToString:(__bridge NSString *)kUTTypeSymLink] ? NSLocalizedString(@"symlink", @"Extra details shown for symlink files, in the UI") : NSLocalizedString(@"alias", @"Extra details shown for alias files, in the UI");
-                    pathDetails = [pathDetails stringByAppendingFormat:@" (%@)", extraInfo];
+                if (QSTypeConformsTo([object fileUTI], (NSString *)kUTTypeSymLink)) {
+                    pathDetails = [[path stringByResolvingSymlinksInPath] stringByAbbreviatingWithTildeInPath];
+                } else if ([object isAlias]) {
+                    NSURL *fileURL = [NSURL fileURLWithPath:path];
+                    NSURL *resolvedURL = [NSURL URLByResolvingBookmarkAtURL:fileURL
+                                                                    options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting bookmarkDataIsStale:NULL
+                                                                      error:NULL];
+                    pathDetails = [resolvedURL path];
                 }
                 return pathDetails;
             }
@@ -682,15 +687,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (!path) {
         return nil;
     }
-    
-    NSURL *fileURL = [NSURL fileURLWithPath:[path stringByResolvingSymlinksInPath]];
+
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
     NSError *err = nil;
     
     // Note: NSURLLocalizedLabelKey gives a localized string of the Finder label (tag in 10.9+). E.g. Red / Rouge
     dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey] error:&err];
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
-    if (err) {
+    if (!dict) {
         // The file is either a socket or fifo. Not much information is available on these files
         LSItemInfoRecord record;
         OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
