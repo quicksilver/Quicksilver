@@ -16,6 +16,8 @@
 
 - (NSArray *)resultsForSearchString:(NSString *)searchString inFolders:(NSSet *)paths
 {
+    if (searchString == nil) return nil;
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneSearching:) name:NSMetadataQueryDidFinishGatheringNotification object:nil];
     NSPredicate *search = [NSPredicate predicateWithFormat:searchString];
     if (!search) {
