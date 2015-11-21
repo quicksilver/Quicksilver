@@ -81,5 +81,13 @@
 	<string>QSDefaultStringRanker</string>
 	<key>Browse Mode</key>
 	<integer>2</integer>
+	<key>Text Allow Tightening</key>
+	<true/>
+	<key>Text Matched Always Show Name</key>
+	<true/>
+	<key>Text Matched Glow</key>
+	<false/>
+	<key>Text Matched Underline</key>
+	<true/>
 </dict>
 </plist>
