@@ -447,8 +447,9 @@
         }
         
 		if (!nameString) nameString = [drawObject displayName];
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		BOOL showRankedStringOnly = nameString == nil
-			|| ![[NSUserDefaults standardUserDefaults] boolForKey:kQSTextMatchedAlwaysShowName]
+			|| ![defaults boolForKey:kQSTextMatchedAlwaysShowName]
 			|| [nameString isEqualToString:[drawObject displayName]];
         if (!nameString) {
             // fall back to the identifier if no reasonable name can be found
@@ -478,7 +479,6 @@
 			NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 				showRankedStringOnly ? mainColor : fadedColor, NSForegroundColorAttributeName,
 				nil];
-			NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 			if ([defaults boolForKey:kQSTextMatchedUnderline]) {
 				[attributes setObject:showRankedStringOnly ? mainColor : fadedColor forKey:NSUnderlineColorAttributeName];
 				[attributes setObject:[NSNumber numberWithFloat:2.0] forKey:NSUnderlineStyleAttributeName];
