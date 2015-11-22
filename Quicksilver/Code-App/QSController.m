@@ -539,7 +539,6 @@ static QSController *defaultController = nil;
 	} else {
 		QSObject *object = [[[self interfaceController] dSelector] objectValue];
 		if ([object isEqual:proxy]) return [[[self interfaceController] dSelector] previousObjectValue];
-        if ([object isProxyObject]) return nil;
 		return object;
 	}
 	return nil;
