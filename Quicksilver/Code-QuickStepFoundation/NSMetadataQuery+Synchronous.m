@@ -24,7 +24,7 @@
         search = [NSPredicate predicateFromMetadataQueryString:searchString];
     }
 	[self setPredicate:search];
-	if (![paths isEqual:nil]) {
+	if (paths) {
 		NSMutableArray *pathURLs = [NSMutableArray array];
 		for (NSString *path in paths) {
 			NSURL *pathURL = [NSURL fileURLWithPath:path];
