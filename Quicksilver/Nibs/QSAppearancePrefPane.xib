@@ -377,7 +377,7 @@
                             <binding destination="132" name="value" keyPath="values.Text Matched Glow" id="FnN-ge-6B9"/>
                         </connections>
                     </button>
-                    <button id="Xq1-Sv-bTE">
+                    <button toolTip="When the search matches an item’s label, keep the name visible" id="Xq1-Sv-bTE">
                         <rect key="frame" x="17" y="107" width="340" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <animations/>
