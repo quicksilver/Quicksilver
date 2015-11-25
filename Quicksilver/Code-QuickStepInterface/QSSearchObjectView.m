@@ -1572,8 +1572,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
-		[self updateHistory];
-		[self saveMnemonic];
 		[self setSearchArray:sourceArray];
 	}
 	[partialString appendString:aString];
@@ -1848,8 +1846,6 @@ NSMutableDictionary *bindingsDict = nil;
     if ([newObjects count]) {
         browsing = YES;
         
-        [self updateHistory];
-        [self saveMnemonic];
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
