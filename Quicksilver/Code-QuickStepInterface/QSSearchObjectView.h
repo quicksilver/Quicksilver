@@ -29,9 +29,6 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 	BOOL validSearch;
 
-    BOOL browsingHistory;
-
-    
 	NSTimer *resetTimer;
 	NSTimer *searchTimer;
 	NSTimer *resultTimer;

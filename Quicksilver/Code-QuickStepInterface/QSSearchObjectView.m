@@ -558,7 +558,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearObjectValue {
-    browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
@@ -644,7 +643,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)clearSearch {
 	[resetTimer invalidate];
 	[resultTimer invalidate];
-    browsingHistory = NO;
 	[self resetString];
 	[partialString setString:@""];
     
@@ -1475,7 +1473,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[resultController window] isVisible]) {
 		[self hideResultView:self];
 	}
-    browsingHistory = NO;
 	if (browsing) {
 		browsing = NO;
 		[self setSearchMode:SearchFilterAll];
@@ -1668,24 +1665,20 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)updateHistory {
 	if (!self.recordsHistory) return;
 	
-    // Only alter the history array if we're not browsing the history
-    if (browsingHistory) {
-        return;
-    }
-
     id objectValue = [[[self objectValue] splitObjects] lastObject];
 	if (objectValue) {
        [QSHist addObject:objectValue];
     }
-    
+	
     NSDictionary *state = [self historyState];
 
     historyIndex = -1;
     if (state) {
         // Do not add the object to the history if it is already the 1st object
-        if (![historyArray count] || 
-                     ([historyArray count] && ![objectValue isEqual:[[historyArray objectAtIndex:0] objectForKey:@"selection"]])) {
-            [historyArray insertObject:state atIndex:0];
+        if (![historyArray count]
+			|| ![objectValue isEqual:[[historyArray objectAtIndex:0] objectForKey:@"selection"]]
+			) {
+				[historyArray insertObject:state atIndex:0];
         }
     }
 
@@ -1697,9 +1690,6 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"goForward");
 #endif
-    if (!browsingHistory) {
-        browsingHistory = YES;
-    }
 	if (historyIndex>0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
@@ -1711,13 +1701,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (VERBOSE) NSLog(@"goBackward");
 #endif
     
-    // Ensure the last object (most recent) is set before we start browsing
-    if (!browsingHistory) {
-        [self updateHistory];
-        historyIndex = 0;
-        browsingHistory = YES;
-    }
-
 	if (historyIndex+1<(NSInteger)[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
 	} else {
