@@ -56,8 +56,8 @@
 	if (!collecting) collecting = YES;
 	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
 		[collection addObject:[super objectValue]];
-        [[[super controller] dSelector] updateHistory];
-        [[[super controller] dSelector] saveMnemonic];
+		[self updateHistory];
+		[self saveMnemonic];
 		[self setNeedsDisplay:YES];
 	}
 	[self setShouldResetSearchString:YES];
