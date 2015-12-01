@@ -1639,7 +1639,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSourceArray:[state objectForKey:@"sourceArray"]];
 	[self setResultArray:[state objectForKey:@"resultArray"]];
 	[self setVisibleString:[state objectForKey:@"visibleString"]];
-	[self selectObject:[state objectForKey:@"selection"]];
+	[self selectObjectValue:[state objectForKey:@"selection"]];
 }
 
 
