@@ -1665,9 +1665,10 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)updateHistory {
 	if (!self.recordsHistory) return;
 	
-    id objectValue = [[[self objectValue] splitObjects] lastObject];
-	if (objectValue) {
-       [QSHist addObject:objectValue];
+    id objectValue = [self objectValue];
+	QSObject *lastObjectValue = [[objectValue splitObjects] lastObject];
+	if (lastObjectValue) {
+       [QSHist addObject:lastObjectValue];
     }
 	
     NSDictionary *state = [self historyState];
