@@ -91,10 +91,11 @@
 	collecting = NO;
 }
 - (id)objectValue {
-	if ([collection count])
+	if ([collection count] > 1) {
 		return [QSObject objectByMergingObjects:[NSArray arrayWithArray:collection] withObject:[super objectValue]];
-	else
+	} else {
 		return [super objectValue];
+	}
 }
 - (BOOL)objectIsInCollection:(QSObject *)thisObject {
 	return [collection containsObject:thisObject];
