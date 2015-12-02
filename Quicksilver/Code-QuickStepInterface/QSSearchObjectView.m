@@ -1676,7 +1676,7 @@ NSMutableDictionary *bindingsDict = nil;
     historyIndex = -1;
 	if (state) {
 		// if object is already in history, make it most recent
-		NSIndexSet *present = [historyArray indexesOfObjectsPassingTest:^BOOL(NSDictionary *historyObject, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSIndexSet *present = [historyArray indexesOfObjectsPassingTest:^BOOL(NSDictionary *historyObject, NSUInteger idx, BOOL *stop) {
 			return ([objectValue isEqual:[historyObject objectForKey:@"selection"]]);
 		}];
 		[historyArray removeObjectsAtIndexes:present];
