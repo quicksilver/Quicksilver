@@ -88,6 +88,18 @@ NSSize QSMaxIconSize;
 	for(NSString *key in data) {
 		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 	}
+	if ([self count] > 1) {
+		if ([self count] != [(QSObject *)anObject count]) {
+			return NO;
+		}
+		NSArray *myObjects = [self splitObjects];
+		NSArray *otherObjects = [anObject splitObjects];
+		for (NSUInteger i = 0; i < [self count]; i++) {
+			if (![myObjects[i] isEqual:otherObjects[i]]) {
+				return NO;
+			}
+		}
+	}
 	return YES;
 }
 
