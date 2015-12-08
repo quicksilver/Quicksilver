@@ -1568,6 +1568,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
+		historyIndex = -1;
 		[self setSearchArray:sourceArray];
 	}
 	[partialString appendString:aString];
@@ -1616,6 +1617,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 @end
 
+#pragma mark History
 @implementation QSSearchObjectView (History)
 - (void)showHistoryObjects {
 	NSMutableArray *array = [historyArray valueForKey:@"selection"];
@@ -1672,7 +1674,7 @@ NSMutableDictionary *bindingsDict = nil;
 	
     NSDictionary *state = [self historyState];
 
-    historyIndex = -1;
+    historyIndex = 0;
 	if (state) {
 		// if object is already in history, make it most recent
 		NSIndexSet *present = [historyArray indexesOfObjectsPassingTest:^BOOL(NSDictionary *historyObject, NSUInteger idx, BOOL *stop) {
