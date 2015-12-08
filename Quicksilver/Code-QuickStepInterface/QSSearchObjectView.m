@@ -1667,7 +1667,8 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!self.recordsHistory) return;
 	
     id objectValue = [self objectValue];
-	QSObject *lastObjectValue = [[objectValue splitObjects] lastObject];
+	// add synonyms to recent objects untouched, split/resolve everything else
+	QSObject *lastObjectValue = [objectValue isProxyObject] && [objectValue objectForMeta:@"target"] ? objectValue : [[objectValue splitObjects] lastObject];
 	if (lastObjectValue) {
        [QSHist addObject:lastObjectValue];
     }
