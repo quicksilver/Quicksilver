@@ -181,4 +181,47 @@
 //    STAssertNil([object objectForCache:cacheKey], nil);
 }
 
+- (void)testEquality
+{
+	// tests for -[QSObject isEqual:]
+	QSObject *one = [QSObject objectWithName:@"one"];
+	QSObject *otherOne = one;
+	QSObject *two = [QSObject objectWithName:@"two"];
+	// literally the same object
+	XCTAssertEqual(one, otherOne);
+	XCTAssertEqualObjects(one, otherOne);
+	// unequal objects
+	XCTAssertNotEqualObjects(one, two);
+	// same identifier and data
+	QSObject *data1 = [QSObject objectWithName:@"Data 1"];
+	QSObject *data2 = [QSObject objectWithName:@"Data 2"];
+	// setIdentifier will enforce uniqueness, so bypass it
+	data1.identifier = @"isEqualTest";
+	data2.identifier = @"isEqualTest";
+	[data1 setObject:@"string data" forType:QSTextType];
+	[data2 setObject:@"string data" forType:QSTextType];
+	[data1 setPrimaryType:QSTextType];
+	[data2 setPrimaryType:QSTextType];
+	[data1 setObject:@"/System/Library" forType:QSFilePathType];
+	[data2 setObject:@"/System/Library" forType:QSFilePathType];
+	// make sure they aren't literally the same object
+	// otherwise, the next test would be pointless
+	XCTAssertNotEqual(data1, data2);
+	XCTAssertEqualObjects(data1, data2);
+	// mismatched data
+	[data1 setObject:@"https://qsapp.com/" forType:QSURLType];
+	[data2 setObject:@"https://qsapp.com/download.php" forType:QSURLType];
+	XCTAssertNotEqualObjects(data1, data2);
+	// combined objects
+	NSArray *multipleObjects = @[one, two];
+	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
+	QSObject *combined2 = [QSObject objectByMergingObjects:multipleObjects];
+	combined1.identifier = @"isEqualTest";
+	combined2.identifier = @"isEqualTest";
+	// make sure they aren't literally the same object
+	// otherwise, the next test would be pointless
+	XCTAssertNotEqual(combined1, combined2);
+	XCTAssertEqualObjects(combined1, combined2);
+}
+
 @end
