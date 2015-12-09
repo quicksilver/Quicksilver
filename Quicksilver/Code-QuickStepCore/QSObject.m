@@ -83,8 +83,6 @@ NSSize QSMaxIconSize;
   }
 	if (self == anObject) return YES;
 	if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
-	if ([self primaryObject])
-		return [[self primaryObject] isEqual:[anObject primaryObject]];
 	for(NSString *key in data) {
 		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 	}
