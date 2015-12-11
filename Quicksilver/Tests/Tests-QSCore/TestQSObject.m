@@ -213,7 +213,9 @@
 	[data2 setObject:@"https://qsapp.com/download.php" forType:QSURLType];
 	XCTAssertNotEqualObjects(data1, data2);
 	// combined objects
-	NSArray *multipleObjects = @[one, two];
+	[data1 setObject:nil forType:QSURLType];
+	[data1 setObject:nil forType:QSURLType];
+	NSArray *multipleObjects = @[data1, data2];
 	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
 	QSObject *combined2 = [QSObject objectByMergingObjects:multipleObjects];
 	combined1.identifier = @"isEqualTest";
@@ -222,6 +224,13 @@
 	// otherwise, the next test would be pointless
 	XCTAssertNotEqual(combined1, combined2);
 	XCTAssertEqualObjects(combined1, combined2);
+	QSObject *data3 = [QSObject URLObjectWithURL:@"https://qsapp.com/" title:@"QS"];
+	QSObject *combined3 = [QSObject objectByMergingObjects:@[data1, data2, data3]];
+	combined3.identifier = @"isEqualTest";
+	XCTAssertNotEqualObjects(combined1, combined3);
+	QSObject *data4 = [QSObject URLObjectWithURL:@"https://apple.com/" title:@"Apple"];
+	QSObject *combined4 = [QSObject objectByMergingObjects:@[data1, data2, data4]];
+	XCTAssertNotEqualObjects(combined3, combined4);
 }
 
 @end
