@@ -230,6 +230,7 @@
 	XCTAssertNotEqualObjects(combined1, combined3);
 	QSObject *data4 = [QSObject URLObjectWithURL:@"https://apple.com/" title:@"Apple"];
 	QSObject *combined4 = [QSObject objectByMergingObjects:@[data1, data2, data4]];
+	combined4.identifier = @"isEqualTest";
 	XCTAssertNotEqualObjects(combined3, combined4);
 }
 
