@@ -1,3 +1,9 @@
+## Changes ##
+
+### Development ###
+
+  * New code will be checked for tab indents (#2050, #2105)
+
 ## Changes - 1.3.4 (4016) ##
 
 ### Fixed ###
