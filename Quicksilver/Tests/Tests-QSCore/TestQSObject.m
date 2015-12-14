@@ -235,6 +235,9 @@
 	QSObject *combined5 = [QSObject objectByMergingObjects:@[data1, data2, data4] withObject:data2];
 	combined5.identifier = @"isEqualTest";
 	XCTAssertEqualObjects(combined4, combined5);
+	QSObject *combined6 = [QSObject objectByMergingObjects:@[data1, data2] withObject:data4];
+	combined6.identifier = @"isEqualTest";
+	XCTAssertEqualObjects(combined4, combined6);
 }
 
 @end
