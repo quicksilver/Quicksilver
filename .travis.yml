@@ -1,3 +1,7 @@
 language: objective-c
 xcode_project: Quicksilver/Quicksilver.xcodeproj # path to your xcodeproj folder
 xcode_scheme: "Quicksilver Distribution"
+script: |
+    ruby Quicksilver/Tools/travis/check_indent.rb &&
+    xctool -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" build test
+
