@@ -66,6 +66,7 @@
 	if ([collection count])
 		[collection removeObject:[super objectValue]];
 	if (![collection count]) collecting = NO;
+	[self selectObjectValue:[collection lastObject]];
 	[self setNeedsDisplay:YES];
 }
 - (IBAction)uncollectLast:(id)sender { //Removes an object to a collection
