@@ -2250,7 +2250,7 @@
 		E1E5FBCD07B20DD20044D6EF /* QSVoyeur.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSVoyeur.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FC4807B20E4C0044D6EF /* BLTRResizeView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BLTRResizeView.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FC4907B20E4C0044D6EF /* BLTRResizeView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BLTRResizeView.m; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FC4A07B20E4C0044D6EF /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
+		E1E5FC4A07B20E4C0044D6EF /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; lineEnding = 0; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
 		E1E5FC4D07B20E4D0044D6EF /* QSBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBackgroundView.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FC4E07B20E4D0044D6EF /* QSBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBackgroundView.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FC4F07B20E4D0044D6EF /* QSBezelBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBezelBackgroundView.h; sourceTree = "<group>"; usesTabs = 1; };
