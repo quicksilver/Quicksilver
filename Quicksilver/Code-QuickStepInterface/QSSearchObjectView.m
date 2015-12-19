@@ -1621,8 +1621,7 @@ NSMutableDictionary *bindingsDict = nil;
 @implementation QSSearchObjectView (History)
 - (void)showHistoryObjects {
 	NSMutableArray *array = [historyArray valueForKey:@"selection"];
-	[self setSourceArray:array];
-    [self setResultArray:array];
+	[[self controller] showArray:array];
 }
 
 - (NSDictionary *)historyState {
