@@ -154,6 +154,17 @@
 			<key>runInMainThread</key>
 			<true/>
 		</dict>
+		<key>QSClearHistory</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSController</string>
+			<key>actionSelector</key>
+			<string>clearHistory</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>name</key>
+			<string>Clear Quicksilver History</string>
+		</dict>
 	</dict>
 	<key>QSInternalURLHandlers</key>
 	<dict>
