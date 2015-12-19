@@ -65,14 +65,14 @@
 - (IBAction)uncollect:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeObject:[super objectValue]];
-	if (![collection count]) collecting = NO;
+	if ([collection count] <= 1) collecting = NO;
 	[self selectObjectValue:[collection lastObject]];
 	[self setNeedsDisplay:YES];
 }
 - (IBAction)uncollectLast:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeLastObject];
-	if (![collection count])
+	if ([collection count] <= 1)
 		collecting = NO;
 	[self setNeedsDisplay:YES];
 	//if ([[resultController window] isVisible])
