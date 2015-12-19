@@ -96,6 +96,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
 - (void)selectObjectValue:(id)newObject ;
+- (void)redisplayObjectValue:(QSObject *)newObject;
 - (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)sourceArray;

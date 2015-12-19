@@ -563,6 +563,11 @@ NSMutableDictionary *bindingsDict = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
+- (void)redisplayObjectValue:(QSObject *)newObject
+{
+	[self selectObjectValue:newObject];
+}
+
 - (void)clearAll {
     [self clearObjectValue];
 	[self clearHistory];
@@ -1419,7 +1424,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!allowNonActions) return;
 	QSObject *newSelection = [self externalSelection];
     
-	[self setObjectValue:newSelection];
+	[self redisplayObjectValue:newSelection];
 }
 
 - (IBAction)dropSelection:(id)sender {
@@ -1639,7 +1644,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSourceArray:[state objectForKey:@"sourceArray"]];
 	[self setResultArray:[state objectForKey:@"resultArray"]];
 	[self setVisibleString:[state objectForKey:@"visibleString"]];
-	[self selectObjectValue:[state objectForKey:@"selection"]];
+	[self redisplayObjectValue:[state objectForKey:@"selection"]];
 }
 
 
