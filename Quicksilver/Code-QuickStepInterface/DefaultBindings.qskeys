@@ -53,7 +53,7 @@
 		<key>⌃⌥⌘D</key>
 		<string>removeMnemonic:</string>
 		<key>⌥,</key>
-		<string>uncollect:</string>
+		<string>uncollectLast:</string>
 		<key>⌥/</key>
 		<string>selectRoot:</string>
 		<key>⌥⌘G</key>

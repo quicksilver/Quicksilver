@@ -102,7 +102,7 @@
 }
 - (void)deleteBackward:(id)sender {
 	if ([collection count] && ![partialString length]) {
-		[self uncollectLast:sender];
+		[self uncollect:sender];
 	} else {
 		[super deleteBackward:sender];
     }
