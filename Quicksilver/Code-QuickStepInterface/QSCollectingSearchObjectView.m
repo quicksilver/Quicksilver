@@ -101,6 +101,25 @@
 - (BOOL)objectIsInCollection:(QSObject *)thisObject {
 	return [collection containsObject:thisObject];
 }
+- (void)explodeCombinedObject
+{
+	QSObject *selected = [super objectValue];
+	NSMutableArray *components;
+	if ([collection count]) {
+		components = [collection mutableCopy];
+	} else {
+		components = [[selected splitObjects] mutableCopy];
+		selected = nil;
+	}
+	if (selected && ![components containsObject:selected]) {
+		[components addObject:selected];
+	}
+	if ([components count] <= 1) {
+		NSBeep();
+		return;
+	}
+	[[self controller] showArray:components];
+}
 - (void)deleteBackward:(id)sender {
 	if ([collection count] && ![partialString length]) {
 		[self uncollect:sender];

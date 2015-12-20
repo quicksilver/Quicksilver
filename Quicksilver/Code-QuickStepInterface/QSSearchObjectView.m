@@ -1719,6 +1719,10 @@ NSMutableDictionary *bindingsDict = nil;
 	return NO;
 }
 
+- (void)explodeCombinedObject
+{
+	return;
+}
 
 @end
 

@@ -48,6 +48,8 @@
 		<string>encapsulateCommand:</string>
 		<key>⌃⌘[</key>
 		<string>showHistoryObjects</string>
+		<key>⌃⌘]</key>
+		<string>explodeCombinedObject</string>
 		<key>⌃⌘D</key>
 		<string>defineMnemonic:</string>
 		<key>⌃⌥⌘D</key>
