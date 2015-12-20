@@ -1500,7 +1500,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectAll:(id)sender {
-	[self setObjectValue:[QSObject objectByMergingObjects:resultArray]];
+	[self redisplayObjectValue:[QSObject objectByMergingObjects:resultArray]];
 }
 
 - (void)insertTab:(id)sender {
