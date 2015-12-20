@@ -41,6 +41,10 @@
 		<string>goBackward:</string>
 		<key>⌘]</key>
 		<string>goForward:</string>
+		<key>⌃]</key>
+		<string>goForwardInCollection:</string>
+		<key>⌃[</key>
+		<string>goBackwardInCollection:</string>
 		<key>⌘G</key>
 		<string>grabSelection:</string>
 		<key>⌃

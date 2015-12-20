@@ -56,4 +56,16 @@
  **/
 - (void)redisplayObjectValue:(QSObject *)newObject;
 
+/**
+ Select the next object in a collection
+ @param sender the calling object (unused)
+ **/
+- (IBAction)goForwardInCollection:(id)sender;
+
+/**
+ Select the previous object in a collection
+ @param sender the calling object (unused)
+ **/
+- (IBAction)goBackwardInCollection:(id)sender;
+
 @end
