@@ -79,6 +79,48 @@
 	//if ([[resultController window] isVisible])
 	//	[resultController->resultTable setNeedsDisplay:YES];}
 }
+- (IBAction)goForwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == [collection count] - 1 || position == NSNotFound) {
+		// end of the list or not in list at all, wrap to beginning
+		position = 0;
+	} else {
+		// go forward one
+		position++;
+	}
+	// prepare the state of the view
+	collecting = YES;
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
+}
+- (IBAction)goBackwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == 0 || position == NSNotFound) {
+		// beginning of the list or not in list at all, wrap to end
+		position = [collection count] - 1;
+	} else {
+		// go back one
+		position--;
+	}
+	// prepare the state of the view
+	collecting = YES;
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
+}
 - (void)clearObjectValue {
 	[self emptyCollection:nil];
 	[super clearObjectValue];
