@@ -95,7 +95,23 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
+/**
+ Resets the current state of the view, then populates the view with
+ a single object. Overrides the method from the superclass.
+ @param newObject the object to select
+ **/
+- (void)setObjectValue:(QSBasicObject *)newObject;
+/**
+ Set the currently selected object. If the object was not previously
+ selected, posts a SearchObjectChanged notification.
+ @param newObject the object to select
+ **/
 - (void)selectObjectValue:(id)newObject ;
+/**
+ Identical to selectObjectValue: in this class. See the interface for
+ QSCollectingSearchObjectView, where this does something useful.
+ @param newObject the object to select
+ **/
 - (void)redisplayObjectValue:(QSObject *)newObject;
 - (void)pageScroll:(NSInteger)direction;
 
@@ -115,6 +131,11 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(NSInteger)index;
+/**
+ Select an object from the result array. If the object passed in
+ doesn't exist in the results, nothing happens.
+ @param obj the object to select
+ **/
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)objectIconModified:(NSNotification *)notif;
 - (void)resetString; // update the string on screen when the search is cleared
@@ -205,10 +226,35 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 
 @interface QSSearchObjectView (History)
+/**
+ Go forward in the history of used objects
+ @param sender the calling object (unused)
+ **/
 - (void)goForward:(id)sender;
+/**
+ Go backward in the history of used objects
+ @param sender the calling object (unused)
+ **/
 - (void)goBackward:(id)sender;
+/**
+ Add the currently selected object to the history of used objects.
+ If the object is already present in the history, move it to the
+ most recent position. Combined objects are kept in history as-is.
+ 
+ This method also adds each selected object to the Recent Objects
+ catalog entry. Combined objects are split and added individually.
+ **/
 - (void)updateHistory;
+/**
+ Empty the history of used objects.
+ **/
 - (void)clearHistory;
+/**
+ Searches through a QSCollectingSearchObjectView's collection for
+ an object. Always returns NO in a plain QSSearchObjectView.
+ @param thisObject the object to look for
+ @returns YES if the object is in the collection. NO if not.
+ **/
 - (BOOL)objectIsInCollection:(QSObject *)thisObject;
 @end
 
