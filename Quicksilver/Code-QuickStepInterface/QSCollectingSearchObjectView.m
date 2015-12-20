@@ -200,7 +200,6 @@
 	if ([newObject count] > 1) {
 		collection = [[newObject splitObjects] mutableCopy];
 		newObject = [collection lastObject];
-		[collection removeObject:newObject];
 		collecting = YES;
 	} else {
 		collecting = NO;
