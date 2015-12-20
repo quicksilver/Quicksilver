@@ -256,6 +256,12 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
  @returns YES if the object is in the collection. NO if not.
  **/
 - (BOOL)objectIsInCollection:(QSObject *)thisObject;
+/**
+ Separate a combined object and put the components in the result
+ array. Allows users to view and manage selections. Does nothing
+ in a plain QSSearchObjectView.
+ **/
+- (void)explodeCombinedObject;
 @end
 
 
