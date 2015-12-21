@@ -1842,6 +1842,7 @@ NSMutableDictionary *bindingsDict = nil;
         browsing = YES;
         
         [self clearSearch];
+		historyIndex = -1;
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
         [self setResultArray:[newObjects mutableCopy]];
