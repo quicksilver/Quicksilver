@@ -191,7 +191,7 @@
 	XCTAssertEqual(one, otherOne);
 	XCTAssertEqualObjects(one, otherOne);
 	// unequal objects
-	XCTAssertNotEqualObjects(one, two);
+	XCTAssertNotEqual(one, two);
 	// same identifier and data
 	QSObject *data1 = [QSObject objectWithName:@"Data 1"];
 	QSObject *data2 = [QSObject objectWithName:@"Data 2"];
@@ -214,7 +214,7 @@
 	XCTAssertNotEqualObjects(data1, data2);
 	// combined objects
 	[data1 setObject:nil forType:QSURLType];
-	[data1 setObject:nil forType:QSURLType];
+	[data2 setObject:nil forType:QSURLType];
 	NSArray *multipleObjects = @[data1, data2];
 	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
 	QSObject *combined2 = [QSObject objectByMergingObjects:multipleObjects];
