@@ -82,7 +82,7 @@ NSSize QSMaxIconSize;
     anObject = [anObject object];
   }
 	if (self == anObject) return YES;
-	if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
+	if ([self identifier] && ![[self identifier] isEqualToString:[anObject identifier]]) return NO;
 	if ([self count] > 1) {
 		if ([self count] != [(QSObject *)anObject count]) {
 			return NO;
