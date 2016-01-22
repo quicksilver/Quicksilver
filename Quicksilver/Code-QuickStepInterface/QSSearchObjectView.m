@@ -45,6 +45,14 @@ NSMutableDictionary *bindingsDict = nil;
         NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
         bindingsDict = [[NSMutableDictionary alloc] initWithDictionary:[defaultBindings objectForKey:@"QSSearchObjectView"]];
         [bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
+		// replace \n with \r for compatibility with NDKeyboardLayout
+		for (NSString *key in [bindingsDict allKeys]) {
+			if ([key containsString:@"\n"]) {
+				NSString *newKey = [key stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+				bindingsDict[newKey] = bindingsDict[key];
+				[bindingsDict removeObjectForKey:key];
+			}
+		}
     }
 }
 #pragma mark -
