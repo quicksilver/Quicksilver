@@ -217,7 +217,7 @@
 	[data2 setObject:nil forType:QSURLType];
 	NSArray *multipleObjects = @[data1, data2];
 	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
-	QSObject *combined2 = [QSObject objectByMergingObjects:multipleObjects];
+	QSObject *combined2 = [QSObject objectByMergingObjects:[multipleObjects copy]];
 	combined1.identifier = @"isEqualTest";
 	combined2.identifier = @"isEqualTest";
 	// make sure they aren't literally the same object
