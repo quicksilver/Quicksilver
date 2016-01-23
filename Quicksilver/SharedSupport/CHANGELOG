@@ -14,6 +14,7 @@
   * Fixed right-arrowing into symbolic links for the first and third panes (#1884, #1952, #2157)
   * More reliable indexing of symbolic links to applications (#1498, #2157)
   * Correct release notes to show fixes from #2142 were actually in #2157
+  * Prevent a crash when scanning Spotlight entries with an empty query (#2158, #2160)
 
 ## Changes - 1.3.3 (4015) ##
 
