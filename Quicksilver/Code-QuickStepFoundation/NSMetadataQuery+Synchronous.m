@@ -16,13 +16,15 @@
 
 - (NSArray *)resultsForSearchString:(NSString *)searchString inFolders:(NSSet *)paths
 {
+    if (searchString == nil) return nil;
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneSearching:) name:NSMetadataQueryDidFinishGatheringNotification object:nil];
     NSPredicate *search = [NSPredicate predicateWithFormat:searchString];
     if (!search) {
         search = [NSPredicate predicateFromMetadataQueryString:searchString];
     }
 	[self setPredicate:search];
-	if (![paths isEqual:nil]) {
+	if (paths) {
 		NSMutableArray *pathURLs = [NSMutableArray array];
 		for (NSString *path in paths) {
 			NSURL *pathURL = [NSURL fileURLWithPath:path];
