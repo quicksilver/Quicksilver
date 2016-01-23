@@ -2,6 +2,11 @@
 
 ### New ###
 
+  * Preferences to control text appearance (#2162)
+    * Underline Matched Text
+    * Add Glow to Matched Text
+    * Always Show Name (#1391)
+    * Compress Long Names (#2133)
   * When a collection is (re)selected in the interface, it appears as a collection that can be managed, as though you had just created it with the comma trick, instead of a single combined object (#2092)
   * Collections can be "exploded" into a list of individual items with ⌃⌘]. This is the inverse of ⌘A. (#2092)
   * You can browse through a collection to get a better look at each item using ⌃[ and ⌃] (#2092)
@@ -19,12 +24,12 @@
 
 ### Changed ###
 
-  * History only stores items you've actually "used" (#2092)
+  * History only stores items you've actually "used" (#2090, #2092)
   * Multiple items selected with comma will be added to Recent Objects individually (#2092)
   * Reusing a recent item will make it the most recent in the history instead of adding a duplicate (#2092)
   * When a proxy object is used, the item it points to will be added to Recent Objects instead of the proxy object itself, which should already be in the catalog (#2092)
   * When an item is removed from a collection, the next object in the collection will be selected (#2092)
-  * Removing objects from collections should be more intuitive (#2092)
+  * Removing objects from collections should be more intuitive (#1123, #2092)
     * ⌫ removes the last selected item and selects the next in line (allowing multiple items to be quickly removed in order)
     * ⌥, removes the most recent item from the collection, but preserves the curent selection
   * If an action shows a result in the first pane (like Get Path), the result will be added to history (#2092)
