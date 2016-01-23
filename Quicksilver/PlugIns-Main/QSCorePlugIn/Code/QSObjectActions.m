@@ -50,7 +50,7 @@
 - (QSObject *)selectObjectInCommandWindow:(QSObject *)dObject {
 	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 
-	[controller selectObject:[dObject resolvedObject]];
+	[[controller dSelector] redisplayObjectValue:[dObject resolvedObject]];
 	[controller actionActivate:self];
 
 	return nil;

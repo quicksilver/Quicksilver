@@ -82,11 +82,20 @@ NSSize QSMaxIconSize;
     anObject = [anObject object];
   }
 	if (self == anObject) return YES;
-	if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
-	if ([self primaryObject])
-		return [[self primaryObject] isEqual:[anObject primaryObject]];
-	for(NSString *key in data) {
-		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
+	if (([self identifier] || [anObject identifier]) && ![[self identifier] isEqualToString:[anObject identifier]]) return NO;
+	if ([self count] > 1) {
+		if ([self count] != [(QSObject *)anObject count]) {
+			return NO;
+		}
+		NSSet *myObjects = [NSSet setWithArray:[self splitObjects]];
+		NSSet *otherObjects = [NSSet setWithArray:[anObject splitObjects]];
+		if (![myObjects isEqualToSet:otherObjects]) {
+			return NO;
+		}
+	} else {
+		for(NSString *key in data) {
+			if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
+		}
 	}
 	return YES;
 }

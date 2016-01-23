@@ -56,7 +56,8 @@
 	if (!collecting) collecting = YES;
 	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
 		[collection addObject:[super objectValue]];
-        [[[super controller] dSelector] saveMnemonic];
+		[self updateHistory];
+		[self saveMnemonic];
 		[self setNeedsDisplay:YES];
 	}
 	[self setShouldResetSearchString:YES];
@@ -64,17 +65,61 @@
 - (IBAction)uncollect:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeObject:[super objectValue]];
-	if (![collection count]) collecting = NO;
+	if ([collection count] <= 1) collecting = NO;
+	[self selectObjectValue:[collection lastObject]];
+	[self clearSearch];
 	[self setNeedsDisplay:YES];
 }
 - (IBAction)uncollectLast:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeLastObject];
-	if (![collection count])
+	if ([collection count] <= 1)
 		collecting = NO;
 	[self setNeedsDisplay:YES];
 	//if ([[resultController window] isVisible])
 	//	[resultController->resultTable setNeedsDisplay:YES];}
+}
+- (IBAction)goForwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == [collection count] - 1 || position == NSNotFound) {
+		// end of the list or not in list at all, wrap to beginning
+		position = 0;
+	} else {
+		// go forward one
+		position++;
+	}
+	// prepare the state of the view
+	collecting = YES;
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
+}
+- (IBAction)goBackwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == 0 || position == NSNotFound) {
+		// beginning of the list or not in list at all, wrap to end
+		position = [collection count] - 1;
+	} else {
+		// go back one
+		position--;
+	}
+	// prepare the state of the view
+	collecting = YES;
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
 }
 - (void)clearObjectValue {
 	[self emptyCollection:nil];
@@ -98,9 +143,28 @@
 - (BOOL)objectIsInCollection:(QSObject *)thisObject {
 	return [collection containsObject:thisObject];
 }
+- (void)explodeCombinedObject
+{
+	QSObject *selected = [super objectValue];
+	NSMutableArray *components;
+	if ([collection count]) {
+		components = [collection mutableCopy];
+	} else {
+		components = [[selected splitObjects] mutableCopy];
+		selected = nil;
+	}
+	if (selected && ![components containsObject:selected]) {
+		[components addObject:selected];
+	}
+	if ([components count] <= 1) {
+		NSBeep();
+		return;
+	}
+	[[self controller] showArray:components];
+}
 - (void)deleteBackward:(id)sender {
 	if ([collection count] && ![partialString length]) {
-		[self uncollectLast:sender];
+		[self uncollect:sender];
 	} else {
 		[super deleteBackward:sender];
     }
@@ -130,6 +194,17 @@
     }
     
 	[super setObjectValue:newObject];
+}
+- (void)redisplayObjectValue:(QSObject *)newObject
+{
+	if ([newObject count] > 1) {
+		collection = [[newObject splitObjects] mutableCopy];
+		newObject = [collection lastObject];
+		collecting = YES;
+	} else {
+		collecting = NO;
+	}
+	[self selectObjectValue:newObject];
 }
 - (NSRectEdge)collectionEdge {
 	return collectionEdge;

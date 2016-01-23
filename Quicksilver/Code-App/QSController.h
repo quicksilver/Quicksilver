@@ -66,6 +66,7 @@
 
 - (NSString *)crashReportPath;
 - (void)showDockIcon;
+- (void)clearHistory;
 
 @end
 

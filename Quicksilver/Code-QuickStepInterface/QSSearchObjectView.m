@@ -42,9 +42,17 @@ NSMutableDictionary *bindingsDict = nil;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
-        NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
+        NSDictionary *defaultBindings = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
         bindingsDict = [[NSMutableDictionary alloc] initWithDictionary:[defaultBindings objectForKey:@"QSSearchObjectView"]];
         [bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
+		// replace \n with \r for compatibility with NDKeyboardLayout
+		for (NSString *key in [bindingsDict allKeys]) {
+			if ([key containsString:@"\n"]) {
+				NSString *newKey = [key stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+				bindingsDict[newKey] = bindingsDict[key];
+				[bindingsDict removeObjectForKey:key];
+			}
+		}
     }
 }
 #pragma mark -
@@ -63,7 +71,7 @@ NSMutableDictionary *bindingsDict = nil;
 	sourceArray = nil;
 	searchArray = nil;
 	resultArray = nil;
-	recordsHistory = YES;
+	self.recordsHistory = YES;
 	shouldResetSearchArray = YES;
 	allowNonActions = YES;
 	allowText = YES;
@@ -346,7 +354,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)allowNonActions { return allowNonActions;  }
 - (void)setAllowNonActions:(BOOL)flag {
 	allowNonActions = flag;
-	recordsHistory = flag;
+	self.recordsHistory = flag;
 }
 
 - (void)setResultsPadding:(CGFloat)aResultsPadding { resultsPadding = aResultsPadding; }
@@ -558,11 +566,14 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearObjectValue {
-	[self updateHistory];
-    browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+}
+
+- (void)redisplayObjectValue:(QSObject *)newObject
+{
+	[self selectObjectValue:newObject];
 }
 
 - (void)clearAll {
@@ -601,7 +612,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)selectObject:(QSBasicObject *)obj {
 	NSInteger index = 0;
-	//[self updateHistory];
 	if (obj) {
 		index = (NSInteger)[resultArray indexOfObject:obj];
 		//NSLog(@"index %d %@", index, obj);
@@ -646,7 +656,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)clearSearch {
 	[resetTimer invalidate];
 	[resultTimer invalidate];
-    browsingHistory = NO;
 	[self resetString];
 	[partialString setString:@""];
     
@@ -970,10 +979,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)resignFirstResponder {  
-    
-    if ([self isEqual:[self directSelector]] && [self objectValue]) {
-        [self updateHistory];
-    }
 	[resultTimer invalidate];
 	[self hideResultView:self];
 	[self setShouldResetSearchString:YES];
@@ -1323,6 +1328,8 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)shortCircuit:(id)sender {
+	[self updateHistory];
+	[self saveMnemonic];
 	[[self controller] shortCircuit:self];
 	[resultTimer invalidate];
 }
@@ -1426,7 +1433,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!allowNonActions) return;
 	QSObject *newSelection = [self externalSelection];
     
-	[self setObjectValue:newSelection];
+	[self redisplayObjectValue:newSelection];
 }
 
 - (IBAction)dropSelection:(id)sender {
@@ -1479,7 +1486,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[resultController window] isVisible]) {
 		[self hideResultView:self];
 	}
-    browsingHistory = NO;
 	if (browsing) {
 		browsing = NO;
 		[self setSearchMode:SearchFilterAll];
@@ -1503,7 +1509,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectAll:(id)sender {
-	[self setObjectValue:[QSObject objectByMergingObjects:resultArray]];
+	[self redisplayObjectValue:[QSObject objectByMergingObjects:resultArray]];
 }
 
 - (void)insertTab:(id)sender {
@@ -1576,7 +1582,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
-		[self updateHistory];
+		historyIndex = -1;
 		[self setSearchArray:sourceArray];
 	}
 	[partialString appendString:aString];
@@ -1625,11 +1631,11 @@ NSMutableDictionary *bindingsDict = nil;
 }
 @end
 
+#pragma mark History
 @implementation QSSearchObjectView (History)
 - (void)showHistoryObjects {
 	NSMutableArray *array = [historyArray valueForKey:@"selection"];
-	[self setSourceArray:array];
-    [self setResultArray:array];
+	[[self controller] showArray:array];
 }
 
 - (NSDictionary *)historyState {
@@ -1647,7 +1653,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSourceArray:[state objectForKey:@"sourceArray"]];
 	[self setResultArray:[state objectForKey:@"resultArray"]];
 	[self setVisibleString:[state objectForKey:@"visibleString"]];
-	[self selectObject:[state objectForKey:@"selection"]];
+	[self redisplayObjectValue:[state objectForKey:@"selection"]];
 }
 
 
@@ -1671,30 +1677,26 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)updateHistory {
-	if (!recordsHistory) return;
-    
-    // Only alter the history array if we're not browsing the history
-    if (browsingHistory) {
-        return;
-    }
-	// [NSDictionary dictionaryWithObjectsAndKeys:[self objectValue] , @"object", nil];
-	//
-
+	if (!self.recordsHistory) return;
+	
     id objectValue = [self objectValue];
-	if (objectValue) {
-       [QSHist addObject:objectValue];
+	// add synonyms to recent objects untouched, split/resolve everything else
+	QSObject *lastObjectValue = [objectValue isProxyObject] && [objectValue objectForMeta:@"target"] ? objectValue : [[objectValue splitObjects] lastObject];
+	if (lastObjectValue) {
+       [QSHist addObject:lastObjectValue];
     }
-    
+	
     NSDictionary *state = [self historyState];
 
-    historyIndex = -1;
-    if (state) {
-        // Do not add the object to the history if it is already the 1st object
-        if (![historyArray count] || 
-                     ([historyArray count] && ![objectValue isEqual:[[historyArray objectAtIndex:0] objectForKey:@"selection"]])) {
-            [historyArray insertObject:state atIndex:0];
-        }
-    }
+    historyIndex = 0;
+	if (state) {
+		// if object is already in history, make it most recent
+		NSIndexSet *present = [historyArray indexesOfObjectsPassingTest:^BOOL(NSDictionary *historyObject, NSUInteger idx, BOOL *stop) {
+			return ([objectValue isEqual:[historyObject objectForKey:@"selection"]]);
+		}];
+		[historyArray removeObjectsAtIndexes:present];
+		[historyArray insertObject:state atIndex:0];
+	}
 
 	if ([historyArray count] >MAX_HISTORY_COUNT) [historyArray removeLastObject];
 //	if (VERBOSE) NSLog(@"history %d items", [historyArray count]);
@@ -1704,9 +1706,6 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"goForward");
 #endif
-    if (!browsingHistory) {
-        browsingHistory = YES;
-    }
 	if (historyIndex>0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
@@ -1718,13 +1717,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (VERBOSE) NSLog(@"goBackward");
 #endif
     
-    // Ensure the last object (most recent) is set before we start browsing
-    if (!browsingHistory) {
-        [self updateHistory];
-        historyIndex = 0;
-        browsingHistory = YES;
-    }
-
 	if (historyIndex+1<(NSInteger)[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
 	} else {
@@ -1736,6 +1728,10 @@ NSMutableDictionary *bindingsDict = nil;
 	return NO;
 }
 
+- (void)explodeCombinedObject
+{
+	return;
+}
 
 @end
 
@@ -1750,8 +1746,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 }
 - (void)moveRight:(id)sender {
+	[self updateHistory];
+	[self saveMnemonic];
 	[self browse:1];
-
 }
 - (void)moveLeft:(id)sender {
 	[self browse:-1];
@@ -1852,9 +1849,8 @@ NSMutableDictionary *bindingsDict = nil;
     if ([newObjects count]) {
         browsing = YES;
         
-        [self updateHistory];
-        [self saveMnemonic];
         [self clearSearch];
+		historyIndex = -1;
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
         [self setResultArray:[newObjects mutableCopy]];
@@ -1923,6 +1919,8 @@ NSMutableDictionary *bindingsDict = nil;
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
             [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
+            [self updateHistory];
+            [self saveMnemonic];
         }
         else {
             NSBeep();

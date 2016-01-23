@@ -792,6 +792,11 @@ static QSController *defaultController = nil;
 /* Deprecated. It's defined in Core Plugin */
 - (id) finderProxy { return [QSReg performSelector:@selector(FSBrowserMediator)]; }
 
+- (void)clearHistory
+{
+	[[[self interfaceController] dSelector] clearHistory];
+}
+
 @end
 
 @implementation QSController (Application)

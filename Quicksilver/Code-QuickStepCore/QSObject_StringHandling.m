@@ -288,6 +288,10 @@
     if ([stringValue isKindOfClass:[NSData class]]) {
         stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
     }
+	if ([self count] > 1) {
+		// get the string value for each object in the collection
+		stringValue = [[[self splitObjects] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:@"\n"];
+	}
     if (!stringValue) {
         // Backwards compatibility
         stringValue = [self objectForType:NSStringPboardType];
