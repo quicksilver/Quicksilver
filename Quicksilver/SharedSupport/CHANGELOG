@@ -21,6 +21,7 @@
   * The collection tray will be hidden if the number of items collected drops to one (#2092)
   * Clear the search string when switching items in a collection (#2092)
   * Improved interface when showing all history with ⌃⌘[ (#2092)
+  * Triggers based on the Quicksilver Selection proxy can be used on other proxy objects (#2161, #2163)
 
 ### Changed ###
 
