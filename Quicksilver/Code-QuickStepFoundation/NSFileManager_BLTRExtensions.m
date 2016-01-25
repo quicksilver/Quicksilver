@@ -139,12 +139,12 @@
     
     NSUInteger options = 0;
     if (!usingUI) {
-        options |= NSURLBookmarkResolutionWithoutUI;
-    };
+        options |= (NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting);
+    }
     NSURL *aliasURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:options relativeToURL:nil bookmarkDataIsStale:nil error:&err];
     
     if (!aliasURL) {
-        return [resolvedURL path];
+        return nil;
     }
     return [aliasURL path];
     
