@@ -249,12 +249,13 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSString *)decodedHexString {
-	char s[4]; unsigned x; NSInteger i;
+	char s[4]; unsigned x; NSInteger i = 0;
 	for (i = 0; i<((NSInteger) [self length] / 2); i++) {
-		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
+		NSString *substr = [self substringWithRange:NSMakeRange(i*2, 2)];
+		[[NSScanner scannerWithString:substr] scanHexInt:&x];
 		s[i] = (char)x;
 	}
-    return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
+	return [[NSString alloc] initWithBytes:&s length:sizeof(s) encoding:NSUTF8StringEncoding];
 }
 
 - (NSUInteger) hexIntValue {
