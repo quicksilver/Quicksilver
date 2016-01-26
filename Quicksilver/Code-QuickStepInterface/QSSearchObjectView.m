@@ -83,6 +83,7 @@ NSMutableDictionary *bindingsDict = nil;
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 
 	resultsPadding = 0;
 	historyArray = [[NSMutableArray alloc] initWithCapacity:10];
@@ -541,8 +542,6 @@ NSMutableDictionary *bindingsDict = nil;
     }
     // if the two objects are not the same, send an 'object chagned' notif
 	if (newObject != currentObject) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:currentObject];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:newObject];
 		[super setObjectValue:newObject];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}

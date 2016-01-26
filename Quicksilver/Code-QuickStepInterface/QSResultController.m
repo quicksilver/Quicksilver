@@ -296,22 +296,10 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)objectIconModified:(NSNotification *)notif
 {
     QSGCDMainAsync(^{
-        // if results are showing, check for icons that need updating
-        if ([[self window] isVisible]) {
-            QSObject *object = [notif object];
-            // if updated object is is in the results, update it in the list
-            NSUInteger ind = [currentResults indexOfObject:object];
-            if (ind != NSNotFound) {
-                [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
-            }
-            // if updated object is is in the child results, update it in the list
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-                ind = [[[self selectedItem] children] indexOfObject:object];
-                if (ind != NSNotFound) {
-                    [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
-                }
-            }
-        }
+		[resultTable setNeedsDisplay];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+			[resultChildTable setNeedsDisplay];
+		}
     });
 }
 
