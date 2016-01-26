@@ -199,6 +199,7 @@
 {
 	if ([newObject count] > 1) {
 		collection = [[newObject splitObjects] mutableCopy];
+		[collection makeObjectsPerformSelector:@selector(loadIcon)];
 		newObject = [collection lastObject];
 		collecting = YES;
 	} else {
