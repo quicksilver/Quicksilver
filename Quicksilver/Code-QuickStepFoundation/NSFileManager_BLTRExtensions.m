@@ -54,7 +54,9 @@
 		return nil;
 
 	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	CFURLRef cfURL = (__bridge_retained CFURLRef)[NSURL fileURLWithPath:path];
+	OSStatus status = LSCopyItemInfoForURL(cfURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	CFRelease(cfURL);
 	if (status)
 		return @"";
 
