@@ -126,28 +126,27 @@
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
 	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
-    
-    // First resolve any symlinks
-    NSURL *resolvedURL = [url URLByReallyResolvingSymlinksInPath];
-    
-    // File is a Finder alias file, resolve bookmark data first
-    NSError *err;
-    NSData *bookmarkData = [NSURL bookmarkDataWithContentsOfURL:resolvedURL error:&err];
-    if (!bookmarkData) {
-        return [resolvedURL path];
-    }
-    
-    NSUInteger options = 0;
-    if (!usingUI) {
-        options |= (NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting);
-    }
-    NSURL *aliasURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:options relativeToURL:nil bookmarkDataIsStale:nil error:&err];
-    
-    if (!aliasURL) {
-        return nil;
-    }
-    return [aliasURL path];
-    
+	
+	// First resolve any symlinks
+	NSURL *resolvedURL = [url URLByReallyResolvingSymlinksInPath];
+
+	// File is a Finder alias file, resolve bookmark data first
+	NSError *err;
+	NSData *bookmarkData = [NSURL bookmarkDataWithContentsOfURL:resolvedURL error:&err];
+	if (!bookmarkData) {
+		return [resolvedURL path];
+	}
+
+	NSUInteger options = 0;
+	if (!usingUI) {
+		options |= (NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting);
+	}
+	NSURL *aliasURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:options relativeToURL:nil bookmarkDataIsStale:nil error:&err];
+
+	if (!aliasURL) {
+		return nil;
+	}
+	return [aliasURL path];
 }
 
 - (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types {
