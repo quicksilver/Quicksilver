@@ -54,9 +54,10 @@
 		return nil;
 
 	LSItemInfoRecord infoRec;
+	// Bridge-retain because it might happen that some pool somewhere gets drained
 	CFURLRef cfURL = (__bridge_retained CFURLRef)[NSURL fileURLWithPath:path];
 	OSStatus status = LSCopyItemInfoForURL(cfURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
-	CFRelease(cfURL);
+	if (cfURL) CFRelease(cfURL);
 	if (status)
 		return @"";
 
