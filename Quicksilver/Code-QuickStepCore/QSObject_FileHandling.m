@@ -604,11 +604,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([[path pathExtension] isEqualToString:@"silver"])
 		return [QSObject objectWithDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
 
-    // initWithArray: deals with file objects that already exist
-    QSObject *newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
-    
-	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]])
-		[newObject performSelectorOnMainThread:@selector(addContentsOfClipping:) withObject:path waitUntilDone:YES];
+	// initWithArray: deals with file objects that already exist
+	QSObject *newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
+
+	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]]) {
+		QSGCDMainAsync(^{
+			[newObject addContentsOfClipping:path];
+		});
+	}
 	return newObject;
 }
 
