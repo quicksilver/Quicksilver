@@ -90,8 +90,12 @@
 
 - (void)releaseProxy {
 	//NSLog(@"release proxy");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
 	[cache removeObjectForKey:QSProxyTargetCache];
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:nil];
 }
 
 - (NSArray *)proxyTypes {
