@@ -1452,7 +1452,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
     if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
-        
+		historyIndex = -1;
         [super delete:sender];
     } else {
         [self clearSearch];
