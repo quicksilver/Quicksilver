@@ -63,10 +63,17 @@
 	[self setShouldResetSearchString:YES];
 }
 - (IBAction)uncollect:(id)sender { //Removes an object to a collection
-	if ([collection count])
+	NSInteger position = -1;
+	if ([collection count]) {
+		position = [collection indexOfObject:[super objectValue]] - 1;
 		[collection removeObject:[super objectValue]];
+	}
 	if ([collection count] <= 1) collecting = NO;
-	[self selectObjectValue:[collection lastObject]];
+	if (position >= 0) {
+		[self selectObjectValue:[collection objectAtIndex:position]];
+	} else {
+		[self selectObjectValue:[collection lastObject]];
+	}
 	[self clearSearch];
 	[self setNeedsDisplay:YES];
 }
