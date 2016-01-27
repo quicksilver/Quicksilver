@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Prevent a crash when scanning Spotlight entries with an empty query (#2158, #2160)
+  * Avoid mounting network volumes to resolve aliases (#2020, #2178)
 
 ### Development ###
 
