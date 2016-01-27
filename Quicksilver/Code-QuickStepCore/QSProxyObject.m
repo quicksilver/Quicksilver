@@ -72,30 +72,23 @@
     //NSLog(@"Proxy: %@", proxy);
     if (proxy) {
         [self setObject:proxy forCache:QSProxyTargetCache];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy) name:QSReleaseOldCachesNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
     }
-    
-    NSTimeInterval interval = kQSDefaultProxyCacheTime;
-    
-    if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
-        interval = [[self proxyProvider] cacheTimeForProxy:self];
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self releaseProxy];
-    });
 	return proxy;
 }
 
 
 - (void)releaseProxy {
 	//NSLog(@"release proxy");
-	[cache removeObjectForKey:QSProxyTargetCache];
-}
-
-- (void)dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSReleaseOldCachesNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
+	// hold onto the object long enough for the command to execute, then release
+	NSTimeInterval interval = kQSDefaultProxyCacheTime;
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval * NSEC_PER_SEC);
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		[cache removeObjectForKey:QSProxyTargetCache];
+	});
 }
 
 - (NSArray *)proxyTypes {
