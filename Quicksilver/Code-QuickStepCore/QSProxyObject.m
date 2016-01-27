@@ -73,6 +73,7 @@
     if (proxy) {
         [self setObject:proxy forCache:QSProxyTargetCache];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy) name:QSReleaseOldCachesNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy) name:QSCommandExecutedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
     }
 	return proxy;
@@ -82,6 +83,7 @@
 - (void)releaseProxy {
 	//NSLog(@"release proxy");
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSReleaseOldCachesNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSCommandExecutedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
 	// hold onto the object long enough for the command to execute, then release
 	NSTimeInterval interval = kQSDefaultProxyCacheTime;

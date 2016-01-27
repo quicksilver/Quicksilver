@@ -9,6 +9,8 @@
 #define QSCatalogIndexingCompleted @"QSCatalogIndexingCompleted"
 #define QSCatalogSourceInvalidated @"QSCatalogSourceInvalidated"
 
+#define QSCommandExecutedNotification @"QSCommandExecutedNotification"
+
 #define QSDebugLogRequest @"QSDebugLogRequest"
 
 #define QSActiveApplicationChanged QSProcessMonitorFrontApplicationSwitched

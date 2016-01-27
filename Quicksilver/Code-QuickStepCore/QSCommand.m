@@ -466,6 +466,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	} else {
 		// indirect object is either present, or unnecessary - run the action
 		QSObject *returnValue = [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSCommandExecutedNotification object:self];
 		if (returnValue) {
 			// if the action returns something, wipe out the first pane
 			/* (The main object would get replaced anyway. This is only done to
