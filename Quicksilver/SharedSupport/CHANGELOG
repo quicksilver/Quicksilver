@@ -1,5 +1,13 @@
 ## Changes ##
 
+### New ###
+
+  * Preferences to control text appearance (#2162)
+    * Underline Matched Text
+    * Add Glow to Matched Text
+    * Always Show Name (#1391)
+    * Compress Long Names (#2133)
+
 ### Fixed ###
 
   * Prevent a crash when scanning Spotlight entries with an empty query (#2158, #2160)
