@@ -56,6 +56,13 @@ Following lines are no longer used in this project.
 #define kQSAppearance3A @"QSAppearance3A"
 #define kQSAppearance3T @"QSAppearance3T"
 
+// Text Appearance Properties
+#define kQSTextMatchedGlow @"Text Matched Glow"
+#define kQSTextMatchedUnderline @"Text Matched Underline"
+#define kQSTextMatchedAlwaysShowName @"Text Matched Always Show Name"
+#define kQSTextAllowTightening @"Text Allow Tightening"
+#define kQSTextGlowDivisor @"Text Glow Divisor"
+
 #define kResultTableSplit @"Result Table Split Width"
 
 // Date of last known Quicksilver Crash

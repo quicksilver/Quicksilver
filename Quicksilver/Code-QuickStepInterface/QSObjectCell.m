@@ -392,6 +392,9 @@
 	[style setFirstLineHeadIndent:1.0];
 	[style setHeadIndent:1.0];
 	[style setAlignment:[self alignment]];
+	if ([NSApplication isYosemite] && ![[NSUserDefaults standardUserDefaults] boolForKey:kQSTextAllowTightening]) {
+		[style setTighteningFactorForTruncation:0.0];
+	}
 	//
 	/// NSLog(@"%d %d", [self isHighlighted] , [self state]);
 
@@ -444,7 +447,10 @@
         }
         
 		if (!nameString) nameString = [drawObject displayName];
-        BOOL rankedStringIsName = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		BOOL showRankedStringOnly = nameString == nil
+			|| ![defaults boolForKey:kQSTextMatchedAlwaysShowName]
+			|| [nameString isEqualToString:[drawObject displayName]];
         if (!nameString) {
             // fall back to the identifier if no reasonable name can be found
             nameString = [drawObject identifier];
@@ -459,24 +465,34 @@
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
 		NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
-        [titleString setAttributes:rankedStringIsName ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+        [titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
         
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsName ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
+			[titleString addAttribute:NSForegroundColorAttributeName value:showRankedStringOnly ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
             
 			// Organise displaying the text, underlining the letters typed (in the name)
 			NSUInteger i = 0;
 			NSUInteger j = 0;
 			NSUInteger hits[[titleString length]];
 			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
-			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        rankedStringIsName ? mainColor : fadedColor, NSForegroundColorAttributeName,
-                                        rankedStringIsName ? mainColor : fadedColor, NSUnderlineColorAttributeName,
-                                        [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
-                                        [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
-                                        nil];
-            
+			NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				showRankedStringOnly ? mainColor : fadedColor, NSForegroundColorAttributeName,
+				nil];
+			if ([defaults boolForKey:kQSTextMatchedUnderline]) {
+				[attributes setObject:showRankedStringOnly ? mainColor : fadedColor forKey:NSUnderlineColorAttributeName];
+				[attributes setObject:[NSNumber numberWithFloat:2.0] forKey:NSUnderlineStyleAttributeName];
+				[attributes setObject:[NSNumber numberWithFloat:1.0] forKey:NSBaselineOffsetAttributeName];
+			}
+			if ([defaults boolForKey:kQSTextMatchedGlow]) {
+				NSShadow *glow = [[NSShadow alloc] init];
+				CGFloat divisor = [[defaults objectForKey:kQSTextGlowDivisor] floatValue];
+				CGFloat radius = self.nameFont.pointSize/divisor;
+				[glow setShadowBlurRadius:radius];
+				[glow setShadowColor:fadedColor];
+				[attributes setObject:glow forKey:NSShadowAttributeName];
+			}
+
 			for(i = 0; i<count; i += j) {
 				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
 				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
@@ -486,7 +502,7 @@
 		}
         
         // Ranked string and nameString aren't the same. Show 'nameString  ⟷ rankedString' in the UI
-        if (!rankedStringIsName && [drawObject displayName].length) {
+        if (!showRankedStringOnly && [drawObject displayName].length) {
             [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
             NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
             [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
