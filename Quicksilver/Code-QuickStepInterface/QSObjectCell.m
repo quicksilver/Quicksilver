@@ -486,7 +486,8 @@
 			}
 			if ([defaults boolForKey:kQSTextMatchedGlow]) {
 				NSShadow *glow = [[NSShadow alloc] init];
-				CGFloat radius = self.nameFont.pointSize/16.0;
+				CGFloat divisor = [[defaults objectForKey:kQSTextGlowDivisor] floatValue];
+				CGFloat radius = self.nameFont.pointSize/divisor;
 				[glow setShadowBlurRadius:radius];
 				[glow setShadowColor:fadedColor];
 				[attributes setObject:glow forKey:NSShadowAttributeName];

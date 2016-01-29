@@ -61,6 +61,7 @@ Following lines are no longer used in this project.
 #define kQSTextMatchedUnderline @"Text Matched Underline"
 #define kQSTextMatchedAlwaysShowName @"Text Matched Always Show Name"
 #define kQSTextAllowTightening @"Text Allow Tightening"
+#define kQSTextGlowDivisor @"Text Glow Divisor"
 
 #define kResultTableSplit @"Result Table Split Width"
 

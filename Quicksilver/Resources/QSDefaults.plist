@@ -89,5 +89,7 @@
 	<false/>
 	<key>Text Matched Underline</key>
 	<true/>
+	<key>Text Glow Divisor</key>
+	<real>16</real>
 </dict>
 </plist>
