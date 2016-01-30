@@ -355,6 +355,7 @@
 		CD661C5419DBD2F3000F3695 /* TestNSApplicationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */; };
 		CD661C5619DBD341000F3695 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD661C5519DBD341000F3695 /* AppKit.framework */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
@@ -1700,6 +1701,7 @@
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLListItem.h; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -3173,6 +3175,7 @@
 		E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */,
 				CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */,
 				CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */,
 				CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */,
@@ -3754,6 +3757,7 @@
 				4D66BC1F148701EA00351C42 /* NDResourceFork.h in Headers */,
 				4D66BC21148701EA00351C42 /* NDResourceFork+OtherSorces.h in Headers */,
 				4D66BC23148701EA00351C42 /* NSOpenPanel+NDAlias.h in Headers */,
+				CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */,
 				4D66BC25148701EA00351C42 /* NSPathControl+NDAlias.h in Headers */,
 				4D66BC27148701EA00351C42 /* NSSavePanel+NDAlias.h in Headers */,
 				4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */,
