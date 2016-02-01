@@ -33,8 +33,12 @@
                                        nil];
     
     // try to get the valid direct/indirect types from the AppleScript's 'get direct/indirect types' handler to set on the actionDict
-    NSArray *validDirectTypes = [self validDirectTypesForScript:path];
-    NSArray *validIndirectTypes = [self validIndrectTypesForScript:path];
+    NSArray *validDirectTypes = [[self validDirectTypesForScript:path] arrayByEnumeratingArrayUsingBlock:^id(NSString *str) {
+        return QSUTIForAnyTypeString(str);
+    }];
+    NSArray *validIndirectTypes = [[self validIndrectTypesForScript:path] arrayByEnumeratingArrayUsingBlock:^id(NSString *str) {
+        return QSUTIForAnyTypeString(str);
+    }];
     
     // get the argument count of the script. 1 = dObj only. 2 = dObj + iObj. 3 = indirect Optional
     NSInteger argumentCount = [self argumentCountForScript:path];
@@ -60,7 +64,21 @@
         }
 	}
     if ([validDirectTypes count]) {
-        [actionDict setObject:validDirectTypes forKey:kActionDirectTypes];
+        NSMutableArray *directFileTypes = [NSMutableArray new];
+        NSMutableArray *mValidDirectTypes = [NSMutableArray arrayWithArray:validDirectTypes];
+        for (NSString *str in validDirectTypes) {
+            if (UTTypeConformsTo((__bridge CFStringRef)(str), kUTTypeItem) && ![str isEqualToString:QSFilePathType]) {
+                [directFileTypes addObject:str];
+                [mValidDirectTypes removeObject:str];
+                if ([mValidDirectTypes indexOfObject:QSFilePathType] == NSNotFound) {
+                    [mValidDirectTypes addObject:QSFilePathType];
+                }
+            }
+        }
+        if ([directFileTypes count]) {
+            [actionDict setObject:[NSArray arrayWithArray:directFileTypes] forKey:kActionDirectFileTypes];
+        }
+        [actionDict setObject:[NSArray arrayWithArray:mValidDirectTypes] forKey:kActionDirectTypes];
     }
     if ([validIndirectTypes count]) {
         [actionDict setObject:validIndirectTypes forKey:kActionIndirectTypes];

@@ -8,8 +8,11 @@
 
 #import <XCTest/XCTest.h>
 #import "QSDirectoryParser.h"
+#import "QSAppleScriptActions.h"
 
-@interface Core_Support_Tests : XCTestCase
+@interface Core_Support_Tests : XCTestCase {
+    NSString *basePath;
+}
 
 @end
 
@@ -18,6 +21,7 @@
 - (void)setUp
 {
     [super setUp];
+    basePath = [[NSBundle bundleForClass:[self class]] resourcePath];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -25,6 +29,21 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testAppleScriptFileUTIs {
+    QSExecutor *e = [QSExecutor sharedInstance];
+    NSString *testScriptPath = [basePath stringByAppendingPathComponent:@"test.scpt"];
+    NSArray *ASActions = [[[QSAppleScriptActions alloc] init] fileActionsFromPaths:@[testScriptPath]];
+    XCTAssertEqual([ASActions count], (unsigned long)1);
+    [e addActions:ASActions];
+    QSObject *directoryObject = [QSObject fileObjectWithPath:@"/Library/"];
+    QSObject *fileObject = [QSObject fileObjectWithPath:testScriptPath];
+    NSArray *directoryActions = [e rankedActionsForDirectObject:directoryObject indirectObject:nil];
+    XCTAssertEqual([directoryActions count], (unsigned long)1);
+    XCTAssertEqualObjects(ASActions, directoryActions);
+    NSArray *fileActions = [e rankedActionsForDirectObject:fileObject indirectObject:nil];
+    XCTAssertEqual([fileActions count], (unsigned long)0);
 }
 
 - (void)testDirectoryScanning {
