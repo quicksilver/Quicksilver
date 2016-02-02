@@ -13,6 +13,7 @@
   * Prevent a crash when scanning Spotlight entries with an empty query (#2158, #2160)
   * Avoid mounting network volumes to resolve aliases (#2020, #2178)
   * Triggers based on the Quicksilver Selection proxy can be used on other proxy objects (#2161, #2163)
+  * Recent documents are shown in the correct order on El Capitan (#2181)
 
 ### Development ###
 
