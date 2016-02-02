@@ -34,22 +34,29 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 
     NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
-    NSURL *url;
-    if ([NSApplication isElCapitan]) {
-        NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
-        NSString *sflStandardized = [sflPath stringByStandardizingPath];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
-            NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
-            for (id item in sflData[@"items"]) {
-                // item's class is SFLListItem
-                url = [item URL];
-                if (url && [url isFileURL]) {
-                    [documentsArray addObject:[url path]];
-                }
-            }
-        }
-        return documentsArray;
-    }
+	NSURL *url;
+	if ([NSApplication isElCapitan]) {
+		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
+		NSString *sflStandardized = [sflPath stringByStandardizingPath];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
+			NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
+			for (SFLListItem *item in sflData[@"items"]) {
+				// item's class is SFLListItem
+				url = [item URL];
+				if (url && [url isFileURL]) {
+					[documentsArray addObject:item];
+				}
+			}
+			[documentsArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
+				return item1.order > item2.order;
+			}];
+			
+			return [documentsArray arrayByEnumeratingArrayUsingBlock:^id(SFLListItem *item) {
+				return [[item URL] path];
+			}];
+		}
+		return documentsArray;
+	}
     // drop10.10: recent documents before El Capitan
 	// make sure latest changes are available
 	CFPreferencesSynchronize((__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],

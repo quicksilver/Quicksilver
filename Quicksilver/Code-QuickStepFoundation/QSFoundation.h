@@ -66,7 +66,4 @@
 #import "NDProcess+QSMods.h"
 #import "NDAlias+QSMods.h"
 #import "QSIntValueTransformer.h"
-
-
-
-
+#import "SFLListItem.h"
