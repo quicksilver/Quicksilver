@@ -146,10 +146,6 @@
 	return self;
 }
 
-- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)aScreen {
-	return frameRect;
-}
-
 - (BOOL)makeFirstResponder:(NSResponder *)aResponder {
     if (aResponder == [self firstResponder]) {
         return YES;
