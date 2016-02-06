@@ -670,12 +670,12 @@
 		NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Copy", nil, [NSBundle bundleForClass:[self class]], nil);
 		NSString *localizedErrorMessage = NSLocalizedStringFromTableInBundle(@"Cannot copy files to the same destination as original!", nil, [NSBundle bundleForClass:[self class]], nil);
 
-		QSShowNotifierWithAttributes(@{
-									   QSNotifierType: @"QSCopyFileError",
-									   QSNotifierIcon: [QSResourceManager imageNamed:@"AlertStopIcon"],
-									   QSNotifierTitle: localizedTitle,
-									   QSNotifierText: localizedErrorMessage
-									   });
+        QSShowNotifierWithAttributes(@{
+                                       QSNotifierType: @"QSCopyFileError",
+                                       QSNotifierIcon: [QSResourceManager imageNamed:@"AlertStopIcon"],
+                                       QSNotifierTitle: localizedTitle,
+                                       QSNotifierText: localizedErrorMessage
+                                       });
 	}
 	return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 }
@@ -726,10 +726,10 @@
             filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {
-				NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
-				[rsync launch]; [rsync waitUntilExit];
-				return nil;
-				break;
+                NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
+                [rsync launch]; [rsync waitUntilExit];
+                return nil;
+                break;
 			}
 		}
 	}
