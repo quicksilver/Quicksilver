@@ -1,28 +1,19 @@
 #import <AppKit/AppKit.h>
 
-enum QSFileConflictResolutionMethod {
-	QSCancelReplaceResolution, QSReplaceFilesResolution, QSDontReplaceFilesResolution, QSSmartReplaceFilesResolution
+typedef NS_ENUM(NSUInteger, QSFileConflictResolutionMethod) {
+	QSCancelReplaceResolution,
+	QSReplaceFilesResolution,
+	QSDontReplaceFilesResolution,
+	QSSmartReplaceFilesResolution
 };
-#if !defined(__cplusplus)
-typedef NSInteger QSFileConflictResolutionMethod;
-#endif
 
-@interface QSFileConflictPanel : NSPanel {
-	IBOutlet NSTableView *nameTable;
-	NSArray *conflictNames;
-	NSInteger method;
+@interface QSFileConflictPanel : NSPanel
 
-	IBOutlet NSButton *smartReplaceButton;
-	IBOutlet NSButton *dontReplaceButton;
-	IBOutlet NSButton *replaceButton;
-}
 + (QSFileConflictPanel *)conflictPanel;
-- (QSFileConflictResolutionMethod) runModal;
-- (IBAction)cancel:(id)sender;
-- (IBAction)replace:(id)sender;
+- (QSFileConflictResolutionMethod)runModal;
+- (QSFileConflictResolutionMethod)runModalAsSheetOnWindow:(NSWindow *)window;
 
-- (NSArray *)conflictNames;
-- (void)setConflictNames:(NSArray *)newConflictNames;
-- (QSFileConflictResolutionMethod) runModalAsSheetOnWindow:(NSWindow *)window;
+@property (retain) NSArray *conflictNames;
+@property (assign) BOOL allowsRenames;
 
 @end
