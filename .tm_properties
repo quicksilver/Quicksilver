@@ -1,0 +1,9 @@
+scopeAttributes = attr.keep-whitespace
+
+[*.m]
+tabSize=4
+softTabs=false
+
+[*.h]
+tabSize=4
+softTabs=false
