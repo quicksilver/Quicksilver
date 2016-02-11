@@ -14,6 +14,7 @@
   * Avoid mounting network volumes to resolve aliases (#2020, #2178)
   * Triggers based on the Quicksilver Selection proxy can be used on other proxy objects (#2161, #2163)
   * Recent documents are shown in the correct order on El Capitan (#2181)
+  * Keep the Preferences window on screen when switching displays (#2182, #2183)
 
 ### Development ###
 
