@@ -131,9 +131,6 @@
 
 @end
 
-@interface QSWindow () <NSFileManagerDelegate>
-@end
-
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
@@ -147,10 +144,6 @@
 		trueRect = contentRect;
 	}
 	return self;
-}
-
-- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)aScreen {
-	return frameRect;
 }
 
 - (BOOL)makeFirstResponder:(NSResponder *)aResponder {
