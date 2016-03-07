@@ -32,7 +32,7 @@
 		<key>⌃L</key>
 		<string>moveRight:</string>
 		<key>⌃U</key>
-		<string>delete:</string>
+		<string>clearObjectValue</string>
 		<key>;</key>
 		<string>combine:</string>
 		<key>=</key>
