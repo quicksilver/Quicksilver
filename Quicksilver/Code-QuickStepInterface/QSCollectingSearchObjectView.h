@@ -14,7 +14,7 @@
 
 @interface QSCollectingSearchObjectView : QSSearchObjectView {
 	NSMutableArray *collection;
-	BOOL 			collecting;
+	BOOL 			collecting; // is the user actively collecting things with comma?
 	NSRectEdge		collectionEdge;
 	CGFloat			collectionSpace;
 }

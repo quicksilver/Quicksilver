@@ -53,7 +53,7 @@
 	}
 }
 - (IBAction)collect:(id)sender { //Adds additional objects to a collection
-	if (!collecting) collecting = YES;
+	collecting = YES;
 	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
 		[collection addObject:[super objectValue]];
 		[self updateHistory];
@@ -68,11 +68,14 @@
 		position = [collection indexOfObject:[super objectValue]] - 1;
 		[collection removeObject:[super objectValue]];
 	}
-	if ([collection count] <= 1) collecting = NO;
 	if (position >= 0) {
 		[self selectObjectValue:[collection objectAtIndex:position]];
 	} else {
 		[self selectObjectValue:[collection lastObject]];
+	}
+	if ([collection count] <= 1) {
+		// stop collecting if there's only one object
+		[self emptyCollection:nil];
 	}
 	[self clearSearch];
 	[self setNeedsDisplay:YES];
@@ -80,8 +83,10 @@
 - (IBAction)uncollectLast:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeLastObject];
-	if ([collection count] <= 1)
-		collecting = NO;
+	if ([collection count] <= 1) {
+		// stop collecting if there's only one object
+		[self emptyCollection:nil];
+	}
 	[self setNeedsDisplay:YES];
 	//if ([[resultController window] isVisible])
 	//	[resultController->resultTable setNeedsDisplay:YES];}
@@ -101,7 +106,6 @@
 		position++;
 	}
 	// prepare the state of the view
-	collecting = YES;
 	[self clearSearch];
 	// change the selection
 	QSObject *newSelected = [collection objectAtIndex:position];
@@ -122,7 +126,6 @@
 		position--;
 	}
 	// prepare the state of the view
-	collecting = YES;
 	[self clearSearch];
 	// change the selection
 	QSObject *newSelected = [collection objectAtIndex:position];
@@ -139,7 +142,6 @@
 - (IBAction)combine:(id)sender { //Resolve a collection as a single object
 	[self setObjectValue:[self objectValue]];
 	[self emptyCollection:sender];
-	collecting = NO;
 }
 - (id)objectValue {
 	if ([collection count])
@@ -208,10 +210,10 @@
 		collection = [[newObject splitObjects] mutableCopy];
 		[collection makeObjectsPerformSelector:@selector(loadIcon)];
 		newObject = [collection lastObject];
-		collecting = YES;
 	} else {
-		collecting = NO;
+		[self emptyCollection:nil];
 	}
+	collecting = NO;
 	[self selectObjectValue:newObject];
 }
 - (NSRectEdge)collectionEdge {
