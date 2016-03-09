@@ -40,7 +40,7 @@
 			collectRect.origin.x += 8;
 		NSInteger i;
 		CGFloat iconSize = collectionSpace?collectionSpace:16;
-		CGFloat opacity = collecting?1.0:0.5;
+		CGFloat opacity = collecting?1.0:0.75;
 		QSObject *object;
 		for (i = 0; i<count; i++) {
 			object = [collection objectAtIndex:i];
