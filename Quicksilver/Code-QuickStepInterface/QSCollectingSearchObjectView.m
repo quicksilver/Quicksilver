@@ -52,6 +52,13 @@
 		[super drawRect:rect];
 	}
 }
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange
+{
+	if (!collecting && ![partialString length]) {
+		[self emptyCollection:nil];
+	}
+	[super insertText:aString replacementRange:replacementRange];
+}
 - (IBAction)collect:(id)sender { //Adds additional objects to a collection
 	collecting = YES;
 	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
@@ -181,28 +188,6 @@
 - (void)reset:(id)sender {
 	collecting = NO;
 	[super reset:sender];
-}
-- (void)selectObjectValue:( QSObject *)newObject {
-	if (!collecting)
-		[self emptyCollection:nil];
-	[super selectObjectValue:newObject];
-}
-- (void)setObjectValue:(QSBasicObject *)newObject {
-    if (newObject == [self objectValue]) {
-        return;
-    }
-	if (!collecting) {
-        [self emptyCollection:self];
-    }
-    // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor (for the 1st pane only)
-    if (!newObject && self == [[super controller] dSelector]) {
-        NSTextView *editor = (NSTextView *)[[self window] fieldEditor:NO forObject: self];
-        if (editor) {
-            [editor setString:@""];
-        }
-    }
-    
-	[super setObjectValue:newObject];
 }
 - (void)redisplayObjectValue:(QSObject *)newObject
 {

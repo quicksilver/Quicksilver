@@ -557,7 +557,9 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)setObjectValue:(QSBasicObject *)newObject {
-    
+	if (newObject == [self objectValue]) {
+		return;
+	}
     [self hideResultView:self];
     [self clearSearch];
     [parentStack removeAllObjects];
