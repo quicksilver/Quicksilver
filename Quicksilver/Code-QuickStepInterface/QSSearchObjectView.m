@@ -1655,6 +1655,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSourceArray:[state objectForKey:@"sourceArray"]];
 	[self setResultArray:[state objectForKey:@"resultArray"]];
 	[self setVisibleString:[state objectForKey:@"visibleString"]];
+	[self setMatchedString:[state objectForKey:@"visibleString"]];
 	[self redisplayObjectValue:[state objectForKey:@"selection"]];
 }
 
@@ -1669,7 +1670,6 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"select in history %ld %@", (long)i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
-	[self setMatchedString:nil];
 	if (i<(NSInteger)[(NSArray *)historyArray count])
 		[self setHistoryState:[historyArray objectAtIndex:i]];
 }
