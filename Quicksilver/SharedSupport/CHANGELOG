@@ -7,6 +7,10 @@
     * Add Glow to Matched Text
     * Always Show Name (#1391)
     * Compress Long Names (#2133)
+  * When a collection is (re)selected in the interface, it appears as a collection that can be managed, as though you had just created it with the comma trick, instead of a single combined object (#2092)
+  * Collections can be "exploded" into a list of individual items with `⌃⌘]`. This is the inverse of `⌘A`. (#2092)
+  * You can browse through a collection to get a better look at each item using `⌃[` and `⌃]` (#2092)
+  * Internal command to clear Quicksilver history (#2092)
 
 ### Fixed ###
 
@@ -15,12 +19,34 @@
   * Triggers based on the Quicksilver Selection proxy can be used on other proxy objects (#2161, #2163)
   * Recent documents are shown in the correct order on El Capitan (#2181)
   * Keep the Preferences window on screen when switching displays (#2182, #2183)
+  * Abbreviations are remembered for items you've actually "used" (#2092)
+  * Better handling of collections when browsing history (#2092)
+  * More reliable tracking of position when browsing history, especially when going back for the first time (#2092)
+  * The collection tray will be hidden if the number of items collected drops to one (#2092)
+  * Show the search string when browsing history (#2092)
+  * Clear the search string when switching items in a collection (#2092)
+  * Improved interface when showing all history with `⌃⌘[` (#2092)
+
+### Changed ###
+
+  * History only stores items you've actually "used" (#2090, #2092)
+  * Multiple items selected with comma will be added to Recent Objects individually (#2092)
+  * Reusing a recent item will make it the most recent in the history instead of adding a duplicate (#2092)
+  * When a proxy object is used, the item it points to will be added to Recent Objects instead of the proxy object itself, which should already be in the catalog (#2092)
+  * When an item is removed from a collection, the next object in the collection will be selected (#2092)
+  * Removing objects from collections should be more intuitive (#1123, #2092)
+    * `⌫` removes the last selected item and selects the next in line (allowing multiple items to be quickly removed in order)
+    * `⌥,` removes the most recent item from the collection, but preserves the curent selection
+  * If an action shows a result in the first pane (like Get Path), the result will be added to history (#2092)
+  * The string value for a collection of multiple items will now be the string values of each, separated by new lines, instead of "combined objects" (#2092)
 
 ### Development ###
 
   * New code will be checked for tab indents (#2050, #2105)
   * Configure Xcode and TextMate to use tabs by default in this project (#2093)
   * Allow spaces in comment blocks (#2169)
+  * Add support for combined objects to `-[QSObject isEqual:]` (#2092)
+  * New unit tests for `-[QSObject isEqual:]` (#2092)
 
 ## Changes - 1.3.4 (4016) ##
 
