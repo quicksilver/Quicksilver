@@ -40,7 +40,7 @@
 			collectRect.origin.x += 8;
 		NSInteger i;
 		CGFloat iconSize = collectionSpace?collectionSpace:16;
-		CGFloat opacity = collecting?1.0:0.5;
+		CGFloat opacity = collecting?1.0:0.75;
 		QSObject *object;
 		for (i = 0; i<count; i++) {
 			object = [collection objectAtIndex:i];
@@ -52,29 +52,91 @@
 		[super drawRect:rect];
 	}
 }
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange
+{
+	if (!collecting && ![partialString length]) {
+		[self emptyCollection:nil];
+	}
+	[super insertText:aString replacementRange:replacementRange];
+}
 - (IBAction)collect:(id)sender { //Adds additional objects to a collection
-	if (!collecting) collecting = YES;
+	collecting = YES;
 	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
 		[collection addObject:[super objectValue]];
-        [[[super controller] dSelector] saveMnemonic];
+		[self updateHistory];
+		[self saveMnemonic];
 		[self setNeedsDisplay:YES];
 	}
 	[self setShouldResetSearchString:YES];
 }
 - (IBAction)uncollect:(id)sender { //Removes an object to a collection
-	if ([collection count])
+	NSInteger position = -1;
+	if ([collection count]) {
+		position = [collection indexOfObject:[super objectValue]] - 1;
 		[collection removeObject:[super objectValue]];
-	if (![collection count]) collecting = NO;
+	}
+	if (position >= 0) {
+		[self selectObjectValue:[collection objectAtIndex:position]];
+	} else {
+		[self selectObjectValue:[collection lastObject]];
+	}
+	if ([collection count] <= 1) {
+		// stop collecting if there's only one object
+		[self emptyCollection:nil];
+	}
+	[self clearSearch];
 	[self setNeedsDisplay:YES];
 }
 - (IBAction)uncollectLast:(id)sender { //Removes an object to a collection
 	if ([collection count])
 		[collection removeLastObject];
-	if (![collection count])
-		collecting = NO;
+	if ([collection count] <= 1) {
+		// stop collecting if there's only one object
+		[self emptyCollection:nil];
+	}
 	[self setNeedsDisplay:YES];
 	//if ([[resultController window] isVisible])
 	//	[resultController->resultTable setNeedsDisplay:YES];}
+}
+- (IBAction)goForwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == [collection count] - 1 || position == NSNotFound) {
+		// end of the list or not in list at all, wrap to beginning
+		position = 0;
+	} else {
+		// go forward one
+		position++;
+	}
+	// prepare the state of the view
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
+}
+- (IBAction)goBackwardInCollection:(id)sender
+{
+	if ([collection count] <= 1) {
+		return;
+	}
+	QSObject *selected = [super objectValue];
+	NSUInteger position = [collection indexOfObject:selected];
+	if (position == 0 || position == NSNotFound) {
+		// beginning of the list or not in list at all, wrap to end
+		position = [collection count] - 1;
+	} else {
+		// go back one
+		position--;
+	}
+	// prepare the state of the view
+	[self clearSearch];
+	// change the selection
+	QSObject *newSelected = [collection objectAtIndex:position];
+	[self selectObjectValue:newSelected];
 }
 - (void)clearObjectValue {
 	[self emptyCollection:nil];
@@ -87,7 +149,6 @@
 - (IBAction)combine:(id)sender { //Resolve a collection as a single object
 	[self setObjectValue:[self objectValue]];
 	[self emptyCollection:sender];
-	collecting = NO;
 }
 - (id)objectValue {
 	if ([collection count])
@@ -98,9 +159,28 @@
 - (BOOL)objectIsInCollection:(QSObject *)thisObject {
 	return [collection containsObject:thisObject];
 }
+- (void)explodeCombinedObject
+{
+	QSObject *selected = [super objectValue];
+	NSMutableArray *components;
+	if ([collection count]) {
+		components = [collection mutableCopy];
+	} else {
+		components = [[selected splitObjects] mutableCopy];
+		selected = nil;
+	}
+	if (selected && ![components containsObject:selected]) {
+		[components addObject:selected];
+	}
+	if ([components count] <= 1) {
+		NSBeep();
+		return;
+	}
+	[[self controller] showArray:components];
+}
 - (void)deleteBackward:(id)sender {
 	if ([collection count] && ![partialString length]) {
-		[self uncollectLast:sender];
+		[self uncollect:sender];
 	} else {
 		[super deleteBackward:sender];
     }
@@ -109,27 +189,17 @@
 	collecting = NO;
 	[super reset:sender];
 }
-- (void)selectObjectValue:( QSObject *)newObject {
-	if (!collecting)
+- (void)redisplayObjectValue:(QSObject *)newObject
+{
+	if ([newObject count] > 1) {
+		collection = [[newObject splitObjects] mutableCopy];
+		[collection makeObjectsPerformSelector:@selector(loadIcon)];
+		newObject = [collection lastObject];
+	} else {
 		[self emptyCollection:nil];
-	[super selectObjectValue:newObject];
-}
-- (void)setObjectValue:(QSBasicObject *)newObject {
-    if (newObject == [self objectValue]) {
-        return;
-    }
-	if (!collecting) {
-        [self emptyCollection:self];
-    }
-    // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor (for the 1st pane only)
-    if (!newObject && self == [[super controller] dSelector]) {
-        NSTextView *editor = (NSTextView *)[[self window] fieldEditor:NO forObject: self];
-        if (editor) {
-            [editor setString:@""];
-        }
-    }
-    
-	[super setObjectValue:newObject];
+	}
+	collecting = NO;
+	[self selectObjectValue:newObject];
 }
 - (NSRectEdge)collectionEdge {
 	return collectionEdge;

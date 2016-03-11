@@ -1,1 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict>	<key>QSSearchObjectView</key>	<dict>		<key> </key>		<string>insertSpace:</string>		<key>"</key>		<string>conditionalTransmogrify:</string>		<key>⇧</key>		<string>executeCommandAndContinue:</string>		<key>⇧ </key>		<string>insertSpace:</string>		<key>⇧/</key>		<string>moveLeft:</string>		<key>'</key>		<string>conditionalTransmogrify:</string>		<key>,</key>		<string>collect:</string>		<key>.</key>		<string>transmogrify:</string>		<key>/</key>		<string>moveRight:</string>		<key>⌃H</key>		<string>moveLeft:</string>		<key>⌃K</key>		<string>moveUp:</string>		<key>⌃J</key>		<string>moveDown:</string>		<key>⌃L</key>		<string>moveRight:</string>		<key>⌃U</key>		<string>delete:</string>		<key>;</key>		<string>combine:</string>		<key>=</key>		<string>calculate:</string>		<key>⌘[</key>		<string>goBackward:</string>		<key>⌘]</key>		<string>goForward:</string>		<key>⌘G</key>		<string>grabSelection:</string>		<key>⌃</key>		<string>encapsulateCommand:</string>		<key>⌃⌘[</key>		<string>showHistoryObjects</string>		<key>⌃⌘D</key>		<string>defineMnemonic:</string>		<key>⌃⌥⌘D</key>		<string>removeMnemonic:</string>		<key>⌥,</key>		<string>uncollect:</string>		<key>⌥/</key>		<string>selectRoot:</string>		<key>⌥⌘G</key>		<string>dropSelection:</string>		<key>⌥⌘V</key>		<string>dropClipboard:</string>        <key>⌘Y</key>        <string>togglePreviewPanel:</string>        <key>⌥⌘Y</key>        <string>togglePreviewPanelFullScreen:</string>	</dict></dict></plist>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSSearchObjectView</key>
+	<dict>
+		<key> </key>
+		<string>insertSpace:</string>
+		<key>"</key>
+		<string>conditionalTransmogrify:</string>
+		<key>⇧
+</key>
+		<string>executeCommandAndContinue:</string>
+		<key>⇧ </key>
+		<string>insertSpace:</string>
+		<key>⇧/</key>
+		<string>moveLeft:</string>
+		<key>'</key>
+		<string>conditionalTransmogrify:</string>
+		<key>,</key>
+		<string>collect:</string>
+		<key>.</key>
+		<string>transmogrify:</string>
+		<key>/</key>
+		<string>moveRight:</string>
+		<key>⌃H</key>
+		<string>moveLeft:</string>
+		<key>⌃K</key>
+		<string>moveUp:</string>
+		<key>⌃J</key>
+		<string>moveDown:</string>
+		<key>⌃L</key>
+		<string>moveRight:</string>
+		<key>⌃U</key>
+		<string>clearObjectValue</string>
+		<key>;</key>
+		<string>combine:</string>
+		<key>=</key>
+		<string>calculate:</string>
+		<key>⌘[</key>
+		<string>goBackward:</string>
+		<key>⌘]</key>
+		<string>goForward:</string>
+		<key>⌃]</key>
+		<string>goForwardInCollection:</string>
+		<key>⌃[</key>
+		<string>goBackwardInCollection:</string>
+		<key>⌘G</key>
+		<string>grabSelection:</string>
+		<key>⌃
+</key>
+		<string>encapsulateCommand:</string>
+		<key>⌃⌘[</key>
+		<string>showHistoryObjects</string>
+		<key>⌃⌘]</key>
+		<string>explodeCombinedObject</string>
+		<key>⌃⌘D</key>
+		<string>defineMnemonic:</string>
+		<key>⌃⌥⌘D</key>
+		<string>removeMnemonic:</string>
+		<key>⌥,</key>
+		<string>uncollectLast:</string>
+		<key>⌥/</key>
+		<string>selectRoot:</string>
+		<key>⌥⌘G</key>
+		<string>dropSelection:</string>
+		<key>⌥⌘V</key>
+		<string>dropClipboard:</string>
+        <key>⌘Y</key>
+        <string>togglePreviewPanel:</string>
+        <key>⌥⌘Y</key>
+        <string>togglePreviewPanelFullScreen:</string>
+	</dict>
+</dict>
+</plist>

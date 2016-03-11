@@ -471,8 +471,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 			/* (The main object would get replaced anyway. This is only done to
 			 remove objects selected by the comma trick before the action was run.) */
 			[controller clearObjectView:[controller dSelector]];
-			// put the result in the first pane and in the results list
-			[[controller dSelector] performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
+			// put the result in the first pane, results list, and history
+			[[controller dSelector] performSelectorOnMainThread:@selector(redisplayObjectValue:) withObject:returnValue waitUntilDone:YES];
+			[[controller dSelector] updateHistory];
 			if (actionObject) {
 				if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
 					QSAction* rankedAction = [(QSRankedObject *)actionObject object];
