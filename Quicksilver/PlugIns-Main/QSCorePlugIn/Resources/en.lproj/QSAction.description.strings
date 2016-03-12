@@ -44,6 +44,8 @@
 	<string>Display Text in a Pop-up Dialog</string>
 	<key>QSObjectShowChildrenAction</key>
 	<string>Open Contents of Item in Quicksilver</string>
+	<key>QSObjectExplodeCombinedAction</key>
+	<string>Show selected items in the results list</string>
 	<key>QSShellScriptRunAction</key>
 	<string>Run a Shell Script</string>
 	<key>QSObjectSelectAction</key>

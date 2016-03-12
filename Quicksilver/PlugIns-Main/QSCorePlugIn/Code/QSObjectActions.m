@@ -25,6 +25,7 @@
 # define kQSObjectShowSourceAction @"QSObjectShowSourceAction"
 # define kQSObjectOmitAction @"QSObjectOmitAction"
 # define kQSObjectAssignLabelAction @"QSObjectAssignLabelAction"
+# define kQSObjectExplodeCombinedAction @"QSObjectExplodeCombinedAction"
 
 #import "QSTextProxy.h"
 #import "QSWindowAnimation.h"
@@ -44,6 +45,9 @@
     {
             [newActions addObject:kQSObjectShowSourceAction];
     }
+	if ([dObject count] > 1) {
+		[newActions addObject:kQSObjectExplodeCombinedAction];
+	}
 	return newActions;
 }
 
@@ -186,6 +190,14 @@
 	[data writeToFile:savePath atomically:NO];
 	return [QSObject fileObjectWithPath:savePath];
 
+}
+
+- (QSObject *)explodeCombinedObject:(QSObject *)dObject
+{
+	NSMutableArray *components = [[dObject splitObjects] mutableCopy];
+	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
+	[controller showArray:components];
+	return nil;
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {

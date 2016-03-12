@@ -202,6 +202,8 @@
 	<string>Show Action Menu</string>
 	<key>QSObjectShowChildrenAction</key>
 	<string>Show Contents</string>
+	<key>QSObjectExplodeCombinedAction</key>
+	<string>Explode Selection</string>
 	<key>QSObjectShowSourceAction</key>
 	<string>Show Source in Catalog</string>
 	<key>QSPutOnShelfAction</key>
