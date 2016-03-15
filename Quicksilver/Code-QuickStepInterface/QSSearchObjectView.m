@@ -568,7 +568,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearObjectValue {
-	[super setObjectValue:nil];
+	[self setObjectValue:nil];
 	selection--;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
