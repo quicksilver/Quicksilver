@@ -1245,6 +1245,8 @@
 			<string>QSUserDefinedProxySource</string>
 			<key>QSGroupObjectSource</key>
 			<string>QSGroupObjectSource</string>
+			<key>QSSharedFileListSource</key>
+			<string>QSSharedFileListSource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>
