@@ -51,20 +51,11 @@
 					<string>Finder Sidebar Items</string>
 					<key>settings</key>
 					<dict>
-						<key>bundle</key>
-						<string>com.apple.sidebarlists</string>
-						<key>keypath</key>
-						<array>
-							<string>favoriteitems</string>
-							<string>CustomListItems</string>
-							<string>*</string>
-							<string>Alias</string>
-						</array>
-						<key>type</key>
-						<integer>3</integer>
+						<key>path</key>
+						<string>~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.FavoriteItems.sfl</string>
 					</dict>
 					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
+					<string>QSSharedFileListSource</string>
 				</dict>
 			</array>
 			<key>icon</key>
