@@ -13,7 +13,21 @@
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry
 {
-	return NO;
+	NSDictionary *settings = [theEntry objectForKey:kItemSettings];
+	NSString *sflPath = [settings objectForKey:kItemPath];
+	if (!sflPath) {
+		return YES;
+	}
+	NSString *path = [sflPath stringByStandardizingPath];
+	NSFileManager *manager = [NSFileManager defaultManager];
+	if (![manager fileExistsAtPath:path isDirectory:NULL]) {
+		return YES;
+	}
+	NSDate *modDate = [[manager attributesOfItemAtPath:path error:NULL] fileModificationDate];
+	if ([modDate compare:indexDate] == NSOrderedDescending) {
+		return NO;
+	}
+	return YES;
 }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry
