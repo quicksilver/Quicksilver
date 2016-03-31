@@ -9,6 +9,7 @@
     * Compress Long Names (#2133)
   * When a collection is (re)selected in the interface, it appears as a collection that can be managed, as though you had just created it with the comma trick, instead of a single combined object (#2092)
   * Collections can be "exploded" into a list of individual items with `⌃⌘]`. This is the inverse of `⌘A`. (#2092)
+  * An "Explode Selection" action has been added to split collections into individual items (#2188)
   * You can browse through a collection to get a better look at each item using `⌃[` and `⌃]` (#2092)
   * Internal command to clear Quicksilver history (#2092)
 
