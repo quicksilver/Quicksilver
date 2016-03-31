@@ -128,6 +128,19 @@
 			<key>icon</key>
 			<string>Find</string>
 		</dict>
+		<key>QSObjectExplodeCombinedAction</key>
+		<dict>
+			<key>validatesObjects</key>
+			<true/>
+			<key>actionClass</key>
+			<string>QSObjectActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>*</string>
+			</array>
+			<key>actionSelector</key>
+			<string>explodeCombinedObject:</string>
+		</dict>
 		<key>QSCreateFileAction</key>
 		<dict>
 			<key>displaysResult</key>
