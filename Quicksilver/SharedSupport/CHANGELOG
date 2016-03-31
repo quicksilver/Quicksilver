@@ -28,6 +28,7 @@
   * Clear the search string when switching items in a collection (#2092)
   * Improved interface when showing all history with `⌃⌘[` (#2092)
   * Clearing interface with `⌃U` will also remove comma-trick collections (#2092, #2189, #2190)
+  * Fixed numerous crashes and freezes (#2177)
 
 ### Changed ###
 
