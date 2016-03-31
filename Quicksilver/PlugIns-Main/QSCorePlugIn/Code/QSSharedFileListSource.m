@@ -20,7 +20,8 @@
 	}
 	NSString *path = [sflPath stringByStandardizingPath];
 	NSFileManager *manager = [NSFileManager defaultManager];
-	if (![manager fileExistsAtPath:path isDirectory:NULL]) {
+	BOOL isDir = NO;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || isDir) {
 		return YES;
 	}
 	NSDate *modDate = [[manager attributesOfItemAtPath:path error:NULL] fileModificationDate];
@@ -36,19 +37,24 @@
 	NSMutableArray *sflItemArray = [NSMutableArray arrayWithCapacity:0];
 	NSString *sflPath = [settings objectForKey:kItemPath];
 	NSString *path = [sflPath stringByStandardizingPath];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
-		NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-		for (SFLListItem *item in sflData[@"items"]) {
-			// item's class is SFLListItem
-			if ([item URL]) {
-				[sflItemArray addObject:item];
-			}
-		}
-		[sflItemArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
-			return item1.order > item2.order;
-		}];
-		
+	BOOL isDir = NO;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || isDir) {
+		return nil;
 	}
+	NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+	NSString *kItems = @"items";
+	if (![[sflData allKeys] containsObject:kItems]) {
+		return nil;
+	}
+	for (SFLListItem *item in sflData[kItems]) {
+		// item's class is SFLListItem
+		if ([item URL]) {
+			[sflItemArray addObject:item];
+		}
+	}
+	[sflItemArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
+		return item1.order > item2.order;
+	}];
 	return [sflItemArray arrayByEnumeratingArrayUsingBlock:^id(SFLListItem *item) {
 		NSURL *url = [item URL];
 		if ([url isFileURL]) {
