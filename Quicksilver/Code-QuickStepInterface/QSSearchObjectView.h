@@ -68,10 +68,6 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	QSResultController *resultController;
 	QSSearchMode searchMode;
 
-	NSMutableArray *sourceArray; // The original source array for searches
-	NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
-	NSMutableArray *resultArray; // Final filtered array for current search string
-
 	NSUInteger selection;
 	BOOL browsing;
 	BOOL validMnemonic;
@@ -82,6 +78,10 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
     QSObject *quicklookObject;
 
 }
+
+@property (copy) NSArray *sourceArray; // The original source array for searches
+@property (copy) NSArray *searchArray; // Interim array for searching smaller and smaller pieces
+@property (strong) NSMutableArray *resultArray; // Final filtered array for current search string
 
 @property (assign) BOOL updatesSilently;
 @property (assign) BOOL recordsHistory;
@@ -115,10 +115,6 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 - (void)redisplayObjectValue:(QSObject *)newObject;
 - (void)pageScroll:(NSInteger)direction;
 
-- (NSMutableArray *)sourceArray;
-- (void)setSourceArray:(NSMutableArray *)newSourceArray;
-- (NSMutableArray *)searchArray;
-- (void)setSearchArray:(NSMutableArray *)newSearchArray;
 - (NSMutableArray *)resultArray;
 - (void)setResultArray:(NSMutableArray *)newResultArray;
 
