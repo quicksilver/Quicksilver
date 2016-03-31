@@ -54,7 +54,10 @@
 		return nil;
 
 	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	// Bridge-retain because it might happen that some pool somewhere gets drained
+	CFURLRef cfURL = (__bridge_retained CFURLRef)[NSURL fileURLWithPath:path];
+	OSStatus status = LSCopyItemInfoForURL(cfURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	if (cfURL) CFRelease(cfURL);
 	if (status)
 		return @"";
 

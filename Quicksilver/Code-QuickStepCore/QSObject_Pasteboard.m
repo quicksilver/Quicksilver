@@ -80,7 +80,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	return [self initWithPasteboard:pasteboard types:nil];
 }
 
-- (void)addContentsOfClipping:(NSString *)path { // Not thread safe?
+- (void)addContentsOfClipping:(NSString *)path {
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
 	[self addContentsOfPasteboard:pasteboard types:nil];
 	[pasteboard releaseGlobally];

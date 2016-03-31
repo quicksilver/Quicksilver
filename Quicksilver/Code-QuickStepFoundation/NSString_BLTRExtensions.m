@@ -238,20 +238,24 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSString *)decodedPasteboardType {
 	NSString *coreString = @"CorePasteboardFlavorType 0x";
-		return ([self hasPrefix:coreString]) ? [NSString stringWithFormat:@"'%@'", [[self substringFromIndex:[coreString length]] decodedHexString]] : self;
+	if (![self hasPrefix:coreString]) return self;
+	return [[self substringFromIndex:[coreString length]] decodedHexString];
 }
 
 - (NSString *)encodedPasteboardType {
-	return ([self hasPrefix:@"'"] && [self hasSuffix:@"'"]) ? [NSString stringWithFormat:@"CorePasteboardFlavorType 0x%@", [[[self substringWithRange:NSMakeRange(1, [self length] -2)] encodedHexString] uppercaseString]] : self;
+	if (!([self hasPrefix:@"'"] && [self hasSuffix:@"'"])) return self;
+
+	return [NSString stringWithFormat:@"CorePasteboardFlavorType 0x%@", [[[self substringWithRange:NSMakeRange(1, [self length] -2)] encodedHexString] uppercaseString]];
 }
 
 - (NSString *)decodedHexString {
-	char s[4]; unsigned x; NSInteger i;
+	char s[4]; unsigned x; NSInteger i = 0;
 	for (i = 0; i<((NSInteger) [self length] / 2); i++) {
-		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
+		NSString *substr = [self substringWithRange:NSMakeRange(i*2, 2)];
+		[[NSScanner scannerWithString:substr] scanHexInt:&x];
 		s[i] = (char)x;
 	}
-    return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
+	return [[NSString alloc] initWithBytes:&s length:sizeof(s) encoding:NSUTF8StringEncoding];
 }
 
 - (NSUInteger) hexIntValue {
