@@ -420,6 +420,7 @@
 		D46D3C7C16B33D0B00387EA9 /* countBadge3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7816B33D0B00387EA9 /* countBadge3@2x.png */; };
 		D46D3C7D16B33D0B00387EA9 /* countBadge4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */; };
 		D46D3C7E16B33D0B00387EA9 /* countBadge5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */; };
+		D48F231D1C99CCC4006504A8 /* QSSharedFileListSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D48F231C1C99CCC4006504A8 /* QSSharedFileListSource.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */ = {isa = PBXBuildFile; fileRef = D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */; };
@@ -1948,6 +1949,8 @@
 		D46D3C7816B33D0B00387EA9 /* countBadge3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge3@2x.png"; sourceTree = "<group>"; };
 		D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge4@2x.png"; sourceTree = "<group>"; };
 		D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge5@2x.png"; sourceTree = "<group>"; };
+		D48F231B1C99CCC4006504A8 /* QSSharedFileListSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSharedFileListSource.h; sourceTree = "<group>"; };
+		D48F231C1C99CCC4006504A8 /* QSSharedFileListSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSharedFileListSource.m; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; usesTabs = 1; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; usesTabs = 1; };
 		D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxySource.h; sourceTree = "<group>"; };
@@ -3041,6 +3044,8 @@
 				E180011007B2B48900010DB0 /* QSObject+ColorHandling.m */,
 				7FDF328707F7B11800594789 /* QSObjectActions.h */,
 				7FDF328807F7B11800594789 /* QSObjectActions.m */,
+				D48F231B1C99CCC4006504A8 /* QSSharedFileListSource.h */,
+				D48F231C1C99CCC4006504A8 /* QSSharedFileListSource.m */,
 				E180011107B2B48900010DB0 /* QSShellScriptRunAction.h */,
 				E180011207B2B48900010DB0 /* QSShellScriptRunAction.m */,
 				7FF59032080439B00031368C /* QSTextParser.h */,
@@ -4908,6 +4913,7 @@
 				E180012807B2B48900010DB0 /* QSDefaultsObjectSource.m in Sources */,
 				7FF590210804398F0031368C /* QSDirectoryParser.m in Sources */,
 				E180012E07B2B48900010DB0 /* QSFileSystemObjectSource.m in Sources */,
+				D48F231D1C99CCC4006504A8 /* QSSharedFileListSource.m in Sources */,
 				7FBE3D1209586FE60049CC78 /* QSFileTemplateManager.m in Sources */,
 				E180013007B2B48900010DB0 /* QSFSBrowserMediator.m in Sources */,
 				7F9441C60803AB2D007EDC31 /* QSGroupObjectSource.m in Sources */,

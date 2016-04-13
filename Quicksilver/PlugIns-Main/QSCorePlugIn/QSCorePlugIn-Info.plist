@@ -1258,6 +1258,8 @@
 			<string>QSUserDefinedProxySource</string>
 			<key>QSGroupObjectSource</key>
 			<string>QSGroupObjectSource</string>
+			<key>QSSharedFileListSource</key>
+			<string>QSSharedFileListSource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>
@@ -1972,22 +1974,11 @@
 					<array>
 						<dict>
 							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
+							<string>QSSharedFileListSource</string>
 							<key>settings</key>
 							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>watchTarget</key>
-								<true/>
-								<key>type</key>
-								<integer>3</integer>
-								<key>keypath</key>
-								<array>
-									<string>RecentApplications</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>Bookmark</string>
-								</array>
+								<key>path</key>
+								<string>~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentApplications.sfl</string>
 							</dict>
 							<key>icon</key>
 							<string>GenericApplicationIcon</string>
@@ -1996,22 +1987,11 @@
 						</dict>
 						<dict>
 							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>watchTarget</key>
-							<true/>
+							<string>QSSharedFileListSource</string>
 							<key>settings</key>
 							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>type</key>
-								<integer>3</integer>
-								<key>keypath</key>
-								<array>
-									<string>RecentDocuments</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>Bookmark</string>
-								</array>
+								<key>path</key>
+								<string>~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentDocuments.sfl</string>
 							</dict>
 							<key>icon</key>
 							<string>GenericDocumentIcon</string>
@@ -2020,22 +2000,11 @@
 						</dict>
 						<dict>
 							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>watchTarget</key>
-							<true/>
+							<string>QSSharedFileListSource</string>
 							<key>settings</key>
 							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>type</key>
-								<integer>2</integer>
-								<key>keypath</key>
-								<array>
-									<string>Hosts</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>URL</string>
-								</array>
+								<key>path</key>
+								<string>~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentServers.sfl</string>
 							</dict>
 							<key>icon</key>
 							<string>GenericFileServerIcon</string>
@@ -2070,22 +2039,13 @@
 				</dict>
 				<dict>
 					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
+					<string>QSSharedFileListSource</string>
 					<key>enabled</key>
 					<true/>
 					<key>settings</key>
 					<dict>
-						<key>bundle</key>
-						<string>com.apple.sidebarlists</string>
-						<key>type</key>
-						<integer>2</integer>
-						<key>keypath</key>
-						<array>
-							<string>favoriteservers</string>
-							<string>CustomListItems</string>
-							<string>*</string>
-							<string>URL</string>
-						</array>
+						<key>path</key>
+						<string>~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.FavoriteServers.sfl</string>
 					</dict>
 					<key>ID</key>
 					<string>QSPresetFavoriteServers</string>
