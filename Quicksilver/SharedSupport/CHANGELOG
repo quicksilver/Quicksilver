@@ -50,6 +50,7 @@
   * Allow spaces in comment blocks (#2169)
   * Add support for combined objects to `-[QSObject isEqual:]` (#2092)
   * New unit tests for `-[QSObject isEqual:]` (#2092)
+  * Eliminated some unnecessary mutable arrays (#2193)
 
 ## Changes - 1.3.4 (4016) ##
 
