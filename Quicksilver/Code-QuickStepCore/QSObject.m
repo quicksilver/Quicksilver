@@ -153,7 +153,10 @@ NSSize QSMaxIconSize;
 	NSMutableArray *array;
 	// Set used to keep track of the objects already added
 	NSMutableSet *setOfObjects = [[NSMutableSet alloc] init];
-	
+
+	// Make sure objects is immutable
+	objects = [objects copy];
+
 	// add each object from the list of objects to the combinedData dict
 	for (id thisObject in objects) {
 		if (!typesSet) {
@@ -173,11 +176,9 @@ NSSize QSMaxIconSize;
 			[setOfObjects addObject:thisObject];
 		}
 	}
-	// get the number of objects added to combinedData, then release setOfObjects
-	NSInteger objectCount = [setOfObjects count];
 	
 	// If there's still only 1 object (case: if the comma trick is used on the same object multiple times)
-	if (objectCount == 1) {
+	if ([setOfObjects count] == 1) {
 		return [objects objectAtIndex:0];
 	}
 	

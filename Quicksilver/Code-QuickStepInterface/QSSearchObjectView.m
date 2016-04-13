@@ -38,7 +38,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
 
-@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently;
+@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently, resultArray = _resultArray;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
@@ -68,9 +68,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 	matchedString = nil;
 
-	sourceArray = nil;
-	searchArray = nil;
-	resultArray = nil;
+	_sourceArray = nil;
+	_searchArray = nil;
+	_resultArray = nil;
 	self.recordsHistory = YES;
 	shouldResetSearchArray = YES;
 	allowNonActions = YES;
@@ -256,9 +256,12 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 }
 
-- (NSMutableArray *)resultArray { return resultArray;  }
+- (NSArray *)resultArray {
+	return _resultArray;
+}
+
 - (void)setResultArray:(NSMutableArray *)newResultArray {
-	resultArray = newResultArray;
+	_resultArray = newResultArray;
     
 	if ([[resultController window] isVisible])
 		[self reloadResultTable];
@@ -267,20 +270,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[(id)[self controller] searchView:self changedResults:newResultArray];
 }
 
-- (NSMutableArray *)searchArray { return searchArray;  }
-- (void)setSearchArray:(NSMutableArray *)newSearchArray {
-    if (searchArray != newSearchArray) {
-        searchArray = newSearchArray;
-    }
-}
-
-- (NSMutableArray *)sourceArray { return sourceArray; }
-- (void)setSourceArray:(NSMutableArray *)newSourceArray {
-	if (sourceArray != newSourceArray) {
-		sourceArray = newSourceArray;
-		[self setSearchArray:sourceArray];
-	}
-}
 
 - (BOOL)shouldResetSearchString { return shouldResetSearchString;  }
 - (void)setShouldResetSearchString:(BOOL)flag { shouldResetSearchString = flag; }
@@ -592,14 +581,14 @@ NSMutableDictionary *bindingsDict = nil;
 	// NSLog(@"selectindex %d %d", self, index);
     
 	if (index < 0)
-		selection = [resultArray count] - 1;
-	else if (index >= (NSInteger)[resultArray count])
+		selection = [self.resultArray count] - 1;
+	else if (index >= (NSInteger)[self.resultArray count])
 		selection = 0;
 	else
 		selection = index;
     
-	if ([resultArray count]) {
-		QSObject *object = [resultArray objectAtIndex:selection];
+	if ([self.resultArray count]) {
+		QSObject *object = [self.resultArray objectAtIndex:selection];
         
 		[self selectObjectValue:object];
 		[resultController.resultTable scrollRowToVisible:selection];
@@ -615,7 +604,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)selectObject:(QSBasicObject *)obj {
 	NSInteger index = 0;
 	if (obj) {
-		index = (NSInteger)[resultArray indexOfObject:obj];
+		index = (NSInteger)[self.resultArray indexOfObject:obj];
 		//NSLog(@"index %d %@", index, obj);
 		if (index == NSNotFound) {
 			//if (VERBOSE) NSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
@@ -698,7 +687,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)scrollToEndOfDocument:(id)sender {
-	[self selectIndex:[resultArray count] -1];
+	[self selectIndex:[self.resultArray count] -1];
 }
 
 - (BOOL)executeText:(NSEvent *)theEvent {
@@ -813,7 +802,7 @@ NSMutableDictionary *bindingsDict = nil;
     string = [string lowercaseString];
     
 	//	NSData *scores;
-	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
+	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:self.searchArray];
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
@@ -849,7 +838,7 @@ NSMutableDictionary *bindingsDict = nil;
         
 		NSInteger resultBehavior = [[NSUserDefaults standardUserDefaults] integerForKey:kResultWindowBehavior];
         
-		if ([resultArray count] > 1) {
+		if ([self.resultArray count] > 1) {
 			if (resultBehavior == 0)
 				[self showResultView:self];
 			else if (resultBehavior == 1) {
@@ -1511,7 +1500,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectAll:(id)sender {
-	[self redisplayObjectValue:[QSObject objectByMergingObjects:resultArray]];
+	[self redisplayObjectValue:[QSObject objectByMergingObjects:self.resultArray]];
 }
 
 - (void)insertTab:(id)sender {
@@ -1585,7 +1574,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
 		historyIndex = -1;
-		[self setSearchArray:sourceArray];
+		[self setSearchArray:self.sourceArray];
 	}
 	[partialString appendString:aString];
 	[self partialStringChanged];
@@ -1645,8 +1634,8 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!currentValue) return nil;
 	NSMutableDictionary *state = [NSMutableDictionary dictionary];
 	[state setObject:currentValue forKey:@"selection"];
-	if (resultArray) [state setObject:resultArray forKey:@"resultArray"];
-	if (sourceArray) [state setObject:sourceArray forKey:@"sourceArray"];
+	if (self.resultArray) [state setObject:self.resultArray forKey:@"resultArray"];
+	if (self.sourceArray) [state setObject:self.sourceArray forKey:@"sourceArray"];
 	if (visibleString) [state setObject:visibleString forKey:@"visibleString"];
 	return state;
 }
@@ -1856,7 +1845,7 @@ NSMutableDictionary *bindingsDict = nil;
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
         [self setResultArray:[newObjects mutableCopy]];
-        [self setSourceArray:[newObjects mutableCopy]];
+        [self setSourceArray:newObjects];
         
         if (!newSelectedObject)
             [self selectIndex:0];
