@@ -1620,6 +1620,15 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
 }
+
+#pragma mark Drag and Drop
+
+- (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation
+{
+	[self updateHistory];
+	[self saveMnemonic];
+	[super draggedImage:anImage endedAt:aPoint operation:operation];
+}
 @end
 
 #pragma mark History
