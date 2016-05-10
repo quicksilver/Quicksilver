@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Items are added to history when you drag them out of Quicksilver (#2203, #2204)
+  * Prevent an exception for non-keyboard events in the results list (#2205)
 
 ## Changes - 1.4.1 (4019) ##
 
