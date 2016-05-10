@@ -381,8 +381,11 @@ NSMutableDictionary *kindDescriptions = nil;
 		[self setSelectedItem:newSelectedItem];
 		[resultChildTable noteNumberOfRowsChanged];
         [self updateStatusString];
-        
-		if ([[NSApp currentEvent] modifierFlags] & NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
+		
+		NSEvent *event = [NSApp currentEvent];
+		// Check the event can have isARepeat called on it safely. From the docs for -[NSEvent isARepeat]: "Raises an NSInternalInconsistencyException if sent to an NSFlagsChanged event or other non-key event."
+		BOOL validKeyEvent = ([event type] == NSKeyDown) || ([event type] == NSKeyUp);
+		if ([event modifierFlags] & NSFunctionKeyMask && validKeyEvent && [event isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
 				[childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 			} else {
