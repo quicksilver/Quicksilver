@@ -354,7 +354,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>enabled</key>
-			<false/>
+			<true/>
 			<key>actionSelector</key>
 			<string>toggleApplication:</string>
 			<key>directFileTypes</key>
