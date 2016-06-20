@@ -1,9 +1,10 @@
-## Changes ##
+## Changes - 1.4.2 (401A) ##
 
 ### Fixed ###
 
   * Items are added to history when you drag them out of Quicksilver (#2203, #2204)
   * Prevent an exception for non-keyboard events in the results list (#2205)
+  * Building Quicksilver under OS X 10.10 so Gatekeeper won't complain on older versions of the OS (#2196)
 
 ### Changed ###
 
