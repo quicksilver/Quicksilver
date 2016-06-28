@@ -3,13 +3,12 @@
 #import <Cocoa/Cocoa.h>
 
 @class QSSearchObjectView;
-@class QSActionMatrix;
-
 @class QSWindow;
 @class QSMenuButton;
-//@class QSPrefsController;
-@class QSObject, QSBasicObject;
+@class QSObject;
+@class QSBasicObject;
 @class QSCommand;
+
 @interface QSInterfaceController : NSWindowController {
 	IBOutlet QSSearchObjectView *dSelector;
 	IBOutlet QSSearchObjectView *aSelector;
