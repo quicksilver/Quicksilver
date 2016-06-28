@@ -1,7 +1,8 @@
-#import <Foundation/Foundation.h>
-#import "QSObjectView.h"
 
+#import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
+#import <QSInterface/QSObjectView.h>
+#import <QSInterface/QSInterfaceController.h>
 
 @interface NSObject (QSSearchViewController)
 - (void)searchView:(id)view changedResults:(id)array;
@@ -9,13 +10,6 @@
 - (void)searchView:(id)view resultsVisible:(BOOL)visible;
 @end
 
-
-typedef NS_ENUM(NSUInteger, QSSearchMode) {
-    QSSearchModeAll = 1,     // Filter Catalog
-    QSSearchModeFilter = 2,  // Filter Results
-    QSSearchModeSnap = 3,    // Snap to Best
-//    QSSearchModeShuffle = 4, // Not Sure (not used?)
-};
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>

@@ -78,6 +78,8 @@ NSMutableDictionary *bindingsDict = nil;
     updatesSilently = NO;
     // FIXME: Look, a view that owns a controller...
 	resultController = [[QSResultController alloc] initWithObjectView:self];
+	resultController.nextResponder = self;
+
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
     [self setTextCellFontColor:[NSColor blackColor]];
     
@@ -297,7 +299,7 @@ NSMutableDictionary *bindingsDict = nil;
     }
 }
 
-- (QSSearchMode)searchMode { return searchMode;  }
+- (QSSearchMode)searchMode { return [[self resultController] searchMode]; }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
 	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
 	if (!((self == [self actionSelector]) && newSearchMode == QSSearchModeAll)) {
@@ -306,20 +308,10 @@ NSMutableDictionary *bindingsDict = nil;
 	
     [resultController.resultTable setNeedsDisplay:YES];
 	if (browsing) {
-	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
+        [[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
 	}
-		switch (searchMode) {
-			case QSSearchModeSnap:
-				[resultController setSearchSnapActivated];
-				break;
-			case QSSearchModeFilter:
-				[resultController setSearchFilterActivated];
-				break;
-			default:
-				[resultController setSearchFilterAllActivated];
-				break;
-		}
 
+    [[self resultController] setSearchMode:searchMode];
 }
 
 - (NSText *)currentEditor {
@@ -1415,13 +1407,17 @@ NSMutableDictionary *bindingsDict = nil;
 	[self transmogrifyWithText:nil];
 }
 
-- (IBAction)sortByScore:(id)sender {
-	[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
-	[self reloadResultTable];
-}
+- (IBAction)changeSearchOrder:(id)sender {
+	switch ([sender tag]) {
+		case QSSearchOrderByName:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(nameCompare:)];
+			break;
 
-- (IBAction)sortByName:(id)sender {
-	[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(nameCompare:)];
+		default:
+		case QSSearchOrderByScore:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
+			break;
+	}
 	[self reloadResultTable];
 }
 

@@ -51,6 +51,9 @@ NSMutableDictionary *kindDescriptions = nil;
     QSIconLoader *_resultChildIconLoader;
 
     NSTimer *_childrenLoadTimer;
+
+    QSSearchOrder _searchOrder;
+    QSSearchMode _searchMode;
 }
 
 @end
@@ -179,47 +182,79 @@ NSMutableDictionary *kindDescriptions = nil;
 	_scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
 }
 
-- (IBAction)setSearchFilterAllActivated {
-	if ([_filterCatalog state] == NSOffState) {
-		[_filterCatalog setState:NSOnState];
-		[_filterResults setState:NSOffState];
-		[_snapToBest setState:NSOffState];
-		[_searchModeField setStringValue:filterCatalogString];
+- (QSSearchMode)searchMode {
+    return _searchMode;
+}
+
+- (void)setSearchMode:(QSSearchMode)searchMode {
+    [self willChangeValueForKey:@"searchMode"];
+    _searchMode = searchMode;
+	switch (searchMode) {
+		default:
+			_searchMode = QSSearchModeAll;
+        case QSSearchModeAll:
+            [_filterCatalog setState:NSOnState];
+            [_filterResults setState:NSOffState];
+            [_snapToBest setState:NSOffState];
+            [_searchModeField setStringValue:filterCatalogString];
+            break;
+
+        case QSSearchModeFilter:
+            [_filterResults setState:NSOnState];
+            [_filterCatalog setState:NSOffState];
+            [_snapToBest setState:NSOffState];
+            [_searchModeField setStringValue:filterResultsString];
+            break;
+
+        case QSSearchModeSnap:
+            [_snapToBest setState:NSOnState];
+            [_filterResults setState:NSOffState];
+            [_filterCatalog setState:NSOffState];
+            [_searchModeField setStringValue:snapToBestString];
+            break;
+    }
+    [self didChangeValueForKey:@"searchMode"];
+}
+
+- (IBAction)changeSearchMode:(id)sender {
+	self.searchMode = [sender tag];
+
+	if ([[self nextResponder] respondsToSelector:@selector(changeSearchMode:)]) {
+		[[self nextResponder] performSelector:@selector(changeSearchMode:) withObject:sender];
 	}
 }
 
-- (IBAction)setSearchFilterActivated {
-	if ([_filterResults state] == NSOffState) {
-		[_filterResults setState:NSOnState];
-		[_filterCatalog setState:NSOffState];
-		[_snapToBest setState:NSOffState];
-		[_searchModeField setStringValue:filterResultsString];
+- (QSSearchOrder)searchOrder {
+    return _searchOrder;
+}
+
+- (void)setSearchOrder:(QSSearchOrder)searchOrder {
+    [self willChangeValueForKey:@"searchOrder"];
+    _searchOrder = searchOrder;
+    switch (searchOrder) {
+        case QSSearchOrderByName:
+            [_sortByName setState:NSOnState];
+            [_sortByScore setState:NSOffState];
+            break;
+
+        case QSSearchOrderByScore:
+            [_sortByName setState:NSOffState];
+            [_sortByScore setState:NSOnState];
+            break;
+
+        default:
+            _searchOrder = QSSearchOrderByScore;
+            break;
+    }
+    [self willChangeValueForKey:@"searchOrder"];
+}
+
+- (IBAction)changeSearchOrder:(id)sender {
+    self.searchOrder = [sender tag];
+
+	if ([[self nextResponder] respondsToSelector:@selector(changeSearchOrder:)]) {
+		[[self nextResponder] performSelector:@selector(changeSearchOrder:) withObject:sender];
 	}
-}
-
-- (IBAction)setSearchSnapActivated {
-	if ([_snapToBest state] == NSOffState) {
-		[_snapToBest setState:NSOnState];
-		[_filterResults setState:NSOffState];
-		[_filterCatalog setState:NSOffState];
-		[_searchModeField setStringValue:snapToBestString];
-	}
-}
-
-- (IBAction)setSearchMode:(id)sender {
-    [self.objectView setSearchMode:[sender tag]];
-}
-
-- (IBAction)sortByName:(id)sender{
-	[_sortByName setState:NSOnState];
-	[_sortByScore setState:NSOffState];
-    [self.objectView sortByName:sender];
-}
-
-- (IBAction)sortByScore:(id)sender {
-	[_sortByName setState:NSOffState];
-	[_sortByScore setState:NSOnState];
-    [self.objectView sortByScore:sender];
 }
 
 - (void)bump:(NSInteger)i {
@@ -320,7 +355,6 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark -
 #pragma mark Actions
 - (IBAction)defineMnemonic:(id)sender {
-	//	NSLog(@"%d", [resultTable clickedRow]);
 	if (![self.objectView mnemonicDefined])
 		[self.objectView defineMnemonic:sender];
 	else
