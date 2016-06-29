@@ -27,11 +27,6 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
-// FIXME: These should be localizable, but I'm not sure how to do that
-#define filterResultsString @"Filter Results"
-#define filterCatalogString @"Filter Catalog"
-#define snapToBestString @"Snap to Best"
-
 #import "QSTextProxy.h"
 
 NSMutableDictionary *kindDescriptions = nil;
@@ -196,21 +191,21 @@ NSMutableDictionary *kindDescriptions = nil;
             [_filterCatalog setState:NSOnState];
             [_filterResults setState:NSOffState];
             [_snapToBest setState:NSOffState];
-            [_searchModeField setStringValue:filterCatalogString];
+            [_searchModeField setStringValue:NSLocalizedString(@"Filter Catalog", @"")];
             break;
 
         case QSSearchModeFilter:
             [_filterResults setState:NSOnState];
             [_filterCatalog setState:NSOffState];
             [_snapToBest setState:NSOffState];
-            [_searchModeField setStringValue:filterResultsString];
+            [_searchModeField setStringValue:NSLocalizedString(@"Filter Results", @"")];
             break;
 
         case QSSearchModeSnap:
             [_snapToBest setState:NSOnState];
             [_filterResults setState:NSOffState];
             [_filterCatalog setState:NSOffState];
-            [_searchModeField setStringValue:snapToBestString];
+            [_searchModeField setStringValue:NSLocalizedString(@"Snap to Best", @"")];
             break;
     }
     [self didChangeValueForKey:@"searchMode"];
