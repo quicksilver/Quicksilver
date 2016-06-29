@@ -40,8 +40,6 @@ typedef NS_ENUM(NSUInteger, QSSearchOrder) {
     TISInputSourceRef savedKeyboard;
 }
 
-@property (assign) QSSearchMode searchMode;
-
 + (NSResponder *)firstResponder;
 - (QSCommand *)currentCommand;
 - (void)setCommand:(QSCommand *)command;
