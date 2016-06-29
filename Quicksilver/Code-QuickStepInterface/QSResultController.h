@@ -32,6 +32,7 @@
 @property (strong) IBOutlet NSMenu     *searchModeMenu; // NSMenu opened when clicking the gear (see ResultController.xib)
 @property (strong) IBOutlet NSMenuItem *sortByScore;    // NSMenuItem (see ResultController.xib)
 @property (strong) IBOutlet NSMenuItem *sortByName;     // NSMenuItem (see ResultController.xib)
+@property (strong) IBOutlet NSMenuItem *sortByModDate;  // NSMenuItem (see ResultController.xib)
 
 + (id)sharedInstance;
 

@@ -16,6 +16,7 @@
                 <outlet property="searchStringField" destination="43" id="44"/>
                 <outlet property="selectionView" destination="130" id="132"/>
                 <outlet property="snapToBest" destination="267" id="297"/>
+                <outlet property="sortByModDate" destination="rpU-Rw-gDF" id="oqg-gX-hml"/>
                 <outlet property="sortByName" destination="237" id="317"/>
                 <outlet property="sortByScore" destination="238" id="302"/>
                 <outlet property="splitView" destination="71" id="142"/>
@@ -222,7 +223,7 @@
         <userDefaultsController representsSharedInstance="YES" id="195" userLabel="Shared Defaults"/>
         <menu title="Menu" id="231" userLabel="ResultsMenu">
             <items>
-                <menuItem title="Search Mode ⌘←/⌘→" onStateImage="CFAD1900-87DD-4651-A763-D106A02A68B0" mixedStateImage="04E85643-A713-42B2-976D-46258E885ABA" id="266">
+                <menuItem title="Search Mode ⌘←/⌘→" onStateImage="9FA3C173-4980-480A-AA7A-E1064322F0A3" mixedStateImage="8C71B5AD-0E3B-4F35-9E7B-75A46F95805E" id="266">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Search Mode ⌘←/⌘→" id="265">
                         <items>
@@ -250,16 +251,22 @@
                 <menuItem isSeparatorItem="YES" id="263">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="Sort by Score" state="on" mixedStateImage="93F9A635-5030-4F07-A53E-632B8AB0927C" tag="2" id="238">
+                <menuItem title="Sort by Score" state="on" mixedStateImage="4DD19109-874B-416C-ABD9-187BA80E44A4" tag="2" id="238">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="changeSearchOrder:" target="-2" id="318"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Sort by Name" mixedStateImage="89486AD8-704C-4B00-A789-989AB08E6724" tag="1" id="237">
+                <menuItem title="Sort by Name" mixedStateImage="65758805-D522-4E90-ADBC-724E0AF7A1AD" tag="1" id="237">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="changeSearchOrder:" target="-2" id="319"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Sort by Date" mixedStateImage="5B70664E-3BA0-4DC6-95B8-EA33BF3D3C0D" tag="3" id="rpU-Rw-gDF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="changeSearchOrder:" target="-2" id="n2Z-V6-wRN"/>
                     </connections>
                 </menuItem>
             </items>

@@ -15,6 +15,7 @@
 - (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(NSInteger)newOrder score:(CGFloat)newScore;
 - (NSComparisonResult)nameCompare:(QSRankedObject *)compareObject;
 - (NSComparisonResult)scoreCompare:(QSRankedObject *)compareObject;
+- (NSComparisonResult)modDateCompare:(QSBasicObject *)compareObject;
 
 - (CGFloat)score;
 - (void)setScore:(CGFloat)newScore;
