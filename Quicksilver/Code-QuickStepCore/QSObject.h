@@ -42,6 +42,7 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectSource           @"QSObjectSource"
 #define kQSObjectIconName         @"QSObjectIconName"
 #define kQSObjectBundle           @"QSObjectBundle"
+#define kQSObjectModificationDate @"QSObjectModificationDate"
 
 #define kQSObjectDefaultAction    @"QSObjectDefaultAction"
 
@@ -186,6 +187,7 @@ typedef struct _QSObjectFlags {
 - (void)setPrimaryType:(NSString *)newPrimaryType;
 - (NSMutableDictionary *)dataDictionary;
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
+- (NSDate *)contentModificationDate;
 
 - (BOOL)iconLoaded;
 - (void)setIconLoaded:(BOOL)flag;
