@@ -226,22 +226,14 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)setSearchOrder:(QSSearchOrder)searchOrder {
     [self willChangeValueForKey:@"searchOrder"];
     _searchOrder = searchOrder;
-    switch (searchOrder) {
-        case QSSearchOrderByName:
-            [_sortByName setState:NSOnState];
-            [_sortByScore setState:NSOffState];
-            break;
 
-        case QSSearchOrderByScore:
-            [_sortByName setState:NSOffState];
-            [_sortByScore setState:NSOnState];
-            break;
-
-        default:
-            _searchOrder = QSSearchOrderByScore;
-            break;
-    }
-    [self willChangeValueForKey:@"searchOrder"];
+	// Update the menu item states
+	// TODO: Having a submenu would make it more dynamic
+	NSArray *menuItems = @[_sortByName, _sortByScore, _sortByModDate];
+	for (NSMenuItem *item in menuItems) {
+		[item setState:(searchOrder == item.tag ? NSOnState : NSOffState)];
+	}
+	[self willChangeValueForKey:@"searchOrder"];
 }
 
 - (IBAction)changeSearchOrder:(id)sender {

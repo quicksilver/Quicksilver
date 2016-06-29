@@ -1413,6 +1413,10 @@ NSMutableDictionary *bindingsDict = nil;
 		case QSSearchOrderByScore:
 			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
 			break;
+
+		case QSSearchOrderByModDate:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(modDateCompare:)];
+			break;
 	}
 	[self reloadResultTable];
 }

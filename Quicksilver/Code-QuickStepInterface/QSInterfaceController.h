@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 typedef NS_ENUM(NSUInteger, QSSearchOrder) {
     QSSearchOrderByName = 1,
-    QSSearchOrderByScore = 2,
+	QSSearchOrderByScore = 2,
+	QSSearchOrderByModDate = 3,
 };
 
 @interface QSInterfaceController : NSWindowController {
