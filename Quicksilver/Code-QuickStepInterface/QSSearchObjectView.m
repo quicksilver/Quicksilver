@@ -1267,7 +1267,8 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	if (NSMouseInRect([NSEvent mouseLocation] , NSInsetRect([[resultController window] frame] , 0, 0), NO) ) {
-		[resultController scrollWheel:theEvent];
+		// FIXME: This stack-smashes because AppKit tries to forward through the responder chain
+//		[resultController scrollWheel:theEvent];
 		return;
 	}
 	CGFloat delta = [theEvent deltaY];
