@@ -861,7 +861,8 @@
 				relaunchForObsoletes = YES;
 			}
 		}
-		BOOL suggestRelaunch = (!liveLoaded || relaunchForObsoletes);
+		// only suggest relaunch if not live loaded, we're removing an obsolete and we're not in the middle of an update
+		BOOL suggestRelaunch = (!liveLoaded || relaunchForObsoletes) && ![QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
 		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, suggestRelaunch?@"Relaunch required (⌘⌃Q)":nil, QSNotifierText, nil]);
 	}
 	return YES;
