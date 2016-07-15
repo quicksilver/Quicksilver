@@ -1819,8 +1819,7 @@ NSMutableDictionary *bindingsDict = nil;
 #endif
             }
             
-            if (!newObjects)
-                newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+			newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
             if (![newObjects containsObject:newSelectedObject])
                 newObjects = [newSelectedObject altSiblings];
             
