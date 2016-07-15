@@ -697,6 +697,9 @@ NSSize QSMaxIconSize;
 	if (newChildren) {
         if ([[self cache] objectForKey:kQSObjectChildren] != newChildren) {
             [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+			[newChildren enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, NSUInteger idx, BOOL *stop) {
+				[obj setParentID:[self identifier]];
+			}];
         }
     } else {
         [[self cache] removeObjectForKey:kQSObjectChildren];
