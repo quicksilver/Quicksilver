@@ -78,6 +78,11 @@ NSSize QSMaxIconSize;
 	return self;
 }
 
+- (NSUInteger)hash
+{
+	return [[self identifier] hash];
+}
+
 - (BOOL)isEqual:(id)anObject {
   if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
     anObject = [anObject object];
