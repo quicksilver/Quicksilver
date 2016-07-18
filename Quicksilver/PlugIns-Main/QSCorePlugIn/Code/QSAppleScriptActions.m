@@ -293,7 +293,15 @@
     return [self typeArrayForScript:path forHandler:@"DAEDgiob"];
 }
 
+-(NSArray *)defaultIndirectObjectForScript:(NSString *)path {
+	/* TODO: This code currently does nothing. 
+	   Future: Allow the user to define an identifier for the default iObject. Could be a proxy object
+	*/
+	return [self typeArrayForScript:path forHandler:@"DAEDgiov"];
+}
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
+	
 	if ([action isEqualToString:kAppleScriptOpenTextAction]) {
         return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
     } else if ([action isEqualToString:kAppleScriptOpenFilesAction]) {
@@ -309,11 +317,14 @@
 -(NSArray *)validIndirectObjectsForAppleScript:(NSString *)script directObject:(QSObject *)dObject {
     NSString *scriptPath = [self scriptPathForID:script];
     
-    id indirectTypes = [self validIndrectTypesForScript:scriptPath];
+    NSArray * indirectTypes = [self validIndrectTypesForScript:scriptPath];
     if (indirectTypes) {
-        NSMutableArray *indirectObjects = [NSMutableArray array];
+		if ([indirectTypes count] == 1 && [indirectTypes[0] isEqualToString:QSTextType]) {
+			return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
+		}
+        NSMutableArray *indirectObjects = [NSMutableArray arrayWithObject:[NSNull null]];
         for (NSString *type in indirectTypes) {
-            [indirectObjects addObjectsFromArray:[QSLib arrayForType:type]];
+            [indirectObjects addObjectsFromArray:[QSLib scoredArrayForType:type]];
         }
         return [indirectObjects copy];
     }
