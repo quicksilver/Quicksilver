@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Keep the third pane visible when it contains something, even if it's optional (#2234, #2235)
+  * Improve the results in the third pane for AppleScript actions (#2071, #2232)
 
 ### Changed ###
 
