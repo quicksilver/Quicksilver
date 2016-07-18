@@ -717,11 +717,11 @@ NSSize QSMaxIconSize;
 	if (newAltChildren) {
         if ([[self cache] objectForKey:kQSObjectChildren] != newAltChildren) {
             [[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+			NSString *parentID = [self identifier];
+			for (QSObject *child in newAltChildren) {
+				[child setParentID:parentID];
+			}
         }
-		NSString *parentID = [self identifier];
-		for (QSObject *child in newAltChildren) {
-			[child setParentID:parentID];
-		}
     } else {
         [[self cache] removeObjectForKey:kQSObjectAltChildren];
     }
