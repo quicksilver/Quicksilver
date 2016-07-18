@@ -56,7 +56,10 @@
 }
 
 - (void)firstResponderChanged:(NSResponder *)aResponder {
-    [self adjustWindow:nil];
+	if (!aResponder || [aResponder isKindOfClass:[QSObjectView class]]) {
+		// only adjust the window if the search object view has changed (not if another item has taken first responder
+		[self adjustWindow:nil];
+	}
 }
 
 - (void)expandWindow:(id)sender {
