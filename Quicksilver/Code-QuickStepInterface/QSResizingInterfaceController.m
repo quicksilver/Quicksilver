@@ -42,7 +42,9 @@
 		if (!indirectOptional) {
 			[self expandWindow:sender];
 			return;
-		} else {
+		} else if ([iSelector objectValue]) {
+			return;
+		}else {
 			NSResponder *firstResponder = [[self window] firstResponder];
 			if (firstResponder == iSelector
 				 || firstResponder == [iSelector currentEditor]) {
@@ -51,7 +53,9 @@
 			}
 		}
 	}
+	if (expanded) {
 		[self contractWindow:sender];
+	}
 
 }
 
