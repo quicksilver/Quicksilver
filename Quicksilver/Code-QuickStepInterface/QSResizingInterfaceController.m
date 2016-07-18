@@ -35,7 +35,7 @@
 
 //	NSLog(@"adjust x%d", argumentCount);
 	if (argumentCount == 2) {
-		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
+		BOOL indirectOptional = [action indirectOptional];
 
 //		  NSLog(@"adjust %d", indirectOptional);
 		// When the 3rd pane is not optional, show it (most likely case, so first)
