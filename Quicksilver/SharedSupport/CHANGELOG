@@ -1,5 +1,9 @@
 ## Changes ##
 
+### Fixed ###
+
+  * Keep the third pane visible when it contains something, even if it's optional (#2234, #2235)
+
 ### Changed ###
 
   * Don't show a "Relaunch Required" alert for plug-ins when the application itself is being updated (#2224)
