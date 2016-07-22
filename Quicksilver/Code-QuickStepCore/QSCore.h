@@ -46,6 +46,7 @@
 #import "QSObject_StringHandling.h"
 #import "QSObject_URLHandling.h"
 #import "QSObjectFormatter.h"
+#import "QSObjectHandler.h"
 #import "QSObjectRanker.h"
 #import "QSObjectSource.h"
 #import "QSParser.h"
