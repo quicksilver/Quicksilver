@@ -8,6 +8,9 @@
 - (void)setClearsBackground:(BOOL)flag;
 @end
 
+@interface QSAboutWindowController () <WebPolicyDelegate>
+@end
+
 @implementation QSAboutWindowController
 - (id)init {
 	self = [super initWithWindowNibName:@"About" owner:self];
