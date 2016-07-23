@@ -54,7 +54,7 @@
 
 // Internal CoreGraphics typedefs
 typedef int		CGSConnection;
-typedef int		CGSWindow;
+typedef long	CGSWindow;
 typedef int		CGSValue;
 
 //// CONSTANTS ////
