@@ -10,9 +10,7 @@
 
 @implementation NDProcess (QSMods)
 - (pid_t) pid {
-	pid_t pid = -1;
-	GetProcessPID(&processSerialNumber, &pid);
-	return pid;
+	return self.processID;
 }
 - (NSString *)identifier {
 	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
@@ -43,4 +41,3 @@
 	return carbon;
 }
 @end
-
