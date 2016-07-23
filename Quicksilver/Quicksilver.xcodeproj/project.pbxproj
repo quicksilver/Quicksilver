@@ -336,7 +336,6 @@
 		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
-		CD3AEA9917D7F0030011F2E3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4881,7 +4880,6 @@
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
 				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
-				CD3AEA9917D7F0030011F2E3 /* (null) in Sources */,
 				CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
