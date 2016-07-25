@@ -147,7 +147,6 @@ typedef struct _QSObjectFlags {
 @interface QSObject (Accessors)
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
-- (void)setIdentifier:(NSString *)newIdentifier addToObjectDictionary:(BOOL)add;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
 - (NSArray *)children;
