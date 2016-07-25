@@ -1404,20 +1404,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[self transmogrifyWithText:nil];
 }
 
-- (IBAction)changeSearchOrder:(id)sender {
-	switch ([sender tag]) {
-		case QSSearchOrderByName:
-			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(nameCompare:)];
-			break;
-
-		default:
-		case QSSearchOrderByScore:
-			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
-			break;
-	}
-	[self reloadResultTable];
-}
-
 - (IBAction)grabSelection:(id)sender {
 	if (!allowNonActions) return;
 	QSObject *newSelection = [self externalSelection];

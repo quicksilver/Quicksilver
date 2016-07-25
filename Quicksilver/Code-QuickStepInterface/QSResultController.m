@@ -230,11 +230,13 @@ NSMutableDictionary *kindDescriptions = nil;
         case QSSearchOrderByName:
             [_sortByName setState:NSOnState];
             [_sortByScore setState:NSOffState];
+			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]];
             break;
 
         case QSSearchOrderByScore:
             [_sortByName setState:NSOffState];
             [_sortByScore setState:NSOnState];
+			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"score" ascending:NO]];
             break;
 
         default:
@@ -246,10 +248,6 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (IBAction)changeSearchOrder:(id)sender {
     self.searchOrder = [sender tag];
-
-	if ([[self nextResponder] respondsToSelector:@selector(changeSearchOrder:)]) {
-		[[self nextResponder] performSelector:@selector(changeSearchOrder:) withObject:sender];
-	}
 }
 
 - (void)bump:(NSInteger)i {
@@ -747,4 +745,13 @@ NSMutableDictionary *kindDescriptions = nil;
     [[self.objectView controller] executeCommand:self];
 }
 
+- (void)tableView:(NSTableView *)tv sortDescriptorsDidChange:(NSArray<NSSortDescriptor *> *)oldDescriptors
+{
+	[[self.objectView resultArray] sortUsingDescriptors:[tv sortDescriptors]];
+	[self arrayChanged:nil];
+	if ([[self.objectView resultArray] count]) {
+		id firstObject = [[self.objectView resultArray] objectAtIndex:0];
+		[self.objectView selectObjectValue:firstObject];
+	}
+}
 @end

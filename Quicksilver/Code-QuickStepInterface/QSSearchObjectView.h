@@ -147,8 +147,6 @@
 
 - (IBAction)transmogrify:sender;
 
-- (IBAction)sortByScore:(id)sender;
-- (IBAction)sortByName:(id)sender;
 - (void)reloadResultTable;
 - (BOOL)executeText:(NSEvent *)theEvent;
 - (void)performSearchFor:(NSString *)string from:(id)sender;
