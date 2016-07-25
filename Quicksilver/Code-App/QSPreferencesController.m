@@ -612,8 +612,9 @@ id QSPrefs;
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
 	if ([itemIdentifier isEqualToString:@"QSSettingsPanePlaceholder"]) {
 		NSToolbarItem *newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-		[newItem setLabel:@"Preferences"];
-		[newItem setPaletteLabel:@"Preferences"];
+		NSString *general = NSLocalizedString(@"General", @"Not related to a specific category");
+		[newItem setLabel:general];
+		[newItem setPaletteLabel:general];
 		[newItem setImage:[QSResourceManager imageNamed:@"Pref-Settings"]];
 		[newItem setToolTip:@"Application and Plugin Preferences"];
 		[newItem setTarget:self];
