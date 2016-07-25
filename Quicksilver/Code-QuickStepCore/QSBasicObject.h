@@ -16,6 +16,7 @@
 - (NSString *)identifier;
 - (NSString *)label;
 - (NSString *)name;
+- (NSDate *)date;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 - (id)primaryObject;

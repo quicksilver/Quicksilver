@@ -69,6 +69,7 @@ NSSize QSMaxIconSize;
 		meta = [NSMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
+		datetime = nil;
 		icon = nil;
 		identifier = nil;
 		primaryType = nil;
@@ -246,6 +247,7 @@ NSSize QSMaxIconSize;
     copy.name = [name copy];
     copy.label = [label copy];
     copy.identifier = [identifier copy];
+	copy->datetime = [datetime copy];
     copy.icon = [icon copy];
     copy.primaryType = [primaryType copy];
     copy.primaryObject = [primaryObject copy];
@@ -812,6 +814,28 @@ NSSize QSMaxIconSize;
 	lastAccess = newlastAccess;
 }
 
+- (NSDate *)date
+{
+	if (!datetime) {
+		datetime = [self objectForMeta:kQSObjectDate];
+	}
+	id handler = nil;
+	if (!datetime && (handler = [self handlerForSelector:@selector(dateForObject:)])) {
+		datetime = [handler dateForObject:self];
+	}
+	if (datetime) {
+		return datetime;
+	}
+	return [NSDate distantPast];
+}
+
+- (void)setDate:(NSDate *)newDatetime
+{
+	if (datetime != newDatetime) {
+		datetime = newDatetime;
+		[self setObject:datetime forMeta:kQSObjectDate];
+	}
+}
 @end
 
 @implementation QSObject (Archiving)

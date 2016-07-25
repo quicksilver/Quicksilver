@@ -22,6 +22,7 @@
 - (NSString *)identifier {return nil;}
 - (NSString *)label {return nil;}
 - (NSString *)name {return @"Object";}
+- (NSDate *)date {return [NSDate distantPast];}
 - (BOOL)enabled {return ![[QSLibrarian sharedInstance] itemIsOmitted:self];}
 - (void)setEnabled:(BOOL)flag {[[QSLibrarian sharedInstance] setItem:self isOmitted:!flag];}
 - (id)primaryObject {return nil;}
