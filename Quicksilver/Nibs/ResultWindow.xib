@@ -224,7 +224,7 @@
         <userDefaultsController representsSharedInstance="YES" id="195" userLabel="Shared Defaults"/>
         <menu title="Menu" id="231" userLabel="ResultsMenu">
             <items>
-                <menuItem title="Search Mode ⌘←/⌘→" onStateImage="CFAD1900-87DD-4651-A763-D106A02A68B0" mixedStateImage="04E85643-A713-42B2-976D-46258E885ABA" id="266">
+                <menuItem title="Search Mode ⌘←/⌘→" id="266">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Search Mode ⌘←/⌘→" id="265">
                         <items>
@@ -280,8 +280,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="04E85643-A713-42B2-976D-46258E885ABA" width="128" height="128"/>
         <image name="Button-GearMenu" width="20" height="12"/>
-        <image name="CFAD1900-87DD-4651-A763-D106A02A68B0" width="128" height="128"/>
     </resources>
 </document>
