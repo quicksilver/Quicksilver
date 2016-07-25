@@ -160,6 +160,9 @@
 
 @end
 
+@interface QSPluginUpdateTableCellView () <WebPolicyDelegate>
+@end
+
 @implementation QSPluginUpdateTableCellView
 
 @synthesize webView, pluginDetails, installedDetails;

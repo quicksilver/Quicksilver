@@ -17,6 +17,9 @@
 //- (id)objectAtIndexPath:(NSIndexPath *)path;
 @end
 
+@interface QSPlugInsPrefPane ()  <WebPolicyDelegate, WebResourceLoadDelegate>
+@end
+
 @implementation QSPlugInsPrefPane
 
 @synthesize plugInName;

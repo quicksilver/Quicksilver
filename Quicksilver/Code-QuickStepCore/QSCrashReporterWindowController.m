@@ -12,6 +12,9 @@
 #import "QSPaths.h"
 #import "QSPlugIn.h"
 
+@interface QSCrashReporterWindowController () <WebPolicyDelegate>
+@end
+
 @implementation QSCrashReporterWindowController
 
 @synthesize crashReporterIsWorking;

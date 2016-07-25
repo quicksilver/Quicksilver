@@ -10,8 +10,6 @@
 
 @implementation NDAlias (QSMods)
 - (NSString *)quickPath {
-	CFStringRef pathString = nil;
-	FSCopyAliasInfo(aliasHandle, NULL, NULL, &pathString, NULL, NULL);
-	return (__bridge_transfer NSString *)pathString;
+	return self.lastKnownPath;
 }
 @end
