@@ -230,16 +230,36 @@ NSMutableDictionary *kindDescriptions = nil;
         case QSSearchOrderByName:
             [_sortByName setState:NSOnState];
             [_sortByScore setState:NSOffState];
+			[_sortByDateA setState:NSOffState];
+			[_sortByDateD setState:NSOffState];
 			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]];
             break;
 
         case QSSearchOrderByScore:
             [_sortByName setState:NSOffState];
             [_sortByScore setState:NSOnState];
+			[_sortByDateA setState:NSOffState];
+			[_sortByDateD setState:NSOffState];
 			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"score" ascending:NO]];
             break;
 
-        default:
+		case QSSearchOrderByDateAscending:
+			[_sortByName setState:NSOffState];
+			[_sortByScore setState:NSOffState];
+			[_sortByDateA setState:NSOnState];
+			[_sortByDateD setState:NSOffState];
+			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"date" ascending:YES]];
+			break;
+
+		case QSSearchOrderByDateDescending:
+			[_sortByName setState:NSOffState];
+			[_sortByScore setState:NSOffState];
+			[_sortByDateA setState:NSOffState];
+			[_sortByDateD setState:NSOnState];
+			[_resultTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"date" ascending:NO]];
+			break;
+			
+		default:
             _searchOrder = QSSearchOrderByScore;
             break;
     }
