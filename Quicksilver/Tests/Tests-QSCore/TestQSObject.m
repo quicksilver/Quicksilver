@@ -210,8 +210,6 @@
 	[data2 setObject:@"https://qsapp.com/download.php" forType:QSURLType];
 	XCTAssertNotEqualObjects(data1, data2);
 	// combined objects
-	[data1 setObject:nil forType:QSURLType];
-	[data2 setObject:nil forType:QSURLType];
 	NSArray *multipleObjects = @[data1, data2];
 	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
 	QSObject *combined2 = [QSObject objectByMergingObjects:[multipleObjects copy]];
