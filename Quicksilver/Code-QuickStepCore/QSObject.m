@@ -247,7 +247,7 @@ NSSize QSMaxIconSize;
     copy.name = [name copy];
     copy.label = [label copy];
     copy.identifier = [identifier copy];
-	copy->datetime = [datetime copy];
+	copy.date = [datetime copy];
     copy.icon = [icon copy];
     copy.primaryType = [primaryType copy];
     copy.primaryObject = [primaryObject copy];
