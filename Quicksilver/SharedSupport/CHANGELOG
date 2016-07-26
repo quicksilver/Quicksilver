@@ -12,6 +12,7 @@
 ### Development ###
 
   * Clean-up to reduce deprecation warnings (#2238)
+  * Fixed the unit test for QSObject equality (#2240)
 
 ## Changes - 1.4.2 (401A) ##
 
