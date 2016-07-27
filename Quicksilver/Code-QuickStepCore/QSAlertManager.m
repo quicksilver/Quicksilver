@@ -178,7 +178,7 @@
             break;
     }
 
-    if (!handler) handler(response);
+    if (handler) handler(response);
 
     [self.notificationHandlers removeObjectForKey:notification.identifier];
 }
