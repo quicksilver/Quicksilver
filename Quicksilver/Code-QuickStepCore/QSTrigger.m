@@ -146,13 +146,13 @@
     QSCommand *cmd = [self command];
     // if a trigger loaded before the catalog, an identifier will appear as plain text
     if ([[[cmd dObject] primaryType] isEqualToString:QSTextType]) {
-        NSString *ident = [[cmd dObject] stringValue];
+        NSString *ident = [[cmd dObject] objectForType:QSTextType];
         QSObject *realObject = [[QSLibrarian sharedInstance] objectWithIdentifier:ident];
         // update the trigger with the real object
         [cmd setDirectObject:realObject];
     }
     if ([[[cmd iObject] primaryType] isEqualToString:QSTextType]) {
-        NSString *ident = [[cmd iObject] stringValue];
+        NSString *ident = [[cmd iObject] objectForType:QSTextType];
         QSObject *realObject = [[QSLibrarian sharedInstance] objectWithIdentifier:ident];
         // update the trigger with the real object
         [cmd setIndirectObject:realObject];
