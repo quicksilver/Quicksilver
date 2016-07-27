@@ -289,8 +289,9 @@
         stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
     }
 	if ([self count] > 1) {
+		QSObject *obj = [self resolvedObject];
 		// get the string value for each object in the collection
-		stringValue = [[[self splitObjects] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:@"\n"];
+		stringValue = [[[obj objectForCache:kQSObjectComponents] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:@"\n"];
 	}
     if (!stringValue) {
         // Backwards compatibility
