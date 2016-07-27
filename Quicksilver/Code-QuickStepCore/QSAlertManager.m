@@ -171,9 +171,13 @@
             break;
 
         case NSUserNotificationActivationTypeActionButtonClicked:
-            response = QSAlertResponseSecond;
+            response = QSAlertResponseOK;
             break;
 
+		case NSUserNotificationActivationTypeAdditionalActionClicked:
+			response = QSAlertResponseCancel;
+			break;
+			
         default:
             break;
     }
