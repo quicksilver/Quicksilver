@@ -16,46 +16,36 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 @implementation NSWorkspace (Misc)
 
 - (NSString *)commentForFile:(NSString *)path {
-	if(path){
-		if ([self applicationIsRunning:@"com.apple.finder"]) {
-			NSString *hfsPath;
-			NSAppleScript *script;
-			NSAppleEventDescriptor *aeDesc;
+	if (!path) return nil;
 
-			CFURLRef fileURL = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
-			hfsPath = (NSString *)CFBridgingRelease(CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle));
-			CFRelease(fileURL);
-
-			script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to comment of item \"%@\"", hfsPath]];
-			aeDesc = [script executeAndReturnError:nil];
-			return [aeDesc stringValue];
-		} else {
-			NSBeep();
-		}
+	if (![self applicationIsRunning:@"com.apple.finder"]) {
+		NSBeep();
+		return nil;
 	}
-	return nil;
+	NSString *hfsPath = [path fileSystemPathHFSStyle];
+	NSAppleScript *script;
+	NSAppleEventDescriptor *aeDesc;
+
+	script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to comment of item \"%@\"", hfsPath]];
+	aeDesc = [script executeAndReturnError:nil];
+	return [aeDesc stringValue];
 }
 
 - (BOOL)setComment:(NSString*)comment forFile:(NSString *)path {
-	BOOL result = NO;
-
 	// only call if Finder is running
 	// finderProcess = [NTPM processWithName:@"Finder"];
-	if ([self applicationIsRunning:@"com.apple.finder"]) {
-		NSString* scriptText, *hfsPath;
-		NSAppleScript *script;
-
-		CFURLRef fileURL = CFURLCreateWithFileSystemPath(NULL, (CFStringRef) path, kCFURLPOSIXPathStyle, NO);
-		hfsPath = (NSString *)CFBridgingRelease(CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle));
-		CFRelease(fileURL);
-
-		scriptText = [NSString stringWithFormat:@"tell application \"Finder\" to set comment of item \"%@\" to \"%@\"", hfsPath, comment];
-		script = [[NSAppleScript alloc] initWithSource:scriptText];
-		result = ([[script executeAndReturnError:nil] stringValue] != nil);
-	} else {
+	if (![self applicationIsRunning:@"com.apple.finder"]) {
 		NSBeep();
+		return NO;
 	}
-	return result;
+	NSString *scriptText;
+	NSString *hfsPath = [path fileSystemPathHFSStyle];;
+	NSAppleScript *script;
+
+	scriptText = [NSString stringWithFormat:@"tell application \"Finder\" to set comment of item \"%@\" to \"%@\"", hfsPath, comment];
+	script = [[NSAppleScript alloc] initWithSource:scriptText];
+
+	return ([[script executeAndReturnError:nil] stringValue] != nil);
 }
 
 - (NSArray *)allApplicationsURLs {
