@@ -254,14 +254,19 @@ typedef enum {
 	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
 	if (appDownload) {
 		updateTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
-		[updateTask setName:@"Downloading Update"];
-		[updateTask setProgress:-1];
+		updateTask.name = NSLocalizedString(@"Downloading Update", @"Downloading update task name");
+		updateTask.progress = -1;
 
-        [updateTask setCancelAction:@selector(cancelUpdate:)];
-		[updateTask setCancelTarget:self];
+        __weak QSUpdateController *weakSelf = self;
+        updateTask.cancelBlock = ^{
+            __strong QSUpdateController *strongSelf = weakSelf;
+            strongSelf->shouldCancel = YES;
+            [strongSelf->appDownload cancel];
+            strongSelf->appDownload = nil;
+        };
 
-		[QSTaskController showViewer];
-		[updateTask startTask:nil];
+		[[QSTaskViewer sharedInstance] showWindow:self];;
+		[updateTask start];
         [appDownload start];
 	}
 }
@@ -282,8 +287,7 @@ typedef enum {
     if (download != appDownload)
         return;
 	NSLog(@"Download Failed: %@", error);
-	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
-	[updateTask stopTask:nil];
+	[updateTask stop];
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
     [appDownload cancel];
@@ -320,14 +324,6 @@ typedef enum {
 	[updateTask setProgress:[(QSURLDownload *)download progress]];
 }
 
-- (void)cancelUpdate:(QSTask *)task {
-	shouldCancel = YES;
-	[appDownload cancel];
-    appDownload = nil;
-	[updateTask stopTask:nil];
-	updateTask = nil;
-}
-
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
     
@@ -359,7 +355,7 @@ typedef enum {
         }
     }
 
-	[updateTask stopTask:nil];
+	[updateTask stop];
 	updateTask = nil;
     appDownload = nil;
 }

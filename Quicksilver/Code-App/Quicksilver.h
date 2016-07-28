@@ -28,7 +28,7 @@
 #import "QSSetupAssistant.h"
 #import "QSSimpleNotifier.h"
 #import "QSSimpleWebWindowController.h"
-#import "QSTaskView.h"
+#import "QSTaskViewController.h"
 #import "QSTaskViewer.h"
 #import "QSTitleToolbarItem.h"
 #import "QSTriggersPrefPane.h"

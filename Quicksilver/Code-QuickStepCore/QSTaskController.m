@@ -1,81 +1,96 @@
 
-#import "QSPreferenceKeys.h"
 #import "QSTaskController.h"
-#import "QSTaskViewer.h"
+#import "QSTaskController_Private.h"
 #import "QSTask.h"
+
+NSString *const QSTaskAddedNotification    = @"QSTaskAddedNotification";
+NSString *const QSTaskChangedNotification  = @"QSTaskChangedNotification";
+NSString *const QSTaskRemovedNotification  = @"QSTaskRemovedNotification";
+NSString *const QSTasksStartedNotification = @"QSTasksStartedNotification";
+NSString *const QSTasksEndedNotification   = @"QSTasksEndedNotification";
+
+NSString *const kTaskStatus      =  @"Status";
+NSString *const kTaskProgress    =  @"Progress";
+NSString *const kTaskResult      =  @"Result";
+NSString *const kTaskDisplayType =  @"Type";
+
+NSString *const kTaskCancelTarget =  @"cancelTarget";
+NSString *const kTaskCancelAction =  @"cancelAction";
 
 
 QSTaskController *QSTasks;
 
 @implementation QSTaskController
 + (QSTaskController * ) sharedInstance {
-	if (!QSTasks) QSTasks = [[[self class] allocWithZone:nil] init];
-	return QSTasks;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        QSTasks = [[[self class] allocWithZone:nil] init];
+    });
+    return QSTasks;
 }
-+ (void)showViewer { [(QSTaskViewer *)[NSClassFromString(@"QSTaskViewer") sharedInstance] showWindow:self];  }
-+ (void)hideViewer { [(QSTaskViewer *)[NSClassFromString(@"QSTaskViewer") sharedInstance] hideWindow:self];  }
 
 - (id)init {
-	if (self = [super init]) {
-		tasks = [[NSMutableArray alloc] initWithCapacity:1];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowTaskViewerAutomatically"]) {
-			[NSClassFromString(@"QSTaskViewer") sharedInstance];
-		}
+    self = [super init];
+    if (self == nil) return nil;
 
-	}
-	return self;
+    _tasksDictionary = [[NSMutableDictionary alloc] initWithCapacity:5];
+
+    return self;
+}
+
+- (QSTask *)taskWithIdentifier:(NSString *)identifier {
+    NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+
+    return self.tasksDictionary[identifier];
 }
 
 - (void)taskStarted:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStarted:) withObject:task waitUntilDone:YES];
-}
-- (void)mainThreadTaskStarted:(QSTask *)task {
-	BOOL firstItem = ![tasks count];
-	if (![tasks containsObject:task])
-		[tasks addObject:task];
+    NSAssert(task != nil, @"Task shouldn't be nil");
 
-	if (firstItem) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
-	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
+    @synchronized (self) {
+        self.tasksDictionary[task.identifier] = task;
+
+        if (self.tasksDictionary.count == 1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:task];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
+    }
 }
+
 - (void)taskStopped:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStopped:) withObject:task waitUntilDone:YES];
-}
-- (void)mainThreadTaskStopped:(QSTask *)task {
-	if (task)
-		[tasks removeObject:task];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:nil];
+    NSAssert(task != nil, @"Task shouldn't be nil");
 
-	if (![tasks count]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
-	}
-}
+    @synchronized (self) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
 
-- (NSMutableArray *)tasks {
+        if (self.tasksDictionary.count == 1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:task];
+        }
 
-	return tasks;
+        [self.tasksDictionary removeObjectForKey:task.identifier];
+    }
 }
 
+- (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
+    NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
 
-// old support methods
-- (id)taskWithIdentifier:(NSString *)taskKey {
-	QSTask *task = [QSTask taskWithIdentifier:taskKey];
-	//	BOOL firstItem = NO;
-	//	BOOL newItem = NO;
-	[task startTask:nil];
-	return task;
-}
-- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress {
-	QSTask *task = [self taskWithIdentifier:taskKey];
+    QSTask *task = [QSTask taskWithIdentifier:identifier];
 
-	[task setStatus:status];
-	[task setProgress:progress];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
+    task.status = status;
+    task.progress = progress;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
 }
 
-- (void)removeTask:(NSString *)string {
-	[[QSTask findTaskWithIdentifier:string] stopTask:nil];
+- (void)removeTask:(NSString *)identifier {
+    NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+
+    QSTask *task = self.tasksDictionary[identifier];
+    [task stop];
+}
+
+- (NSArray *)tasks {
+    return self.tasksDictionary.allValues;
 }
 
 @end
