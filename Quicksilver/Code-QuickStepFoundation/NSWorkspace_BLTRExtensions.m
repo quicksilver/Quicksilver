@@ -18,7 +18,8 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 - (NSString *)commentForFile:(NSString *)path {
 	if (!path) return nil;
 
-	if (![self applicationIsRunning:@"com.apple.finder"]) {
+	NSArray *finders = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.Finder"];
+	if ([finders count] == 0) {
 		NSBeep();
 		return nil;
 	}
@@ -32,9 +33,8 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 }
 
 - (BOOL)setComment:(NSString*)comment forFile:(NSString *)path {
-	// only call if Finder is running
-	// finderProcess = [NTPM processWithName:@"Finder"];
-	if (![self applicationIsRunning:@"com.apple.finder"]) {
+	NSArray *finders = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.Finder"];
+	if ([finders count] == 0) {
 		NSBeep();
 		return NO;
 	}
