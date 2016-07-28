@@ -9,6 +9,7 @@
 
   * Don't show a "Relaunch Required" alert for plug-ins when the application itself is being updated (#2224)
   * The main section of the Preferences is now called "General" instead of "Preferences" (#1306, #2237)
+  * The option to show other results with ↓ is now called "Manually" instead of "Never" (#1878, #2244)
 
 ### Development ###
 
