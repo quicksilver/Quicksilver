@@ -1,8 +1,6 @@
 #import "QSObject.h"
 #import "QSObject_FileHandling.h"
 
-#import "NDProcess+QSMods.h"
-
 #import "QSProcessMonitor.h"
 #import "QSTypes.h"
 

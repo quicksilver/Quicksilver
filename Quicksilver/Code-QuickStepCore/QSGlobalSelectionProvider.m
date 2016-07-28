@@ -14,9 +14,6 @@
 #import "QSObject_StringHandling.h"
 #import "QSObject_Pasteboard.h"
 
-
-#import "NDProcess+QSMods.h"
-
 @interface QSTemporaryServiceProvider : NSObject {
 	NSPasteboard *resultPboard;
 	//	NSString *resultUserData;
