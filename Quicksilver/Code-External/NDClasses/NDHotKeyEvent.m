@@ -39,8 +39,6 @@ static NSHashTable		* allHotKeyEvents = NULL;
 static BOOL					isInstalled = NO;
 static OSType				signature = 0;
 
-NSUInteger cocoaModifierFlagsToCarbonModifierFlags( NSUInteger aModifierFlags );
-
 pascal OSErr eventHandlerCallback( EventHandlerCallRef anInHandlerCallRef, EventRef anInEvent, void * self );
 
 NSUInteger hashValueHashFunction( NSHashTable * aTable, const void * aHotKeyEvent );
@@ -653,28 +651,6 @@ NDHotKeyEvent		* hotKeyEvent;
 }
 
 /*
- * cocoaModifierFlagsToCarbonModifierFlags()
- */
-NSUInteger cocoaModifierFlagsToCarbonModifierFlags( NSUInteger aModifierFlags )
-{
-	NSUInteger	theCarbonModifierFlags = 0;
-    
-	if(aModifierFlags & NSShiftKeyMask)
-		theCarbonModifierFlags |= shiftKey;
-    
-	if(aModifierFlags & NSControlKeyMask)
-		theCarbonModifierFlags |= controlKey;
-    
-	if(aModifierFlags & NSAlternateKeyMask)
-		theCarbonModifierFlags |= optionKey;
-    
-	if(aModifierFlags & NSCommandKeyMask)
-		theCarbonModifierFlags |= cmdKey;
-    
-	return theCarbonModifierFlags;
-}
-
-/*
  * eventHandlerCallback()
  */
 pascal OSErr eventHandlerCallback( EventHandlerCallRef anInHandlerCallRef, EventRef anInEvent, void * anInUserData )
@@ -887,7 +863,7 @@ static OSStatus switchHotKey( NDHotKeyEvent * self, BOOL aFlag )
 		NSCAssert( theHotKeyID.signature, @"HotKeyEvent signature has not been set yet" );
 		NSCParameterAssert(sizeof(unsigned long) >= sizeof(id) );
         
-		theError = RegisterEventHotKey( self->keyCode, cocoaModifierFlagsToCarbonModifierFlags(self->modifierFlags), theHotKeyID, GetEventDispatcherTarget(), 0, &self->reference );
+		theError = RegisterEventHotKey( self->keyCode, NDCarbonModifierFlagsForCocoaModifierFlags(self->modifierFlags), theHotKeyID, GetEventDispatcherTarget(), 0, &self->reference );
 	}
 	else
 	{

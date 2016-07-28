@@ -40,13 +40,13 @@ struct ReverseMappingEntry;
 	Convert Carbon modifer flags to Cocoa modifier flags.
 	@param modifierFlags one or more of the flags <tt>shiftKey</tt>, <tt>controlKey</tt>, <tt>optionKey</tt>, <tt>cmdKey</tt>
  */
-NSUInteger NDCocoaModifierFlagsForCarbonModifierFlags( NSUInteger modifierFlags );
+NSUInteger NDCocoaModifierFlagsForCarbonModifierFlags( UInt32 modifierFlags );
 /*!
 	@function NDCarbonModifierFlagsForCocoaModifierFlags
 	Convert Cocoa modifer flags to Carbon modifier flags.
 	@param modifierFlags ￼one or more of the flags <tt>NSShiftKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSCommandKeyMask</tt>
  */
-NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger modifierFlags );
+UInt32 NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger modifierFlags );
 
 /*!
 	@class NDKeyboardLayout
