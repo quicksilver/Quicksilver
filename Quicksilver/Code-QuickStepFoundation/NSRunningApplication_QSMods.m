@@ -24,7 +24,10 @@
 
 + (instancetype)runningApplicationWithProcessSerialNumber:(ProcessSerialNumber)psn {
 	pid_t pid;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	OSErr err = GetProcessPID(&psn, &pid);
+#pragma clang diagnostic pop
 	if (err != noErr) return nil;
 
 	return [[self class] runningApplicationWithProcessIdentifier:pid];
@@ -36,7 +39,10 @@
 	if (![self processSerialNumber:&psn]) return nil;
 
 	ProcessInfoRec psr;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	err = GetProcessInformation(&psn, &psr);
+#pragma clang diagnostic pop
 	if (err != noErr) return nil;
 
 	return [[self class] runningApplicationWithProcessSerialNumber:psr.processLauncher];
@@ -44,6 +50,9 @@
 
 - (BOOL)processSerialNumber:(ProcessSerialNumber *)psn {
 	NSParameterAssert(psn != NULL);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	return (GetProcessForPID(self.processIdentifier, psn) != noErr);
+#pragma clang diagnostic pop
 }
 @end
