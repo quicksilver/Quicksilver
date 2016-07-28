@@ -16,6 +16,14 @@
 #import "QSTypes.h"
 #import "QSMacros.h"
 
+@interface QSProcessObjectSource ()
+
+@property (retain) NSRunningApplication *currentApplication;
+@property (retain) NSRunningApplication *previousApplication;
+@property (assign) NSTimeInterval processScanDate;
+
+@end
+
 @implementation QSProcessObjectSource
 - (BOOL)usesGlobalSettings {return YES;}
 
@@ -29,40 +37,141 @@
 #define QSProcessSourceObservationContext "QSProcessSourceObservationContext"
 
 - (id)init {
-	if (self = [super init]) {
-		processScanDate = [NSDate timeIntervalSinceReferenceDate];
-		processes = [NSMutableArray arrayWithCapacity:1];
+	self = [super init];
+	if (!self) return nil;
 
-		[[QSProcessMonitor sharedInstance] addObserver:self forKeyPath:@"allProcesses" options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
-		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
-	}
+	_processScanDate = [NSDate timeIntervalSinceReferenceDate];
+
+	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
+
+	NSNotificationCenter *nc = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+	[nc addObserver:self selector:@selector(appChanged:) name:NSWorkspaceDidActivateApplicationNotification object:nil];
+
 	return self;
+}
+
+- (void)dealloc {
+	NSNotificationCenter *nc = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+	[nc removeObserver:self name:NSWorkspaceDidActivateApplicationNotification object:nil];
+
+	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (context == QSProcessSourceObservationContext) {
-		if ([keyPath isEqualToString:@"allProcesses"]
-			|| [keyPath isEqualToString:@"values." kQSShowBackgroundProcesses])
+		if ([keyPath isEqualToString:@"values." kQSShowBackgroundProcesses])
 			[self invalidateSelf];
 	}
 }
 
+#pragma mark -
+#pragma mark Object Source
+
+- (void)enableEntry:(QSCatalogEntry *)entry {
+	NSNotificationCenter *nc = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+	[nc addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
+	[nc addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
+}
+
+- (void)disableEntry:(QSCatalogEntry *)entry {
+	NSNotificationCenter *nc = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+	[nc removeObserver:self name:NSWorkspaceDidTerminateApplicationNotification object:nil];
+	[nc removeObserver:self name:NSWorkspaceDidLaunchApplicationNotification object:nil];
+
+}
+
 - (void)invalidateSelf {
-	processScanDate = [NSDate timeIntervalSinceReferenceDate];
+	self.processScanDate = [NSDate timeIntervalSinceReferenceDate];
 	[super invalidateSelf];
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
-	return ([indexDate timeIntervalSinceReferenceDate] >processScanDate);
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+	return ([indexDate timeIntervalSinceReferenceDate] > self.processScanDate);
 }
 
 - (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {
 	return [QSResourceManager imageNamed:@"ExecutableBinaryIcon"];
 }
 
-- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
+- (QSObject *)imbuedObjectWithApplication:(NSRunningApplication *)application {
+	NSURL *applicationURL = application.bundleURL;
+	if (!applicationURL) applicationURL = application.executableURL;
+
+	QSObject *newObject = [QSObject fileObjectWithFileURL:applicationURL];
+
+	[newObject setObject:application forType:QSProcessType];
+
+	return newObject;
+}
+
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
 	BOOL showBackground = [[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses];
-	return showBackground ? [[QSProcessMonitor sharedInstance] allProcesses] : [[QSProcessMonitor sharedInstance] visibleProcesses];
+
+	NSMutableArray *objects = [NSMutableArray array];
+	for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
+		if (!showBackground && app.isHidden) continue;
+
+		QSObject *obj = [self imbuedObjectWithApplication:app];
+		if (!obj) continue;
+		[objects addObject:obj];
+	}
+
+	return objects;
+}
+
+#pragma mark -
+#pragma mark Process Notifications
+
+- (void)appLaunched:(NSNotification *)notif {
+	NSRunningApplication *app = notif.userInfo[NSWorkspaceApplicationKey];
+	if (!app) return;
+
+	[self imbuedObjectWithApplication:app];
+}
+
+- (void)appTerminated:(NSNotification *)notif {
+	NSRunningApplication *app = notif.userInfo[NSWorkspaceApplicationKey];
+	if (!app) return;
+
+	QSObject *object = [self imbuedObjectWithApplication:app];
+	[object setObject:nil forType:QSProcessType];
+}
+
+- (void)appChanged:(NSNotification *)aNotification {
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSDictionary *newApp = [workspace activeApplication];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"]) {
+		if (!(GetCurrentKeyModifiers() & shiftKey) ) {
+			//if (VERBOSE) NSLog(@"Hide Other Apps");
+			[workspace hideOtherApplications:[NSArray arrayWithObject:newApp]];
+		}
+	}
+	NSRunningApplication *application = aNotification.userInfo[NSWorkspaceApplicationKey];
+
+	self.previousApplication = self.currentApplication;
+	self.currentApplication = application;
+}
+
+
+#pragma mark -
+#pragma mark Proxy provider
+
+- (id)resolveProxyObject:(id)proxy {
+	if ([[proxy identifier] isEqualToString:@"QSCurrentApplicationProxy"]) {
+		//	NSLog(@"return");
+		return [self imbuedObjectWithApplication:[[NSWorkspace sharedWorkspace] frontmostApplication]];
+	} else if ([[proxy identifier] isEqualToString:@"QSPreviousApplicationProxy"]) {
+		return [self imbuedObjectWithApplication:self.previousApplication];
+	}
+	return nil;
+}
+
+- (NSTimeInterval) cacheTimeForProxy:(id)proxy {
+	return 0.0f;
 }
 
 @end
@@ -71,9 +180,9 @@
 
 - (QSObject *)activateApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSWorkspace sharedWorkspace] activateApplication:obj];
-    }];
+	[array enumerateObjectsUsingBlock:^(NSRunningApplication *app, NSUInteger idx, BOOL *stop) {
+		[app activateWithOptions:0];
+	}];
 	return nil;
 }
 
@@ -148,9 +257,9 @@
 
 - (QSObject *)hideApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSWorkspace sharedWorkspace] hideApplication:obj];
-    }];
+	[array enumerateObjectsUsingBlock:^(NSRunningApplication *app, NSUInteger idx, BOOL *stop) {
+		[app hide];
+	}];
 	return nil;
 }
 
@@ -159,16 +268,18 @@
 	[[NSWorkspace sharedWorkspace] hideOtherApplications:array];
 	return nil;
 }
+
 - (QSObject *)quitOtherApplications:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
 	[[NSWorkspace sharedWorkspace] quitOtherApplications:array];
 	return nil;
 }
+
 - (QSObject *)quitApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSWorkspace sharedWorkspace] quitApplication:obj];
-    }];
+	[array enumerateObjectsUsingBlock:^(NSRunningApplication *app, NSUInteger idx, BOOL *stop) {
+		[app terminate];
+	}];
 	return nil;
 }
 

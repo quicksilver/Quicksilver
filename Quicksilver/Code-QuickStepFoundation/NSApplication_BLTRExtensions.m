@@ -15,16 +15,9 @@
 
 @implementation NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin {
-   NSDictionary * parentProcessInfoDict = [NSApp parentProcessInformation];
-/* removed to stop the console from cluttering up. If yo want to know this just remove the comment tags :)
-26/01/2010 - pjrobertson
-   if (parentProcessInfoDict) {
-      NSLog(@"[Quicksilver %s]: parentProcessInfoDict = '%@'", __PRETTY_FUNCTION__, [parentProcessInfoDict descriptionInStringsFileFormat]);
-   }
-*/
-    // !!! Andre Berg 20091017: some people like to start QS by means of launchd plist which can also keep it alive when it crashes 
-	return ([(NSString *)([parentProcessInfoDict objectForKey:(id)kCFBundleIdentifierKey]) isEqualToString:@"com.apple.loginwindow"] 
-            || [(NSString *)([parentProcessInfoDict objectForKey:(id)kCFBundleExecutableKey]) isEqualToString:@"/sbin/launchd"]);
+	NSRunningApplication *parentApplication = [[NSRunningApplication currentApplication] parentApplication];
+	return ([parentApplication.bundleIdentifier isEqualToString:@"com.apple.loginwindow"]
+			|| [parentApplication.executableURL.path isEqualToString:@"/sbin/launchd"]);
 }
 
 - (NSString *)buildVersion {
@@ -36,22 +29,6 @@
 	return [NSString stringWithFormat:@"%@ (%@) ", [info objectForKey:@"CFBundleShortVersionString"], [info objectForKey:@"CFBundleVersion"]];
 }
 
-- (NSDictionary *)processInformation {
-	ProcessSerialNumber currPSN;
-	OSStatus err = GetCurrentProcess (&currPSN);
-	if (err)
-		return nil;
-	else
-		return (NSDictionary*)CFBridgingRelease(ProcessInformationCopyDictionary (&currPSN, kProcessDictionaryIncludeAllInformationMask));
-}
-- (NSDictionary *)parentProcessInformation {
-	// Get the PSN of the app that *launched* us. Its not really the parent app, in the unix sense.
-	long long temp = [[[self processInformation] objectForKey:@"ParentPSN"] longLongValue];
-	ProcessSerialNumber parentPSN = {(temp >> 32) & 0x00000000FFFFFFFFLL, (temp >> 0) & 0x00000000FFFFFFFFLL};
-
-	// Get info on the launching process
-	return (NSDictionary*)CFBridgingRelease(ProcessInformationCopyDictionary(&parentPSN, kProcessDictionaryIncludeAllInformationMask));
-}
 @end
 
 @implementation NSApplication (Focus)

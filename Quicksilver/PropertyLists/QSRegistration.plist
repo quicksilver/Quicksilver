@@ -406,7 +406,7 @@
 			<key>name</key>
 			<string>Current Application</string>
 			<key>providerClass</key>
-			<string>QSProcessMonitor</string>
+			<string>QSProcessSource</string>
 			<key>types</key>
 			<array>
 				<string>com.apple.application</string>
@@ -444,7 +444,7 @@
 			<key>name</key>
 			<string>Previous Application</string>
 			<key>providerClass</key>
-			<string>QSProcessMonitor</string>
+			<string>QSProcessSource</string>
 			<key>types</key>
 			<array>
 				<string>com.apple.application</string>

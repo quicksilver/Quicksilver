@@ -31,3 +31,22 @@ extern inline void QSGCDMainDelayed(NSTimeInterval delay, void (^block)(void));
 extern inline void QSGCDSync(void (^block)(void));
 extern inline void QSGCDAsync(void (^block)(void));
 extern inline void QSGCDDelayed(NSTimeInterval delay, void (^block)(void));
+
+BOOL QSGCDWait(NSTimeInterval timeout, void (^startBlock)(void), BOOL (^checkBlock)(void)) {
+	__block BOOL success = NO;
+	dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+	QSGCDAsync(^{
+		startBlock();
+
+		while (!checkBlock()) {
+			usleep(50000);
+		}
+
+		success = YES;
+		dispatch_semaphore_signal(waitSemaphore);
+	});
+
+	dispatch_semaphore_wait(waitSemaphore, dispatch_time(DISPATCH_TIME_NOW, timeout * NSEC_PER_SEC));
+
+	return success;
+}

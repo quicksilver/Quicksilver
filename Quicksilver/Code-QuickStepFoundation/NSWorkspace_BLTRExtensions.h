@@ -12,28 +12,31 @@
 @interface NSWorkspace (Misc)
 - (NSArray <NSURL *> *)allApplicationsURLs;
 - (NSArray <NSString *>*)allApplications;
-- (NSInteger) pidForApplication:(NSDictionary *)theApp;
-- (BOOL)applicationIsRunning:(NSString *)pathOrID;
-- (NSDictionary *)dictForApplicationName:(NSString *)path;
-- (void)killApplication:(NSString *)path;
-- (BOOL)applicationIsHidden:(NSDictionary *)theApp;
-- (BOOL)applicationIsFrontmost:(NSDictionary *)theApp;
-- (BOOL)PSN:(ProcessSerialNumber *)psn forApplication:(NSDictionary *)theApp;
-- (void)switchToApplication:(NSDictionary *)theApp frontWindowOnly:(BOOL)frontOnly;
-- (void)activateFrontWindowOfApplication:(NSDictionary *)theApp;
-- (void)hideApplication:(NSDictionary *)theApp;
-- (void)hideOtherApplications:(NSArray *)theApps;
-- (void)showApplication:(NSDictionary *)theApp;
-- (void)activateApplication:(NSDictionary *)theApp;
-- (void)reopenApplication:(NSDictionary *)theApp;
-- (void)quitApplication:(NSDictionary *)theApp;
-- (NSString *)nameForPID:(pid_t)pid;
-- (NSString *)pathForPID:(pid_t)pid;
-- (void)quitPSN:(ProcessSerialNumber)psn;
-- (void)quitOtherApplications:(NSArray *)theApps;
-- (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident;
+
 - (NSString *)commentForFile:(NSString *)path;
 - (BOOL)setComment:(NSString*)comment forFile:(NSString *)path;
+@end
+
+@interface NSWorkspace (QSApplicationExtensions)
+- (void)hideOtherApplications:(NSArray <NSRunningApplication *> *)theApps;
+- (void)quitOtherApplications:(NSArray <NSRunningApplication *> *)theApps;
 - (BOOL)openFileInBackground:(NSString *)fullPath;
-- (void)relaunchApplication:(NSDictionary *)theApp;
+- (void)relaunchApplication:(NSRunningApplication *)theApp;
+@end
+
+@interface NSWorkspace (QSDeprecatedProcessManagment)
+- (NSInteger)pidForApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (BOOL)applicationIsRunning:(NSString *)pathOrID QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)killApplication:(NSString *)path QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (BOOL)applicationIsHidden:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (BOOL)applicationIsFrontmost:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)switchToApplication:(NSDictionary *)theApp frontWindowOnly:(BOOL)frontOnly QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)activateFrontWindowOfApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)hideApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)showApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)activateApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)reopenApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (void)quitApplication:(NSDictionary *)theApp QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (NSString *)nameForPID:(pid_t)pid QS_DEPRECATED_MSG("Use NSRunningApplication");
+- (NSString *)pathForPID:(pid_t)pid QS_DEPRECATED_MSG("Use NSRunningApplication");
 @end

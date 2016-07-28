@@ -13,8 +13,6 @@
 - (BOOL)wasLaunchedAtLogin;
 - (NSString *)buildVersion;
 - (NSString *)versionString;
-- (NSDictionary *)processInformation;
-- (NSDictionary *)parentProcessInformation;
 @end
 
 @interface NSApplication (Focus)

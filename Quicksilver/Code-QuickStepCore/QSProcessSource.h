@@ -5,17 +5,13 @@
 
 #import "QSActionProvider.h"
 
+#define kQSShowBackgroundProcesses @"QSShowBackgroundProcesses"
 
+@interface QSProcessObjectSource : QSObjectSource <QSProxyObjectProvider>
 
+@property (readonly) NSRunningApplication *currentApplication;
+@property (readonly) NSRunningApplication *previousApplication;
 
-
-@interface QSProcessObjectSource : QSObjectSource {
-	NSTimeInterval processScanDate;
-	NSMutableArray *processes;
-}
-//- (void)reloadProcesses;
-//- (NSArray *)getAllProcesses;
-//- (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 @end
 
 # define kProcessKillAction @"ProcessKillAction"

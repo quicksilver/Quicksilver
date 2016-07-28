@@ -63,214 +63,54 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
     return [appPaths copy];
 }
 
-- (NSInteger) pidForApplication:(NSDictionary *)theApp {
-	return [[theApp objectForKey: @"NSApplicationProcessIdentifier"] integerValue];
-}
-- (BOOL)applicationIsRunning:(NSString *)pathOrID {
-	return ([self dictForApplicationName:pathOrID] || [self dictForApplicationIdentifier:pathOrID]);
-}
-- (NSDictionary *)dictForApplicationName:(NSString *)path {
-	for(NSDictionary *theApp in [self launchedApplications]) {
-		if ([[theApp objectForKey:@"NSApplicationPath"] isEqualToString:path] || [[theApp objectForKey:@"NSApplicationName"] isEqualToString:path])
-			return theApp;
-	}
-	return nil;
-}
+@end
 
-- (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident {
-	for(NSDictionary *theApp in [self launchedApplications]) {
-		if ([[theApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:ident])
-			return theApp;
-	}
-	return nil;
-}
+@implementation NSWorkspace (QSApplicationExtensions)
 
-- (void)killApplication:(NSString *)path {
-	NSDictionary *theApp = [self dictForApplicationName:path];
-	if (theApp)
-		kill((pid_t)[[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue], SIGKILL);
-}
+- (NSRunningApplication *)runningApplicationForOldStyleWorkspaceDictionary:(NSDictionary *)dict {
+	if ([dict isKindOfClass:[NSRunningApplication class]]) return (NSRunningApplication *)dict;
 
-- (BOOL)applicationIsHidden:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		return !(IsProcessVisible(&psn));
-	return YES;
-}
+	NSNumber *pidNumber = dict[@"NSApplicationProcessIdentifier"];
+	if (!pidNumber) return nil;
 
-- (BOOL)applicationIsFrontmost:(NSDictionary *)theApp {
-	return [self pidForApplication:theApp] == [self pidForApplication:[self activeApplication]];
-}
-
-- (BOOL)PSN:(ProcessSerialNumber *)psn forApplication:(NSDictionary *)theApp {
-	if (theApp){
-		(*psn).highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] intValue];
-		(*psn).lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] intValue];
-		return YES;
-	}
-	return NO;
-}
-
-- (void)switchToApplication:(NSDictionary *)theApp frontWindowOnly:(BOOL)frontOnly {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		SetFrontProcessWithOptions (&psn, frontOnly?kSetFrontProcessFrontWindowOnly:0);
-	else
-		[self activateApplication:theApp];
-}
-
-- (void)activateFrontWindowOfApplication:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		SetFrontProcessWithOptions (&psn, kSetFrontProcessFrontWindowOnly);
-	else
-		[self activateApplication:theApp];
-}
-
-- (void)hideApplication:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		ShowHideProcess(&psn, FALSE);
+	return [NSRunningApplication runningApplicationWithProcessIdentifier:[pidNumber intValue]];
 }
 
 - (void)hideOtherApplications:(NSArray *)theApps {
-	NSDictionary *theApp = [theApps lastObject];
-	NSUInteger count = [theApps count];
-	NSUInteger i;
-	ProcessSerialNumber psn[count];
-	for (i = 0; i<count; i++)
-		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];
-	[self switchToApplication:theApp frontWindowOnly:YES];
+	NSMutableArray *keepApps = [NSMutableArray array];
+	for (id obj in theApps) {
+		NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:obj];
+		if (!app) continue;
+		[keepApps addObject:app];
+	}
 
-	ProcessSerialNumber thisPSN;
-	thisPSN.highLongOfPSN = kNoProcess;
-	thisPSN.lowLongOfPSN = 0;
-	Boolean show = 0;
-	while(GetNextProcess ( &thisPSN ) == noErr) {
-		for (i = 0; i<[theApps count]; i++) {
-			SameProcess(&thisPSN, psn+i, &show);
-			if (show) break;
+	for (NSRunningApplication *runningApp in [self runningApplications]) {
+		if ([keepApps containsObject:runningApp]) {
+			[runningApp activateWithOptions:0];
+		} else {
+			[runningApp hide];
 		}
-		ShowHideProcess(&thisPSN, show);
 	}
 }
 
 - (void)quitOtherApplications:(NSArray *)theApps {
-	NSDictionary *theApp = [theApps lastObject];
-	NSUInteger count = [theApps count];
-	NSUInteger i;
-	ProcessSerialNumber psn[count];
-	for (i = 0; i<count; i++)
-		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];
-	[self reopenApplication:theApp];
-	ProcessSerialNumber thisPSN;
-	thisPSN.highLongOfPSN = kNoProcess;
-	thisPSN.lowLongOfPSN = 0;
-	Boolean show = NO;
-	ProcessSerialNumber myPSN;
-	MacGetCurrentProcess(&myPSN);
-
-	while(GetNextProcess ( &thisPSN ) == noErr) {
-		BOOL getout;
-		NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&thisPSN, kProcessDictionaryIncludeAllInformationMask));
-		getout = [[dict objectForKey:@"LSUIElement"] boolValue] || [[dict objectForKey:@"LSBackgroundOnly"] boolValue];
-		if (getout) continue;
-		CFStringRef nameRef = nil;
-		CopyProcessName(&thisPSN, &nameRef);
-        NSString *name = (__bridge NSString *)nameRef;
-		getout = [name isEqualToString:@"Finder"];
-		if (getout) continue;
-
-		SameProcess(&thisPSN, &myPSN, &show);
-		if (show) continue;
-
-		for (i = 0; i<[theApps count]; i++) {
-			SameProcess(&thisPSN, psn+i, &show);
-			if (show) break;
-		}
-		if (!show)
-			[self quitPSN:thisPSN];
-		//		ShowHideProcess(&thisPSN, show);
+	NSMutableArray *keepApps = [NSMutableArray array];
+	for (id obj in theApps) {
+		NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:obj];
+		if (!app) continue;
+		[keepApps addObject:app];
 	}
-}
 
-- (void)showApplication:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		ShowHideProcess(&psn, TRUE);
-}
-
-- (void)activateApplication:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp]){
-		AppleEvent event = {typeNull, 0};
-		AEBuildError error;
-		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
-		if (err)
-			NSLog(@"%lu:%lu at \"%@\"", (unsigned long)error.fError, (unsigned long)error.fErrorPos, @"");
-		else {
-			AppleEvent reply;
-			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
-			AEDisposeDesc(&event); // we must dispose of this and the reply.
+	for (NSRunningApplication *runningApp in [self runningApplications]) {
+		if ([keepApps containsObject:runningApp]) {
+			[runningApp activateWithOptions:0];
+		} else if (!runningApp.isHidden
+				   || ![runningApp.bundleIdentifier isEqualToString:@"com.apple.Finder"]) {
+			[runningApp terminate];
 		}
 	}
 }
 
-- (void)reopenApplication:(NSDictionary *)theApp {
-	[self launchApplication:[theApp objectForKey:@"NSApplicationPath"]];
-}
-
-- (void)quitApplication:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp])
-		[self quitPSN:psn];
-}
-
-- (void)quitPSN:(ProcessSerialNumber)psn {
-	AppleEvent event = {typeNull, 0};
-	AEBuildError error;
-
-	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
-	if (err)
-		NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
-	else {
-		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
-		AEDisposeDesc(&event); // we must dispose of this and the reply.
-	}
-	if (err) NSLog(@"error");
-}
-
-- (BOOL)quitApplicationAndWait:(NSDictionary *)theApp {
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp]){
-		AppleEvent event = {typeNull, 0};
-		AEBuildError error;
-		OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
-		if (err)
-			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
-		else {
-			err = AESend(&event, NULL, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
-			AEDisposeDesc(&event); // we must dispose of this and the reply.
-		}
-		if (err) NSLog(@"error");
-		return err;
-	} else
-		return NO;
-}
-
-
-- (void)launchACopyOfApplication:(NSDictionary *)theApp {
-	OSStatus err;
-	LSLaunchURLSpec spec;
-	spec.appURL = (__bridge CFURLRef) [NSURL fileURLWithPath:[theApp objectForKey:@"NSApplicationPath"]];
-	spec.itemURLs = NULL;
-	spec.passThruParams  = NULL;
-	spec.launchFlags	 = kLSLaunchNewInstance;
-	spec.asyncRefCon	 = NULL;
-	err = LSOpenFromURLSpec( &spec, NULL );
-	NSLog(@"err %ld", (long)err);
-	//CFRelease( spec.appURL );
-}
 - (BOOL)openFileInBackground:(NSString *)fullPath {
 	struct LSLaunchURLSpec launchSpec = {
 		.appURL = NULL,
@@ -281,55 +121,163 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 	};
 	return !LSOpenFromURLSpec(&launchSpec, NULL);
 }
-- (void)relaunchApplication:(NSDictionary *)theApp {
-	if ([[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue] == [[NSProcessInfo processInfo] processIdentifier]) {
-		[NSApp relaunch:nil];
-    }
-    NSRunningApplication *runningApplication = [NSRunningApplication runningApplicationWithProcessIdentifier:[[theApp objectForKey:@"NSApplicationProcessIdentifier"] intValue]];
 
-    if (!runningApplication) {
-        NSBeep();
-        NSLog(@"Unable to find application %@ to restart", theApp);
-        return;
-    }
-    NSURL *bundleURL = [runningApplication bundleURL];
-    [runningApplication terminate];
-    NSDate *aDate = [NSDate date];
-    while(![runningApplication isTerminated]) {       
-        
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        
-        usleep(500000);
-        
-        // break: it's been 20s since the action was called
-        if (-[aDate timeIntervalSinceNow] > 12) {
-            NSLog(@"Could not terminate %@, abandoning restart",[runningApplication localizedName]);
-            return;
-        }
-        
-		}
-		usleep(500000);
-		[self openURL:bundleURL];
+- (void)relaunchApplication:(NSRunningApplication *)theApp {
+	// In case someone passes us one of those dicts
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:(NSDictionary *)theApp];
+
+	if (!app) {
+		NSBeep();
+		NSLog(@"Unable to find application %@ to restart", theApp);
+		return;
+	}
+
+	if (app.processIdentifier == [[NSProcessInfo processInfo] processIdentifier]) {
+		[NSApp relaunch:nil];
+		return;
+	}
+
+	NSURL *bundleURL = app.bundleURL;
+	BOOL success = QSGCDWait(20, ^{
+		[app terminate];
+	}, ^{
+		return app.isTerminated;
+	});
+	if (!success) {
+		NSLog(@"Could not terminate %@, abandoning restart", [app localizedName]);
+		return;
+	}
+
+	/* Wait a little more so the application is ready */
+	usleep(500000);
+	[self openURL:bundleURL];
+}
+
+@end
+
+@implementation NSWorkspace (QSDeprecatedProcessManagment)
+
+- (NSInteger) pidForApplication:(NSDictionary *)theApp {
+	return [[theApp objectForKey: @"NSApplicationProcessIdentifier"] integerValue];
+}
+
+- (BOOL)applicationIsRunning:(NSString *)pathOrID {
+	NSArray *apps = [NSRunningApplication runningApplicationsWithBundleIdentifier:pathOrID];
+	if (apps.count >= 1) return YES;
+
+	apps = [NSRunningApplication runningApplicationsWithPath:pathOrID];
+	if (apps.count >= 1) return YES;
+
+	return NO;
+}
+
+- (void)killApplication:(NSString *)path {
+	NSArray *apps = [NSRunningApplication runningApplicationsWithPath:path];
+	for (NSRunningApplication *app in apps) {
+		[app forceTerminate];
+	}
+}
+
+- (BOOL)applicationIsHidden:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	return app.isHidden;
+}
+
+- (BOOL)applicationIsFrontmost:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	return (app == [self frontmostApplication]);
+}
+
+- (void)switchToApplication:(NSDictionary *)theApp frontWindowOnly:(BOOL)frontOnly {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	[app activateWithOptions:frontOnly ? 0 : NSApplicationActivateAllWindows];
+}
+
+- (void)activateFrontWindowOfApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	[app activateWithOptions:0];
+}
+
+- (void)hideApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	[app hide];
+}
+
+- (void)showApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	[app unhide];
+}
+
+- (void)activateApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	ProcessSerialNumber psn;
+	if (![app processSerialNumber:&psn]) return;
+
+	AppleEvent event = {typeNull, 0};
+	AEBuildError error;
+	OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
+	if (err)
+		NSLog(@"%lu:%lu at \"%@\"", (unsigned long)error.fError, (unsigned long)error.fErrorPos, @"");
+	else {
+		AppleEvent reply;
+		AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
+		AEDisposeDesc(&event); // we must dispose of this and the reply.
+	}
+}
+
+- (void)reopenApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	if (!app) return;
+	NSURL *applicationURL = app.bundleURL;
+	if (!applicationURL)
+		applicationURL = app.executableURL;
+
+	[self launchApplication:applicationURL.path];
+}
+
+- (void)quitApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	[app terminate];
+}
+
+- (BOOL)quitApplicationAndWait:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+	if (!app) return NO;
+
+	return QSGCDWait(20, ^{
+		[app terminate];
+	}, ^{
+		return app.isTerminated;
+	});
+}
+
+
+- (void)launchACopyOfApplication:(NSDictionary *)theApp {
+	NSRunningApplication *app = [self runningApplicationForOldStyleWorkspaceDictionary:theApp];
+
+	OSStatus err;
+	LSLaunchURLSpec spec;
+	spec.appURL = (__bridge CFURLRef)[app executableURL];
+	spec.itemURLs = NULL;
+	spec.passThruParams  = NULL;
+	spec.launchFlags	 = kLSLaunchNewInstance;
+	spec.asyncRefCon	 = NULL;
+	err = LSOpenFromURLSpec( &spec, NULL );
+	NSLog(@"err %ld", (long)err);
 }
 
 - (NSString *)nameForPID:(pid_t)pid {
-	ProcessSerialNumber psn;
-	if (!GetProcessForPID(pid, &psn) ) {
-		CFStringRef nameRef = nil;
-		if (!CopyProcessName(&psn, &nameRef)) {
-            NSString *name = (__bridge NSString *)nameRef;
-			return name;
-        }
-	}
-	return nil;
+	return [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
 }
 
 - (NSString *)pathForPID:(pid_t)pid {
-	ProcessSerialNumber psn;
-	FSRef ref;
-	if (!GetProcessForPID(pid, &psn) && !GetProcessBundleLocation(&psn, &ref))
-		return [NSString stringWithFSRef:&ref];
-	return nil;
+	NSURL *appURL = nil;
+	NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier:pid];
+	appURL = app.bundleURL;
+	if (!appURL) {
+		appURL = app.executableURL;
+	}
+	return appURL.path;
 }
 
 @end

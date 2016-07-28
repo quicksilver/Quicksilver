@@ -75,6 +75,8 @@
 		4D00308813116376009040B7 /* QSOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308213116376009040B7 /* QSOutlineView.m */; };
 		4D00308913116376009040B7 /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D00308313116376009040B7 /* QSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D00308A13116376009040B7 /* QSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308413116376009040B7 /* QSTableView.m */; };
+		4D2D67E41D42D23F004C3A6F /* NSRunningApplication_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2D67E21D42D23F004C3A6F /* NSRunningApplication_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D2D67E51D42D23F004C3A6F /* NSRunningApplication_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D67E31D42D23F004C3A6F /* NSRunningApplication_QSMods.m */; };
 		4D62E3181476919300362E9A /* QSActionsPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */; };
 		4D62E3191476919300362E9A /* QSCatalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3101476919300362E9A /* QSCatalog.strings */; };
 		4D62E31A1476919300362E9A /* QSHelpersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */; };
@@ -1154,6 +1156,8 @@
 		4D00308213116376009040B7 /* QSOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOutlineView.m; sourceTree = "<group>"; usesTabs = 1; };
 		4D00308313116376009040B7 /* QSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTableView.h; sourceTree = "<group>"; usesTabs = 1; };
 		4D00308413116376009040B7 /* QSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTableView.m; sourceTree = "<group>"; usesTabs = 1; };
+		4D2D67E21D42D23F004C3A6F /* NSRunningApplication_QSMods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRunningApplication_QSMods.h; sourceTree = "<group>"; };
+		4D2D67E31D42D23F004C3A6F /* NSRunningApplication_QSMods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRunningApplication_QSMods.m; sourceTree = "<group>"; };
 		4D35B4DE143C7AB800E059A7 /* QuicksilverDMG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuicksilverDMG.icns; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
@@ -3395,6 +3399,8 @@
 				7F943F6408033961007EDC31 /* QSUTI.m */,
 				CD02BB4116A2BA5700DAFE50 /* QSGCD.h */,
 				CD02BB4216A2BA5700DAFE50 /* QSGCD.m */,
+				4D2D67E21D42D23F004C3A6F /* NSRunningApplication_QSMods.h */,
+				4D2D67E31D42D23F004C3A6F /* NSRunningApplication_QSMods.m */,
 			);
 			path = "Code-QuickStepFoundation";
 			sourceTree = "<group>";
@@ -3857,6 +3863,7 @@
 				E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */,
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
 				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
+				4D2D67E41D42D23F004C3A6F /* NSRunningApplication_QSMods.h in Headers */,
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
@@ -5028,6 +5035,7 @@
 				4D66BC20148701EA00351C42 /* NDResourceFork.m in Sources */,
 				4D66BC22148701EA00351C42 /* NDResourceFork+OtherSorces.m in Sources */,
 				4D66BC24148701EA00351C42 /* NSOpenPanel+NDAlias.m in Sources */,
+				4D2D67E51D42D23F004C3A6F /* NSRunningApplication_QSMods.m in Sources */,
 				4D66BC26148701EA00351C42 /* NSPathControl+NDAlias.m in Sources */,
 				4D66BC28148701EA00351C42 /* NSSavePanel+NDAlias.m in Sources */,
 				4D66BC2A148701EA00351C42 /* NSString+NDCarbonUtilities.m in Sources */,

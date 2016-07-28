@@ -64,6 +64,19 @@ inline void QSGCDDelayed(NSTimeInterval delay, void (^block)(void))
     QSGCDQueueDelayed(queue, delay, block);
 }
 
+/**
+ * Wait synchronously for an operation to complete
+ *
+ * This will call startBlock, and mostly busy-loop while checkBlock return NO.
+ *
+ * @param timeout     The number of seconds to wait before bailing out.
+ * @param ^startBlock A block that will start the operation.
+ * @param ^checkBlock A block to check that the operation completed.
+ *
+ * @return YES if the operation successfully completed, NO if the timeout was reached.
+ */
+BOOL QSGCDWait(NSTimeInterval timeout, void (^startBlock)(void), BOOL (^checkBlock)(void));
+
 // Remove those when the plugins are call-free
 // Don't forget to remove definitions in .m file
 void runOnMainQueueSync(void (^block)(void)) QS_DEPRECATED_MSG("Use QSGCDMainSync");

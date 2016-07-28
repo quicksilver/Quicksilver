@@ -69,3 +69,4 @@
 #import "NDAlias+QSMods.h"
 #import "QSIntValueTransformer.h"
 #import "SFLListItem.h"
+#import "NSRunningApplication_QSMods.h"
