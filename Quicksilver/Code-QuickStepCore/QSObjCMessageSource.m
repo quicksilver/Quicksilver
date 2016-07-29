@@ -23,9 +23,9 @@
 	return self;
 }
 
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry {return NO;}
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	//	if (VERBOSE) NSLog(@"rescan catalog %d", firstCheck);
 	return YES;
 }
@@ -45,7 +45,7 @@
 - (NSImage *)iconForEntry:(NSDictionary *)dict {
 	return [self blueBox];
 }
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 	NSDictionary *messages = [QSReg tableNamed:@"QSInternalMessages"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
 	QSObject *messageObject;

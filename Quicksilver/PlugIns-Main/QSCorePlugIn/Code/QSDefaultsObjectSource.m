@@ -55,9 +55,10 @@
 	return [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", bundleID]];
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
-	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
+	NSMutableDictionary *settings = theEntry.sourceSettings;
 	if (![settings objectForKey:kDefaultsObjectSourceBundleID]) return YES;
+
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *itemPath = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
 	if (![manager fileExistsAtPath:itemPath isDirectory:nil]) return YES;
@@ -67,8 +68,8 @@
 	return [super indexIsValidFromDate:indexDate forEntry:theEntry];
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
-	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
+	NSMutableDictionary *settings = theEntry.sourceSettings;
 	NSArray *keyList = [settings objectForKey:kDefaultsObjectSourceKeyList];
 	NSString *applicationID = [settings objectForKey:kDefaultsObjectSourceBundleID];
 
@@ -144,7 +145,7 @@
 }
 
 - (void)populateFields {
-	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
+    NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
 	NSArray *keys = [settings objectForKey:kDefaultsObjectSourceKeyList];
 	[keyField setStringValue:(keys?[keys componentsJoinedByString:@"\n"] :@"")];
 	[bundleIDField setStringValue:([settings objectForKey:kDefaultsObjectSourceBundleID] ? [settings objectForKey:kDefaultsObjectSourceBundleID] : @"")];
@@ -152,11 +153,8 @@
 }
 
 - (IBAction)setValueForSender:(id)sender {
-	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
-	if (!settings) {
-		settings = [NSMutableDictionary dictionaryWithCapacity:1];
-		[[self currentEntry] setObject:settings forKey:kItemSettings];
-	}
+	NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
+
 	if (sender == bundleIDField) {
 		[settings setObject:[sender stringValue] forKey:kDefaultsObjectSourceBundleID];
 	} else if (sender == keyField) {
@@ -167,7 +165,7 @@
 	} else if (sender == entryTypePopUp) {
 		[settings setObject:[NSNumber numberWithInteger:[[sender selectedItem] tag]] forKey:kDefaultsObjectSourceType];
 	}
-    [self.selection refresh:NO];
+    [self.selectedEntry refresh:NO];
 	[self populateFields];
 }
 

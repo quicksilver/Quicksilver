@@ -31,7 +31,7 @@
 }
 
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	return ([indexDate timeIntervalSinceReferenceDate] >lastMountDate);
 }
 
@@ -45,17 +45,16 @@
 	[object setIcon:[QSResourceManager imageNamed:@"RemovableVolumeIcon"]];
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)entry
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry
 {
-	NSString *identifier = [entry objectForKey:@"ID"];
-	if ([identifier isEqualToString:@"QSPresetRemovableVolumes"]) {
+	if ([theEntry.identifier isEqualToString:@"QSPresetRemovableVolumes"]) {
 		QSObject *volumesParent = [QSObject makeObjectWithIdentifier:@"QSRemovableVolumesParent"];
 		NSString *name = NSLocalizedString(@"Network and Removable Disks", nil);
 		[volumesParent setName:name];
 		[volumesParent setPrimaryType:@"QSRemovableVolumesParentType"];
 		return [NSArray arrayWithObject:volumesParent];
 	}
-	if ([identifier isEqualToString:@"QSPresetVolumes"]) {
+	if ([theEntry.identifier isEqualToString:@"QSPresetVolumes"]) {
 		return [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];
 	}
 	return nil;

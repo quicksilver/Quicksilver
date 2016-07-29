@@ -10,8 +10,8 @@
 #import "QSAllApplicationsObjectSource.h"
 
 @implementation QSAllApplicationsObjectSource
-- (NSImage *)iconForEntry:(NSDictionary *)dict { return [[NSWorkspace sharedWorkspace] iconForFile:@"/Applications"]; }
-- (NSArray *)objectsForEntry:(NSDictionary *)dict {
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry { return [[NSWorkspace sharedWorkspace] iconForFile:@"/Applications"]; }
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 	return [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] allApplications]];
 }
 @end

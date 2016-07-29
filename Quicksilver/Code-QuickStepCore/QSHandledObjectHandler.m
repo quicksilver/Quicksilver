@@ -15,11 +15,11 @@
 #import "QSResourceManager.h"
 
 @implementation QSInternalObjectSource
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry {return NO;}
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return YES; }
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry { return YES; }
 - (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"Object"]; }
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 	NSDictionary *messages = [QSReg tableNamed:@"QSInternalObjects"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
 	QSObject *messageObject;

@@ -10,6 +10,6 @@
 
 @implementation QSGroupObjectSource
 - (BOOL)isVisibleSource {return YES;}
-- (NSImage *)iconForEntry:(NSDictionary *)dict {return [QSResourceManager imageNamed:@"CatalogGroup"];}
-- (NSArray *)objectsForEntry:(NSDictionary *)dict { return nil;  }
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {return [QSResourceManager imageNamed:@"CatalogGroup"];}
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry { return nil;  }
 @end

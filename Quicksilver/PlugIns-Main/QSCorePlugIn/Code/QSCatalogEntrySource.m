@@ -37,7 +37,7 @@ static NSImage *prefsCatalogImage = nil;
 	return self;
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	if (!firstCheck) {
 		firstCheck = YES;
 		return NO;
@@ -45,11 +45,11 @@ static NSImage *prefsCatalogImage = nil;
 	return YES;
 }
 
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry { return NO; }
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry { return NO; }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"prefsCatalog"]; }
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry { return [QSResourceManager imageNamed:@"prefsCatalog"]; }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 	return [self objectsFromCatalogEntries:[[[QSLibrarian sharedInstance] catalog] deepChildrenWithGroups:YES leaves:YES disabled:YES]];
 }
 

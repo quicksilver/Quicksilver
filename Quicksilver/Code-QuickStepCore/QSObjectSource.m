@@ -11,21 +11,11 @@
 
 @implementation QSObjectSource
 
-// KVO
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {return nil;}
 
-	if ([key isEqualToString:@"currentEntry"]) {
-		keyPaths = [keyPaths setByAddingObject:@"selection"];
-	}
-	return keyPaths;
-}
+- (NSString *)nameForEntry:(QSCatalogEntry *)theEntry {return nil;}
 
-- (NSImage *)iconForEntry:(NSDictionary *)theEntry {return nil;}
-
-- (NSString *)nameForEntry:(NSDictionary *)theEntry {return nil;}
-
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {return nil;}
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {return nil;}
 
 - (void)invalidateSelf {
 	//  NSLog(@"invalidated %@", self);

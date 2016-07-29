@@ -490,8 +490,9 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 - (NSImage *)icon {
     @synchronized (self) {
         _icon = [QSResourceManager imageNamed:self.info[kItemIcon]];
-        if (!_icon)
-            _icon = [self.source iconForEntry:self.info];
+        if (!_icon) {
+            _icon = [self.source iconForEntry:self];
+        }
 
         if (!_icon)
             _icon = [QSResourceManager imageNamed:@"Catalog"];
@@ -612,7 +613,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             }
         }
         if (isValid) {
-            isValid = [self.source indexIsValidFromDate:self.indexationDate forEntry:self.info];
+            isValid = [self.source indexIsValidFromDate:self.indexationDate forEntry:self];
         }
     });
     return isValid;
@@ -636,7 +637,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
-            itemContents = [self.source objectsForEntry:self.info];
+            itemContents = [self.source objectsForEntry:self];
         }
         @catch (NSException *exception) {
             NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
@@ -647,10 +648,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (BOOL)canBeIndexed {
-    if (![self.source respondsToSelector:@selector(entryCanBeIndexed:)])
-        return YES;
+    if ([self.source respondsToSelector:@selector(entryCanBeIndexed:)]) {
+        return [self.source entryCanBeIndexed:self];
+    }
 
-	return [self.source entryCanBeIndexed:self.info];
+    // Otherwise all entries can be indexed
+    return YES;
 }
 
 - (NSArray *)scanAndCache {
@@ -786,5 +789,13 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 // Backward-compatibility
 - (BOOL)deletable QS_DEPRECATED { return self.canBeDeleted; }
+
+@end
+
+@implementation QSCatalogEntry (OldStyleSourceSupport)
+
+- (id)objectForKey:(NSString *)key {
+	return self.info[key];
+}
 
 @end

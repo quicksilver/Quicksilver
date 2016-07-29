@@ -52,15 +52,15 @@
 	[super invalidateSelf];
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	return ([indexDate timeIntervalSinceReferenceDate] >processScanDate);
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict {
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {
 	return [QSResourceManager imageNamed:@"ExecutableBinaryIcon"];
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 	BOOL showBackground = [[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses];
 	return showBackground ? [[QSProcessMonitor sharedInstance] allProcesses] : [[QSProcessMonitor sharedInstance] visibleProcesses];
 }
