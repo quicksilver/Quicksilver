@@ -179,6 +179,10 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	return NO;
 }
 
+- (NSDate *)lastScanDate {
+	return self.indexationDate;
+}
+
 - (NSDate *)indexationDate {
 	if ([[self type] isEqualToString:@"Group"]) {
 		// It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
