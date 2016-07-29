@@ -330,8 +330,9 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:itemPath isDirectory:nil]) return YES;
 
-    NSDate *lastModificationDate = [theEntry objectForKey:kItemModificationDate];
-	if ([lastModificationDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
+	NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[settings objectForKey:kItemModificationDate] doubleValue]];
+
+	if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
     NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
