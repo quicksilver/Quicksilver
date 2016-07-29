@@ -22,8 +22,11 @@
 }
 
 - (NSImage *)iconForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (NSString *)nameForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (void)invalidateSelf {
 	//  NSLog(@"invalidated %@", self);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogSourceInvalidated object:NSStringFromClass([self class])];
@@ -38,24 +41,15 @@
 }
 - (void)populateFields {return;}
 
-- (void)updateCurrentEntryModificationDate {
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-}
-
 - (NSMutableDictionary *)currentEntry {
-	return [[self selection] info];
+    return self.selection.info;
 }
 
-- (QSCatalogEntry *)selection { return selection;  }
-- (void)setSelection:(QSCatalogEntry *)newSelection {
-	if(newSelection != selection){
-		selection = newSelection;
-	}
+- (void)updateCurrentEntryModificationDate {
+    self.selectedEntry.sourceSettings[kItemModificationDate] = @([NSDate timeIntervalSinceReferenceDate]);
 }
 
-- (NSView *)settingsView { return settingsView;  }
-- (void)setSettingsView:(NSView *)newSettingsView {
-	settingsView = newSettingsView;
-}
+- (QSCatalogEntry *)selection { return self.selectedEntry; }
+- (void)setSelection:(QSCatalogEntry *)selection { self.selectedEntry = selection; }
 
 @end

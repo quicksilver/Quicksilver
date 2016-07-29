@@ -161,7 +161,7 @@
     // Convert the sender (NSButton)'s rect to screen co-ords
     NSRect relativeToWindow = [sender convertRect:[sender bounds] toView:nil];
     // the position of the button on screen
-    NSRect targetRect = [settingsView.window convertRectToScreen:relativeToWindow];
+    NSRect targetRect = [self.settingsView.window convertRectToScreen:relativeToWindow];
     [targetPickerWindow setFrame:targetRect display:YES];
     [[targetPickerWindow searchObjView] setFrame:NSMakeRect(0, 0, targetRect.size.width, targetRect.size.height)];
     [targetPickerWindow makeKeyAndOrderFront:self];

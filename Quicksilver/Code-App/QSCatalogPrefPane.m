@@ -352,10 +352,17 @@ static id _sharedInstance;
 			currentItemHasSettings = NO;
 			if ([source respondsToSelector:@selector(settingsView)])
 				currentItemHasSettings = nil != (settingsView = [source settingsView]);
-			if ([source respondsToSelector:@selector(setCurrentEntry:)])
+
+            // Make the object source edit the currently selected entry
+            // The various names are here because of back-compat
+            if ([source respondsToSelector:@selector(setSelectedEntry:)]) {
+                [source setSelectedEntry:currentItem];
+            } else if ([source respondsToSelector:@selector(setSelection:)]) {
+                [source setSelection:currentItem];
+            } else if ([source respondsToSelector:@selector(setCurrentEntry:)]) {
 				[source setCurrentEntry:[currentItem info]];
-			if ([source respondsToSelector:@selector(setSelection:)])
-				[source setSelection:currentItem];
+            }
+            
 			if ([source respondsToSelector:@selector(populateFields)])
 				[source populateFields];
 			if (settingsView) {
