@@ -2213,8 +2213,6 @@
 					<integer>1</integer>
 					<key>ID</key>
 					<string>QSPresetUserScripts</string>
-					<key>modificationDate</key>
-					<real>103923120</real>
 					<key>settings</key>
 					<dict>
 						<key>parser</key>
