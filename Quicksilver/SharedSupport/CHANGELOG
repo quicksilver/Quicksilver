@@ -20,6 +20,7 @@
   * Fixed the unit test for QSObject equality (#2240)
   * Tell Travis to use a specific Xcode version (#2237)
   * Major cleanup of the `QSTask` class and its API (#1611)
+  * Added a method to test for macOS Sierra (#2248)
 
 ## Changes - 1.4.2 (401A) ##
 
