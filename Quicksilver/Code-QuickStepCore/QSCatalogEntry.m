@@ -195,7 +195,9 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (NSDate *)modificationDate {
-    return self.info[kItemModificationDate];
+	id modDate = self.info[kItemModificationDate];
+	if (!modDate) return nil;
+	return [NSDate dateWithTimeIntervalSinceReferenceDate:[(NSNumber *)modDate doubleValue]];
 }
 
 - (BOOL)canBeDeleted {
