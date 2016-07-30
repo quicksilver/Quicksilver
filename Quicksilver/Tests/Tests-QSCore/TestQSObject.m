@@ -31,6 +31,25 @@
     XCTAssertEqualObjects([object objectForType:QSTextType], exampleString, @"QSTextType mismatch");
 }
 
+- (void)testMultilineStringObject {
+	NSString *multiline = @"line1\nline2";
+	NSLog(@"Abc");
+	QSObject *object = [QSObject objectWithString:multiline];
+	XCTAssertEqualObjects([object stringValue], multiline, @"multi line string values mismatch");
+	XCTAssertEqualObjects([object objectForType:QSTextType], multiline, @"multiline QSTextType mismatch");
+	
+	NSString *multilineFiles = @"~/\n~/Desktop";
+	object = [QSObject objectWithString:multilineFiles];
+	XCTAssertEqualObjects([object stringValue], multilineFiles, @"multi line file string values mismatch");
+	XCTAssertEqualObjects([object objectForType:QSTextType], multilineFiles, @"multiline file QSTextType mismatch");
+	
+	NSString *mutlilineFakeFiles = @"~/ax03kjaj\n~/ak3p40kdj";
+	object = [QSObject objectWithString:mutlilineFakeFiles];
+	XCTAssertEqualObjects([object stringValue], mutlilineFakeFiles, @"multi line fake file string values mismatch");
+	XCTAssertEqualObjects([object objectForType:QSTextType], mutlilineFakeFiles, @"multiline fake file QSTextType mismatch");
+	
+}
+
 - (void)testURLObject
 {
     NSArray *exampleURLs = @[@"qsapp.com", @"http://www.qsapp.com/"];
