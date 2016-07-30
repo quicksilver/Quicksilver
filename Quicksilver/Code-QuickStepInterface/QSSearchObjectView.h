@@ -1,7 +1,8 @@
-#import <Foundation/Foundation.h>
-#import "QSObjectView.h"
 
+#import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
+#import <QSInterface/QSObjectView.h>
+#import <QSInterface/QSInterfaceController.h>
 
 @interface NSObject (QSSearchViewController)
 - (void)searchView:(id)view changedResults:(id)array;
@@ -9,13 +10,6 @@
 - (void)searchView:(id)view resultsVisible:(BOOL)visible;
 @end
 
-// These tags are set within Interface Builder, and are used to define the current search mode
-typedef NS_ENUM(NSUInteger, QSSearchMode) {
-	SearchFilterAll = 1, // Filter Catalog
-	SearchFilter = 2, // Filter Results
-	SearchSnap = 3, // Snap to Best
-	SearchShuffle = 4, // Not Sure (not used?)
-};
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>
@@ -153,8 +147,6 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 - (IBAction)transmogrify:sender;
 
-- (IBAction)sortByScore:(id)sender;
-- (IBAction)sortByName:(id)sender;
 - (void)reloadResultTable;
 - (BOOL)executeText:(NSEvent *)theEvent;
 - (void)performSearchFor:(NSString *)string from:(id)sender;

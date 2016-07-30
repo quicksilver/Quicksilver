@@ -3,13 +3,26 @@
 #import <Cocoa/Cocoa.h>
 
 @class QSSearchObjectView;
-@class QSActionMatrix;
-
 @class QSWindow;
 @class QSMenuButton;
-//@class QSPrefsController;
-@class QSObject, QSBasicObject;
+@class QSObject;
+@class QSBasicObject;
 @class QSCommand;
+
+typedef NS_ENUM(NSUInteger, QSSearchMode) {
+    QSSearchModeAll = 1,     // Filter Catalog
+    QSSearchModeFilter = 2,  // Filter Results
+    QSSearchModeSnap = 3,    // Snap to Best
+//    QSSearchModeShuffle = 4, // Not Sure (not used?)
+};
+
+typedef NS_ENUM(NSUInteger, QSSearchOrder) {
+    QSSearchOrderByName = 1,
+    QSSearchOrderByScore = 2,
+	QSSearchOrderByDateAscending = 3,
+	QSSearchOrderByDateDescending = 4,
+};
+
 @interface QSInterfaceController : NSWindowController {
 	IBOutlet QSSearchObjectView *dSelector;
 	IBOutlet QSSearchObjectView *aSelector;

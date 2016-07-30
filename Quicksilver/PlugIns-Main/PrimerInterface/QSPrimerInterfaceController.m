@@ -168,19 +168,20 @@
 	}
 	[commandView setStringValue:[[self currentCommand] name]];
 }
+
 - (void)searchView:(QSSearchObjectView *)view changedString:(NSString *)string {
 	//	NSLog(@"string %@ %@", string, view);
 
-	if (string) {
-		if (view == dSelector)
-			[dSearchText setStringValue:string];
-		if (view == aSelector)
-			[aSearchText setStringValue:string];
-		if (view == iSelector)
-			[iSearchText setStringValue:string];
+    if (!string) return;
 
-	}
+    if (view == dSelector)
+        [dSearchText setStringValue:string];
+    if (view == aSelector)
+        [aSearchText setStringValue:string];
+    if (view == iSelector)
+        [iSearchText setStringValue:string];
 }
+
 - (void)searchView:(QSSearchObjectView *)view changedResults:(NSArray *)array {
 	//	NSLog(@"string %@ %@", string, view);
 	NSInteger count = [array count];

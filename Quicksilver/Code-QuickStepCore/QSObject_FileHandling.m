@@ -668,6 +668,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
+			[self setDate:[self fileModificationDate]];
 			NSString *uti = [self fileUTI];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
@@ -702,7 +703,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSError *err = nil;
     
     // Note: NSURLLocalizedLabelKey gives a localized string of the Finder label (tag in 10.9+). E.g. Red / Rouge
-    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey] error:&err];
+    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey, NSURLContentModificationDateKey] error:&err];
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
     if (!dict) {
@@ -830,6 +831,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (NSString *)fileUTI {
     return [[self infoRecord] objectForKey:NSURLTypeIdentifierKey];
+}
+
+- (NSDate *)fileModificationDate {
+	return [[self infoRecord] objectForKey:NSURLContentModificationDateKey];
 }
 
 - (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {

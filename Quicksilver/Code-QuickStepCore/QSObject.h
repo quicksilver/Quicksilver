@@ -17,6 +17,7 @@ extern NSSize QSMaxIconSize;
 - (NSString *)detailsOfObject:(QSObject *)object;
 - (NSString *)identifierForObject:(QSObject *)object;
 - (NSString *)kindOfObject:(QSObject *)object;
+- (NSDate *)dateForObject:(QSObject *)object;
 - (void)setQuickIconForObject:(QSObject *)object;
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
@@ -38,6 +39,7 @@ extern NSSize QSMaxIconSize;
 // meta dictionary keys
 #define kQSObjectPrimaryName      @"QSObjectName"
 #define kQSObjectAlternateName    @"QSObjectLabel"
+#define kQSObjectDate             @"QSObjectDate"
 #define kQSObjectPrimaryType      @"QSObjectType"
 #define kQSObjectSource           @"QSObjectSource"
 #define kQSObjectIconName         @"QSObjectIconName"
@@ -83,6 +85,7 @@ typedef struct _QSObjectFlags {
 	NSString *name;
 	NSString *label;
 	NSString *identifier;
+	NSDate *datetime;
 	NSImage *icon;
 	NSString *primaryType;
 	id primaryObject;
@@ -139,6 +142,8 @@ typedef struct _QSObjectFlags {
 // This private method is required for QSProxyObject.m
 - (id)_safeObjectForType:(id)aKey;
 
+- (NSDate *)date;
+- (void)setDate:(NSDate *)newDatetime;
 @end
 
 @interface QSObject (Icon)
