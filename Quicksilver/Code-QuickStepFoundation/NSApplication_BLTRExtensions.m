@@ -211,4 +211,7 @@
     return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 11);
 }
 
++ (BOOL)isSierra {
+	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 12);
+}
 @end

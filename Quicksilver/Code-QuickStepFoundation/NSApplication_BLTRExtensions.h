@@ -126,4 +126,10 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  */
 + (BOOL)isElCapitan;
 
+/**
+ Checks, if system is at least macOS 10.12 (Sierra)
+ 
+ @returns YES, if 10.12+. NO otherwise
+ */
++ (BOOL)isSierra;
 @end
