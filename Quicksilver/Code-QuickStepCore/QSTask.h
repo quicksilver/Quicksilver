@@ -6,65 +6,32 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSObject.h"
-@class QSTask;
-@interface NSObject (QSTaskDelegate)
-- (NSImage *)iconForTask:(QSTask *)task;
-@end
 
-@interface QSTask : NSViewController {
-	NSString *identifier;
-	NSString *name;
-	NSString *status;
-	CGFloat progress; //0 to 1, -1 is indeterminate
-	QSObject *result;
-	NSImage *icon;
-	id delegate;
+typedef void(^QSTaskCancelBlock)(void);
 
-	SEL cancelAction;
-	id cancelTarget;
-	BOOL running;
-	BOOL showProgress;
-	NSArray *subtasks;
-	QSTask *parentTask;
-}
-+ (QSTask *)taskWithIdentifier:(NSString *)identifier;
-+ (QSTask *)findTaskWithIdentifier:(NSString *)identifier;
-- (void)startTask:(id)sender;
-- (void)stopTask:(id)sender;
+@interface QSTask : NSObject
 
-- (IBAction)cancel:(id)sender;
+@property (readonly, copy) NSString *identifier;
+@property (copy) NSString *name;
+@property (copy) NSString *status;
+@property (assign) CGFloat progress;
+@property (copy) NSImage *icon;
 
-- (NSString *)identifier;
-- (void)setIdentifier:(NSString *)value;
+@property (readonly, copy) NSMutableArray *subtasks;
+@property (readonly, weak) QSTask *parentTask;
 
-- (NSString *)name;
-- (void)setName:(NSString *)value;
+@property (readonly, getter=isRunning) BOOL running;
 
-- (NSString *)status;
-- (void)setStatus:(NSString *)value;
+@property (copy) QSTaskCancelBlock cancelBlock;
+@property BOOL showProgress;
 
-- (CGFloat) progress;
-- (void)setProgress:(CGFloat)value;
++ (instancetype)taskWithIdentifier:(NSString *)identifier;
 
-- (QSObject *)result;
-- (void)setResult:(QSObject *)value;
+- (void)addSubtask:(QSTask *)task;
 
-- (SEL) cancelAction;
-- (void)setCancelAction:(SEL)value;
+- (void)start;
+- (void)stop;
 
-- (id)cancelTarget;
-- (void)setCancelTarget:(id)value;
-
-- (BOOL)showProgress;
-- (void)setShowProgress:(BOOL)value;
-
-- (NSArray *)subtasks ;
-- (void)setSubtasks:(NSArray *)value ;
-
-- (NSImage *)icon;
-- (void)setIcon:(NSImage *)newIcon;
-- (id)delegate;
-- (void)setDelegate:(id)newDelegate;
+- (void)cancel;
 
 @end

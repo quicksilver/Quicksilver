@@ -192,12 +192,9 @@
 	XCTAssertEqualObjects(one, otherOne);
 	// unequal objects
 	XCTAssertNotEqual(one, two);
-	// same identifier and data
+	// same data
 	QSObject *data1 = [QSObject objectWithName:@"Data 1"];
 	QSObject *data2 = [QSObject objectWithName:@"Data 2"];
-	// setIdentifier will enforce uniqueness, so bypass it
-	data1.identifier = @"isEqualTest";
-	data2.identifier = @"isEqualTest";
 	[data1 setObject:@"string data" forType:QSTextType];
 	[data2 setObject:@"string data" forType:QSTextType];
 	[data1 setPrimaryType:QSTextType];
@@ -213,30 +210,22 @@
 	[data2 setObject:@"https://qsapp.com/download.php" forType:QSURLType];
 	XCTAssertNotEqualObjects(data1, data2);
 	// combined objects
-	[data1 setObject:nil forType:QSURLType];
-	[data2 setObject:nil forType:QSURLType];
 	NSArray *multipleObjects = @[data1, data2];
 	QSObject *combined1 = [QSObject objectByMergingObjects:multipleObjects];
 	QSObject *combined2 = [QSObject objectByMergingObjects:[multipleObjects copy]];
-	combined1.identifier = @"isEqualTest";
-	combined2.identifier = @"isEqualTest";
 	// make sure they aren't literally the same object
 	// otherwise, the next test would be pointless
 	XCTAssertNotEqual(combined1, combined2);
 	XCTAssertEqualObjects(combined1, combined2);
 	QSObject *data3 = [QSObject URLObjectWithURL:@"https://qsapp.com/" title:@"QS"];
 	QSObject *combined3 = [QSObject objectByMergingObjects:@[data1, data2, data3]];
-	combined3.identifier = @"isEqualTest";
 	XCTAssertNotEqualObjects(combined1, combined3);
 	QSObject *data4 = [QSObject URLObjectWithURL:@"https://apple.com/" title:@"Apple"];
 	QSObject *combined4 = [QSObject objectByMergingObjects:@[data1, data2, data4]];
-	combined4.identifier = @"isEqualTest";
 	XCTAssertNotEqualObjects(combined3, combined4);
 	QSObject *combined5 = [QSObject objectByMergingObjects:@[data1, data2, data4] withObject:data2];
-	combined5.identifier = @"isEqualTest";
 	XCTAssertEqualObjects(combined4, combined5);
 	QSObject *combined6 = [QSObject objectByMergingObjects:@[data1, data2] withObject:data4];
-	combined6.identifier = @"isEqualTest";
 	XCTAssertEqualObjects(combined4, combined6);
 }
 

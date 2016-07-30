@@ -1,4 +1,5 @@
 language: objective-c
+osx_image: xcode7.2
 xcode_project: Quicksilver/Quicksilver.xcodeproj # path to your xcodeproj folder
 xcode_scheme: "Quicksilver Distribution"
 script: |

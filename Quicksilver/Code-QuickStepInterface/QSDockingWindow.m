@@ -31,7 +31,6 @@
 }
 
 - (void)awakeFromNib {
-	[self center];
 	// Notification for when the menu items list is opened in a docking window (e.g. clipboard menu)
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
 	// Notification for when the menu item list is closed in a docking window
@@ -200,9 +199,9 @@
 	}
 }
 
-// prevent docked windows from closing when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
-	if ([theEvent keyCode] == 53) {
+    // close docked windows when Esc key is pressed
+	if ([theEvent keyCode] == kVK_Escape) {
 		[self hideOrOrderOut:nil];
 	} else {
 		[super keyDown:theEvent];
@@ -250,8 +249,8 @@
 }
 
 - (void)saveFrame {
-	if ([self autosaveName]) {
-		[self saveFrameUsingName:[self autosaveName]];
+	if ([self frameAutosaveName]) {
+		[self saveFrameUsingName:[self frameAutosaveName]];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
@@ -266,11 +265,19 @@
 		[super orderOut:sender];
 	}
 }
-- (NSString *)autosaveName { return autosaveName;  }
+
+- (NSString *)autosaveName { return self.frameAutosaveName;  }
+
+- (BOOL)setFrameAutosaveName:(NSString *)name {
+    BOOL success = [super setFrameAutosaveName:name];
+    if (!success) return NO;
+
+    [self setFrameUsingName:self.frameAutosaveName force:YES];
+    [self updateTrackingRect:self];
+    return YES;
+}
 
 - (void)setAutosaveName:(NSString *)newAutosaveName {
-	autosaveName = newAutosaveName;
-	[self setFrameUsingName:autosaveName force:YES];
-	[self updateTrackingRect:self];
+    [self setFrameAutosaveName:newAutosaveName];
 }
 @end

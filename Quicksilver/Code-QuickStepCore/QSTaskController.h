@@ -1,33 +1,43 @@
 #import <AppKit/AppKit.h>
 
-#define QSTaskAddedNotification @"QSTaskAddedNotification"
-#define QSTaskChangedNotification @"QSTaskChangedNotification"
-#define QSTaskRemovedNotification @"QSTaskRemovedNotification"
-#define QSTasksStartedNotification @"QSTasksStartedNotification"
-#define QSTasksEndedNotification @"QSTasksEndedNotification"
+extern NSString *const QSTaskAddedNotification;
+extern NSString *const QSTaskChangedNotification;
+extern NSString *const QSTaskRemovedNotification;
+extern NSString *const QSTasksStartedNotification;
+extern NSString *const QSTasksEndedNotification;
 
-#define kTaskStatus @"Status"
-#define kTaskProgress @"Progress"
-#define kTaskResult @"Result"
-#define kTaskDisplayType @"Type"
+extern NSString *const kTaskStatus;
+extern NSString *const kTaskProgress;
+extern NSString *const kTaskResult;
+extern NSString *const kTaskDisplayType;
 
-#define kTaskCancelTarget @"cancelTarget"
-#define kTaskCancelAction @"cancelAction"
+extern NSString *const kTaskCancelTarget;
+extern NSString *const kTaskCancelAction;
 
 @class QSTask;
 @class QSTaskController;
+
 extern QSTaskController *QSTasks; // Shared Instance
 
-@interface QSTaskController : NSObject {
-	NSMutableArray *tasks;
-}
-+ (QSTaskController * ) sharedInstance;
-+ (void)hideViewer;
-+ (void)showViewer;
-- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress;
-- (void)removeTask:(NSString *)string;
-- (void)taskStarted:(QSTask *)task;
-- (void)taskStopped:(QSTask *)task;
-- (NSMutableArray *)tasks;
+@interface QSTaskController : NSObject
+
+@property (readonly, copy) NSArray *tasks;
+
++ (instancetype)sharedInstance;
+- (QSTask *)taskWithIdentifier:(NSString *)identifier;
+
+/**
+ * Update the task with identifier status and progress.
+ *
+ * Deprecated because you should just update the tasks' status and progress directly.
+ */
+- (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress  __attribute__((deprecated));
+
+/**
+ * Stops a running task.
+ *
+ * Deprecated because you should just have to call -stop on your task.
+ */
+- (void)removeTask:(NSString *)identifier __attribute__((deprecated));
 
 @end

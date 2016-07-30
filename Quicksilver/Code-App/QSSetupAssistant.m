@@ -19,9 +19,6 @@
 - (void)setDrawsBackground:(BOOL)flag;
 @end
 
-@interface QSSetupAssistant () <WebPolicyDelegate>
-@end
-
 @implementation QSSetupAssistant
 + (id)sharedInstance {
 	static id _sharedInstance;

@@ -47,8 +47,8 @@
 - (BOOL)isDocked;
 - (BOOL)canFade QS_DEPRECATED_MSG("Use -isDockedInstead");
 
-- (NSString *)autosaveName;
-- (void)setAutosaveName:(NSString *)newAutosaveName;
+- (NSString *)autosaveName QS_DEPRECATED_MSG("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName");
+- (void)setAutosaveName:(NSString *)newAutosaveName QS_DEPRECATED_MSG("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName");;
 - (void)resignKeyWindowNow;
 - (IBAction)orderFrontHidden:(id)sender;
 - (void)saveFrame;
