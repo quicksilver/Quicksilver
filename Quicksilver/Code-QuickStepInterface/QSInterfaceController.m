@@ -281,10 +281,8 @@
             // first object is NULL, so make the resultsList an array excluding this first object
             array = [array tail];
         }
-	} else if ([control objectValue] != nil) {
-		[control clearObjectValue];
 	}
-	[control clearSearch];
+	[control clearObjectValue];
 	[control setSourceArray:[array mutableCopy]];
 	[control setResultArray:[array mutableCopy]];
     [control reloadResultTable];
@@ -333,7 +331,6 @@
     if ([aSelector resultArray]) {
         [aSelector setResultArray:nil];
     }
-    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
