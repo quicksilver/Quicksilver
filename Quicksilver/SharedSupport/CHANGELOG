@@ -6,6 +6,7 @@
   * Improve the results in the third pane for AppleScript actions (#2071, #2232)
   * Removed potential deadlocks related to the task viewer (#1611)
   * Improved reliability when automatically showing/hiding the task viewer (#1611)
+  * Avoid a hang during catalog indexing (#2016, #2241)
 
 ### Changed ###
 
