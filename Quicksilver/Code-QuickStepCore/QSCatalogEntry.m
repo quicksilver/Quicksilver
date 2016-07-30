@@ -573,6 +573,9 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (BOOL)indexIsValid {
+	if (self.isScanning) {
+		return YES;
+	}
     __block BOOL isValid = YES;
     QSGCDQueueSync(scanQueue, ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIsIndexingNotification object:self];
