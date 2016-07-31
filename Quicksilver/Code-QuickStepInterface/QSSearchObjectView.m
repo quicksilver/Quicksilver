@@ -904,7 +904,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([resetTimer isValid]) {
 			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 		} else {
-			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO];
+			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(clearSearch) userInfo:nil repeats:NO];
 		}
 	}
 }
