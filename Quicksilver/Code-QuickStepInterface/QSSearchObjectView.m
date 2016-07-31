@@ -801,9 +801,7 @@ NSMutableDictionary *bindingsDict = nil;
     // ***Quicksilver's search algorithm is case insensitive
     string = [string lowercaseString];
     
-	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:self.searchArray];
-	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
     if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
@@ -886,13 +884,18 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSearchString:[partialString copy]];
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
-        
-	if (![searchTimer isValid]) {
-		searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
-	}
-	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	
-	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
+	// only wait for 'search delay' if we're searching all objects
+	if ([self searchMode] != SearchFilterAll) {
+		[searchTimer invalidate];
+		[self performSearch:nil];
+	} else {
+		if (![searchTimer isValid]) {
+			searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+		}
+		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+	}
+	
 	if (validSearch) {
 		[resultController.searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -1450,11 +1453,12 @@ NSMutableDictionary *bindingsDict = nil;
 			[self clearSearch];
 			return;
 		}
-		// reset the search array (search using the previous source array)
-		[self setSearchArray:self.sourceArray];
-		validSearch = YES;
+		[searchTimer invalidate];
+		// reset the search array
+		[self setSearchArray:nil];
 		[[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
 		if ([[self partialString] length]) {
+			validSearch = YES;
 			[self partialStringChanged];
 			if (validMnemonic) {
 				// some objects found, change the colour of the results string
