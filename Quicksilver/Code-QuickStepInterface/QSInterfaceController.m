@@ -375,7 +375,7 @@
     QSAction *obj = [aSelector objectValue];
 	if (obj && ([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2)) {
 		[self showIndirectSelector:nil];
-    } else if ([aSelector objectValue] != nil) {
+	} else if ([dSelector objectValue] == nil || [aSelector objectValue] != nil) {
 		[self hideIndirectSelector:nil];
     }
 }
