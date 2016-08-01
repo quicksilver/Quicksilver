@@ -36,18 +36,11 @@
 }
 - (void)populateFields {return;}
 
-- (NSMutableDictionary *)currentEntry {
-	return self.selection.info;
-}
-
-- (void)setCurrentEntry:(NSMutableDictionary *)currentEntry {}
 
 - (void)updateCurrentEntryModificationDate {
 	self.selectedEntry.sourceSettings[kItemModificationDate] = @([NSDate timeIntervalSinceReferenceDate]);
 }
 
-- (QSCatalogEntry *)selection { return self.selectedEntry; }
-- (void)setSelection:(QSCatalogEntry *)selection { self.selectedEntry = selection; }
 
 - (NSString *)settingsNibName {
 	return NSStringFromClass([self class]);

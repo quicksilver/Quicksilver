@@ -75,12 +75,7 @@
 
 @class QSCatalogEntry;
 
-@interface QSObjectSource : NSObject <QSObjectSource> {
-	/* The following is deprecated because it duplicates -selection.
-	 * But it can't be removed because dyld will notice and plugins will fail to load
-	 */
-	NSMutableDictionary *currentEntry QS_DEPRECATED;
-}
+@interface QSObjectSource : NSObject <QSObjectSource>
 
 - (void)invalidateSelf;
 
@@ -112,7 +107,5 @@
 // Please use -selectedEntry instead of those
 // The rational being that between -currentEntry, -selection and direct Ivar
 // everything can go wrong.
-@property (retain) NSMutableDictionary *currentEntry QS_DEPRECATED;
-@property (retain) QSCatalogEntry *selection QS_DEPRECATED;
 
 @end
