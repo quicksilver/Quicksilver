@@ -9,6 +9,11 @@
 #import "QSCatalogEntry.h"
 #import "QSCatalogEntry_Private.h"
 
+@interface QSObjectSource () {
+	NSView *_settingsView;
+}
+@end
+
 @implementation QSObjectSource
 
 - (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {return nil;}
@@ -43,5 +48,22 @@
 
 - (QSCatalogEntry *)selection { return self.selectedEntry; }
 - (void)setSelection:(QSCatalogEntry *)selection { self.selectedEntry = selection; }
+
+- (NSString *)settingsNibName {
+	return NSStringFromClass([self class]);
+}
+
+- (NSView *)settingsView {
+	if (!_settingsView) {
+		[[NSBundle bundleForClass:[self class]] loadNibNamed:self.settingsNibName owner:self topLevelObjects:NULL];
+	}
+	NSAssert(_settingsView != nil, @"Unset source settings after loading");
+
+	return _settingsView;
+}
+
+- (void)setSettingsView:(NSView *)settingsView {
+	_settingsView = settingsView;
+}
 
 @end
