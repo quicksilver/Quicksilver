@@ -52,6 +52,7 @@
 
     _subtasks = [NSMutableArray array];
     _identifier = identifier.copy;
+	_progress = -1.0;
 
     return self;
 }
