@@ -324,11 +324,6 @@ static id _sharedInstance;
 }
 
 - (BOOL)selectedCatalogEntryIsEditable {
-	
-#ifdef DEBUG
-	return YES;
-#endif
-	
 	id source = [currentItem source];
 	if ([source respondsToSelector:@selector(usesGlobalSettings)] && [source performSelector:@selector(usesGlobalSettings)])
 		return YES;
