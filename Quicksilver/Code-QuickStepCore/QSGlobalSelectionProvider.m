@@ -66,12 +66,14 @@
 
 
 - (void)invokeService {
-    @autoreleasepool {
-        pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-        //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
-		/* We need the PSN because CGEventPostToPSN below. Its PID-taking replacement is 10.11+ only */
+	@autoreleasepool {
+		NSRunningApplication *app = [[NSWorkspace sharedWorkspace] menuBarOwningApplication];
+#if MACOSX_DEPLOYMENT_TARGET >= MAC_OS_X_VERSION_10_11
+#error "Please remove ProcessSerialNumber that and use CGEventPostToPid below"
+		pid_t pid = [app processIdentifier];
+#endif
 		ProcessSerialNumber psn;
-        BOOL usePID = GetProcessForPID(pid, &psn) == 0;
+		BOOL usePID = [app processSerialNumber:&psn];
         CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
         CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
         CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
