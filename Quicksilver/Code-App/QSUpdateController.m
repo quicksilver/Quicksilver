@@ -121,7 +121,6 @@ typedef enum {
     [defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
     if (![checkVersionString length] || [checkVersionString length] > 10) {
         NSLog(@"Unable to check for new version.");
-        [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
         return kQSUpdateCheckError;
     }
 
@@ -138,11 +137,14 @@ typedef enum {
 }
 
 - (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
-	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
+	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
+	task.status = NSLocalizedString(@"Check for Update", @"");
+	[task start];
     BOOL updated = NO;
     
     NSInteger check = [self checkForUpdates:force];
-    [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+	[task stop];
+
     switch (check) {
         case kQSUpdateCheckError:
             if (!quiet)
