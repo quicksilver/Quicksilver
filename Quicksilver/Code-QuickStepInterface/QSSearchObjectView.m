@@ -1447,7 +1447,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-	if ([[self partialString] length] > 0) {
+	if ([[self partialString] length] > 0 || matchedString) {
 		if (defaultBool(kDoubleDeleteClearsObject)) {
 			// option to have delete clear the entire search string
 			[self clearSearch];
@@ -1456,17 +1456,17 @@ NSMutableDictionary *bindingsDict = nil;
 		[searchTimer invalidate];
 		// reset the search array
 		[self setSearchArray:nil];
-		[[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
-		if ([[self partialString] length]) {
-			validSearch = YES;
-			[self partialStringChanged];
-			if (validMnemonic) {
-				// some objects found, change the colour of the results string
-				[resultController.searchStringField setTextColor:[NSColor blackColor]];
-			}
-		} else {
+		if (!partialString || partialString.length <= 1) {
 			[self clearSearch];
 			return;
+		}
+		
+		[[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
+		validSearch = YES;
+		[self partialStringChanged];
+		if (validMnemonic) {
+			// some objects found, change the colour of the results string
+			[resultController.searchStringField setTextColor:[NSColor blackColor]];
 		}
 	}
     if ([self matchedString] == nil) {
