@@ -111,6 +111,9 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[interfaceWindow firstResponder] scrollWheel:theEvent];
 		}
 			break;
+
+		default:
+			break;
 	}
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         if ([theEvent type] == NSKeyDown) {
