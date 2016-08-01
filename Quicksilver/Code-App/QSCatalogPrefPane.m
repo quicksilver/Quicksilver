@@ -94,7 +94,6 @@ static id _sharedInstance;
 	[(QSOutlineView *)itemTable setHighlightColor:highlightColor];
 	[(QSTableView *)itemContentsTable setHighlightColor:highlightColor];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogCacheChanged:) name:@"CatalogCacheChanged" object:nil];
 	NSArray *sources = [[[QSReg objectSources] allKeys] copy];
 
 	NSMenuItem *item;
