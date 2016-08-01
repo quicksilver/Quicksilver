@@ -94,40 +94,43 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			}
 			break;
-	  case NSLeftMouseDown:
+		case NSLeftMouseDown:
 			if ([theEvent standardModifierFlags] > 0)
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
-		  break;
-	  case NSOtherMouseDown:
+			break;
+		case NSOtherMouseDown:
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
 #endif
 			[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			break;
-	  case NSScrollWheel: {
+		case NSScrollWheel: {
 			NSWindow *interfaceWindow = [[(QSController *)[self delegate] interfaceController] window];
 			if ([self keyWindow] == interfaceWindow)
 				[[interfaceWindow firstResponder] scrollWheel:theEvent];
 		}
 			break;
 
+		case NSKeyDown:
+			if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+				// Close the Quicksilver window when ⌘⌥Y is pressed in full screen, or the spacebar or ESC key is pressed (send event to QSSearchObjectView:keyDown)
+				QLPreviewPanel *quicklookPanel = [QLPreviewPanel sharedPreviewPanel];
+				NSString *key = [theEvent charactersIgnoringModifiers];
+				if (([quicklookPanel isInFullScreenMode] && [key isEqualToString:@"y"]
+					 && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) || [key isEqualToString:@" "] || [theEvent keyCode] == kVK_Escape) {
+					[(QSSearchObjectView *)[quicklookPanel delegate] closePreviewPanel];
+					return;
+				}
+			}
+			break;
+
 		default:
 			break;
 	}
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        if ([theEvent type] == NSKeyDown) {
-            // Close the Quicksilver window when ⌘⌥Y is pressed in full screen, or the spacebar or ESC key is pressed (send event to QSSearchObjectView:keyDown)
-            QLPreviewPanel *quicklookPanel = [QLPreviewPanel sharedPreviewPanel];
-            NSString *key = [theEvent charactersIgnoringModifiers];
-            if (([quicklookPanel isInFullScreenMode] && [key isEqualToString:@"y"] && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) || [key isEqualToString:@" "] || [theEvent keyCode] == 53) {
-                [(QSSearchObjectView *)[quicklookPanel delegate] closePreviewPanel];
-                return;
-            }
-        }
-    }
 	[super sendEvent:theEvent];
 }
+
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
 	NSWindow *clickWindow = nil;
 	for (NSWindow *thisWindow in [self windows])
