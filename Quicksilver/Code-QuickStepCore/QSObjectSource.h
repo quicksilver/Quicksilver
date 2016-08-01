@@ -91,7 +91,12 @@
 
 - (void)populateFields;
 
+/** The entry currently selected in the Catalog preference pane */
 @property (retain) QSCatalogEntry *selectedEntry;
+
+/**
+ * The settings view for the source.
+ */
 @property (retain) IBOutlet NSView *settingsView;
 
 // Please use -selectedEntry instead of those
