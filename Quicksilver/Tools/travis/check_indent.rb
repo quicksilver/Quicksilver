@@ -3,7 +3,7 @@
 
 require 'set'
 
-commit_range = ENV['TRAVIS_COMMIT_RANGE'] || 'master..HEAD'
+commit_range = ENV['TRAVIS_COMMIT_RANGE'] || 'master'
 
 puts "#{File.basename($0)}: commit range #{commit_range}"
 
@@ -19,9 +19,11 @@ changed_lines.each do |line|
 	when /^@@ ([-+]\d*,\d*) ([-+]\d*,\d*) @@/
 		last_lines = [$1, $2]
 	when /^\+ /
-		invalid_files[last_file] ||= {}
-		invalid_files[last_file][last_lines] ||= []
-		invalid_files[last_file][last_lines] << line unless comment_block
+		if not comment_block
+			invalid_files[last_file] ||= {}
+			invalid_files[last_file][last_lines] ||= []
+			invalid_files[last_file][last_lines] << line unless comment_block
+		end
 	when /^\+\s*?\/\*\*/
 		comment_block = true
 	when /^\+\s*?\*\*\// then
@@ -37,9 +39,9 @@ end
 puts "The following files have incorrect indent:"
 invalid_files.each do |file, lines|
 	puts "• #{file}:"
-	lines.each do |line_no, lines|
+	lines.each do |line_no, line_data|
 		puts "around #{line_no[0]}..#{line_no[1]}:"
-		lines.each do |line|
+		line_data.each do |line|
 			puts line
 		end
 	end
