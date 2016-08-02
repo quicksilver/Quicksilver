@@ -75,7 +75,7 @@ static NSMutableDictionary *hotKeyDictionary;
     NSUInteger modifiers = [[dict objectForKey:@"modifiers"] unsignedIntegerValue];
 //    unichar character = [[dict objectForKey:@"character"] characterAtIndex:0];
 
-    return (QSHotKeyEvent *)[self getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
+    return [self getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
 }
 @end
 
