@@ -1,6 +1,7 @@
 #import "QSObject.h"
 #import "QSLibrarian.h"
 #import "QSDebug.h"
+#import "QSObjectHandler.h"
 
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
@@ -295,7 +296,7 @@ NSSize QSMaxIconSize;
 	return [data descriptionWithLocale:locale indent:level];
 }
 
-- (id)handlerForType:(NSString *)type selector:(SEL)selector {
+- (id <QSObjectHandler>)handlerForType:(NSString *)type selector:(SEL)selector {
 	id __block handler = [[QSReg objectHandlers] objectForKey:type];
     if (!handler) {
         [[QSReg objectHandlers] enumerateKeysAndObjectsUsingBlock:^(NSString *handlerType, id anyHandler, BOOL *stop) {
@@ -312,11 +313,11 @@ NSSize QSMaxIconSize;
     return (selector == NULL ? handler : ([handler respondsToSelector:selector] ? handler : nil ));
 }
 
-- (id)handlerForSelector:(SEL)selector {
+- (id <QSObjectHandler>)handlerForSelector:(SEL)selector {
     return [self handlerForType:[self primaryType] selector:selector];
 }
 
-- (id)handler {
+- (id <QSObjectHandler>)handler {
 	return [self handlerForType:[self primaryType] selector:nil];
 }
 

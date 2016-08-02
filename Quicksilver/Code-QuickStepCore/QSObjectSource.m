@@ -13,49 +13,45 @@
 
 // KVO
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-    if ([key isEqualToString:@"currentEntry"]) {
-        keyPaths = [keyPaths setByAddingObject:@"selection"];
-    }
-    return keyPaths;
+	if ([key isEqualToString:@"currentEntry"]) {
+		keyPaths = [keyPaths setByAddingObject:@"selection"];
+	}
+	return keyPaths;
 }
 
 - (NSImage *)iconForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (NSString *)nameForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {return nil;}
+
 - (void)invalidateSelf {
 	//  NSLog(@"invalidated %@", self);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogSourceInvalidated object:NSStringFromClass([self class])];
 }
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
-//	 NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[theEntry objectForKey:kItemModificationDate] floatValue]];
-//	  return ([specDate compare:indexDate] == NSOrderedDescending);
-//	  //return NO; //Catalog Specification is more recent than index
+	//	 NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[theEntry objectForKey:kItemModificationDate] floatValue]];
+	//	  return ([specDate compare:indexDate] == NSOrderedDescending);
+	//	  //return NO; //Catalog Specification is more recent than index
 	// ***warning  * should switch to using this!
 	return NO;
 }
 - (void)populateFields {return;}
 
-- (void)updateCurrentEntryModificationDate {
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-}
-
 - (NSMutableDictionary *)currentEntry {
-	return [[self selection] info];
+	return self.selection.info;
 }
 
-- (QSCatalogEntry *)selection { return selection;  }
-- (void)setSelection:(QSCatalogEntry *)newSelection {
-	if(newSelection != selection){
-		selection = newSelection;
-	}
+- (void)setCurrentEntry:(NSMutableDictionary *)currentEntry {}
+
+- (void)updateCurrentEntryModificationDate {
+	self.selectedEntry.sourceSettings[kItemModificationDate] = @([NSDate timeIntervalSinceReferenceDate]);
 }
 
-- (NSView *)settingsView { return settingsView;  }
-- (void)setSettingsView:(NSView *)newSettingsView {
-	settingsView = newSettingsView;
-}
+- (QSCatalogEntry *)selection { return self.selectedEntry; }
+- (void)setSelection:(QSCatalogEntry *)selection { self.selectedEntry = selection; }
 
 @end

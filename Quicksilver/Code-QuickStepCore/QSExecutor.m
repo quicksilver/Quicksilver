@@ -304,7 +304,7 @@ QSExecutor *QSExec = nil;
     }
 	NSArray *actions = nil;
 	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
-		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
+		actions = [[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
     
 	BOOL bypassValidation =
 		(bypass && [dObject isProxyObject] && [(QSProxyObject *)dObject bypassValidation]);
