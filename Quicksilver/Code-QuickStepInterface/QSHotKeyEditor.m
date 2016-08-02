@@ -188,14 +188,11 @@
 }
 
 - (NSDictionary *)hotKeyDictForEvent:(NSEvent *)event {
-	NSUInteger modifiers = [event modifierFlags];
-	unsigned short keyCode = [event keyCode];
-	NSString *characters = [event charactersIgnoringModifiers];
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithUnsignedInteger:modifiers], @"modifiers",
-            [NSNumber numberWithUnsignedShort:keyCode], @"keyCode",
-            characters, @"characters",
-            nil];
+	return @{
+			 @"modifiers": @(event.modifierFlags),
+			 @"keyCode": @(event.keyCode),
+			 @"characters": event.charactersIgnoringModifiers,
+			 };
 }
 
 - (NSDictionary *)hotKey { return hotKey;  }
