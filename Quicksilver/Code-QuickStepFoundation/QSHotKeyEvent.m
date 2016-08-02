@@ -9,7 +9,16 @@
 #import "QSHotKeyEvent.h"
 #import "CGSPrivate.h"
 
+@interface NDHotKeyEvent ()
+- (instancetype)initWithKeyCharacter:(unichar)aKeyCharacter modifierFlags:(NSUInteger)aModifierFlags target:(id)aTarget selector:(SEL)aSelector;
+@end
+
 static NSMutableDictionary *hotKeyDictionary;
+
+@interface QSHotKeyEvent () {
+	NSString *_identifier;
+}
+@end
 
 @implementation QSHotKeyEvent
 + (void)initialize {
@@ -22,6 +31,33 @@ static NSMutableDictionary *hotKeyDictionary;
 + (void)enableGlobalHotKeys {
 	CGSConnection conn = _CGSDefaultConnection();
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
+}
+
++ (instancetype)hotKeyWithIdentifier:(NSString *)anIdentifier {
+	@synchronized (hotKeyDictionary) {
+		return [hotKeyDictionary objectForKey:anIdentifier];
+	}
+}
+
++ (instancetype)hotKeyWithDictionary:(NSDictionary *)dict {
+	if (![dict objectForKey:@"keyCode"] || ![dict objectForKey:@"modifiers"]) {
+		return nil;
+	}
+
+	UInt16 keyCode = [[dict objectForKey:@"keyCode"] shortValue];
+	NSUInteger modifiers = [[dict objectForKey:@"modifiers"] unsignedIntegerValue];
+	//    unichar character = [[dict objectForKey:@"character"] characterAtIndex:0];
+
+	return [self getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
+}
+
+- (instancetype)initWithKeyCharacter:(unichar)keyCharacter modifierFlags:(NSUInteger)modifer target:(id)target selector:(SEL)selector {
+	self = [super initWithKeyCharacter:keyCharacter modifierFlags:modifer target:target selector:selector];
+	if (!self) return nil;
+
+	_identifier = [NSString uniqueString];
+
+	return self;
 }
 
 - (NSString *)identifier {
@@ -58,24 +94,6 @@ static NSMutableDictionary *hotKeyDictionary;
     CFRelease(keyUp);
     CFRelease(keyDown);
     CFRelease(source);
-}
-
-+ (instancetype)hotKeyWithIdentifier:(NSString *)anIdentifier {
-	@synchronized (hotKeyDictionary) {
-		return [hotKeyDictionary objectForKey:anIdentifier];
-	}
-}
-
-+ (instancetype)hotKeyWithDictionary:(NSDictionary *)dict {
-	if (![dict objectForKey:@"keyCode"] || ![dict objectForKey:@"modifiers"]) {
-        return nil;
-    }
-
-    UInt16 keyCode = [[dict objectForKey:@"keyCode"] shortValue];
-    NSUInteger modifiers = [[dict objectForKey:@"modifiers"] unsignedIntegerValue];
-//    unichar character = [[dict objectForKey:@"character"] characterAtIndex:0];
-
-    return [self getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
 }
 @end
 

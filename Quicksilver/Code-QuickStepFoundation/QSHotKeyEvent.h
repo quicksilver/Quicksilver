@@ -10,14 +10,14 @@
 
 #import "NDHotKeyEvent.h"
 
-@interface QSHotKeyEvent : NDHotKeyEvent {
-	NSString *identifier;
-}
+@interface QSHotKeyEvent : NDHotKeyEvent
+
+@property (retain) NSString *identifier;
+
 + (instancetype)hotKeyWithIdentifier:(NSString *)identifier;
 + (instancetype)hotKeyWithDictionary:(NSDictionary *)dict;
-- (NSString *)identifier;
 - (NSArray *)identifiers;
-- (void)setIdentifier:(NSString *)anIdentifier;
+
 - (void)typeHotkey;
 @end
 
