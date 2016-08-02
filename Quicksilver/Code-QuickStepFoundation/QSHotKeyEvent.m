@@ -25,17 +25,23 @@ static NSMutableDictionary *hotKeyDictionary;
 }
 
 - (NSString *)identifier {
-	NSArray *array = [hotKeyDictionary allKeysForObject:self];
-	if ([array count]) return [array lastObject];
-	return nil;
+	@synchronized (hotKeyDictionary) {
+		NSArray *array = [hotKeyDictionary allKeysForObject:self];
+		if ([array count]) return [array lastObject];
+		return nil;
+	}
 }
 
 - (NSArray *)identifiers {
-    return [hotKeyDictionary allKeysForObject:self];
+	@synchronized (hotKeyDictionary) {
+		return [hotKeyDictionary allKeysForObject:self];
+	}
 }
 
 - (void)setIdentifier:(NSString *)anIdentifier {
-	[hotKeyDictionary setObject:self forKey:anIdentifier];
+	@synchronized (hotKeyDictionary) {
+		[hotKeyDictionary setObject:self forKey:anIdentifier];
+	}
 }
 
 - (void)typeHotkey {
@@ -55,7 +61,9 @@ static NSMutableDictionary *hotKeyDictionary;
 }
 
 + (instancetype)hotKeyWithIdentifier:(NSString *)anIdentifier {
-	return [hotKeyDictionary objectForKey:anIdentifier];
+	@synchronized (hotKeyDictionary) {
+		return [hotKeyDictionary objectForKey:anIdentifier];
+	}
 }
 
 + (instancetype)hotKeyWithDictionary:(NSDictionary *)dict {
