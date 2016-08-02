@@ -49,7 +49,7 @@
     hotKeyPressed = YES;
     BOOL triggerExecuted = NO;
 	BOOL result;
-	NSArray *triggers = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggersWithIDs:) withObject:[hotKey identifiers]];
+	NSArray *triggers = [[QSTriggerCenter sharedInstance] triggersWithIDs:[hotKey identifiers]];
   for (QSTrigger *trigger in triggers) {
       if (![trigger activated]) {
           continue;
@@ -206,7 +206,7 @@
 	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 	[self willChangeValueForKey:@"hotKey"];
 	[self didChangeValueForKey:@"hotKey"];
-	[[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerChanged:) withObject:[self currentTrigger]];
+	[[QSTriggerCenter sharedInstance] triggerChanged:[self currentTrigger]];
 }
 
 - (NSDictionary *)hotKey {
@@ -226,7 +226,7 @@
 		[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 		[self willChangeValueForKey:@"hotKey"];
 		[self didChangeValueForKey:@"hotKey"];
-		[[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerChanged:) withObject:[self currentTrigger]];
+		[[QSTriggerCenter sharedInstance] triggerChanged:[self currentTrigger]];
 	}
 }
 
