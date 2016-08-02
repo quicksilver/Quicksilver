@@ -9,6 +9,7 @@
 @class QSObject, QSBasicObject;
 
 @protocol QSObjectHandler <NSObject>
+@optional
 - (BOOL)objectHasChildren:(QSObject *)object;
 - (BOOL)objectHasValidChildren:(QSObject *)object;
 
