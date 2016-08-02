@@ -242,7 +242,9 @@
     activated = [self enabled];
     if (activated) {
         [[self manager] enableTrigger:self];
-    }
+	} else {
+		[[self manager] disableTrigger:self];
+	}
 }
 
 - (BOOL)activated {
