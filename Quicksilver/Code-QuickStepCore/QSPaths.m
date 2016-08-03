@@ -8,9 +8,29 @@
 
 #import "QSPaths.h"
 
-NSString *QSApplicationSupportPath;
+
+NSString *QSGetApplicationSupportFolder() {
+	static NSString *QSApplicationSupportPath = nil;
+	if (!QSApplicationSupportPath) {
+		NSString *path = [[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath];
+		if (!path) {
+			NSArray *userSupportPathArray = NSSearchPathForDirectoriesInDomains (NSApplicationSupportDirectory, NSUserDomainMask, YES);
+			if ([userSupportPathArray count]) {
+				path = [[userSupportPathArray objectAtIndex:0] stringByAppendingPathComponent:@"Quicksilver"];
+			}
+			else {
+				NSLog(@"Unable to find user Application Support folder");
+				path = nil;
+			}
+		}
+		QSApplicationSupportPath = path;
+	}
+	return QSApplicationSupportPath;
+}
+
 NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL createFolder) {
-	NSString *path = [QSApplicationSupportPath stringByAppendingPathComponent:subpath];
+
+	NSString *path = [QSGetApplicationSupportFolder() stringByAppendingPathComponent:subpath];
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if (createFolder && ![manager fileExistsAtPath:path isDirectory:nil])
 		[manager createDirectoriesForPath:path];

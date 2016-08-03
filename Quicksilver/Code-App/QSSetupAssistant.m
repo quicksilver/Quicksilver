@@ -260,7 +260,7 @@
 - (IBAction)finish:(id)sender {
 	
 	// Create 'Actions' folder if it doesn't already exist
-	NSString *actionsFolder = [QSApplicationSupportPath stringByAppendingPathComponent:@"/Actions/"];
+	NSString *actionsFolder = [QSGetApplicationSupportFolder() stringByAppendingPathComponent:@"/Actions/"];
 	[[NSFileManager defaultManager] createDirectoryAtPath:actionsFolder withIntermediateDirectories:YES attributes:nil error:nil];
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetupAssistantCompleted];

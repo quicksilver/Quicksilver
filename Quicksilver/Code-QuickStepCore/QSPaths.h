@@ -30,5 +30,6 @@
 // Wiki page detailing why we collect crash reports
 #define kCrashReportsWikiURL     @"https://qsapp.com/wiki/Crash_Reports"
 
-extern NSString *QSApplicationSupportPath;
+
 NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL create);
+NSString *QSGetApplicationSupportFolder();
