@@ -254,6 +254,8 @@
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
     activated = flag;
+
+	// FIXME: HotKey code in non-hotkey-specific path
     QSHotKeyEvent *hotKeyEvent = [QSHotKeyEvent hotKeyWithIdentifier:[[self info] objectForKey:kItemID]];
     
     // list of triggers with the same hotkey (i.e. the same ID)
