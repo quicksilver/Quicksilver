@@ -1469,7 +1469,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[resultController.searchStringField setTextColor:[NSColor blackColor]];
 		}
 	}
-    if ([self matchedString] == nil) {
+    if ([self matchedString] == nil && ![[[self window] currentEvent] isARepeat]) {
 		historyIndex = -1;
         [super delete:sender];
     }
