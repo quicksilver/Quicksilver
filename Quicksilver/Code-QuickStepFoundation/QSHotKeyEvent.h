@@ -20,7 +20,3 @@
 
 - (void)typeHotkey;
 @end
-
-@interface NDHotKeyEvent (QSMods)
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags DEPRECATED_ATTRIBUTE;
-@end

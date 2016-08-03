@@ -97,24 +97,3 @@ static NSMutableDictionary *hotKeyDictionary;
 }
 @end
 
-@implementation NDHotKeyEvent (QSMods)
-
-+ (instancetype)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
-    return [self getHotKeyForKeyCode:aKeyCode character:aChar safeModifierFlags:aModifierFlags];
-}
-
-+ (instancetype)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
-    // Convert Carbon modifiers
-	if (aModifierFlags < (1 << (rightControlKeyBit + 1))) {
-        aModifierFlags = NDCocoaModifierFlagsForCarbonModifierFlags(aModifierFlags);
-	}
-
-    if (aChar == 0) {
-		return [self getHotKeyForKeyCode:aKeyCode modifierFlags:aModifierFlags];
-    } else {
-        return [self getHotKeyForKeyCharacter:aChar modifierFlags:aModifierFlags];
-    }
-    
-}
-
-@end
