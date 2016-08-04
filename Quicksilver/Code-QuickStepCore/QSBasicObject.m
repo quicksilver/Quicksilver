@@ -126,4 +126,14 @@
 - (NSComparisonResult)scoreCompare:(QSBasicObject*)compareObject {
 	return NSOrderedSame;
 }
+
+- (NSComparisonResult)modDateCompare:(QSBasicObject *)compareObject {
+	if ([self isKindOfClass:[QSObject class]] && [compareObject isKindOfClass:[QSObject class]]) {
+		return [[(QSObject *)self contentModificationDate] compare:[(QSObject *)compareObject contentModificationDate]];
+	} else if ([compareObject isKindOfClass:[QSObject class]]) {
+		return NSOrderedDescending;
+	}
+	return NSOrderedSame;
+}
+
 @end

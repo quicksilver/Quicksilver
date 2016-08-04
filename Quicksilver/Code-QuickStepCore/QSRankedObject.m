@@ -93,6 +93,10 @@
 	return [object nameCompare:compareObject->object];
 }
 
+- (NSComparisonResult)modDateCompare:(QSRankedObject *)compareObject {
+	return [object modDateCompare:compareObject->object];
+}
+
 - (NSComparisonResult)smartCompare:(QSRankedObject *)compareObject {
 	if (score >= 1.0 || compareObject->score >= 1.0) return [self scoreCompare:compareObject];
 	else return [object nameCompare:compareObject->object];

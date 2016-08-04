@@ -76,7 +76,10 @@ NSMutableDictionary *bindingsDict = nil;
 	allowNonActions = YES;
 	allowText = YES;
     updatesSilently = NO;
-	resultController = [[QSResultController alloc] initWithFocus:self];
+    // FIXME: Look, a view that owns a controller...
+	resultController = [[QSResultController alloc] initWithObjectView:self];
+	resultController.nextResponder = self;
+
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
     [self setTextCellFontColor:[NSColor blackColor]];
     
@@ -88,7 +91,7 @@ NSMutableDictionary *bindingsDict = nil;
     
     [[self textModeEditor] setAutomaticTextReplacementEnabled:YES];
     
-	searchMode = SearchFilter;
+	searchMode = QSSearchModeFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
 
@@ -184,7 +187,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)rescoreSelectedItem {
 	if (![self objectValue]) return;
-	//[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
+    // FIXME: This leaks the fact that rank data is effectively global
 	[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
 	if ([[resultController window] isVisible])
 		[resultController.resultTable reloadData];
@@ -295,29 +298,19 @@ NSMutableDictionary *bindingsDict = nil;
     }
 }
 
-- (QSSearchMode)searchMode { return searchMode;  }
+- (QSSearchMode)searchMode { return [[self resultController] searchMode]; }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
 	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
-	if (!((self == [self actionSelector]) && newSearchMode == SearchFilterAll)) {
+	if (!((self == [self actionSelector]) && newSearchMode == QSSearchModeAll)) {
 		searchMode = newSearchMode;
 	}
 	
     [resultController.resultTable setNeedsDisplay:YES];
 	if (browsing) {
-	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
+        [[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
 	}
-		switch (searchMode) {
-			case SearchSnap:
-				[resultController setSearchSnapActivated];
-				break;
-			case SearchFilter:
-				[resultController setSearchFilterActivated];
-				break;
-			default:
-				[resultController setSearchFilterAllActivated];
-				break;
-		}
 
+    [[self resultController] setSearchMode:searchMode];
 }
 
 - (NSText *)currentEditor {
@@ -510,7 +503,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[[resultController window] orderOut:self];
 	if (browsing) {
 		browsing = NO;
-		[self setSearchMode:SearchFilterAll];
+		[self setSearchMode:QSSearchModeAll];
 	}
 	if ([[self controller] respondsToSelector:@selector(searchView:resultsVisible:)])
 		[(id)[self controller] searchView:self resultsVisible:NO];
@@ -815,18 +808,18 @@ NSMutableDictionary *bindingsDict = nil;
 		[self setMatchedString:string];
 		//		[self setScoreData:scores];
 		validMnemonic = YES;
-		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter) {
+		if ([self searchMode] == QSSearchModeAll || [self searchMode] == QSSearchModeFilter) {
 			[self setResultArray:newResultArray];
             [self setSearchArray:newResultArray];
         }
-		if ([self searchMode] == SearchFilterAll) {
+		if ([self searchMode] == QSSearchModeAll) {
 			// ! Don't search the entire catalog if we're in the aSelector (actions)
 			if (![[self class] isEqual:[QSSearchObjectView class]]) {
 			[parentStack removeAllObjects];
 			}
 		}
         
-		if ([self searchMode] == SearchSnap) {
+		if ([self searchMode] == QSSearchModeSnap) {
 			[self selectObject:[newResultArray objectAtIndex:0]];
             
             [self reloadResultTable];
@@ -850,7 +843,7 @@ NSMutableDictionary *bindingsDict = nil;
 			}
 		}
 	} else {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"] && [self searchMode] == SearchFilterAll) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"] && [self searchMode] == QSSearchModeAll) {
             // activate text mode if the prefs setting is set and QS is in the 'Search Catalog' mode
 			[self transmogrifyWithText:partialString];
 		} else { 
@@ -892,7 +885,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	
-	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
+	if ([self searchMode] != QSSearchModeAll) [searchTimer fire];
 	if (validSearch) {
 		[resultController.searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -1033,7 +1026,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if ((resetDelay && delay > resetDelay) || [self shouldResetSearchString]) {
 		[partialString setString:@""];
 		validSearch = YES;
-		if ([self searchMode] == SearchFilterAll) {
+		if ([self searchMode] == QSSearchModeAll) {
 			[self setSourceArray:nil];
 		}
 		[self setShouldResetSearchString:NO];
@@ -1103,14 +1096,14 @@ NSMutableDictionary *bindingsDict = nil;
         // Set the new search mode depending on the direction:
         // Filter All → Filter → Snap to Best (left gives reverse direction)
         switch (searchMode) {
-            case SearchFilterAll:
-                aNewSearchMode = changeSearchModeRight ? SearchFilter : SearchSnap;
+            case QSSearchModeAll:
+                aNewSearchMode = changeSearchModeRight ? QSSearchModeFilter : QSSearchModeSnap;
                 break;
-            case SearchFilter:
-                aNewSearchMode = changeSearchModeRight ? SearchSnap : SearchFilterAll;
+            case QSSearchModeFilter:
+                aNewSearchMode = changeSearchModeRight ? QSSearchModeSnap : QSSearchModeAll;
                 break;
-            default:
-                aNewSearchMode = changeSearchModeRight ? SearchFilterAll : SearchFilter;
+            case QSSearchModeSnap:
+                aNewSearchMode = changeSearchModeRight ? QSSearchModeAll : QSSearchModeFilter;
                 break;
         }
         [self setSearchMode:aNewSearchMode];
@@ -1270,7 +1263,8 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	if (NSMouseInRect([NSEvent mouseLocation] , NSInsetRect([[resultController window] frame] , 0, 0), NO) ) {
-		[resultController scrollWheel:theEvent];
+		// FIXME: This stack-smashes because AppKit tries to forward through the responder chain
+//		[resultController scrollWheel:theEvent];
 		return;
 	}
 	CGFloat delta = [theEvent deltaY];
@@ -1410,13 +1404,21 @@ NSMutableDictionary *bindingsDict = nil;
 	[self transmogrifyWithText:nil];
 }
 
-- (IBAction)sortByScore:(id)sender {
-	[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
-	[self reloadResultTable];
-}
+- (IBAction)changeSearchOrder:(id)sender {
+	switch ([sender tag]) {
+		case QSSearchOrderByName:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(nameCompare:)];
+			break;
 
-- (IBAction)sortByName:(id)sender {
-	[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(nameCompare:)];
+		default:
+		case QSSearchOrderByScore:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(scoreCompare:)];
+			break;
+
+		case QSSearchOrderByModDate:
+			[(NSMutableArray *)[self resultArray] sortUsingSelector:@selector(modDateCompare:)];
+			break;
+	}
 	[self reloadResultTable];
 }
 
@@ -1479,7 +1481,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	if (browsing) {
 		browsing = NO;
-		[self setSearchMode:SearchFilterAll];
+		[self setSearchMode:QSSearchModeAll];
 	}
 	[self setShouldResetSearchString:YES];
 	[resultTimer invalidate];
@@ -1852,7 +1854,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self clearSearch];
 		historyIndex = -1;
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
+        [self setSearchMode:(defaultMode ? defaultMode : QSSearchModeFilter)];
         [self setResultArray:[newObjects mutableCopy]];
         [self setSourceArray:newObjects];
         

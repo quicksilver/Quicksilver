@@ -777,6 +777,10 @@ NSSize QSMaxIconSize;
     }
 }
 
+- (NSDate *)contentModificationDate {
+	return [self objectForMeta:kQSObjectModificationDate];
+}
+
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
