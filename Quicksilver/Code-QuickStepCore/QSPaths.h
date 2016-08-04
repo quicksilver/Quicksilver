@@ -30,6 +30,20 @@
 // Wiki page detailing why we collect crash reports
 #define kCrashReportsWikiURL     @"https://qsapp.com/wiki/Crash_Reports"
 
+/**
+ * Get the path to a subdirectory in the Quicksilver 'Application Support' directory
+ *
+ *  @param subpath A string for the name of the subpath to return to be found int he QS Application Support directory
+ *	@param create A boolean indicating whether or not the subpath should be created if it doesn't exist
+ *
+ *  @return NSString giving the path of the application support subdirectory
+ */
 
 NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL create);
+
+/**
+ * Get Quicksilver's 'Application Support' directory
+ *
+ *  @return NSString giving the of the path to the Quicksilver Application Support directory
+ */
 NSString *QSGetApplicationSupportFolder();
