@@ -97,28 +97,6 @@ static QSController *defaultController = nil;
 }
 #endif
 
-- (NSString *)applicationSupportFolder {
-    NSArray *userSupportPathArray = NSSearchPathForDirectoriesInDomains (NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    if ([userSupportPathArray count]) {
-        return [[userSupportPathArray objectAtIndex:0] stringByAppendingPathComponent:@"Quicksilver"];
-    }
-    else {
-        NSLog(@"Unable to find user Application Support folder");
-        return nil;
-    }
-}
-
-- (id)init {
-	if (self = [super init]) {
-		/* Modifying this is not recommended. Consider adding your stuff in -applicationWill/DidFinishLaunching: */
-		QSApplicationSupportPath = [[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath];
-
-		if (![QSApplicationSupportPath length])
-			QSApplicationSupportPath = [self applicationSupportFolder];
-	}
-	return self;
-}
-
 - (void)startMenuExtraConnection {
 	if (controllerConnection) return;
 	controllerConnection = [NSConnection serviceConnectionWithName:@"QuicksilverControllerConnection" rootObject:self];
