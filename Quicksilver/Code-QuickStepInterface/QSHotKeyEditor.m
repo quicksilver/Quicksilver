@@ -121,10 +121,14 @@
 		[[self window] makeFirstResponder:(NSResponder *)[self delegate]];
 	}
 }
+
 - (void)flagsChanged:(NSEvent *)theEvent {
-    NSString *newString = stringForModifiers([theEvent modifierFlags]);
-	[self setString:[newString length] ? newString:defaultString];
+    if ([[self window] firstResponder] == self) {
+        NSString *newString = stringForModifiers([theEvent modifierFlags]);
+        [self setString:[newString length] ? newString:defaultString];
+    }
 }
+
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
 	NSUInteger modifiers = [theEvent modifierFlags];
 	unsigned short keyCode = [theEvent keyCode];
