@@ -93,18 +93,6 @@ NSMutableDictionary *kindDescriptions = nil;
     windowHeight = [[self window] frame].size.height;
 	[self setupResultTable];
 
-	[splitView setAutosaveName:@"QSResultWindowSplitView"];
-    
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-		NSView *tableView = [resultTable enclosingScrollView];
-		[tableView removeFromSuperview];
-		[tableView setFrame:[splitView frame]];
-		[tableView setAutoresizingMask:[splitView autoresizingMask]];
-
-		[[splitView superview] addSubview:tableView];
-		resultChildTable = nil;
-		[splitView removeFromSuperview];
-	}
     NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
     [sucd addObserver:self
            forKeyPath:@"values.QSAppearance3B"
@@ -222,28 +210,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
-/*- (void)setSplitLocation {
-	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
-    
-	if (resultWidth) {
-		NSView *firstView = [[splitView subviews] objectAtIndex:0];
-		NSRect frame = [firstView frame];
-		frame.size.width = [resultWidth floatValue] *NSWidth([splitView frame]);
-        
-		NSLog(@"%f", frame.size.width);
-        
-		[firstView setFrame:frame];
-        
-		frame.origin.x += NSWidth(frame);
-		frame.size.width = NSWidth([splitView frame]) - NSWidth(frame) - [splitView dividerThickness];
-        
-		[[[splitView subviews] lastObject] setFrame:frame];
-        
-		[splitView adjustSubviews];
-		[splitView display];
-	}
-}*/
-
 #pragma mark -
 #pragma mark Icon Loading
 
@@ -304,13 +270,6 @@ NSMutableDictionary *kindDescriptions = nil;
             if (ind != NSNotFound) {
                 [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
             }
-            // if updated object is is in the child results, update it in the list
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-                ind = [[[self selectedItem] children] indexOfObject:object];
-                if (ind != NSNotFound) {
-                    [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
-                }
-            }
         }
     });
 }
@@ -359,11 +318,6 @@ NSMutableDictionary *kindDescriptions = nil;
     NSUInteger resultCount = [currentResults count];
     NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
     NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-        // Be sure to chose the taller of the two: results list or results child list
-        NSUInteger childResultHeight = (([resultChildTable rowHeight] + [resultChildTable intercellSpacing].height) * [resultChildTable numberOfRows]) + 31;
-        newWindowHeight = MAX(newWindowHeight, childResultHeight);
-    }
     windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
     if (windowFrame.size.height != [[self window] frame].size.height) {
         windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
@@ -405,12 +359,6 @@ NSMutableDictionary *kindDescriptions = nil;
         shouldSaveWindowSize = NO;
         [[self window] setFrame:windowFrame display:YES animate:YES];
         shouldSaveWindowSize = YES;
-    }
-    
-    /* Restart the icon loading for the children view */
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-        [self setResultChildIconLoader:nil];
-        [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
     }
 }
 
@@ -477,59 +425,6 @@ NSMutableDictionary *kindDescriptions = nil;
     // saves size for result window when it is resized
     [[self window] saveFrameUsingName:@"QSResultWindow"];
     windowHeight = [self window].frame.size.height;
-}
-
-#pragma mark -
-#pragma mark NSSplitView Delegate
-- (CGFloat) splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
-	//NSLog(@"constrainMax: %f, %d", proposedMax, offset);
-	// return proposedMax-36;
-	return proposedMax; // - 165;
-}
-
-- (CGFloat) splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
-	//NSLog(@"constrainMin: %f, %d", proposedMin, offset);
-	return NSWidth([sender frame]) / 2;
-}
-
-- (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview {
-	//NSLog(@"collapse");
-	return subview != [resultTable enclosingScrollView];
-	// if (subview == infoBox) return YES;
-	// else return NO;
-}
-
-- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize {
-	CGFloat dividerThickness = [sender dividerThickness];
-	id sv1 = [[sender subviews] objectAtIndex:0];
-	id sv2 = [[sender subviews] objectAtIndex:1];
-	NSRect leftFrame = [sv1 frame];
-	NSRect rightFrame = [sv2 frame];
-	NSRect newFrame = [sender frame];
-
-	// if (sender != m_SourceItemSplitView) return;
-
-	leftFrame.origin = NSMakePoint(0, 0);
-	leftFrame.size.height = newFrame.size.height;
-	rightFrame.size.height = newFrame.size.height;
-
-	rightFrame.size.width = MIN(rightFrame.size.width, newFrame.size.width/2);
-	if (rightFrame.size.width < 32) rightFrame.size.width = 0;
-
-	leftFrame.size.width = newFrame.size.width - rightFrame.size.width - dividerThickness;
-
-	rightFrame.origin = NSMakePoint(leftFrame.size.width + dividerThickness, 0);
-
-	[sv1 setFrame:leftFrame];
-	[sv2 setFrame:rightFrame];
-}
-
-- (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
-        CGFloat split = NSWidth([[resultChildTable enclosingScrollView] frame]) / NSWidth([splitView frame]);
-        [[NSUserDefaults standardUserDefaults] setFloat:split
-                                                 forKey:kResultTableSplit];
-    }
 }
 @end
 
