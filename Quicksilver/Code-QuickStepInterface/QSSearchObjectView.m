@@ -537,7 +537,7 @@ NSMutableDictionary *bindingsDict = nil;
         currentObject = [(QSRankedObject *)currentObject object];
     }
     // if the two objects are not the same, send an 'object chagned' notif
-	if (newObject != currentObject) {
+	if (newObject != currentObject || [newObject isKindOfClass:[QSAction class]]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:currentObject];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:newObject];
 		[super setObjectValue:newObject];
