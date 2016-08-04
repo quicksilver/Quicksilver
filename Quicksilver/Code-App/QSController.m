@@ -738,7 +738,14 @@ static QSController *defaultController = nil;
         // Crash occurred, load the crash reporter window
         QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
         // Open the crash reporter window
-        [NSApp runModalForWindow:[QSCrashController window]];
+
+        // check to see if the preference "Restart automatically after a crash ( no Crash Reporter window )" is set
+        // skip loading the crash reporter if it is set
+        if (![defaults boolForKey:@"QSRestartAutomaticallyWithoutCrashReporter"]) {
+            [NSApp runModalForWindow:[QSCrashController window]];
+        }
+
+    
     }
 
     // synchronise prefs and QuicksilverState file
