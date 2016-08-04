@@ -8,6 +8,7 @@
   * Improved reliability when automatically showing/hiding the task viewer (#1611)
   * Avoid a hang during catalog indexing (#2016, #2241)
   * Correctly reset the third pane (#2201, #2239)
+  * Avoid a hang when getting the string value for multiple selected objects (#2242, #2243)
 
 ### Changed ###
 
