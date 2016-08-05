@@ -483,7 +483,7 @@ NSSize QSMaxIconSize;
 
 - (NSString *)guessPrimaryType {
 	NSArray *allKeys = [data allKeys];
-	if ([[data allKeys] containsObject:QSFilePathType]) return QSFilePathType;
+	if ([allKeys containsObject:QSFilePathType]) return QSFilePathType;
 	else if ([allKeys containsObject:QSURLType]) return QSURLType;
 	else if ([allKeys containsObject:QSTextType]) return QSTextType;
 	else if ([allKeys containsObject:NSColorPboardType]) return NSColorPboardType;

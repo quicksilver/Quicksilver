@@ -801,9 +801,7 @@ NSMutableDictionary *bindingsDict = nil;
     // ***Quicksilver's search algorithm is case insensitive
     string = [string lowercaseString];
     
-	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:self.searchArray];
-	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
     if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
@@ -886,13 +884,18 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setSearchString:[partialString copy]];
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
-        
-	if (![searchTimer isValid]) {
-		searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
-	}
-	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	
-	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
+	// only wait for 'search delay' if we're searching all objects
+	if ([self searchMode] != SearchFilterAll) {
+		[searchTimer invalidate];
+		[self performSearch:nil];
+	} else {
+		if (![searchTimer isValid]) {
+			searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+		}
+		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+	}
+	
 	if (validSearch) {
 		[resultController.searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -904,7 +907,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([resetTimer isValid]) {
 			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 		} else {
-			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO];
+			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(clearSearch) userInfo:nil repeats:NO];
 		}
 	}
 }
@@ -1038,16 +1041,17 @@ NSMutableDictionary *bindingsDict = nil;
 		}
 		[self setShouldResetSearchString:NO];
 	}
-    
+	
+	NSString *eventCharactersIgnoringModifiers = [theEvent charactersIgnoringModifiers];
 	// ***warning  * have downshift move to indirect object
-	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
+	if ([eventCharactersIgnoringModifiers isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
         return;
 	if (([[theEvent characters] isEqualToString:@"~"] || [[theEvent characters] isEqualToString:@"`"]) && [self handleTildeEvent:theEvent])
         return;
 	if ([self handleBoundKey:theEvent])
         return;
     
-	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@" "]) {
+	if ([eventCharactersIgnoringModifiers isEqualToString:@" "]) {
         if ([theEvent type] == NSKeyDown) {
             [self insertSpace:nil];
         }
@@ -1074,9 +1078,10 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     }  
          
-	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) )
+	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) && [eventCharactersIgnoringModifiers characterAtIndex:0] != NSDeleteCharacter) {
         if ([self handleRepeaterEvent:theEvent]) return;
-    
+	}
+	
     
 	//if (VERBOSE) NSLog(@"interpret");
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
@@ -1442,11 +1447,31 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
+	if ([[self partialString] length] > 0 || matchedString) {
+		if (defaultBool(kDoubleDeleteClearsObject)) {
+			// option to have delete clear the entire search string
+			[self clearSearch];
+			return;
+		}
+		[searchTimer invalidate];
+		// reset the search array
+		[self setSearchArray:nil];
+		if (!partialString || partialString.length <= 1) {
+			[self clearSearch];
+			return;
+		}
+		
+		[[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
+		validSearch = YES;
+		[self partialStringChanged];
+		if (validMnemonic) {
+			// some objects found, change the colour of the results string
+			[resultController.searchStringField setTextColor:[NSColor blackColor]];
+		}
+	}
+    if ([self matchedString] == nil && ![[[self window] currentEvent] isARepeat]) {
 		historyIndex = -1;
         [super delete:sender];
-    } else {
-        [self clearSearch];
     }
 }
 
