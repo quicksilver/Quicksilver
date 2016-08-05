@@ -14,6 +14,8 @@
 
   * Don't show a "Relaunch Required" alert for plug-ins when the application itself is being updated (#2224)
   * The main section of the Preferences is now called "General" instead of "Preferences" (#1306, #2237)
+  * The ⌫ key only removes a single character from the search string by default. The old behavior of clearing the entire string can be restored in Preferences → General → Extras (#177, #2249)
+  * If the search string is empty, pressing ⌫ will remove the selected object from the interafce (#2249)
   * The option to show other results with ↓ is now called "Manually" instead of "Never" (#1878, #2244)
   * Tasks appear in the task viewer briefly after completing so you can at least see what they were (#1611)
 
