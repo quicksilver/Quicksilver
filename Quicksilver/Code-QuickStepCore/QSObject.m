@@ -700,6 +700,10 @@ NSSize QSMaxIconSize;
 	if (newChildren) {
         if ([[self cache] objectForKey:kQSObjectChildren] != newChildren) {
             [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+			NSString *parentID = [self identifier];
+			for (QSObject *child in newChildren) {
+				[child setParentID:parentID];
+			}
         }
     } else {
         [[self cache] removeObjectForKey:kQSObjectChildren];
@@ -716,6 +720,10 @@ NSSize QSMaxIconSize;
 	if (newAltChildren) {
         if ([[self cache] objectForKey:kQSObjectChildren] != newAltChildren) {
             [[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+			NSString *parentID = [self identifier];
+			for (QSObject *child in newAltChildren) {
+				[child setParentID:parentID];
+			}
         }
     } else {
         [[self cache] removeObjectForKey:kQSObjectAltChildren];
