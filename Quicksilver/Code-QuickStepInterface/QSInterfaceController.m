@@ -226,7 +226,6 @@
         }
     }
 	[self setHiding:NO];
-	[dSelector clearSearch];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
     
 }
