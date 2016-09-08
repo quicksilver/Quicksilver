@@ -638,9 +638,6 @@
 		[self encapsulateCommand];
 		return;
 	}
-	if (!cont) {
-        [self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
-    }
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
         QSGCDAsync(^{
             [self executeCommandThreaded];
@@ -659,7 +656,9 @@
     }
 	if (cont) {
         [[self window] makeFirstResponder:aSelector];
-    }
+	} else {
+		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
+	}
 }
 
 - (void)encapsulateCommand {
