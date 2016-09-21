@@ -414,15 +414,17 @@
     [self clearObjectView:dSelector];
     [dSelector setSourceArray:array];
     [dSelector setResultArray:array];
-    [dSelector setSearchMode:SearchFilter];
     if (dObject) {
         // show an item from this array if set
         [dSelector selectObjectValue:dObject];
     }
-    [self updateViewLocations];
-    [self updateActionsNow];
-    [self showMainWindow:self];
-    [[self window] makeFirstResponder:dSelector];
+	QSGCDMainSync(^{
+		[dSelector setSearchMode:SearchFilter];
+		[self updateViewLocations];
+		[self updateActionsNow];
+		[self showMainWindow:self];
+		[[self window] makeFirstResponder:dSelector];
+	});
 }
 
 #pragma mark -
