@@ -29,6 +29,7 @@
   * Added a method to test for macOS Sierra (#2248)
   * Deprecate some table view methods Apple provides equivalents for (#2254)
   * Define formal protocols for `QSObjectSource` and `QSObjectHandler` (#2250)
+  * Add a method to the `NSApplication` interface to make Xcode 8 happy (#2270)
 
 ## Changes - 1.4.2 (401A) ##
 
