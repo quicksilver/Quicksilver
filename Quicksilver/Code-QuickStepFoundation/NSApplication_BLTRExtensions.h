@@ -11,6 +11,7 @@
 #define QSApplicationWillRelaunchNotification @"QSApplicationWillRelaunchNotification"
 @interface NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin;
+- (NSString *)buildVersion;
 - (NSString *)versionString;
 - (NSDictionary *)processInformation;
 - (NSDictionary *)parentProcessInformation;
