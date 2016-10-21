@@ -1835,17 +1835,7 @@ NSMutableDictionary *bindingsDict = nil;
         // should show parent's level
         newSelectedObject = parent;
         if (newSelectedObject) {
-            if ((NSInteger)[historyArray count] > historyIndex + 1) {
-                if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-                    [historyArray removeObjectAtIndex:historyIndex+1];
-                }
-#ifdef DEBUG
-                if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
-#endif
-            }
-            
-            if (!newObjects)
-                newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+			newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
             if (![newObjects containsObject:newSelectedObject])
                 newObjects = [newSelectedObject altSiblings];
             
