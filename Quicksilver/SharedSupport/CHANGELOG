@@ -12,6 +12,8 @@
   * Make the left arrow key do something useful in more contexts (#2228, #2229)
   * Prevent duplicate items from appearing in the interface (#2097, #2231)
   * Make sure mnemonics are updated before resetting the search string (#2269)
+  * Icons for proxy objects are shown more reliably (#2069, #2179)
+  * Icons for objects in a collection are shown more reliably (#2179)
 
 ### Changed ###
 
@@ -21,6 +23,7 @@
   * If the search string is empty, pressing ⌫ will remove the selected object from the interafce (#2249)
   * The option to show other results with ↓ is now called "Manually" instead of "Never" (#1878, #2244)
   * Tasks appear in the task viewer briefly after completing so you can at least see what they were (#1611)
+  * The real object referred to by a proxy object will be remembered as long as the proxy is selected in the interface. Previously, the proxy would "expire" and look up the real object again. (#2179)
 
 ### Development ###
 
@@ -32,6 +35,7 @@
   * Deprecate some table view methods Apple provides equivalents for (#2254)
   * Define formal protocols for `QSObjectSource` and `QSObjectHandler` (#2250)
   * Add a method to the `NSApplication` interface to make Xcode 8 happy (#2270)
+  * Proxy object no longer use `cacheTimeForProxy:` (#2179)
 
 ## Changes - 1.4.2 (401A) ##
 
