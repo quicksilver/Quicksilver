@@ -693,28 +693,33 @@
 
 	if (conflicts) {
 		NSMutableArray *otherFiles;
-		NSLog(@"Conflicts: %@", conflicts);
-		id panel = [QSFileConflictPanel conflictPanel];
-		[panel setConflictNames:[conflicts allValues]];
-		id QSIC = [(QSController *)[NSApp delegate] interfaceController];
-		[QSIC showMainWindow:nil];
-		[QSIC setHiding:YES];
-		QSFileConflictResolutionMethod copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
-		[QSIC setHiding:NO];
+		__block QSFileConflictResolutionMethod copyMethod = QSDontReplaceFilesResolution;
+
+		// Ask the user what to do about those conflicts
+		QSGCDMainSync(^{
+			NSLog(@"Conflicts: %@", conflicts);
+			id panel = [QSFileConflictPanel conflictPanel];
+			[panel setConflictNames:[conflicts allValues]];
+			id QSIC = [(QSController *)[NSApp delegate] interfaceController];
+			[QSIC showMainWindow:nil];
+			[QSIC setHiding:YES];
+			copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+			[QSIC setHiding:NO];
+		});
 
 		switch (copyMethod) {
 			case QSCancelReplaceResolution:
 				return nil;
 			case QSReplaceFilesResolution: {
-            for (NSString *file in [conflicts allValues])
-            {
+				for (NSString *file in [conflicts allValues])
+				{
 					NSLog(@"%@", file);
-               if ([file hasPrefix:destination]) {
-                  NSLog(@"File %@ already exists in %@", file, destination);
-                  continue;
-               }
-               [manager removeItemAtPath:file error:nil];
-            }
+					if ([file hasPrefix:destination]) {
+						NSLog(@"File %@ already exists in %@", file, destination);
+						continue;
+					}
+					[manager removeItemAtPath:file error:nil];
+				}
 				break;
 			}
 			case QSDontReplaceFilesResolution:
@@ -723,7 +728,7 @@
 #ifdef DEBUG
 				NSLog(@"Only moving %@", otherFiles);
 #endif
-            filePaths = otherFiles;
+				filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {
 				NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
