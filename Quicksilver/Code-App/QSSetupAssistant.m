@@ -122,15 +122,18 @@
 
 - (BOOL)windowShouldClose:(id)sender {
 	if (!defaultBool(@"QSAgreementAccepted") ) {
-		[[NSAlert alertWithMessageText:@"Cancel Setup" defaultButton:@"Quit" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Would you like to stop setup and quit Quicksilver?"] beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+        [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Cancel Setup", @"Setup assistant - Cancel alert title")
+                                                     message:NSLocalizedString(@"Would you like to stop setup and quit Quicksilver?", @"Setup assistant - Cancel alert message")
+                                                     buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]
+                                                       style:NSInformationalAlertStyle
+                                                    onWindow:[self window]
+                                           completionHandler:^(QSAlertResponse response) {
+                                               if (response == QSAlertResponseOK)
+                                                   [NSApp terminate:self];
+                                           }];
 		return NO;
 	}
 	return YES;
-}
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	[[alert window] close];
-	if (returnCode)
-		[NSApp terminate:self];
 }
 
 - (void)catalogIndexingFinished:(id)notif {

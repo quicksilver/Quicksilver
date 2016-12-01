@@ -717,7 +717,12 @@
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
                     [newPaths addObject:destinationFile];
                 } else {
-                    [[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@\n\n%@", thisFile, destination, [err localizedDescription]] runModal];
+                    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The following error occured while trying to move \"%1$@\" to \"%2$@\"\n\n%3$@", nil), thisFile, destination, [err localizedDescription]];
+                    [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Move error", nil)
+                                                               message:message
+                                                               buttons:@[NSLocalizedString(@"OK", nil)]
+                                                                 style:NSWarningAlertStyle
+                                                        attachToWindow:nil];
                 }
             }
             [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];

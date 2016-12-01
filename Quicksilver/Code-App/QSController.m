@@ -644,10 +644,16 @@ static QSController *defaultController = nil;
 /** Turn off "you have previously used a newer version" popup for DEBUG builds **/
 #ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
-			NSInteger selection = NSRunInformationalAlertPanel(NSLocalizedString(@"This is an old version of Quicksilver",nil), NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil), NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil), nil);
-			if (selection == 1)
-				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
 #endif
+            [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"This is an old version of Quicksilver",nil)
+                                                         message:NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil)
+                                                         buttons:@[NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil)]
+                                                           style:NSInformationalAlertStyle
+                                                        onWindow:nil
+                                               completionHandler:^(QSAlertResponse response) {
+                                                   if (response == QSAlertResponseOK)
+                                                       [[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
+                                               }];
             versionChanged = YES;
             break;
         }
@@ -657,11 +663,19 @@ static QSController *defaultController = nil;
 			if (shouldInstall) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
-				NSInteger selection = NSRunAlertPanel(NSLocalizedString(@"Would you like to install Quicksilver?",nil), NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil), NSLocalizedString(@"Install in \"Applications\"",nil), NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Choose Location...",nil));
+
+                NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Would you like to install Quicksilver?",nil)
+                                                 defaultButton:NSLocalizedString(@"Install in \"Applications\"",nil)
+                                               alternateButton:NSLocalizedString(@"Quit",nil)
+                                                   otherButton:NSLocalizedString(@"Choose Location...",nil)
+                                     informativeTextWithFormat:@"%@", NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil)];
+
+                QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+
 				NSString *installPath = nil;
-				if (selection == 1) {
+				if (response == QSAlertResponseFirst) {
 					installPath = @"/Applications";
-				} else if (selection == -1) {
+				} else if (response == QSAlertResponseThird) {
 					NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 					[openPanel setCanChooseDirectories:YES];
 					[openPanel setCanChooseFiles:NO];
