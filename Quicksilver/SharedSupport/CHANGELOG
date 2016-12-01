@@ -17,6 +17,7 @@
 
 ### Changed ###
 
+  * Quicksilver now requires OS X 10.10 or later (#2146)
   * Don't show a "Relaunch Required" alert for plug-ins when the application itself is being updated (#2224)
   * The main section of the Preferences is now called "General" instead of "Preferences" (#1306, #2237)
   * The ⌫ key only removes a single character from the search string by default. The old behavior of clearing the entire string can be restored in Preferences → General → Extras (#177, #2249)
@@ -36,6 +37,7 @@
   * Define formal protocols for `QSObjectSource` and `QSObjectHandler` (#2250)
   * Add a method to the `NSApplication` interface to make Xcode 8 happy (#2270)
   * Proxy object no longer use `cacheTimeForProxy:` (#2179)
+  * Overhaul of `QSAlertManager` and notifications (#2146)
 
 ## Changes - 1.4.2 (401A) ##
 
