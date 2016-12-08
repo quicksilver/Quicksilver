@@ -635,6 +635,7 @@
 				return dObject;
 			case QSSmartReplaceFilesResolution:
 			case QSReplaceFilesResolution: {
+				[fm movePathToTrash:destinationFile];
 				success = [fm moveItemAtPath:path toPath:destinationFile error:&err];
 				if (success) {
 					[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
