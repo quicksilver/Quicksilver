@@ -635,13 +635,10 @@
 				return dObject;
 			case QSSmartReplaceFilesResolution:
 			case QSReplaceFilesResolution: {
-				NSString *replacement = [panel conflictNames][0];
-				if (![replacement isEqualToString:destinationFile]) {
-					success = [fm moveItemAtPath:path toPath:replacement error:&err];
-					if (success) {
-						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
-						return [QSObject fileObjectWithPath:replacement];
-					}
+				success = [fm moveItemAtPath:path toPath:destinationFile error:&err];
+				if (success) {
+					[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
+					return [QSObject fileObjectWithPath:destinationFile];
 				}
 				break;
 			}
