@@ -617,14 +617,17 @@
 		return renamed;
 	} else if (!success && err.code == 516) {
 		// There's already a file with that name, ask the user
+		__block QSFileConflictResolutionMethod copyMethod = QSDontReplaceFilesResolution;
 		QSFileConflictPanel *panel = [QSFileConflictPanel conflictPanel];
 		[panel setConflictNames:@[destinationFile]];
 		[panel setAllowsRenames:YES];
-		id QSIC = [(QSController *)[NSApp delegate] interfaceController];
-		[QSIC showMainWindow:nil];
-		[QSIC setHiding:YES];
-		QSFileConflictResolutionMethod copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
-		[QSIC setHiding:NO];
+		QSGCDMainSync(^{
+			id QSIC = [(QSController *)[NSApp delegate] interfaceController];
+			[QSIC showMainWindow:nil];
+			[QSIC setHiding:YES];
+			copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+			[QSIC setHiding:NO];
+		});
 
 		switch (copyMethod) {
 			case QSCancelReplaceResolution:
