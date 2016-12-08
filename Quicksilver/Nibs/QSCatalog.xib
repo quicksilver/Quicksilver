@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSCatalogPrefPane">
@@ -27,7 +28,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Catalog" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="QSCatalogWindow" animationBehavior="default" id="7" userLabel="Window" customClass="QSWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -116,7 +117,7 @@
                     <button id="466">
                         <rect key="frame" x="534" y="30" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="square" title="X" bezelStyle="shadowlessSquare" image="B4C0AED9-85A4-41DC-9589-D6D43CF1D99A" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" inset="2" id="506">
+                        <buttonCell key="cell" type="square" title="X" bezelStyle="shadowlessSquare" image="58DB604E-13BB-4E13-AC61-844BA6C682A5" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" inset="2" id="506">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -137,7 +138,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" autosaveColumns="NO" rowHeight="14" headerView="533" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="15" id="21" customClass="QSOutlineView">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="345"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -210,7 +211,7 @@
                 <segmentedControl verticalHuggingPriority="750" id="259">
                     <rect key="frame" x="5" y="4" width="260" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <segmentedCell key="cell" controlSize="small" alignment="left" style="automatic" trackingMode="selectOne" id="527">
+                    <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="527">
                         <font key="font" metaFont="smallSystem"/>
                         <segments>
                             <segment label="Source Options" imageScaling="none" width="108.00000762939453" selected="YES"/>
@@ -225,7 +226,7 @@
                 <button id="196">
                     <rect key="frame" x="247" y="-40" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="square" title="X" bezelStyle="shadowlessSquare" image="475DECA0-6FF8-4871-A2EE-C6BFBB317FA6" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" inset="2" id="526">
+                    <buttonCell key="cell" type="square" title="X" bezelStyle="shadowlessSquare" image="3641EB17-7B45-40C0-9A86-96101A29D84C" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" inset="2" id="526">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -246,7 +247,7 @@
                                     <box title="Settings" titlePosition="noTitle" id="95">
                                         <rect key="frame" x="-3" y="-4" width="262" height="395"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <view key="contentView">
+                                        <view key="contentView" id="WGv-Fk-ajD">
                                             <rect key="frame" x="2" y="2" width="258" height="391"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
@@ -303,10 +304,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="13" headerView="536" id="344" customClass="QSTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="254" height="371"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="254" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                                     <color key="gridColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="deviceRGB"/>
                                                     <tableColumns>
@@ -329,7 +330,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="name" editable="NO" width="228.1181640625" minWidth="8" maxWidth="1000" id="347">
+                                                        <tableColumn identifier="name" editable="NO" width="217.1181640625" minWidth="8" maxWidth="1000" id="347">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Scanned Objects">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -379,7 +380,7 @@
                                     <box title="Title" titlePosition="noTitle" id="87">
                                         <rect key="frame" x="-3" y="-4" width="261" height="395"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <view key="contentView">
+                                        <view key="contentView" id="CFu-N1-m4F">
                                             <rect key="frame" x="2" y="2" width="257" height="391"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -693,7 +694,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" id="398" customClass="QSFancyTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="130" height="234"/>
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="0.92711919549999999" green="0.97254902119999997" blue="0.90588235859999999" alpha="1" colorSpace="deviceRGB"/>
@@ -754,7 +755,7 @@
         </view>
     </objects>
     <resources>
-        <image name="475DECA0-6FF8-4871-A2EE-C6BFBB317FA6" width="1" height="1">
+        <image name="3641EB17-7B45-40C0-9A86-96101A29D84C" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -772,7 +773,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="B4C0AED9-85A4-41DC-9589-D6D43CF1D99A" width="1" height="1">
+        <image name="58DB604E-13BB-4E13-AC61-844BA6C682A5" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

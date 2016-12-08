@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSTriggersPrefPane">
@@ -24,7 +24,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Triggers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="62" userLabel="Triggers" customClass="QSWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -43,10 +43,10 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" autosaveName="QSTriggersOutlineView" rowHeight="16" headerView="839" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="484" id="482" customClass="QSOutlineView">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="385"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" red="0.94525545840000003" green="1" blue="0.94933468099999996" alpha="1" colorSpace="deviceRGB"/>
                                     <tableColumns>
@@ -185,7 +185,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <searchField verticalHuggingPriority="750" id="758">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" id="758">
                         <rect key="frame" x="56" y="2" width="128" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" bezelStyle="round" id="824">
@@ -281,7 +281,7 @@
                 <segmentedControl verticalHuggingPriority="750" id="566">
                     <rect key="frame" x="7" y="339" width="271" height="20"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <segmentedCell key="cell" controlSize="small" alignment="left" style="automatic" trackingMode="selectOne" id="832">
+                    <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="832">
                         <font key="font" metaFont="smallSystem"/>
                         <segments>
                             <segment label="Settings" imageScaling="none" width="87.333335876464844" selected="YES"/>
@@ -317,10 +317,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="546">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="257"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn width="237" minWidth="8" maxWidth="1000" id="548">
@@ -515,7 +515,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" id="731" customClass="QSFancyTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.52189779280000004" alpha="1" colorSpace="deviceRGB"/>
