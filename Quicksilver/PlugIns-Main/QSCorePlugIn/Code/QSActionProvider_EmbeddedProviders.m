@@ -766,7 +766,9 @@
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
                     [newPaths addObject:destinationFile];
                 } else {
-                    [[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@\n\n%@", thisFile, destination, [err localizedDescription]] runModal];
+					QSGCDMainSync(^{
+						[[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@\n\n%@", thisFile, destination, [err localizedDescription]] runModal];
+					});
                 }
             }
             [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
