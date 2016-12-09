@@ -581,43 +581,79 @@
 	}
 	newName = [newName stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
-    NSError *err = nil;
+	NSError *err = nil;
 
 	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
-    NSFileManager *fm = [[NSFileManager alloc] init];
-    NSString *tmpFile = nil;
-    // Check for case changing of files/folders
-    if ([[destinationFile lowercaseString] isEqualToString:[path lowercaseString]] && ![destinationFile isEqualToString:path]) {
-        // case is different
-        tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-        [fm moveItemAtPath:path toPath:tmpFile error:&err];
-        if (!err) {
-            //the temp move was successful, set the new source path to the temp file
-            path = tmpFile;
-        }
+	NSFileManager *fm = [[NSFileManager alloc] init];
+	NSString *tmpFile = nil;
+	BOOL success = NO;
+	// Check for case changing of files/folders
+	if ([[destinationFile lowercaseString] isEqualToString:[path lowercaseString]] && ![destinationFile isEqualToString:path]) {
+		// case is different
+		tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
+		success = [fm moveItemAtPath:path toPath:tmpFile error:&err];
+		if (!success) {
+			NSLog(@"Case-changing rename: temporary move failed: %@", err);
+			return nil;
+		}
+		success = [fm moveItemAtPath:tmpFile toPath:destinationFile error:&err];
+		if (!success) {
+			// Revert the mess we made
+			[fm moveItemAtPath:tmpFile toPath:path error:NULL];
 
-    }
-	if ([fm moveItemAtPath:path toPath:destinationFile error:&err]) {
+			NSLog(@"Case-changing rename: temporary move failed: %@", err);
+			return dObject;
+		}
+
+		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
+		return [QSObject fileObjectWithPath:destinationFile];
+	}
+
+	// This is a "real" rename
+	success = [fm moveItemAtPath:path toPath:destinationFile error:&err];
+	if (success) {
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
 		QSObject *renamed = [QSObject fileObjectWithPath:destinationFile];
 		return renamed;
-	} else {
-        if (tmpFile) {
-            // move the temp file back to the source path (and reset paths)
-            path = [dObject singleFileType];
-            NSError *tmpFileErr = nil;
-            [fm moveItemAtPath:tmpFile toPath:path error:&tmpFileErr];
-            if (tmpFile) {
-                // something seriously went wrong, can't move the temp file back to it's original location. Hopefully this should never happen
-                NSLog(@"Unable to recover renamed file %@, it was moved to %@ but is unrecoverable.\nError:%@", path, tmpFile, tmpFileErr);
-            }
-        }
-		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Error renaming File: %@ to %@", nil, [NSBundle bundleForClass:[self class]], nil);
-        NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Rename", nil, [NSBundle bundleForClass:[self class]], nil);
-		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, path, destinationFile];
-		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
-        NSLog(@"%@\nError:%@", errorMessage, err);
+	} else if (!success && err.code == 516) {
+		// There's already a file with that name, ask the user
+		__block QSFileConflictResolutionMethod copyMethod = QSDontReplaceFilesResolution;
+		QSFileConflictPanel *panel = [QSFileConflictPanel conflictPanel];
+		[panel setConflictNames:@[destinationFile]];
+		[panel setAllowsRenames:YES];
+		QSGCDMainSync(^{
+			id QSIC = [(QSController *)[NSApp delegate] interfaceController];
+			[QSIC showMainWindow:nil];
+			[QSIC setHiding:YES];
+			copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+			[QSIC setHiding:NO];
+		});
+
+		switch (copyMethod) {
+			case QSCancelReplaceResolution:
+			case QSDontReplaceFilesResolution:
+				return dObject;
+			case QSSmartReplaceFilesResolution:
+			case QSReplaceFilesResolution: {
+				[fm movePathToTrash:destinationFile];
+				success = [fm moveItemAtPath:path toPath:destinationFile error:&err];
+				if (success) {
+					[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
+					return [QSObject fileObjectWithPath:destinationFile];
+				}
+				break;
+			}
+		}
 	}
+
+	// If we get here, we failed to rename anything
+
+	NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Error renaming File: %@ to %@", nil, [NSBundle bundleForClass:[self class]], nil);
+	NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Rename", nil, [NSBundle bundleForClass:[self class]], nil);
+	NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, path, destinationFile];
+	QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
+	NSLog(@"%@\nError:%@", errorMessage, err);
+
 	return nil;
 }
 
@@ -628,11 +664,19 @@
 
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject {return [self moveFiles:dObject toFolder:iObject shouldCopy:NO];}
 
-- (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject 
+- (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject
 {
-
 	if (dObject == iObject) {
-		NSLog(@"Can't copy file to same destination as original file!");
+
+		NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Copy", nil, [NSBundle bundleForClass:[self class]], nil);
+		NSString *localizedErrorMessage = NSLocalizedStringFromTableInBundle(@"Cannot copy files to the same destination as original!", nil, [NSBundle bundleForClass:[self class]], nil);
+
+		QSShowNotifierWithAttributes(@{
+									   QSNotifierType: @"QSCopyFileError",
+									   QSNotifierIcon: [QSResourceManager imageNamed:@"AlertStopIcon"],
+									   QSNotifierTitle: localizedTitle,
+									   QSNotifierText: localizedErrorMessage
+									   });
 	}
 	return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 }
@@ -650,28 +694,33 @@
 
 	if (conflicts) {
 		NSMutableArray *otherFiles;
-		NSLog(@"Conflicts: %@", conflicts);
-		id panel = [QSFileConflictPanel conflictPanel];
-		[panel setConflictNames:[conflicts allValues]];
-		id QSIC = [(QSController *)[NSApp delegate] interfaceController];
-		[QSIC showMainWindow:nil];
-		[QSIC setHiding:YES];
-		QSFileConflictResolutionMethod copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
-		[QSIC setHiding:NO];
+		__block QSFileConflictResolutionMethod copyMethod = QSDontReplaceFilesResolution;
+
+		// Ask the user what to do about those conflicts
+		QSGCDMainSync(^{
+			NSLog(@"Conflicts: %@", conflicts);
+			id panel = [QSFileConflictPanel conflictPanel];
+			[panel setConflictNames:[conflicts allValues]];
+			id QSIC = [(QSController *)[NSApp delegate] interfaceController];
+			[QSIC showMainWindow:nil];
+			[QSIC setHiding:YES];
+			copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+			[QSIC setHiding:NO];
+		});
 
 		switch (copyMethod) {
 			case QSCancelReplaceResolution:
 				return nil;
 			case QSReplaceFilesResolution: {
-            for (NSString *file in [conflicts allValues])
-            {
+				for (NSString *file in [conflicts allValues])
+				{
 					NSLog(@"%@", file);
-               if ([file hasPrefix:destination]) {
-                  NSLog(@"File %@ already exists in %@", file, destination);
-                  continue;
-               }
-               [manager removeItemAtPath:file error:nil];
-            }
+					if ([file hasPrefix:destination]) {
+						NSLog(@"File %@ already exists in %@", file, destination);
+						continue;
+					}
+					[manager removeItemAtPath:file error:nil];
+				}
 				break;
 			}
 			case QSDontReplaceFilesResolution:
@@ -680,7 +729,7 @@
 #ifdef DEBUG
 				NSLog(@"Only moving %@", otherFiles);
 #endif
-            filePaths = otherFiles;
+				filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {
 				NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
@@ -690,7 +739,7 @@
 			}
 		}
 	}
-    
+
     if( [filePaths count] == 0 ) {
         NSLog(@"No file left to move");
         return nil;
@@ -698,7 +747,7 @@
         resultPaths = (copy) ? [mQSFSBrowser copyFiles:filePaths toFolder:destination] : [mQSFSBrowser moveFiles:filePaths toFolder:destination];
         
         if (resultPaths) {
-            if ([resultPaths count] <[filePaths count])
+			if ([resultPaths count] < [filePaths count])
                 NSLog(@"Finder-based move may not return all paths");
             return [QSObject fileObjectWithArray:resultPaths];
         } else {
