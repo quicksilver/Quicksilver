@@ -1,5 +1,9 @@
 ## Changes ##
 
+### New ###
+
+  * When renaming a file and the new name conflicts with an existing file, you will be asked what to do (#519, #2293)
+
 ### Fixed ###
 
   * Keep the third pane visible when it contains something, even if it's optional (#2234, #2235)
@@ -14,6 +18,7 @@
   * Make sure mnemonics are updated before resetting the search string (#2269)
   * Icons for proxy objects are shown more reliably (#2069, #2179)
   * Icons for objects in a collection are shown more reliably (#2179)
+  * Crash prevention and general improvements for the file conflict panel (#2293)
 
 ### Changed ###
 
