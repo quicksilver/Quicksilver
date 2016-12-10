@@ -144,7 +144,7 @@
 
 @implementation NSApplication (VersionCheck)
 + (NSString *)macOSXFullVersion {
-	return [NSString stringWithFormat:@"%i.%i.%i",(int)[self macOSXMajorVersion],(int)[self macOSXMinorVersion],(int)[self macOSXBugfixVersion]];
+	return [NSString stringWithFormat:@"%ld.%ld.%ld",(long)[self macOSXMajorVersion],(long)[self macOSXMinorVersion],(long)[self macOSXBugfixVersion]];
 }
 + (NSInteger)macOSXMajorVersion {
 	NSOperatingSystemVersion osv = [[NSProcessInfo processInfo] operatingSystemVersion];
@@ -166,7 +166,7 @@
 }
 
 + (NSString *)macOSXReleaseVersion {
-    return [NSString stringWithFormat:@"%i.%i", (int)[self macOSXMajorVersion], (int)[self macOSXMinorVersion]];
+    return [NSString stringWithFormat:@"%ld.%ld", (long)[self macOSXMajorVersion], (long)[self macOSXMinorVersion]];
 }
 
 
