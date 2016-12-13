@@ -114,7 +114,7 @@
 - (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window {
     NSParameterAssert(title != nil);
     NSParameterAssert(buttons != nil);
-    NSAssert(buttons.count > 1, @"Must have at least one button");
+    NSAssert(buttons.count >= 1, @"Must have at least one button");
 
     // Configure the alert
     NSAlert *alert = [[NSAlert alloc] init];
