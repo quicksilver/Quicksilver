@@ -43,6 +43,9 @@
   * Add a method to the `NSApplication` interface to make Xcode 8 happy (#2270)
   * Proxy object no longer use `cacheTimeForProxy:` (#2179)
   * Overhaul of `QSAlertManager` and notifications (#2146)
+  * Modernized methods that report OS version (#2295)
+  * Deployment target changed to 10.10 (#2295)
+  * Deployment for *most* NIBs changed to track the project's deployment target (#2295)
 
 ## Changes - 1.4.2 (401A) ##
 
