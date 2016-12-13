@@ -19,6 +19,7 @@
   * Icons for proxy objects are shown more reliably (#2069, #2179)
   * Icons for objects in a collection are shown more reliably (#2179)
   * Crash prevention and general improvements for the file conflict panel (#2293)
+  * Fixed a bug related to alerts (#2296)
 
 ### Changed ###
 
