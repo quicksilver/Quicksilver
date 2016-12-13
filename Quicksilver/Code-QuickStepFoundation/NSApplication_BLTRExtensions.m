@@ -142,44 +142,31 @@
 
 @end
 
-
 @implementation NSApplication (VersionCheck)
 + (NSString *)macOSXFullVersion {
-	return [NSString stringWithFormat:@"%i.%i.%i",(int)[self macOSXMajorVersion],(int)[self macOSXMinorVersion],(int)[self macOSXBugfixVersion]];
+	return [NSString stringWithFormat:@"%ld.%ld.%ld",(long)[self macOSXMajorVersion],(long)[self macOSXMinorVersion],(long)[self macOSXBugfixVersion]];
 }
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10
-#error Switch to [[NSProcessInfo processInfo] operatingSystemVersion]
-#else
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-+ (SInt32)macOSXMajorVersion {
-    SInt32 versionMajor;
-    Gestalt (gestaltSystemVersionMajor, &versionMajor);
-    return versionMajor;
++ (NSInteger)macOSXMajorVersion {
+	NSOperatingSystemVersion osv = [[NSProcessInfo processInfo] operatingSystemVersion];
+    return osv.majorVersion;
 }
 
-+ (SInt32)macOSXMinorVersion {
-    SInt32 versionMinor;
-    Gestalt (gestaltSystemVersionMinor, &versionMinor);
-    return versionMinor;
++ (NSInteger)macOSXMinorVersion {
+	NSOperatingSystemVersion osv = [[NSProcessInfo processInfo] operatingSystemVersion];
+	return osv.minorVersion;
 }
 
-+ (SInt32)macOSXBugfixVersion {
-    SInt32 versionBugfix;
-    Gestalt (gestaltSystemVersionBugFix, &versionBugfix);
-    return versionBugfix;
++ (NSInteger)macOSXBugfixVersion {
+	NSOperatingSystemVersion osv = [[NSProcessInfo processInfo] operatingSystemVersion];
+	return osv.patchVersion;
 }
 
-+ (SInt32)macOSXSystemVersion {
-    SInt32 version;
-    Gestalt (gestaltSystemVersion, &version);
-    return version;
++ (NSOperatingSystemVersion)macOSXSystemVersion {
+	return [[NSProcessInfo processInfo] operatingSystemVersion];
 }
-#pragma clang diagnostic pop
-#endif
 
 + (NSString *)macOSXReleaseVersion {
-    return [NSString stringWithFormat:@"%i.%i", (int)[self macOSXMajorVersion], (int)[self macOSXMinorVersion]];
+    return [NSString stringWithFormat:@"%ld.%ld", (long)[self macOSXMajorVersion], (long)[self macOSXMinorVersion]];
 }
 
 
