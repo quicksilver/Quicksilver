@@ -192,6 +192,11 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (void)redisplayObjectValue:(QSBasicObject *)newObject
+{
+	[self setObjectValue:newObject];
+}
+
 - (QSObjectDropMode) dropMode { return dropMode;  }
 - (void)setDropMode:(QSObjectDropMode)aDropMode {
 	dropMode = aDropMode;
@@ -307,7 +312,7 @@
 		}
 		[NSCursor pop];
 		[[self window] selectNextKeyView:self];
-		[self setObjectValue:[self draggedObject]];
+		[self redisplayObjectValue:[self draggedObject]];
 		[self setDraggedObject:nil];
 	} else {
 		return NO;

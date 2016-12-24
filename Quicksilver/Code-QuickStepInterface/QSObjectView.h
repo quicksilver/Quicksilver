@@ -47,6 +47,13 @@ typedef enum {
 - (id)objectValue;
 - (void)setObjectValue:(QSBasicObject *)newObject;
 
+/**
+ Identical to setObjectValue: in this class. See the interface for
+ QSCollectingSearchObjectView, where this does something useful.
+ @param newObject the object to select
+ **/
+- (void)redisplayObjectValue:(QSObject *)newObject;
+
 - (QSObject *)previousObjectValue;
 - (void)setPreviousObjectValue:(QSObject *)aValue;
 
