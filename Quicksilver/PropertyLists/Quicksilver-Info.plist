@@ -131,6 +131,11 @@
 	<string>${QS_INFO_VERSION}</string>
 	<key>CFBundleHelpBookName</key>
 	<string>Quicksilver Help</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleHelpBookFolder</key>
