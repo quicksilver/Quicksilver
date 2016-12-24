@@ -20,6 +20,7 @@
   * Icons for objects in a collection are shown more reliably (#2179)
   * Crash prevention and general improvements for the file conflict panel (#2293)
   * Fixed a bug related to alerts (#2296)
+  * When dropping multiple files on the interface, turn them into a collection (#2263)
 
 ### Changed ###
 
@@ -31,6 +32,7 @@
   * The option to show other results with ↓ is now called "Manually" instead of "Never" (#1878, #2244)
   * Tasks appear in the task viewer briefly after completing so you can at least see what they were (#1611)
   * The real object referred to by a proxy object will be remembered as long as the proxy is selected in the interface. Previously, the proxy would "expire" and look up the real object again. (#2179)
+  * Disable App Transport Security to allow right-arrowing into URLs (#2251, #2292)
 
 ### Development ###
 
