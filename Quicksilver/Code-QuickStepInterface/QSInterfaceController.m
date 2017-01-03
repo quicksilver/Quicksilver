@@ -618,9 +618,7 @@
 		NSBeep();
 		return;
 	}
-    
-    // add the object being executed to the history
-    [dSelector updateHistory];
+
     QSAction *action = [aSelector objectValue];
 	NSInteger argumentCount = [action argumentCount];
 	if (argumentCount == 2) {
@@ -634,9 +632,24 @@
 		}
 		[QSExec noteIndirect:[iSelector objectValue] forAction:action];
 	}
+	
+	// add the object being executed to the history
+	[dSelector updateHistory];
+	// make sure to save mnemonics before interface is closed. Closing the interface clears the search string so they must be saved before this
+	[QSHist addCommand:[self currentCommand]];
+	[dSelector saveMnemonic];
+	[aSelector saveMnemonic];
+	if (argumentCount == 2) {
+		[iSelector saveMnemonic];
+	}
+	
 	if (encapsulate) {
 		[self encapsulateCommand];
 		return;
+	}
+	if (!cont) {
+		// this ensures the interface is hidden before an action is run e.g. the 'capture screen region' and 'type text' actions needs this
+		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
 	}
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
         QSGCDAsync(^{
@@ -647,12 +660,6 @@
         QSGCDMainSync(^{
             [self executeCommandThreaded];
         });
-    }
-	[QSHist addCommand:[self currentCommand]];
-	[dSelector saveMnemonic];
- 	[aSelector saveMnemonic];
-	if (argumentCount == 2) {
-        [iSelector saveMnemonic];
     }
 	if (cont) {
         [[self window] makeFirstResponder:aSelector];
