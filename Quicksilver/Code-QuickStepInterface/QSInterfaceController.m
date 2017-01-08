@@ -663,8 +663,6 @@
     }
 	if (cont) {
         [[self window] makeFirstResponder:aSelector];
-	} else {
-		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
 	}
 }
 
