@@ -1,3 +1,9 @@
+## Changes - 1.5.2 (401D) ##
+
+### Fixed ###
+
+  * Fixes for command execution (#2300, #2302, #2304)
+
 ## Changes - 1.5.1 (401C) ##
 
 This release requires 10.10.
