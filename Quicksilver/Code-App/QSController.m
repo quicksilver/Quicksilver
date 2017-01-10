@@ -18,7 +18,7 @@
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
-@interface QSObject (QSURLHandling)
+@interface QSObject (QSURLHandling) <NDHotKeyEventTarget>
 - (void)handleURL:(NSURL *)url;
 @end
 
@@ -1005,12 +1005,16 @@ static QSController *defaultController = nil;
 	[self startDropletConnection];
 }
 
+- (void)hotKeyReleased:(NDHotKeyEvent *)hotKey {
+	[self activateInterface:nil];
+}
+
 - (id)activationHotKey { return nil;  }
 - (void)setActivationHotKey:(id)object {
 	[[QSHotKeyEvent hotKeyWithIdentifier:kActivationHotKey] setEnabled:NO];
 
 	QSHotKeyEvent *activationKey = [QSHotKeyEvent hotKeyWithDictionary:object];
-	[activationKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(activateInterface:)];
+	[activationKey setTarget:self];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
 }

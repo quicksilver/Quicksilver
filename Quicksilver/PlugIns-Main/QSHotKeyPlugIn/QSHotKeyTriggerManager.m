@@ -15,6 +15,9 @@
 
 #import <objc/runtime.h>
 
+@interface QSHotKeyTriggerManager () <NDHotKeyEventTarget>
+@end
+
 @implementation QSHotKeyTriggerManager
 
 // KVO
@@ -156,7 +159,7 @@ static const char *kQSTriggerHotKey = "QSTriggerHotKey";
 
 	activationKey = [QSHotKeyEvent hotKeyWithKeyCode:keyCode modifierFlags:modifiers];
 
-	[activationKey setTarget:self selectorReleased:@selector(hotKeyReleased:) selectorPressed:@selector(hotKeyPressed:)];
+	[activationKey setTarget:self];
 	[activationKey setIdentifier:[trigger identifier]];
 
 	// This is messy, but it makes sure we don't accidentally return a disabled/activated hotkey

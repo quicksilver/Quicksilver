@@ -75,8 +75,8 @@
 		4D00308813116376009040B7 /* QSOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308213116376009040B7 /* QSOutlineView.m */; };
 		4D00308913116376009040B7 /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D00308313116376009040B7 /* QSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D00308A13116376009040B7 /* QSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308413116376009040B7 /* QSTableView.m */; };
-		4D4B284B16109250002B0ADB /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284716109250002B0ADB /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4D4B284D16109250002B0ADB /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284916109250002B0ADB /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4D4B284B16109250002B0ADB /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284716109250002B0ADB /* NDHotKeyEvent.m */; };
+		4D4B284D16109250002B0ADB /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284916109250002B0ADB /* NDKeyboardLayout.m */; };
 		4D62E3181476919300362E9A /* QSActionsPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */; };
 		4D62E3191476919300362E9A /* QSCatalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3101476919300362E9A /* QSCatalog.strings */; };
 		4D62E31A1476919300362E9A /* QSHelpersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */; };
