@@ -655,17 +655,17 @@
 		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
 	}
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
-        QSGCDAsync(^{
-            [self executeCommandThreaded];
-        });
-    } else {
-        // action can only be run on main thread 
-        QSGCDMainSync(^{
-            [self executeCommandThreaded];
-        });
-    }
+		QSGCDAsync(^{
+			[self executeCommandThreaded];
+		});
+	} else {
+		// action can only be run on main thread 
+		QSGCDMainSync(^{
+			[self executeCommandThreaded];
+		});
+	}
 	if (cont) {
-        [[self window] makeFirstResponder:aSelector];
+		[[self window] makeFirstResponder:aSelector];
 	}
 }
 
