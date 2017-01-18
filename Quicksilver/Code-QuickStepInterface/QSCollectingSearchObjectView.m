@@ -180,6 +180,10 @@
 }
 - (void)deleteBackward:(id)sender {
 	if ([collection count] && ![partialString length]) {
+		if (![collection containsObject:[super objectValue]]) {
+			// search string cleared, but main object was never added to the collection
+			[collection addObject:[super objectValue]];
+		}
 		[self uncollect:sender];
 	} else {
 		[super deleteBackward:sender];
