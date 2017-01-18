@@ -2,7 +2,10 @@
 
 ### Fixed ###
 
+  * Abbreviations are remembered more reliably (#2301, #2308)
   * Fixes for command execution (#2300, #2302, #2304)
+  * When creating a collection with the comma trick, ⌫ will clear the selection even if it hasn't been added to the collection (#2308)
+  * Performance improvements (#2303)
 
 ## Changes - 1.5.1 (401C) ##
 
