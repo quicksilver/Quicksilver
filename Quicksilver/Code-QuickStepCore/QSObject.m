@@ -397,7 +397,6 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForType:(id)aKey {
-    aKey = QSUTIForAnyTypeString(aKey);
 	//	if ([aKey isEqualToString:NSFilenamesPboardType]) return [self arrayForType:QSFilePathType];
 	//	if ([aKey isEqualToString:NSStringPboardType]) return [self objectForType:QSTextType];
 	//	if ([aKey isEqualToString:NSURLPboardType]) return [self objectForType:QSURLType];
@@ -405,6 +404,7 @@ NSSize QSMaxIconSize;
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([(NSArray *) object count] == 1) return [object lastObject];
 	} else {
+		aKey = QSUTIForAnyTypeString(aKey);
         if ([aKey isEqualToString:QSTextType] && [object isKindOfClass:[NSData class]]) {
             object = [[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding];
         }

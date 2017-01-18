@@ -117,7 +117,7 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
     NSString *uti = nil;
     NSString *cleanType = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'."]];
     for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
-        NSString *utiFromOtherType = (__bridge_transfer NSString *)(UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(cleanType), NULL));
+        NSString *utiFromOtherType = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(cleanType), NULL);
         if (![utiFromOtherType hasPrefix:@"dyn."]) {
             // we can assume that this is the correct UTI converted from 'UTTagClass'
             uti = utiFromOtherType;
