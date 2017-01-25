@@ -85,26 +85,26 @@ NSSize QSMaxIconSize;
 	return [identifier hash];
 }
 
-- (BOOL)isEqual:(id)anObject {
+- (BOOL)isEqual:(QSObject *)anObject {
 	if (!anObject) return NO;
-  if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
-    anObject = [anObject object];
-  }
+	if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
+		anObject = [(QSRankedObject *)anObject object];
+	}
 	if (self == anObject) return YES;
-	QSObject *otherObject = (QSObject *)anObject;
-	if ((identifier || otherObject->identifier) && ![identifier isEqualToString:otherObject->identifier]) return NO;
+	NSString *otherIdentifier = anObject->identifier;
+	if ((identifier || otherIdentifier) && ![identifier isEqualToString:otherIdentifier]) return NO;
 	if ([self count] > 1) {
-		if ([self count] != [otherObject count]) {
+		if ([self count] != [anObject count]) {
 			return NO;
 		}
 		NSSet *myObjects = [NSSet setWithArray:[self splitObjects]];
-		NSSet *otherObjects = [NSSet setWithArray:[otherObject splitObjects]];
+		NSSet *otherObjects = [NSSet setWithArray:[anObject splitObjects]];
 		if (![myObjects isEqualToSet:otherObjects]) {
 			return NO;
 		}
 	} else {
 		for(NSString *key in data) {
-			if (![[data objectForKey:key] isEqual:[otherObject objectForType:key]]) return NO;
+			if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 		}
 	}
 	return YES;
