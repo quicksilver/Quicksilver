@@ -80,11 +80,10 @@ NSSize QSMaxIconSize;
 
 - (NSUInteger)hash
 {
-	NSString *ident = [self identifier];
-	if (!ident) {
-		ident = [self stringValue];
+	if (!identifier) {
+		return (NSUInteger)self;
 	}
-	return [ident hash];
+	return [identifier hash];
 }
 
 - (BOOL)isEqual:(id)anObject {
