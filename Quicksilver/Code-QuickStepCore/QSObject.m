@@ -764,18 +764,22 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)primaryType {
+	if (primaryType) {
+		return primaryType;
+	}
     if (!primaryType)
         primaryType = [meta objectForKey:kQSObjectPrimaryType];
 	if (!primaryType)
 		primaryType = [self guessPrimaryType];
-	if (!primaryType)
-		[self setPrimaryType:QSUTIForAnyTypeString(primaryType)];
+	if (primaryType)
+		[self setPrimaryType:primaryType];
 	return primaryType;
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
     if (primaryType != newPrimaryType) {
         primaryType = newPrimaryType;
     }
+	newPrimaryType = QSUTIForAnyTypeString(newPrimaryType);
     [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
