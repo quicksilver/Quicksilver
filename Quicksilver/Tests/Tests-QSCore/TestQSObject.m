@@ -249,6 +249,12 @@
 	XCTAssertEqualObjects(combined4, combined5);
 	QSObject *combined6 = [QSObject objectByMergingObjects:@[data1, data2] withObject:data4];
 	XCTAssertEqualObjects(combined4, combined6);
+	// string objects
+	QSObject *string1 = [QSObject objectWithString:@"a b c d e f"];
+	QSObject *string2 = [QSObject objectWithString:@"a b c d e f"];
+	QSObject *string3 = [QSObject objectWithString:@"f e d c b a"];
+	XCTAssertEqualObjects(string1, string2);
+	XCTAssertNotEqualObjects(string1, string3);
 }
 
 @end
