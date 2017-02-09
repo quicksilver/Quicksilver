@@ -1,4 +1,4 @@
-## Changes - 1.5.2 (401D) ##
+## Changes - 1.5.2 (401D) 2017-01-18 ##
 
 ### Fixed ###
 
@@ -7,7 +7,7 @@
   * When creating a collection with the comma trick, ⌫ will clear the selection even if it hasn't been added to the collection (#2308)
   * Performance improvements (#2303)
 
-## Changes - 1.5.1 (401C) ##
+## Changes - 1.5.1 (401C) 2016-12-24 ##
 
 This release requires 10.10.
 
@@ -61,7 +61,7 @@ This release requires 10.10.
   * Deployment target changed to 10.10 (#2295)
   * Deployment for *most* NIBs changed to track the project's deployment target (#2295)
 
-## Changes - 1.4.2 (401A) ##
+## Changes - 1.4.2 (401A) 2016-06-21 ##
 
 ### Fixed ###
 
@@ -73,7 +73,7 @@ This release requires 10.10.
 
   * The Toggle Application action is enabled by default (#2215)
 
-## Changes - 1.4.1 (4019) ##
+## Changes - 1.4.1 (4019) 2016-04-13 ##
 
 ### New ###
 
@@ -128,7 +128,7 @@ This release requires 10.10.
   * New unit tests for `-[QSObject isEqual:]` (#2092)
   * Eliminated some unnecessary mutable arrays (#2193)
 
-## Changes - 1.3.4 (4016) ##
+## Changes - 1.3.4 (4016) 2015-11-16 ##
 
 ### Fixed ###
 
@@ -139,7 +139,7 @@ This release requires 10.10.
   * More reliable indexing of symbolic links to applications (#1498, #2157)
   * Correct release notes to show fixes from #2142 were actually in #2157
 
-## Changes - 1.3.3 (4015) ##
+## Changes - 1.3.3 (4015) 2015-11-14 ##
 
 ### Fixed ###
 
@@ -150,7 +150,7 @@ This release requires 10.10.
 
   * Reduce deprecated code and warnings (#2075, #2144, #2150)
 
-## Changes - 1.3.2 (4014) ##
+## Changes - 1.3.2 (4014) 2015-10-15 ##
 
 ### Fixed ###
 
@@ -160,14 +160,14 @@ This release requires 10.10.
 
   * Change the deployment target to OS X 10.9 (#2118)
 
-## Changes - 1.3.1 (4013) ##
+## Changes - 1.3.1 (4013) 2015-10-01 ##
 
 ### Fixed ###
 
   * Checking "Hide" in Login Items will no longer prevent Quicksilver from appearing (#1170, #2094)
   * Recent documents are available under OS X 10.11 (#2079, #2100)
 
-## Changes - 1.3.0 (4012) ##
+## Changes - 1.3.0 (4012) 2015-08-03 ##
 
 ### New ###
 
@@ -199,13 +199,13 @@ This release requires 10.10.
   * Catalog Entry API clean-up and modernization (#2049, #2063)
   * Use Travis to test builds (#2021)
 
-## Changes - 1.2.2 (4011) ##
+## Changes - 1.2.2 (4011) 2014-12-23 ##
 
 ### Fixed ###
 
   * Avoid a crash in Yosemite when loading certain icons (#2002, #2003)
 
-## Changes - 1.2.1 (4010) ##
+## Changes - 1.2.1 (4010) 2014-12-22 ##
 
 ### Fixed ###
 
@@ -223,7 +223,7 @@ This release requires 10.10.
   * New `QS_DEPRECATED` and `QS_DEPRECATED_MSG` macros (#1966)
   * Wrap the branch name in quotes when determining version (#1973, #1974)
 
-## Changes - 1.2.0 (400F) ##
+## Changes - 1.2.0 (400F) 2014-10-16 ##
 
 ### New ###
 
@@ -373,19 +373,19 @@ This release requires 10.10.
   * Rebuild and signed Automator actions using Xcode 6
   * New method for running unit tests (#1939)
 
-## Changes - 1.1.3 (4007) ##
+## Changes - 1.1.3 (4007) 2013-11-05 ##
 
 ### Fixed ###
 
   * Fix a bug that prevents the results list from appearing on a second display (#1304, #1667)
 
-## Changes - 1.1.2 (4006) ##
+## Changes - 1.1.2 (4006) 2013-10-04 ##
 
 ### Changed ###
 
   * Correctly handle clipboard contents from 1Password 4 (#1632)
 
-## Changes - 1.1.1 (4005) ##
+## Changes - 1.1.1 (4005) 2013-10-04 ##
 
 ### Fixed ###
 
@@ -396,7 +396,7 @@ This release requires 10.10.
   * Add a method to test for Mavericks (#1591)
   * Allow plug-ins to define which OS version is required and which is unsupported (#1629)
 
-## Changes - 1.1.0 (4004) ##
+## Changes - 1.1.0 (4004) 2013-09-06 ##
 
 This release requires 10.7+ and is 64-bit.
 
@@ -484,7 +484,7 @@ With the release of Quicksilver v1.1.0 we will be celebrating a t-shirt competit
   * Allow arguments to be passed for Objective-C messages (#1530)
   * Removed references to unused frameworks (#1535)
 
-## Changes - 1.0.0 (4000) ##
+## Changes - 1.0.0 (4000) 2013-03-25 ##
 
 This will be the last release to support Mac OS X 10.6 and 32-bit mode.
 
@@ -553,7 +553,7 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * Removed some unused code related to Event Triggers (#1300)
   * Better logging of exceptions in Debug mode (#1201, 1357)
 
-## Changes - ß71 (3942) ##
+## Changes - ß71 (3942) 2013-01-16 ##
 
 ### New ###
 
@@ -649,7 +649,7 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
 
 [hidden]: http://qsapp.com/wiki/Hidden_Defaults
 
-## Changes - ß70 (3935) ##
+## Changes - ß70 (3935) 2012-09-10 ##
 
 ### New ###
 
@@ -690,8 +690,8 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074, #1088, #1091)
   * New `relatedPaths` key. Plug-ins can now be recommended based on the existence of a file or directory. (#1001, #1079)
 
-Changes - ß69 (3932)
---------------------
+Changes - ß69 (3932) 2012-07-20
+-------------------------------
 
   * NEW: Quicksilver is now 64-bit
   * NEW: Graceful handling of plug-ins with no 64-bit support (#936, #968, #970, #979)
@@ -727,7 +727,7 @@ Changes - ß69 (3932)
   * CHANGE: Toggle action no longer hides background applications (#939)
   * CHANGE: Plug-ins can progrmatically set file types supported by actions (#958)
 
-Changes - ß68 (3928)
+Changes - ß68 (3928) 2012-05-14
 -------
 
   * NEW: Better management of plugins. Automatic replacement and removal of obsolete plugins. (#764, #875)
@@ -768,7 +768,7 @@ Changes - ß68 (3928)
   * FIX: Typo in the setup routine (#876)
   * FIX: update the year in the About panel (#881)
 
-Changes - ß67 (3925)
+Changes - ß67 (3925) 2012-04-16 
 -------
 
    * NEW: Running applications and processes are monitored in real time (improves use of 'Quit' actions and application proxy objects) (#575)
@@ -818,7 +818,7 @@ Changes - ß67 (3925)
    * CHANGE: Make the 'Unsure Quit' dialogue a hidden preference (#788)
 
 
-Changes - ß66 (3923)
+Changes - ß66 (3923) 2012-03-25
 -------
 
    * NEW: Quick Look support. Quick look files or URLs (including proxy objects) from Quicksilver using ⌘Y, ⌘⌥Y or ␣ (spacebar - set in preferences) #23, #115 #660, #715
@@ -836,7 +836,7 @@ Changes - ß66 (3923)
    * FIX: Prevent Quicksilver from freezing and ignoring input on login #580
 
 
-Changes - ß65 (3920)
+Changes - ß65 (3920) 2012-02-17
 -------
 
    * FIX: Honour 'jump to action' preference when grabbing objects using the 'Get Selection' service #643
@@ -859,13 +859,13 @@ Changes - ß65 (3920)
    
    * CHANGE: Development settings and CHANGELOG creation method #599 #658
    
-Changes - ß64 (3915)
+Changes - ß64 (3915) 2012-02-02
 -------
 
    * FIX: Honour the 'show icon in dock' preference if not set #669
 
 
-Changes - ß64 (3913)
+Changes - ß64 (3913) 2012-02-02
 -------
 
   * FIX: Prevent all plug-ins from being deleted on launch
@@ -892,7 +892,7 @@ Changes - ß64 (3913)
   
   * CHANGE: Updated QSDroplet icon to reflect the new style
 
-Changes - ß63 (3912)
+Changes - ß63 (3912) 2011-11-22
 -------
 
   * FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased
@@ -903,7 +903,7 @@ Changes - ß63 (3912)
   
   * FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue #585)
 
-Changes - ß62 (3901)
+Changes - ß62 (3901) 2011-11-10
 -------
   
   * CHANGE: So called "advanced features" are now just on all the time (Issues #479, #341)
@@ -936,7 +936,7 @@ Changes - ß62 (3901)
   
   * FIX: Respect the preference to NOT check for updates (Issue #560)
 
-Changes - ß61 (3900)
+Changes - ß61 (3900) 2011-10-23
 -------
 
   * NEW: Quicksilver is now 10.6+ (Snow Leopard or higher) only
@@ -1050,7 +1050,7 @@ Changes - ß61 (3900)
   * PLUGIN: Improvements to the calculator plugin. Now displays the results in realtime
   
 
-Changes - ß60 (3850)
+Changes - ß60 (3850) 2011-06-05
 -------
 
   * PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins
@@ -1192,7 +1192,7 @@ Special thanks to:
 Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )
 
 
-Changes - ß59(3842)
+Changes - ß59(3842) 2011-04-16
 -------
   
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
