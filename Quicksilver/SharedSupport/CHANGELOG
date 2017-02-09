@@ -1,4 +1,4 @@
-## Changes - 1.5.2 (401D) ##
+## Changes - 1.5.2 (401D) 2017-01-18 ##
 
 ### Fixed ###
 
@@ -7,7 +7,7 @@
   * When creating a collection with the comma trick, ⌫ will clear the selection even if it hasn't been added to the collection (#2308)
   * Performance improvements (#2303)
 
-## Changes - 1.5.1 (401C) ##
+## Changes - 1.5.1 (401C) 2016-12-24 ##
 
 This release requires 10.10.
 
@@ -61,7 +61,7 @@ This release requires 10.10.
   * Deployment target changed to 10.10 (#2295)
   * Deployment for *most* NIBs changed to track the project's deployment target (#2295)
 
-## Changes - 1.4.2 (401A) ##
+## Changes - 1.4.2 (401A) 2016-06-21 ##
 
 ### Fixed ###
 
@@ -73,7 +73,7 @@ This release requires 10.10.
 
   * The Toggle Application action is enabled by default (#2215)
 
-## Changes - 1.4.1 (4019) ##
+## Changes - 1.4.1 (4019) 2016-04-13 ##
 
 ### New ###
 
