@@ -104,7 +104,7 @@ NSSize QSMaxIconSize;
 		}
 	} else {
 		for(NSString *key in data) {
-			if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
+			if (![[data objectForKey:key] isEqual:[anObject->data objectForKey:key]]) return NO;
 		}
 	}
 	return YES;
