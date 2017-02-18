@@ -114,12 +114,6 @@
     <string>Comandos Internos</string>
     <key>QSPresetInternalObjects</key>
     <string>Objetos Internos</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Marcadores de Internet Explorer</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Historia de Internet Explorer</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

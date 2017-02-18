@@ -114,12 +114,6 @@
     <string>Polecenia wewnętrzne</string>
     <key>QSPresetInternalObjects</key>
     <string>Objekty wewnętrzne</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Zakładki Internet Explorera</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Historia Internet Explorera</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

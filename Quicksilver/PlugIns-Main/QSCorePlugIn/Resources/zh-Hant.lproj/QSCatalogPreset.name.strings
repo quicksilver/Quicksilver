@@ -114,12 +114,6 @@
     <string>內部指令</string>
     <key>QSPresetInternalObjects</key>
     <string>內部物件</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorer 書籤</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer 瀏覽紀錄</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

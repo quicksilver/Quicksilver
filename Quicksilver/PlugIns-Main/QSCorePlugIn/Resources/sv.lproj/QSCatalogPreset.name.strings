@@ -114,12 +114,6 @@
     <string>Interna kommandon</string>
     <key>QSPresetInternalObjects</key>
     <string>Interna objekt</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorers bokmärken</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer-historik</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

@@ -114,12 +114,6 @@
     <string>Внутренние команды</string>
     <key>QSPresetInternalObjects</key>
     <string>Внутренние объекты</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Закладки Internet Explorer</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>История Internet Explorer</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

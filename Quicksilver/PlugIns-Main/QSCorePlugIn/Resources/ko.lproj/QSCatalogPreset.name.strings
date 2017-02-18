@@ -114,12 +114,6 @@
     <string>내부 명령</string>
     <key>QSPresetInternalObjects</key>
     <string>내부 객체</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorer 책갈피</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer 방문 기록</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>
