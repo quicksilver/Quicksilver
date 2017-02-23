@@ -197,7 +197,7 @@
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	}
 	if ([[self window] isVisible] && ![[self window] attachedSheet]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self];
 		[[self window] makeFirstResponder:nil];
 	}
     // Close the Quicklook panel if the QS window closes
@@ -681,7 +681,7 @@
 #pragma mark IBActions
 - (IBAction)showInterface:(id)sender {
 	 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceActivatedNotification object:self];
 	[self showMainWindow:self];
 }
 
