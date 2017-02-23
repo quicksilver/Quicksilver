@@ -35,7 +35,7 @@
 - (NSObject <QSProxyObjectProvider> *)proxyProvider;
 - (QSObject*)proxyObject;
 
-- (void)releaseProxy;
+- (void)releaseProxy:(NSNotification *)notif;
 
 - (BOOL)bypassValidation;
 - (NSArray *)proxyTypes;
