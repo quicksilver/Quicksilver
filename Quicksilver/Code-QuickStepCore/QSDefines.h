@@ -162,4 +162,8 @@
  *  E.g. if 10.7 is specified, 10.6.8, 10.6.9... would all be supported
  */
 #define kPluginRequirementsOSUnsupportedVersion @"osUnsupported"
-
+/**
+ *  Type: string
+ *  Key to the reason the interface was hidden/deactivated
+ */
+#define kQSInterfaceDeactivatedReason @"deactivate reason"

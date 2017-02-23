@@ -197,7 +197,6 @@
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	}
 	if ([[self window] isVisible] && ![[self window] attachedSheet]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self];
 		[[self window] makeFirstResponder:nil];
 	}
     // Close the Quicklook panel if the QS window closes
@@ -232,20 +231,24 @@
 }
 
 - (void)hideMainWindow:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self];
 	[self hideMainWindowWithEffect:nil];
 }
 
 - (void)hideMainWindowFromExecution:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self userInfo:@{kQSInterfaceDeactivatedReason: @"execution"}];
 	[self hideMainWindowWithEffect:
      [[self window] windowPropertyForKey:kQSWindowExecEffect]];
 }
 
 - (void)hideMainWindowFromCancel:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self userInfo:@{kQSInterfaceDeactivatedReason: @"cancel"}];
 	[self hideMainWindowWithEffect:
      [[self window] windowPropertyForKey:kQSWindowCancelEffect]];
 }
 
 - (void)hideMainWindowFromFade:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self userInfo:@{kQSInterfaceDeactivatedReason: @"fade"}];
 	if ([[self window] respondsToSelector:@selector(windowPropertyForKey:)])
 		[self hideMainWindowWithEffect:
          [[self window] windowPropertyForKey:kQSWindowFadeEffect]];
