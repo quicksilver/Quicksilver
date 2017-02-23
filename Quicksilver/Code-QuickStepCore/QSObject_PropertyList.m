@@ -96,7 +96,7 @@
 
     // Check immediately if we already have loaded that object
     // ***warning  * should this update the name for files?
-    id dup = [QSLib objectWithIdentifier:self.identifier];
+    id dup = [QSLib objectWithIdentifier:identifier];
     if (dup) return dup;
 
     // Backwards compatibility: make sure all dict keys are UTIs (where applicable)
