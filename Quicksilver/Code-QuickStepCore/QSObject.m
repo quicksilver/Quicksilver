@@ -79,10 +79,7 @@ NSSize QSMaxIconSize;
 
 - (NSUInteger)hash
 {
-	if (!identifier) {
-		return (NSUInteger)self;
-	}
-	return [identifier hash];
+	return identifier.hash ^ data.hash;
 }
 
 - (BOOL)isEqual:(QSObject *)anObject {
@@ -92,7 +89,9 @@ NSSize QSMaxIconSize;
 	}
 	if (self == anObject) return YES;
 	NSString *otherIdentifier = anObject->identifier;
-	if ((identifier || otherIdentifier) && ![identifier isEqualToString:otherIdentifier]) return NO;
+	if ((identifier || otherIdentifier) && [identifier isEqualToString:otherIdentifier]) {
+		return YES;
+	}
 	if ([self count] > 1) {
 		if ([self count] != [anObject count]) {
 			return NO;
@@ -103,8 +102,8 @@ NSSize QSMaxIconSize;
 			return NO;
 		}
 	} else {
-		for(NSString *key in data) {
-			if (![[data objectForKey:key] isEqual:[anObject->data objectForKey:key]]) return NO;
+		if (![data isEqualToDictionary:anObject->data]) {
+			return NO;
 		}
 	}
 	return YES;
@@ -397,9 +396,6 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForType:(id)aKey {
-	//	if ([aKey isEqualToString:NSFilenamesPboardType]) return [self arrayForType:QSFilePathType];
-	//	if ([aKey isEqualToString:NSStringPboardType]) return [self objectForType:QSTextType];
-	//	if ([aKey isEqualToString:NSURLPboardType]) return [self objectForType:QSURLType];
 	id object = [self _safeObjectForType:aKey];
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([(NSArray *) object count] == 1) return [object lastObject];
