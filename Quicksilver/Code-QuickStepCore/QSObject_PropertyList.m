@@ -99,19 +99,6 @@
     id dup = [QSLib objectWithIdentifier:identifier];
     if (dup) return dup;
 
-    // Backwards compatibility: make sure all dict keys are UTIs (where applicable)
-    for (NSMutableDictionary *dict in @[data, meta]) {
-        // Create a temp dict to add any new UTI key/value pairs to. We can't add them directly to data/meta in the enumerate block (cannot mutate whilst enumerating)
-        NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
-        [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-            NSString *UTIString = QSUTIForAnyTypeString(key);
-            if (UTIString && ![key isEqualToString:UTIString]) {
-                [tempDict setObject:obj forKey:UTIString];
-            }
-        }];
-        [dict addEntriesFromDictionary:tempDict];
-    }
-
     if ([self containsType:QSFilePathType] || [self containsType:NSFilenamesPboardType]) {
         [self changeFilesToPaths];
     }
