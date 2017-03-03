@@ -1,3 +1,23 @@
+## Changes - 1.5.3 (401E) 2017-03-03 ##
+
+### New ###
+
+  * Commands scheduled using "Run at Time…" and "Run after Delay…" can be viewed and cancelled in the Task Viewer (#1767, #2247)
+
+### Fixed ###
+
+  * Various performance enhancements to prevent Quicksilver from freezing (#2312)
+  * Proxy objects should refresh as needed instead of after a delay (#2322)
+  * Strings in commands saved to disk should preserve their value instead of getting replaced by an internal identifier (#2306, #2325)
+
+### Changed ###
+
+  * Removed support for Internet Explorer (#2320)
+
+### Development ###
+
+  * The notification sent when the interface is dismissed will now include a reason for the dismissal. The reason will be available in `userInfo[kQSInterfaceDeactivatedReason]`. Possible values are "execution", "cancel", and "fade". (#2322)
+
 ## Changes - 1.5.2 (401D) 2017-01-18 ##
 
 ### Fixed ###
