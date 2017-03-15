@@ -185,24 +185,49 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
-	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
-	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+	NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])];
+	[self createTaskToRun:(QSCommand *)dObject atTime:fireDate];
 	return nil;
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject atTime:(QSObject *)iObject {
 	NSDate *date = [NSDate dateWithNaturalLanguageString:[iObject stringValue]];
 	if (!date) { NSBeep(); return nil; }
-	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
-	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+	[self createTaskToRun:(QSCommand *)dObject atTime:date];
 	return nil;
 }
 
 - (void)runCommand:(NSTimer *)timer {
-	[(QSCommand*)[timer userInfo] execute];
+	QSCommand *command = [timer userInfo][@"command"];
+	QSTask *task = [timer userInfo][@"task"];
+	[command execute];
+	[task stop];
 	[timer invalidate];
 }
 
+- (void)createTaskToRun:(QSCommand *)command atTime:(NSDate *)fireDate
+{
+	NSString *taskID = [[NSUUID UUID] UUIDString];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+	QSTask *delayedTask = [QSTask taskWithIdentifier:taskID];
+	[delayedTask setName:[command displayName]];
+	[delayedTask setIcon:[command icon]];
+	[delayedTask setShowProgress:NO];
+	NSDictionary *userInfo = @{
+		@"command": command,
+		@"task": delayedTask,
+	};
+	NSString *taskStatus = [NSString stringWithFormat:@"Will run at %@", [dateFormatter stringFromDate:fireDate]];
+	[delayedTask setStatus:taskStatus];
+	NSTimer *timer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(runCommand:) userInfo:userInfo repeats:NO];
+	[delayedTask setCancelBlock:^(void){
+		[timer invalidate];
+	}];
+	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+	[delayedTask start];
+}
 @end
 
 @implementation QSCommand
