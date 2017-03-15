@@ -114,12 +114,6 @@
     <string>Vnitřní příkazy</string>
     <key>QSPresetInternalObjects</key>
     <string>Vnitřní objekty</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Záložky Internet Explorer</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Historie Internet Explorer</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>

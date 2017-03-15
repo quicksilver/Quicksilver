@@ -114,12 +114,6 @@
     <string>Interne Befehle</string>
     <key>QSPresetInternalObjects</key>
     <string>Interne Objekte</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorer Lesezeichen</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer Verlauf</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>
