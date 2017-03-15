@@ -46,12 +46,12 @@
 		/* tiennou: Those look unused. If they aren't, change them to extern NSStrings */
 		[nc addObserver:self
 			   selector:@selector(interfaceActivated)
-				   name:@"InterfaceActivated"
+				   name:QSInterfaceActivatedNotification
 				 object:nil];
 
 		[nc addObserver:self
 			   selector:@selector(interfaceDeactivated)
-				   name:@"InterfaceDeactivated"
+				   name:QSInterfaceDeactivatedNotification
 				 object:nil];
 	}
 	return self;
@@ -60,8 +60,8 @@
 - (void)dealloc {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:QSActiveApplicationChanged object:nil];
-	[nc removeObserver:self name:@"InterfaceActivated" object:nil];
-	[nc removeObserver:self name:@"InterfaceDeactivated" object:nil];
+	[nc removeObserver:self name:QSInterfaceActivatedNotification object:nil];
+	[nc removeObserver:self name:QSInterfaceDeactivatedNotification object:nil];
 	triggers = nil;
 	triggersDict = nil;
 }
