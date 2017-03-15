@@ -44,17 +44,16 @@ NSSize QSMaxIconSize;
         tempChildSet = [childLoadedSet copy];
     }
 
-    [tempIconSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
-            [obj unloadIcon];
-        }
-    }];
-
-    [tempChildSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
-            [obj unloadChildren];
-        }
-    }];
+	for (QSObject *obj in tempIconSet) {
+		if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
+			[obj unloadIcon];
+		}
+	}
+	for (QSObject *obj in tempChildSet) {
+		if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
+			[obj unloadChildren];
+		}
+	}
 }
 
 + (void)interfaceChanged {
@@ -80,21 +79,21 @@ NSSize QSMaxIconSize;
 
 - (NSUInteger)hash
 {
-	NSString *ident = [self identifier];
-	if (!ident) {
-		ident = [self stringValue];
-	}
-	return [ident hash];
+	return identifier.hash ^ data.hash;
 }
 
-- (BOOL)isEqual:(id)anObject {
-  if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
-    anObject = [anObject object];
-  }
+- (BOOL)isEqual:(QSObject *)anObject {
+	if (!anObject) return NO;
+	if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
+		anObject = [(QSRankedObject *)anObject object];
+	}
 	if (self == anObject) return YES;
-	if (([self identifier] || [anObject identifier]) && ![[self identifier] isEqualToString:[anObject identifier]]) return NO;
+	NSString *otherIdentifier = anObject->identifier;
+	if ((identifier || otherIdentifier) && [identifier isEqualToString:otherIdentifier]) {
+		return YES;
+	}
 	if ([self count] > 1) {
-		if ([self count] != [(QSObject *)anObject count]) {
+		if ([self count] != [anObject count]) {
 			return NO;
 		}
 		NSSet *myObjects = [NSSet setWithArray:[self splitObjects]];
@@ -103,8 +102,8 @@ NSSize QSMaxIconSize;
 			return NO;
 		}
 	} else {
-		for(NSString *key in data) {
-			if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
+		if (![data isEqualToDictionary:anObject->data]) {
+			return NO;
 		}
 	}
 	return YES;
@@ -397,9 +396,6 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForType:(id)aKey {
-	//	if ([aKey isEqualToString:NSFilenamesPboardType]) return [self arrayForType:QSFilePathType];
-	//	if ([aKey isEqualToString:NSStringPboardType]) return [self objectForType:QSTextType];
-	//	if ([aKey isEqualToString:NSURLPboardType]) return [self objectForType:QSURLType];
 	id object = [self _safeObjectForType:aKey];
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([(NSArray *) object count] == 1) return [object lastObject];
@@ -764,16 +760,22 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)primaryType {
+	if (primaryType) {
+		return primaryType;
+	}
     if (!primaryType)
         primaryType = [meta objectForKey:kQSObjectPrimaryType];
 	if (!primaryType)
 		primaryType = [self guessPrimaryType];
-    return QSUTIForAnyTypeString(primaryType);
+	if (primaryType)
+		[self setPrimaryType:primaryType];
+	return primaryType;
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
     if (primaryType != newPrimaryType) {
         primaryType = newPrimaryType;
     }
+	newPrimaryType = QSUTIForAnyTypeString(newPrimaryType);
     [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
