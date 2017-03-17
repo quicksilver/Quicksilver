@@ -876,7 +876,8 @@ static QSController *defaultController = nil;
 	[QSExecutor sharedInstance];
 	[QSTaskController sharedInstance];
 	[QSUpdateController sharedInstance];
-
+	[NSApp setAutomaticCustomizeTouchBarMenuItemEnabled:YES];
+	
 #ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Library loaded");

@@ -217,4 +217,56 @@
 - (void)setCollectionSpace:(CGFloat)value {
 	collectionSpace = value;
 }
+
+#pragma mark -
+#pragma mark Touch Bar
+
+static NSTouchBarItemIdentifier QSCollectionItemIdentifier = @"QSCollectionGroup";
+static NSTouchBarItemIdentifier QSExplodeCollectionItemIdentifier = @"QSExplodeCollection";
+static NSTouchBarItemIdentifier QSCollectionRemoveItemIdentifier = @"QSCollectionRemoveItem";
+
+- (NSTouchBar *)makeTouchBar
+{
+	NSTouchBar *touchBar = [super makeTouchBar];
+	NSArray *collectionIdentifiers = @[
+		QSCollectionItemIdentifier,
+		QSExplodeCollectionItemIdentifier,
+		QSCollectionRemoveItemIdentifier,
+	];
+	touchBar.customizationAllowedItemIdentifiers = [touchBar.customizationAllowedItemIdentifiers arrayByAddingObjectsFromArray:collectionIdentifiers];
+	return touchBar;
+}
+
+- (nullable NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+	BOOL collectionSelected = ([collection count] > 0);
+	if ([identifier isEqualToString:QSCollectionItemIdentifier]) {
+		NSButton *backButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarGoBackTemplate] target:self action:@selector(goBackwardInCollection:)];
+		NSCustomTouchBarItem *back = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSCollectionBack"];
+		back.view = backButton;
+		backButton.enabled = (collectionSelected);
+		NSButton *forwardButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarGoForwardTemplate] target:self action:@selector(goForwardInCollection:)];
+		NSCustomTouchBarItem *forward = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSCollectionForward"];
+		forward.view = forwardButton;
+		forwardButton.enabled = collectionSelected;
+		NSGroupTouchBarItem *collectionGroup = [NSGroupTouchBarItem groupItemWithIdentifier:QSCollectionItemIdentifier items:@[back, forward]];
+		collectionGroup.customizationLabel = NSLocalizedString(@"Collection", @"");
+		return collectionGroup;
+	} else if ([identifier isEqualToString:QSExplodeCollectionItemIdentifier]) {
+		NSButton *explodeButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarListViewTemplate] target:self action:@selector(explodeCombinedObject)];
+		NSCustomTouchBarItem *explodeCollection = [[NSCustomTouchBarItem alloc] initWithIdentifier:QSExplodeCollectionItemIdentifier];
+		explodeCollection.view = explodeButton;
+		explodeButton.enabled = collectionSelected;
+		explodeCollection.customizationLabel = NSLocalizedString(@"Explode Collection", @"");
+		return explodeCollection;
+	} else if ([identifier isEqualToString:QSCollectionRemoveItemIdentifier]) {
+		NSButton *removeButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarDeleteTemplate] target:self action:@selector(uncollectLast:)];
+		NSCustomTouchBarItem *removeFromCollection = [[NSCustomTouchBarItem alloc] initWithIdentifier:QSCollectionRemoveItemIdentifier];
+		removeFromCollection.view = removeButton;
+		removeButton.enabled = collectionSelected;
+		removeFromCollection.customizationLabel = NSLocalizedString(@"Remove Last Item", @"");
+		return removeFromCollection;
+	}
+	return [super touchBar:touchBar makeItemForIdentifier:identifier];
+}
 @end

@@ -551,6 +551,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+		self.touchBar = nil;
 	}
 }
 
@@ -950,6 +951,11 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)setTextCellFontColor:(NSColor *)newCellColor
 {
     textCellFontColor = newCellColor;
+}
+
+- (void)selectProxyObject
+{
+	[self selectObjectValue:[[self objectValue] resolvedObject]];
 }
 
 #pragma mark -
@@ -1734,6 +1740,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 	if ([historyArray count] >MAX_HISTORY_COUNT) [historyArray removeLastObject];
 //	if (VERBOSE) NSLog(@"history %d items", [historyArray count]);
+	self.touchBar = nil;
 }
 
 - (void)goForward:(id)sender {
@@ -2064,6 +2071,117 @@ NSMutableDictionary *bindingsDict = nil;
     rect.origin.x += self.frame.origin.x;
     return [[self window] convertRectToScreen:rect];
 ;
+}
+
+#pragma mark -
+#pragma mark Touch Bar
+
+static NSTouchBarItemIdentifier DismissQSItemIdentifier = @"QSDismissInterface";
+static NSTouchBarItemIdentifier QSHistoryItemIdentifier = @"QSHistory";
+static NSTouchBarItemIdentifier TaskViewerItemIdentifier = @"QSShowTaskViewer";
+static NSTouchBarItemIdentifier GrabSelectionItemIdentifier = @"QSGrabSelection";
+static NSTouchBarItemIdentifier GrabAndDropItemIdentifier = @"QSGrabAndDrop";
+static NSTouchBarItemIdentifier ShowShelfItemIdentifier = @"QSShowShelf";
+static NSTouchBarItemIdentifier ShowClipboardItemIdentifier = @"QSShowClipboard";
+static NSTouchBarItemIdentifier RecentCommandsItemIdentifier = @"QSRecentCommands";
+static NSTouchBarItemIdentifier QuickLookItemIdentifier = @"QSQuickLook";
+static NSTouchBarItemIdentifier ClearInterfaceItemIdentifier = @"QSClearInterface";
+static NSTouchBarItemIdentifier ExecuteItemIdentifier = @"QSExecuteCommand";
+static NSTouchBarItemIdentifier ExecuteAlternateItemIdentifier = @"QSExecuteAlternate";
+static NSTouchBarItemIdentifier EncapsulateItemIdentifier = @"QSEncapsulate";
+static NSTouchBarItemIdentifier CollectItemIdentifier = @"QSCollectObject";
+static NSTouchBarItemIdentifier SelectAllItemIdentifier = @"QSSelectAll";
+static NSTouchBarItemIdentifier PasteObjectItemIdentifier = @"QSPasteObject";
+static NSTouchBarItemIdentifier ProxyTargetItemIdentifier = @"QSProxyTarget";
+static NSTouchBarItemIdentifier ResolveProxyItemIdentifier = @"QSResolveProxy";
+static NSTouchBarItemIdentifier ExplodeCollectionItemIdentifier = @"QSExplodeCollection";
+static NSTouchBarItemIdentifier CollectionNavigationItemIdentifier = @"QSCollectionNav";
+static NSTouchBarItemIdentifier RemoveFromCollectionItemIdentifier = @"QSRemoveFromCollection";
+
+- (NSTouchBar *)makeTouchBar
+{
+	NSTouchBar *touchBar = [[NSTouchBar alloc] init];
+	touchBar.delegate = self;
+	touchBar.customizationIdentifier = @"com.qsapp.quicksilver.mainTouchBar";
+	touchBar.defaultItemIdentifiers = @[
+		ClearInterfaceItemIdentifier,
+		QSHistoryItemIdentifier,
+		GrabSelectionItemIdentifier,
+		QuickLookItemIdentifier,
+		ProxyTargetItemIdentifier,
+	];
+	touchBar.customizationAllowedItemIdentifiers = @[
+		ClearInterfaceItemIdentifier,
+		QSHistoryItemIdentifier,
+		GrabSelectionItemIdentifier,
+		QuickLookItemIdentifier,
+		ProxyTargetItemIdentifier,
+		TaskViewerItemIdentifier,
+		NSTouchBarItemIdentifierFlexibleSpace,
+	];
+//	touchBar.escapeKeyReplacementItemIdentifier = DismissQSItemIdentifier;
+	return touchBar;
+}
+
+- (nullable NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+	BOOL somethingIsSelected = ([self objectValue] != nil);
+	if ([identifier isEqualToString:QSHistoryItemIdentifier]) {
+		NSButton *backButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarGoBackTemplate] target:self action:@selector(goBackward:)];
+		NSCustomTouchBarItem *back = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSHistoryBack"];
+		back.view = backButton;
+		backButton.enabled = (historyIndex + 1 < (NSInteger)[historyArray count]);
+		NSButton *forwardButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarGoForwardTemplate] target:self action:@selector(goForward:)];
+		NSCustomTouchBarItem *forward = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSHistoryForward"];
+		forward.view = forwardButton;
+		forwardButton.enabled = (historyIndex > 0);
+		NSGroupTouchBarItem *historyGroup = [NSGroupTouchBarItem groupItemWithIdentifier:QSHistoryItemIdentifier items:@[back, forward]];
+		historyGroup.customizationLabel = NSLocalizedString(@"History", @"");
+//		NSTouchBar *historyBar = [[NSTouchBar alloc] init];
+//		historyBar.defaultItemIdentifiers = @[@"QSHistoryBack", @"QSHistoryForward"];
+//		historyGroup.groupTouchBar = historyBar;
+		return historyGroup;
+	} else if ([identifier isEqualToString:TaskViewerItemIdentifier]) {
+		NSButton *taskViewerButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarTextListTemplate] target:self.controller action:@selector(showTasks:)];
+		NSCustomTouchBarItem *showTasks = [[NSCustomTouchBarItem alloc] initWithIdentifier:TaskViewerItemIdentifier];
+		showTasks.view = taskViewerButton;
+		showTasks.customizationLabel = NSLocalizedString(@"Task Viewer", @"");
+		return showTasks;
+	} else if ([identifier isEqualToString:GrabSelectionItemIdentifier]) {
+		NSButton *grabButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarAddTemplate] target:self action:@selector(grabSelection:)];
+		NSCustomTouchBarItem *grabSelection = [[NSCustomTouchBarItem alloc] initWithIdentifier:GrabSelectionItemIdentifier];
+		grabSelection.view = grabButton;
+		grabSelection.customizationLabel = NSLocalizedString(@"Grab Selection", @"");
+		return grabSelection;
+	} else if ([identifier isEqualToString:ClearInterfaceItemIdentifier]) {
+		NSButton *clearButton = [NSButton buttonWithImage:[NSImage imageNamed:@"QuicksilverMenu"] target:self action:@selector(clearObjectValue)];
+		clearButton.enabled = somethingIsSelected;
+		NSCustomTouchBarItem *clearInterface = [[NSCustomTouchBarItem alloc] initWithIdentifier:ClearInterfaceItemIdentifier];
+		clearInterface.view = clearButton;
+		clearInterface.customizationLabel = NSLocalizedString(@"New Search", @"");
+		return clearInterface;
+	} else if ([identifier isEqualToString:QuickLookItemIdentifier]) {
+		NSButton *quickLookButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarQuickLookTemplate] target:self action:@selector(togglePreviewPanel:)];
+		quickLookButton.enabled = (somethingIsSelected && [self canQuicklookCurrentObject]);
+		NSCustomTouchBarItem *quickLook = [[NSCustomTouchBarItem alloc] initWithIdentifier:QuickLookItemIdentifier];
+		quickLook.view = quickLookButton;
+		quickLook.customizationLabel = NSLocalizedString(@"Toggle Quick Look", @"");
+		return quickLook;
+	} else if ([identifier isEqualToString:ProxyTargetItemIdentifier]) {
+		NSButton *showTargetButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarFastForwardTemplate] target:self action:@selector(selectProxyObject)];
+		showTargetButton.enabled = (somethingIsSelected && [[self objectValue] isProxyObject]);
+		NSCustomTouchBarItem *showTarget = [[NSCustomTouchBarItem alloc] initWithIdentifier:ProxyTargetItemIdentifier];
+		showTarget.view = showTargetButton;
+		showTarget.customizationLabel = NSLocalizedString(@"Reveal Proxy", @"");
+		return showTarget;
+	} else if ([identifier isEqualToString:DismissQSItemIdentifier]) {
+		NSButton *escButton = [NSButton buttonWithImage:[NSImage imageNamed:@"QuicksilverMenu"] target:self.controller action:@selector(hideMainWindowFromCancel:)];
+//		escButton.bezelColor = [NSColor purpleColor];
+		NSCustomTouchBarItem *dismissQS = [[NSCustomTouchBarItem alloc] initWithIdentifier:DismissQSItemIdentifier];
+		dismissQS.view = escButton;
+		return dismissQS;
+	}
+	return nil;
 }
 
 @end
