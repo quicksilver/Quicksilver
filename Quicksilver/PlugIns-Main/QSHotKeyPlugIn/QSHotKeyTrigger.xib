@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSHotKeyTriggerManager">
@@ -12,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="HotKey Trigger">
             <rect key="frame" x="0.0" y="0.0" width="320" height="365"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -28,7 +27,7 @@
                         <action selector="set:" target="188" id="191"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="188" customClass="QSHotKeyField">
+                <textField verticalHuggingPriority="750" id="188" customClass="QSHotKeyField">
                     <rect key="frame" x="105" y="324" width="76" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="206">
@@ -41,7 +40,7 @@
                         <outlet property="setButton" destination="189" id="190"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="179">
+                <textField verticalHuggingPriority="750" id="179">
                     <rect key="frame" x="17" y="174" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Display:" id="205">
@@ -61,7 +60,7 @@
                         <binding destination="126" name="value" keyPath="selection.showWindow" id="160"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="117">
+                <textField verticalHuggingPriority="750" id="117">
                     <rect key="frame" x="17" y="210" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Delay:" id="203">
@@ -70,7 +69,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="116">
+                <textField verticalHuggingPriority="750" id="116">
                     <rect key="frame" x="17" y="284" width="62" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Activate:" id="202">
@@ -79,15 +78,11 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="Repeatedly trigger while hotkey is held" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="98">
+                <textField toolTip="Repeatedly trigger while hotkey is held" verticalHuggingPriority="750" id="98">
                     <rect key="frame" x="214" y="262" width="45" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="1.0 s" drawsBackground="YES" id="201">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0.0 s" negativeFormat="-#,##0 s" localizesFormat="NO" thousandSeparator="," id="99">
-                            <attributedString key="attributedStringForNil"/>
-                            <attributedString key="attributedStringForNotANumber">
-                                <fragment content="NaN"/>
-                            </attributedString>
                             <attributedString key="attributedStringForZero">
                                 <fragment content="0 s"/>
                             </attributedString>
@@ -139,15 +134,11 @@
                         <outlet property="nextKeyView" destination="97" id="172"/>
                     </connections>
                 </button>
-                <textField toolTip="Delays activation of the trigger until key is held for at least this long" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="93">
+                <textField toolTip="Delays activation of the trigger until key is held for at least this long" verticalHuggingPriority="750" id="93">
                     <rect key="frame" x="174" y="207" width="45" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="1.0 s" drawsBackground="YES" id="197">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0.0 s" negativeFormat="-#,##0 s" localizesFormat="NO" thousandSeparator="," id="94">
-                            <attributedString key="attributedStringForNil"/>
-                            <attributedString key="attributedStringForNotANumber">
-                                <fragment content="NaN"/>
-                            </attributedString>
                             <attributedString key="attributedStringForZero">
                                 <fragment content="0 s"/>
                             </attributedString>
@@ -175,7 +166,7 @@
                         <outlet property="nextKeyView" destination="93" id="185"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="84">
+                <textField verticalHuggingPriority="750" id="84">
                     <rect key="frame" x="17" y="327" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Shortcut:" id="195">
