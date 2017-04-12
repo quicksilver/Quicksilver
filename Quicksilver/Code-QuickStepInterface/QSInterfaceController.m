@@ -447,7 +447,7 @@
         }
         if ([obj isKindOfClass:[QSRankedObject class]])
             obj = [(QSRankedObject*)obj object];
-        if ([obj isKindOfClass:[QSAction class]]) {
+        if ([obj respondsToSelector:@selector(argumentCount)]) {
             NSInteger argumentCount = [obj argumentCount];
             // update indirects if the action requires it, or if the iSelector is already visible and the action has indirectOptional
             if (argumentCount == 2 || ([[[[self window] contentView] subviews] containsObject:iSelector] && [obj indirectOptional])) {
