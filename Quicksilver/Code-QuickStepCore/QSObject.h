@@ -63,7 +63,7 @@ typedef struct _QSObjectFlags {
 
 	NSMutableDictionary *	meta; 		//Name, Label, Type, Identifier, Source, embedded details
 	NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
-	NSMutableDictionary *	cache; 		//Icons, children, alias data,
+	QSThreadSafeMutableDictionary *cache; 		//Icons, children, alias data,
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
@@ -105,7 +105,7 @@ typedef struct _QSObjectFlags {
 
 - (void)setDetails:(NSString *)newDetails;
 
-- (NSMutableDictionary *)cache;
+- (QSThreadSafeMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;

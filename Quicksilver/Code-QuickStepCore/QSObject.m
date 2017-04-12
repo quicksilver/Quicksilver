@@ -469,13 +469,13 @@ NSSize QSMaxIconSize;
     }
 }
 
-- (NSMutableDictionary *)cache {
+- (QSThreadSafeMutableDictionary *)cache {
 	if (!cache) [self setCache:[NSMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
 }
 - (void)setCache:(NSMutableDictionary *)aCache {
 	if (cache != aCache) {
-		cache = aCache;
+		cache = [QSThreadSafeMutableDictionary dictionaryWithDictionary:aCache];
 	}
 }
 
