@@ -20,7 +20,7 @@ extern QSRegistry *QSReg; // Registry shared instance
 	QSThreadSafeMutableDictionary *classInstances; //Dictionary of class instances by name
 	NSMutableDictionary *classBundles; //Bundles containing registered classes
 	NSMutableDictionary *identifierBundles; //Bundles by identifier
-	NSMutableDictionary *prefInstances; //Preferred Instances of tables
+	QSThreadSafeMutableDictionary *prefInstances; //Preferred Instances of tables
 	NSMutableDictionary *infoRegistry; //Plists containing various plugin information
 
 	BOOL initialLoadComplete;
