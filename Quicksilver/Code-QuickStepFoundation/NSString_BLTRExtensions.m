@@ -77,7 +77,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 							score -= 0.15;
 					}
 				} else {
-					score -= matchedRange.location-searchRange.location;
+					score -= (matchedRange.location-searchRange.location)/2;
 				}
 			}
 			score += remainingScore*remainingSearchRange.length;

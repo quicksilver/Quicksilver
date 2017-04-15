@@ -50,13 +50,13 @@ const float ACC = 0.00001;
 	XCTAssertEqualWithAccuracy(score, 0.90909, ACC);
 
 	score = [str scoreForAbbreviation:@"ts"];
-	XCTAssertEqualWithAccuracy(score, 0.83636, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.92727, ACC);
 
 	score = [str scoreForAbbreviation:@"te"];
 	XCTAssertEqualWithAccuracy(score, 0.91818, ACC);
 
 	score = [str scoreForAbbreviation:@"tet"];
-	XCTAssertEqualWithAccuracy(score, 0.84545, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.93636, ACC);
 
 	score = [str scoreForAbbreviation:@"str"];
 	XCTAssertEqualWithAccuracy(score, 0.91818, ACC);
@@ -65,7 +65,7 @@ const float ACC = 0.00001;
 	XCTAssertEqualWithAccuracy(score, 0.93181, ACC);
 
 	score = [str scoreForAbbreviation:@"ng"];
-	XCTAssertEqualWithAccuracy(score, 0.18181, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.63636, ACC);
 }
 
 - (void)testScoreLongString {
@@ -108,13 +108,13 @@ const float ACC = 0.00001;
 	XCTAssertEqualWithAccuracy(score, 0.90222, ACC);
 
 	score = [str scoreForAbbreviation:@"ts"];
-	XCTAssertEqualWithAccuracy(score, 0.86444, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.88666, ACC);
 
 	score = [str scoreForAbbreviation:@"te"];
 	XCTAssertEqualWithAccuracy(score, 0.80777, ACC);
 
 	score = [str scoreForAbbreviation:@"tet"];
-	XCTAssertEqualWithAccuracy(score, 0.79000, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.81222, ACC);
 
 	score = [str scoreForAbbreviation:@"str"];
 	XCTAssertEqualWithAccuracy(score, 0.78555, ACC);
@@ -129,7 +129,7 @@ const float ACC = 0.00001;
 	XCTAssertEqualWithAccuracy(score, 0.75888, ACC);
 
 	score = [str scoreForAbbreviation:@"ng"];
-	XCTAssertEqualWithAccuracy(score, 0.52444, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.74666, ACC);
 }
 
 - (void)testLongString {
@@ -213,25 +213,25 @@ const float ACC = 0.00001;
 
 	strRange.length += STEP;
 	score = [str scoreForAbbreviation:abbr inRange:strRange fromRange:abbrRange hitMask:indexes];
-	XCTAssertEqualWithAccuracy(score, 0.58846, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.74230, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
 	score = [str scoreForAbbreviation:abbr inRange:strRange fromRange:abbrRange hitMask:indexes];
-	XCTAssertEqualWithAccuracy(score, 0.51279, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.69883, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
 	score = [str scoreForAbbreviation:abbr inRange:strRange fromRange:abbrRange hitMask:indexes];
-	XCTAssertEqualWithAccuracy(score, 0.54574, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.71595, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
 	score = [str scoreForAbbreviation:abbr inRange:strRange fromRange:abbrRange hitMask:indexes];
-	XCTAssertEqualWithAccuracy(score, 0.57352, ACC);
+	XCTAssertEqualWithAccuracy(score, 0.73039, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
 }
