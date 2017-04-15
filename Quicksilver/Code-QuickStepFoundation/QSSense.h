@@ -10,3 +10,4 @@
 
 
 CGFloat QSScoreForAbbreviation(CFStringRef string, CFStringRef abbr, id hitMask);
+CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange);

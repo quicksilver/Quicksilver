@@ -158,6 +158,9 @@
 		4DD89F290EBDDBA9005A15AE /* QSNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F200EBDDBA9005A15AE /* QSNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F2A0EBDDBA9005A15AE /* QSPreferenceKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F210EBDDBA9005A15AE /* QSPreferenceKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F2B0EBDDBA9005A15AE /* QSTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F220EBDDBA9005A15AE /* QSTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DF329D61EA2C1C9003CD3CE /* QSSense.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7907B20DD10044D6EF /* QSSense.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DF329D71EA2C1D5003CD3CE /* QSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB7A07B20DD10044D6EF /* QSSense.m */; };
+		4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */; };
 		4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -633,8 +636,6 @@
 		E1E5FBE207B20DD20044D6EF /* QSComputerSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7507B20DD10044D6EF /* QSComputerSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FBE307B20DD20044D6EF /* QSComputerSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB7607B20DD10044D6EF /* QSComputerSource.m */; };
 		E1E5FBE407B20DD20044D6EF /* QSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7707B20DD10044D6EF /* QSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FBE607B20DD20044D6EF /* QSense.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7907B20DD10044D6EF /* QSense.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FBE707B20DD20044D6EF /* QSense.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB7A07B20DD10044D6EF /* QSense.m */; };
 		E1E5FBE807B20DD20044D6EF /* QSExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7B07B20DD10044D6EF /* QSExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FBE907B20DD20044D6EF /* QSExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB7C07B20DD10044D6EF /* QSExecutor.m */; };
 		E1E5FBEA07B20DD20044D6EF /* QSGlobalSelectionProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB7D07B20DD10044D6EF /* QSGlobalSelectionProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1177,6 +1178,7 @@
 		4DD89F200EBDDBA9005A15AE /* QSNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotifications.h; sourceTree = "<group>"; usesTabs = 1; };
 		4DD89F210EBDDBA9005A15AE /* QSPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPreferenceKeys.h; sourceTree = "<group>"; usesTabs = 1; };
 		4DD89F220EBDDBA9005A15AE /* QSTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTypes.h; sourceTree = "<group>"; usesTabs = 1; };
+		4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestQSSense.m; path = "Tests/Tests-QSFoundation/TestQSSense.m"; sourceTree = "<group>"; };
 		4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
 		4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -2185,8 +2187,8 @@
 		E1E5FB7507B20DD10044D6EF /* QSComputerSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSComputerSource.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FB7607B20DD10044D6EF /* QSComputerSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSComputerSource.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FB7707B20DD10044D6EF /* QSCore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCore.h; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FB7907B20DD10044D6EF /* QSense.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSense.h; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FB7A07B20DD10044D6EF /* QSense.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSense.m; sourceTree = "<group>"; usesTabs = 1; };
+		E1E5FB7907B20DD10044D6EF /* QSSense.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSSense.h; sourceTree = "<group>"; usesTabs = 1; };
+		E1E5FB7A07B20DD10044D6EF /* QSSense.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSSense.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FB7B07B20DD10044D6EF /* QSExecutor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSExecutor.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FB7C07B20DD10044D6EF /* QSExecutor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSExecutor.m; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; };
 		E1E5FB7D07B20DD10044D6EF /* QSGlobalSelectionProvider.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSGlobalSelectionProvider.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -2642,6 +2644,7 @@
 			children = (
 				CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */,
 				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
+				4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */,
 			);
 			name = QSFoundationTests;
 			sourceTree = "<group>";
@@ -3194,6 +3197,8 @@
 				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
 				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
 				4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */,
+				E1E5FB7907B20DD10044D6EF /* QSSense.h */,
+				E1E5FB7A07B20DD10044D6EF /* QSSense.m */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
@@ -3306,8 +3311,6 @@
 				4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */,
 				D49399091350078E00B908C6 /* QSDownloads.h */,
 				D493990A1350078E00B908C6 /* QSDownloads.m */,
-				E1E5FB7907B20DD10044D6EF /* QSense.h */,
-				E1E5FB7A07B20DD10044D6EF /* QSense.m */,
 				E1E5FB7B07B20DD10044D6EF /* QSExecutor.h */,
 				E1E5FB7C07B20DD10044D6EF /* QSExecutor.m */,
 				E1E5FB7D07B20DD10044D6EF /* QSGlobalSelectionProvider.h */,
@@ -3600,7 +3603,6 @@
 				E1E5FBE407B20DD20044D6EF /* QSCore.h in Headers */,
 				4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */,
 				4DD89F250EBDDBA9005A15AE /* QSDefines.h in Headers */,
-				E1E5FBE607B20DD20044D6EF /* QSense.h in Headers */,
 				E1E5FBE807B20DD20044D6EF /* QSExecutor.h in Headers */,
 				E1E5FBEA07B20DD20044D6EF /* QSGlobalSelectionProvider.h in Headers */,
 				7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */,
@@ -3772,6 +3774,7 @@
 				CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */,
 				4D66BC25148701EA00351C42 /* NSPathControl+NDAlias.h in Headers */,
 				4D66BC27148701EA00351C42 /* NSSavePanel+NDAlias.h in Headers */,
+				4DF329D61EA2C1C9003CD3CE /* QSSense.h in Headers */,
 				4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */,
 				D4BDCC1F19E7F8F50080710C /* SUExport.h in Headers */,
 				D4BDCC1C19E7F78F0080710C /* SUStandardVersionComparator.h in Headers */,
@@ -4603,6 +4606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */,
 				CD661C5419DBD2F3000F3695 /* TestNSApplicationMethods.m in Sources */,
 				66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */,
 			);
@@ -4691,7 +4695,6 @@
 				E1E5FBDD07B20DD20044D6EF /* QSCollection.m in Sources */,
 				E1E5FBDF07B20DD20044D6EF /* QSCommand.m in Sources */,
 				E1E5FBE307B20DD20044D6EF /* QSComputerSource.m in Sources */,
-				E1E5FBE707B20DD20044D6EF /* QSense.m in Sources */,
 				E1E5FBE907B20DD20044D6EF /* QSExecutor.m in Sources */,
 				E1E5FBEB07B20DD20044D6EF /* QSGlobalSelectionProvider.m in Sources */,
 				4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */,
@@ -4809,6 +4812,7 @@
 				7FDF341907F7D59E00594789 /* NSDictionary+BLTRExtensions.m in Sources */,
 				7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */,
 				E1E5FABC07B204BF0044D6EF /* NSException_TraceExtensions.m in Sources */,
+				4DF329D71EA2C1D5003CD3CE /* QSSense.m in Sources */,
 				E1E5FABE07B204BF0044D6EF /* NSFileManager_BLTRExtensions.m in Sources */,
 				E1E5FAC007B204BF0044D6EF /* NSGeometry_BLTRExtensions.m in Sources */,
 				4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */,
