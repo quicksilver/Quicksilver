@@ -13,16 +13,9 @@ NSAttributedString * highlightString(NSString *string, NSString *keyString);
 NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 @interface NSString (Abbreviation)
-- (CGFloat) scoreForString:(NSString *)string;
-
-- (NSArray *)hitsForString:(NSString *)testString;
-
 - (CGFloat) scoreForAbbreviation:(NSString *)abbreviation;
-//- (float) oldScoreForAbbreviation:(NSString *)abbreviation;
 - (CGFloat) scoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask;
-//- (float) oldScoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask;
 - (CGFloat) scoreForAbbreviation:(NSString *)abbreviation inRange:(NSRange)searchRange fromRange:(NSRange)abbreviationRange hitMask:(NSMutableIndexSet *)mask;
-
 @end
 
 @interface NSAttributedString (Sizing)

@@ -16,6 +16,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 @implementation NSString (Abbreviation)
+/* FIXME: This can be removed sometimes */
 - (CGFloat) scoreForString:(NSString *)testString {
 	CGFloat score = 1;
 	NSInteger i;
@@ -33,15 +34,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	score -= currentRange.length/[testString length];
 	return score;
 }
-
-#if 0
-- (CGFloat) oldScoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask {
-	return [self scoreForAbbreviation:abbreviation inRange:NSMakeRange(0, [self length]) fromRange:NSMakeRange(0, [abbreviation length]) hitMask:mask];
-}
-- (CGFloat) oldScoreForAbbreviation:(NSString *)abbreviation {
-	return [self oldScoreForAbbreviation:abbreviation hitMask:nil];
-}
-#endif
 
 - (CGFloat) scoreForAbbreviation:(NSString *)abbreviation {
 	return [self scoreForAbbreviation:abbreviation hitMask:nil];
@@ -96,6 +88,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	return 0;
 }
 
+/* FIXME: This can be removed sometimes */
 - (NSArray *)hitsForString:(NSString *)testString {
 	NSMutableArray *hitsArray = [NSMutableArray arrayWithCapacity:[self length]];
 	NSUInteger i;
