@@ -66,13 +66,17 @@ NSSize QSMaxIconSize;
 	}
 
 	for (QSObject *obj in tempIconSet) {
-		if (obj->_lastAccess && obj->_lastAccess < (tempLastAccess - interval)) {
-			[obj unloadIcon];
+		@synchronized (obj) {
+			if (obj->_lastAccess && obj->_lastAccess < (tempLastAccess - interval)) {
+				[obj unloadIcon];
+			}
 		}
 	}
 	for (QSObject *obj in tempChildSet) {
-		if (obj->_lastAccess && obj->_lastAccess < (tempLastAccess - interval)) {
-			[obj unloadChildren];
+		@synchronized (obj) {
+			if (obj->_lastAccess && obj->_lastAccess < (tempLastAccess - interval)) {
+				[obj unloadChildren];
+			}
 		}
 	}
 }
@@ -117,7 +121,9 @@ NSSize QSMaxIconSize;
 
 - (NSUInteger)hash
 {
-	return _identifier.hash ^ _data.hash;
+	@synchronized (self) {
+		return _identifier.hash ^ _data.hash;
+	}
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -143,9 +149,12 @@ NSSize QSMaxIconSize;
 		anObject = [(QSRankedObject *)anObject object];
 	}
 	if (self == anObject) return YES;
-	NSString *otherIdentifier = anObject->_identifier;
-	if ((_identifier || otherIdentifier) && [_identifier isEqualToString:otherIdentifier]) {
-		return YES;
+
+	NSString *otherIdentifier = anObject.identifier;
+	@synchronized (self) {
+		if ((_identifier || otherIdentifier) && [_identifier isEqualToString:otherIdentifier]) {
+			return YES;
+		}
 	}
 
 	/* FIXME: This must go live in QSCollection */
@@ -158,11 +167,13 @@ NSSize QSMaxIconSize;
 		if (![myObjects isEqualToSet:otherObjects]) {
 			return NO;
 		}
-	} else {
-		if (![_data isEqualToDictionary:anObject->_data]) {
-			return NO;
-		}
+		return YES;
 	}
+
+	if (![self.data isEqualToDictionary:anObject.data]) {
+		return NO;
+	}
+
 	return YES;
 }
 
@@ -185,19 +196,21 @@ NSSize QSMaxIconSize;
 - (id)copyWithZone:(NSZone *)zone {
 	QSObject *copy = [[[self class] allocWithZone:zone] init];
 
-	copy.name = [_name copy];
-	copy.label = [_label copy];
-	copy.identifier = [_identifier copy];
-	copy.icon = [_icon copy];
-	copy.primaryType = [_primaryType copy];
-	copy.primaryObject = [_primaryObject copy];
+	@synchronized (self) {
+		copy.name = [_name copy];
+		copy.label = [_label copy];
+		copy.identifier = [_identifier copy];
+		copy.icon = [_icon copy];
+		copy.primaryType = [_primaryType copy];
+		copy.primaryObject = [_primaryObject copy];
 
-	copy.meta = [_meta mutableCopy];
-	copy.data = [_data mutableCopy];
-	copy.cache = [_cache mutableCopy];
+		copy.meta = [_meta mutableCopy];
+		copy.data = [_data mutableCopy];
+		copy.cache = [_cache mutableCopy];
 
-	copy->_flags = _flags;
-	copy->_lastAccess = _lastAccess;
+		copy->_flags = _flags;
+		copy->_lastAccess = _lastAccess;
+	}
 
 	return copy;
 }
@@ -424,7 +437,7 @@ NSSize QSMaxIconSize;
 		parent = [handler parentOfObject:self];
 
 	if (!parent)
-		parent = [QSLib objectWithIdentifier:_meta[kQSObjectParentID]];
+		parent = [QSLib objectWithIdentifier:self.meta[kQSObjectParentID]];
 	return parent;
 }
 
@@ -484,14 +497,16 @@ NSSize QSMaxIconSize;
 - (void)loadChildren {
 	id handler = [self handlerForSelector:@selector(loadChildrenForObject:)];
 	if (handler && [handler loadChildrenForObject:self]) {
-		_flags.childrenLoaded = YES;
-		NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-		self.childrenLoadedDate = now;
-		_lastAccess = now;
+		@synchronized (self) {
+			_flags.childrenLoaded = YES;
+			NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+			self.childrenLoadedDate = now;
+			_lastAccess = now;
 
-		@synchronized ([QSObject class]) {
-			globalLastAccess = now;
-			[childLoadedSet addObject:self];
+			@synchronized ([QSObject class]) {
+				globalLastAccess = now;
+				[childLoadedSet addObject:self];
+			}
 		}
 	}
 
@@ -513,9 +528,16 @@ NSSize QSMaxIconSize;
 	return YES;
 }
 
-- (BOOL)childrenLoaded { return _flags.childrenLoaded;  }
+- (BOOL)childrenLoaded {
+	@synchronized (self) {
+		return _flags.childrenLoaded;
+	}
+}
+
 - (void)setChildrenLoaded:(BOOL)flag {
-	_flags.childrenLoaded = flag;
+	@synchronized (self) {
+		_flags.childrenLoaded = flag;
+	}
 }
 
 - (BOOL)childrenValid {
@@ -531,71 +553,87 @@ NSSize QSMaxIconSize;
 	self.meta[kQSObjectChildrenLoadDate] = @(newChildrenLoadedDate);
 }
 
-- (BOOL)contentsLoaded { return _flags.contentsLoaded;  }
+- (BOOL)contentsLoaded {
+	@synchronized (self) {
+		return _flags.contentsLoaded;
+	}
+}
+
 - (void)setContentsLoaded:(BOOL)flag {
-	_flags.contentsLoaded = flag;
+	@synchronized (self) {
+		_flags.contentsLoaded = flag;
+	}
 }
 
 #pragma mark -
 #pragma mark Icons
 
 - (NSImage *)icon {
-	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	_lastAccess = now;
-	@synchronized ([QSObject class]) {
-		globalLastAccess = now;
-	}
-
-	if (_icon) return _icon;
-
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
-		[handler setQuickIconForObject:self];
-
-	else if ([[self primaryType] isEqualToString:QSContactPhoneType])
-		self.icon = [QSResourceManager imageNamed:@"ContactPhone"];
-	else if ([[self primaryType] isEqualToString:QSContactAddressType])
-		self.icon = [QSResourceManager imageNamed:@"ContactAddress"];
-	else if ([[self primaryType] isEqualToString:QSEmailAddressType])
-		self.icon = [QSResourceManager imageNamed:@"ContactEmail"];
-
-	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
-		self.icon = [QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"];
-	}
-
-	if (!_icon) {
-		// try and get an image from the QSTypeDefinitions dict
-		NSString *namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];
-		if (namedIcon) {
-			self.icon = [QSResourceManager imageNamed:namedIcon];
+	@synchronized (self) {
+		NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+		_lastAccess = now;
+		@synchronized ([QSObject class]) {
+			globalLastAccess = now;
 		}
-	}
-	if (!_icon) {
-		self.icon = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
-	}
 
-	if (_icon) return _icon;
-	return nil;
+		if (_icon) return _icon;
+
+		id handler = nil;
+		if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
+			[handler setQuickIconForObject:self];
+
+		else if ([self.primaryType isEqualToString:QSContactPhoneType])
+			self.icon = [QSResourceManager imageNamed:@"ContactPhone"];
+		else if ([self.primaryType isEqualToString:QSContactAddressType])
+			self.icon = [QSResourceManager imageNamed:@"ContactAddress"];
+		else if ([self.primaryType isEqualToString:QSEmailAddressType])
+			self.icon = [QSResourceManager imageNamed:@"ContactEmail"];
+		else if ([self.types containsObject:@"BookmarkDictionaryListPboardType"]) {
+			self.icon = [QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"];
+		}
+
+		if (!_icon) {
+			// try and get an image from the QSTypeDefinitions dict
+			NSString *namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];
+			if (namedIcon) {
+				self.icon = [QSResourceManager imageNamed:namedIcon];
+			}
+		}
+		if (!_icon) {
+			self.icon = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
+		}
+
+		if (_icon) return _icon;
+
+		return nil;
+	}
 }
 
 - (void)setIcon:(NSImage *)newIcon {
-	if (newIcon != _icon) {
-		BOOL iconChange = (_icon != nil && newIcon != nil);
-		_icon = newIcon;
-		[_icon setCacheMode:NSImageCacheNever];
-		if (iconChange) {
-			// icon is being replaced, not set - notify UI
-			[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+	@synchronized (self) {
+		if (newIcon != _icon) {
+			BOOL iconChange = (_icon != nil && newIcon != nil);
+			_icon = newIcon;
+			[_icon setCacheMode:NSImageCacheNever];
+			if (iconChange) {
+				// icon is being replaced, not set - notify UI
+				[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+			}
 		}
 	}
 }
 
 - (void)updateIcon:(NSImage *)newIcon { self.icon = newIcon; }
 
-- (BOOL)iconLoaded { return _flags.iconLoaded;  }
+- (BOOL)iconLoaded {
+	@synchronized (self) {
+		return _flags.iconLoaded;
+	}
+}
+
 - (void)setIconLoaded:(BOOL)flag {
-	_flags.iconLoaded = flag;
-	@synchronized([QSObject class]) {
+	@synchronized (self) {
+		_flags.iconLoaded = flag;
 		if (flag) {
 			[iconLoadedSet addObject:self];
 		} else {
@@ -604,9 +642,16 @@ NSSize QSMaxIconSize;
 	}
 }
 
-- (BOOL)retainsIcon { return _flags.retainsIcon;  }
+- (BOOL)retainsIcon {
+	@synchronized (self) {
+		return _flags.retainsIcon;
+	}
+}
+
 - (void)setRetainsIcon:(BOOL)flag {
-	_flags.retainsIcon = (flag>0);
+	@synchronized (self) {
+		_flags.retainsIcon = (flag>0);
+	}
 }
 
 - (BOOL)loadIcon {
@@ -617,10 +662,12 @@ NSSize QSMaxIconSize;
 
 	/* FIXME: Why isn't this done in -setIcon: ? */
 	self.iconLoaded = YES;
-	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	_lastAccess = now;
-	@synchronized ([QSObject class]) {
-		globalLastAccess = now;
+	@synchronized (self) {
+		NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+		_lastAccess = now;
+		@synchronized ([QSObject class]) {
+			globalLastAccess = now;
+		}
 	}
 
 	if (namedIcon) {
@@ -718,12 +765,14 @@ NSSize QSMaxIconSize;
 - (void)setObject:(id)object forMeta:(id)aKey {
 	if (!aKey) return;
 
-	if (object) {
-		if (object != self.meta[aKey]) {
-			self.meta[aKey] = object;
+	@synchronized (self) {
+		if (object) {
+			if (object != self.meta[aKey]) {
+				self.meta[aKey] = object;
+			}
+		} else {
+			[self.meta removeObjectForKey:aKey];
 		}
-	} else {
-		[self.meta removeObjectForKey:aKey];
 	}
 }
 
