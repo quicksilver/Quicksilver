@@ -675,9 +675,7 @@ NSSize QSMaxIconSize;
 #pragma mark Type-handling
 
 - (NSArray *)types {
-	/* FIXME: make not mutable */
-	NSMutableArray *array = [[self.data allKeys] mutableCopy];
-	return array;
+	return [self.data allKeys];
 }
 
 - (NSArray *)decodedTypes {
