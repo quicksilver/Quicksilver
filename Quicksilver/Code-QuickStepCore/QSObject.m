@@ -109,9 +109,9 @@ NSSize QSMaxIconSize;
 }
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	if ([self iconLoaded])
 		[self unloadIcon];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self unloadChildren];
 }
 
