@@ -170,19 +170,16 @@ NSSize QSMaxIconSize;
 	return [_data descriptionWithLocale:locale indent:level];
 }
 
-/* TODO: rename -debugDescription */
-- (const char *) gdbDataFormatter {
-	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
-			 (_name ? _name : @"nil"),
-			 (_label ? _label : @"nil"),
-			 (_identifier ? _identifier : @"nil"),
-			 (_primaryType ? _primaryType : @"nil"),
-			 (_primaryObject ? _primaryObject : @"nil"),
-			 (_meta ? [_meta descriptionInStringsFileFormat] : @"nil"),
-			 (_data ? [_data descriptionInStringsFileFormat] : @"nil"),
-			 (_cache ? [_cache descriptionInStringsFileFormat] : @"nil"),
-			 (_icon ? [_icon description] : @"nil"),
-			 (_lastAccess ? _lastAccess : 0.0f)] UTF8String];
+// Used by the debugger
+- (NSString *)debugDescription
+{
+	return [NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
+			self.name, self.label, self.identifier, self.primaryType, self.primaryObject,
+			self.meta.descriptionInStringsFileFormat,
+			self.data.descriptionInStringsFileFormat,
+			self.cache.descriptionInStringsFileFormat,
+			self.icon.debugDescription,
+			_lastAccess];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
