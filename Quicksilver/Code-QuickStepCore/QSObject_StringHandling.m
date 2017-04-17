@@ -122,6 +122,7 @@
 				[self setObject:[NSDictionary dictionaryWithObjectsAndKeys:[files lastObject] , @"path", [NSNumber numberWithInteger:line] , @"line", nil] forType:@"QSLineReferenceType"];
 			}
             // wipe existing types and set this up as a file
+			/* FIXME: Just after doing a bunch of QSLineReferenceType things above ? */
             [[self dataDictionary] removeAllObjects];
 			[self setObject:files forType:QSFilePathType];
 			[self setPrimaryType:QSFilePathType];
