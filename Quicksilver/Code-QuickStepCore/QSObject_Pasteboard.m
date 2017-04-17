@@ -119,7 +119,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             source =  @"Clipboard";
             sourceApp = source;
         }
-        [data removeAllObjects];
+
 		[self addContentsOfPasteboard:pasteboard types:types];
 
 		[self setObject:source forMeta:kQSObjectSource];
