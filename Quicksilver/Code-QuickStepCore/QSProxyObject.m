@@ -170,12 +170,7 @@
     NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
     if (!namedIcon || [namedIcon isEqualToString:@"ProxyIcon"]) {
         // use the resolved object's icon instead
-		/* FIXME: WTF... */
-        QSObject *resolved = self.resolvedObject;
-        self.icon = resolved.icon;
-        self.iconLoaded = YES;
-	    [resolved loadIcon];
-        return YES;
+		return [self.resolvedObject loadIcon];
     }
     return [super loadIcon];
 }

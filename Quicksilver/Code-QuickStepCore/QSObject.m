@@ -614,6 +614,7 @@ NSSize QSMaxIconSize;
 		if (newIcon != _icon) {
 			BOOL iconChange = (_icon != nil && newIcon != nil);
 			_icon = newIcon;
+			self.iconLoaded = YES;
 			[_icon setCacheMode:NSImageCacheNever];
 			if (iconChange) {
 				// icon is being replaced, not set - notify UI
@@ -656,12 +657,13 @@ NSSize QSMaxIconSize;
 
 - (BOOL)loadIcon {
 	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
-	if (self.iconLoaded && !namedIcon) {
+	id iconRef = [self objectForMeta:kQSObjectIcon];
+	/* FIXME: Does this mean if we have no icon set, then the load fails
+	 * even if the handler could have fulfilled it ? */
+	if (self.iconLoaded && !(namedIcon || iconRef)) {
 		return NO;
 	}
 
-	/* FIXME: Why isn't this done in -setIcon: ? */
-	self.iconLoaded = YES;
 	@synchronized (self) {
 		NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 		_lastAccess = now;
@@ -670,6 +672,7 @@ NSSize QSMaxIconSize;
 		}
 	}
 
+	// We have an icon name, use that
 	if (namedIcon) {
 		NSImage *image = [QSResourceManager imageNamed:namedIcon];
 		if (image) {
@@ -678,6 +681,21 @@ NSSize QSMaxIconSize;
 		}
 	}
 
+	// We have some kind of icon data
+	if (iconRef) {
+		NSImage *icon = nil;
+		if ([iconRef isKindOfClass:[NSData class]]) {
+			icon = [[NSImage alloc] initWithData:iconRef];
+		} else if ([iconRef isKindOfClass:[NSString class]]) {
+			icon = [QSResourceManager imageNamed:iconRef];
+		}
+		if (icon) {
+			self.icon = icon;
+			return YES;
+		}
+	}
+
+	// No icon, ask our handler
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(loadIconForObject:)]) {
 		QSObject __weak *weakSelf = self;
@@ -854,17 +872,6 @@ NSSize QSMaxIconSize;
 }
 
 - (void)extractMetadata {
-	if (_meta[kQSObjectIcon]) {
-		id iconRef = _meta[kQSObjectIcon];
-		if ([iconRef isKindOfClass:[NSData class]])
-			self.icon = [[NSImage alloc] initWithData:iconRef];
-		else if ([iconRef isKindOfClass:[NSString class]])
-			self.icon = [QSResourceManager imageNamed:iconRef];
-		/* FIXME: Again with the iconLoaded stuff */
-		if (self.icon != nil) {
-			self.IconLoaded = YES;
-		}
-	}
 	if (_meta[kQSObjectAlternateName])
 		self.label = _meta[kQSObjectAlternateName];
 	if (_meta[kQSObjectPrimaryName])
