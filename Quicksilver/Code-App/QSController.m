@@ -1029,7 +1029,7 @@ static QSController *defaultController = nil;
 #endif
     [NSApp disableRelaunchOnLogin];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
-    [QSObject interfaceChanged];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseAllCachesNotification object:self];
     
     // Setup Activation Hotkey
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

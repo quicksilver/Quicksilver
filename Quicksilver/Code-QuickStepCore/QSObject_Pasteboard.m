@@ -170,14 +170,14 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)guessName {
-	if (itemForKey(QSFilePathType) ) {
+	if ([self objectForType:QSFilePathType]) {
 		[self setPrimaryType:QSFilePathType];
 		[self getNameFromFiles];
 	} else {
-        NSString *textString = itemForKey(QSTextType);
+        NSString *textString = [self objectForType:QSTextType];
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-            textString = itemForKey(NSURLPboardType);
+			textString = [self objectForType:NSURLPboardType];
         }
         textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
@@ -210,7 +210,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         }
 
         for (NSString *key in keys) {
-			if (itemForKey(key) ) {
+			if ([self objectForType:key]) {
                 if ([key isEqualToString:QSTextType]) {
                     [self setDetails:nil];
                 } else {
@@ -337,7 +337,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (NSData *)dataForType:(NSString *)dataType {
-	id theData = [data objectForKey:dataType];
+	id theData = [self objectForType:dataType];
 	if ([theData isKindOfClass:[NSData class]]) return theData;
 	return nil;
 }

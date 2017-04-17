@@ -66,12 +66,15 @@
     if (![string length]) {
         return nil;
     }
-	if (self = [self init]) {
-		[data setObject:string forKey:QSTextType];
-		[self setName:string];
-		[self setPrimaryType:QSTextType];
-		[self sniffString];
-	}
+
+	self = [self init];
+	if (!self) return nil;
+
+	[self setObject:string forType:QSTextType];
+	[self setName:string];
+	[self setPrimaryType:QSTextType];
+	[self sniffString];
+
 	return self;
 }
 

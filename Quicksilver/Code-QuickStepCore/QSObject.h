@@ -7,8 +7,6 @@
 
 extern NSSize QSMaxIconSize;
 
-#define itemForKey(k) [data objectForKey:k]
-
 // meta dictionary keys
 #define kQSObjectPrimaryName      @"QSObjectName"
 #define kQSObjectAlternateName    @"QSObjectLabel"
@@ -51,62 +49,99 @@ typedef struct _QSObjectFlags {
 	//  NSCellType		  type:2;
 } QSObjectFlags;
 
-
-
-@interface QSObject : QSBasicObject <NSCopying> {
-	NSString *name;
-	NSString *label;
-	NSString *identifier;
-	NSImage *icon;
-	NSString *primaryType;
-	id primaryObject;
-
-	NSMutableDictionary *	meta; 		//Name, Label, Type, Identifier, Source, embedded details
-	NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
-	QSThreadSafeMutableDictionary *cache; 		//Icons, children, alias data,
-	QSObjectFlags			flags;
-	NSTimeInterval			lastAccess;
+@interface QSObject : QSBasicObject <NSCopying, NSCoding> {
+	NSMutableDictionary *data QS_DEPRECATED; /* Temporary */
 }
-+ (void)initialize;
-+ (void)purgeOldImagesAndChildren;
-+ (void)purgeAllImagesAndChildren;
-+ (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
-+ (void)interfaceChanged;
 
-+ (id)objectWithName:(NSString *)aName;
-+ (id)objectWithIdentifier:(NSString *)anIdentifier QS_DEPRECATED;
-+ (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
-+ (id)objectByMergingObjects:(NSArray *)objects;
-+ (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
++ (instancetype)objectWithName:(NSString *)aName;
++ (instancetype)objectWithIdentifier:(NSString *)anIdentifier QS_DEPRECATED;
++ (instancetype)makeObjectWithIdentifier:(NSString *)anIdentifier;
 
-- (id)init;
-- (void)dealloc;
-- (BOOL)isEqual:(id)anObject;
-- (NSString *)guessPrimaryType;
-- (NSArray *)splitObjects;
-- (NSString *)displayName;
-- (NSString *)toolTip;
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(NSUInteger)level;
-- (NSString *)details;
-- (id)primaryObject;
+@property (copy) NSString *identifier;
+@property (copy) NSString *name;
+@property (copy) NSString *label;
+@property (copy) NSString *details;
+@property (copy) NSString *primaryType;
 
-- (NSUInteger) count;
-- (NSUInteger) primaryCount;
+@property (readonly) NSString *kind;
+@property (readonly) NSString *displayName;
+@property (readonly) NSString *toolTip;
+@property (retain) id primaryObject;
+
+/** Hierarchy */
+
+@property (readonly) QSObject *parent;
+@property (copy) NSArray *children;
+@property (copy) NSArray *altChildren;
+
+- (void)setParentID:(NSString *)parentID;
+
+- (BOOL)hasChildren;
+- (void)loadChildren;
+- (BOOL)unloadChildren;
+
+- (BOOL)childrenLoaded;
+- (BOOL)childrenValid;
+
+@property NSTimeInterval childrenLoadedDate;
+
+@property BOOL contentsLoaded; /* FIXME: Unused */
+
+/** Icons */
+
+@property (retain) NSImage *icon;
+@property BOOL retainsIcon;
+@property (readonly) BOOL iconLoaded;
+
+- (BOOL)loadIcon;
+- (BOOL)unloadIcon;
+
+- (void)updateIcon:(NSImage *)newIcon QS_DEPRECATED_MSG("Use -setIcon:");
+
+/** Type-handling */
+
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
+
 - (id <QSObjectHandler>)handler;
 - (id <QSObjectHandler>)handlerForType:(NSString *)type selector:(SEL)selector;
+
+/** Low-level access */
+
+- (id)objectForMeta:(id)aKey;
+- (void)setObject:(id)object forMeta:(id)aKey;
 - (id)objectForType:(id)aKey;
 - (void)setObject:(id)object forType:(id)aKey;
 - (id)objectForCache:(id)aKey;
 - (void)setObject:(id)object forCache:(id)aKey;
-- (id)objectForMeta:(id)aKey;
-- (void)setObject:(id)object forMeta:(id)aKey;
 
-- (void)setDetails:(NSString *)newDetails;
+@property (retain) NSMutableDictionary *meta;  // Name, Label, Type, Identifier, Source, embedded details
+@property (retain) NSMutableDictionary *data;  // Data or typed dictionary (multiTyped Object)
+@property (retain) NSMutableDictionary *cache; // Icons, children, alias data,
 
-- (NSMutableDictionary *)cache;
-- (void)setCache:(NSMutableDictionary *)aCache;
+/** Archiving */
+
++ (instancetype)objectFromFile:(NSString *)path;
+- (instancetype)initFromFile:(NSString *)path;
+- (void)writeToFile:(NSString *)path;
+
+- (void)extractMetadata;
+@end
+
+@interface QSObject (QSCollection)
+
++ (instancetype)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
++ (instancetype)objectByMergingObjects:(NSArray *)objects;
+
+@property (readonly) NSUInteger count;
+@property (readonly) NSUInteger primaryCount;
+
+- (NSArray *)splitObjects;
+
+@end
+
+@interface QSObject (QSProxySupport)
+
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
 
@@ -115,80 +150,7 @@ typedef struct _QSObjectFlags {
 
 @end
 
-@interface QSObject (Icon)
-- (BOOL)loadIcon;
-- (BOOL)unloadIcon;
-- (NSImage *)icon;
-- (void)setIcon:(NSImage *)newIcon;
-- (void)updateIcon:(NSImage *)newIcon QS_DEPRECATED_MSG("Use -setIcon:");
+@interface QSObject (QSDeprecated)
+- (NSMutableDictionary *)dataDictionary QS_DEPRECATED_MSG("use -data");
+- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary QS_DEPRECATED_MSG("use -setData");;
 @end
-
-@interface QSObject (Hierarchy)
-- (QSObject *) parent;
-- (void)setParentID:(NSString *)parentID;
-- (BOOL)childrenValid;
-- (BOOL)unloadChildren;
-- (void)loadChildren;
-- (BOOL)hasChildren;
-@end
-
-@interface QSObject (Archiving)
-+ (id)objectFromFile:(NSString *)path;
-- (id)initWithCoder:(NSCoder *)coder;
-- (void)encodeWithCoder:(NSCoder *)coder;
-- (id)initFromFile:(NSString *)path;
-- (void)writeToFile:(NSString *)path;
-- (void)extractMetadata;
-@end
-
-
-
-//Standard Accessors
-@interface QSObject (Accessors)
-- (NSString *)identifier;
-- (void)setIdentifier:(NSString *)newIdentifier;
-- (NSString *)name;
-- (void)setName:(NSString *)newName;
-- (NSArray *)children;
-- (void)setChildren:(NSArray *)newChildren;
-- (NSArray *)altChildren;
-- (void)setAltChildren:(NSArray *)newAltChildren;
-- (NSString *)label;
-- (void)setLabel:(NSString *)newLabel;
-- (NSString *)primaryType;
-- (void)setPrimaryType:(NSString *)newPrimaryType;
-- (NSMutableDictionary *)dataDictionary;
-- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
-
-- (BOOL)iconLoaded;
-- (void)setIconLoaded:(BOOL)flag;
-- (BOOL)retainsIcon;
-- (void)setRetainsIcon:(BOOL)flag;
-- (BOOL)childrenLoaded;
-- (void)setChildrenLoaded:(BOOL)flag;
-- (BOOL)contentsLoaded;
-- (void)setContentsLoaded:(BOOL)flag;
-- (NSTimeInterval)childrenLoadedDate;
-- (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
-
-@end
-
-
-//
-//AEDescriptorValue:
-//AEDescriptorForFlavor:
-//PasteboardDataForType:
-
-/*
-- (id)handler;
-- (id)handlerForType:(NSString *)type selector:(SEL)selector;
-- (id)valueForFlavor:(id)aKey;
-- (void)setValue:(id)object forFlavor:(id)aKey;
-- (id)objectForCache:(id)aKey;
-- (void)setObject:(id)object forCache:(id)aKey;
-- (id)objectForMeta:(id)aKey;
-- (void)setObject:(id)object forMeta:(id)aKey;
-
-*/
-
-

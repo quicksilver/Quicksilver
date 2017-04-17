@@ -35,12 +35,14 @@
 }
 
 - (id)initWithString:(NSString *)string name:(NSString *)aName type:(NSString *)aType {
-	if (self = [self init]) {
-		[self setName:aName];
-		[self setPrimaryType:aType];
-		[data setObject:string forKey:aType];
-		[data setObject:string forKey:QSTextType];
-	}
+	self = [self init];
+	if (!self) return nil;
+
+	self.name = aName;
+	self.primaryType = aType;
+	self.data[aType] = string;
+	self.data[QSTextType] = string;
+
 	return self;
 }
 
@@ -48,13 +50,16 @@
 	return[(QSObject *)[QSObject alloc] initWithType:(NSString *)type value:(id)value name:(NSString *)newName];
 }
 - (id)initWithType:(NSString *)type value:(id)value name:(NSString *)newName {
-	if (self = [self init]) {
-		[data setObject:value forKey:type];
-		[self setName:newName];
-		[self setPrimaryType:type];
-	}
+	self = [self init];
+	if (!self) return nil;
+
+	[self.data setObject:value forKey:type];
+	[self setName:newName];
+	[self setPrimaryType:type];
+
 	return self;
 }
+
 + (id)objectsWithDictionaryArray:(NSArray *)dictionaryArray {
 	NSMutableArray *dictObjectArray = [NSMutableArray arrayWithCapacity:[dictionaryArray count]];
 	for (id loopItem in dictionaryArray) {
@@ -69,9 +74,9 @@
 }
 
 - (void)changeFilesToPaths {
-	id object = [data objectForKey:QSFilePathType]; //[self arrayForType:];
+	id object = [self objectForType:QSFilePathType];
 	if (object)
-		[data setObject:[object valueForKey:@"stringByStandardizingPath"] forKey:QSFilePathType];
+		[self setObject:[object valueForKey:@"stringByStandardizingPath"] forType:QSFilePathType];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -89,14 +94,14 @@
     self = [self init];
     if (!self) return nil;
 
-    [data setDictionary:dataDict];
-    [meta setDictionary:metaDict];
+    [self.data setDictionary:dataDict];
+    [self.meta setDictionary:metaDict];
 
     [self extractMetadata];
 
     // Check immediately if we already have loaded that object
     // ***warning  * should this update the name for files?
-    id dup = [QSLib objectWithIdentifier:identifier];
+    id dup = [QSLib objectWithIdentifier:self.identifier];
     if (dup) return dup;
 
     if ([self containsType:QSFilePathType] || [self containsType:NSFilenamesPboardType]) {
@@ -109,8 +114,8 @@
 - (NSDictionary *)dictionaryRepresentation {
     // copies of data and meta are made to avoid them being mutated down the line
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            [data copy], kData,
-            [meta copy], kMeta,
+            [self.data copy], kData,
+            [self.meta copy], kMeta,
             NSStringFromClass([self class]), kQSObjectClass,
             nil];
 }

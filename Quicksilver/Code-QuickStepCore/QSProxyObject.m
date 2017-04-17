@@ -34,20 +34,27 @@
     return obj;
 }
 
+- (instancetype)init {
+	self = [super init];
+	if (!self) return nil;
+
+	self.data[QSProxyType] = [NSMutableDictionary dictionary];
+
+	return self;
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary {
-    self = [super init];
-    if (self) {
-        [[self proxyDict] setDictionary:dictionary];
-        [self setPrimaryType:QSProxyType];
-    }
+    self = [self init];
+	if (!self) return nil;
+
+	[self.proxyDict setDictionary:dictionary];
+	self.primaryType = QSProxyType;
+
     return self;
 }
 
-- (NSMutableDictionary*)proxyDict {
-    id dict = [self objectForType:QSProxyType];
-    if (!dict) [self setObject:(dict = [NSMutableDictionary dictionary])
-                       forType:QSProxyType];
-    return dict;
+- (NSMutableDictionary *)proxyDict {
+	return self.data[QSProxyType];
 }
 
 - (id)proxyObjectWithProviderClass:(NSString *)providerClass identifier:(NSString *)ident {
@@ -55,16 +62,16 @@
 }
 
 - (NSObject <QSProxyObjectProvider> *)proxyProvider {
-	NSString *class = [[data objectForKey:QSProxyType] objectForKey:kQSProxyProviderClass];
+	NSString *class = [self objectForType:QSProxyType][kQSProxyProviderClass];
 	return [QSReg getClassInstance:class];
 }
 
-- (QSObject*)proxyObject {
+- (QSObject *)proxyObject {
 	id proxy = nil;
 	if (proxy = [self objectForCache:QSProxyTargetCache])
 		return proxy;
     
-    id provider = [self proxyProvider];        
+    id provider = self.proxyProvider;
     proxy = [provider resolveProxyObject:self];
     
     if ([self isEqual:proxy]) return nil;
@@ -81,28 +88,30 @@
 
 
 - (void)releaseProxy:(NSNotification *)notif {
-	if ([[notif name] isEqualToString:QSInterfaceDeactivatedNotification]) {
-		NSString *reason = [[notif userInfo] objectForKey:kQSInterfaceDeactivatedReason];
+	if ([notif.name isEqualToString:QSInterfaceDeactivatedNotification]) {
+		NSString *reason = notif.userInfo[kQSInterfaceDeactivatedReason];
 		if ([reason isEqualToString:@"execution"]) {
 			// if the interface is hiding from running a command, keep the cached value
 			// it will get cleared after the command executes
 			return;
 		}
 	}
-	[cache removeObjectForKey:QSProxyTargetCache];
+	// Send the notification before niling our target
+	/* FIXME: I'm not actually quite sure what we're trying to do here... */
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:self.cache[QSProxyTargetCache]];
+	self.cache[QSProxyTargetCache] = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSInterfaceDeactivatedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSCommandExecutedNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
 }
 
 - (NSArray *)proxyTypes {
-	NSArray *array = [[data objectForKey:QSProxyType] objectForKey:kQSProxyTypes];
+	NSArray *array = self.proxyDict[kQSProxyTypes];
 	if (array) return array;
-	return [[self proxyProvider] typesForProxyObject:self];
+	return [self.proxyProvider typesForProxyObject:self];
 }
 
 - (BOOL)enabled {
-    NSNumber *e = [[self proxyDict] objectForKey:@"enabled"];
+    NSNumber *e = self.proxyDict[@"enabled"];
     if (e)
         return [e boolValue];
     return YES;
@@ -111,28 +120,28 @@
 - (BOOL)hasChildren {return YES;}
 
 - (NSArray *)types {
-	return [self proxyTypes];
+	return self.proxyTypes;
 }
 
 - (BOOL)bypassValidation {
-	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
+	return [self.proxyProvider respondsToSelector:@selector(bypassValidation)] && [self.proxyProvider bypassValidation];
 }
 
-- (QSObject *)resolvedObject {return [self proxyObject];}
+- (QSObject *)resolvedObject {return self.proxyObject; }
 
 - (NSString *)stringValue {
-	return [[self resolvedObject] stringValue];
+	return [self.resolvedObject stringValue];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
 	if ([super respondsToSelector:aSelector]) return YES;
-	if ([[self resolvedObject] respondsToSelector:aSelector]) return YES;
+	if ([self.resolvedObject respondsToSelector:aSelector]) return YES;
 	return NO;
 }   
 
 - (void)forwardInvocation:(NSInvocation *)invocation {
-	if ([[self resolvedObject] respondsToSelector:[invocation selector]])
-		[invocation invokeWithTarget:[self resolvedObject]];
+	if ([self.resolvedObject respondsToSelector:invocation.selector])
+		[invocation invokeWithTarget:self.resolvedObject];
 	else
 		[self doesNotRecognizeSelector:[invocation selector]];
 }
@@ -140,35 +149,31 @@
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)sel {
 	NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:sel];
 	if (sig) return sig;
-	return [[self resolvedObject] methodSignatureForSelector:sel];
+	return [self.resolvedObject methodSignatureForSelector:sel];
 }
 
-- (void)objectIconModified:(NSNotification *)notif
-{
-    [self setIcon:[[self proxyObject] icon]];
+- (void)objectIconModified:(NSNotification *)notif {
+    self.icon = self.proxyObject.icon;
 }
 
-- (BOOL)isProxyObject
-{
-    return YES;
-}
+- (BOOL)isProxyObject { return YES; }
 
 - (id)_safeObjectForType:(id)aKey {
-    id object = [data objectForKey:aKey];
+    id object = self.data[aKey];
     if (!object) {
-        object = [[self resolvedObject] _safeObjectForType:aKey];
+        object = [self.resolvedObject _safeObjectForType:aKey];
     }
     return object;
 }
 
-- (BOOL)loadIcon
-{
+- (BOOL)loadIcon {
     NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
     if (!namedIcon || [namedIcon isEqualToString:@"ProxyIcon"]) {
         // use the resolved object's icon instead
-        QSObject *resolved = [self resolvedObject];
-        [self setIcon:[resolved icon]];
-        [self setIconLoaded:YES];
+		/* FIXME: WTF... */
+        QSObject *resolved = self.resolvedObject;
+        self.icon = resolved.icon;
+        self.iconLoaded = YES;
 	    [resolved loadIcon];
         return YES;
     }
