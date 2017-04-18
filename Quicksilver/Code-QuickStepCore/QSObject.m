@@ -11,6 +11,16 @@ BOOL QSObjectInitialized = NO;
 
 NSSize QSMaxIconSize;
 
+typedef struct _QSObjectFlags {
+	unsigned int		multiTyped:1;
+	unsigned int		iconLoaded:1;
+	unsigned int		childrenLoaded:1;
+	unsigned int		contentsLoaded:1;
+	unsigned int		noIdentifier:1;
+	unsigned int		isProxy:1;
+	unsigned int		retainsIcon:1;
+} QSObjectFlags;
+
 @interface QSObject () {
 	/* Access mush be protected by @synchronized */
 	NSString *_identifier;

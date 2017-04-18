@@ -38,17 +38,6 @@ extern NSSize QSMaxIconSize;
 #define kQSContents               @"QSObjectContents"
 #define kQSObjectComponents       @"QSObjectComponents"
 
-typedef struct _QSObjectFlags {
-	unsigned int		multiTyped:1;
-	unsigned int		iconLoaded:1;
-	unsigned int		childrenLoaded:1;
-	unsigned int		contentsLoaded:1;
-	unsigned int		noIdentifier:1;
-	unsigned int		isProxy:1;
-	unsigned int		retainsIcon:1;
-	//  NSCellType		  type:2;
-} QSObjectFlags;
-
 @interface QSObject : QSBasicObject <NSCopying, NSCoding> {
 	NSMutableDictionary *data QS_DEPRECATED; /* Temporary */
 }
