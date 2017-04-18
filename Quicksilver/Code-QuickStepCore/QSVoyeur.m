@@ -18,16 +18,17 @@ id QSVoy;
 	self = [super init];
 	if (self != nil) {
 		[self setDelegate:self];
+		self.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
 	}
 	return self;
 }
 
-- (void)VDKQueue:(id)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath {
-	if ([nm isEqualToString:@"VDKQueueFileDeletedNotification"]) {
+- (void)queue:(VDKQueue *)queue didReceiveNotification:(NSString *)notificationName forPath:(NSString *)fpath {
+	if ([notificationName isEqualToString:VDKQueueDeleteNotification]) {
 		[self removePath:fpath];
 		[self addPath:fpath notifyingAbout:NOTE_DELETE];
 	}
-	[[[NSWorkspace sharedWorkspace] notificationCenter] postNotificationName:nm object:fpath];
+	[[[NSWorkspace sharedWorkspace] notificationCenter] postNotificationName:notificationName object:fpath];
 }
 
 @end
