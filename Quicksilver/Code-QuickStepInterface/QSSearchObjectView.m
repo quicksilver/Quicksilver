@@ -34,6 +34,16 @@
 #define SEARCH_RESULT_DELAY 0.05f
 #define kQSSmartSpace @"smartspace"
 
+typedef NS_ENUM(NSUInteger, QSSearchSpaceBarBehavior) {
+	QSSearchSpaceBarBehaviorNormal = 1,
+	QSSearchSpaceBarBehaviorSelectNextResult,
+	QSSearchSpaceBarBehaviorJumpToIndirect,
+	QSSearchSpaceBarBehaviorSwitchToText,
+	QSSearchSpaceBarBehaviorSelectContents,
+	QSSearchSpaceBarBehaviorQuicklook,
+	QSSearchSpaceBarBehaviorSmart
+};
+
 NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
@@ -1331,11 +1341,11 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)insertSpace:(id)sender
 {
-	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+	QSSearchSpaceBarBehavior behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 
     QSObject *newSelectedObject = [[super objectValue] resolvedObject];
     QSAction *action = [[self actionSelector] objectValue];
-    if (behavior == 7) {
+    if (behavior == QSSearchSpaceBarBehaviorSmart) {
         // override smart defaults with type-specific behavior (if defined)
         NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:kQSSmartSpace];
         if (typeBehavior) {
@@ -1344,28 +1354,28 @@ NSMutableDictionary *bindingsDict = nil;
     }
 
 	switch(behavior) {
-		case 1: //Normal
+		case QSSearchSpaceBarBehaviorNormal:
 			[self insertText:@" "];
 			break;
-		case 2: //Select next result
+		case QSSearchSpaceBarBehaviorSelectNextResult:
 			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
 				[self moveUp:sender];
 			else
 				[self moveDown:sender];
 			break;
-		case 3: //Jump to Indirect
+		case QSSearchSpaceBarBehaviorJumpToIndirect:
 			[self shortCircuit:sender];
 			break;
-		case 4: //Switch to text
+		case QSSearchSpaceBarBehaviorSwitchToText:
 			[self transmogrify:sender];
 			break;
-		case 5: //Show child contents/
+		case QSSearchSpaceBarBehaviorSelectContents:
 			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
             break;
-        case 6: // Show Quicklook window
+        case QSSearchSpaceBarBehaviorQuicklook:
             [self togglePreviewPanel:nil];
 			break;
 
