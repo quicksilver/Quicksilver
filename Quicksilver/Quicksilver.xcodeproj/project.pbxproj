@@ -335,7 +335,6 @@
 		CD29AEBD195664110052C893 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		CD29AEBF195665450052C893 /* QSDirectoryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5901F0804398F0031368C /* QSDirectoryParser.m */; };
 		CD34CCDF192BA28400AC63A6 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
-		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4742,7 +4741,6 @@
 				D493990E1350078E00B908C6 /* QSDownloads.m in Sources */,
 				CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */,
 				D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */,
-				CD39DE5F16B43FBF0087B09E /* (null) in Sources */,
 				CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
