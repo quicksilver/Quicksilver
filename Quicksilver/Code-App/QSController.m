@@ -18,7 +18,7 @@
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
-@interface QSObject (QSURLHandling)
+@interface QSObject (QSURLHandling) <NDHotKeyEventTarget>
 - (void)handleURL:(NSURL *)url;
 @end
 
@@ -61,7 +61,7 @@ static QSController *defaultController = nil;
 
 	[NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
 
-	[NDHotKeyEvent setSignature:'DAED'];
+	[QSHotKeyEvent setSignature:'DAED'];
 
 	[QSVoyeur sharedInstance];
 
@@ -1005,12 +1005,16 @@ static QSController *defaultController = nil;
 	[self startDropletConnection];
 }
 
+- (void)hotKeyReleased:(NDHotKeyEvent *)hotKey {
+	[self activateInterface:nil];
+}
+
 - (id)activationHotKey { return nil;  }
 - (void)setActivationHotKey:(id)object {
 	[[QSHotKeyEvent hotKeyWithIdentifier:kActivationHotKey] setEnabled:NO];
 
-	QSHotKeyEvent *activationKey = (QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithDictionary:object];
-	[activationKey setTarget:self selectorReleased:(SEL) 0 selectorPressed:@selector(activateInterface:)];
+	QSHotKeyEvent *activationKey = [QSHotKeyEvent hotKeyWithDictionary:object];
+	[activationKey setTarget:self];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
 }
@@ -1054,7 +1058,7 @@ static QSController *defaultController = nil;
 		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
 		if (modifiers < (1 << (rightControlKeyBit+1) )) {
 			NSLog(@"updating shortcut %ld", (long)modifiers);
-			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
+			[defaults setValue:[NSNumber numberWithInteger:NDCocoaModifierFlagsForCarbonModifierFlags(modifiers)] forKey:kHotKeyModifiers];
 			[defaults synchronize];
 		}
         

@@ -143,7 +143,7 @@
 		[addMenu addItem:groupItem];
 	}
 
-	for (id menuItem in [addMenu itemArray]) {
+	for (NSMenuItem *menuItem in [addMenu itemArray]) {
 		[menuItem setTarget:self];
 		[menuItem setAction:@selector(addTrigger:)];
 	}

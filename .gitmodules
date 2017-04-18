@@ -7,3 +7,6 @@
 [submodule "Quicksilver/Code-External/LaunchAtLoginController"]
 	path = Quicksilver/Code-External/LaunchAtLoginController
 	url = https://github.com/quicksilver/LaunchAtLoginController.git
+[submodule "Quicksilver/Code-External/NDHotKeyEvent"]
+	path = Quicksilver/Code-External/NDHotKeyEvent
+	url = git://github.com/quicksilver/ndhotkeyevent.git

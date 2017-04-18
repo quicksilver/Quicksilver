@@ -1,6 +1,7 @@
 #import "QSApp.h"
 #import "QSHotKeyEditor.h"
 #import "QSHotKeyEvent.h"
+#import "NDKeyboardLayout.h"
 
 @implementation QSHotKeyCell
 - (NSText *)setUpFieldEditorAttributes:(NSText *)textObj {
@@ -122,7 +123,7 @@
 	}
 }
 - (void)flagsChanged:(NSEvent *)theEvent {
-    NSString *newString = stringForModifiers([theEvent modifierFlags]);
+    NSString *newString = NDStringForModifiers([theEvent modifierFlags]);
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
@@ -187,10 +188,11 @@
 }
 
 - (NSDictionary *)hotKeyDictForEvent:(NSEvent *)event {
-	NSUInteger modifiers = [event modifierFlags];
-	unsigned short keyCode = [event keyCode];
-//	NSString *character = (keyCode == 48) ? @"\t" : [event charactersIgnoringModifiers];
-	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", nil];
+	return @{
+			 @"modifiers": @(event.modifierFlags),
+			 @"keyCode": @(event.keyCode),
+			 @"characters": event.charactersIgnoringModifiers,
+			 };
 }
 
 - (NSDictionary *)hotKey { return hotKey;  }
@@ -270,7 +272,7 @@
 			}
 			break;
 			case NSFlagsChanged: {
-                NSString *newString = stringForModifiers([theEvent modifierFlags]);
+                NSString *newString = NDStringForModifiers([theEvent modifierFlags]);
 
 				//NSLog(@"%@", newString);
 				[self setStringValue:[newString length] ? newString : @""];

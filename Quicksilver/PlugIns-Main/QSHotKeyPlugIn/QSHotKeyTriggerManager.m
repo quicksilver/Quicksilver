@@ -13,6 +13,11 @@
 #import <QSEffects/QSShading.h>
 #import <QSFoundation/QSHotKeyEvent.h>
 
+#import <objc/runtime.h>
+
+@interface QSHotKeyTriggerManager () <NDHotKeyEventTarget>
+@end
+
 @implementation QSHotKeyTriggerManager
 
 // KVO
@@ -49,7 +54,7 @@
     hotKeyPressed = YES;
     BOOL triggerExecuted = NO;
 	BOOL result;
-	NSArray *triggers = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggersWithIDs:) withObject:[hotKey identifiers]];
+	NSArray *triggers = [[QSTriggerCenter sharedInstance] triggersWithIDs:[hotKey identifiers]];
   for (QSTrigger *trigger in triggers) {
       if (![trigger activated]) {
           continue;
@@ -123,7 +128,7 @@
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
 	NSEvent *event;
     event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-    if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
+    if ([event type] == NSSystemDefined && [event subtype] == kEventHotKeyReleased) // A hotkey up event
         return event;
 #ifdef DEBUG
     else if (event)
@@ -137,29 +142,57 @@
 //@"count"
 
 
-- (BOOL)enableTrigger:(QSTrigger *)trigger {
-	NSDictionary *entry = (NSDictionary*)[trigger info];
-	if ([entry objectForKey:@"keyCode"]) {
-		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] unsignedShortValue] character:([[entry objectForKey:@"characters"] length]) ? [[entry objectForKey:@"characters"] characterAtIndex:0] :0 safeModifierFlags:[[entry objectForKey:@"modifiers"] integerValue]];
+static const char *kQSTriggerHotKey = "QSTriggerHotKey";
 
-		[activationKey setTarget:self selectorReleased:@selector(hotKeyReleased:) selectorPressed:@selector(hotKeyPressed:)];
-		[activationKey setIdentifier:[entry objectForKey:kItemID]];
-		[activationKey setEnabled:YES];
-		return YES;
-	} else
-		return NO;
+- (QSHotKeyEvent *)setupHotKey:(QSTrigger *)trigger status:(BOOL *)status {
+	if (!trigger.info[@"keyCode"]) return nil;
+
+	// We already created that hotkey, reuse
+	QSHotKeyEvent *activationKey = objc_getAssociatedObject(trigger, kQSTriggerHotKey);
+	if (activationKey) {
+		if (status) *status = YES;
+		return activationKey;
+	}
+
+	UInt16 keyCode = [trigger.info[@"keyCode"] unsignedShortValue];
+	NSUInteger modifiers = [trigger.info[@"modifiers"] unsignedIntegerValue];
+
+	activationKey = [QSHotKeyEvent hotKeyWithKeyCode:keyCode modifierFlags:modifiers];
+
+	[activationKey setTarget:self];
+	[activationKey setIdentifier:[trigger identifier]];
+
+	// This is messy, but it makes sure we don't accidentally return a disabled/activated hotkey
+	BOOL success = [activationKey setEnabled:[trigger enabled]];
+	if (status) *status = success;
+
+	objc_setAssociatedObject(trigger, kQSTriggerHotKey, activationKey, OBJC_ASSOCIATION_RETAIN);
+
+	return activationKey;
+}
+
+- (BOOL)enableTrigger:(QSTrigger *)trigger {
+	BOOL success = NO;
+	[self setupHotKey:trigger status:&success];
+	return success;
 }
 
 - (BOOL)disableTrigger:(QSTrigger *)trigger {
-	[[QSHotKeyEvent hotKeyWithIdentifier:[[trigger info] objectForKey:kItemID]] setEnabled:NO];
-	return YES;
+	BOOL success = NO;
+	[self setupHotKey:trigger status:&success];
+	return success;
 }
 
-- (NSString *)descriptionForTrigger:(NSDictionary *)thisTrigger {
-	if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"])
-		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] unsignedShortValue] character:0 safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] unsignedIntegerValue]] stringValue];
-	else
-		return @"None";
+- (NSString *)descriptionForTrigger:(QSTrigger *)trigger {
+	NSString *desc = nil;
+	QSHotKeyEvent *activationKey = [self setupHotKey:trigger status:NULL];
+	if (activationKey) {
+		desc = [activationKey stringValue];
+	}
+
+	if (!desc) desc = @"None";
+
+	return desc;
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject {
@@ -200,7 +233,7 @@
 	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 	[self willChangeValueForKey:@"hotKey"];
 	[self didChangeValueForKey:@"hotKey"];
-	[[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerChanged:) withObject:[self currentTrigger]];
+	[[QSTriggerCenter sharedInstance] triggerChanged:[self currentTrigger]];
 }
 
 - (NSDictionary *)hotKey {
@@ -220,7 +253,7 @@
 		[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 		[self willChangeValueForKey:@"hotKey"];
 		[self didChangeValueForKey:@"hotKey"];
-		[[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerChanged:) withObject:[self currentTrigger]];
+		[[QSTriggerCenter sharedInstance] triggerChanged:[self currentTrigger]];
 	}
 }
 
