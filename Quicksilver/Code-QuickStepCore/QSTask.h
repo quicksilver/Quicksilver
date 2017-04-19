@@ -14,7 +14,7 @@ typedef void(^QSTaskCancelBlock)(void);
 @property (readonly, copy) NSString *identifier;
 @property (copy) NSString *name;
 @property (copy) NSString *status;
-@property (assign) CGFloat progress;
+@property (assign) CGFloat progress;/**< Between 0.0 and 1.0, negative disables it */
 @property (copy) NSImage *icon;
 
 @property (readonly, copy) NSMutableArray *subtasks;

@@ -94,7 +94,6 @@ static id _sharedInstance;
 	[(QSOutlineView *)itemTable setHighlightColor:highlightColor];
 	[(QSTableView *)itemContentsTable setHighlightColor:highlightColor];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogCacheChanged:) name:@"CatalogCacheChanged" object:nil];
 	NSArray *sources = [[[QSReg objectSources] allKeys] copy];
 
 	NSMenuItem *item;
@@ -324,11 +323,6 @@ static id _sharedInstance;
 }
 
 - (BOOL)selectedCatalogEntryIsEditable {
-	
-#ifdef DEBUG
-	return YES;
-#endif
-	
 	id source = [currentItem source];
 	if ([source respondsToSelector:@selector(usesGlobalSettings)] && [source performSelector:@selector(usesGlobalSettings)])
 		return YES;

@@ -23,6 +23,11 @@
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 
+@interface QSPlugInManager ()
+@property (retain) QSTask *downloadTask;
+@property (retain) QSTask *installTask;
+@end
+
 @implementation QSPlugInManager
 + (id)sharedInstance {
 	static id _sharedInstance;
@@ -200,7 +205,11 @@
 																	 delegate:self];
 
 		if (theConnection) {
-			[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:0.0];
+			self.downloadTask = [QSTask taskWithIdentifier:@"PluginUpdateInfo"];
+			self.downloadTask.status = NSLocalizedString(@"Updating Plugin Info", @"");
+			self.downloadTask.cancelBlock = ^{
+				[theConnection cancel];
+			};
 		} else {
 			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
             receivedData = nil;
@@ -247,11 +256,12 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
+	self.downloadTask.status = NSLocalizedString(@"Download failed", @"");
+	[self.downloadTask stop];
+	self.downloadTask = nil;
 	receivedData = nil;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoFailedNotification object:self userInfo:nil];
-	[QSTasks removeTask:@"Retrieving Plugins..."];
 }
 
 - (void)clearOldWebData {
@@ -267,6 +277,7 @@
 
 - (void)loadNewWebData:(NSData *)data {
 	NSString *errorString;
+	self.downloadTask.status = NSLocalizedString(@"Updating plugin info", @"");
 	NSDictionary *prop = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&errorString];
 	if (!prop) {
 		NSLog(@"Could not load new plugins data");
@@ -285,12 +296,12 @@
 		[self willChangeValueForKey:@"knownPlugInsWithWebInfo"];
 		[self didChangeValueForKey:@"knownPlugInsWithWebInfo"];
 	}
-	[QSTasks removeTask:@"Retrieving Plugins..."];
+	[self.downloadTask stop];
+	self.downloadTask = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoLoadedNotification object:knownPlugIns];
 
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
 	[self loadNewWebData:receivedData];
 	receivedData = nil;
 }
@@ -803,15 +814,21 @@
 	if (![queuedDownloads count]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSPlugInUpdatesFinished" object:self];
 		[self setInstallStatus:nil];
-		[[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
+		self.installTask.status = NSLocalizedString(@"Installation complete", @"");
+		self.installTask.showProgress = NO;
+		[self.installTask stop];
 
 		[self setIsInstalling:NO];
 	} else {
-		NSString *status = [NSString stringWithFormat:@"Installing %ld Plugin%@", (long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"") ];
-		//NSString *status = [NSString stringWithFormat:@"Installing %@ (%d of %d) ", [[self currentDownload] name] , [queuedDownloads count] , downloadsCount];
+		NSString *status = nil;
+		if ([queuedDownloads count] > 1) {
+			status = NSLocalizedString(@"Installing %ld Plugins", @"");
+		} else {
+			status = NSLocalizedString(@"Installing %ld Plugin", @"");
+		}
 		[self setInstallStatus:status];
-		//[self setInstallProgress:[self downloadProgress]];
-		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
+		self.installTask = [QSTask taskWithIdentifier:@"QSPlugInInstallation"];
+		self.installTask.status = status;
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
@@ -929,9 +946,7 @@
 	}
 	
 	if ([queuedDownloads count]) {
-		NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
-		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
-		[self setInstallStatus:status];
+		[self updateDownloadCount];
 		[self setIsInstalling:YES];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
 		[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
@@ -1044,7 +1059,7 @@
     if ([error code] != -1009) {
         QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:kQSBundleID],QSNotifierIcon,nil]);
     }
-    [[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
+	self.installTask.status = NSLocalizedString(@"Plugin download failed", @"");
     
     [queuedDownloads removeObject:download];
     [activeDownloads removeObject:download];

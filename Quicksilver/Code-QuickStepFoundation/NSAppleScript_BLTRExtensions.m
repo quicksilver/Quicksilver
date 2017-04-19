@@ -85,7 +85,8 @@
 
 - (BOOL)storeInFile:(NSString *)path {
 	FSRef ref;
-	FSPathMakeRef((const UInt8 *)[path UTF8String] , &ref, NULL );
+	BOOL success = [path getFSRef:&ref];
+	if (!success) return NO;
 
 	OSAStoreFile([NSAppleScript _defaultScriptingComponent] , [self _compiledScriptID] , typeOSAGenericStorage, kOSAModeNull,
 				 &ref);
@@ -178,17 +179,17 @@
 }
 
 + (NSAppleEventDescriptor *)descriptorWithPath:(NSString *)path {
-	if (!path) return 0;
-	// AppleEvent event, reply;
+	if (!path) return nil;
 	OSErr err;
 	FSRef fileRef;
 	AliasHandle fileAlias;
-	err = FSPathMakeRef((const UInt8 *)[path fileSystemRepresentation] , &fileRef, NULL);
-	if (err != noErr) return nil;
+	BOOL success = [path getFSRef:&fileRef];
+	if (!success) return nil;
+
 	err = FSNewAliasMinimal(&fileRef, &fileAlias);
 	if (err != noErr) return nil;
-	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeAlias bytes:fileAlias length:sizeof(*fileAlias)];
 
+	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeAlias bytes:fileAlias length:sizeof(*fileAlias)];
 }
 
 @end
