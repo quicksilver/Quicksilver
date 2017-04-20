@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #define QSAlert [QSAlertManager defaultManager]
 
 NSInteger QSRunSheet(id panel, NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) QS_DEPRECATED;
@@ -36,9 +38,9 @@ typedef void (^QSAlertHandler)(QSAlertResponse);
  *  @param window  An (optional) window to which the alert will be attached.
  *  @param handler The completion block to call.
  */
-- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler;
+- (void)beginAlert:(NSAlert *)alert onWindow:(nullable NSWindow *)window completionHandler:(nullable QSAlertHandler)handler;
 
-- (void)beginAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler;
+- (void)beginAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style onWindow:(nullable NSWindow *)window completionHandler:(nullable QSAlertHandler)handler;
 
 /**
  *  Display an alert synchronously
@@ -48,7 +50,7 @@ typedef void (^QSAlertHandler)(QSAlertResponse);
  *
  *  @return The button that was used to dismiss the alert.
  */
-- (QSAlertResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window;
+- (QSAlertResponse)runAlert:(NSAlert *)alert onWindow:(nullable NSWindow *)window;
 
 /**
  *  Display an alert synchronously (and conveniently)
@@ -61,7 +63,7 @@ typedef void (^QSAlertHandler)(QSAlertResponse);
  *
  *  @return The button that was used to dismiss the alert.
  */
-- (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window;
+- (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(nullable NSWindow *)window;
 
 /**
  * Display a notification
@@ -69,13 +71,15 @@ typedef void (^QSAlertHandler)(QSAlertResponse);
  * Note that (<=10.9) there can only be 2 buttons on a notification, the second always dismiss the notification without informing the caller.
  * Clicking the notification will give you QSAlertResponseFirst, the button will be QSAlertResponseSecond. The rest is ignored.
  */
-- (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(QSAlertHandler)handler;
+- (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(nullable QSAlertHandler)handler;
 
 /**
  * Create a notification from the given parameters and display it.
  *
  * @see notifyWithNotification:completionHandler:
  */
-- (void)notifyWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completionHandler:(QSAlertHandler)handler;
+- (void)notifyWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completionHandler:(nullable QSAlertHandler)handler;
 
 @end
+
+NS_ASSUME_NONNULL_END
