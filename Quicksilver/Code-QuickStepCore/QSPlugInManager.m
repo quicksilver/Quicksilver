@@ -339,13 +339,28 @@
 	NSArray *loaded = [[self loadedPlugIns] allValues];
 	BOOL needsRelaunch = nil != [deletePlugIns firstObjectCommonWithArray:loaded];
 
-	NSInteger result;
-	if (needsRelaunch)
-		result = NSRunCriticalAlertPanel(@"Delete plugins?", @"Would you like to delete the selected plugins? A relaunch will be required", @"Delete and Relaunch", @"Cancel", nil);
-	else
-		result = NSRunCriticalAlertPanel(@"Delete plugins?", @"Would you like to delete the selected plugins?", @"Delete", @"Cancel", nil);
+	QSAlertResponse response;
+	if (needsRelaunch) {
+		response = [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
+															  message:NSLocalizedString(@"Would you like to delete the selected plugins? A relaunch will be required", @"Delete & relaunch alert message")
+															  buttons:@[
+																		NSLocalizedString(@"Delete and Relaunch", @"Delete & relaunch alert default button"),
+																		NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
+																		]
+																style:NSAlertStyleWarning
+													   attachToWindow:nil];
+	} else {
+		response = [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
+															  message:NSLocalizedString(@"Would you like to delete the selected plugins?", @"Delete & relaunch alert message (alternate)")
+															  buttons:@[
+																		NSLocalizedString(@"Delete", @"Delete & relaunch alert default button (alternate)"),
+																		NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
+																		]
+																style:NSAlertStyleWarning
+													   attachToWindow:nil];
+	}
 
-	if (result) {
+	if (response == QSAlertResponseOK) {
 		BOOL success = YES;
 		for(QSPlugIn * plugin in deletePlugIns) {
 			success = success && [plugin delete];
@@ -891,8 +906,14 @@
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
         BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
         if (!relaunch) {
-            NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plugins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.alertStyle = NSAlertStyleInformational;
+			alert.messageText = NSLocalizedString(@"Install complete", @"QSPlugin manager - Plugin requires relaunch alert - title");
+			alert.informativeText = NSLocalizedString(@"Some plugins will not be available until Quicksilver is relaunched.", @"QSPlugin manager - Plugin requires relaunch alert - message");
+			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSPlugin manager - Plugin requires relaunch alert - default button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSPlugin manager - Plugin requires relaunch alert - cancel button")];
+
+			relaunch = ([[QSAlertManager defaultManager] runAlert:alert onWindow:nil] == QSAlertResponseOK);
         }
 		if (relaunch) {
 			[NSApp relaunch:self];
@@ -925,28 +946,38 @@
 	//NSBeep();
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger selection = [defaults boolForKey:kClickInstallWithoutAsking];
+	BOOL installWithoutAsking = [defaults boolForKey:kClickInstallWithoutAsking];
+	BOOL shouldInstall = YES;
 
-	if (!selection) {//[NSApp activateIgnoringOtherApps:YES];
-		selection = NSRunInformationalAlertPanel(@"Install plugins?", @"Do you wish to move selected items to Quicksilver's plugin folder?", @"Install", @"Cancel", @"Always Install Plugins");
-	}
-	if (selection) {
-		if (selection<0) {
+	if (!installWithoutAsking) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.alertStyle = NSAlertStyleInformational;
+		alert.messageText = NSLocalizedString(@"Install plugins?", @"QSPlugin manager - Plugin install alert - title");
+		alert.informativeText = NSLocalizedString(@"Do you wish to move selected items to Quicksilver's plugin folder?", @"QSPlugin manager - Plugin installed alert - message");
+		[alert addButtonWithTitle:NSLocalizedString(@"Install", @"QSPlugin manager - Plugin install alert - default button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"QSPlugin manager - Plugin install alert - cancel button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Always Install", @"QSPlugin manager - Plugin install alert - other button")];
+
+		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+		if (response == QSAlertResponseThird) {
 			[defaults setBool:YES forKey:kClickInstallWithoutAsking];
 			[defaults synchronize];
 		}
+		if (response == QSAlertResponseCancel) {
+			shouldInstall = NO;
+		}
+	}
 
-		//NSString *destination = psMainPlugInsLocation;
-		NSString *newPlugIn = nil;
-
-		NSString *path;
-		for(path in fileList) {
+	if (shouldInstall) {
+		for (NSString *path in fileList) {
+			NSString *newPlugIn = nil;
 			if ([[path pathExtension] caseInsensitiveCompare:@"qspkg"] == NSOrderedSame)
 				newPlugIn = [[self installPlugInFromCompressedFile:path] lastObject];
 			else if ([[path pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame)
 				newPlugIn = [self installPlugInFromFile:path];
+
 			if (newPlugIn)
-        [self plugInWasInstalled:newPlugIn];
+				[self plugInWasInstalled:newPlugIn];
 		}
 
 	}

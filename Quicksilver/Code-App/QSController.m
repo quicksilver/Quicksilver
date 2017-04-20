@@ -44,13 +44,31 @@ static QSController *defaultController = nil;
     QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
     [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
-    if (![NSApplication isMavericks]) {
+	if (![NSApplication isMavericks]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.9+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.9 Mountain Lion",@"10.3–10.8"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+
+		NSString *minimumVersionString = @"macOS 10.9+";
+		NSString *oldVersionsString = @"10.3–10.8";
+
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = [NSString stringWithFormat:
+			NSLocalizedString(@"%@ %@ requires %@", @"macOS version required alert title (bundle name, bundle version, minimum macOS version)"),
+			[appBundle objectForInfoDictionaryKey:@"CFBundleName"],
+			[appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+			minimumVersionString
+		];
+		alert.informativeText = [NSString stringWithFormat:
+			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", @"macOS version required alert message"),
+			minimumVersionString,
+			oldVersionsString];
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+
+		[alert runModal];
+
 		// Quit - we don't want to be running :)
 		[NSApp terminate:nil];
 	}
-    
+
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
