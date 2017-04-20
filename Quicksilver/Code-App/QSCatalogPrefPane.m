@@ -188,7 +188,15 @@ static id _sharedInstance;
 }
 
 - (IBAction)restoreDefaultCatalog:(id)sender {
-	if (NSRunAlertPanel(@"Restore Defaults?", @"This will replace your current catalog setup with the default items", @"Replace", @"Cancel", nil) ) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.alertStyle = NSAlertStyleWarning;
+	alert.messageText = NSLocalizedString(@"Restore Defaults?", @"QSCatalogPrefPane - Restore default catalog - alert title");
+	alert.informativeText = NSLocalizedString(@"This will replace your current catalog setup with the default items", @"QSCatalogPrefPane - Restore default catalog - alert message");
+	[alert addButtonWithTitle:NSLocalizedString(@"Replace", @"QSCatalogPrefPane - Restore default catalog - default button")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"QSCatalogPrefPane - Restore default catalog - cancel button")];
+
+	QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+	if (response == QSAlertResponseOK) {
 		[[QSLibrarian sharedInstance] loadDefaultCatalog];
 		[itemTable reloadData];
 		[itemTable deselectAll:nil];
