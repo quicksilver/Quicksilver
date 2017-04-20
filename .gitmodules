@@ -7,3 +7,6 @@
 [submodule "Quicksilver/Code-External/LaunchAtLoginController"]
 	path = Quicksilver/Code-External/LaunchAtLoginController
 	url = https://github.com/quicksilver/LaunchAtLoginController.git
+[submodule "Quicksilver/Code-External/FMDB"]
+	path = Quicksilver/Code-External/FMDB
+	url = git://github.com/ccgus/fmdb.git
