@@ -278,9 +278,13 @@
 - (void)loadNewWebData:(NSData *)data {
 	NSString *errorString;
 	self.downloadTask.status = NSLocalizedString(@"Updating plugin info", @"");
-	NSDictionary *prop = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&errorString];
+	NSError *error = nil;
+	NSDictionary *prop = [NSPropertyListSerialization propertyListWithData:data
+																   options:NSPropertyListImmutable
+																	format:NULL
+																	 error:&error];
 	if (!prop) {
-		NSLog(@"Could not load new plugins data");
+		NSLog(@"Could not load new plugins data: %@", error);
 		errorCount++;
 	} else {
 		NSLog(@"Downloaded info for %ld plugin%@ ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count], ([(NSArray *)[prop objectForKey:@"plugins"] count] > 1 ? @"s" : @""));

@@ -380,14 +380,15 @@ static CGFloat searchSpeed = 0.0;
 		if (![[thisShelf pathExtension] isEqualToString:@"qsshelf"])
             continue;
         
-        NSString *errorString;
+        NSError *error;
         NSData *data = [NSData dataWithContentsOfFile:[path stringByAppendingPathComponent:thisShelf]];
-        dictionaryArray = [NSPropertyListSerialization propertyListFromData:data
-                                                           mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                                                     format:NULL
-                                                           errorDescription:&errorString];
+        dictionaryArray = [NSPropertyListSerialization propertyListWithData:data
+																	options:NSPropertyListMutableContainersAndLeaves
+																	 format:NULL
+																	  error:&error];
+
         if (dictionaryArray == nil) {
-            NSLog(@"Error reading shelf file %@: %@", thisShelf, errorString);
+            NSLog(@"Error reading shelf file %@: %@", thisShelf, error);
             continue;
         }
 

@@ -133,7 +133,7 @@
 	if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
 	  	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode], @"keyCode", characters, @"character", nil];
 		validCombo = YES;
-		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] encoding:NSUTF8StringEncoding];
+		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataWithPropertyList:dict format:NSPropertyListXMLFormat_v1_0 options:0 error:nil] encoding:NSUTF8StringEncoding];
 		[self setString:string];
 	} else if ([theEvent keyCode] == 53) {
 		[self setString:@"Old"];
@@ -141,7 +141,7 @@
 		//[super sendEvent:theEvent];
 	} else if ([theEvent keyCode] == 51) { //Delete
 		validCombo = YES;
-		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:[NSDictionary dictionary] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] encoding:NSUTF8StringEncoding];
+		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataWithPropertyList:[NSDictionary dictionary] format:NSPropertyListXMLFormat_v1_0 options:0 error:nil] encoding:NSUTF8StringEncoding];
 		[self setString:string];
 	} else {
 		NSBeep();
