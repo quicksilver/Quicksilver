@@ -1,5 +1,9 @@
 ## Changes (401F) ##
 
+### Fixed ###
+
+  * Update watched files and folders in the background (#2345)
+
 ### Development ###
 
   * Fixed several deprecation warnings (#2346)
