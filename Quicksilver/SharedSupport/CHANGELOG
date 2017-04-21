@@ -1,3 +1,9 @@
+## Changes (401F) ##
+
+### Development ###
+
+  * Fixed several deprecation warnings (#2346)
+
 ## Changes - 1.5.3 (401E) 2017-03-03 ##
 
 ### New ###
