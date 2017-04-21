@@ -329,7 +329,7 @@
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
 		CD14B79018D06604000FE86A /* QSThreadSafeMutableDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
-		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD29AEB0195663770052C893 /* InfoPlist.strings */; };
 		CD29AEB4195663770052C893 /* Core_Support_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD29AEB3195663770052C893 /* Core_Support_Tests.m */; };
