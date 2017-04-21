@@ -213,15 +213,15 @@
 #endif
 		[cleanedTriggerArray addObject:rep];
 	}
-	
-    NSString *errorStr;
+
     NSError *error;
     NSDictionary * triggerDict = [[NSDictionary alloc] initWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:triggerDict
-                                                              format:NSPropertyListXMLFormat_v1_0
-                                                    errorDescription:&errorStr];
-    if(data == nil || errorStr) {
-        NSLog(@"Failed converting triggers: %@", errorStr);
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:triggerDict
+															  format:NSPropertyListXMLFormat_v1_0
+															 options:0
+															   error:&error];
+    if(data == nil) {
+        NSLog(@"Failed converting triggers: %@", error);
         return;
     }
     

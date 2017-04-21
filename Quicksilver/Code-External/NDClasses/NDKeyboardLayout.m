@@ -187,7 +187,7 @@ static NSUInteger _characterForModifierFlags( unichar aBuff[kBufferSize], UInt32
 /*
  * NDCocoaModifierFlagsForCarbonModifierFlags()
  */
-NSUInteger NDCocoaModifierFlagsForCarbonModifierFlags( NSUInteger aModifierFlags )
+NSUInteger NDCocoaModifierFlagsForCarbonModifierFlags( UInt32 aModifierFlags )
 {
 	NSUInteger	theCocoaModifierFlags = 0;
 	
@@ -209,9 +209,9 @@ NSUInteger NDCocoaModifierFlagsForCarbonModifierFlags( NSUInteger aModifierFlags
 /*
  * NDCarbonModifierFlagsForCocoaModifierFlags()
  */
-NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags )
+UInt32 NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags )
 {
-	NSUInteger	theCarbonModifierFlags = 0;
+	UInt32	theCarbonModifierFlags = 0;
 	
 	if(aModifierFlags & NSShiftKeyMask)
 		theCarbonModifierFlags |= shiftKey;

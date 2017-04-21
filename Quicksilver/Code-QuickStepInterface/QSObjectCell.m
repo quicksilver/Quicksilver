@@ -195,8 +195,6 @@
 		NSRect imageRect = sizeRectInRect(rectFromSize([image size]), NSMakeRect(0, 0, 22, 22), NO);
 		imageRect = NSOffsetRect(imageRect, NSMaxX(theRect) -NSMaxX(imageRect), NSMaxY(theRect)-NSMaxY(imageRect));
 		return imageRect;
-		theRect.size.width = theRect.size.height;
-
 	} else {
 		NSRect imageRect = [self imageRectForBounds:theRect];
 		return alignRectInRect(countImageRect, imageRect, 3);

@@ -151,6 +151,8 @@
 }
 
 - (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(QSAlertHandler)handler {
+	NSParameterAssert(notif != nil);
+
     if (!notif.identifier) {
         notif.identifier = [[NSUUID UUID] UUIDString];
     }

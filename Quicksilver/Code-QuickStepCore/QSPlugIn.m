@@ -382,7 +382,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	//	[info addAttributes:attributes range:NSMakeRange(0, [info length])];
 	//	NSAttributedString *attribInfo = [[[NSAttributedString alloc] initWithString:text?text:@"" attributes:nil] autorelease];
 	if (!info) return [NSData data];
-	return [info RTFFromRange:NSMakeRange(0, [info length]) documentAttributes:nil]; ;
+	return [info RTFFromRange:NSMakeRange(0, [info length]) documentAttributes:@{}];
 	//		[[plugInText textStorage] setAttributedString:attribInfo];
 
 	return nil;

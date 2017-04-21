@@ -433,7 +433,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	// For RTF pasteboard types, create an RTF data object
 	else if([type isEqualToString:NSRTFPboardType]) {
 		return [attString RTFFromRange:NSMakeRange(0, [attString length])
-					documentAttributes:nil];
+					documentAttributes:@{}];
 	}
 	
 	return nil;

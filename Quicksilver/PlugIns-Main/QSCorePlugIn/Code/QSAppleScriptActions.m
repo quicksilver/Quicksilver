@@ -141,9 +141,12 @@
 	NSDictionary *errorDict = nil;
     NSAppleEventDescriptor * returnDesc = nil;
 
-	[[QSTaskController sharedInstance] updateTask:@"Run AppleScript" status:@"Loading Script" progress:-1];
+	QSTask *task = [QSTask taskWithIdentifier:@"QSRunAppleScript"];
+	task.status = NSLocalizedString(@"Loading Script", @"");
+	[task start];
+
 	NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
-	[[QSTaskController sharedInstance] updateTask:@"Run AppleScript" status:@"Running Script" progress:-1];
+	task.status = NSLocalizedString(@"Running Script", @"");
 
 	if (errorDict) {
 		NSLog(@"Load Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
@@ -175,7 +178,8 @@
 	}
 	if (errorDict) NSLog(@"Run Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
 	[script storeInFile:@"scriptPath"];
-	[[QSTaskController sharedInstance] removeTask:@"Run AppleScript"];
+	[task stop];
+
 	return iObject?[QSObject objectWithAEDescriptor:returnDesc]:nil;
 }
 
