@@ -391,15 +391,12 @@ typedef struct _QSObjectFlags {
 }
 
 - (void)setPrimaryType:(NSString *)newPrimaryType {
-	if (_primaryType != newPrimaryType) {
-		_primaryType = newPrimaryType;
+	if (_primaryType == newPrimaryType) {
+		return;
 	}
 
-	/* FIXME: This can cause primaryType to have a different value between ivar
-	 * and _meta. At first, it's doesn't seems so bad, but a deserialized object
-	 * after a restart would get the UTI instead of the original primaryType
-	 */
 	newPrimaryType = QSUTIForAnyTypeString(newPrimaryType);
+	_primaryType = newPrimaryType;
 	[self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
