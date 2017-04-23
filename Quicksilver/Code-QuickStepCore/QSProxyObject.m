@@ -96,10 +96,10 @@
 			return;
 		}
 	}
-	// Send the notification before niling our target
-	/* FIXME: I'm not actually quite sure what we're trying to do here... */
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:self.cache[QSProxyTargetCache]];
+
+	/* Release our proxied object (and observations) so we refresh it next time */
 	self.cache[QSProxyTargetCache] = nil;
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSInterfaceDeactivatedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:QSCommandExecutedNotification object:nil];
 }
