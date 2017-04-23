@@ -477,8 +477,7 @@ typedef struct _QSObjectFlags {
 
 - (void)setAltChildren:(NSArray *)newAltChildren {
 	if (newAltChildren) {
-		/* FIXME: Looks like a bug */
-		if (self.cache[kQSObjectChildren] != newAltChildren) {
+		if (self.cache[kQSObjectAltChildren] != newAltChildren) {
 			self.cache[kQSObjectAltChildren] = newAltChildren;
 			NSString *parentID = self.identifier;
 			for (QSObject *child in newAltChildren) {
