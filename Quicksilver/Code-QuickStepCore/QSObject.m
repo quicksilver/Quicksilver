@@ -634,8 +634,6 @@ typedef struct _QSObjectFlags {
 	}
 }
 
-- (void)updateIcon:(NSImage *)newIcon { self.icon = newIcon; }
-
 - (BOOL)iconLoaded {
 	@synchronized (self) {
 		return _flags.iconLoaded;

@@ -85,8 +85,6 @@ extern NSSize QSMaxIconSize;
 - (BOOL)loadIcon;
 - (BOOL)unloadIcon;
 
-- (void)updateIcon:(NSImage *)newIcon QS_DEPRECATED_MSG("Use -setIcon:");
-
 /** Type-handling */
 
 - (NSArray *)types;
