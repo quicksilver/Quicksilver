@@ -19,6 +19,7 @@
   * Various performance enhancements to prevent Quicksilver from freezing (#2312)
   * Proxy objects should refresh as needed instead of after a delay (#2322)
   * Strings in commands saved to disk should preserve their value instead of getting replaced by an internal identifier (#2306, #2325)
+  * Eliminate some "deleted thread with uncommitted CATransaction" warnings (#2275, #2347)
 
 ### Changed ###
 
