@@ -132,8 +132,20 @@
 	[self searchObjectChanged:nil];
 
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:progressIndicator selector:@selector(startAnimation:) name:QSTasksStartedNotification object:nil];
-	[nc addObserver:progressIndicator selector:@selector(stopAnimation:) name:QSTasksEndedNotification object:nil];
+	[nc addObserver:self selector:@selector(taskStarted:) name:QSTasksStartedNotification object:nil];
+	[nc addObserver:self selector:@selector(taskEnded:) name:QSTasksEndedNotification object:nil];
+}
+
+- (void)taskStarted:(NSNotification *)notif {
+	QSGCDMainAsync(^{
+		[progressIndicator startAnimation:self];
+	});
+}
+
+- (void)taskEnded:(NSNotification *)notif {
+	QSGCDMainAsync(^{
+		[progressIndicator stopAnimation:self];
+	});
 }
 
 - (QSCommand *)currentCommand { 
