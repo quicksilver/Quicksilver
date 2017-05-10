@@ -428,7 +428,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *newAltChildren = nil;
 
 	if ([object fileCount] == 1) {
-		NSString *path = [object singleFilePath];
+		NSString *path = [[object singleFilePath] stringByResolvingSymlinksInPath];
 		if (!path || ![path length]) return NO;
 		NSFileManager *manager = [NSFileManager defaultManager];
         // Boolean as to whether or not the alias is a directory
