@@ -7,7 +7,7 @@
 //
 
 #import "QSStringRanker.h"
-#import "QSense.h"
+#import "QSSense.h"
 #import "NSString_Purification.h"
 
 @implementation QSDefaultStringRanker

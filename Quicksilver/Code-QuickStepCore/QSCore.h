@@ -19,7 +19,6 @@
 #import "QSComputerSource.h"
 #import "QSDebug.h"
 #import "QSDefines.h"
-#import "QSense.h"
 #import "QSExecutor.h"
 #import "QSGlobalSelectionProvider.h"
 #import "QSHandledObjectHandler.h"
