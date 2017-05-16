@@ -7,6 +7,7 @@
 ### Development ###
 
   * Fixed several deprecation warnings (#2346)
+  * Clean up and consolidate code related to ranking (#2342)
 
 ## Changes - 1.5.3 (401E) 2017-03-03 ##
 
