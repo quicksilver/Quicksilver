@@ -10,7 +10,6 @@
 #import "NSString_Purification.h"
 #import "QSAction.h"
 #import "QSActionProvider.h"
-#import "QSAlertManager.h"
 #import "QSBadgeImage.h"
 #import "QSBasicObject.h"
 #import "QSCatalogEntry.h"
