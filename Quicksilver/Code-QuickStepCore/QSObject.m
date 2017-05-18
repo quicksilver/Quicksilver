@@ -442,15 +442,13 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    @synchronized([self cache]) {
-        if (object) {
-            if (object != [[self cache] objectForKey:aKey]) {
-                [[self cache] setObject:object forKey:aKey];
-            }
-        } else {
-            [[self cache] removeObjectForKey:aKey];
-        }
-    }
+	if (object) {
+		if (object != [[self cache] objectForKey:aKey]) {
+			[[self cache] setObject:object forKey:aKey];
+		}
+	} else {
+		[[self cache] removeObjectForKey:aKey];
+	}
 }
 
 - (id)objectForMeta:(id)aKey {
