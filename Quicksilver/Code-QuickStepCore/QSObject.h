@@ -105,7 +105,7 @@ typedef struct _QSObjectFlags {
 
 - (void)setDetails:(NSString *)newDetails;
 
-- (QSThreadSafeMutableDictionary *)cache;
+- (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
