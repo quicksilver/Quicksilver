@@ -67,6 +67,7 @@ NSSize QSMaxIconSize;
 
 		data = [NSMutableDictionary dictionaryWithCapacity:0];
 		meta = [NSMutableDictionary dictionaryWithCapacity:0];
+		cache = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
 		icon = nil;
@@ -470,7 +471,6 @@ NSSize QSMaxIconSize;
 }
 
 - (QSThreadSafeMutableDictionary *)cache {
-	if (!cache) [self setCache:[NSMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
 }
 - (void)setCache:(NSMutableDictionary *)aCache {
