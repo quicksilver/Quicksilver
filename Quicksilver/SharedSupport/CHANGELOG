@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Update watched files and folders in the background (#2345)
+  * Prevent some crashes (primarily related to icon loading) (#2339)
 
 ### Development ###
 
