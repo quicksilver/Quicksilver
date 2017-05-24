@@ -32,10 +32,10 @@ QSRegistry* QSReg = nil;
 	if (self = [super init]) {
 		classRegistry = [[NSMutableDictionary alloc] init];
 		tableInstances = [[NSMutableDictionary alloc] init];
-		classInstances = [[NSMutableDictionary alloc] init];
+		classInstances = [[QSThreadSafeMutableDictionary alloc] init];
 		classBundles = [[NSMutableDictionary alloc] init];
 		identifierBundles = [[NSMutableDictionary alloc] init];
-		prefInstances = [[NSMutableDictionary alloc] init];
+		prefInstances = [[QSThreadSafeMutableDictionary alloc] init];
 		infoRegistry = [[NSMutableDictionary alloc] init];
 		[self objectSources];
 		[self objectHandlers];

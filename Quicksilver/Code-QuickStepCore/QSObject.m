@@ -67,6 +67,7 @@ NSSize QSMaxIconSize;
 
 		data = [NSMutableDictionary dictionaryWithCapacity:0];
 		meta = [NSMutableDictionary dictionaryWithCapacity:0];
+		cache = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
 		icon = nil;
@@ -441,15 +442,13 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    @synchronized([self cache]) {
-        if (object) {
-            if (object != [[self cache] objectForKey:aKey]) {
-                [[self cache] setObject:object forKey:aKey];
-            }
-        } else {
-            [[self cache] removeObjectForKey:aKey];
-        }
-    }
+	if (object) {
+		if (object != [[self cache] objectForKey:aKey]) {
+			[[self cache] setObject:object forKey:aKey];
+		}
+	} else {
+		[[self cache] removeObjectForKey:aKey];
+	}
 }
 
 - (id)objectForMeta:(id)aKey {
@@ -470,12 +469,11 @@ NSSize QSMaxIconSize;
 }
 
 - (NSMutableDictionary *)cache {
-	if (!cache) [self setCache:[NSMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
 }
 - (void)setCache:(NSMutableDictionary *)aCache {
 	if (cache != aCache) {
-		cache = aCache;
+		cache = [QSThreadSafeMutableDictionary dictionaryWithDictionary:aCache];
 	}
 }
 
