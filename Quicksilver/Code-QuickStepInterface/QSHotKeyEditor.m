@@ -278,8 +278,6 @@
 				[setButton display];
 				break;
 			}
-			case NSSystemDefined:
-			case NSAppKitDefined:
 			case NSEventTypeLeftMouseDown:
 				if (![self containsEvent:theEvent] && ![setButton containsEvent:theEvent]) {
 					//Absorb events on self or setButton
