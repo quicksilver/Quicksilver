@@ -250,7 +250,7 @@
 	while(collectEvents) {
 		theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask | NSFlagsChangedMask | NSLeftMouseDownMask | NSAppKitDefinedMask | NSSystemDefinedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:10.0] inMode:NSDefaultRunLoopMode dequeue:YES];
 		switch ([theEvent type]) {
-			case NSKeyDown: {
+			case NSEventTypeKeyDown: {
 //				unsigned short keyCode = [theEvent keyCode];
 //				NSString *characters = (keyCode == 48) ? @"\t" : [theEvent charactersIgnoringModifiers];
 				if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
@@ -269,7 +269,7 @@
 				}
 			}
 			break;
-			case NSFlagsChanged: {
+			case NSEventTypeFlagsChanged: {
                 NSString *newString = stringForModifiers([theEvent modifierFlags]);
 
 				//NSLog(@"%@", newString);
@@ -280,7 +280,7 @@
 			}
 			case NSSystemDefined:
 			case NSAppKitDefined:
-			case NSLeftMouseDown:
+			case NSEventTypeLeftMouseDown:
 				if (![self containsEvent:theEvent] && ![setButton containsEvent:theEvent]) {
 					//Absorb events on self or setButton
 					[NSApp postEvent:theEvent atStart:YES];
