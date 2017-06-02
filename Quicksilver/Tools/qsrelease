@@ -1,14 +1,5 @@
 #!/bin/zsh
 
-## test
-if ! which xctool &> /dev/null
-then
-    echo "Tests require xctool (available via Homebrew)"
-    exit 78
-fi
-xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver Distribution" test
-xctool -project "Quicksilver.xcodeproj" -scheme "Quicksilver" -configuration Debug test
-
 ## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
@@ -26,6 +17,8 @@ LOG="$BUILT_PRODUCTS_DIR/build.log"
 ## (This could be done with a single command, but if `clean` fails, the
 ## exit status won't be 0. It usually fails because something didn't exist
 ## in the first place. We don't care.)
+# xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
+xcodebuild -scheme 'Quicksilver Distribution' test > $LOG
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' clean > $LOG
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' build >> $LOG
 
