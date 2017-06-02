@@ -1,3 +1,14 @@
+## Changes (4020) ##
+
+### Fixed ###
+
+  * Keyboard shortcuts for Quicksilver activation and triggers couldn't be changed (#2362)
+
+### Development ###
+
+  * Removed requirement for `xctool` (#2353)
+  * Configured Travis to use Xcode 8.3 and removed `xctool` (#2362)
+
 ## Changes - 1.5.4 (401F) 2017-05-24 ##
 
 ### Fixed ###
