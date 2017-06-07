@@ -154,9 +154,7 @@ static QSTaskViewer * _sharedInstance;
         self.taskControllers[task.identifier] = [QSTaskViewController controllerWithTask:task];
     }
 
-    QSGCDMainAsync(^{
-        [self updateTaskView];
-    });
+    [self updateTaskView];
 }
 
 - (void)removeTask:(NSNotification *)notif {
@@ -179,7 +177,7 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)updateTaskView {
-    QSGCDMainAsync(^{
+    QSGCDMainSync(^{
         // Make sure our window is loaded, we need it for the calculations below.
         [self window];
         NSUInteger i = 0;

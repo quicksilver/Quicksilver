@@ -516,15 +516,17 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)hideResultView:(id)sender {
-	[[self window] removeChildWindow:[resultController window]];
-	[resultController setResultIconLoader:nil];
-	[[resultController window] orderOut:self];
-	if (browsing) {
-		browsing = NO;
-		[self setSearchMode:SearchFilterAll];
-	}
-	if ([[self controller] respondsToSelector:@selector(searchView:resultsVisible:)])
-		[(id)[self controller] searchView:self resultsVisible:NO];
+	QSGCDMainSync(^{
+		[[self window] removeChildWindow:[resultController window]];
+		[resultController setResultIconLoader:nil];
+		[[resultController window] orderOut:self];
+		if (browsing) {
+			browsing = NO;
+			[self setSearchMode:SearchFilterAll];
+		}
+		if ([[self controller] respondsToSelector:@selector(searchView:resultsVisible:)])
+			[(id)[self controller] searchView:self resultsVisible:NO];
+	});
 }
 
 - (IBAction)updateResultView:(id)sender {
