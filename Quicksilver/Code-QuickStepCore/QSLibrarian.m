@@ -321,12 +321,12 @@ static CGFloat searchSpeed = 0.0;
             if ([obj identifier]) {
                 [self setIdentifier:[obj identifier] forObject:obj];
             } else {
+                NSString *ident = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
 				if ([[obj primaryType] isEqualToString:QSTextType]) {
 					// don't add identifiers to string objects
 					// it ends up replacing the string value
-					continue;
+					ident = [obj objectForType:QSTextType];
 				}
-                NSString *ident = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
                 [obj setIdentifier:ident];
             }
         }
