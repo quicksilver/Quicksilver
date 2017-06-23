@@ -1,3 +1,9 @@
+## Changes - 1.5.6 (4021) ##
+
+### Development ###
+
+  * Include FMDB in the core application to avoid conflicts between different plugins. It should be possible to remove FMDB from your plugins in the next release. (#2348)
+
 ## Changes - 1.5.5 (4020) 2017-06-12 ##
 
 ### Fixed ###
