@@ -279,7 +279,8 @@
 	NSString *errorString;
 	self.downloadTask.status = NSLocalizedString(@"Updating plugin info", @"");
 	NSError *error = nil;
-	NSDictionary *prop = [NSPropertyListSerialization propertyListWithData:data
+	NSDictionary *prop = nil;
+	if (data) prop = [NSPropertyListSerialization propertyListWithData:data
 																   options:NSPropertyListImmutable
 																	format:NULL
 																	 error:&error];
