@@ -384,49 +384,51 @@
 #endif
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
-	foreachkey(ident, plugins, dependingPlugIns) {
-		if ([(NSArray *)plugins count]) {
-			// ignore dependencies for plug-ins that won't load under the current architecture
-			BOOL loadDependencies = NO;
-			for (QSPlugIn *plugin in plugins) {
-				if ([plugin isSupported]) {
-					// if any one of the depending plug-ins is supported, get the prerequisite
-					loadDependencies = YES;
-					break;
-				}
-			}
-			if (loadDependencies) {
-				NSArray *dependencies = [[plugins lastObject] dependencies];
-				NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
-				if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
-					// supporting plug-in is not yet installed
-					[array addObject:supportingPlugIn];
-					[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
-				}
+	for (NSString *ident in dependingPlugIns) {
+		NSArray *plugins = dependingPlugIns[ident];
+
+		if (![plugins count]) continue;
+
+		// ignore dependencies for plug-ins that won't load under the current architecture
+		BOOL loadDependencies = NO;
+		for (QSPlugIn *plugin in plugins) {
+			if ([plugin isSupported]) {
+				// if any one of the depending plug-ins is supported, get the prerequisite
+				loadDependencies = YES;
+				break;
 			}
 		}
+		if (!loadDependencies) continue;
+
+		NSArray *dependencies = [[plugins lastObject] dependencies];
+		NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
+		if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
+			// supporting plug-in is not yet installed
+			[array addObject:supportingPlugIn];
+			[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+		}
 	}
+
 	//	NSLog(@"installing! %@", array);
 	if (![array count]) return;
 
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSAlwaysInstallPrerequisites"]) {
 		[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
-
-	} else {
-		//[NSApp activateIgnoringOtherApps:YES];
-		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Requirements", nil] ,
-												  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
-												  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
-												  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
-		if (selection == 1) {
-			[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
-		} else if (selection == -1) {  //Go to web site
-			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
-			[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
-
-		}
+		return;
 	}
 
+	//[NSApp activateIgnoringOtherApps:YES];
+	NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Requirements", nil] ,
+											  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
+											  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
+											  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
+	if (selection == 1) {
+		[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
+	} else if (selection == -1) {  //Go to web site
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
+		[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
+
+	}
 }
 
 - (void)checkForObsoletes:(QSPlugIn *)plugin
