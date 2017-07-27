@@ -63,6 +63,10 @@
 		[plugin setBundle:bundle];
 	} else {
 		plugin = [QSPlugIn plugInWithBundle:bundle];
+		if (!plugin) {
+			NSLog(@"Failed to initialize plugin for bundle %@", bundle);
+			return nil;
+		}
 		[knownPlugIns setObject:plugin forKey:[bundle bundleIdentifier]];
 	}
 	return plugin;
