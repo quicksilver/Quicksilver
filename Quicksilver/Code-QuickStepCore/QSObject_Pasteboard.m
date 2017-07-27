@@ -96,7 +96,12 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             } else {
 				NSLog(@"bad data for %@", thisType);
             }
-			[typeArray addObject:[thisType decodedPasteboardType]];
+			NSString *decodedType = [thisType decodedPasteboardType];
+			if (!decodedType) {
+				NSLog(@"Failed to decode pasteboard type: %@", thisType);
+				continue;
+			}
+			[typeArray addObject:decodedType];
 		}
 	}
 }
