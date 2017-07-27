@@ -31,6 +31,11 @@
 
 - (void)adjustWindow:(id)sender {
 	QSAction *action = (QSAction *)[aSelector objectValue];
+	if (![action isKindOfClass:[QSAction class]]) {
+		NSLog(@"Non-action in aSelector, resetting: %@", action);
+		[self clearObjectView:aSelector];
+		return;
+	}
 	NSInteger argumentCount = [action argumentCount];
 
 //	NSLog(@"adjust x%d", argumentCount);
