@@ -561,10 +561,21 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 @implementation QSBasicObject (FileHandling)
 
-- (NSString *)singleFilePath {return [self objectForType:QSFilePathType];}
+- (NSString *)singleFilePath {
+	NSString *path = [self objectForType:QSFilePathType];
+	if (![path isKindOfClass:[NSString class]]) {
+		NSLog(@"unexpected object for file path: %@, object: %@", path, self);
+		return nil;
+	}
+	return path;
+}
 
 - (NSString *)validSingleFilePath {
 	NSString *path = [self objectForType:QSFilePathType];
+	if (![path isKindOfClass:[NSString class]]) {
+		NSLog(@"unexpected object for file path: %@, object: %@", path, self);
+		return nil;
+	}
 	if (path && [[NSFileManager defaultManager] fileExistsAtPath:path])
 		return path;
 	return nil;
