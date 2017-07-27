@@ -400,8 +400,14 @@
 		}
 		if (!loadDependencies) continue;
 
-		NSArray *dependencies = [[plugins lastObject] dependencies];
+		QSPlugIn *plugin = plugins.lastObject;
+		NSArray *dependencies = [plugin dependencies];
 		NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
+		if (supportingPlugIn == nil) {
+			NSLog(@"invalid dependency for %@ in plugin %@", ident, plugin.identifier);
+			continue;
+		}
+
 		if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
 			// supporting plug-in is not yet installed
 			[array addObject:supportingPlugIn];
