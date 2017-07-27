@@ -383,7 +383,7 @@
     if (VERBOSE) NSLog(@"Unmet Dependencies: %@", dependingPlugIns);
 #endif
 	NSMutableArray *array = [NSMutableArray array];
-	NSMutableSet *dependingNames = [NSMutableSet set];
+	NSMutableSet *dependingNamesSet = [NSMutableSet set];
 	for (NSString *ident in dependingPlugIns) {
 		NSArray *plugins = dependingPlugIns[ident];
 
@@ -405,7 +405,7 @@
 		if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
 			// supporting plug-in is not yet installed
 			[array addObject:supportingPlugIn];
-			[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+			[dependingNamesSet addObjectsFromArray:[plugins valueForKey:@"name"]];
 		}
 	}
 
@@ -417,18 +417,30 @@
 		return;
 	}
 
-	//[NSApp activateIgnoringOtherApps:YES];
-	NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Requirements", nil] ,
-											  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
-											  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
-											  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
-	if (selection == 1) {
-		[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
-	} else if (selection == -1) {  //Go to web site
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
-		[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
+	NSString *dependingNames = [[dependingNamesSet allObjects] componentsJoinedByString:@", "];
+	NSString *unmetPluginNames = [[array valueForKey:@"name"] componentsJoinedByString:@", "];
 
-	}
+	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"There are missing dependencies: %@\n\nThe following plugins will not work until those plugins are installed: %@", @"Missing dependencies alert - message (depending plugin names, unmet plugin names)"), dependingNames, unmetPluginNames];
+	NSArray *buttons = @[
+						 NSLocalizedString(@"Install", @"Missing dependencies alert - button 1"),
+						 NSLocalizedString(@"Disable", @"Missing dependencies alert - button 2"),
+						 NSLocalizedString(@"Always Install Requirements", @"Missing dependencies alert - button 3")
+						 ];
+
+	[[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Plugin requirements", @"Missing dependencies alert - title")
+												 message:message
+												 buttons:buttons
+												   style:NSAlertStyleWarning
+												onWindow:nil
+									   completionHandler:^(QSAlertResponse response) {
+										   if (response == QSAlertResponseCancel) return;
+
+										   if (response == QSAlertResponseThird) {
+											   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
+										   }
+
+										   [self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
+									   }];
 }
 
 - (void)checkForObsoletes:(QSPlugIn *)plugin
