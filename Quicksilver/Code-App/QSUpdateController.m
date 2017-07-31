@@ -503,7 +503,9 @@ typedef enum {
 	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
-		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
+		QSGCDMainAsync(^{
+			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
+		});
 		return [manager contentsOfDirectoryAtPath:tempDirectory error:nil];
 	} else {
 		return nil;
