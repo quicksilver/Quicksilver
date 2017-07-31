@@ -36,7 +36,6 @@
 @interface QSUpdateController () {
 	NSTimer *updateTimer;
 	NSString *availableVersion;
-	NSString *tempPath;
 }
 @property (retain) QSURLDownload *appDownload;
 @property (retain) QSTask *downloadTask;
