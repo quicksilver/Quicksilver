@@ -23,15 +23,6 @@
 + (id)sharedInstance;
 - (void)setUpdateTimer;
 - (IBAction)checkForUpdate:(id)sender;
-//- (BOOL)updatePlugIns:(NSArray *)bundles;
-//- (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs;
-//- (NSMutableArray *)updatedPlugIns;
-//- (NSMutableArray *)downloadsQueue;
-//- (BOOL)handleInstallURL:(NSURL *)url;
-//- (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
-//- (NSString *)installPlugInFromFile:(NSString *)path;
-//- (NSArray *)installPlugInFromCompressedFile:(NSString *)path;
-//-(float) downloadProgress;
 - (void)forceStartupCheck;
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;
