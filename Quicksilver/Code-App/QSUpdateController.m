@@ -75,7 +75,7 @@
 	if (updateTimer) {
 		[updateTimer invalidate];
 	}
-	updateTimer = [NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat];
+	updateTimer = [NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(scheduledCheckForUpdate:) userInfo:nil repeats:shouldRepeat];
 	[updateTimer setFireDate:nextCheck];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
@@ -149,23 +149,23 @@ typedef enum {
 	return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
 }
 
-- (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
+- (BOOL)checkForUpdates:(BOOL)userInitiated {
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
 	task.status = NSLocalizedString(@"Check for Update", @"");
 	[task start];
 	BOOL updated = NO;
 
-	NSInteger check = [self checkForUpdateStatus:force];
+	NSInteger check = [self checkForUpdateStatus:userInitiated];
 	[task stop];
 
 	switch (check) {
 		case kQSUpdateCheckError:
-			if (!quiet)
+			if (userInitiated)
 				NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
 			return NO;
 			break;
 		case kQSUpdateCheckUpdateAvailable:
-			if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+			if (!userInitiated && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
 				/** Diable automatically checking for updates in the background for DEBUG builds
 				 You can still check for updates by clicking the "Check Now" button **/
 #ifndef DEBUG
@@ -188,7 +188,7 @@ typedef enum {
 			if (updateStatus == QSPluginUpdateStatusNoUpdates) {
 				updated = NO;
 				NSLog(@"Quicksilver is up to date.");
-				if (!quiet)
+				if (userInitiated)
 					NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
 			}
 			return updated;
@@ -202,44 +202,16 @@ typedef enum {
 	return NO;
 }
 
-- (BOOL)threadedCheckForUpdates:(BOOL)force {
-	BOOL res = [self checkForUpdatesInBackground:NO force:force];
-	return res;
-}
-
-- (BOOL)threadedCheckForUpdatesInBackground:(BOOL)force {
-	BOOL res = [self checkForUpdatesInBackground:YES force:force];
-	return res;
-}
-
-- (IBAction)checkForUpdate:(id)sender {
-	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
-	BOOL forceUpdate = [sender isEqual:@"Force"];
-
-	[self checkForUpdatesInBackground:quiet force:forceUpdate];
-}
-
 - (void)handleURL:(NSURL *)url {
-	[self threadedCheckForUpdatesInBackground:NO];
+	[self checkForUpdates:YES];
 }
 
-- (IBAction)threadedCheckForUpdate:(id)sender {
-	QSGCDAsync(^{
-
-		// Test to see if the update request is an automatic request (e.g. on launch)
-		BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
-
-		if (quiet) {
-			[self threadedCheckForUpdatesInBackground:NO];
-		}
-		else {
-			[self threadedCheckForUpdates:NO];
-		}
-	});
+- (void)scheduledCheckForUpdate:(NSTimer *)timer {
+	[self checkForUpdates:NO];
 }
 
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender {
-	[self threadedCheckForUpdates:YES];
+	[self checkForUpdates:YES];
 }
 
 - (void)installAppUpdate {
