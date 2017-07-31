@@ -133,7 +133,8 @@ typedef enum {
 
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
 	if (![checkVersionString length] || [checkVersionString length] > 10) {
-		NSLog(@"Unable to check for new version.");
+		NSString *preview = [checkVersionString substringToIndex:([checkVersionString length] < 10 ? [checkVersionString length] : 9)];
+		NSLog(@"Strange reply from update server: %@", preview);
 		return kQSUpdateCheckError;
 	}
 
