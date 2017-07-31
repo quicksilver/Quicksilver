@@ -35,12 +35,11 @@
 
 @interface QSUpdateController () {
 	NSTimer *updateTimer;
-	QSURLDownload *appDownload;
 	NSString *availableVersion;
 	NSString *tempPath;
-	QSTask *updateTask;
-	BOOL shouldCancel;
 }
+@property (retain) QSURLDownload *appDownload;
+@property (retain) QSTask *downloadTask;
 @end
 
 @implementation QSUpdateController
@@ -263,7 +262,7 @@ typedef enum {
 }
 
 - (void)installAppUpdate {
-	if (updateTask) return;
+	if (self.downloadTask) return;
 
 	NSString *fileURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSDownloadUpdateURL"];
 	if (!fileURL)
@@ -286,43 +285,45 @@ typedef enum {
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
-	if (appDownload) {
-		updateTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
-		updateTask.name = NSLocalizedString(@"Downloading Update", @"Downloading update task name");
-		updateTask.progress = -1;
+	self.appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
+	if (self.appDownload) {
+		self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
+		self.downloadTask.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
+		self.downloadTask.status = NSLocalizedString(@"Downloading Update…", @"QSUpdateController - download task status");
+		self.downloadTask.progress = -1;
 
 		__weak QSUpdateController *weakSelf = self;
-		updateTask.cancelBlock = ^{
+		self.downloadTask.cancelBlock = ^{
 			__strong QSUpdateController *strongSelf = weakSelf;
-			strongSelf->shouldCancel = YES;
-			[strongSelf->appDownload cancel];
-			strongSelf->appDownload = nil;
+			[strongSelf.appDownload cancel];
+			strongSelf.appDownload = nil;
 		};
 
 		[[QSTaskViewer sharedInstance] showWindow:self];;
-		[updateTask start];
-		[appDownload start];
+		[self.downloadTask start];
+		[self.appDownload start];
 	}
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-	if (download != appDownload)
+	if (download != self.appDownload)
 		return;
 	NSLog(@"Download Failed: %@", error);
-	[updateTask stop];
-	updateTask = nil;
-	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
-	[appDownload cancel];
-	appDownload = nil;
+	[self.downloadTask stop];
+	self.downloadTask = nil;
+	QSGCDMainAsync(^{
+		NSRunInformationalAlertPanel(NSLocalizedString(@"Download Failed", @""), NSLocalizedString(@"An error occured while updating: %@", @""), NSLocalizedString(@"OK", @""), nil, nil, [error localizedDescription]);
+	});
+	[self.appDownload cancel];
+	self.appDownload = nil;
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
-	if (download != appDownload)
-		return;
+    if (download != self.appDownload)
+        return;
 
-	[updateTask setStatus:@"Download Complete"];
-	[updateTask setProgress:1.0];
+	self.downloadTask.status = NSLocalizedString(@"Download Complete", @"QSUpdateController - download task status");
+	self.downloadTask.progress = 1.0;
 
 	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:availableVersion];
 
@@ -336,19 +337,19 @@ typedef enum {
 													 name:@"QSPlugInUpdatesFailed"
 												   object:nil];
 	} else {
-		NSLog(@"Plugins don't need update");
+		NSLog(@"Plugins don't need updates");
 		[self finishAppInstall];
 	}
 }
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
-	NSString * status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
-	[updateTask setStatus:status];
-	[updateTask setProgress:[(QSURLDownload *)download progress]];
+	NSString *status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
+	self.downloadTask.status = status;
+	self.downloadTask.progress = [(QSURLDownload *)download progress];
 }
 
 - (void)finishAppInstall {
-	NSString *path = [appDownload destination];
+	NSString *path = [self.appDownload destination];
 
 	NSInteger selection;
 
@@ -378,9 +379,9 @@ typedef enum {
 		}
 	}
 
-	[updateTask stop];
-	updateTask = nil;
-	appDownload = nil;
+	[self.downloadTask stop];
+	self.downloadTask = nil;
+	self.appDownload = nil;
 }
 
 - (BOOL)installAppFromDiskImage:(NSString *)path {
@@ -396,9 +397,8 @@ typedef enum {
 		return NO;
 	}
 
-	[updateTask setName:@"Installing Update"];
-	[updateTask setStatus:@"Verifying Data"];
-	[updateTask setProgress:-1.0];
+	self.downloadTask.status = NSLocalizedString(@"Verifying Data", @"QSUpdateController - download task status");
+	self.downloadTask.progress = -1;
 
 	// mount the .dmg
 	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
@@ -445,9 +445,9 @@ typedef enum {
 
 
 	// Copy the Application over the current app
-	[updateTask setStatus:@"Copying Application"];
+	self.downloadTask.status = NSLocalizedString(@"Copying Application", @"QSUpdateController - download task status");
 	BOOL copySuccess = [NSApp moveToPath:[[NSBundle mainBundle] bundlePath] fromPath:storedAppPath];
-	[updateTask setStatus:@"Cleaning Up"];
+	self.downloadTask.status = NSLocalizedString(@"Cleaning Up", QSUpdateController - download task status);
 
 	// Unmount .dmg and tidyup
 	task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
