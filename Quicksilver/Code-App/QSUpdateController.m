@@ -150,15 +150,14 @@ typedef enum {
 	return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
 }
 
-- (BOOL)checkForUpdates:(BOOL)userInitiated {
+- (void)checkForUpdates:(BOOL)userInitiated {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	/* This is an automated check and updates are blocked or not enabled */
 	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || ([defaults boolForKey:kCheckForUpdates] && !userInitiated)) {
 		NSLog(@"Preventing update check.");
-		return NO;
+		return;
 	}
-	BOOL updated = NO;
 
 	NSInteger check = [self checkForUpdateStatus:userInitiated];
 
@@ -166,7 +165,7 @@ typedef enum {
 		case kQSUpdateCheckError:
 			if (userInitiated)
 				NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
-			return NO;
+			return;
 			break;
 		case kQSUpdateCheckUpdateAvailable:
 			if (!userInitiated && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
@@ -183,26 +182,23 @@ typedef enum {
 					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
 				}
 			}
-			return YES;
+			return;
 			break;
 		case kQSUpdateCheckNoUpdate:
 		{
 			QSPluginUpdateStatus updateStatus;
 			updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
 			if (updateStatus == QSPluginUpdateStatusNoUpdates) {
-				updated = NO;
 				NSLog(@"Quicksilver is up to date.");
 				if (userInitiated)
 					NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
 			}
-			return updated;
+			return;
 			break;
 		}
 		default:
 			break;
 	}
-
-	return NO;
 }
 
 - (void)handleURL:(NSURL *)url {
