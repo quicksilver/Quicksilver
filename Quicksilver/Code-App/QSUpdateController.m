@@ -226,10 +226,6 @@ typedef enum {
 	[self checkForUpdates:NO];
 }
 
-- (IBAction)threadedRequestedCheckForUpdate:(id)sender {
-	[self checkForUpdates:YES];
-}
-
 - (void)installAppUpdate {
 	if (updateTask) return;
 

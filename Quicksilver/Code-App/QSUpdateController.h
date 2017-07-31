@@ -10,8 +10,7 @@
 
 @interface QSUpdateController : NSObject
 + (instancetype)sharedInstance;
-- (IBAction)checkForUpdate:(id)sender;
-- (IBAction)threadedRequestedCheckForUpdate:(id)sender;
+- (void)checkForUpdates:(BOOL)userInitiated;
 
 /* Needed by QSPlugInManager */
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
