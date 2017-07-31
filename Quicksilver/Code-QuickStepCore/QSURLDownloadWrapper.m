@@ -8,6 +8,17 @@
 
 #import "QSURLDownloadWrapper.h"
 
+@interface QSURLDownload () <NSURLDownloadDelegate> {
+	NSURLRequest *request;
+	NSURLDownload *download;
+	long long expectedContentLength;
+	long long currentContentLength;
+	id userInfo;
+	NSString *destination;
+	id <QSURLDownloadDelegate> delegate;
+}
+@end
+
 @implementation QSURLDownload
 + (id)downloadWithURL:(NSURL*)url delegate:(id)aDelegate {
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];

@@ -8,22 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol QSURLDownloadDelegate;
-@interface QSURLDownload : NSObject 
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_6
-<NSURLDownloadDelegate>
-#endif
-{
-    NSURLRequest *request;
-    NSURLDownload *download;
-	long long expectedContentLength;
-	long long currentContentLength;
-	id userInfo;
-    NSString *destination;
-    id <QSURLDownloadDelegate> delegate;
-}
-+ (id)downloadWithURL:(NSURL*)url delegate:(id <QSURLDownloadDelegate>)aDelegate;
-- (id)initWithRequest:(NSURLRequest*)url delegate:(id <QSURLDownloadDelegate>)aDelegate;
+@interface QSURLDownload : NSObject
+
++ (id)downloadWithURL:(NSURL *)url delegate:(nullable id <QSURLDownloadDelegate>)aDelegate;
+- (id)initWithRequest:(NSURLRequest *)url delegate:(nullable id <QSURLDownloadDelegate>)aDelegate;
 - (void)start;
 - (void)cancel;
 
@@ -46,3 +37,5 @@
 - (void)downloadDidBegin:(QSURLDownload *)download;
 - (void)downloadDidUpdate:(QSURLDownload *)download;
 @end
+
+NS_ASSUME_NONNULL_END
