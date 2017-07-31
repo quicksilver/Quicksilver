@@ -109,19 +109,12 @@
 }
 
 typedef enum {
-	kQSUpdateCheckSkip = -2,
 	kQSUpdateCheckError = -1,
 	kQSUpdateCheckNoUpdate = 0,
 	kQSUpdateCheckUpdateAvailable = 1,
 } QSUpdateCheckResult;
 
 - (QSUpdateCheckResult)checkForUpdateStatus:(BOOL)userInitiated {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || (![defaults boolForKey:kCheckForUpdates] && !userInitiated)) {
-		NSLog(@"Preventing update check.");
-		return kQSUpdateCheckSkip;
-	}
-
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	NSString *checkVersionString = nil;
 
@@ -131,7 +124,7 @@ typedef enum {
 	NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
 	checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
+	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
 	if (![checkVersionString length] || [checkVersionString length] > 10) {
 		NSLog(@"Unable to check for new version.");
 		return kQSUpdateCheckError;
@@ -150,6 +143,14 @@ typedef enum {
 }
 
 - (BOOL)checkForUpdates:(BOOL)userInitiated {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	/* This is an automated check and updates are blocked or not enabled */
+	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || ([defaults boolForKey:kCheckForUpdates] && !userInitiated)) {
+		NSLog(@"Preventing update check.");
+		return NO;
+	}
+
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
 	task.status = NSLocalizedString(@"Check for Update", @"");
 	[task start];
@@ -195,7 +196,6 @@ typedef enum {
 			break;
 		}
 		default:
-		case kQSUpdateCheckSkip:
 			break;
 	}
 
