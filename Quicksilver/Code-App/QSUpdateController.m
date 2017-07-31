@@ -33,7 +33,7 @@
  *
  */
 
-@interface QSUpdateController () {
+@interface QSUpdateController () <QSURLDownloadDelegate> {
 	NSTimer *updateTimer;
 	NSString *availableVersion;
 }
@@ -278,7 +278,7 @@ typedef enum {
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	self.appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
+	self.appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
 	if (self.appDownload) {
 		self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
 		self.downloadTask.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
