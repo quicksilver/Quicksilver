@@ -80,6 +80,20 @@
 	</dict>
 	<dict>
 		<key>category</key>
+		<string>Update</string>
+		<key>default</key>
+		<string>QSUpdateWithoutAsking</string>
+		<key>image</key>
+		<string>Quicksilver</string>
+		<key>requestRelaunch</key>
+		<true/>
+		<key>title</key>
+		<string>Silently install updates</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
 		<string>Command</string>
 		<key>default</key>
 		<string>Shift Actions</string>
