@@ -351,32 +351,56 @@ typedef enum {
 - (void)finishAppInstall {
 	NSString *path = [self.appDownload destination];
 
-	NSInteger selection;
 
-	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-	if (!update) {
-		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
-		update = (selection == NSAlertDefaultReturn);
+	BOOL shouldUpdate = YES;
+	BOOL updateWithoutAsking = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
+	if (!updateWithoutAsking) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
+		alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"QSUpdateController - update downloaded alert message");
+		alert.alertStyle = NSAlertStyleInformational;
+
+		[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update downloaded alert - default button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - update downloaded alert - cancel button")];
+
+		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+
+		shouldUpdate = (response == QSAlertResponseOK);
 	}
 
-	BOOL installSuccessful = NO;
-	if (update) {
-		installSuccessful = [self installAppFromDiskImage:path];
-		if (!installSuccessful) {
-			selection = NSRunInformationalAlertPanel(@"Installation Failed", @"It was not possible to decompress downloaded file.", @"Cancel Update", @"Download manually", nil);
-			if (selection == NSAlertAlternateReturn)
-				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-		}
+	if (shouldUpdate && ![self installAppFromDiskImage:path]) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Installation Failed", @"QSUpdateController - installation failed alert title");
+		alert.informativeText = NSLocalizedString(@"It was not possible to decompress the downloaded file.", @"QSUpdateController - installation failed alert message");
+		alert.alertStyle = NSAlertStyleWarning;
+
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - installation failed alert - default button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Download manually", @"QSUpdateController - installation failed alert - cancel button")];
+
+		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+
+		if (response == QSAlertResponseSecond)
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+
+		return;
 	}
-	if (installSuccessful) {
-		BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-		if (!relaunch) {
-			selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
-			relaunch = (selection == NSAlertDefaultReturn);
-		}
-		if (relaunch) {
-			[NSApp relaunchFromPath:nil];
-		}
+
+	BOOL relaunch = NO;
+	if (updateWithoutAsking) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Installation Successful", @"QSUpdateController - relauch required alert title");
+		alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"QSUpdateController - relauch required alert message");
+		alert.alertStyle = NSAlertStyleInformational;
+
+		[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSUpdateController - relauch required alert - default button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Relaunch Later", @"QSUpdateController - relauch required alert - cancel button")];
+
+		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+
+		relaunch = (response == QSAlertResponseOK);
+	}
+	if (relaunch) {
+		[NSApp relaunchFromPath:nil];
 	}
 
 	[self.downloadTask stop];
