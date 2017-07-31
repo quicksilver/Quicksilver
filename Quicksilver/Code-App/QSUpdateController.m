@@ -497,12 +497,9 @@ typedef enum {
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
 	if (!path) return nil;
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSTask *task = [[NSTask alloc] init];
-	[task setLaunchPath:@"/usr/bin/ditto"];
-
-	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
-	[task launch];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/ditto" arguments:@[@"-x", @"-rsrc", path, tempDirectory]];
 	[task waitUntilExit];
+
 	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
