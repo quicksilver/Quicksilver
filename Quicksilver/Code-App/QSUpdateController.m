@@ -178,44 +178,80 @@ typedef enum {
 		return;
 	}
 
-	{
+	QSGCDQueueAsync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		NSInteger check = [self checkForUpdateStatus:userInitiated];
-
 		if (check == kQSUpdateCheckError) {
-			if (userInitiated)
-				NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
+			if (userInitiated) {
+				NSAlert *alert = [[NSAlert alloc] init];
+
+				alert.alertStyle = NSInformationalAlertStyle;
+				alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title"),
+				alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
+				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
+
+				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+			}
 			return;
 		}
 
 		if (check == kQSUpdateCheckUpdateAvailable) {
-			if (!userInitiated && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
-				/** Diable automatically checking for updates in the background for DEBUG builds
-				 You can still check for updates by clicking the "Check Now" button **/
-#ifndef DEBUG
-				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-#endif
-			} else {
-				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], availableVersion); //, @"More Info");
-				if (selection == 1) {
-					[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-				} else if (selection == -1) {  //Go to web site
-					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-				}
+			__block BOOL shouldInstallApp = NO;
+
+#ifdef DEBUG
+			/* Disable automatically checking for updates in the background for DEBUG builds
+			 * You can still check for updates by clicking the "Check Now" button */
+			if (!userInitiated) {
+				NSLog(@"Update available (%@) but disabled in DEBUG", availableVersion);
+				return;
 			}
+#endif
+
+			/* We should ask the user if we're user-initiated or automatic downloads are not enabled. */
+			if (userInitiated || ![[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+				NSAlert *alert = [[NSAlert alloc] init];
+				alert.alertStyle = NSInformationalAlertStyle;
+				alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
+				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], availableVersion];
+				[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
+				[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
+				[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
+
+				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nullEvent completionHandler:^(QSAlertResponse response) {
+					if (response == QSAlertResponseOK)
+						shouldInstallApp = YES;
+					else if (response == QSAlertResponseCancel)
+						shouldInstallApp = NO;
+					else if (response == QSAlertResponseThird)
+						QSGCDMainAsync(^{
+							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+						});
+				}];
+			}
+
+			if (shouldInstallApp)
+				[self installAppUpdate];
 			return;
 		}
 
 		if (check == kQSUpdateCheckNoUpdate) {
-			QSPluginUpdateStatus updateStatus;
-			updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
+			QSPluginUpdateStatus updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
 			if (updateStatus == QSPluginUpdateStatusNoUpdates) {
-				NSLog(@"Quicksilver is up to date.");
-				if (userInitiated)
-					NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+				NSLog(@"Quicksilver is up to date");
+
+				if (!userInitiated) return;
+
+				NSAlert *alert = [[NSAlert alloc] init];
+
+				alert.alertStyle = NSInformationalAlertStyle;
+				alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
+				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
+
+				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 			}
 			return;
 		}
-	}
+	});
 }
 
 - (void)handleURL:(NSURL *)url {
