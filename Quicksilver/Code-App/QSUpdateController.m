@@ -14,6 +14,25 @@
 
 #import "QSUpdateController.h"
 
+/*
+ * As there's a bunch of settings that control updating, and you can't quickly
+ * tell them apart, here's a cheatsheet :
+ *
+ * - [defaults boolForKey:@"QSPreventAutomaticUpdate"]
+ *   "Paranoid" mode - Quicksilver will only update itself when the user explicitely asks for it.
+ *   It's a hidden pref setting, so developers can use this to stop those pesky update dialogs.
+ *
+ * - [defaults boolForKey:kCheckForUpdates]
+ *   The user-accessible preference setting.
+ *
+ * - [defaults boolForKey:@"QSDownloadUpdatesInBackground"]
+ *   QS won't ask before downloading an update.
+ *
+ * - [defaults boolForKey:@"QSUpdateWithoutAsking"]
+ *   QS will install the update silently and relaunch automatically.
+ *
+ */
+
 @interface QSUpdateController () {
 	NSTimer *updateTimer;
 	QSURLDownload *appDownload;
