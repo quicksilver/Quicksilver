@@ -115,9 +115,9 @@ typedef enum {
 	kQSUpdateCheckUpdateAvailable = 1,
 } QSUpdateCheckResult;
 
-- (QSUpdateCheckResult)checkForUpdates:(BOOL)force {
+- (QSUpdateCheckResult)checkForUpdateStatus:(BOOL)userInitiated {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || (![defaults boolForKey:kCheckForUpdates] && !force)) {
+	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || (![defaults boolForKey:kCheckForUpdates] && !userInitiated)) {
 		NSLog(@"Preventing update check.");
 		return kQSUpdateCheckSkip;
 	}
@@ -144,7 +144,7 @@ typedef enum {
 	newVersion = checkVersionString;
 #ifdef DEBUG
 	if (VERBOSE)
-		NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
+		NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, User-initiated: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (userInitiated ? @"YES" : @"NO"));
 #endif
 	return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
 }
@@ -155,7 +155,7 @@ typedef enum {
 	[task start];
 	BOOL updated = NO;
 
-	NSInteger check = [self checkForUpdates:force];
+	NSInteger check = [self checkForUpdateStatus:force];
 	[task stop];
 
 	switch (check) {
