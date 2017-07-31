@@ -118,10 +118,17 @@ typedef enum {
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	NSString *checkVersionString = nil;
 
+	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
+	task.status = NSLocalizedString(@"Checking for Updates", @"QSUpdateController - task status");
+	task.progress = -1;
+	[task start];
+
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 
 	NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
+	[task stop];
+
 	checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
@@ -150,14 +157,9 @@ typedef enum {
 		NSLog(@"Preventing update check.");
 		return NO;
 	}
-
-	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
-	task.status = NSLocalizedString(@"Check for Update", @"");
-	[task start];
 	BOOL updated = NO;
 
 	NSInteger check = [self checkForUpdateStatus:userInitiated];
-	[task stop];
 
 	switch (check) {
 		case kQSUpdateCheckError:
