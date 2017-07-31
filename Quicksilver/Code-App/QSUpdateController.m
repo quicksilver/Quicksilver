@@ -159,15 +159,16 @@ typedef enum {
 		return;
 	}
 
-	NSInteger check = [self checkForUpdateStatus:userInitiated];
+	{
+		NSInteger check = [self checkForUpdateStatus:userInitiated];
 
-	switch (check) {
-		case kQSUpdateCheckError:
+		if (check == kQSUpdateCheckError) {
 			if (userInitiated)
 				NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
 			return;
-			break;
-		case kQSUpdateCheckUpdateAvailable:
+		}
+
+		if (check == kQSUpdateCheckUpdateAvailable) {
 			if (!userInitiated && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
 				/** Diable automatically checking for updates in the background for DEBUG builds
 				 You can still check for updates by clicking the "Check Now" button **/
@@ -183,9 +184,9 @@ typedef enum {
 				}
 			}
 			return;
-			break;
-		case kQSUpdateCheckNoUpdate:
-		{
+		}
+
+		if (check == kQSUpdateCheckNoUpdate) {
 			QSPluginUpdateStatus updateStatus;
 			updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
 			if (updateStatus == QSPluginUpdateStatusNoUpdates) {
@@ -194,10 +195,7 @@ typedef enum {
 					NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
 			}
 			return;
-			break;
 		}
-		default:
-			break;
 	}
 }
 
