@@ -301,12 +301,20 @@ typedef enum {
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
 	if (download != self.appDownload)
 		return;
+
 	NSLog(@"Download Failed: %@", error);
 	[self.downloadTask stop];
 	self.downloadTask = nil;
-	QSGCDMainAsync(^{
-		NSRunInformationalAlertPanel(NSLocalizedString(@"Download Failed", @""), NSLocalizedString(@"An error occured while updating: %@", @""), NSLocalizedString(@"OK", @""), nil, nil, [error localizedDescription]);
-	});
+
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = NSLocalizedString(@"Download Failed", @"QSUpdateController - download failed alert title");
+	alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"An error occured while downloading the update: %@", @"QSUpdateController - download failed alert message"), error.localizedDescription];
+	alert.alertStyle = NSAlertStyleInformational;
+
+	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - download failed alert - default button")];
+
+	[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+
 	[self.appDownload cancel];
 	self.appDownload = nil;
 }
