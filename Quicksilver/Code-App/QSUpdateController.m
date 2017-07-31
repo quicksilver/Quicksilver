@@ -36,7 +36,7 @@
 @interface QSUpdateController () {
 	NSTimer *updateTimer;
 	QSURLDownload *appDownload;
-	NSString *newVersion;
+	NSString *availableVersion;
 	NSString *tempPath;
 	QSTask *updateTask;
 	BOOL shouldCancel;
@@ -161,7 +161,7 @@ typedef enum {
 	/* We have to get the current available version, because it will get displayed to the user,
 	 * so force happens only if there's a valid response from the server
 	 */
-	newVersion = checkVersionString;
+	availableVersion = checkVersionString;
 #ifdef DEBUG
 	if (VERBOSE)
 		NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, User-initiated: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (userInitiated ? @"YES" : @"NO"));
@@ -195,7 +195,7 @@ typedef enum {
 				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 #endif
 			} else {
-				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
+				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], availableVersion); //, @"More Info");
 				if (selection == 1) {
 					[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 				} else if (selection == -1) {  //Go to web site
@@ -288,7 +288,7 @@ typedef enum {
 	[updateTask setStatus:@"Download Complete"];
 	[updateTask setProgress:1.0];
 
-	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:newVersion];
+	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:availableVersion];
 
 	if (plugInUpdates) {
 		[[NSNotificationCenter defaultCenter] addObserver:self
