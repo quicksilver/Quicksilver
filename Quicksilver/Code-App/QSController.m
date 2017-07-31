@@ -979,13 +979,6 @@ static QSController *defaultController = nil;
 	if ( ! (runningSetupAssistant || versionChanged) )
 		[self rescanItems:self];
 
-#ifndef DEBUG
-	if (versionChanged)
-		[[QSUpdateController sharedInstance] forceStartupCheck];
-#endif
-
-	[[QSUpdateController sharedInstance] setUpdateTimer];
-
 #if 0
 	[self recompositeIconImages];
 #endif

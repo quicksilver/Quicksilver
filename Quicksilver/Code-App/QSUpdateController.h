@@ -8,25 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class QSTask, QSURLDownload;
-
-@interface QSUpdateController : NSObject {
-	NSTimer *updateTimer;
-	BOOL doStartupCheck;
-	QSURLDownload *appDownload;
-	NSString *newVersion;
-	NSString *tempPath;
-	QSTask *updateTask;
-	BOOL shouldCancel;
-}
-
-+ (id)sharedInstance;
-- (void)setUpdateTimer;
+@interface QSUpdateController : NSObject
++ (instancetype)sharedInstance;
 - (IBAction)checkForUpdate:(id)sender;
-- (void)forceStartupCheck;
-- (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;
-- (void)finishAppInstall;
-- (BOOL)installAppFromDiskImage:(NSString *)path;
-- (IBAction)threadedCheckForUpdate:(id)sender;
+
+/* Needed by QSPlugInManager */
+- (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 @end

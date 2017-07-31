@@ -14,9 +14,19 @@
 
 #import "QSUpdateController.h"
 
+@interface QSUpdateController () {
+	NSTimer *updateTimer;
+	QSURLDownload *appDownload;
+	NSString *newVersion;
+	NSString *tempPath;
+	QSTask *updateTask;
+	BOOL shouldCancel;
+}
+@end
+
 @implementation QSUpdateController
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
 	static id _sharedInstance;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -25,14 +35,18 @@
 	return _sharedInstance;
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
-	return self;
-}
+	if (!self) return nil;
 
-- (void)forceStartupCheck {
-	NSLog(@"Updated: Forcing Plugin Check");
-	doStartupCheck = YES;
+	if ([NSApp checkLaunchStatus] == QSApplicationUpgradedLaunch) {
+		NSLog(@"Updated: Forcing Check");
+		[self checkForUpdates:YES];
+	}
+
+	[self setUpdateTimer];
+
+	return self;
 }
 
 - (void)setUpdateTimer {
@@ -62,7 +76,7 @@
 		[updateTimer invalidate];
 	}
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat];
-	[updateTimer setFireDate:( doStartupCheck ? [NSDate dateWithTimeIntervalSinceNow:33.333f] : nextCheck )];
+	[updateTimer setFireDate:nextCheck];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
 #endif
