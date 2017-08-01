@@ -37,10 +37,11 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
 #ifdef DEBUG
-	if (![defaults boolForKey:@"QSPreventAutomaticUpdate"]) {
+	NSString *checkKey = @"QSPreventAutomaticUpdate";
 #else
-    if ([defaults boolForKey:kCheckForUpdates]) {
+	NSString *checkKey = kCheckForUpdates;
 #endif
+	if ([defaults boolForKey:checkKey]) {
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
 		// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
 		if (!lastCheck) {
