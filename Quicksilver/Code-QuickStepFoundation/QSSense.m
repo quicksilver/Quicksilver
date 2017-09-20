@@ -25,8 +25,8 @@ CGFloat QSScoreForAbbreviationOrTransliteration(CFStringRef str, CFStringRef abb
 	if (score == 0) {
 		CFMutableStringRef mutableString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, str);
 		CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false);
-		CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false);
-		if (!CFStringCompare(str, mutableString, 0) == kCFCompareEqualTo) {
+		
+		if (CFStringCompare(str, mutableString, 0) != kCFCompareEqualTo) {
 			// only do this if the two strings are not equal (otherwise it's a wasted compute)
 			score = QSScoreForAbbreviationWithRanges(mutableString, abbr, nil, CFRangeMake(0, CFStringGetLength(mutableString)), CFRangeMake(0, CFStringGetLength(abbr)));
 		}
