@@ -171,7 +171,7 @@
 		4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */; };
 		4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */; };
 		4DFD65C51EA9334B003CD3CE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
-		4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
