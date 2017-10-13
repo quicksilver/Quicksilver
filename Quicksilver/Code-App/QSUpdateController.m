@@ -193,7 +193,6 @@ typedef enum {
 		}
 
 		if (check == kQSUpdateCheckUpdateAvailable) {
-			__block BOOL shouldInstallApp = NO;
 
 #ifdef DEBUG
 			/* Disable automatically checking for updates in the background for DEBUG builds
@@ -216,18 +215,13 @@ typedef enum {
 
 				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nullEvent completionHandler:^(QSAlertResponse response) {
 					if (response == QSAlertResponseOK)
-						shouldInstallApp = YES;
-					else if (response == QSAlertResponseCancel)
-						shouldInstallApp = NO;
+						[self installAppUpdate];
 					else if (response == QSAlertResponseThird)
 						QSGCDMainAsync(^{
 							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
 						});
 				}];
 			}
-
-			if (shouldInstallApp)
-				[self installAppUpdate];
 			return;
 		}
 
