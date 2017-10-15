@@ -58,7 +58,7 @@
 
 	if ([NSApp checkLaunchStatus] == QSApplicationUpgradedLaunch) {
 		NSLog(@"Updated: Forcing Check");
-		[self checkForUpdates:YES];
+		[self checkForUpdates:NO];
 	}
 
 	[self setUpdateTimer];
