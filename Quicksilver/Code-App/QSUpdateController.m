@@ -171,7 +171,7 @@ typedef enum {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	/* This is an automated check and updates are blocked or not enabled */
-	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || ([defaults boolForKey:kCheckForUpdates] && !userInitiated)) {
+	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] && !userInitiated) {
 		NSLog(@"Preventing update check.");
 		return;
 	}
