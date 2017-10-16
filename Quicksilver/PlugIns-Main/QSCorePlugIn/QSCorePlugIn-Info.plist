@@ -35,6 +35,30 @@
 			<key>ID</key>
 			<string>QSActivateTextModeTrigger</string>
 		</dict>
+		<dict>
+			<key>set</key>
+			<string>Quicksilver</string>
+			<key>applicationScopeType</key>
+			<integer>1</integer>
+			<key>keyCode</key>
+			<integer>12</integer>
+			<key>enabled</key>
+			<true/>
+			<key>modifiers</key>
+			<integer>1835305</integer>
+			<key>onPress</key>
+			<true/>
+			<key>type</key>
+			<string>QSHotKeyTrigger</string>
+			<key>command</key>
+			<string>QSRelaunchSelfCommand</string>
+			<key>ID</key>
+			<string>QSRelaunchSelfTrigger</string>
+			<key>applicationScope</key>
+			<array>
+				<string>com.blacktree.Quicksilver</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.blacktree.Quicksilver.QSCorePlugIn</string>
@@ -1437,6 +1461,18 @@
 				</dict>
 				<key>name</key>
 				<string>Show Command Window </string>
+			</dict>
+			<key>QSRelaunchSelfCommand</key>
+			<dict>
+				<key>command</key>
+				<dict>
+					<key>actionID</key>
+					<string>QSObjCSendMessageAction</string>
+					<key>directID</key>
+					<string>QSRelaunch</string>
+				</dict>
+				<key>name</key>
+				<string>Relaunch Quicksilver</string>
 			</dict>
 		</dict>
 		<key>QSObjectHandlers</key>

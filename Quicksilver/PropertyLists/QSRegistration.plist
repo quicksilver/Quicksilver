@@ -165,6 +165,17 @@
 			<key>name</key>
 			<string>Clear Quicksilver History</string>
 		</dict>
+		<key>QSRelaunch</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSController</string>
+			<key>actionSelector</key>
+			<string>relaunchQuicksilver</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>name</key>
+			<string>Relaunch Quicksilver</string>
+		</dict>
 	</dict>
 	<key>QSInternalURLHandlers</key>
 	<dict>
