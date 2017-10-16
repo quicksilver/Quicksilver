@@ -129,4 +129,11 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  @returns YES, if 10.12+. NO otherwise
  */
 + (BOOL)isSierra;
+
+/**
+ Checks, if system is at least macOS 10.13 (High Sierra)
+ 
+ @returns YES, if 10.13+. NO otherwise
+ */
++ (BOOL)isHighSierra;
 @end
