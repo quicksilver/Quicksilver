@@ -1,3 +1,14 @@
+## Changes - 1.5.7 (4022) ##
+
+## Changed ##
+
+  * Checking for updates happens in the background and won't lock up the interface (#1596)
+
+## Fixed ##
+
+  * Code signing for Gatekeeper is working again
+  * Prevent a crash when notifying users of a new version (#2379, #1596)
+
 ## Changes - 1.5.6 (4021) 2017-09-06 ##
 
 ### Fixed ###
