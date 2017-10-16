@@ -384,8 +384,8 @@ typedef enum {
 		return;
 	}
 
-	BOOL relaunch = NO;
-	if (updateWithoutAsking) {
+	BOOL relaunch = updateWithoutAsking;
+	if (!updateWithoutAsking) {
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"Installation Successful", @"QSUpdateController - relauch required alert title");
 		alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"QSUpdateController - relauch required alert message");
