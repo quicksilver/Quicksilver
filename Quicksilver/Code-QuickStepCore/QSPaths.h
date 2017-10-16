@@ -9,7 +9,7 @@
 #define pCrashReporterFolder [@"~/Library/Logs/DiagnosticReports" stringByStandardizingPath]
 #define pShelfLocation		QSApplicationSupportSubPath(@"Shelves/", NO)
 #define pICloudDocumentsPrefix [@"~/Library/Mobile Documents/" stringByStandardizingPath]
-#define pSharedFileListPathTemplate @"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.sfl"
+#define pSharedFileListPathTemplate @"~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/%@.%@"
 #define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
 
 #define psMainPlugInsLocation QSApplicationSupportSubPath(@"PlugIns/", NO)

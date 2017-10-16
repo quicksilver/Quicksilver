@@ -35,8 +35,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
     NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
 	NSURL *url;
-	if ([NSApplication isElCapitan]) {
-		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
+	if ([NSApplication isHighSierra]) {
+		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl2"];
+		NSString *sflStandardized = [sflPath stringByStandardizingPath];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
+			NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
+			for (NSDictionary *item in sflData[@"items"]) {
+				NSData *bookmarkData = item[@"Bookmark"];
+				url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
+				if (url && [url isFileURL]) {
+					[documentsArray addObject:[url path]];
+				}
+			}
+		}
+		return documentsArray;
+	}
+	else if ([NSApplication isElCapitan]) {
+		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
 		NSString *sflStandardized = [sflPath stringByStandardizingPath];
 		if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
 			NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
@@ -321,7 +336,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             // Does the app have valid recent documents
             if (bundleIdentifier) {
                 if ([NSApplication isElCapitan]) {
-                    NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier];
+                    NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
                     if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
                         return YES;
                     }
