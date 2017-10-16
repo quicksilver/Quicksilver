@@ -870,7 +870,8 @@ static QSController *defaultController = nil;
 	[QSLibrarian sharedInstance];
 	[QSExecutor sharedInstance];
 	[QSTaskController sharedInstance];
-	
+	[QSUpdateController sharedInstance];
+
 #ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Library loaded");
