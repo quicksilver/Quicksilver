@@ -282,7 +282,7 @@
 }
 
 - (IBAction)checkNow:(id)sender {
-	[[QSUpdateController sharedInstance] threadedRequestedCheckForUpdate:sender];
+	[[QSUpdateController sharedInstance] checkForUpdates:YES];
 }
 
 - (void)deleteSupportFiles {
