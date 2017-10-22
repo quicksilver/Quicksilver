@@ -8,9 +8,9 @@
 
 #import "QSURLDownloadWrapper.h"
 
-@interface QSURLDownload () <NSURLDownloadDelegate> {
+@interface QSURLDownload () <NSURLSessionTaskDelegate> {
 	NSURLRequest *request;
-	NSURLDownload *download;
+	NSURLSessionDataTask *download;
 	long long expectedContentLength;
 	long long currentContentLength;
 	id userInfo;
@@ -19,7 +19,52 @@
 }
 @end
 
+@interface QSURLSession : NSObject <NSURLSessionDelegate, NSURLSessionDataDelegate> {
+	NSOperationQueue *_queue;
+	NSURLSession *_session;
+}
+
+@end
+
+@implementation QSURLSession
+
++ (QSURLSession *)sharedSession {
+	static QSURLSession *sharedSession = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sharedSession = [[self alloc] init];
+	});
+	return sharedSession;
+}
+
+- (instancetype)init {
+	self = [super init];
+	if (!self) return nil;
+
+	_queue = [[NSOperationQueue alloc] init];
+	_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+												  delegate:self
+											 delegateQueue:_queue];
+
+	return self;
+}
+
+- (NSURLSession *)session {
+	return _session;
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+	session;
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+
+}
+
+@end
+
 @implementation QSURLDownload
+
 + (id)downloadWithURL:(NSURL*)url delegate:(id)aDelegate {
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
     [theRequest setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
@@ -45,8 +90,9 @@
 }
 
 - (void)start {
-    if (!download)
-        download = [[NSURLDownload alloc] initWithRequest:request delegate:self];
+	NSAssert(download == nil, @"download already started");
+
+	download = [[[QSURLSession sharedSession] session] dataTaskWithRequest:request];
 }
 
 - (void)cancel {
