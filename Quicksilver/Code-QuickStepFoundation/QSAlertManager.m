@@ -37,19 +37,33 @@
     NSParameterAssert(alert != nil);
 
     QSGCDMainAsync(^{
+		NSAlert *mainAlert = [[NSAlert alloc] init];
+		mainAlert.alertStyle = alert.alertStyle;
+		mainAlert.messageText = alert.messageText;
+		mainAlert.informativeText = alert.informativeText;
+		mainAlert.icon = alert.icon;
+		for (NSButton *button in alert.buttons) {
+			[mainAlert addButtonWithTitle:button.title];
+		}
+		mainAlert.showsHelp = alert.showsHelp;
+		mainAlert.helpAnchor = alert.helpAnchor;
+		mainAlert.delegate = alert.delegate;
+		mainAlert.showsSuppressionButton = alert.showsSuppressionButton;
+		mainAlert.accessoryView = alert.accessoryView;
+
         NSModalResponse response = NSAlertErrorReturn;
-        if (window && [alert respondsToSelector:@selector(beginSheetModalForWindow:completionHandler:)]) {
-            [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
+        if (window && [mainAlert respondsToSelector:@selector(beginSheetModalForWindow:completionHandler:)]) {
+            [mainAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
                 [NSApp stopModalWithCode:response];
             }];
 
             response = [NSApp runModalForWindow:window];
         } else if (window) {
-            [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+            [mainAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 
             response = [NSApp runModalForWindow:window];
         } else {
-            response = [alert runModal];
+            response = [mainAlert runModal];
         }
 
         QSAlertResponse realResponse = QSAlertResponseOK;
