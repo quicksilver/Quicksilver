@@ -67,6 +67,7 @@
 - (NSString *)crashReportPath;
 - (void)showDockIcon;
 - (void)clearHistory;
+- (void)relaunchQuicksilver;
 
 @end
 

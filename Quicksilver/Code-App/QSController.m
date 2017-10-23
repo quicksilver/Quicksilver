@@ -788,6 +788,11 @@ static QSController *defaultController = nil;
 	[[[self interfaceController] dSelector] clearHistory];
 }
 
+- (void)relaunchQuicksilver
+{
+	[NSApp relaunch:nil];
+}
+
 @end
 
 @implementation QSController (Application)
