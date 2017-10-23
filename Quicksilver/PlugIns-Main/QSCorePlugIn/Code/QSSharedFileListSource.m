@@ -37,6 +37,9 @@
 	NSMutableArray *sflItemArray = [NSMutableArray arrayWithCapacity:0];
 	NSString *sflPath = [settings objectForKey:kItemPath];
 	NSString *path = [sflPath stringByStandardizingPath];
+	if ([NSApplication isHighSierra]) {
+		path = [path stringByReplacingOccurrencesOfString:@".sfl" withString:@".sfl2"];
+	}
 	BOOL isDir = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || isDir) {
 		return nil;
@@ -46,22 +49,34 @@
 	if (![[sflData allKeys] containsObject:kItems]) {
 		return nil;
 	}
-	for (SFLListItem *item in sflData[kItems]) {
-		// item's class is SFLListItem
-		if ([item URL]) {
-			[sflItemArray addObject:item];
+	if ([NSApplication isHighSierra]) {
+		return [sflData[kItems] arrayByEnumeratingArrayUsingBlock:^id(NSDictionary *item) {
+			NSData *bookmarkData = item[@"Bookmark"];
+			NSURL *url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
+			if ([url isFileURL]) {
+				return [QSObject fileObjectWithFileURL:url];
+			}
+			return [QSObject URLObjectWithURL:[url absoluteString] title:item[@"Name"]];
+		}];
+	} else {
+		for (SFLListItem *item in sflData[kItems]) {
+			// item's class is SFLListItem
+			if ([item URL]) {
+				[sflItemArray addObject:item];
+			}
 		}
+		[sflItemArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
+			return item1.order > item2.order;
+		}];
+		return [sflItemArray arrayByEnumeratingArrayUsingBlock:^id(SFLListItem *item) {
+			NSURL *url = [item URL];
+			if ([url isFileURL]) {
+				return [QSObject fileObjectWithFileURL:url];
+			}
+			return [QSObject URLObjectWithURL:[[item URL] absoluteString] title:[item name]];
+		}];
 	}
-	[sflItemArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
-		return item1.order > item2.order;
-	}];
-	return [sflItemArray arrayByEnumeratingArrayUsingBlock:^id(SFLListItem *item) {
-		NSURL *url = [item URL];
-		if ([url isFileURL]) {
-			return [QSObject fileObjectWithFileURL:url];
-		}
-		return [QSObject URLObjectWithURL:[[item URL] absoluteString] title:[item name]];
-	}];
+	return nil;
 }
 
 @end

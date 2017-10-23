@@ -201,4 +201,8 @@
 + (BOOL)isSierra {
 	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 12);
 }
+
++ (BOOL)isHighSierra {
+	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 13);
+}
 @end
