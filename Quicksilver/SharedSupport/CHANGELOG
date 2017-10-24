@@ -1,13 +1,20 @@
 ## Changes - 1.5.7 (4022) ##
 
+## New ##
+
+  * A new trigger is available to relaunch Quicksilver. It's activated with ⌃⌥⌘Q by default. It can be reconfigured in Preferences → Triggers → Quicksilver (#2399, #2404)
+
 ## Changed ##
 
+  * The menu item to Relaunch Quicksilver and its shortcut (⌃⌘Q) have been removed because that shortcut is used by macOS now (#2404)
   * Checking for updates happens in the background and won't lock up the interface (#1596)
 
 ## Fixed ##
 
   * Code signing for Gatekeeper is working again
   * Prevent a crash when notifying users of a new version (#2379, #1596)
+  * Recent documents are available via right-arrow (#2396, #2403)
+  * Recent and Favorite catalog scanners are working (#2403)
 
 ## Changes - 1.5.6 (4021) 2017-09-06 ##
 
