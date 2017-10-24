@@ -17,7 +17,25 @@
 CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange);
 
 CGFloat QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
-	return QSScoreForAbbreviationWithRanges(str, abbr, mask, CFRangeMake(0, CFStringGetLength(str)), CFRangeMake(0, CFStringGetLength(abbr)));
+	return QSScoreForAbbreviationOrTransliteration(str, abbr, mask);
+}
+
+CGFloat QSScoreForAbbreviationOrTransliteration(CFStringRef str, CFStringRef abbr, id mask) {
+	CGFloat score = QSScoreForAbbreviationWithRanges(str, abbr, mask, CFRangeMake(0, CFStringGetLength(str)), CFRangeMake(0, CFStringGetLength(abbr)));
+	if (score == 0) {
+		CFMutableStringRef mutableString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, str);
+		CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false);
+		
+		if (CFStringCompare(str, mutableString, 0) != kCFCompareEqualTo) {
+			// only do this if the two strings are not equal (otherwise it's a wasted compute)
+			score = QSScoreForAbbreviationWithRanges(mutableString, abbr, nil, CFRangeMake(0, CFStringGetLength(mutableString)), CFRangeMake(0, CFStringGetLength(abbr)));
+		}
+		if (mutableString) {
+			CFRelease(mutableString);
+		}
+		return score;
+	}
+	return score;
 }
 
 CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
