@@ -2142,10 +2142,11 @@ static NSTouchBarItemIdentifier RemoveFromCollectionItemIdentifier = @"QSRemoveF
 //		historyGroup.groupTouchBar = historyBar;
 		return historyGroup;
 	} else if ([identifier isEqualToString:TaskViewerItemIdentifier]) {
-		NSButton *taskViewerButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarTextListTemplate] target:self.controller action:@selector(showTasks:)];
+		NSString *taskViewer = NSLocalizedString(@"Task Viewer", @"");
+		NSButton *taskViewerButton = [NSButton buttonWithTitle:taskViewer image:[NSImage imageNamed:NSImageNameTouchBarTextListTemplate] target:self.controller action:@selector(showTasks:)];
 		NSCustomTouchBarItem *showTasks = [[NSCustomTouchBarItem alloc] initWithIdentifier:TaskViewerItemIdentifier];
 		showTasks.view = taskViewerButton;
-		showTasks.customizationLabel = NSLocalizedString(@"Task Viewer", @"");
+		showTasks.customizationLabel = taskViewer;
 		return showTasks;
 	} else if ([identifier isEqualToString:GrabSelectionItemIdentifier]) {
 		NSButton *grabButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarAddTemplate] target:self action:@selector(grabSelection:)];
@@ -2154,7 +2155,7 @@ static NSTouchBarItemIdentifier RemoveFromCollectionItemIdentifier = @"QSRemoveF
 		grabSelection.customizationLabel = NSLocalizedString(@"Grab Selection", @"");
 		return grabSelection;
 	} else if ([identifier isEqualToString:ClearInterfaceItemIdentifier]) {
-		NSButton *clearButton = [NSButton buttonWithImage:[NSImage imageNamed:@"QuicksilverMenu"] target:self action:@selector(clearObjectValue)];
+		NSButton *clearButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarSearchTemplate] target:self action:@selector(clearObjectValue)];
 		clearButton.enabled = somethingIsSelected;
 		NSCustomTouchBarItem *clearInterface = [[NSCustomTouchBarItem alloc] initWithIdentifier:ClearInterfaceItemIdentifier];
 		clearInterface.view = clearButton;
