@@ -3,7 +3,8 @@
 ## New ##
 
   * A new trigger is available to relaunch Quicksilver. It's activated with ⌃⌥⌘Q by default. It can be reconfigured in Preferences → Triggers → Quicksilver (#2399, #2404)
-
+  * Allow searching of non-latin scripts using latin characters (transliteration). E.g type 'zhongguo' to search for '中国' or 'hangeul' to search for '한굴' (#2395)
+  
 ## Changed ##
 
   * The menu item to Relaunch Quicksilver and its shortcut (⌃⌘Q) have been removed because that shortcut is used by macOS now (#2404)
