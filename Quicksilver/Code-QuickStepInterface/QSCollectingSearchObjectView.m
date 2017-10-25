@@ -241,11 +241,11 @@ static NSTouchBarItemIdentifier QSCollectionRemoveItemIdentifier = @"QSCollectio
 {
 	BOOL collectionSelected = ([collection count] > 0);
 	if ([identifier isEqualToString:QSCollectionItemIdentifier]) {
-		NSButton *backButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarGoBackTemplate] target:self action:@selector(goBackwardInCollection:)];
+		NSButton *backButton = [NSButton buttonWithTitle:@"•,•,•" image:[NSImage imageNamed:NSImageNameTouchBarGoBackTemplate] target:self action:@selector(goBackwardInCollection:)];
 		NSCustomTouchBarItem *back = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSCollectionBack"];
 		back.view = backButton;
 		backButton.enabled = (collectionSelected);
-		NSButton *forwardButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarGoForwardTemplate] target:self action:@selector(goForwardInCollection:)];
+		NSButton *forwardButton = [NSButton buttonWithTitle:@"•,•,•" image:[NSImage imageNamed:NSImageNameTouchBarGoForwardTemplate] target:self action:@selector(goForwardInCollection:)];
 		NSCustomTouchBarItem *forward = [[NSCustomTouchBarItem alloc] initWithIdentifier:@"QSCollectionForward"];
 		forward.view = forwardButton;
 		forwardButton.enabled = collectionSelected;
@@ -260,7 +260,7 @@ static NSTouchBarItemIdentifier QSCollectionRemoveItemIdentifier = @"QSCollectio
 		explodeCollection.customizationLabel = NSLocalizedString(@"Explode Collection", @"");
 		return explodeCollection;
 	} else if ([identifier isEqualToString:QSCollectionRemoveItemIdentifier]) {
-		NSButton *removeButton = [NSButton buttonWithTitle:@"," image:[NSImage imageNamed:NSImageNameTouchBarDeleteTemplate] target:self action:@selector(uncollectLast:)];
+		NSButton *removeButton = [NSButton buttonWithTitle:@"•,•,• ⌫" target:self action:@selector(uncollectLast:)];
 		NSCustomTouchBarItem *removeFromCollection = [[NSCustomTouchBarItem alloc] initWithIdentifier:QSCollectionRemoveItemIdentifier];
 		removeFromCollection.view = removeButton;
 		removeButton.enabled = collectionSelected;
