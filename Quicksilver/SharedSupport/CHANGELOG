@@ -16,6 +16,7 @@
   * Prevent a crash when notifying users of a new version (#2379, #1596)
   * Recent documents are available via right-arrow (#2396, #2403)
   * Recent and Favorite catalog scanners are working (#2403)
+  * Small bug fixes for the updater (#2402)
 
 ## Changes - 1.5.6 (4021) 2017-09-06 ##
 
