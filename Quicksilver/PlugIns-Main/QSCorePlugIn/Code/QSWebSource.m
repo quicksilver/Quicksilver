@@ -24,12 +24,11 @@
 	NSString *location = [settings objectForKey:kItemPath];
 	if (location) {
 		NSArray *contents = [(QSHTMLLinkParser *)[QSReg getClassInstance:@"QSHTMLLinkParser"] objectsFromURL:[NSURL URLWithString:location] withSettings:settings];
-        if (!contents) {
-            // return the original contents of the catalog entry if there was a problem getting data from the internet
-            return [QSLib entryForID:theEntry.identifier].contents;
-        } else {
-            return contents;    
-        }
+		if (contents) {
+			return contents;
+		}
+		// return the original contents of the catalog entry if there was a problem getting data from the internet
+		return [QSLib entryForID:theEntry.identifier].contents;
     }
     return nil;
 }
