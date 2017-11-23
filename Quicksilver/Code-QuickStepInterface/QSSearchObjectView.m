@@ -628,7 +628,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)objectIconModified:(NSNotification *)notif {
     // icon changed - update it in the pane
-    [self setNeedsDisplay:YES];
+	QSGCDMainAsync(^{
+		[self setNeedsDisplay:YES];
+	});
 }
 
 #pragma mark -
