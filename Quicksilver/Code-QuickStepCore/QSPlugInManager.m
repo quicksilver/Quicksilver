@@ -840,7 +840,8 @@
 - (NSMutableSet *)updatedPlugIns { return updatedPlugIns;  }
 
 - (void)updateDownloadCount {
-	if (![queuedDownloads count]) {
+	NSUInteger dlCount = [queuedDownloads count];
+	if (!dlCount) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSPlugInUpdatesFinished" object:self];
 		[self setInstallStatus:nil];
 		self.installTask.status = NSLocalizedString(@"Installation complete", @"");
@@ -850,7 +851,7 @@
 		[self setIsInstalling:NO];
 	} else {
 		NSString *status = nil;
-		if ([queuedDownloads count] > 1) {
+		if (dlCount > 1) {
 			status = NSLocalizedString(@"Installing %ld Plugins", @"");
 		} else {
 			status = NSLocalizedString(@"Installing %ld Plugin", @"");
