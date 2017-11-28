@@ -141,7 +141,9 @@
 // setter for adding details to a given plugin's dict (in pluginsArray).
 // Used to set the 'cellHeight' key
 -(void)setPluginView:(QSPluginUpdateTableCellView *)view details:(id)details forKey:(NSString *)key {
-    NSMutableDictionary *pluginDict = [pluginsArray objectAtIndex:[pluginTableView rowForView:view]];
+	NSInteger rowId = [pluginTableView rowForView:view];
+	if (rowId == NSNotFound) return;
+    NSMutableDictionary *pluginDict = [pluginsArray objectAtIndex:rowId];
     [pluginDict setObject:details forKey:key];
 }
 
