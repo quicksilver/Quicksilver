@@ -776,7 +776,9 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 	{
 		if( (theDescriptor = [self descriptorAtIndex:theIndex]) != nil )
 		{
-			[theArray addObject:[theDescriptor objectValue]];
+            id obj = [theDescriptor objectValue];
+            if (obj)
+                [theArray addObject:obj];
 		}
 	}
 
