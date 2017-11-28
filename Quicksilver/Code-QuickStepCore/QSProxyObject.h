@@ -21,28 +21,24 @@
 
 @protocol QSProxyObjectProvider
 - (id)resolveProxyObject:(id)proxy;
-@end
-
-@interface NSObject (QSProxyObjectProvider)
+@optional
 - (NSArray *)typesForProxyObject:(id)proxy;
 - (BOOL)bypassValidation;
 - (NSTimeInterval)cacheTimeForProxy:(id)proxy;
 @end
 
 @interface QSProxyObject : QSObject
-+ (id)proxyWithDictionary:(NSDictionary*)dictionary;
-+ (id)proxyWithIdentifier:(NSString*)identifier;
++ (instancetype)proxyWithDictionary:(NSDictionary*)dictionary;
++ (instancetype)proxyWithIdentifier:(NSString*)identifier;
+
 - (NSObject <QSProxyObjectProvider> *)proxyProvider;
-- (QSObject*)proxyObject;
+- (QSObject *)proxyObject;
 
 - (void)releaseProxy:(NSNotification *)notif;
 
 - (BOOL)bypassValidation;
 - (NSArray *)proxyTypes;
-//- (id)proxyObjectWithProviderClass:(NSString *)providerClass;
-- (void)objectIconModified:(NSNotification *)notif;
 @end
-
 
 @interface QSGlobalSelectionProxyProvider : NSObject
 - (QSObject *)proxy;

@@ -106,7 +106,6 @@
 			if (imageurl.length) {
 				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
 				[newObject setObject:imageurl forMeta:kQSObjectIconName];
-				[newObject setIconLoaded:NO];
 			}
 			if (newObject) {
 				[objects addObject:newObject];
