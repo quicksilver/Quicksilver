@@ -397,8 +397,10 @@ static BOOL gModifiersAreIgnored;
 	NSString *newDetails = [[object bundle] safeLocalizedStringForKey:[object identifier] value:nil table:@"QSAction.description"];
 	if (newDetails)
 		return newDetails;
-	else
+	else if ([object respondsToSelector:@selector(actionDict)])
 		return [[(QSAction *)object actionDict] objectForKey:@"description"];
+	else
+		return @"";
 }
 
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[QSResourceManager imageNamed:@"defaultAction"]]; }
