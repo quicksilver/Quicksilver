@@ -308,9 +308,13 @@
 }
 
 - (BOOL)filesExistAtPaths:(NSArray *)paths {
-	NSString *thisFile;
-	for(thisFile in paths)
-		if (![self fileExistsAtPath:thisFile]) return NO;
+	for (id thisFile in paths) {
+		if ([thisFile isKindOfClass:[NSString class]] && ![self fileExistsAtPath:thisFile]) {
+			return NO;
+		} else if ([thisFile isKindOfClass:[NSURL class]] && ![(NSURL *)thisFile checkResourceIsReachableAndReturnError:NULL]) {
+			return NO;
+		}
+	}
 	return YES;
 }
 
