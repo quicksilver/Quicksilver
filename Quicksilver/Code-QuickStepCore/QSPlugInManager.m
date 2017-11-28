@@ -776,7 +776,13 @@
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
 		return [manager contentsOfDirectoryAtPath:tempDirectory error:nil];
 	} else {
-		NSRunInformationalAlertPanel(@"Failed to Extract Plugin", @"There was a problem extracting the QSPkg.\nThe file is most likely corrupt.", nil, nil, nil);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.alertStyle = NSAlertStyleInformational;
+		alert.messageText = NSLocalizedString(@"Failed to Extract Plugin", @"Plugin extraction failed - title");
+		alert.informativeText = NSLocalizedString(@"There was a problem extracting the QSPkg.\nThe file is most likely corrupt.", @"Plugin extraction failed - message");
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+
+		[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 		return nil;
 	}
 
