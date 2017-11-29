@@ -511,7 +511,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         if (!_icon)
             _icon = [QSResourceManager imageNamed:@"Catalog"];
 
-#warning tiennou: must check that this actually works
+		/* FIXME: tiennou: must check that this actually works */
         NSData *iconData = self.info[@"iconData"];
         if (!_icon && iconData) {
             _icon = [[NSImage alloc] initWithData:iconData];
