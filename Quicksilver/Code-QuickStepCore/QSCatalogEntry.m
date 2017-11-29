@@ -444,27 +444,41 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 		if (_name) return _name;
 
-#warning this is tampering with localization
+		/* FIXME: this is tampering with localization
+		 * A better way would be to have separate keys for plugin-provided names
+		 * vs user-customized ones
+		 */
 
-		NSString *ID = self.identifier;
-		NSArray *bundles = @[[NSBundle bundleForClass:[self.source class]], [NSBundle mainBundle]];
-		for (NSBundle *bundle in bundles) {
-			_name = [bundle safeLocalizedStringForKey:ID value:nil table:@"QSCatalogPreset.name"];
-			if (_name) break;
-		}
-
-		if (!_name) {
+		// The default list of bundles to check
+		NSSet *bundles = [NSSet setWithObjects:
+						  [NSBundle bundleForClass:[self.source class]],
+						  [NSBundle bundleWithIdentifier:@"com.blacktree.Quicksilver.QSCorePlugIn"],
+						  [NSBundle mainBundle],
+						  nil];
+		if (self.isPreset) {
+			for (NSBundle *bundle in bundles) {
+				_name = [bundle safeLocalizedStringForKey:self.identifier value:nil table:@"QSCatalogPreset.name"];
+				if (_name) break;
+			}
+			if (!_name) {
+#ifdef DEBUG
+				if (DEBUG_LOCALIZATION)
+					NSLog(@"Missing localized name for preset entry %@", self.identifier);
+#endif
+				_name = self.info[kItemName];
+			}
+		} else {
 			NSString *sourceString = NSStringFromClass([self.source class]);
 			for (NSBundle *bundle in bundles) {
 				_name = [bundle safeLocalizedStringForKey:sourceString value:nil table:@"QSObjectSource.name"];
 				if (_name) break;
 			}
-		}
 
+			if (self.info[kItemName]) {
+				// This is (supposedly) a user-customized name
+				_name = self.info[kItemName];
+			}
 
-		// Check to see if the name isn't hardcoded in our info
-		if (!_name) {
-			_name = self.info[kItemName];
 		}
 
         return [_name copy];
