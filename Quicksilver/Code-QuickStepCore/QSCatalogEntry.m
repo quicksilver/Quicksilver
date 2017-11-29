@@ -221,10 +221,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return !self.isPreset;
 }
 
-- (NSString *)type {
-	/* TODO: DO NOT USE, this really returns the localized name of the entry, not really its type.
-	 * This gets bound to the Catalog UI for some reason, hence why I'm not taking it out
-	 * immediately */
+- (NSString *)localizedType {
 	NSString *theID = NSStringFromClass([self.source class]);
 	NSString *title = [[NSBundle bundleForClass:[self.source class]] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
 	if ([title isEqualToString:theID]) {

@@ -63,6 +63,9 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 /** The receiver's identifier. */
 @property (readonly, copy) NSString *identifier;
 
+/** The receiver's localized type. */
+@property (readonly, copy) NSString *localizedType;
+
 /** The receiver's source. */
 @property (readonly, retain) QSObjectSource *source;
 
