@@ -32,4 +32,9 @@
  *   - kItemPath       - a path to a required "file-system object"
  */
 @property (readonly, retain) NSMutableDictionary *info;
+
+@end
+
+@interface QSCatalogEntry (OldStyleSourceSupport)
+- (id)objectForKey:(NSString *)key QS_DEPRECATED_MSG("Sources now get QSCatalogEntry objects. Please use those");
 @end

@@ -63,11 +63,17 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 /** The receiver's identifier. */
 @property (readonly, copy) NSString *identifier;
 
+/** The receiver's localized type. */
+@property (readonly, copy) NSString *localizedType;
+
 /** The receiver's source. */
 @property (readonly, retain) QSObjectSource *source;
 
-/** The receiver's last index date. */
-@property (retain) NSDate *indexDate;
+/** The receiver's last indexation date. */
+@property (readonly, retain) NSDate *indexationDate;
+
+/** The receiver's last modification date. */
+@property (readonly, retain) NSDate *modificationDate;
 
 /** The contents of the receiver. */
 @property (readonly, retain) NSArray *contents;
@@ -258,6 +264,13 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 - (void)scanForced:(BOOL)force;
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
+
+/**
+ * Mark the entry as refreshed/modified.
+ *
+ * @param rescan If YES, the entry will be rescanned immediately.
+ */
+- (void)refresh:(BOOL)rescan;
 
 /* FIXME: Yuck! */
 - (void)invalidateIndex:(NSNotification *)notif;

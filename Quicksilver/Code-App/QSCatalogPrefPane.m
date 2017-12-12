@@ -250,17 +250,8 @@ static id _sharedInstance;
 	}
 
 	NSMutableDictionary *childDict = [NSMutableDictionary dictionaryWithCapacity:5];
-	[childDict setObject:[NSString uniqueString] forKey:kItemID];
 	[childDict setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
- 	NSString *title = [[NSBundle bundleForClass:NSClassFromString(sourceString)] safeLocalizedStringForKey:sourceString value:sourceString table:@"QSObjectSource.name"];
-	if ([title isEqualToString:sourceString])
-		title = [[NSBundle mainBundle] safeLocalizedStringForKey:sourceString value:sourceString table:@"QSObjectSource.name"];
-
-	[childDict setObject:title forKey:kItemName];
 	[childDict setObject:sourceString forKey:kItemSource];
-
-	if ([sourceString isEqualToString:@"QSGroupObjectSource"])
-		[childDict setObject:[NSMutableArray arrayWithCapacity:0] forKey:kItemChildren];
 
 	QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
 	[[parentEntry children] addObject:childEntry];
@@ -347,15 +338,9 @@ static id _sharedInstance;
 			if ([source respondsToSelector:@selector(settingsView)])
 				currentItemHasSettings = nil != (settingsView = [source settingsView]);
 
-			// Make the object source edit the currently selected entry
-			// The various names are here because of back-compat
-			if ([source respondsToSelector:@selector(setSelectedEntry:)]) {
+
+			if ([source respondsToSelector:@selector(setSelectedEntry:)])
 				[source setSelectedEntry:currentItem];
-			} else if ([source respondsToSelector:@selector(setSelection:)]) {
-				[source setSelection:currentItem];
-			} else if ([source respondsToSelector:@selector(setCurrentEntry:)]) {
-				[source setCurrentEntry:[currentItem info]];
-			}
 
 			if ([source respondsToSelector:@selector(populateFields)])
 				[source populateFields];

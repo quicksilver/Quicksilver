@@ -55,16 +55,16 @@
 @end
 
 @implementation QSProxyObjectSource
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry {return NO;}
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	return NO;
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict {
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry {
 	return [QSResourceManager imageNamed:@"Object"];
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"rescanning proxies");
 #endif

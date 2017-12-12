@@ -12,7 +12,7 @@
 
 #pragma mark Catalog Entry
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry
 {
     // rescan only if the indexDate is prior to the last launch
     NSDate *launched = [[NSRunningApplication currentApplication] launchDate];
@@ -24,19 +24,19 @@
     }
 }
 
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry
 {
     return NO;
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry
 {
     // create a proxy object with this class as its provider
     NSString *provider = NSStringFromClass([self class]);
     NSDictionary *proxyDetails = [NSDictionary dictionaryWithObject:provider forKey:@"providerClass"];
     QSProxyObject *proxy = [QSProxyObject proxyWithDictionary:proxyDetails];
     // assign values to the proxy object
-    NSDictionary *settings = [theEntry objectForKey:kItemSettings];
+    NSDictionary *settings = theEntry.sourceSettings;
     NSString *targetID = [settings objectForKey:@"target"];
     NSString *name = [settings objectForKey:@"name"];
     [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
@@ -45,9 +45,9 @@
     return [NSArray arrayWithObject:proxy];
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)theEntry
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry
 {
-    NSDictionary *settings = [theEntry objectForKey:kItemSettings];
+    NSDictionary *settings = theEntry.sourceSettings;
     NSString *targetID = [settings objectForKey:@"target"];
     QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
@@ -131,7 +131,7 @@
 
 - (void)populateFields
 {
-    NSDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
+    NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
     NSString *name = [settings objectForKey:@"name"];
     [synonymName setStringValue:name?name:@""];
     NSString *targetID = [settings objectForKey:@"target"];
@@ -153,7 +153,7 @@
         return;
     }
     [targetPickerController setEntrySource:self];
-    NSDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
+    NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
     NSString *targetID = [settings objectForKey:@"target"];
     QSObject *target = [QSLib objectWithIdentifier:targetID];
     [[targetPickerWindow searchObjView] selectObjectValue:target];
@@ -175,11 +175,7 @@
 - (void)save
 {
 	// update catalog entry
-	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
-	if (!settings) {
-		settings = [NSMutableDictionary dictionaryWithCapacity:1];
-		[[self currentEntry] setObject:settings forKey:kItemSettings];
-	}
+    NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
     QSObject *target = [[targetPickerController dSelector] objectValue];
     if (!target) {
         // refer to the established target if a new one wasn't set
@@ -190,17 +186,14 @@
     NSString *synonym = [synonymName stringValue] ? [synonymName stringValue] : [NSString stringWithFormat:localizedPlaceholder, [target displayName]];
     if ([synonym length] && target) {
         NSString *entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, (unsigned short)0x2192, [target displayName]];
-        [[self currentEntry] setObject:entryName forKey:kItemName];
-        [[self selection] setName:entryName];
+        self.selectedEntry.name = entryName;
     }
     [settings setObject:synonym forKey:@"name"];
     if (target) {
         [settings setObject:[target identifier] forKey:@"target"];
         [settings setObject:[target primaryType] forKey:@"targetType"];
     }
-	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-    [[self selection] scanAndCache];
+    [self.selectedEntry refresh:YES];
 	[self populateFields];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 @end

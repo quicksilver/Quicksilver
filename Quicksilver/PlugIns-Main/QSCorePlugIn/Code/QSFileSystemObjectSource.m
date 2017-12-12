@@ -45,9 +45,9 @@
 	return self;
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)entry {
+- (NSImage *)iconForEntry:(QSCatalogEntry *)entry {
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	NSMutableDictionary *settings = [entry objectForKey:kItemSettings];
+    NSMutableDictionary *settings = entry.sourceSettings;
 	if (!settings) return [workspace iconForFile:@"/Volumes"];
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *path = [self fullPathForSettings:settings];
@@ -142,13 +142,13 @@
 	return [super settingsView];
 }
 
-- (BOOL)selectionIsEditable { return ![[self selection] isPreset];  }
+- (BOOL)selectionIsEditable { return !self.selectedEntry.isPreset; }
 
 - (void)populateFields {
-	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
+	NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
 
 	NSString *path = [settings objectForKey:kItemPath];
-	[itemLocationField setStringValue:(path?path:@"")];
+	[itemLocationField setStringValue:(path ? path : @"")];
 	NSString *fullPath = [self fullPathForSettings:settings];
 
 	NSString *parser = [settings objectForKey:kItemParser];
@@ -184,11 +184,7 @@
 //Item Fields
 
 - (IBAction)setValueForSender:(id)sender {
-	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
-	if (!settings) {
-		settings = [NSMutableDictionary dictionaryWithCapacity:1];
-		[[self currentEntry] setObject:settings forKey:kItemSettings];
-	}
+	NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
 
 	if (sender == itemLocationField) {
         // Box showing the path to the current catalog item
@@ -211,12 +207,8 @@
 		else
 			[settings removeObjectForKey:kItemParser];
 	}
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-    
-    [[self selection] scanAndCache];
+    [self.selectedEntry refresh:YES];
 	[self populateFields];
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
@@ -258,8 +250,8 @@
 	}
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
-	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
+	NSMutableDictionary *settings = theEntry.sourceSettings;
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *path = nil;
 	NSMutableArray *containedItems = [NSMutableArray arrayWithCapacity:1];
@@ -285,7 +277,10 @@
 	return containedItems;
 }
 
-- (IBAction)showFile:(id)sender { [[NSWorkspace sharedWorkspace] selectFile:[self fullPathForSettings:[[self currentEntry] objectForKey:kItemSettings]] inFileViewerRootedAtPath:@""];  }
+- (IBAction)showFile:(id)sender {
+    NSString *filePath = [self fullPathForSettings:self.selectedEntry.sourceSettings];
+    [[NSWorkspace sharedWorkspace] selectFile:filePath inFileViewerRootedAtPath:@""];
+}
 
 - (IBAction)chooseFile:(id)sender { [self chooseFile];  }
 
@@ -305,9 +300,8 @@
     
 	[itemLocationField setStringValue:[[[openPanel URL] path] stringByAbbreviatingWithTildeInPath]];
 	[self setValueForSender:itemLocationField];
-	[[self selection] setName:[[openPanel URL] lastPathComponent]];
-	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
+	self.selectedEntry.name = [[openPanel URL] lastPathComponent];
+    [self.selectedEntry refresh:NO];
 	return YES;
 }
 
@@ -322,8 +316,8 @@
 	return itemPath;
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
-	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
+	NSMutableDictionary *settings = theEntry.sourceSettings;
 
     if ([[settings objectForKey:@"watchTarget"] boolValue]) {
         // no need to scan - this entry is updated automatically
@@ -335,13 +329,11 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:itemPath isDirectory:nil]) return YES;
 
-	NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[settings objectForKey:kItemModificationDate] doubleValue]];
-
-	if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
+	if ([theEntry.modificationDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
-	 return modDate == nil;
+    NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
+    return modDate == nil;
 }
 
 @end

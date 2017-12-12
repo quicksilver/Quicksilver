@@ -12,7 +12,7 @@
  *
  * @return The image to use as icon.
  */
-- (NSImage *)iconForEntry:(NSDictionary *)theEntry;
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry;
 
 /**
  * Return the objects scanned by the source
@@ -21,7 +21,7 @@
  *
  * @return An array of QSObjects.
  */
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry;
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry;
 
 /**
  * Check if an entry has changed before scanning
@@ -31,7 +31,7 @@
  *
  * @return YES if the entries' contents should be refreshed, NO otherwise.
  */
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry;
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry;
 
 @optional
 
@@ -43,7 +43,7 @@
  * @return YES if saving the current contents of the entry makes sense (to speed up QS startup)
  *          NO if the entry's contents are something transient.
  */
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry;
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry;
 
 /**
  * Informs the source that the entry was enabled
@@ -91,7 +91,12 @@
 
 - (void)populateFields;
 
+/** The entry currently selected in the Catalog preference pane */
 @property (retain) QSCatalogEntry *selectedEntry;
+
+/**
+ * The settings view for the source.
+ */
 @property (retain) IBOutlet NSView *settingsView;
 
 // Please use -selectedEntry instead of those

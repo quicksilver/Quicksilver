@@ -11,7 +11,7 @@
 
 @implementation QSICloudDocumentSource
 
-- (NSArray *)objectsForEntry:(NSDictionary *)theEntry
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry
 {
 	NSMutableArray *objects = [NSMutableArray array];
 	NSArray *ICloudEnabledApplications = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:pICloudDocumentsPrefix error:nil];

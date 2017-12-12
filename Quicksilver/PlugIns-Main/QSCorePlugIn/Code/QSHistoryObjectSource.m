@@ -22,11 +22,11 @@
 	return self;
 }
 
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return YES; }
-- (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"Quicksilver"]; }
-- (NSArray *)objectsForEntry:(NSDictionary *)dict {
-	if ([[dict objectForKey:@"userInfo"] isEqualToString:@"commands"])
+- (BOOL)entryCanBeIndexed:(QSCatalogEntry *)theEntry {return NO;}
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry { return YES; }
+- (NSImage *)iconForEntry:(QSCatalogEntry *)theEntry { return [QSResourceManager imageNamed:@"Quicksilver"]; }
+- (NSArray *)objectsForEntry:(QSCatalogEntry *)theEntry {
+	if ([theEntry.identifier isEqualToString:@"QSPresetCommandHistory"])
 		return [QSHist recentCommands];
 	else
 		return [QSHist recentObjects];

@@ -34,7 +34,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 	NSMutableArray *_children;
     dispatch_queue_t scanQueue;
-	NSBundle *bundle;
 }
 
 @property (getter=isScanning) BOOL scanning;
@@ -66,7 +65,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return keyPaths;
 }
 
-+ (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict {
++ (instancetype)entryWithDictionary:(NSDictionary *)dict {
 	return [[QSCatalogEntry alloc] initWithDictionary:dict];
 }
 
@@ -80,16 +79,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         return nil;
     }
 
-    _name = nil;
-    _indexDate = nil;
     _children = [NSMutableArray array];
-    _contents = nil;
     _info = [NSMutableDictionary dictionary];
+    _info[kItemID] = [NSString uniqueString];
 
     return self;
 }
 
-- (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [self init];
 	if (!self) {
         return nil;
@@ -183,19 +180,28 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (NSDate *)lastScanDate {
-	/* tiennou: The one with the latest scan date ? Really ? */
-	if ([[self type] isEqualToString:@"Group"]) {
+	return self.indexationDate;
+}
+
+- (NSDate *)indexationDate {
+	if (self.isGroup) {
 		// It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
-		NSDate *latestScan = nil;
+		NSDate *latestIndexDate = nil;
 		for (QSCatalogEntry *child in [self children]) {
-			NSDate *childScanDate = [child lastScanDate];
-			if (childScanDate && (childScanDate > latestScan || latestScan == nil)) {
-				latestScan = childScanDate;
+			NSDate *childIndexDate = [child indexationDate];
+            if (childIndexDate && ([childIndexDate compare:latestIndexDate] == NSOrderedDescending || latestIndexDate == nil)) {
+				latestIndexDate = childIndexDate;
 			}
 		}
-		return latestScan;
+		return latestIndexDate;
 	}
 	return [[NSFileManager.defaultManager attributesOfItemAtPath:self.indexLocation error:NULL] objectForKey:NSFileModificationDate];
+}
+
+- (NSDate *)modificationDate {
+	id modDate = self.info[kItemModificationDate];
+	if (!modDate) return nil;
+	return [NSDate dateWithTimeIntervalSinceReferenceDate:[(NSNumber *)modDate doubleValue]];
 }
 
 - (BOOL)canBeDeleted {
@@ -215,7 +221,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return !self.isPreset;
 }
 
-- (NSString *)type {
+- (NSString *)localizedType {
 	NSString *theID = NSStringFromClass([self.source class]);
 	NSString *title = [[NSBundle bundleForClass:[self.source class]] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
 	if ([title isEqualToString:theID]) {
@@ -435,14 +441,46 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         if (self.isSeparator) {
             return @"";
         }
-#warning this is tampering with localization
-        if (!_name) {
-            _name = self.info[kItemName];
-        }
-        if (!_name) {
-            NSString *ID = self.identifier;
-            _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
-        }
+
+		if (_name) return _name;
+
+		/* FIXME: this is tampering with localization
+		 * A better way would be to have separate keys for plugin-provided names
+		 * vs user-customized ones
+		 */
+
+		// The default list of bundles to check
+		NSSet *bundles = [NSSet setWithObjects:
+						  [NSBundle bundleForClass:[self.source class]],
+						  [NSBundle bundleWithIdentifier:@"com.blacktree.Quicksilver.QSCorePlugIn"],
+						  [NSBundle mainBundle],
+						  nil];
+		if (self.isPreset) {
+			for (NSBundle *bundle in bundles) {
+				_name = [bundle safeLocalizedStringForKey:self.identifier value:nil table:@"QSCatalogPreset.name"];
+				if (_name) break;
+			}
+			if (!_name) {
+#ifdef DEBUG
+				if (DEBUG_LOCALIZATION)
+					NSLog(@"Missing localized name for preset entry %@", self.identifier);
+#endif
+				_name = self.info[kItemName];
+			}
+		} else {
+			NSString *sourceString = NSStringFromClass([self.source class]);
+			for (NSBundle *bundle in bundles) {
+				_name = [bundle safeLocalizedStringForKey:sourceString value:nil table:@"QSObjectSource.name"];
+				if (_name) break;
+			}
+
+			if (self.info[kItemName]) {
+				// This is (supposedly) a user-customized name
+				_name = self.info[kItemName];
+			}
+
+		}
+
         return [_name copy];
     }
 }
@@ -466,13 +504,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 - (NSImage *)icon {
     @synchronized (self) {
         _icon = [QSResourceManager imageNamed:self.info[kItemIcon]];
-        if (!_icon)
-            _icon = [self.source iconForEntry:self.info];
+        if (!_icon) {
+            _icon = [self.source iconForEntry:self];
+        }
 
         if (!_icon)
             _icon = [QSResourceManager imageNamed:@"Catalog"];
 
-#warning tiennou: must check that this actually works
+		/* FIXME: tiennou: must check that this actually works */
         NSData *iconData = self.info[@"iconData"];
         if (!_icon && iconData) {
             _icon = [[NSImage alloc] initWithData:iconData];
@@ -551,8 +590,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
 
-        self.indexDate = [NSDate date];
-
         @try {
             NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
             [writeArray writeToFile:self.indexLocation atomically:YES];
@@ -585,18 +622,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             isValid = NO;
         }
         if (isValid) {
-            if (!self.indexDate)
-                self.indexDate = [[manager attributesOfItemAtPath:indexLocation error:NULL] fileModificationDate];
-            NSNumber *modInterval = self.info[kItemModificationDate];
-            if (modInterval) {
-                NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-                if ([specDate compare:self.indexDate] == NSOrderedDescending) {
-                    isValid = NO; //Catalog Specification is more recent than index
-                }
+            if ([self.modificationDate compare:self.indexationDate] == NSOrderedDescending) {
+                isValid = NO; //Catalog Specification is more recent than index
             }
         }
         if (isValid) {
-            isValid = [self.source indexIsValidFromDate:self.indexDate forEntry:self.info];
+            isValid = [self.source indexIsValidFromDate:self.indexationDate forEntry:self];
         }
     });
     return isValid;
@@ -620,7 +651,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
-            itemContents = [self.source objectsForEntry:self.info];
+            itemContents = [self.source objectsForEntry:self];
         }
         @catch (NSException *exception) {
             NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
@@ -631,10 +662,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (BOOL)canBeIndexed {
-    if (![self.source respondsToSelector:@selector(entryCanBeIndexed:)])
-        return YES;
+    if ([self.source respondsToSelector:@selector(entryCanBeIndexed:)]) {
+        return [self.source entryCanBeIndexed:self];
+    }
 
-	return [self.source entryCanBeIndexed:self.info];
+    // Otherwise all entries can be indexed
+    return YES;
 }
 
 - (NSArray *)scanAndCache {
@@ -736,6 +769,12 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return [[self contents] objectsAtIndexes:enabled];
 }
 
+- (void)refresh:(BOOL)rescan {
+    self.info[kItemModificationDate] = @([NSDate timeIntervalSinceReferenceDate]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
+    if (rescan) [self scanAndCache];
+}
+
 - (QSCatalogEntry *)uniqueCopy {
 	NSMutableDictionary *newDictionary = [self.info mutableCopy];
 	if (self.isPreset) {
@@ -753,11 +792,24 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (NSMutableDictionary *)sourceSettings {
-    return self.info[kItemSettings];
+    NSMutableDictionary *settings = self.info[kItemSettings];
+    if (!settings) {
+        settings = [[NSMutableDictionary alloc] init];
+        self.info[kItemSettings] = settings;
+    }
+    return settings;
 }
 
 
 // Backward-compatibility
 - (BOOL)deletable QS_DEPRECATED { return self.canBeDeleted; }
+
+@end
+
+@implementation QSCatalogEntry (OldStyleSourceSupport)
+
+- (id)objectForKey:(NSString *)key {
+	return self.info[key];
+}
 
 @end
