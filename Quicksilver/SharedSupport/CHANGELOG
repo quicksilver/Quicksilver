@@ -2,7 +2,8 @@
 
 ### Fixed ###
 
-  * show the number of plugins being downloaded (#2409, #2410)
+  * Show the number of plugins being downloaded (#2409, #2410)
+  * Prevent a few crashes (#2415)
 
 ### Development ###
 
