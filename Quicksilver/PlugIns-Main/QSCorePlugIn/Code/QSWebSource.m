@@ -78,10 +78,6 @@
 
 - (IBAction)setValueForSender:(id)sender {
 	NSMutableDictionary *settings = self.selectedEntry.sourceSettings;
-	if (!settings) {
-		settings = [NSMutableDictionary dictionaryWithCapacity:1];
-		[[self currentEntry] setObject:settings forKey:kItemSettings];
-	}
 	if (sender == itemLocationField) {
 		// Box showing the URL to scan
 		[settings setObject:[sender stringValue] forKey:kItemPath];
