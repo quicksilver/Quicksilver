@@ -28,7 +28,7 @@ NSString *identifierForPaths(NSArray *paths) {
 	return [paths componentsJoinedByString:@" "];
 }
 
-NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
+NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil) {
 		return nil;
 	}
@@ -514,7 +514,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:childPreset];
 					newChildren = [theEntry contentsScanIfNeeded:YES];
 				} else {
-					NSArray *recentDocuments = recentDocumentsForBundle(bundleIdentifier);
+					NSArray *recentDocuments = QSGetRecentDocumentsForBundle(bundleIdentifier);
 					NSArray *iCloudDocuments = [QSDownloads iCloudDocumentsForBundleID:bundleIdentifier];
 					// combine recent and iCloud documents, removing duplicates
                     NSIndexSet *ind = [iCloudDocuments indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *icdoc, NSUInteger i, BOOL *stop) {
