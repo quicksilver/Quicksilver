@@ -45,7 +45,7 @@
 - (NSView *)settingsView
 {
 	if (![super settingsView]) {
-		[NSBundle loadNibNamed:NSStringFromClass([self class]) owner:self];
+		[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:self topLevelObjects:NULL];
 	}
 	return [super settingsView];
 }
