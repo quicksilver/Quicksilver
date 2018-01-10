@@ -981,7 +981,9 @@ NSSize QSMaxIconSize;
 		[icon setCacheMode:NSImageCacheNever];
         if (iconChange) {
             // icon is being replaced, not set - notify UI
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+			QSGCDMainAsync(^{
+            	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+			});
         }
 	}
 }

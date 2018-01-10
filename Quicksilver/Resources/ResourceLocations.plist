@@ -95,6 +95,7 @@
 	</dict>
 	<key>appearanceIcon</key>
 	<array>
+		<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/ProfileFontAndColor.icns</string>
 		<string>/System/Library/PreferencePanes/Appearance.prefPane/Contents/Resources/GeneralPrefsIcons.icns</string>
 		<string>/System/Library/PreferencePanes/Appearance.prefPane/Contents/Resources/General.tiff</string>
 		<string>/System/Library/PreferencePanes/Appearance.prefPane/Contents/Resources/General.icns</string>

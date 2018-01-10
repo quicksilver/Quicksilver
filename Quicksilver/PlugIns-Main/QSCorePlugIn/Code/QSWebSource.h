@@ -6,11 +6,9 @@
 //  Copyright 2004 Blacktree. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
-
-@interface QSWebSource : NSObject {
-
+@interface QSWebSource : QSObjectSource {
+	IBOutlet NSTextField *itemLocationField;
+	IBOutlet NSPopUpButton *itemParserPopUp;
 }
 
 @end

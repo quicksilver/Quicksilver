@@ -1574,6 +1574,13 @@
 			<key>QSTextLineParser</key>
 			<string>QSTextLineParser</string>
 		</dict>
+		<key>QSURLParsers</key>
+		<dict>
+			<key>QSHTMLLinkParser</key>
+			<string>QSHTMLLinkParser</string>
+			<key>QSTextLineParser</key>
+			<string>QSTextLineParser</string>
+		</dict>
 	</dict>
 	<key>QSResourceAdditions</key>
 	<dict>

@@ -5,6 +5,7 @@
 
 #define kQSActionProviders     @"QSActionProviders"
 #define kQSFSParsers           @"QSFSParsers"
+#define kQSURLParsers          @"QSURLParsers"
 #define kQSObjectSources       @"QSObjectSources"
 #define kQSObjectHandlers      @"QSObjectHandlers"
 #define kQSPreferencePanes     @"QSPreferencePanes"

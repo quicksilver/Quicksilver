@@ -295,12 +295,10 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    QSGCDMainAsync(^{
-		[resultTable setNeedsDisplay];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-			[resultChildTable setNeedsDisplay];
-		}
-    });
+	[resultTable setNeedsDisplay];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+		[resultChildTable setNeedsDisplay];
+	}
 }
 
 #pragma mark -

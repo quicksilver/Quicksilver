@@ -2,6 +2,8 @@
 #import <QSCore/QSClangAnalyzer.h>
 #import "QSObject.h"
 
+NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
+
 @protocol QSFileObjectCreationProtocol
 - (id)createFileObject:(QSObject *)object ofType:(NSString *)type;
 @end
