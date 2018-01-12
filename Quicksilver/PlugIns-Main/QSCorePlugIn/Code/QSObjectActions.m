@@ -55,6 +55,7 @@
 	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 
 	[[controller dSelector] redisplayObjectValue:[dObject resolvedObject]];
+	[[controller dSelector] updateHistory];
 	[controller actionActivate:self];
 
 	return nil;
