@@ -3,10 +3,12 @@
 ### New ###
 
   * URL Scanner catalog source allows scanning links from a remote address (#767, #2408)
+  * Objects grabbed with ⌘⎋ and ⌘G are added to the history (#2265, #2421)
 
 ### Fixed ###
 
   * Show the number of plugins being downloaded (#2409, #2410)
+  * Prevent the third pane from appearing when nothing is selected (#2417, #2420)
   * Prevent a few crashes (#2415)
 
 ### Development ###
