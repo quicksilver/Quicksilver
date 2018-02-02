@@ -1437,8 +1437,8 @@ NSMutableDictionary *bindingsDict = nil;
 - (IBAction)grabSelection:(id)sender {
 	if (!allowNonActions) return;
 	QSObject *newSelection = [self externalSelection];
-    
 	[self redisplayObjectValue:newSelection];
+	[self updateHistory];
 }
 
 - (IBAction)dropSelection:(id)sender {
