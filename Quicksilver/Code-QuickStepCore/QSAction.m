@@ -119,6 +119,12 @@ static BOOL gModifiersAreIgnored;
 	return num ? [num doubleValue] : 0.0;
 }
 
+- (void)setPrecedence:(CGFloat)precedence
+{
+	NSNumber *num = [NSNumber numberWithFloat:precedence];
+	[[self actionDict] setObject:num forKey:kActionPrecedence];
+}
+
 - (NSInteger)rank { return rank;  }
 - (void)_setRank:(NSInteger)newRank {
 	[self willChangeValueForKey:@"rank"];
@@ -220,6 +226,15 @@ static BOOL gModifiersAreIgnored;
 
 - (void)setIndirectOptional:(BOOL)flag {
  	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionIndirectOptional];
+}
+
+- (BOOL)validatesObjects
+{
+	return [[[self actionDict] objectForKey:kActionValidatesObjects] boolValue];
+}
+- (void)setValidatesObjects:(BOOL)flag
+{
+	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionValidatesObjects];
 }
 
 - (BOOL)resolvesProxy {
@@ -364,7 +379,7 @@ static BOOL gModifiersAreIgnored;
     
 	//Check the action dictionary
 	if (!format)
-		format = [[self actionDict] objectForKey:@"commandFormat"];
+		format = [[self actionDict] objectForKey:kActionCommandFormat];
     
 	// Check the main bundle
 	if (!format)
@@ -375,6 +390,11 @@ static BOOL gModifiersAreIgnored;
 		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
     return format;
+}
+
+- (void)setCommandFormat:(NSString *)commandFormat
+{
+	[[self actionDict] setObject:commandFormat forKey:kActionCommandFormat];
 }
 
 - (CGFloat)score {

@@ -33,6 +33,7 @@
 - (NSInteger)rank;
 - (void)setRank:(NSInteger)newRank;
 - (CGFloat)precedence;
+- (void)setPrecedence:(CGFloat)precedence;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 - (BOOL)menuEnabled;
@@ -46,6 +47,8 @@
 - (BOOL)canThread;
 - (BOOL)indirectOptional;
 - (void)setIndirectOptional:(BOOL)flag;
+- (BOOL)validatesObjects;
+- (void)setValidatesObjects:(BOOL)flag;
 
 // resolveProxy is a BOOL set in an action's dict to specify whether an object should be resolved
 // before being sent to an action. Action's like 'assign abbreviation...' should not resolve the proxy
@@ -67,6 +70,7 @@
 - (id)objectForKey:(NSString*)key;
 
 - (NSString *)commandFormat;
+- (void)setCommandFormat:(NSString *)commandFormat;
 @end
 
 @interface QSActionHandler : NSObject
