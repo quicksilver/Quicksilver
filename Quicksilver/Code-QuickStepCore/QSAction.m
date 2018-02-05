@@ -6,6 +6,7 @@
 #import "QSResourceManager.h"
 #import "NSBundle_BLTRExtensions.h"
 #import "QSExecutor.h"
+#import <objc/objc-runtime.h>
 
 //static NSDictionary *actionPrecedence;
 
@@ -196,6 +197,32 @@ static BOOL gModifiersAreIgnored;
 		[[self actionDict] setObject:NSStringFromSelector(newAction) forKey:kActionSelector];
 	else
 		[[self actionDict] removeObjectForKey:kActionSelector];
+}
+
+- (BOOL)setActionUisngBlock:(QSObject *(^)(id, QSObject *))actionBlock selectorName:(NSString *)selName
+{
+	if (![self provider]) {
+		NSLog(@"define provider before setting a block as the action");
+		return NO;
+	}
+	IMP actionFunction = imp_implementationWithBlock(actionBlock);
+	SEL actionSelector = NSSelectorFromString(selName);
+	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@");
+	[self setAction:actionSelector];
+	return actionDefined;
+}
+
+- (BOOL)setActionWithIndirectUisngBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName
+{
+	if (![self provider]) {
+		NSLog(@"define provider before setting a block as the action");
+		return NO;
+	}
+	IMP actionFunction = imp_implementationWithBlock(actionBlock);
+	SEL actionSelector = NSSelectorFromString(selName);
+	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@@");
+	[self setAction:actionSelector];
+	return actionDefined;
 }
 
 - (NSInteger)argumentCount {

@@ -30,6 +30,38 @@
 - (SEL)action;
 - (void)setAction:(SEL)newAction;
 
+/**
+ * Use a predefined block as an action method. Useful for programatically creating many similar actions.
+ *
+ * @param actionBlock A block that does the action's work
+ * @param selectorName A selector name like "openThing:"
+ *
+ * @return YES if the action method was added to the provider, otherwise NO
+ *
+ * Example action block with no indirect object:
+ * QSObject *(^actionBlock)(id, QSObject *) = ^ QSObject *(id _self, QSObject *dObject) {
+ * 	   // action code
+ * 	   return nil;
+ * };
+ */
+- (BOOL)setActionUisngBlock:(QSObject *(^)(id, QSObject *))actionBlock  selectorName:(NSString *)selName;
+
+/**
+ * Use a predefined block as an action method. Useful for programatically creating many similar actions.
+ *
+ * @param actionBlock A block that does the action's work
+ * @param selectorName A selector name like "openThing:usingOtherThing:"
+ *
+ * @return YES if the action method was added to the provider, otherwise NO
+ *
+ * Example action block with an indirect object:
+ * QSObject *(^actionBlock)(id, QSObject *, QSObject *) = ^ QSObject *(id _self, QSObject *dObject, QSObject *iObject) {
+ * 	   // action code
+ * 	   return nil;
+ * };
+ */
+- (BOOL)setActionWithIndirectUisngBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName;
+
 - (NSInteger)rank;
 - (void)setRank:(NSInteger)newRank;
 - (CGFloat)precedence;
