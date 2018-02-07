@@ -46,6 +46,8 @@
 	<string>Open Contents of Item in Quicksilver</string>
 	<key>QSObjectExplodeCombinedAction</key>
 	<string>Show selected items in the results list</string>
+	<key>QSObjectLogConsoleAction</key>
+	<string>Log details of this object to the Console</string>
 	<key>QSShellScriptRunAction</key>
 	<string>Run a Shell Script</string>
 	<key>QSObjectSelectAction</key>

@@ -204,6 +204,8 @@
 	<string>Show Contents</string>
 	<key>QSObjectExplodeCombinedAction</key>
 	<string>Explode Selection</string>
+	<key>QSObjectLogConsoleAction</key>
+	<string>Log Object to Console</string>
 	<key>QSObjectShowSourceAction</key>
 	<string>Show Source in Catalog</string>
 	<key>QSPutOnShelfAction</key>
