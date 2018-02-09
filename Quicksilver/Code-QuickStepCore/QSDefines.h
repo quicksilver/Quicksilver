@@ -41,6 +41,7 @@
 #define kActionName                 @"name"
 #define kActionUserData             @"userData"
 #define kActionIdentifier           @"id"
+#define kActionCommandFormat        @"commandFormat"
 
 // arrays:
 #define kActionDirectTypes          @"directTypes"
@@ -58,7 +59,6 @@
 #define kActionInitialize           @"initialize"
 #define kActionEnabled              @"enabled"
 #define kActionResolvesProxy        @"resolvesProxy"
-#define kActionCommandFormat        @"commandFormat"
 
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"
