@@ -82,7 +82,7 @@ static BOOL gModifiersAreIgnored;
 		return nil;
 	}
 	if (self = [self init]) {
-		[self setObject:dict forType:QSActionType];
+		[self setObject:[dict mutableCopy] forType:QSActionType];
 		[self setPrimaryType:QSActionType];
 	}
 	return self;
