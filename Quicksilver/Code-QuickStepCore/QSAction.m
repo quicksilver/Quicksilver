@@ -201,10 +201,8 @@ static BOOL gModifiersAreIgnored;
 
 - (BOOL)setActionUisngBlock:(QSObject *(^)(id, QSObject *))actionBlock selectorName:(NSString *)selName
 {
-	if (![self provider]) {
-		NSLog(@"define provider before setting a block as the action");
-		return NO;
-	}
+	NSAssert([self provider], @"Define an action provider before creating an action with a block");
+
 	IMP actionFunction = imp_implementationWithBlock(actionBlock);
 	SEL actionSelector = NSSelectorFromString(selName);
 	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@");
@@ -218,10 +216,8 @@ static BOOL gModifiersAreIgnored;
 
 - (BOOL)setActionWithIndirectUisngBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName
 {
-	if (![self provider]) {
-		NSLog(@"define provider before setting a block as the action");
-		return NO;
-	}
+	NSAssert([self provider], @"Define an action provider before creating an action with a block");
+
 	IMP actionFunction = imp_implementationWithBlock(actionBlock);
 	SEL actionSelector = NSSelectorFromString(selName);
 	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@@");
