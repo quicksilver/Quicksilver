@@ -208,7 +208,11 @@ static BOOL gModifiersAreIgnored;
 	IMP actionFunction = imp_implementationWithBlock(actionBlock);
 	SEL actionSelector = NSSelectorFromString(selName);
 	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@");
-	[self setAction:actionSelector];
+	if (actionDefined) {
+		[self setAction:actionSelector];
+	} else {
+		NSLog(@"Unable to add action %@ to %@", selName, [self provider]);
+	}
 	return actionDefined;
 }
 
@@ -221,7 +225,11 @@ static BOOL gModifiersAreIgnored;
 	IMP actionFunction = imp_implementationWithBlock(actionBlock);
 	SEL actionSelector = NSSelectorFromString(selName);
 	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@@");
-	[self setAction:actionSelector];
+	if (actionDefined) {
+		[self setAction:actionSelector];
+	} else {
+		NSLog(@"Unable to add action %@ to %@", selName, [self provider]);
+	}
 	return actionDefined;
 }
 
