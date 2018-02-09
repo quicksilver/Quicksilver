@@ -13,6 +13,7 @@
 + (id)actionWithDictionary:(NSDictionary *)dict;
 + (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident;
 + (id)actionWithIdentifier:(NSString *)newIdentifier;
++ (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
 + (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle;
 
 - (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
