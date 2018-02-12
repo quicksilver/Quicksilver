@@ -45,7 +45,7 @@
  * 	   return nil;
  * };
  */
-- (BOOL)setActionUisngBlock:(QSObject *(^)(id, QSObject *))actionBlock  selectorName:(NSString *)selName;
+- (BOOL)setActionUsingBlock:(QSObject *(^)(id, QSObject *))actionBlock  selectorName:(NSString *)selName;
 
 /**
  * Use a predefined block as an action method. Useful for programatically creating many similar actions.
@@ -61,7 +61,7 @@
  * 	   return nil;
  * };
  */
-- (BOOL)setActionWithIndirectUisngBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName;
+- (BOOL)setActionWithIndirectUsingBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName;
 
 - (NSInteger)rank;
 - (void)setRank:(NSInteger)newRank;

@@ -199,7 +199,7 @@ static BOOL gModifiersAreIgnored;
 		[[self actionDict] removeObjectForKey:kActionSelector];
 }
 
-- (BOOL)setActionUisngBlock:(QSObject *(^)(id, QSObject *))actionBlock selectorName:(NSString *)selName
+- (BOOL)setActionUsingBlock:(QSObject *(^)(id, QSObject *))actionBlock selectorName:(NSString *)selName
 {
 	NSAssert([self provider], @"Define an action provider before creating an action with a block");
 
@@ -214,7 +214,7 @@ static BOOL gModifiersAreIgnored;
 	return actionDefined;
 }
 
-- (BOOL)setActionWithIndirectUisngBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName
+- (BOOL)setActionWithIndirectUsingBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName
 {
 	NSAssert([self provider], @"Define an action provider before creating an action with a block");
 
