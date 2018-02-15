@@ -255,6 +255,21 @@
 			<key>icon</key>
 			<string>Clipboard</string>
 		</dict>
+		<key>QSObjectLogConsoleAction</key>
+		<dict>
+			<key>validatesObjects</key>
+			<false/>
+			<key>actionClass</key>
+			<string>QSObjectActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>*</string>
+			</array>
+			<key>actionSelector</key>
+			<string>logObjectToConsole:</string>
+			<key>enabled</key>
+			<false/>
+		</dict>
 		<key>QSCommandExecuteAfterDelayAction</key>
 		<dict>
 			<key>actionClass</key>

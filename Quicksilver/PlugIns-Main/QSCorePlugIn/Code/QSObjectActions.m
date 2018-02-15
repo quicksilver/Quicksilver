@@ -201,6 +201,13 @@
 	return nil;
 }
 
+- (QSObject *)logObjectToConsole:(QSObject *)dObject
+{
+	NSLog(@"Printing Object\n%@", [dObject name]);
+	NSLog(@"\n%@", [dObject dictionaryRepresentation]);
+	return nil;
+}
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:@"QSCreateFileAction"]) {
 		return nil;
