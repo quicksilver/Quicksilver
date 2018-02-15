@@ -4,6 +4,7 @@
 
   * URL Scanner catalog source allows scanning links from a remote address (#767, #2408)
   * Objects grabbed with ⌘⎋ and ⌘G are added to the history (#2265, #2421)
+  * A “Log Object to Console” action (disabled by default) has been added to improve our ability to troubleshoot (#2424)
 
 ### Fixed ###
 
