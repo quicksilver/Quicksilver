@@ -295,49 +295,40 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:@"command"] writeToFile:path atomically:NO];
 }
 
+- (void)storeObject:(QSObject *)newObject forType:(NSString*)type {
+    
+    NSString *idString = [NSString stringWithFormat:@"%@ID", type];
+    NSString *archiveString = [NSString stringWithFormat:@"%@Archive", type];
+    
+    id rep = [newObject identifier];
+	if(rep != nil) {
+        [[self commandDict] setObject:rep forKey:idString];
+        [[self commandDict] removeObjectForKey:archiveString];
+	} else {
+        rep = [newObject dictionaryRepresentation];
+        if(rep)
+            [[self commandDict] setObject:rep forKey:archiveString];
+    }
+}
+
 - (void)setDirectObject:(QSObject*)newObject {
     if (newObject != nil && dObject != newObject) {
         dObject = newObject;
-        
-        id rep = [dObject identifier];
-        if(rep != nil)
-            [[self commandDict] setObject:rep forKey:@"directID"];
-        else {
-            rep = [dObject dictionaryRepresentation];
-            if(rep)
-                [[self commandDict] setObject:rep forKey:@"directArchive"];
-        }
-        
+        [self storeObject:dObject forType:@"direct"];
     }
 }
 
 - (void)setActionObject:(QSAction*)newObject {
     if (newObject != nil && aObject != newObject) {
         aObject = newObject;
-    
-        id rep = [aObject identifier];
-        if(rep != nil)
-            [[self commandDict] setObject:rep forKey:@"actionID"];
-        else {
-            rep = [aObject dictionaryRepresentation];
-            if(rep)
-                [[self commandDict] setObject:rep forKey:@"actionArchive"];
-        }
+        [self storeObject:aObject forType:@"action"];
     }
 }
 
 - (void)setIndirectObject:(QSObject*)newObject {
     if (newObject != nil && iObject != newObject) {
         iObject = newObject;
-    
-        id rep = [iObject identifier];
-        if(rep != nil)
-            [[self commandDict] setObject:rep forKey:@"indirectID"];
-        else {
-            rep = [iObject dictionaryRepresentation];
-            if(rep)
-                [[self commandDict] setObject:rep forKey:@"indirectArchive"];
-        }
+        [self storeObject:iObject forType:@"indirect"];
     }
 }
 
