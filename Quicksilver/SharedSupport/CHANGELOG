@@ -12,6 +12,7 @@
   * Prevent the third pane from appearing when nothing is selected (#2417, #2420)
   * Prevent a few crashes (#2415)
   * Lines from a text file are indexed correctly (#2364, #2369)
+  * Improved trigger behavior for items that aren’t in the catalog (#2419, #2426)
 
 ### Development ###
 
