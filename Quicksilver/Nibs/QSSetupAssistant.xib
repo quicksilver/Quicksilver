@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSSetupAssistant">
@@ -25,7 +26,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Quicksilver Setup" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window" customClass="QSWindow">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -44,14 +45,17 @@
                             <tabViewItem label="Welcome" identifier="welcome" id="11">
                                 <view key="view" id="7">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="28">
                                             <rect key="frame" x="17" y="68" width="457" height="153"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="449">
                                                 <font key="font" metaFont="system"/>
-                                                <mutableString key="title">Quicksilver is an application that lets you search and control data across your Mac.Quickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. This assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality.</mutableString>
+                                                <string key="title">Quicksilver is an application that lets you search and control data across your Mac.
+
+Quickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. 
+This assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality.</string>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -76,24 +80,22 @@
                             <tabViewItem label="License" identifier="license" id="232">
                                 <view key="view" id="233">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="240">
                                             <rect key="frame" x="23" y="157" width="450" height="221"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" id="uFm-1H-ytS">
                                                 <rect key="frame" x="1" y="1" width="448" height="219"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textView editable="NO" selectable="NO" importsGraphics="NO" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="440">
+                                                    <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="440">
                                                         <rect key="frame" x="0.0" y="-13" width="448" height="219"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="448" height="219"/>
                                                         <size key="maxSize" width="906" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="448" height="219"/>
-                                                        <size key="maxSize" width="906" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -133,7 +135,7 @@
                             <tabViewItem label="Plugins" identifier="plugins" id="9">
                                 <view key="view" id="10">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <imageView id="170" customClass="QSImageView">
                                             <rect key="frame" x="0.0" y="303" width="128" height="131"/>
@@ -169,7 +171,7 @@ Select and install the plugins for applications you use frequently from the list
                                                 <tabViewItem label="Loading" identifier="loading" id="393">
                                                     <view key="view" id="395">
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" id="396">
                                                                 <rect key="frame" x="143" y="82" width="32" height="32"/>
@@ -221,7 +223,7 @@ Select and install the plugins for applications you use frequently from the list
                                                                                         <binding destination="222" name="value" keyPath="arrangedObjects.shouldInstall" id="323"/>
                                                                                     </connections>
                                                                                 </tableColumn>
-                                                                                <tableColumn editable="NO" width="18" minWidth="10" maxWidth="1000" id="196">
+                                                                                <tableColumn identifier="" editable="NO" width="18" minWidth="10" maxWidth="1000" id="196">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
                                                                                         <font key="font" metaFont="smallSystem"/>
                                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -328,7 +330,7 @@ IA
                             <tabViewItem label="Options" identifier="options" id="234">
                                 <view key="view" id="235">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="258">
                                             <rect key="frame" x="20" y="228" width="61" height="18"/>
@@ -353,8 +355,8 @@ IA
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="457">
                                                 <font key="font" metaFont="system"/>
-                                                <mutableString key="title">The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. 
-By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.</mutableString>
+                                                <string key="title">The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. 
+By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.</string>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -378,7 +380,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                             <autoresizingMask key="autoresizingMask"/>
                                             <popUpButtonCell key="cell" type="push" title="Every hour" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="60" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="340" id="459">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="339">
                                                     <items>
                                                         <menuItem title="Manually (Command-R)" tag="-1" id="343"/>
@@ -405,8 +407,8 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="373">
-                                            <rect key="frame" x="59" y="276" width="60" height="17"/>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" id="373">
+                                            <rect key="frame" x="59" y="276" width="97" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Shortcut:" id="461">
                                                 <font key="font" metaFont="systemBold"/>
@@ -414,8 +416,8 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="378" customClass="QSHotKeyField">
-                                            <rect key="frame" x="124" y="273" width="97" height="22"/>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" id="378" customClass="QSHotKeyField">
+                                            <rect key="frame" x="173" y="273" width="97" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="462">
                                                 <font key="font" metaFont="system"/>
@@ -427,8 +429,8 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <outlet property="setButton" destination="379" id="380"/>
                                             </connections>
                                         </textField>
-                                        <button verticalHuggingPriority="750" id="379">
-                                            <rect key="frame" x="223" y="272" width="31" height="24"/>
+                                        <button verticalHuggingPriority="750" misplaced="YES" id="379">
+                                            <rect key="frame" x="272" y="272" width="31" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="smallSquare" title="Edit" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="463">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -449,7 +451,9 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                         <webView id="387">
                                             <rect key="frame" x="20" y="11" width="446" height="404"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO"/>
+                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
                                         </webView>
                                     </subviews>
                                 </view>
@@ -467,7 +471,9 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                         <webView id="402">
                                             <rect key="frame" x="20" y="0.0" width="446" height="284"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO"/>
+                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
                                         </webView>
                                     </subviews>
                                 </view>
