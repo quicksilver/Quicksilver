@@ -13,10 +13,13 @@
   * Prevent a few crashes (#2415)
   * Lines from a text file are indexed correctly (#2364, #2369)
   * Improved trigger behavior for items that aren’t in the catalog (#2419, #2426)
+  * Fix a text label that was getting truncated (#2425, #2430)
 
 ### Development ###
 
   * Catalog API cleanup (#2255)
+  * Allow more of an actions’s properties to be manipulated (#2423)
+  * An action’s method can be defined using a block, which allows programmatically creating several very similar actions (#2423)
 
 ## Changes - 1.5.7 (4022) 2017-11-06 ##
 
