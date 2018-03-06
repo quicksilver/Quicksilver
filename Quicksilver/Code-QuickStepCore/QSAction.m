@@ -6,6 +6,7 @@
 #import "QSResourceManager.h"
 #import "NSBundle_BLTRExtensions.h"
 #import "QSExecutor.h"
+#import <objc/objc-runtime.h>
 
 //static NSDictionary *actionPrecedence;
 
@@ -81,7 +82,7 @@ static BOOL gModifiersAreIgnored;
 		return nil;
 	}
 	if (self = [self init]) {
-		[self setObject:dict forType:QSActionType];
+		[self setObject:[dict mutableCopy] forType:QSActionType];
 		[self setPrimaryType:QSActionType];
 	}
 	return self;
@@ -117,6 +118,12 @@ static BOOL gModifiersAreIgnored;
 - (CGFloat)precedence {
 	NSNumber *num = [[self actionDict] objectForKey:kActionPrecedence];
 	return num ? [num doubleValue] : 0.0;
+}
+
+- (void)setPrecedence:(CGFloat)precedence
+{
+	NSNumber *num = [NSNumber numberWithFloat:precedence];
+	[[self actionDict] setObject:num forKey:kActionPrecedence];
 }
 
 - (NSInteger)rank { return rank;  }
@@ -192,6 +199,36 @@ static BOOL gModifiersAreIgnored;
 		[[self actionDict] removeObjectForKey:kActionSelector];
 }
 
+- (BOOL)setActionUsingBlock:(QSObject *(^)(id, QSObject *))actionBlock selectorName:(NSString *)selName
+{
+	NSAssert([self provider], @"Define an action provider before creating an action with a block");
+
+	IMP actionFunction = imp_implementationWithBlock(actionBlock);
+	SEL actionSelector = NSSelectorFromString(selName);
+	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@");
+	if (actionDefined) {
+		[self setAction:actionSelector];
+	} else {
+		NSLog(@"Unable to add action %@ to %@", selName, [self provider]);
+	}
+	return actionDefined;
+}
+
+- (BOOL)setActionWithIndirectUsingBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName
+{
+	NSAssert([self provider], @"Define an action provider before creating an action with a block");
+
+	IMP actionFunction = imp_implementationWithBlock(actionBlock);
+	SEL actionSelector = NSSelectorFromString(selName);
+	BOOL actionDefined = class_addMethod([[self provider] class], actionSelector, actionFunction, "@@:@@");
+	if (actionDefined) {
+		[self setAction:actionSelector];
+	} else {
+		NSLog(@"Unable to add action %@ to %@", selName, [self provider]);
+	}
+	return actionDefined;
+}
+
 - (NSInteger)argumentCount {
     id obj = [[self actionDict] objectForKey:kActionArgumentCount];
     if (obj)
@@ -220,6 +257,15 @@ static BOOL gModifiersAreIgnored;
 
 - (void)setIndirectOptional:(BOOL)flag {
  	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionIndirectOptional];
+}
+
+- (BOOL)validatesObjects
+{
+	return [[[self actionDict] objectForKey:kActionValidatesObjects] boolValue];
+}
+- (void)setValidatesObjects:(BOOL)flag
+{
+	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionValidatesObjects];
 }
 
 - (BOOL)resolvesProxy {
@@ -364,7 +410,7 @@ static BOOL gModifiersAreIgnored;
     
 	//Check the action dictionary
 	if (!format)
-		format = [[self actionDict] objectForKey:@"commandFormat"];
+		format = [[self actionDict] objectForKey:kActionCommandFormat];
     
 	// Check the main bundle
 	if (!format)
@@ -375,6 +421,11 @@ static BOOL gModifiersAreIgnored;
 		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
     return format;
+}
+
+- (void)setCommandFormat:(NSString *)commandFormat
+{
+	[[self actionDict] setObject:commandFormat forKey:kActionCommandFormat];
 }
 
 - (CGFloat)score {

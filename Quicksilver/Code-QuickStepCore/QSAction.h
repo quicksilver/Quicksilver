@@ -13,6 +13,7 @@
 + (id)actionWithDictionary:(NSDictionary *)dict;
 + (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident;
 + (id)actionWithIdentifier:(NSString *)newIdentifier;
++ (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
 + (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle;
 
 - (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
@@ -30,9 +31,42 @@
 - (SEL)action;
 - (void)setAction:(SEL)newAction;
 
+/**
+ * Use a predefined block as an action method. Useful for programatically creating many similar actions.
+ *
+ * @param actionBlock A block that does the action's work
+ * @param selectorName A selector name like "openThing:"
+ *
+ * @return YES if the action method was added to the provider, otherwise NO
+ *
+ * Example action block with no indirect object:
+ * QSObject *(^actionBlock)(id, QSObject *) = ^ QSObject *(id _self, QSObject *dObject) {
+ * 	   // action code
+ * 	   return nil;
+ * };
+ */
+- (BOOL)setActionUsingBlock:(QSObject *(^)(id, QSObject *))actionBlock  selectorName:(NSString *)selName;
+
+/**
+ * Use a predefined block as an action method. Useful for programatically creating many similar actions.
+ *
+ * @param actionBlock A block that does the action's work
+ * @param selectorName A selector name like "openThing:usingOtherThing:"
+ *
+ * @return YES if the action method was added to the provider, otherwise NO
+ *
+ * Example action block with an indirect object:
+ * QSObject *(^actionBlock)(id, QSObject *, QSObject *) = ^ QSObject *(id _self, QSObject *dObject, QSObject *iObject) {
+ * 	   // action code
+ * 	   return nil;
+ * };
+ */
+- (BOOL)setActionWithIndirectUsingBlock:(QSObject *(^)(id, QSObject *, QSObject *))actionBlock  selectorName:(NSString *)selName;
+
 - (NSInteger)rank;
 - (void)setRank:(NSInteger)newRank;
 - (CGFloat)precedence;
+- (void)setPrecedence:(CGFloat)precedence;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 - (BOOL)menuEnabled;
@@ -46,6 +80,8 @@
 - (BOOL)canThread;
 - (BOOL)indirectOptional;
 - (void)setIndirectOptional:(BOOL)flag;
+- (BOOL)validatesObjects;
+- (void)setValidatesObjects:(BOOL)flag;
 
 // resolveProxy is a BOOL set in an action's dict to specify whether an object should be resolved
 // before being sent to an action. Action's like 'assign abbreviation...' should not resolve the proxy
@@ -67,6 +103,7 @@
 - (id)objectForKey:(NSString*)key;
 
 - (NSString *)commandFormat;
+- (void)setCommandFormat:(NSString *)commandFormat;
 @end
 
 @interface QSActionHandler : NSObject

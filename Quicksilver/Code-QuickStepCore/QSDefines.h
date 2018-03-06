@@ -41,6 +41,7 @@
 #define kActionName                 @"name"
 #define kActionUserData             @"userData"
 #define kActionIdentifier           @"id"
+#define kActionCommandFormat        @"commandFormat"
 
 // arrays:
 #define kActionDirectTypes          @"directTypes"
