@@ -336,7 +336,12 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
             // Does the app have valid recent documents
             if (bundleIdentifier) {
                 if ([NSApplication isElCapitan]) {
-                    NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
+					NSString *sflPath;
+					if ([NSApplication isHighSierra]) {
+						sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl2"];
+					} else {
+						sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
+					}
                     if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
                         return YES;
                     }
