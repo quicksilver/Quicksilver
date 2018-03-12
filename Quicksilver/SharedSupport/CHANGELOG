@@ -1,3 +1,9 @@
+## Changes - 1.5.9 (4024) 2018-03-12 ##
+
+### Fixed ###
+
+  * Recent documents are available on a clean install of macOS 10.13 (#2431, #2432)
+
 ## Changes - 1.5.8 (4023) 2018-03-06 ##
 
 ### New ###
