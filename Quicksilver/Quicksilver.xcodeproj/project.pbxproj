@@ -408,6 +408,7 @@
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
+		D45B7E0D20CC575900B8B4C0 /* GrabSelectionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = D45B7E0720CC575800B8B4C0 /* GrabSelectionTemplate.png */; };
 		D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */; };
 		D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */; };
 		D46D3C5C16B33C2800387EA9 /* AppearanceBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */; };
@@ -2012,6 +2013,7 @@
 		D42A065716E1381F00BFD9C8 /* TestQSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestQSObject.m; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
 		D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSICloudDocumentSource.m; sourceTree = "<group>"; };
+		D45B7E0720CC575800B8B4C0 /* GrabSelectionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrabSelectionTemplate.png; sourceTree = "<group>"; };
 		D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotificationCenterNotifier.h; sourceTree = "<group>"; usesTabs = 1; };
 		D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNotificationCenterNotifier.m; sourceTree = "<group>"; usesTabs = 1; };
 		D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppearanceBack@2x.png"; sourceTree = "<group>"; };
@@ -3078,6 +3080,7 @@
 				E103EC9106471DBF00447FE0 /* DefaultBookmarkIcon.icns */,
 				E103EC9306471DBF00447FE0 /* DocPrefs.png */,
 				E103EC9506471DBF00447FE0 /* Dot.png */,
+				D45B7E0720CC575800B8B4C0 /* GrabSelectionTemplate.png */,
 				E103EC9D06471DBF00447FE0 /* KeyboardTrigger.png */,
 				E103EC9E06471DBF00447FE0 /* MouseTrigger.png */,
 				E1388481073AAE8A0080A9E1 /* Triggers.icns */,
@@ -4466,6 +4469,7 @@
 				7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */,
 				E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */,
 				E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */,
+				D45B7E0D20CC575900B8B4C0 /* GrabSelectionTemplate.png in Resources */,
 				E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */,
 				E1186AD606A6D6F700F3EA8E /* QSKindDescriptions.plist in Resources */,
 				E103ED5D06471DBF00447FE0 /* ResourceLocations.plist in Resources */,

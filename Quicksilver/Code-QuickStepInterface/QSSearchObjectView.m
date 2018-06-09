@@ -2149,7 +2149,7 @@ static NSTouchBarItemIdentifier RemoveFromCollectionItemIdentifier = @"QSRemoveF
 		showTasks.customizationLabel = taskViewer;
 		return showTasks;
 	} else if ([identifier isEqualToString:GrabSelectionItemIdentifier]) {
-		NSButton *grabButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarAddTemplate] target:self action:@selector(grabSelection:)];
+		NSButton *grabButton = [NSButton buttonWithImage:[NSImage imageNamed:@"GrabSelectionTemplate"] target:self action:@selector(grabSelection:)];
 		NSCustomTouchBarItem *grabSelection = [[NSCustomTouchBarItem alloc] initWithIdentifier:GrabSelectionItemIdentifier];
 		grabSelection.view = grabButton;
 		grabSelection.customizationLabel = NSLocalizedString(@"Grab Selection", @"");
