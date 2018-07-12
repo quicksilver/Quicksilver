@@ -277,5 +277,9 @@
 	</array>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+	<string>Quickly view/copy/paste information about your contacts.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Quickly create events and reminders.</string>
 </dict>
 </plist>
