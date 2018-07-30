@@ -34,6 +34,7 @@ if [[ $? == 0 ]]; then
 
   ## Package it in a disk image
   $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 Quicksilver.app >> $LOG
+  codesign -s "Developer ID Application" Quicksilver.dmg
   mv Quicksilver.dmg "Quicksilver $QS_INFO_VERSION.dmg"
 
   ## Easy access to plist
@@ -42,8 +43,9 @@ if [[ $? == 0 ]]; then
   ## Show the folder
   open $BUILT_PRODUCTS_DIR
 
-  ## Verify app signing
+  ## Verify app and DMG signing
   spctl -av Quicksilver.app
+  spctl -avt open --context context:primary-signature "Quicksilver $QS_INFO_VERSION.dmg"
 fi
 
 ## Cleanup
