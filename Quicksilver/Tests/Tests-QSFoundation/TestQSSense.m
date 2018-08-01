@@ -56,43 +56,43 @@
 	NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 	NSIndexSet *results = nil;
 
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.901851, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.901612, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.901428, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.72948, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.69883, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.71595, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
 	XCTAssertEqualWithAccuracy(score, 0.73039, ACC);
 	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
 	XCTAssertEqualObjects(indexes, results);
