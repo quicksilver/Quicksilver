@@ -54,8 +54,8 @@
     QSObject *object = [QSObject fileObjectWithPath:@"/usr/bin/smtpd.py"];
     NSString *type = [object fileUTI];
     XCTAssertEqualObjects(type, @"public.python-script", @"");
-    object = [QSObject fileObjectWithPath:@"/usr/bin/2to3"];
-    XCTAssertTrue(UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], (__bridge CFStringRef)@"public.executable"), @"/usr/bin/2to3 does not conform to public.executable");
+    object = [QSObject fileObjectWithPath:@"/usr/bin/yes"];
+    XCTAssertTrue(UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], (__bridge CFStringRef)@"public.executable"), @"/usr/bin/yes does not conform to public.executable");
     
     // Test that folders with extensions are given the correct UTI. Issue #1742
     NSString *path = @"/tmp/javascript.js";
