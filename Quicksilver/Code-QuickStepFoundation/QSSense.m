@@ -58,7 +58,7 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 	// Create an inline buffer version of str.  Will be used in loop below
 	// for faster lookups.
 	CFStringInlineBuffer inlineBuffer;
-	CFStringInitInlineBuffer(str, &inlineBuffer, strRange);
+	CFStringInitInlineBuffer(str, &inlineBuffer, CFRangeMake(0, CFStringGetLength(str)));
 	CFLocaleRef userLoc = CFLocaleCopyCurrent();
 
 	CGFloat score = 0.0, remainingScore = 0.0;
