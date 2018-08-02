@@ -5,9 +5,9 @@
 SETTINGS=/tmp/qs_build_settings
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' -showBuildSettings | sort -u > $SETTINGS
 
-SOURCE_ROOT="$( cat $SETTINGS | egrep '\bSOURCE_ROOT\b' | sed -e 's/.*SOURCE_ROOT *= *\(.*\)/\1/' )"
-BUILT_PRODUCTS_DIR="$( cat $SETTINGS | egrep '\bBUILT_PRODUCTS_DIR\b' | sed -e 's/.*BUILT_PRODUCTS_DIR *= *\(.*\)/\1/' )"
-QS_INFO_VERSION="$( cat $SETTINGS | egrep '\bQS_INFO_VERSION\b' | sed -e 's/.*QS_INFO_VERSION *= *\(.*\)/\1/' )"
+SOURCE_ROOT="$( egrep '\bSOURCE_ROOT\b' $SETTINGS | sed -e 's/.*SOURCE_ROOT *= *\(.*\)/\1/' )"
+BUILT_PRODUCTS_DIR="$( egrep '\bBUILT_PRODUCTS_DIR\b' $SETTINGS | sed -e 's/.*BUILT_PRODUCTS_DIR *= *\(.*\)/\1/' )"
+QS_INFO_VERSION="$( egrep '\bQS_INFO_VERSION\b' $SETTINGS | sed -e 's/.*QS_INFO_VERSION *= *\(.*\)/\1/' )"
 
 ## Create the directory (for logging purposes)
 mkdir -p "$BUILT_PRODUCTS_DIR"
