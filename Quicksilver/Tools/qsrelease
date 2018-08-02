@@ -12,6 +12,7 @@ QS_INFO_VERSION="$( egrep '\bQS_INFO_VERSION\b' $SETTINGS | sed -e 's/.*QS_INFO_
 ## Create the directory (for logging purposes)
 mkdir -p "$BUILT_PRODUCTS_DIR"
 LOG="$BUILT_PRODUCTS_DIR/build.log"
+DMG_TEMP="$BUILT_PRODUCTS_DIR/dmg"
 
 ## Clean and Build
 ## (This could be done with a single command, but if `clean` fails, the
@@ -33,11 +34,15 @@ if [[ $? == 0 ]]; then
   codesign -s "Developer ID Application" --deep Quicksilver.app
 
   ## Package it in a disk image
+  mkdir $DMG_TEMP
+  cp -a Quicksilver.app $DMG_TEMP
+  cp $SOURCE_ROOT/Resources/DMG_DS_Store $DMG_TEMP/.DS_Store
+  cd $DMG_TEMP
   ln -s /Applications
-  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 Quicksilver.app Applications >> $LOG
+  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 .DS_Store Quicksilver.app Applications >> $LOG
   codesign -s "Developer ID Application" Quicksilver.dmg
-  mv Quicksilver.dmg "Quicksilver $QS_INFO_VERSION.dmg"
-  find . -type l -maxdepth 1 -name Applications -delete
+  mv Quicksilver.dmg "../Quicksilver $QS_INFO_VERSION.dmg"
+  cd ..
 
   ## Easy access to plist
   cp Quicksilver.app/Contents/Info.plist $BUILT_PRODUCTS_DIR
