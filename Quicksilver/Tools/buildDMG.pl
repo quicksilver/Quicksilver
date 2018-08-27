@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-my $versionStr = '$Id: buildDMG.pl,v 1.9 2004/03/29 21:20:32 westheide Exp $';
+my $versionStr = '$Id: buildDMG.pl,v 1.9.1 2018/08/02 21:20:32 westheide Exp $';
 #
 #  Created by Jörg Westheide on Fri Feb 13 2003.
 #  Copyright (c) 2003, 2004 Jörg Westheide. All rights reserved.
@@ -159,8 +159,8 @@ my ($dest) = ($output =~ /Apple_HFS\s+(.+?)\s*$/im);
 
 # copy the files onto the dmg
 print "Copying files to $dest...\n";
-print "> cp -R $files \"$dest\"\n" if $debug;
-$output = `cp -R $files \"$dest\"`;
+print "> cp -a $files \"$dest\"\n" if $debug;
+$output = `cp -a $files \"$dest\"`;
 
 die "FATAL: Error while copying files (Error: $err)\n" if $?;
 

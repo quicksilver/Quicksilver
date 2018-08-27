@@ -5,13 +5,14 @@
 SETTINGS=/tmp/qs_build_settings
 xcodebuild -configuration Release -scheme 'Quicksilver Distribution' -showBuildSettings | sort -u > $SETTINGS
 
-SOURCE_ROOT="$( cat $SETTINGS | egrep '\bSOURCE_ROOT\b' | sed -e 's/.*SOURCE_ROOT *= *\(.*\)/\1/' )"
-BUILT_PRODUCTS_DIR="$( cat $SETTINGS | egrep '\bBUILT_PRODUCTS_DIR\b' | sed -e 's/.*BUILT_PRODUCTS_DIR *= *\(.*\)/\1/' )"
-QS_INFO_VERSION="$( cat $SETTINGS | egrep '\bQS_INFO_VERSION\b' | sed -e 's/.*QS_INFO_VERSION *= *\(.*\)/\1/' )"
+SOURCE_ROOT="$( egrep '\bSOURCE_ROOT\b' $SETTINGS | sed -e 's/.*SOURCE_ROOT *= *\(.*\)/\1/' )"
+BUILT_PRODUCTS_DIR="$( egrep '\bBUILT_PRODUCTS_DIR\b' $SETTINGS | sed -e 's/.*BUILT_PRODUCTS_DIR *= *\(.*\)/\1/' )"
+QS_INFO_VERSION="$( egrep '\bQS_INFO_VERSION\b' $SETTINGS | sed -e 's/.*QS_INFO_VERSION *= *\(.*\)/\1/' )"
 
 ## Create the directory (for logging purposes)
 mkdir -p "$BUILT_PRODUCTS_DIR"
 LOG="$BUILT_PRODUCTS_DIR/build.log"
+DMG_TEMP="$BUILT_PRODUCTS_DIR/dmg"
 
 ## Clean and Build
 ## (This could be done with a single command, but if `clean` fails, the
@@ -33,8 +34,15 @@ if [[ $? == 0 ]]; then
   codesign -s "Developer ID Application" --deep Quicksilver.app
 
   ## Package it in a disk image
-  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 Quicksilver.app >> $LOG
-  mv Quicksilver.dmg "Quicksilver $QS_INFO_VERSION.dmg"
+  mkdir $DMG_TEMP
+  cp -a Quicksilver.app $DMG_TEMP
+  cp $SOURCE_ROOT/Resources/DMG_DS_Store $DMG_TEMP/.DS_Store
+  cd $DMG_TEMP
+  ln -s /Applications
+  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 .DS_Store Quicksilver.app Applications >> $LOG
+  codesign -s "Developer ID Application" Quicksilver.dmg
+  mv Quicksilver.dmg "../Quicksilver $QS_INFO_VERSION.dmg"
+  cd ..
 
   ## Easy access to plist
   cp Quicksilver.app/Contents/Info.plist $BUILT_PRODUCTS_DIR
@@ -42,8 +50,9 @@ if [[ $? == 0 ]]; then
   ## Show the folder
   open $BUILT_PRODUCTS_DIR
 
-  ## Verify app signing
+  ## Verify app and DMG signing
   spctl -av Quicksilver.app
+  spctl -avt open --context context:primary-signature "Quicksilver $QS_INFO_VERSION.dmg"
 fi
 
 ## Cleanup
