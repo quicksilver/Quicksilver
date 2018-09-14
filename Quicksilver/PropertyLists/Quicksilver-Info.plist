@@ -226,6 +226,8 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Quicksilver requires this access to run certain actions and update your catalog.</string>
 	<key>NSServices</key>
 	<array>
 		<dict>
