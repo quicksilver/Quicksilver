@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 };
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>
+@interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate, NSTouchBarDelegate>
 {
     // the text mode text editor object
     NSTextView *textModeEditor;
@@ -113,6 +113,10 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
  @param newObject the object to select
  **/
 - (void)redisplayObjectValue:(QSObject *)newObject;
+/**
+ Select whatever the proxy object refers to.
+ **/
+- (void)selectProxyObject;
 - (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)resultArray;
