@@ -8,6 +8,8 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2000-2008 Blacktree, Inc.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Quickly create events and reminders.</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<integer>1</integer>
 	<key>CFBundleDevelopmentRegion</key>
@@ -123,6 +125,8 @@
 			<string>Editor</string>
 		</dict>
 	</array>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleIconFile</key>
@@ -144,8 +148,6 @@
 	<true/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-    <key>NSSupportsAutomaticGraphicsSwitching</key>
-    <true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -183,6 +185,8 @@
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.blacktree.Quicksilver</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Quickly view/copy/paste information about your contacts.</string>
 	<key>CFBundleSignature</key>
 	<string>daed</string>
 	<key>UTExportedTypeDeclarations</key>
@@ -226,6 +230,8 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Quicksilver requires this access to run certain actions and update your catalog.</string>
 	<key>NSServices</key>
 	<array>
 		<dict>
@@ -236,10 +242,6 @@
 			</dict>
 			<key>NSRequiredContext</key>
 			<dict/>
-			<key>NSSendFileTypes</key>
-			<array>
-				<string>public.data</string>	
-			</array>					
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -264,6 +266,10 @@
 			<string>Quicksilver</string>
 			<key>NSTimeout</key>
 			<string>10000</string>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>public.data</string>
+			</array>
 			<key>NSUserData</key>
 			<string>GetSelection</string>
 			<key>NSMessage</key>
