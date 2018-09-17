@@ -1,5 +1,10 @@
 ## Changes (4025) ##
 
+### New ###
+
+  * Touch Bar support (#2366)
+  * Provide descriptions when permission to access Contacts, interact with other applications, etc. is requested (#2446)
+
 ### Changed ###
 
   * Improvements to the disk image used during installation (#2451)
