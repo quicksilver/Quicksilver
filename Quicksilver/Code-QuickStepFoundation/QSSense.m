@@ -124,5 +124,6 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 		}
 	}
 	CFRelease(userLoc);
+	[mask removeAllIndexes];
 	return 0;
 }
