@@ -205,4 +205,8 @@
 + (BOOL)isHighSierra {
 	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 13);
 }
+
++ (BOOL)isMojave {
+	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 14);
+}
 @end
