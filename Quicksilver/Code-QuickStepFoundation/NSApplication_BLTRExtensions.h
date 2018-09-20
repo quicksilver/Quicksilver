@@ -136,4 +136,11 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  @returns YES, if 10.13+. NO otherwise
  */
 + (BOOL)isHighSierra;
+
+/**
+ Checks, if system is at least macOS 10.14 (Mojave)
+ 
+ @returns YES, if 10.14+. NO otherwise
+ */
++ (BOOL)isMojave;
 @end

@@ -14,64 +14,35 @@
 
 @implementation TestQSSense
 
-const float ACC = 0.00001;
-
 - (void)testScoreSimple {
 	CFStringRef str  = CFSTR("Test string");
 	CGFloat score = 0;
-
-	score = QSScoreForAbbreviation(str, CFSTR("t"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.90909, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("ts"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.92727, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("te"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.91818, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("tet"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.93636, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("str"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.91818, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("tstr"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.79090, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("ng"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.63636, ACC);
+	CGFloat prev_score = 0;
+	// each abbreviation should score higher than the one before
+	NSArray *testAbbreviations = @[
+		@"ng", @"ts", @"tet", @"t", @"str", @"te", @"tstr"
+	];
+	for (NSString *abbr in testAbbreviations) {
+		score = QSScoreForAbbreviation(str, (__bridge CFStringRef)(abbr), nil);
+		XCTAssertGreaterThanOrEqual(score, prev_score, @"score for %@ was not higher", abbr);
+		prev_score = score;
+	}
 }
 
 - (void)testScoreLongString {
 	CFStringRef str = CFSTR("This is a really long test string for testing");
 	CGFloat score = 0;
-
-	score = QSScoreForAbbreviation(str, CFSTR("t"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.90222, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("ts"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.88666, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("te"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.80777, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("tet"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.81222, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("str"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.78555, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("tstr"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.67777, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("testi"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.74000, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("for"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.75888, ACC);
-
-	score = QSScoreForAbbreviation(str, CFSTR("ng"), nil);
-	XCTAssertEqualWithAccuracy(score, 0.74666, ACC);
+	CGFloat prev_score = 0;
+	// each abbreviation should score higher than the one before
+	NSArray *testAbbreviations = @[
+		@"ng", @"testi", @"for", @"str", @"tstr", @"tet", @"te", @"ts", @"t"
+	];
+	for (NSString *abbr in testAbbreviations) {
+		score = QSScoreForAbbreviation(str, (__bridge CFStringRef)(abbr), nil);
+		NSLog(@"%@ %g", abbr, score);
+		XCTAssertGreaterThanOrEqual(score, prev_score, @"score for %@ was not higher", abbr);
+		prev_score = score;
+	}
 }
 
 - (void)testLongString {
@@ -80,49 +51,35 @@ const float ACC = 0.00001;
 	CFStringRef abbr = CFSTR("test");
 	CFRange abbrRange = CFRangeMake(0, CFStringGetLength(abbr));
 	CGFloat score = 0;
+	const float ACC = 0.00001;
 	const int STEP = 4;
 	NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 	NSIndexSet *results = nil;
 
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.74074, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23)]];
+	score = QSScoreForAbbreviationWithRanges(str, abbr, indexes, strRange, abbrRange);
+	XCTAssertEqualWithAccuracy(score, 0.901851, ACC);
+	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.76129, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26)]];
+	indexes = [[NSMutableIndexSet alloc] init];
+	score = QSScoreForAbbreviationWithRanges(str, CFSTR("testing"), indexes, strRange, CFRangeMake(0, 7));
+	XCTAssertEqualWithAccuracy(score, 0.89838, ACC);
+	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(18), @(19), @(20)]];
 	XCTAssertEqualObjects(indexes, results);
 
 	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.77714, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26)]];
+	indexes = [[NSMutableIndexSet alloc] init];
+	score = QSScoreForAbbreviationWithRanges(str, CFSTR("telling"), indexes, strRange, CFRangeMake(0, 7));
+	XCTAssertEqualWithAccuracy(score, 0.76, ACC);
+	results = [NSIndexSet indexSetFromArray:@[@(0), @(8), @(9), @(10), @(18), @(19), @(20)]];
 	XCTAssertEqualObjects(indexes, results);
 
-	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.74230, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36)]];
-	XCTAssertEqualObjects(indexes, results);
-
-	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.69883, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
-	XCTAssertEqualObjects(indexes, results);
-
-	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.71595, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
-	XCTAssertEqualObjects(indexes, results);
-
-	strRange.length += STEP;
-	score = QSScoreForAbbreviationWithRanges(str, CFSTR("test"), indexes, strRange, abbrRange);
-	XCTAssertEqualWithAccuracy(score, 0.73039, ACC);
-	results = [NSIndexSet indexSetFromArray:@[@(0), @(5), @(15), @(16), @(22), @(23), @(26), @(36), @(40), @(41)]];
+	strRange.length = 51;
+	indexes = [[NSMutableIndexSet alloc] init];
+	score = QSScoreForAbbreviationWithRanges(str, CFSTR("history"), indexes, strRange, CFRangeMake(0, 7));
+	XCTAssertEqualWithAccuracy(score, 0.56862, ACC);
+	results = [NSIndexSet indexSetFromArray:@[@(1), @(2), @(3), @(47), @(48), @(49), @(50)]];
 	XCTAssertEqualObjects(indexes, results);
 }
 
