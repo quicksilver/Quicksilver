@@ -876,7 +876,6 @@ static QSController *defaultController = nil;
 	[QSExecutor sharedInstance];
 	[QSTaskController sharedInstance];
 	[QSUpdateController sharedInstance];
-	[NSApp setAutomaticCustomizeTouchBarMenuItemEnabled:YES];
 
 	if ([NSApplication isSierra]) {
 		[NSApp setAutomaticCustomizeTouchBarMenuItemEnabled:YES];
