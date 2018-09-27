@@ -1,3 +1,9 @@
+## Changes - 1.6.1 (4026) ##
+
+### Fixed ###
+
+  * Touch Bar code won’t be called on older versions of macOS (#2460, #2463)
+
 ## Changes - 1.6.0 (4025) 2018-09-19 ##
 
 ### New ###
