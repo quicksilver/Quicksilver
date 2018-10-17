@@ -32,9 +32,9 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 		NSRect innerRect = topOnly?rect:NSInsetRect(rect, 1, 0);
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:0.5] set];
 		NSDivideRect(innerRect, &highlightRect, &rest, 1, NSMinXEdge);
-		NSRectFillUsingOperation(highlightRect, NSCompositeSourceOver);
+		NSRectFillUsingOperation(highlightRect, NSCompositingOperationSourceOver);
 		NSDivideRect(innerRect, &highlightRect, &rest, 1, NSMaxXEdge);
-		NSRectFillUsingOperation(highlightRect, NSCompositeSourceOver);
+		NSRectFillUsingOperation(highlightRect, NSCompositingOperationSourceOver);
 
 	}
 	if (topOnly) {
@@ -46,7 +46,7 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 			borderRect.origin.y--;
 	}
 	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.2] set];
-	NSFrameRectWithWidthUsingOperation(borderRect, 1.0, NSCompositeSourceOver);
+	NSFrameRectWithWidthUsingOperation(borderRect, 1.0, NSCompositingOperationSourceOver);
 }
 
 #import "QSGlossyBarView.h"
@@ -67,7 +67,7 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 	QSDrawGlossyRect(cellFrame, FALSE, TRUE, [controlView isFlipped]);
 	if ([self isHighlighted]) {
 		[[NSColor colorWithCalibratedWhite:0.0 alpha:0.333] set];
-		NSRectFillUsingOperation(cellFrame, NSCompositeSourceOver);
+		NSRectFillUsingOperation(cellFrame, NSCompositingOperationSourceOver);
 	}
 	cellFrame.size.height -= 1;
 	[super drawInteriorWithFrame:cellFrame inView:controlView];

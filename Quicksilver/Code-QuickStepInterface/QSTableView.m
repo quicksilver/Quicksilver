@@ -84,7 +84,7 @@
 	if (drawsBackground) {
 		if ([self backgroundColor]) {
 			[[self backgroundColor] set];
-			NSRectFillUsingOperation(clipRect, NSCompositeCopy);
+			NSRectFillUsingOperation(clipRect, NSCompositingOperationCopy);
 		} else {
 			[super drawBackgroundInClipRect:clipRect];
 		}

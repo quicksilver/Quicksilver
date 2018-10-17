@@ -48,7 +48,7 @@
 		dstRect=rect;
 	}
 
-    [[self backgroundImage] drawInRect:dstRect fromRect:srcRect operation:NSCompositeCopy fraction:1];
+    [[self backgroundImage] drawInRect:dstRect fromRect:srcRect operation:NSCompositingOperationCopy fraction:1];
 }
 
 

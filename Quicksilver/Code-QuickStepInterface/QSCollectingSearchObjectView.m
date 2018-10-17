@@ -46,7 +46,7 @@
 			object = [collection objectAtIndex:i];
 			NSImage *icon = [object icon];
 			[icon setSize:QSSize16];
-			[icon drawInRect:NSMakeRect(collectRect.origin.x+iconSize*i, collectRect.origin.y+2, iconSize, iconSize) fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:opacity];
+			[icon drawInRect:NSMakeRect(collectRect.origin.x+iconSize*i, collectRect.origin.y+2, iconSize, iconSize) fromRect:rectFromSize([icon size]) operation:NSCompositingOperationSourceOver fraction:opacity];
 		}
 	} else {
 		[super drawRect:rect];

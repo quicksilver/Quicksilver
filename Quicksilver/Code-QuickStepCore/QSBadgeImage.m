@@ -38,7 +38,7 @@
 
 - (void)drawBadgeForIconRect:(NSRect)rect {
 	NSRect countImageRect = rectFromSize([self size]);
-	[self drawInRect:alignRectInRect(countImageRect, rect, 3) fromRect:countImageRect operation:NSCompositeSourceOver fraction:1.0];
+	[self drawInRect:alignRectInRect(countImageRect, rect, 3) fromRect:countImageRect operation:NSCompositingOperationSourceOver fraction:1.0];
 }
 
 - (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints {

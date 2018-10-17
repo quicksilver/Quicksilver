@@ -434,7 +434,7 @@ static QSController *defaultController = nil;
         [path addClip];
         [QSGlossClipPathForRectAndStyle(rect, 4) addClip];
         [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
-        NSRectFillUsingOperation(rect, NSCompositeSourceOver);
+        NSRectFillUsingOperation(rect, NSCompositingOperationSourceOver);
         
         [[splashWindow contentView] unlockFocus];
         //		}

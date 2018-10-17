@@ -53,7 +53,7 @@
 	[window setOpaque:NO];
 	[window setHasShadow:NO];
 	[[window contentView] lockFocus];
-	[image drawAtPoint:NSZeroPoint fromRect:windowRect operation:NSCompositeCopy fraction:1.0];
+	[image drawAtPoint:NSZeroPoint fromRect:windowRect operation:NSCompositingOperationCopy fraction:1.0];
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
