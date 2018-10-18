@@ -118,6 +118,8 @@
 		case NSImageAbove:
 			theRect.size.height = 16;
 			break;
+		default:
+			break;
 	}
 
 	// logRect(theRect);
@@ -164,7 +166,8 @@
 		case NSImageAbove:
 			theRect.size.height -= 16;
 			theRect.origin.y += 16;
-
+			break;
+		default:
 			break;
 	}
 	if ([self isBezeled] && NSHeight(theRect) <= 20) {
