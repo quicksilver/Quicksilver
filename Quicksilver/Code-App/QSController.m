@@ -780,9 +780,6 @@ static QSController *defaultController = nil;
 	[nc postNotificationName:QSInterfaceChangedNotification object:self];
 }
 
-/* Deprecated. It's defined in Core Plugin */
-- (id) finderProxy { return [QSReg performSelector:@selector(FSBrowserMediator)]; }
-
 - (void)clearHistory
 {
 	[[[self interfaceController] dSelector] clearHistory];
