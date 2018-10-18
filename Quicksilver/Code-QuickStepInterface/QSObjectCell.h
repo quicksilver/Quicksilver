@@ -20,7 +20,6 @@
 	NSTextView *fieldEditor;
 }
 
-- (NSDictionary *)typeImageDictionary;
 - (BOOL)hasBadge;
 
 - (BOOL)showDetails;
