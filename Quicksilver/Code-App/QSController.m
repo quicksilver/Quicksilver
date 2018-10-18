@@ -347,7 +347,7 @@ static QSController *defaultController = nil;
 
 - (NSProgressIndicator *)progressIndicator { return [interfaceController progressIndicator];  }
 
-- (void)displayStatusMenuAtPoint:(NSPoint)point { [NSMenu popUpContextMenu:[NSApp mainMenu] withEvent:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSMakePoint(500, 500) modifierFlags:0 timestamp:0 windowNumber:0 context:nil eventNumber:0 clickCount:1 pressure:0] forView:nil withFont:nil];  }
+- (void)displayStatusMenuAtPoint:(NSPoint)point { [NSMenu popUpContextMenu:[NSApp mainMenu] withEvent:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSMakePoint(500, 500) modifierFlags:0 timestamp:0 windowNumber:0 context:nil eventNumber:0 clickCount:1 pressure:0] forView:[NSView focusView] withFont:nil]; }
 
 - (NSMenu *)statusMenuWithQuit {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
