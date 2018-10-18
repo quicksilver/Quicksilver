@@ -1,9 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
-/* Deprecated. Use [NSApp completedLaunch] */
-extern BOOL QSApplicationCompletedLaunch QS_DEPRECATED_MSG("Use [NSApp completedLaunch]");
-
 @interface QSApp : NSApplication {
 	BOOL shouldRelaunch;
 	IBOutlet NSMenu *hiddenMenu;
@@ -13,6 +10,7 @@ extern BOOL QSApplicationCompletedLaunch QS_DEPRECATED_MSG("Use [NSApp completed
 
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent;
 - (BOOL)completedLaunch;
++ (void)setCompletedLaunch:(BOOL)flag;
 - (BOOL)isPrerelease;
 - (NSResponder *)globalKeyEquivalentTarget;
 - (void)setGlobalKeyEquivalentTarget:(NSResponder *)value;

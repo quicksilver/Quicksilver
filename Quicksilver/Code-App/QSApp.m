@@ -64,7 +64,9 @@ BOOL QSApplicationCompletedLaunch = NO;
 	return self;
 }
 
-- (BOOL)completedLaunch { return QSApplicationCompletedLaunch;  }
+- (BOOL)completedLaunch { return QSApplicationCompletedLaunch; }
+
++ (void)setCompletedLaunch:(BOOL)flag { QSApplicationCompletedLaunch = flag; }
 
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event {
 	if ([[self globalKeyEquivalentTarget] performKeyEquivalent:event])

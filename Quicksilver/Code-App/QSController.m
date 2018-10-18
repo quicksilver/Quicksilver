@@ -1073,7 +1073,7 @@ static QSController *defaultController = nil;
     // make sure we're visible on the first activation
     [NSApp unhideWithoutActivation];
     
-	QSApplicationCompletedLaunch = YES;
+	[QSApp setCompletedLaunch:YES];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
