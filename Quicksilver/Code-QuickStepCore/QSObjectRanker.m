@@ -97,15 +97,6 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
                 rankedObject = [ranker rankedObject:thisObject
                                     forAbbreviation:anAbbreviation
                                             options:options];
-            } else {
-                /* Old non-option compat call */
-                BOOL mnemonicsOnly = [[options objectForKey:QSRankingObjectsInSet] boolValue];
-                NSString *context = [options objectForKey:QSRankingContext];
-                rankedObject = [ranker rankedObject:thisObject
-                                    forAbbreviation:anAbbreviation
-                                          inContext:context
-                                      withMnemonics:abbreviationMnemonics
-                                      mnemonicsOnly:mnemonicsOnly];
             }
             
             if (rankedObject) {
