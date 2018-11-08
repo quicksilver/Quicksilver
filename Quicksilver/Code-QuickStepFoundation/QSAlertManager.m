@@ -51,35 +51,18 @@
 		mainAlert.showsSuppressionButton = alert.showsSuppressionButton;
 		mainAlert.accessoryView = alert.accessoryView;
 
-        NSModalResponse response = NSAlertErrorReturn;
-        if (window && [mainAlert respondsToSelector:@selector(beginSheetModalForWindow:completionHandler:)]) {
+        NSModalResponse response = 0;
+        if (window) {
             [mainAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
                 [NSApp stopModalWithCode:response];
             }];
-
-            response = [NSApp runModalForWindow:window];
-        } else if (window) {
-            [mainAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 
             response = [NSApp runModalForWindow:window];
         } else {
             response = [mainAlert runModal];
         }
 
-        QSAlertResponse realResponse = QSAlertResponseOK;
-        if (response >= 1000) {
-            // Standard NSAlert button-index-clicked response
-            realResponse = response - 1000;
-        } else {
-            // Compatible NSRunAlertPanel response, convert
-            if (response == NSAlertDefaultReturn) {
-                realResponse = QSAlertResponseFirst;
-            } else if (response == NSAlertOtherReturn) {
-                realResponse = QSAlertResponseSecond;
-            } else if (response == NSAlertAlternateReturn) {
-                realResponse = QSAlertResponseThird;
-            }
-        }
+        QSAlertResponse realResponse = response - 1000;
 
         if (handler) handler(realResponse);
     });
