@@ -58,7 +58,7 @@
 	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)];
 	[imageView setImage:splashImage];
 	[imageView setImageFrameStyle:NSImageFrameNone];
-	[imageView setImageScaling:NSScaleNone];
+	[imageView setImageScaling:NSImageScaleNone];
 	[[splashWindow contentView] addSubview:imageView];
 	// fheckl 2011-02-05
 	// Xcode Analysis: Potential leak
