@@ -280,7 +280,6 @@
 }
 
 - (void)loadNewWebData:(NSData *)data {
-	NSString *errorString;
 	self.downloadTask.status = NSLocalizedString(@"Updating plugin info", @"");
 	NSError *error = nil;
 	NSDictionary *prop = nil;
