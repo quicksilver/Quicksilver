@@ -505,7 +505,6 @@
 }
 
 - (BOOL)tableView:(NSTableView *)view acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
-	[view registerForDraggedTypes:nil];
 	NSArray *data = [[info draggingPasteboard] propertyListForType:QSTableRowsType];
 	NSIndexSet *indexes = [NSIndexSet indexSetFromArray:data];
     
