@@ -8,8 +8,4 @@
 
 #import <Cocoa/Cocoa.h>
 
-#if 0
-NSString *QSApplicationPathForURL(NSString *urlString);
-#endif
-
 NSString *QSApplicationIdentifierForURL(NSString *urlString);

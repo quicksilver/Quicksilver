@@ -8,17 +8,6 @@
 
 #import "QSLSTools.h"
 
-#if 0
-NSString *QSApplicationPathForURL(NSString *urlString) {
-	NSURL *appURL = nil;
-	OSStatus err;
-	err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: urlString], kLSRolesAll, NULL, (CFURLRef *)&appURL);
-//	if (err != noErr) NSLog(@"error %ld", err);
-//	else NSLog(@"%@", appURL);
-	return [appURL path];
-}
-#endif
-
 NSString *QSApplicationIdentifierForURL(NSString *urlString) {	
     CFURLRef appURLRef = nil;
 	LSGetApplicationForURL((__bridge CFURLRef) [NSURL URLWithString: urlString] , kLSRolesAll, NULL, &appURLRef);
