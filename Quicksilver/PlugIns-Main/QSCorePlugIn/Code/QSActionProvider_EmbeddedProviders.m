@@ -467,13 +467,23 @@
 	NSArray *selection = [[dObject arrayForType:QSFilePathType] valueForKey:@"lastPathComponent"];
 
 	// ***warning   * activate before showing
-	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
+	QSInterfaceController *QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC showMainWindow:nil];
 	[QSIC setHiding:YES];
 
-	NSInteger choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.alertStyle = NSAlertStyleCritical;
+	alert.messageText = NSLocalizedString(@"Delete file", @"Delete file action alert - title");
+	NSString *message = NSLocalizedString(@"Are you sure you want to PERMANENTLY delete the following files ?", @"Delete file action alert - message");
+	message = [message stringByAppendingFormat:@"\n%@", [selection componentsJoinedByString:@", "]];
+	alert.informativeText = message;
+	[alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete file action - default button")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Delete file action - cancel button")];
+
+	QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:[QSIC window]];
+
 	[QSIC setHiding:NO];
-	if (choice == 1) {
+	if (response == QSAlertResponseOK) {
 		NSString *lastDeletedFile = nil;
 		for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil]) {

@@ -1052,8 +1052,7 @@
 	if ([specifier hasPrefix:@"//"])
 		specifier = [specifier substringFromIndex:2];
 	NSArray *components = [specifier componentsSeparatedByString:@"&"];
-	//NSLog(@"PlugIn %@", components);
-	//	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://qs0.blacktree.com/quicksilver/download.php?%@", specifier]];
+
 	NSString *idString = [components objectAtIndex:0];
 	if ([idString hasPrefix:@"id="])
 		idString = [idString substringFromIndex:3];
@@ -1065,16 +1064,28 @@
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-	NSInteger selection = [defaults boolForKey:kWebInstallWithoutAsking];
-	if (!selection)
-		selection = NSRunInformationalAlertPanel(name, @"Do you wish to install the %@?", @"Install", @"Cancel", @"Always Install Plugins", name);
-	if (selection) {
-		if (selection<0) {
+	BOOL shouldInstall = NO;
+	BOOL installWithoutAsking = [defaults boolForKey:kWebInstallWithoutAsking];
+	if (!installWithoutAsking) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.alertStyle = NSAlertStyleInformational;
+		alert.messageText = name;
+		NSString *message = NSLocalizedString(@"Do you wish to install the %@?", @"");
+		message = [NSString stringWithFormat:message, name];
+		alert.informativeText = message;
+		[alert addButtonWithTitle:NSLocalizedString(@"Install", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Always Install Plugins", @"")];
+
+		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+		if (response == QSAlertResponseThird) {
 			[defaults setBool:YES forKey:kWebInstallWithoutAsking];
 			[defaults synchronize];
 		}
+		shouldInstall = (response != QSAlertResponseCancel);
+	}
+	if (shouldInstall) {
 		[self installPlugInsForIdentifiers:[idString componentsSeparatedByString:@", "] version:nil];
-		//		[self installPlugInFromURL:url];
 	}
 	return YES;
 }
