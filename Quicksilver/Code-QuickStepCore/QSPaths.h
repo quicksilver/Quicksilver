@@ -20,11 +20,12 @@
 #define kPluginInfoURL          @"https://qs0.qsapp.com/plugins/info.php"
 #define kPluginDownloadURL      @"https://qs0.qsapp.com/plugins/download.php"
 
-#define kForumsURL				@"http://groups.google.com/group/blacktree-quicksilver"
-#define kBugsURL				@"https://github.com/quicksilver/Quicksilver/issues"
+#define kForumsURL              @"http://groups.google.com/group/blacktree-quicksilver"
+#define kBugsURL                @"https://github.com/quicksilver/Quicksilver/issues"
 #define kWebSiteURL             @"https://qsapp.com/"
-#define kHelpURL				@"https://qsapp.com/wiki/"
-#define kHelpSearchURL			@"https://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
+#define kChangelogURL           @"https://qsapp.com/changelog.php"
+#define kHelpURL                @"https://qsapp.com/wiki/"
+#define kHelpSearchURL          @"https://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
 // URL to crash reporter server/script
 #define kCrashReporterURL       @"https://qs0.qsapp.com/crashreports/reporter.php"
 // Wiki page detailing why we collect crash reports

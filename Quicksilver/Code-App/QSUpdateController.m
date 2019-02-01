@@ -218,7 +218,7 @@ typedef enum {
 						[self installAppUpdate];
 					else if (response == QSAlertResponseThird)
 						QSGCDMainAsync(^{
-							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
 						});
 				}];
 			}
