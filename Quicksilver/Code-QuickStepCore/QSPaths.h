@@ -24,7 +24,7 @@
 #define kBugsURL                @"https://github.com/quicksilver/Quicksilver/issues"
 #define kWebSiteURL             @"https://qsapp.com/"
 #define kChangelogURL           @"https://qsapp.com/changelog.php"
-#define kHelpURL                @"https://qsapp.com/wiki/"
+#define kHelpURL                @"https://qsapp.com/manual/"
 #define kHelpSearchURL          @"https://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
 // URL to crash reporter server/script
 #define kCrashReporterURL       @"https://qs0.qsapp.com/crashreports/reporter.php"
