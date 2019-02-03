@@ -23,7 +23,6 @@
 
 - (id)initWithInfo:(NSDictionary *)info;
 - (void)requestRelaunch;
-- (IBAction)showPaneHelp:(id)sender;
 - (void)paneWillMoveToWindow:(NSWindow *)newWindow;
 - (void)paneDidMoveToWindow:(NSWindow *)newWindow;
 - (id)initWithBundle:(NSBundle *)bundle;

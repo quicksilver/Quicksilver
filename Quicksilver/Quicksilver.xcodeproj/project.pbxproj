@@ -308,8 +308,6 @@
 		7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */; };
 		7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */; };
 		7FE8940E085D021C0016C421 /* QSProcessObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */; };
-		7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FEE6B2707D2A93100847B74 /* QSHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FEE6B2A07D2A93100847B74 /* QSHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE6B2807D2A93100847B74 /* QSHelp.m */; };
 		7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF447E8080479E200316DB6 /* QSLSTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF447E9080479E200316DB6 /* QSLSTools.m */; };
 		7FF590210804398F0031368C /* QSDirectoryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5901F0804398F0031368C /* QSDirectoryParser.m */; };
@@ -1450,8 +1448,6 @@
 		7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; usesTabs = 1; };
 		7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSProcessObjectSource.xib; sourceTree = "<group>"; };
-		7FEE6B2707D2A93100847B74 /* QSHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHelp.h; sourceTree = "<group>"; usesTabs = 1; };
-		7FEE6B2807D2A93100847B74 /* QSHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHelp.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FF447E8080479E200316DB6 /* QSLSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSLSTools.h; sourceTree = "<group>"; usesTabs = 1; };
 		7FF447E9080479E200316DB6 /* QSLSTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLSTools.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FF5901E0804398F0031368C /* QSDirectoryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDirectoryParser.h; sourceTree = "<group>"; };
@@ -3435,8 +3431,6 @@
 				E1E5FB7E07B20DD10044D6EF /* QSGlobalSelectionProvider.m */,
 				7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */,
 				7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */,
-				7FEE6B2707D2A93100847B74 /* QSHelp.h */,
-				7FEE6B2807D2A93100847B74 /* QSHelp.m */,
 				7F4D6870083AB7DE00541FEB /* QSHistoryController.h */,
 				7F4D6871083AB7DE00541FEB /* QSHistoryController.m */,
 				E1E5FB7F07B20DD10044D6EF /* QSIconLoader.h */,
@@ -3723,7 +3717,6 @@
 				E1E5FBE807B20DD20044D6EF /* QSExecutor.h in Headers */,
 				E1E5FBEA07B20DD20044D6EF /* QSGlobalSelectionProvider.h in Headers */,
 				7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */,
-				7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */,
 				7F4D6872083AB7DE00541FEB /* QSHistoryController.h in Headers */,
 				E1E5FBEC07B20DD20044D6EF /* QSIconLoader.h in Headers */,
 				E1E5FBF007B20DD20044D6EF /* QSInterfaceMediator.h in Headers */,
@@ -4877,7 +4870,6 @@
 				E1E5FBE907B20DD20044D6EF /* QSExecutor.m in Sources */,
 				E1E5FBEB07B20DD20044D6EF /* QSGlobalSelectionProvider.m in Sources */,
 				4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */,
-				7FEE6B2A07D2A93100847B74 /* QSHelp.m in Sources */,
 				7F4D6873083AB7DE00541FEB /* QSHistoryController.m in Sources */,
 				E1E5FBED07B20DD20044D6EF /* QSIconLoader.m in Sources */,
 				E1E5FBF107B20DD20044D6EF /* QSInterfaceMediator.m in Sources */,

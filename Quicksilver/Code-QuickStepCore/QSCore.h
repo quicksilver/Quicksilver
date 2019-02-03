@@ -21,7 +21,6 @@
 #import "QSExecutor.h"
 #import "QSGlobalSelectionProvider.h"
 #import "QSHandledObjectHandler.h"
-#import "QSHelp.h"
 #import "QSHistoryController.h"
 #import "QSIconLoader.h"
 #import "QSInterfaceMediator.h"

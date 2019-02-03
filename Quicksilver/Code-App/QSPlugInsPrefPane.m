@@ -198,12 +198,6 @@
 	[self setPlugins:[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
 }
 
-- (IBAction)showHelp:(id)sender {
-	for(id plugin in [self selectedPlugIns]) {
-		QSShowHelpPage([plugin helpPage]);
-	}
-}
-
 - (NSString *)mainNibName {
 	return @"QSPlugInsPrefPane";
 }
