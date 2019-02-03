@@ -11,7 +11,6 @@
 #import "QSResourceManager.h"
 #import "QSMacros.h"
 #import "QSApp.h"
-#import "QSHelp.h"
 #import "QSUpdateController.h"
 #import "QSNotifications.h"
 #import "QSController.h"

@@ -2,7 +2,6 @@
 #import "QSPreferencesController.h"
 #import "QSRegistry.h"
 #import "QSApp.h"
-#import "QSHelp.h"
 #import "QSPlugIn.h"
 #import "QSHandledSplitView.h"
 #import <QSCore/QSResourceManager.h>
