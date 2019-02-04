@@ -3,6 +3,11 @@
 ### Fixed ###
 
   * Touch Bar code won’t be called on older versions of macOS (#2460, #2463)
+  * Additional tweaks for the default string ranker (#2481)
+
+### Development ###
+
+  * Update internal version of Python-Markdown to 2.6.11 (#2480)
 
 ## Changes - 1.6.0 (4025) 2018-09-19 ##
 
