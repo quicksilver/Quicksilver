@@ -81,10 +81,6 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 			continue;
 		}
 
-		if (mask) {
-			[mask addIndexesInRange:NSMakeRange(matchedRange.location, matchedRange.length)];
-		}
-
 		remainingStrRange.location = matchedRange.location + matchedRange.length;
 		remainingStrRange.length = strRange.location + strRange.length - remainingStrRange.location;
 
@@ -120,10 +116,12 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 			score += remainingScore * remainingStrRange.length;
 			score /= strRange.length;
 			CFRelease(userLoc);
+			if (mask) {
+				[mask addIndexesInRange:NSMakeRange(matchedRange.location, matchedRange.length)];
+			}
 			return score;
 		}
 	}
 	CFRelease(userLoc);
-	[mask removeAllIndexes];
 	return 0;
 }
