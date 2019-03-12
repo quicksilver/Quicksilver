@@ -5,7 +5,7 @@ body{
 	margin:0;
 	padding:0;
 	font-family:lucida grande;
-	font-size: 11px;
+	font-size: 12px;
 }
 div.prefsections{
 	float:right;
@@ -25,7 +25,7 @@ div.quicklinks {
 	div.quicklinks div.content{
 		padding:8px;
 		}
-ul{
+ul#sidebar {
 	margin:0;
 	padding:0;
 	list-style:none;
@@ -33,7 +33,7 @@ ul{
 
 }
 
-ul li {
+ul#sidebar li {
 
 
 	/*float:left;*/
@@ -42,7 +42,7 @@ ul li {
 
 }
 
-ul li a
+ul#sidebar li a
 {
 	display: block;
 	min-height: 32px;
@@ -55,33 +55,33 @@ ul li a
 	border-width: 1px 0 1px 1px;
 	border-style: solid;
 }
-ul li a b{
+ul#sidebar li a b{
 	color:black;
 }
-ul li a:hover { background-color: #EEE6CD; }
+ul#sidebar li a:hover { background-color: #EEE6CD; }
 
-ul li a:hover#settings
+ul#sidebar li a:hover#settings
 {
 	background-color: #F2F2F2;
 	border-color: #9D9D9D;
 }
-ul li a:hover#triggers
+ul#sidebar li a:hover#triggers
 {
 	background-color: #FAF8E1;
 	border-color: #FBC050;
 }
-ul li a:hover#plugins
+ul#sidebar li a:hover#plugins
 {
 	background-color: #EBDFF8;
 	border-color: #A36DD9;
 }
-ul li a:hover#catalog
+ul#sidebar li a:hover#catalog
 {
 	background-color: #E6ECF7;
 	border-color: #3874D6;
 }
 
-ul li a img{
+ul#sidebar li a img{
 	width:32px;
 	height:32px;
 	float:left;
@@ -89,7 +89,9 @@ ul li a img{
 	margin-right:4px;
 }
 
-
+ul li {
+	padding:4px 0;
+}
 .tipoftheday
 {
 	position: absolute;
@@ -106,34 +108,47 @@ ul li a img{
 <body><div class="prefsections">
 		
 			<h3>Preferences</h3>
-		<ul>
+		<ul id="sidebar">
 			<li><a id="settings" href="qs://preferences#QSSettingsPanePlaceholder">
-				<img src="resource:Pref-Settings.tiff"><b>Preferences</b><br>Options for the application's behavior
+				<img src="resource:Pref-Settings.tiff"><strong>Preferences</strong><br>General settings for how you use Quicksilver
 			</a></li>
 
 			<li><a id="triggers" href="qs://preferences#QSTriggersPrefPane">
-				<img src="resource:Pref-Triggers.png"><b>Triggers</b><br>Define keyboard shortcuts or other input types
+				<img src="resource:Pref-Triggers.png"><strong>Triggers</strong><br>Define shortcuts to automate common tasks
 			</a></li>
 
 			<li><a id="catalog" href="qs://preferences#QSCatalogPrefPane">
-				<img src="resource:Pref-Catalog.png"><b>Catalog</b><br>Define the items included in a search
+				<img src="resource:Pref-Catalog.png"><strong>Catalog</strong><br>Choose what files and resources Quicksilver indexes
 			</a></li>
 
 			<li><a id="plugins" href="qs://preferences#QSPlugInsPrefPane">
-				<img src="resource:Pref-PlugIns.tiff"><b>Plugins</b><br>Install plugins to extend Quicksilver
+				<img src="resource:Pref-PlugIns.tiff"><strong>Plugins</strong><br>Install plugins to extend Quicksilver
 			</a></li>
 		</ul>
 	</div>
 	<div class="quicklinks">
 		<div class="content">
-		<h3>Resources</h3>
-		<p><b><a href="https://qsapp.com/wiki/">Documentation</a></b> of Quicksilver's features</p>
+		<h2>Welcome to Quicksilver!</h2>
+		<p>Welcome to Quicksilver, a lightweight, fast and free application for improving productivity whilst on your Mac. Quicksilver gives you the control and power to save your time, act without doing, and work without effort.
+			
+		<h3>Getting started</h3>
+		<ul>
+		<li>Read our <a href="https://qsapp.com/manual/Introduction/#getting-started">Getting Started</a> guide to get up to speed on how to use Quicksilver.</li>
+		<li>Set up your <a href="qs://preferences#QSCatalogPrefPane">Catalog</a> to choose the files and resources searchable from within Quicksilver.</li>
+		<li>Install the <a href="qs://preferences#QSPlugInsPrefPane">Recommended Plugins</a> to extend Quicksilver's capabilities.</li>
+		<li>Set up <a href="qs://preferences#QSTriggersPrefPane">Triggers</a> to automate common tasks.</li>
+</ul>
+<hr style="margin:40px 0"/>
+		<h3>More resources</h3>
+		<p><strong><a href="https://qsapp.com/">Quicksilver website</a></strong> - homepage of the Quicksilver Project</p>
 
-		<p><b><a href="http://groups.google.com/group/blacktree-quicksilver">Forums</a></b> offering hints, help, and ideas from other users.
-			Suggestions and comments are welcome.</p>
-		
-		<p><b><a href="qs://update">Check For Updates</a></b></a> to Quicksilver</p>
-		
+		<p><strong><a href="https://qsapp.com/manual/">Quicksilver Manual</a></strong> - Comprehensive manual of Quicksilver's features and how to use them</p>
+
+		<p><strong><a href="http://groups.google.com/group/blacktree-quicksilver">Quicksilver Forums</a></strong> - Place for support and tips from fellow users. Suggestions and comments are welcome.</p>
+    
+		<p><strong><a href="https://github.com/quicksilver/quicksilver/issues">Quicksilver Issue Tracker</a></strong> - Report bugs and issues with Quicksilver.</p>
+
+		<p><strong><a href="qs://update">Check For Updates</a></strong></a> - Make sure you're running the latest version of Quicksilver and its plugins</p>
 	</div>
 	</div>
 

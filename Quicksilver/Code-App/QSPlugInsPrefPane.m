@@ -2,7 +2,6 @@
 #import "QSPreferencesController.h"
 #import "QSRegistry.h"
 #import "QSApp.h"
-#import "QSHelp.h"
 #import "QSPlugIn.h"
 #import "QSHandledSplitView.h"
 #import <QSCore/QSResourceManager.h>
@@ -196,12 +195,6 @@
 
 - (void)reloadPlugInsList:(NSNotification *)notif {
 	[self setPlugins:[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
-}
-
-- (IBAction)showHelp:(id)sender {
-	for(id plugin in [self selectedPlugIns]) {
-		QSShowHelpPage([plugin helpPage]);
-	}
 }
 
 - (NSString *)mainNibName {

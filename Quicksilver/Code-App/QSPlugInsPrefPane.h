@@ -40,7 +40,6 @@
 - (IBAction)downloadInBrowser:(id)sender;
 - (IBAction)getInfo:(id)sender;
 - (IBAction)installSelectedPlugIns:(id)sender;
-- (IBAction)showHelp:(id)sender;
 
 - (IBAction)deleteSelection:(id)sender;
 

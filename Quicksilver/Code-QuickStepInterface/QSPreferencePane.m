@@ -11,7 +11,6 @@
 #import "QSResourceManager.h"
 #import "QSMacros.h"
 #import "QSApp.h"
-#import "QSHelp.h"
 #import "QSUpdateController.h"
 #import "NTViewLocalizer.h"
 #import "QSNotifications.h"
@@ -112,10 +111,6 @@
         [self mainViewDidLoad];
     });
     return _mainView;
-}
-
-- (IBAction)showPaneHelp:(id)sender {
-	QSShowHelpPage([self helpPage]);
 }
 
 - (NSString *)helpPage {return [@"quicksilver/preferences/" stringByAppendingString:NSStringFromClass([self class])];}
