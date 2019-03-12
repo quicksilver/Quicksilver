@@ -1,5 +1,9 @@
 ## Changes - 1.6.1 (4026) ##
 
+### Changed ###
+
+  * Several in-application links have been updated (#2486)
+
 ### Fixed ###
 
   * Touch Bar code won’t be called on older versions of macOS (#2460, #2463)
