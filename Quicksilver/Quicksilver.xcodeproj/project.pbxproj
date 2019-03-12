@@ -1556,7 +1556,7 @@
 		CD2FFC0116792D850028FA8A /* nl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0216792D860028FA8A /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0316792D8A0028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD2FFC0416792D8B0028FA8A /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD2FFC0416792D8B0028FA8A /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CD2FFC0716792D9A0028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/About.strings; sourceTree = "<group>"; };
 		CD2FFC0916792DA10028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0A16792DA90028FA8A /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSApplicationPrefPane.strings"; sourceTree = "<group>"; };
@@ -1727,12 +1727,12 @@
 		CD4B1BA617C258B900F2C5A7 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = id; path = id.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CD4B1BA717C258B900F2C5A7 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = id; path = id.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CD4B1BA817C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
-		CD4B1BA917C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
-		CD4B1BAA17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSCatalog.strings; sourceTree = "<group>"; };
-		CD4B1BAB17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
+		CD4B1BA917C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
+		CD4B1BAA17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSCatalog.strings; sourceTree = "<group>"; };
+		CD4B1BAB17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD4B1BAC17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
 		CD4B1BAD17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
-		CD4B1BAE17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
+		CD4B1BAE17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD4B1BAF17C259BE00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD4B1BB217C259BF00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/About.strings; sourceTree = "<group>"; };
 		CD4B1BB317C259BF00F2C5A7 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
