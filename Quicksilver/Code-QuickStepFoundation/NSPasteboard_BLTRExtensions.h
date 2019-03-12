@@ -36,6 +36,6 @@ void QSForcePaste();
 #define TEXTTYPES [NSSet setWithObjects:@"QSObjectID", NSStringPboardType, @"NeXT plain ascii pasteboard type", NSTabularTextPboardType, NSHTMLPboardType, nil]
 #define SYLETYPES [NSSet setWithObjects:NSStringPboardType, @"NeXT Rich Text Format v1.0 pasteboard type", @"NeXT Rich Text Format v1.0 pasteboard type", nil]
 #define URLTYPES [NSSet setWithObjects:NSURLPboardType, nil]
-#define IMAGETYPES [NSSet setWithArray:[NSImage imagePasteboardTypes]]
+#define IMAGETYPES [NSSet setWithArray:[NSImage imageTypes]]
 #define OTHERTYPES [NSSet setWithObjects:NSColorPboardType, nil]
 #define CONTACTTYPES [NSSet setWithObjects:NSVCardPboardType, nil]

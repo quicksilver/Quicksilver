@@ -286,7 +286,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
                 [previewImage lockFocus];
                 NSImage *aliasImage = [QSResourceManager imageNamed:@"AliasBadgeIcon"];
                 aliasImage = [aliasImage duplicateOfSize:QSSizeMax];
-                [aliasImage drawAtPoint:NSMakePoint(0, 0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                [aliasImage drawAtPoint:NSMakePoint(0, 0) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
                 [previewImage unlockFocus];
             }
             theImage = previewImage;

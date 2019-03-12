@@ -61,7 +61,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
         [fadedImage lockFocus];
         [rep drawInRect:NSMakeRect(0,0,[fadedImage size].width, [fadedImage size].height)];
         [fadedImage unlockFocus];
-		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositeDestinationIn);
+		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositingOperationDestinationIn);
 	}
 	return fadedImage;
 }
@@ -225,7 +225,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	NSImage *tempImage = [[NSImage alloc] initWithSize:NSMakeSize(NSWidth(drawRect), NSHeight(drawRect) )];
 	[tempImage lockFocus]; {
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		[self drawInRect:drawRect fromRect:sourceRect operation:NSCompositeSourceOver fraction:1];
+		[self drawInRect:drawRect fromRect:sourceRect operation:NSCompositingOperationSourceOver fraction:1];
 	}
 	[tempImage unlockFocus];
 	NSImage *newImage = [[NSImage alloc] initWithData:[tempImage TIFFRepresentation]]; //*** UGH! why do I have to do this to commit the changes?;

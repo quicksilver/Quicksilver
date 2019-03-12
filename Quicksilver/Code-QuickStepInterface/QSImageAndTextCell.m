@@ -155,7 +155,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 		[image setSize:[bestRep size]];
 		CGFloat opacity = [self isEnabled] ? 1.0 : 0.5;
 
-		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity respectFlipped:[controlView isFlipped] hints:nil];
+		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositingOperationSourceOver fraction:opacity respectFlipped:[controlView isFlipped] hints:nil];
 
 	}
 

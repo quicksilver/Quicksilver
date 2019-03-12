@@ -118,6 +118,8 @@
 		case NSImageAbove:
 			theRect.size.height = 16;
 			break;
+		default:
+			break;
 	}
 
 	// logRect(theRect);
@@ -164,7 +166,8 @@
 		case NSImageAbove:
 			theRect.size.height -= 16;
 			theRect.origin.y += 16;
-
+			break;
+		default:
 			break;
 	}
 	if ([self isBezeled] && NSHeight(theRect) <= 20) {
@@ -325,7 +328,7 @@
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
 		  if (NSHeight(findImageRect) >= 64) {
-			  [find drawInRect:findImageRect fromRect:rectFromSize([find size]) operation:NSCompositeSourceOver fraction:0.25];
+			  [find drawInRect:findImageRect fromRect:rectFromSize([find size]) operation:NSCompositingOperationSourceOver fraction:0.25];
           }
 		  [defaultText drawInRect:textRect withAttributes:detailsAttributes];
 	  }
@@ -533,20 +536,20 @@
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
-		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
+		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositingOperationSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
 
 		if (proxyDraw && NSWidth(drawingRect) >= 32) {
 			NSRect badgeRect = NSMakeRect(0, 0, NSWidth(drawingRect) /2, NSHeight(drawingRect)/2);
 			NSPoint offset = rectOffset(badgeRect, drawingRect, 2);
 			badgeRect = NSOffsetRect(badgeRect, offset.x, offset.y);
-			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
+			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 		}
 
 		if ([drawObject primaryCount] > 1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
 			QSCountBadgeImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
 			if (countImage) {
 				NSRect badgeRect = [self badgeRectForBounds:drawingRect badgeImage:countImage];
-				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
+				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 			}
 		}
 	}

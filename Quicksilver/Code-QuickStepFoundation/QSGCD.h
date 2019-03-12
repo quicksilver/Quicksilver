@@ -13,7 +13,7 @@ extern const char *kQueueCatalogEntry;
 
 inline void QSGCDQueueSync(dispatch_queue_t queue, void (^block)(void))
 {
-    if (dispatch_queue_get_label(queue) == dispatch_queue_get_label(dispatch_get_current_queue())) {
+    if (dispatch_queue_get_label(queue) == dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL)) {
         block();
     } else {
         dispatch_sync(queue, block);

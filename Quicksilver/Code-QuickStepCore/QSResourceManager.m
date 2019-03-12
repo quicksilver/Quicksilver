@@ -36,7 +36,7 @@ QSResourceManager * QSRez;
 		NSFileManager *fm = [NSFileManager defaultManager];
 		resourceOverrideFolder = QSApplicationSupportSubPath(@"Resources", NO);
 		if ([fm fileExistsAtPath:resourceOverrideFolder]) {
-			NSArray *contents = [[fm contentsOfDirectoryAtPath:resourceOverrideFolder error:nil] pathsMatchingExtensions:[NSImage imageFileTypes]];
+			NSArray *contents = [[fm contentsOfDirectoryAtPath:resourceOverrideFolder error:nil] pathsMatchingExtensions:[NSImage imageTypes]];
 			resourceOverrideList = [NSDictionary dictionaryWithObjects:contents forKeys:[contents valueForKey:@"stringByDeletingPathExtension"]];
 		} else {
 			resourceOverrideFolder = nil;
@@ -112,7 +112,7 @@ QSResourceManager * QSRez;
         image = [self imageWithLocatorInformation:locator];
     } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
         NSString *path = [name stringByStandardizingPath];
-        if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
+        if ([[NSImage imageUnfilteredTypes] containsObject:[path pathExtension]]) {
             image = [[NSImage alloc] initByReferencingFile:path];
         } else {
             image = [[NSWorkspace sharedWorkspace] iconForFile:path];

@@ -51,7 +51,7 @@
 		CGFloat hueGloss = 0.25*MAX(0, [color greenComponent] +[color redComponent] -[color blueComponent] *0.5-1.0);
 		CGFloat alpha = MIN(0.7, brightnessGloss*desaturationGloss+hueGloss);
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:alpha] set];
-		NSRectFillUsingOperation(rect, NSCompositeSourceOver);
+		NSRectFillUsingOperation(rect, NSCompositingOperationSourceOver);
 	} else {
 		[color set];
 		NSRectFill(rect);

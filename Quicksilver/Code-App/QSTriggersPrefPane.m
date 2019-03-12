@@ -282,7 +282,7 @@
 // Enabling/disabling of the 'edit' button is done programmatically within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {
     [commandEditor setCommand:[selectedTrigger command]];
-    [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
+	[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
         QSCommand *command = [commandEditor representedCommand];
         if (command) {
             [selectedTrigger setCommand:command];
@@ -340,7 +340,7 @@
 							 row:row withEvent:[NSApp currentEvent] select:YES];
 	} else if (!mOptionKeyIsDown) {
         [commandEditor setCommand:[selectedTrigger command]];
-        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
+		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
                 [trigger setCommand:command];
@@ -366,7 +366,7 @@
 	if ([triggerTable selectedRow] >= 0) {
         QSTrigger *editedTrigger = [triggerArray objectAtIndex:[triggerTable selectedRow]];
         [commandEditor setCommand:[editedTrigger command]];
-        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
+		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
                 [editedTrigger setCommand:command];
@@ -525,7 +525,7 @@
 		}
 		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
         [commandEditor setCommand:[theSelectedTrigger command]];
-        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
+		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
                 [theSelectedTrigger setCommand:command];

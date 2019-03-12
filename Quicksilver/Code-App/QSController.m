@@ -44,13 +44,31 @@ static QSController *defaultController = nil;
     QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
     [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
-    if (![NSApplication isMavericks]) {
+	if (![NSApplication isMavericks]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.9+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.9 Mountain Lion",@"10.3–10.8"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+
+		NSString *minimumVersionString = @"macOS 10.9+";
+		NSString *oldVersionsString = @"10.3–10.8";
+
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = [NSString stringWithFormat:
+			NSLocalizedString(@"%@ %@ requires %@", @"macOS version required alert title (bundle name, bundle version, minimum macOS version)"),
+			[appBundle objectForInfoDictionaryKey:@"CFBundleName"],
+			[appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+			minimumVersionString
+		];
+		alert.informativeText = [NSString stringWithFormat:
+			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", @"macOS version required alert message"),
+			minimumVersionString,
+			oldVersionsString];
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+
+		[alert runModal];
+
 		// Quit - we don't want to be running :)
 		[NSApp terminate:nil];
 	}
-    
+
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
@@ -347,7 +365,7 @@ static QSController *defaultController = nil;
 
 - (NSProgressIndicator *)progressIndicator { return [interfaceController progressIndicator];  }
 
-- (void)displayStatusMenuAtPoint:(NSPoint)point { [NSMenu popUpContextMenu:[NSApp mainMenu] withEvent:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSMakePoint(500, 500) modifierFlags:0 timestamp:0 windowNumber:0 context:nil eventNumber:0 clickCount:1 pressure:0] forView:nil withFont:nil];  }
+- (void)displayStatusMenuAtPoint:(NSPoint)point { [NSMenu popUpContextMenu:[NSApp mainMenu] withEvent:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSMakePoint(500, 500) modifierFlags:0 timestamp:0 windowNumber:0 context:nil eventNumber:0 clickCount:1 pressure:0] forView:[NSView focusView] withFont:nil]; }
 
 - (NSMenu *)statusMenuWithQuit {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -434,7 +452,7 @@ static QSController *defaultController = nil;
         [path addClip];
         [QSGlossClipPathForRectAndStyle(rect, 4) addClip];
         [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
-        NSRectFillUsingOperation(rect, NSCompositeSourceOver);
+        NSRectFillUsingOperation(rect, NSCompositingOperationSourceOver);
         
         [[splashWindow contentView] unlockFocus];
         //		}
@@ -780,9 +798,6 @@ static QSController *defaultController = nil;
 	[nc postNotificationName:QSInterfaceChangedNotification object:self];
 }
 
-/* Deprecated. It's defined in Core Plugin */
-- (id) finderProxy { return [QSReg performSelector:@selector(FSBrowserMediator)]; }
-
 - (void)clearHistory
 {
 	[[[self interfaceController] dSelector] clearHistory];
@@ -844,7 +859,7 @@ static QSController *defaultController = nil;
 		[self showSplash:nil];
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_current_queue(), ^(void) {
+        dispatch_after(popTime, dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void) {
             // hide the splash in a background thread
             [self hideSplash:nil];
         });
@@ -1073,7 +1088,7 @@ static QSController *defaultController = nil;
     // make sure we're visible on the first activation
     [NSApp unhideWithoutActivation];
     
-	QSApplicationCompletedLaunch = YES;
+	[QSApp setCompletedLaunch:YES];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {

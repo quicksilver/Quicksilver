@@ -28,7 +28,7 @@
 	[roundRect appendBezierPathWithRoundedRectangle:blobRect withRadius:size.height/2 indent:NO];
 
 	[cImg lockFocus];
-	[arrowImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0];
+	[arrowImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0];
 	[[NSColor colorWithCalibratedWhite:1.0 alpha:0.7] setFill];
 	[[NSColor colorWithCalibratedWhite:0.5 alpha:0.3] setStroke];
 	[roundRect fill];

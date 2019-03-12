@@ -51,35 +51,18 @@
 		mainAlert.showsSuppressionButton = alert.showsSuppressionButton;
 		mainAlert.accessoryView = alert.accessoryView;
 
-        NSModalResponse response = NSAlertErrorReturn;
-        if (window && [mainAlert respondsToSelector:@selector(beginSheetModalForWindow:completionHandler:)]) {
+        NSModalResponse response = 0;
+        if (window) {
             [mainAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
                 [NSApp stopModalWithCode:response];
             }];
-
-            response = [NSApp runModalForWindow:window];
-        } else if (window) {
-            [mainAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 
             response = [NSApp runModalForWindow:window];
         } else {
             response = [mainAlert runModal];
         }
 
-        QSAlertResponse realResponse = QSAlertResponseOK;
-        if (response >= 1000) {
-            // Standard NSAlert button-index-clicked response
-            realResponse = response - 1000;
-        } else {
-            // Compatible NSRunAlertPanel response, convert
-            if (response == NSAlertDefaultReturn) {
-                realResponse = QSAlertResponseFirst;
-            } else if (response == NSAlertOtherReturn) {
-                realResponse = QSAlertResponseSecond;
-            } else if (response == NSAlertAlternateReturn) {
-                realResponse = QSAlertResponseThird;
-            }
-        }
+        QSAlertResponse realResponse = response - 1000;
 
         if (handler) handler(realResponse);
     });
@@ -231,26 +214,7 @@ NSInteger _QSRunSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSS
     if (otherButton)     [buttons addObject:otherButton];
 
     NSModalResponse response = [[QSAlertManager defaultManager] runAlertWithTitle:title message:msg buttons:buttons style:style attachToWindow:attachToWin];
-
-    // Convert our response to the old NSPanel values
-    // New-style
-    //    NSAlertDefaultReturn means the user pressed the default button.
-    //    NSAlertAlternateReturn means the user pressed the alternate button.
-    //    NSAlertOtherReturn means the user pressed the other button.
-    //    NSAlertErrorReturn means an error occurred while running the alert panel.
-    // Old-style
-    //    NSAlertFirstButtonReturn	= 1000,
-    //    NSAlertSecondButtonReturn	= 1001,
-    //    NSAlertThirdButtonReturn	= 1002
-
-    if (response == NSAlertFirstButtonReturn) {
-        return NSAlertDefaultReturn;
-    } else if (response == NSAlertSecondButtonReturn) {
-        return NSAlertOtherReturn;
-    } else if (response == NSAlertThirdButtonReturn) {
-        return NSAlertAlternateReturn;
-    }
-    return NSAlertErrorReturn;
+	return response;
 }
 
 NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {

@@ -14,24 +14,7 @@
 @implementation QSObject (AEConversion)
 
 + (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc {
-    NSMutableArray * objects = [NSMutableArray arrayWithCapacity:[desc numberOfItems]];
-    
-    NSArray *handlers = [[NSSet setWithArray:[[QSReg objectHandlers] allValues]] allObjects];
-    
-    for(id object in objects ) {
-        for(id handler in handlers ) {
-            id obj = nil;
-            if ([handler respondsToSelector:@selector(objectWithAEDescriptor:)])
-                obj = [handler objectWithAEDescriptor:desc];
-            
-            if (obj)
-                [objects addObject:obj];
-        }
-    }
-
-    if([objects count] == 0)
-        NSLog(@"Unhandled AE conversion from descriptor %@", desc);
-	return [QSObject objectByMergingObjects:objects];
+	return nil;
 }
 
 - (NSAppleEventDescriptor *)AEDescriptor {

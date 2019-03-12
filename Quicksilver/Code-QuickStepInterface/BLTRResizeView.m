@@ -26,7 +26,7 @@
 		[transform translateXBy:-16 yBy:0];
 	}
 	[transform concat];
-	[[QSResourceManager imageNamed:@"ResizeWidget"] drawInRect:rect fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+	[[QSResourceManager imageNamed:@"ResizeWidget"] drawInRect:rect fromRect:rect operation:NSCompositingOperationSourceOver fraction:1.0];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent { return YES; }
