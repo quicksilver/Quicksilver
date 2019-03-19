@@ -120,6 +120,11 @@
 
 - (QSObject *)resolvedObject {return [self proxyObject];}
 
+- (QSObject *)cachedProxyTarget
+{
+	return [self objectForCache:QSProxyTargetCache];
+}
+
 - (NSString *)stringValue {
 	return [[self resolvedObject] stringValue];
 }
