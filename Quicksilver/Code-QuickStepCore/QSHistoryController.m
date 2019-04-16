@@ -33,12 +33,16 @@ id QSHist;
 - (NSArray *)recentObjects {return objectHistory;}
 - (NSArray *)recentCommands {return commandHistory;}
 - (NSArray *)recentActions {return actionHistory;}
+- (NSUInteger)historyLength {
+	NSUInteger historyLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSHistoryMaxLength"];
+	return historyLength ? historyLength : MAXHIST;
+}
 
 - (void)addAction:(id)action {
 	[actionHistory addObject:action];
 	[actionHistory removeObject:action];
 	[actionHistory insertObject:action atIndex:0];
-	while ([actionHistory count] > MAXHIST)
+	while ([actionHistory count] > [self historyLength])
 		[actionHistory removeLastObject];
 }
 - (void)addCommand:(QSCommand *)command {
@@ -57,7 +61,7 @@ id QSHist;
     }
     [commandHistory insertObject:command atIndex:0];
     if (existingCommandIndex == NSNotFound) {
-        while ([commandHistory count] > MAXHIST) {
+        while ([commandHistory count] > [self historyLength]) {
             [commandHistory removeLastObject];
         }
     }
@@ -70,7 +74,7 @@ id QSHist;
     }
 	[objectHistory removeObject:object];
 	[objectHistory insertObject:object atIndex:0];
-	while ([objectHistory count] > MAXHIST)
+	while ([objectHistory count] > [self historyLength])
 		[objectHistory removeLastObject];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidatedNotification object:@"QSPresetObjectHistory"];
 }
