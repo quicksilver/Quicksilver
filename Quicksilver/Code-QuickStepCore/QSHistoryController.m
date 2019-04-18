@@ -9,8 +9,6 @@
 #import "QSHistoryController.h"
 #import "QSCommand.h"
 
-#define MAXHIST 50
-
 id QSHist;
 
 @implementation QSHistoryController
@@ -34,8 +32,7 @@ id QSHist;
 - (NSArray *)recentCommands {return commandHistory;}
 - (NSArray *)recentActions {return actionHistory;}
 - (NSUInteger)historyLength {
-	NSUInteger historyLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSHistoryMaxLength"];
-	return historyLength ? historyLength : MAXHIST;
+	return [[NSUserDefaults standardUserDefaults] integerForKey:@"QSHistoryMaxLength"];
 }
 
 - (void)addAction:(id)action {

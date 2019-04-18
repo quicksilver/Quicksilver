@@ -91,5 +91,7 @@
 	<true/>
 	<key>Text Glow Divisor</key>
 	<real>16</real>
+	<key>QSHistoryMaxLength</key>
+	<integer>50</integer>
 </dict>
 </plist>
