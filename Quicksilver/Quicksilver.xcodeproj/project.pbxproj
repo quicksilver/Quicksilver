@@ -5999,7 +5999,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6009,7 +6008,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6019,7 +6017,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6029,7 +6026,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6039,7 +6035,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6049,7 +6044,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6059,7 +6053,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6069,7 +6062,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6086,7 +6078,6 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6105,7 +6096,6 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6126,7 +6116,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6146,7 +6135,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6184,7 +6172,6 @@
 					QuickLook,
 				);
 				PRODUCT_NAME = QSFoundation;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6204,7 +6191,6 @@
 					QuickLook,
 				);
 				PRODUCT_NAME = QSFoundation;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6247,7 +6233,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6262,7 +6247,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6316,7 +6300,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6326,7 +6309,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6337,7 +6319,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6349,7 +6330,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -6444,7 +6424,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6479,7 +6458,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
