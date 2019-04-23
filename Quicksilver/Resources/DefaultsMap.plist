@@ -122,5 +122,15 @@
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>
+	<dict>
+		<key>category</key>
+		<string>History</string>
+		<key>default</key>
+		<string>QSHistoryMaxLength</string>
+		<key>title</key>
+		<string>Number of items in Quicksilver’s history</string>
+		<key>type</key>
+		<string>text</string>
+	</dict>
 </array>
 </plist>
