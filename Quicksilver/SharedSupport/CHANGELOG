@@ -1,5 +1,9 @@
 ## Changes - 1.6.1 (4026) ##
 
+### New ###
+
+  * A new preference has been added to Extras that controls the number of items kept in Quicksilver’s history (#2490)
+
 ### Changed ###
 
   * Several in-application links have been updated (#2486)
