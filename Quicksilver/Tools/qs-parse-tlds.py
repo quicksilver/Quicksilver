@@ -11,5 +11,5 @@ if __name__ == '__main__':
         line = u'@"{0}"'.format(line.strip())
         tld_list.append(line)
     print "Drop the following line into QSObject_StringHandling.m to update the TLDs Quicksilver registers\n"
-    print u'tldArray = [@[{0}] retain];'.format(u', '.join(tld_list))
+    print u'tldArray = @[{0}];'.format(u', '.join(tld_list))
     
