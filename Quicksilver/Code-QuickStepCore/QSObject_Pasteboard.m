@@ -11,19 +11,23 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
-	} else if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
-		return [pasteboard stringForType:type];
-	}else if ([NSURLPboardType isEqualToString:type]) {
+	}
+	if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
+		if ([pasteboard stringForType:type]) {
+			return [pasteboard stringForType:type];
+		}
+	}
+	if ([NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-    } else if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
-        return [NSURL URLFromPasteboard:pasteboard];
-    } else if ([NSColorPboardType isEqualToString:type]) {
-		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
-	} else if ([NSFileContentsPboardType isEqualToString:type]);
-	else {
-		return [pasteboard dataForType:type];
     }
-	return nil;
+	if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
+        return [NSURL URLFromPasteboard:pasteboard];
+    }
+	if ([NSColorPboardType isEqualToString:type]) {
+		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
+	}
+//	fallback - return it as data
+	return [pasteboard dataForType:type];
 }
 
 @implementation QSObject (Pasteboard)
