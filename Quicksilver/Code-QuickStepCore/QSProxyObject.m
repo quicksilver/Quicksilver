@@ -60,23 +60,23 @@
 }
 
 - (QSObject*)proxyObject {
-	id proxy = nil;
-	if (proxy = [self objectForCache:QSProxyTargetCache])
-		return proxy;
+	id target = nil;
+	if (target = [self objectForCache:QSProxyTargetCache])
+		return target;
     
     id provider = [self proxyProvider];        
-    proxy = [provider resolveProxyObject:self];
+    target = [provider resolveProxyObject:self];
     
-    if ([self isEqual:proxy]) return nil;
+    if ([self isEqual:target]) return nil;
     
-    //NSLog(@"Proxy: %@", proxy);
-    if (proxy) {
-        [self setObject:proxy forCache:QSProxyTargetCache];
+	// NSLog(@"Proxy: %@", target);
+    if (target) {
+        [self setObject:target forCache:QSProxyTargetCache];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy:) name:QSInterfaceDeactivatedNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy:) name:QSCommandExecutedNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:target];
     }
-	return proxy;
+	return target;
 }
 
 
@@ -119,6 +119,11 @@
 }
 
 - (QSObject *)resolvedObject {return [self proxyObject];}
+
+- (QSObject *)cachedProxyTarget
+{
+	return [self objectForCache:QSProxyTargetCache];
+}
 
 - (NSString *)stringValue {
 	return [[self resolvedObject] stringValue];

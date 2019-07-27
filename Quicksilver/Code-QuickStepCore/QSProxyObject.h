@@ -33,7 +33,10 @@
 + (id)proxyWithDictionary:(NSDictionary*)dictionary;
 + (id)proxyWithIdentifier:(NSString*)identifier;
 - (NSObject <QSProxyObjectProvider> *)proxyProvider;
-- (QSObject*)proxyObject;
+- (QSObject *)proxyObject;
+
+// return whatever is cached, but don't resolve it if nil
+- (QSObject *)cachedProxyTarget;
 
 - (void)releaseProxy:(NSNotification *)notif;
 
