@@ -91,7 +91,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
-	NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
 	for(NSString *thisType in (types?types:[pasteboard types])) {
 		if ([[pasteboard types] containsObject:thisType] && ![QSPasteboardIgnoredTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
@@ -100,12 +99,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             } else {
 				NSLog(@"bad data for %@", thisType);
             }
-			NSString *decodedType = [thisType decodedPasteboardType];
-			if (!decodedType) {
-				NSLog(@"Failed to decode pasteboard type: %@", thisType);
-				continue;
-			}
-			[typeArray addObject:decodedType];
 		}
 	}
 }
