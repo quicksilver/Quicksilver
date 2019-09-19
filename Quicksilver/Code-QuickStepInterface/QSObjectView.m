@@ -182,14 +182,21 @@
   previousObjectValue = aValue;
 }
 
-- (id)objectValue { return [[self cell] representedObject];  }
+- (id)objectValue {
+	__block id objVal;
+	QSGCDMainSync(^{
+		objVal = [[self cell] representedObject];
+	});
+	return objVal;
+}
 - (void)setObjectValue:(QSBasicObject *)newObject {
     [self setPreviousObjectValue:[self objectValue]];
 	[newObject loadIcon];
 	[newObject becameSelected];
-	// [self setToolTip:[newObject toolTip]];
-	[[self cell] setRepresentedObject:newObject];
-	[self setNeedsDisplay:YES];
+	QSGCDMainSync(^{
+		[[self cell] setRepresentedObject:newObject];
+		[self setNeedsDisplay:YES];
+	});
 }
 
 - (void)redisplayObjectValue:(QSBasicObject *)newObject
