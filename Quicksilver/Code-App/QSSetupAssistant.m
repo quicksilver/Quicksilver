@@ -50,15 +50,18 @@
 
 	[self setRecommendedPlugIns:plugins];
 
-	[plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
-	[plugInLoadProgress stopAnimation:nil];
+	QSGCDMainSync(^{
+		[plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
+		[plugInLoadProgress stopAnimation:nil];
+	});
 }
 
 - (void)plugInInfoFailed {
 	plugInInfoStatus = -1;
 	NSLog(@"failed to get plugins");
-	[plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
-
+	QSGCDMainSync(^{
+		[plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
+	});
 }
 
 - (NSArray *)recommendedPlugIns { return recommendedPlugIns;  }
