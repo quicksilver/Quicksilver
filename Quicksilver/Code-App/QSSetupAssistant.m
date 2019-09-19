@@ -140,16 +140,19 @@
 }
 
 - (void)catalogIndexingFinished:(id)notif {
-	[scanProgress stopAnimation:self];
-	[scanStatusField setHidden:YES];
-	[[self window] display];
-	//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
-	scanComplete = YES;
-	if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
-		[scanStatusField setStringValue:@"Scan Complete"];
+	QSGCDMainSync(^{
+		[scanProgress stopAnimation:self];
+		[scanStatusField setHidden:YES];
 		[[self window] display];
-	}
+		//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
+		scanComplete = YES;
+		if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
+			[scanStatusField setStringValue:@"Scan Complete"];
+			[[self window] display];
+		}
+	});
 }
+
 - (void)catalogIndexed:(NSNotification *)notif {
 	if ([[notif name] isEqualToString:QSCatalogEntryIsIndexingNotification])
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [(QSCatalogEntry *)[notif object] name]]];
