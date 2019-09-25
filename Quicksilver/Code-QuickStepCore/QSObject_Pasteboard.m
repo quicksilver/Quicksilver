@@ -11,19 +11,23 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
-	} else if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
-		return [pasteboard stringForType:type];
-	}else if ([NSURLPboardType isEqualToString:type]) {
+	}
+	if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
+		if ([pasteboard stringForType:type]) {
+			return [pasteboard stringForType:type];
+		}
+	}
+	if ([NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-    } else if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
-        return [NSURL URLFromPasteboard:pasteboard];
-    } else if ([NSColorPboardType isEqualToString:type]) {
-		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
-	} else if ([NSFileContentsPboardType isEqualToString:type]);
-	else {
-		return [pasteboard dataForType:type];
     }
-	return nil;
+	if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
+        return [NSURL URLFromPasteboard:pasteboard];
+    }
+	if ([NSColorPboardType isEqualToString:type]) {
+		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
+	}
+//	fallback - return it as data
+	return [pasteboard dataForType:type];
 }
 
 @implementation QSObject (Pasteboard)
@@ -87,7 +91,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
-	NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
 	for(NSString *thisType in (types?types:[pasteboard types])) {
 		if ([[pasteboard types] containsObject:thisType] && ![QSPasteboardIgnoredTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
@@ -96,12 +99,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             } else {
 				NSLog(@"bad data for %@", thisType);
             }
-			NSString *decodedType = [thisType decodedPasteboardType];
-			if (!decodedType) {
-				NSLog(@"Failed to decode pasteboard type: %@", thisType);
-				continue;
-			}
-			[typeArray addObject:decodedType];
 		}
 	}
 }

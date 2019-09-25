@@ -583,7 +583,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (NSString *)singleFilePath {
 	NSString *path = [self objectForType:QSFilePathType];
-	if (![path isKindOfClass:[NSString class]]) {
+	if (path && ![path isKindOfClass:[NSString class]]) {
 		NSLog(@"unexpected object for file path: %@, object: %@", path, self);
 		return nil;
 	}
@@ -591,11 +591,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)validSingleFilePath {
-	NSString *path = [self objectForType:QSFilePathType];
-	if (![path isKindOfClass:[NSString class]]) {
-		NSLog(@"unexpected object for file path: %@, object: %@", path, self);
-		return nil;
-	}
+	NSString *path = [self singleFilePath];
 	if (path && [[NSFileManager defaultManager] fileExistsAtPath:path])
 		return path;
 	return nil;
