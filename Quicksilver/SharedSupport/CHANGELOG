@@ -28,6 +28,8 @@
 
 ## Changes - 1.6.0 (4025) 2018-09-19 ##
 
+This release requires macOS 10.12.
+
 ### New ###
 
   * Touch Bar support (#2366)
@@ -155,7 +157,7 @@
 
 ## Changes - 1.5.1 (401C) 2016-12-24 ##
 
-This release requires 10.10.
+This release requires macOS 10.10.
 
 ### New ###
 
