@@ -3,6 +3,7 @@
 ### New ###
 
   * A new preference has been added to Extras that controls the number of items kept in Quicksilver’s history (#2490)
+  * Index `/System/Applications` by default (#2510)
 
 ### Changed ###
 
@@ -17,6 +18,7 @@
   * Updated code for alerts (#2477)
   * Include the license with the code (#2498)
   * Random trigger delays (#2482, #2500)
+  * Fix some crashes under Catalina (#2503, #2497)
 
 ### Development ###
 
