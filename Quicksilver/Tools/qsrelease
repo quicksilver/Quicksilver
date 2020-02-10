@@ -51,7 +51,7 @@ if [[ $? == 0 ]]; then
   open $BUILT_PRODUCTS_DIR
 
   ## Verify app and DMG signing
-  spctl -av Quicksilver.app
+  codesign --verify --deep --strict --verbose=1 Quicksilver.app
   spctl -avt open --context context:primary-signature "Quicksilver $QS_INFO_VERSION.dmg"
 fi
 
