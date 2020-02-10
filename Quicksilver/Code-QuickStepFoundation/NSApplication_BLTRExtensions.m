@@ -220,4 +220,8 @@
 + (BOOL)isMojave {
 	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 14);
 }
+
++ (BOOL)isCatalina {
+	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 15);
+}
 @end

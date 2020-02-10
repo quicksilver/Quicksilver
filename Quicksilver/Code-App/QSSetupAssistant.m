@@ -50,15 +50,18 @@
 
 	[self setRecommendedPlugIns:plugins];
 
-	[plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
-	[plugInLoadProgress stopAnimation:nil];
+	QSGCDMainSync(^{
+		[plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
+		[plugInLoadProgress stopAnimation:nil];
+	});
 }
 
 - (void)plugInInfoFailed {
 	plugInInfoStatus = -1;
 	NSLog(@"failed to get plugins");
-	[plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
-
+	QSGCDMainSync(^{
+		[plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
+	});
 }
 
 - (NSArray *)recommendedPlugIns { return recommendedPlugIns;  }
@@ -137,16 +140,19 @@
 }
 
 - (void)catalogIndexingFinished:(id)notif {
-	[scanProgress stopAnimation:self];
-	[scanStatusField setHidden:YES];
-	[[self window] display];
-	//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
-	scanComplete = YES;
-	if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
-		[scanStatusField setStringValue:@"Scan Complete"];
+	QSGCDMainSync(^{
+		[scanProgress stopAnimation:self];
+		[scanStatusField setHidden:YES];
 		[[self window] display];
-	}
+		//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
+		scanComplete = YES;
+		if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
+			[scanStatusField setStringValue:@"Scan Complete"];
+			[[self window] display];
+		}
+	});
 }
+
 - (void)catalogIndexed:(NSNotification *)notif {
 	if ([[notif name] isEqualToString:QSCatalogEntryIsIndexingNotification])
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [(QSCatalogEntry *)[notif object] name]]];
