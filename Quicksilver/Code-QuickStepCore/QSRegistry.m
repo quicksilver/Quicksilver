@@ -254,13 +254,13 @@ QSRegistry* QSReg = nil;
 	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSPlugIn"];
 }
 - (NSDictionary *)qsRegistrationDictionary {
-	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/QSRegistration.plist"];
+	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/Resources/QSRegistration.plist"];
 	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSRegistration"];
 }
 - (NSDictionary *)qsActionsDictionary {return [self dictionaryForFileOrPlistKey:@"QSActions"];}
 
 - (NSDictionary *)dictionaryForFileOrPlistKey:(NSString *)key {
-	NSString *path = [[self bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"Contents/%@.plist", key]];
+	NSString *path = [[self bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"Contents/Resources/%@.plist", key]];
 	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:key];
 }
 

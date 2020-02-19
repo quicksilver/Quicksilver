@@ -1083,8 +1083,8 @@
 		E1C3BE5106EA0AC500B848D6 /* Copy Plists */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
 				7F975A6807FCA779007FC20F /* QSDefaults.plist in Copy Plists */,
 				E1C3BE5306EA0AE400B848D6 /* QSRegistration.plist in Copy Plists */,
