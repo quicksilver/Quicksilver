@@ -19,6 +19,9 @@
 		return YES;
 	}
 	NSString *path = [sflPath stringByStandardizingPath];
+	if ([NSApplication isHighSierra]) {
+		path = [path stringByReplacingOccurrencesOfString:@".sfl" withString:@".sfl2"];
+	}
 	NSFileManager *manager = [NSFileManager defaultManager];
 	BOOL isDir = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || isDir) {
