@@ -19,6 +19,7 @@
   * Include the license with the code (#2498)
   * Random trigger delays (#2482, #2500)
   * Fix some crashes under Catalina (#2503, #2497)
+  * Rescan Recent Applications and Recent Documents when changed (#2451, #2515)
 
 ### Development ###
 
