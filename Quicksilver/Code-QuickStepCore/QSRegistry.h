@@ -77,12 +77,9 @@ extern QSRegistry *QSReg; // Registry shared instance
 @end
 
 @interface NSBundle (QSRegistryAdditions)
-- (NSDictionary *)qsRequirementsDictionary;
-- (NSDictionary *)qsPlugInDictionary;
 - (NSDictionary *)qsRegistrationDictionary;
 - (NSDictionary *)qsActionsDictionary;
 - (NSDictionary *)dictionaryForFileOrPlistKey:(NSString *)key;
-- (NSDictionary *)qsPresetAdditionsDictionary;
 @end
 
 

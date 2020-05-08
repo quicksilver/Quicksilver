@@ -1083,8 +1083,8 @@
 		E1C3BE5106EA0AC500B848D6 /* Copy Plists */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
 				7F975A6807FCA779007FC20F /* QSDefaults.plist in Copy Plists */,
 				E1C3BE5306EA0AE400B848D6 /* QSRegistration.plist in Copy Plists */,
@@ -5999,7 +5999,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6009,7 +6008,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6019,7 +6017,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6029,7 +6026,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6039,7 +6035,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6049,7 +6044,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6059,7 +6053,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6069,7 +6062,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6184,7 +6176,6 @@
 					QuickLook,
 				);
 				PRODUCT_NAME = QSFoundation;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6204,7 +6195,6 @@
 					QuickLook,
 				);
 				PRODUCT_NAME = QSFoundation;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6247,7 +6237,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6262,7 +6251,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6316,7 +6304,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6326,7 +6313,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6337,7 +6323,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6349,7 +6334,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -6395,6 +6379,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6406,6 +6391,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
