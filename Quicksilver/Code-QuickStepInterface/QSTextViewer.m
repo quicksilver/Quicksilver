@@ -42,7 +42,7 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	[window setContentView:textview];
 	[textview release];*/
 	[window setReleasedWhenClosed:YES];
-	[window center];
+	[(QSWindow *)window center];
 
 	NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[window contentView] frame]];
 	[scrollview setBorderType:NSNoBorder];

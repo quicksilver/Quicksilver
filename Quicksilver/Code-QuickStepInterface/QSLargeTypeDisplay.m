@@ -97,8 +97,6 @@ void QSShowLargeType(NSString *aString) {
 	[largeTypeWindow setOpaque:NO];
 	[largeTypeWindow setLevel:NSFloatingWindowLevel];
 	[largeTypeWindow setHidesOnDeactivate:NO];
-    [largeTypeWindow setReleasedWhenClosed:YES];
-	//	[largeTypeWindow setNextResponder:self];
 
 	QSBezelBackgroundView *content = [[NSClassFromString(@"QSBezelBackgroundView") alloc] initWithFrame:NSZeroRect];
 	[content setRadius:32];
@@ -121,12 +119,6 @@ void QSShowLargeType(NSString *aString) {
 #pragma mark QSVainishingWindow
 
 @implementation QSVanishingWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
-	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
-		[self setReleasedWhenClosed:YES];
-	}
-	return self;
-}
 
 - (IBAction)copy:(id)sender {
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
