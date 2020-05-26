@@ -13,8 +13,6 @@
 
 #define EDGEINSET 16
 
-static NSMutableArray *_largeTypeWindows;
-
 #pragma mark QSLargeTypeDisplay
 
 void QSShowLargeType(NSString *aString) {
@@ -85,12 +83,7 @@ void QSShowLargeType(NSString *aString) {
 	windowRect = NSInsetRect(windowRect, -EDGEINSET, -EDGEINSET);
 	windowRect = NSIntegralRect(windowRect);
     
-    if (!_largeTypeWindows) {
-        _largeTypeWindows = [[NSMutableArray alloc] init];
-    }
-    
 	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
-    [_largeTypeWindows addObject:largeTypeWindow];
 	[largeTypeWindow setIgnoresMouseEvents:NO];
 	[largeTypeWindow setFrame:centerRectInRect(windowRect, screenRect) display:YES];
 	[largeTypeWindow setBackgroundColor: [NSColor clearColor]];
@@ -131,13 +124,6 @@ void QSShowLargeType(NSString *aString) {
 - (void)keyDown:(NSEvent *)theEvent {
 	[self setAlphaValue:0 fadeTime:0.333];
 	[self close];
-}
-
-- (void)dealloc {
-    [_largeTypeWindows removeObject:self];
-    if ([_largeTypeWindows count] == 0) {
-        _largeTypeWindows = nil;
-    }
 }
 
 - (void)resignKeyWindow {
