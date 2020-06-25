@@ -20,6 +20,7 @@
   * Random trigger delays (#2482, #2500)
   * Fix some crashes under Catalina (#2503, #2497)
   * Rescan Recent Applications and Recent Documents when changed (#2451, #2515)
+  * Fix a crash when using Large Type (#2511, #2521)
 
 ### Development ###
 
@@ -28,6 +29,7 @@
   * Add a `cachedProxyTarget` method to find out what a proxy object last pointed to without resolving it again (#2489)
   * Start the transition to `NSRunningApplication` (#2500)
   * Cleaned up some clipboard code (#2499)
+  * Set the SDK to macOS 10.13 for now. You can copy or symlink it from Xcode 9.
 
 ## Changes - 1.6.0 (4025) 2018-09-19 ##
 
