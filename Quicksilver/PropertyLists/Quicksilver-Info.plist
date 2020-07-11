@@ -277,7 +277,7 @@
 			<key>NSKeyEquivalent</key>
 			<dict>
 				<key>default</key>
-				<string></string>
+				<string>\033</string>
 			</dict>
 		</dict>
 	</array>
