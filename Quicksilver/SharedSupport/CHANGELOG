@@ -1,3 +1,9 @@
+## Changes - 1.6.2 (4027) ##
+
+### Fixed ###
+
+  * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
+
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
 ### New ###
