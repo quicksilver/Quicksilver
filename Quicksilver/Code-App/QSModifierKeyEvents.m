@@ -156,7 +156,16 @@ BOOL modifierEventsEnabled = YES;
             // keyUp events aren't sent for the caps lock key, so we have to check it here and manually increase the key pressed count
             self.timesKeysPressed += 1;
         }
-        if (self.timesKeysPressed == self.modifierActivationCount) {
+        NSTimeInterval timeSinceLastKeyDown = CGEventSourceSecondsSinceLastEventType (
+                                                                 kCGEventSourceStateHIDSystemState,
+                                                                 kCGEventKeyDown
+                                                                 );
+        NSTimeInterval timeSinceLastFlagsChanged = CGEventSourceSecondsSinceLastEventType (
+                                                                 kCGEventSourceStateHIDSystemState,
+                                                                 kCGEventFlagsChanged
+                                                                 );
+
+        if ((timeSinceLastKeyDown - timeSinceLastFlagsChanged) < 0.001 && self.timesKeysPressed == self.modifierActivationCount) {
             [self sendAction];
         }
     } else {
