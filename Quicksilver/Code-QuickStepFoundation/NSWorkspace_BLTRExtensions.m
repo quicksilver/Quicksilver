@@ -126,7 +126,7 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 		if (frontOnly) {
 			[app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
 		} else {
-			[app activateWithOptions:NSApplicationActivateIgnoringOtherApps & NSApplicationActivateAllWindows];
+			[app activateWithOptions:NSApplicationActivateAllWindows];
 		}
 	} else {
 		[self activateApplication:theApp];

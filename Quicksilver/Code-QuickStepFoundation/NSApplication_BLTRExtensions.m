@@ -182,46 +182,50 @@
 
 
 + (BOOL)isLeopard {
-	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 5);
+	return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 5);
 }
 
 + (BOOL)isSnowLeopard {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 6);
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 6);
 }
 
 + (BOOL)isLion {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 7);
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 7);
 }
 
 + (BOOL)isMountainLion {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 8);
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 8);
 }
 
-+ (BOOL)isMavericks {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 9);
++ (BOOL) isMavericks {
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 9);
 }
 
 + (BOOL)isYosemite {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 10);
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 10);
 }
 
 + (BOOL)isElCapitan {
-    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 11);
+    return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 11);
 }
 
 + (BOOL)isSierra {
-	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 12);
+	return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 12);
 }
 
 + (BOOL)isHighSierra {
-	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 13);
+	return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 13);
 }
 
 + (BOOL)isMojave {
-	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 14);
+	return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 14);
 }
 
 + (BOOL)isCatalina {
-	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 15);
+	return [NSApplication macOSXMajorVersion] > 10 || ([NSApplication macOSXMajorVersion] == 10 && [NSApplication macOSXMinorVersion] >= 15);
+}
+
++ (BOOL)isBigSur {
+	return [NSApplication macOSXMajorVersion] > 10;
 }
 @end
