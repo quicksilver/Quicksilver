@@ -72,7 +72,7 @@
 - (QSObject *)activateApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSWorkspace sharedWorkspace] activateApplication:obj];
+        [self switchToApplication:dObject];
     }];
 	return nil;
 }
@@ -110,10 +110,9 @@
 				[workspace reopenApplication:procDict];
 				break;
 			case 1:
-				[[NSWorkspace sharedWorkspace] activateApplication:procDict];
+				[workspace activateApplication:procDict];
 				break;
 			case 2:
-				[workspace reopenApplication:procDict];
 				[workspace switchToApplication:procDict frontWindowOnly:NO];
 				break;
 		}
@@ -134,7 +133,7 @@
             }];
 		} else {
             [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [[NSWorkspace sharedWorkspace] activateApplication:obj];
+                [self switchToApplication:obj];
             }];
 		}
 	} else {
