@@ -1,5 +1,9 @@
 ## Changes - 1.6.2 (4027) ##
 
+### New ###
+
+  * New Big Sur style icon (#2544, #2542)
+
 ### Fixed ###
 
   * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
