@@ -297,6 +297,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 			[self didChangeValueForKey:@"visibleProcesses"];
 			[self didChangeValueForKey:@"backgroundProcesses"];
 			[self didChangeValueForKey:@"allProcesses"];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationQuitEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:procObject];
 	}
