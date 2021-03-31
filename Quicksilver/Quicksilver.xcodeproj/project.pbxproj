@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -4235,7 +4235,6 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					CD29AEAA195663770052C893 = {
@@ -4247,7 +4246,7 @@
 				};
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
