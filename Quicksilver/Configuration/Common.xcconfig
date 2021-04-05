@@ -1,6 +1,6 @@
 #include "Developer.xcconfig"
 
-VALID_ARCHS = x86_64
+VALID_ARCHS = $(ARCHS_STANDARD_64_BIT)
 
 ARCHS = $(ARCHS_STANDARD_64_BIT)
 
