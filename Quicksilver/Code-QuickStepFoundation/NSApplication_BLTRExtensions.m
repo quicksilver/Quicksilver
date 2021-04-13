@@ -113,8 +113,18 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSApplicationWillRelaunchNotification object:self userInfo:nil];
     NSString *arch = @"/usr/bin/arch";
     NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
-    NSString *currentArchitecture = ([Quicksilver executableArchitecture] == NSBundleExecutableArchitectureX86_64) ? @"-x86_64" : @"-i386";
-	[NSTask launchedTaskWithLaunchPath:arch arguments:[NSArray arrayWithObjects:currentArchitecture, path,nil]];
+	NSString *currentArchitecture;
+	switch ([Quicksilver executableArchitecture]) {
+		case NSBundleExecutableArchitectureX86_64:
+			currentArchitecture = @"-x86_64";
+			break;
+		case NSBundleExecutableArchitectureARM64:
+		    currentArchitecture = @"-arm64";
+			break;
+		default:
+			currentArchitecture = @"-i386";
+	}
+	[NSTask launchedTaskWithLaunchPath:arch arguments:[NSArray arrayWithObjects:currentArchitecture, path, nil]];
 
 	[self terminate:self];
 }
