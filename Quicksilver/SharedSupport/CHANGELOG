@@ -8,6 +8,7 @@
 
   * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
   * “Application Quit” event triggers would never run (#2551)
+  * Correctly relaunch on M1 Macs (#2557)
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
