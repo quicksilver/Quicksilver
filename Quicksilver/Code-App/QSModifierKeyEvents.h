@@ -19,11 +19,6 @@ NSUInteger lastModifiers;
     NSUInteger _modifierActivationMask;
 	NSString *identifier;
 	SEL action;
-
-	@private
-    NSTimeInterval timeSinceLastKeyDown;
-    NSDate *firstModifierPressedTime;
-    
 }
 
 @property __block NSInteger timesKeysPressed;
