@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macOS-11, macOS-10.15]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - run: |
+        cd Quicksilver
+        git submodule init; git submodule update 
+        xcodebuild -project "Quicksilver.xcodeproj"

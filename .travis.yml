@@ -1,6 +1,0 @@
-language: objective-c
-osx_image: xcode8.3
-xcode_project: Quicksilver/Quicksilver.xcodeproj # path to your xcodeproj folder
-xcode_scheme: "Quicksilver Distribution"
-script: |
-    ruby Quicksilver/Tools/travis/check_indent.rb
