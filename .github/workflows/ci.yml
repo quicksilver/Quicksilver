@@ -20,5 +20,6 @@ jobs:
         xcode-version: latest-stable
     - run: |
         cd Quicksilver
-        git submodule init; git submodule update 
-        xcodebuild -project "Quicksilver.xcodeproj"
+        git submodule update --init --recursive
+        cd Quicksilver
+        ./Tools/qsrelease
