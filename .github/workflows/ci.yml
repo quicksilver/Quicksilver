@@ -20,5 +20,5 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        name: "1.6.1"
+        tag_name: "1.6.1"
         files: /tmp/QS/build/Release/Quicksilver*.dmg
