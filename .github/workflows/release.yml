@@ -1,11 +1,9 @@
-name: ci
+name: release
 
 on:
   push:
-    branches:
-      - master
-      - actions1
-  pull_request:
+    tags:
+      - "v*.*.*"
 
 jobs:
   build:
@@ -20,5 +18,4 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: "1.6.1"
         files: /tmp/QS/build/Release/Quicksilver*.dmg
