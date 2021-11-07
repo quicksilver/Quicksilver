@@ -1,5 +1,7 @@
 # About Quicksilver on Github #
 
+[![release](https://github.com/quicksilver/Quicksilver/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/quicksilver/Quicksilver/actions?query=workflow%3Arelease+branch%3Amaster)
+
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
 The `master` branch contains the source for the currently released Quicksilver.
