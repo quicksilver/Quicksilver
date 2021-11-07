@@ -1,0 +1,21 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - run: |
+        cd Quicksilver
+        ./Tools/qsrelease
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: /tmp/QS/build/Release/Quicksilver*.dmg
