@@ -4,6 +4,7 @@ import os
 import platform
 import plistlib
 import sys
+from pathlib import Path
 
 ## fake the deployment target to make distutils happy
 os.environ["MACOSX_DEPLOYMENT_TARGET"] = ".".join(
@@ -11,12 +12,12 @@ os.environ["MACOSX_DEPLOYMENT_TARGET"] = ".".join(
 )
 import markdown
 
-info_plist = os.environ["INFOPLIST_FILE"]
+info_plist = Path(os.environ["INFOPLIST_FILE"])
 
-if not os.path.exists(info_plist):
+if not info_plist.exists():
     sys.exit(78)  # configuration error
 
-info = plistlib.readPlist(info_plist)
+info = plistlib.loads(info_plist.read_bytes())
 
 ## set the minimum required version of QS when backward compatibility breaks
 min_build = int(os.environ["QS_BACKWARDS_COMPATIBILITY_BREAK"], 16)
@@ -47,4 +48,5 @@ if srcroot is not None and os.path.exists(srcroot + "/Documentation.mdown"):
     extended_description = md.convert(doctext)
     info["QSPlugIn"]["extendedDescription"] = extended_description
 
-plistlib.writePlist(info, info_plist)
+with info_plist.open("wb") as f:
+    plistlib.dump(info, f)
