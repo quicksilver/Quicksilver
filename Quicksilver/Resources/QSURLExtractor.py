@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
+#!/usr/bin/env python3
 """
 QSURLExtractor.py
 
@@ -12,59 +11,61 @@ output tab separated lines with the following fields:
     3 imageurl
 """
 
-from os import path
-from bs4 import BeautifulSoup
 import fileinput
-from sys import stdout
-import codecs
-streamWriter = codecs.lookup('utf-8')[-1]
-stdout = streamWriter(stdout)
+import sys
+from os import path
+
+from bs4 import BeautifulSoup
+
+sys.stdout.reconfigure(encoding="utf-8")
 
 # a place to store the links we find
 links = []
 
-if __name__ == '__main__':
-    page = ''.join([line for line in fileinput.input()])
-    soup = BeautifulSoup(page)
-    for link in soup.findAll('a', href=True):
+if __name__ == "__main__":
+    page = "".join([line for line in fileinput.input()])
+    soup = BeautifulSoup(page, features="html.parser")
+    for link in soup.findAll("a", href=True):
         # skip useless links
-        if link['href'] == '' or link['href'] == '#':
+        if link["href"] == "" or link["href"] == "#":
             continue
         # initialize the link
         thisLink = {
-            'url': link['href'],
-            'title': link.string,
-            'image': '',
+            "url": link["href"],
+            "title": link.string,
+            "image": "",
         }
         # see if the link contains an image
-        img = link.find('img', src=True)
+        img = link.find("img", src=True)
         if img:
-            thisLink['image'] = img['src']
-            if thisLink['title'] is None:
+            thisLink["image"] = img["src"]
+            if thisLink["title"] is None:
                 # look for a title here if none exists
-                if 'title' in img:
-                    thisLink['title'] = img['title']
-                elif 'alt' in img:
-                    thisLink['title'] = img['alt']
+                if "title" in img:
+                    thisLink["title"] = img["title"]
+                elif "alt" in img:
+                    thisLink["title"] = img["alt"]
                 else:
-                    thisLink['title'] = path.basename(img['src'])
+                    thisLink["title"] = path.basename(img["src"])
 
-        if thisLink['title'] is None:
+        if thisLink["title"] is None:
             # check for text inside the link
             if len(link.contents):
-                thisLink['title'] = ' '.join(link.stripped_strings)
-        if thisLink['title'] is None:
+                thisLink["title"] = " ".join(link.stripped_strings)
+        if thisLink["title"] is None:
             # if there's *still* no title (empty tag), skip it
             continue
         # convert to something immutable for storage
-        hashableLink = (thisLink['url'].strip(),
-                        thisLink['title'].strip(),
-                        '',  # shortcut
-                        thisLink['image'].strip())
+        hashableLink = (
+            thisLink["url"].strip(),
+            thisLink["title"].strip(),
+            "",  # shortcut
+            thisLink["image"].strip(),
+        )
         # store the result
         if hashableLink not in links:
             links.append(hashableLink)
 
 # print the results
 for link in links:
-    stdout.write('\t'.join(link) + '\n')
+    sys.stdout.write("\t".join(link) + "\n")
