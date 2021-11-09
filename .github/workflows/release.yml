@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*"
+  pull_request:
 
 jobs:
   build:
@@ -15,7 +16,13 @@ jobs:
     - run: |
         cd Quicksilver
         ./Tools/qsrelease
+    - name: Upload document
+      uses: actions/upload-artifact@v2
+      with:
+        name: Quicksilver.dmg
+        path: /tmp/QS/build/Release/Quicksilver*.dmg
     - name: Release
       uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: /tmp/QS/build/Release/Quicksilver*.dmg
