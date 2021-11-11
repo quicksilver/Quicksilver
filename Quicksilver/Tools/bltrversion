@@ -6,13 +6,13 @@ import plistlib
 import sys
 from pathlib import Path
 
-## fake the deployment target to make distutils happy
-os.environ["MACOSX_DEPLOYMENT_TARGET"] = ".".join(
-    platform.mac_ver()[0].split(".")[0:2]
+# fake the deployment target to make distutils happy
+os.environ['MACOSX-DEPLOYMENT-TARGET'] = '.'.join(
+    platform.mac_ver()[0].split('.')[0:2]
 )
 import markdown
 
-info_plist = Path(os.environ["INFOPLIST_FILE"])
+info_plist = Path(os.environ['INFOPLIST_FILE'])
 
 if not info_plist.exists():
     sys.exit(78)  # configuration error
@@ -20,33 +20,33 @@ if not info_plist.exists():
 info = plistlib.loads(info_plist.read_bytes())
 
 ## set the minimum required version of QS when backward compatibility breaks
-min_build = int(os.environ["QS_BACKWARDS_COMPATIBILITY_BREAK"], 16)
-qs_build = int(os.environ["QS_BUNDLE_VERSION"], 16)
+min_build = int(os.environ['QS_BACKWARDS_COMPATIBILITY_BREAK'], 16)
+qs_build = int(os.environ['QS_BUNDLE_VERSION'], 16)
 if qs_build >= min_build:
     min_build_string = hex(min_build)[2:]
-    if "QSRequirements" in info:
+    if 'QSRequirements' in info:
         ## see if the current required version is higher than the min
-        current_required = int(info["QSRequirements"].get("version", "0"), 16)
+        current_required = int(info['QSRequirements'].get('version', '0'), 16)
         if current_required < min_build:
-            info["QSRequirements"]["version"] = min_build_string
+            info['QSRequirements']['version'] = min_build_string
     else:
         ## no current requirement - set the minimum
-        info["QSRequirements"] = {"version": min_build_string}
+        info['QSRequirements'] = {'version': min_build_string}
 
 ## increment version
-version_hex = info["CFBundleVersion"]
+version_hex = info['CFBundleVersion']
 version_int = int(version_hex, 16)
 new_version = hex(version_int + 1)[2:].upper()  # uppercase, without 0x prefix
-info["CFBundleVersion"] = new_version
+info['CFBundleVersion'] = new_version
 
 ## look for documentation and convert to HTML
-srcroot = os.getenv("SRCROOT")
-if srcroot is not None and os.path.exists(srcroot + "/Documentation.mdown"):
-    docfile = srcroot + "/Documentation.mdown"
-    doctext = codecs.open(docfile, mode="r", encoding="utf8").read()
-    md = markdown.Markdown(extensions=["extra"], output_format="html4")
+srcroot = os.getenv('SRCROOT')
+if srcroot is not None and os.path.exists(srcroot + '/Documentation.mdown'):
+    docfile = srcroot + '/Documentation.mdown'
+    doctext = codecs.open(docfile, mode='r', encoding='utf8').read()
+    md = markdown.Markdown(extensions=['extra'], output_format='html')
     extended_description = md.convert(doctext)
-    info["QSPlugIn"]["extendedDescription"] = extended_description
+    info['QSPlugIn']['extendedDescription'] = extended_description
 
-with info_plist.open("wb") as f:
+with info_plist.open('wb') as f:
     plistlib.dump(info, f)
