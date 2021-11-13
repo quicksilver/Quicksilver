@@ -170,8 +170,6 @@
 		4DF329D71EA2C1D5003CD3CE /* QSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB7A07B20DD10044D6EF /* QSSense.m */; };
 		4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */; };
 		4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */; };
-		4DFD65C51EA9334B003CD3CE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
-		4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -179,6 +177,8 @@
 		4DFE7DD20E082199000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		4DFE7DD40E08219C000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DDA0E0821C0000B9AA3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		5070EDAF273CFAFE006A67CD /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
+		5070EDB0273CFAFE006A67CD /* FMDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9191086EF4D009D5C90 /* Localizable.strings */; };
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
 		6615228414F43355006FDCB4 /* PathWildcardsData in Resources */ = {isa = PBXBuildFile; fileRef = 6615228314F43355006FDCB4 /* PathWildcardsData */; };
@@ -881,13 +881,6 @@
 			remoteGlobalIDString = 83C73F0B1C326ADA00FFC730;
 			remoteInfo = "FMDB MacOS";
 		};
-		4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 83C73F0A1C326ADA00FFC730;
-			remoteInfo = "FMDB MacOS";
-		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1043,15 +1036,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4DFD65C81EA933FC003CD3CE /* Copy Frameworks */ = {
+		5070EDB1273CFAFE006A67CD /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */,
+				5070EDB0273CFAFE006A67CD /* FMDB.framework in Embed Frameworks */,
 			);
-			name = "Copy Frameworks";
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7F0BDE6D07FC9653002CBDDF /* Copy Automator Actions */ = {
@@ -2494,10 +2487,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DFD65C51EA9334B003CD3CE /* FMDB.framework in Frameworks */,
 				E1E5FAE307B207180044D6EF /* IOKit.framework in Frameworks */,
 				E1E5FAE407B207450044D6EF /* Carbon.framework in Frameworks */,
 				E1E5FB1507B2079E0044D6EF /* Security.framework in Frameworks */,
+				5070EDAF273CFAFE006A67CD /* FMDB.framework in Frameworks */,
 				E1E5FB4F07B208C00044D6EF /* ExceptionHandling.framework in Frameworks */,
 				7F686DDE080C1CD900449DEF /* QuartzCore.framework in Frameworks */,
 				4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */,
@@ -4176,15 +4169,14 @@
 				E1E5F97307B1FCFC0044D6EF /* Headers */,
 				E1E5F98F07B1FCFC0044D6EF /* Resources */,
 				E1E5F99107B1FCFC0044D6EF /* Sources */,
-				4DFD65C81EA933FC003CD3CE /* Copy Frameworks */,
 				E1E5F9A607B1FCFC0044D6EF /* Frameworks */,
 				4D6E8EB21EA93CFD003CD3CE /* CopyFiles */,
+				5070EDB1273CFAFE006A67CD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4D8A0B6D10AB24BA006AF163 /* PBXTargetDependency */,
-				4DFD65C71EA93366003CD3CE /* PBXTargetDependency */,
 			);
 			name = "QuickStep Foundation";
 			productName = QSCore;
@@ -5150,11 +5142,6 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
-		};
-		4DFD65C71EA93366003CD3CE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "FMDB MacOS";
-			targetProxy = 4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
