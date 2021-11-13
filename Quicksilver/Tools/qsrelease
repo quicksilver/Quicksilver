@@ -10,11 +10,14 @@ trap cleanup EXIT
 # Allow users to pass in a custom signing identity name for testing with
 # self-signed certs
 SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
+CURRENT_ARCH=$(arch)
 
 ## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
-xcodebuild -configuration Release \
+xcodebuild \
+  -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+  -configuration Release \
   -scheme 'Quicksilver Distribution' \
   -showBuildSettings |
   sort -u > "${SETTINGS}"
@@ -32,10 +35,27 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 ## (This could be done with a single command, but if `clean` fails, the
 ## exit status won't be 0. It usually fails because something didn't exist
 ## in the first place. We don't care.)
-# xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
-xcodebuild -scheme 'Quicksilver Distribution' test > "${LOG}" || true
-xcodebuild -configuration Release -scheme 'Quicksilver Distribution' clean >> "${LOG}" || true
-xcodebuild -configuration Release -scheme 'Quicksilver Distribution' build >> "${LOG}"
+{
+  # xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
+  xcodebuild \
+    -destination "platform=macOS,arch=x86_64" \
+    -destination "platform=macOS,arch=arm64" \
+    -scheme 'Quicksilver Distribution' \
+    test || true
+
+  # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
+  xcodebuild \
+    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+    -configuration Release \
+    -scheme 'Quicksilver Distribution' \
+    clean || true
+  xcodebuild \
+    -destination 'platform=macOS,arch=x86_64' \
+    -destination 'platform=macOS,arch=arm64' \
+    -configuration Release \
+    -scheme 'Quicksilver Distribution' \
+    build
+} > "${LOG}"
 
 ## Build succeeded
 cd "${BUILT_PRODUCTS_DIR}"
@@ -43,14 +63,9 @@ cd "${BUILT_PRODUCTS_DIR}"
 ## Set the correct plist permissions
 chmod 644 Quicksilver.app/Contents/Info.plist
 
-## Sign for Gatekeeper
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Frameworks/*.framework
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/PlugIns/*.qsplugin
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Resources/QSDroplet.app
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Library/Automator/*.action
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Resources/*.plist
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Info.plist
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.app
+## Codesign everything
+## Ignore exit 1 due to `is already signed`
+find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + || true
 
 ## Package it in a disk image
 mkdir -p "${DMG_TEMP}"
@@ -76,6 +91,13 @@ cp Quicksilver.app/Contents/Info.plist "${BUILT_PRODUCTS_DIR}"
 ## Show the folder
 open "${BUILT_PRODUCTS_DIR}"
 
-## Verify app and DMG signing
-codesign --verify --deep --strict --verbose=1 Quicksilver.app
-spctl -avt open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg"
+## Verify app and DMG signing, don't fail due to already signed
+codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
+
+## Will fail with a self-signed cert unless added to spctl
+## https://stackoverflow.com/a/53814748/1588795
+## https://stackoverflow.com/a/40605003/1588795
+## Uncomment to add self-signed cert with label `QuicksilverTest`
+# spctl --add --requirement "certificate leaf[subject.CN] = \"${SIGNING_IDENTITY}\"" --label "QuicksilverSelfSignedTest"
+spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg"
+## Run this to remove self-signed cert with label `QuicksilverTest`
