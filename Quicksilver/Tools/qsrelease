@@ -85,7 +85,7 @@ mkdir -p "${DMG_TEMP}"
 cp -a Quicksilver.app "${DMG_TEMP}"
 cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store "${DMG_TEMP}"/.DS_Store
 cd "${DMG_TEMP}"
-ln -s /Applications .
+ln -sf /Applications .
 "${SOURCE_ROOT}"/Tools/buildDMG.pl \
   -dmgName Quicksilver \
   -volName Quicksilver \
