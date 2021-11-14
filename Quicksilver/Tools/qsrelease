@@ -63,9 +63,22 @@ cd "${BUILT_PRODUCTS_DIR}"
 ## Set the correct plist permissions
 chmod 644 Quicksilver.app/Contents/Info.plist
 
-## Codesign everything
-## Ignore exit 1 due to `is already signed`
-find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + || true
+## Codesign everything from inside out
+## This descending sorts by path length, since directory contents should always
+## have a longer path then its parent
+find ./Quicksilver.app -path './Quicksilver.app/Contents/Frameworks/*.framework' -o \
+  -path './Quicksilver.app/Contents/PlugIns/*.qsplugin' -o \
+  -path './Quicksilver.app/Contents/Resources/QSDroplet.app' -o \
+  -path './Quicksilver.app/Contents/Library/Automator/*.action' -o \
+  -path './Quicksilver.app/Contents/Resources/*.plist' -o \
+  -path './Quicksilver.app/Contents/Info.plist' -o \
+  -path './Quicksilver.app' |  # find everything we want to sign
+  awk '{ print length, $0 }' | # prepend the path length
+  sort -rn |                   # reverse numeric sort
+  sed 's/^[0-9]\{1,\} //' |    # strip the number and leading space
+  while read -r item; do
+    codesign --force --sign "${SIGNING_IDENTITY}" "${item}"
+  done
 
 ## Package it in a disk image
 mkdir -p "${DMG_TEMP}"
