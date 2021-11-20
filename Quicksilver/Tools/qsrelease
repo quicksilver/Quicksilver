@@ -11,7 +11,13 @@ trap cleanup EXIT
 # Allow users to pass in a custom signing identity name for testing with
 # self-signed certs
 SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
-CURRENT_ARCH=$(arch)
+
+# Default to x86_64 for CI builds
+if [ -n "${CI:-}" ]; then
+  CURRENT_ARCH=x86_64
+else
+  CURRENT_ARCH=$(arch)
+fi
 
 ## Quicksilver Release build
 ## Cache settings to save time
