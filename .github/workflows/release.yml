@@ -12,6 +12,7 @@ jobs:
     env:
       MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
       MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
       SIGNING_IDENTITY: "Quicksilver Test"
     steps:
     - uses: actions/checkout@v2
