@@ -23,7 +23,7 @@ fi
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
 xcodebuild \
-  -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+  -destination generic/platform=macos \
   -configuration Release \
   -scheme 'Quicksilver Distribution' \
   -showBuildSettings |
@@ -47,20 +47,18 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 {
   # xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
   xcodebuild \
-    -destination "platform=macOS,arch=x86_64" \
-    -destination "platform=macOS,arch=arm64" \
+    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
     -scheme 'Quicksilver Distribution' \
     test || true
 
   # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
   xcodebuild \
-    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+    -destination generic/platform=macos \
     -configuration Release \
     -scheme 'Quicksilver Distribution' \
     clean || true
   xcodebuild \
-    -destination 'platform=macOS,arch=x86_64' \
-    -destination 'platform=macOS,arch=arm64' \
+    -destination generic/platform=macos \
     -configuration Release \
     -scheme 'Quicksilver Distribution' \
     build
