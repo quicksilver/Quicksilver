@@ -20,17 +20,18 @@ jobs:
         submodules: recursive
     - run: |
         # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+        # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
         KEYCHAIN_PATH=${RUNNER_TEMP}/app-signing.keychain-db
         CERTIFICATE_PATH=${RUNNER_TEMP}/build_certificate.p12
         echo -n "${MACOS_CERTIFICATE}" | base64 --decode --output "${CERTIFICATE_PATH}"
         security create-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
         security set-keychain-settings -lut 21600 "${KEYCHAIN_PATH}"
+
+        security default-keychain -s "${KEYCHAIN_PATH}"
         security unlock-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
 
         security import "${CERTIFICATE_PATH}" -P "${MACOS_CERTIFICATE_PASSWORD}" -A -t cert -f pkcs12 -k "${KEYCHAIN_PATH}"
         security list-keychain -d user -s "${KEYCHAIN_PATH}"
-
-        # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
         cd Quicksilver
         ./Tools/qsrelease
