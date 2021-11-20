@@ -9,11 +9,26 @@ on:
 jobs:
   build:
     runs-on: macos-11
+    env:
+      MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+      MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+      SIGNING_IDENTITY: "Quicksilver Test"
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: recursive
     - run: |
+        # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+        KEYCHAIN_PATH=${RUNNER_TEMP}/app-signing.keychain-db
+        CERTIFICATE_PATH=${RUNNER_TEMP}/build_certificate.p12
+        echo -n "${MACOS_CERTIFICATE}" | base64 --decode --output "${CERTIFICATE_PATH}"
+        security create-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
+        security set-keychain-settings -lut 21600 "${KEYCHAIN_PATH}"
+        security unlock-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
+
+        security import "${CERTIFICATE_PATH}" -P "${MACOS_CERTIFICATE_PASSWORD}" -A -t cert -f pkcs12 -k "${KEYCHAIN_PATH}"
+        security list-keychain -d user -s "${KEYCHAIN_PATH}"
+
         cd Quicksilver
         ./Tools/qsrelease
     - name: Upload document
