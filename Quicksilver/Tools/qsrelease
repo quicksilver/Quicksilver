@@ -63,22 +63,14 @@ cd "${BUILT_PRODUCTS_DIR}"
 ## Set the correct plist permissions
 chmod 644 Quicksilver.app/Contents/Info.plist
 
-## Codesign everything from inside out
-## This descending sorts by path length, since directory contents should always
-## have a longer path then its parent
-find ./Quicksilver.app -path './Quicksilver.app/Contents/Frameworks/*.framework' -o \
-  -path './Quicksilver.app/Contents/PlugIns/*.qsplugin' -o \
-  -path './Quicksilver.app/Contents/Resources/QSDroplet.app' -o \
-  -path './Quicksilver.app/Contents/Library/Automator/*.action' -o \
-  -path './Quicksilver.app/Contents/Resources/*.plist' -o \
-  -path './Quicksilver.app/Contents/Info.plist' -o \
-  -path './Quicksilver.app' |  # find everything we want to sign
-  awk '{ print length, $0 }' | # prepend the path length
-  sort -rn |                   # reverse numeric sort
-  sed 's/^[0-9]\{1,\} //' |    # strip the number and leading space
-  while read -r item; do
-    codesign --force --sign "${SIGNING_IDENTITY}" "${item}"
-  done
+# Mass codesign everything. Will fail the first time through due to unsignable
+# items; here we explicitly ignore the error and hide a bunch of "bundle format
+# unrecognized" and "already signed" errors
+
+find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + 2> /dev/null || true
+
+# Codesign the whole app now that all contents are signed
+codesign --force --sign "${SIGNING_IDENTITY}" ./Quicksilver.app
 
 ## Package it in a disk image
 mkdir -p "${DMG_TEMP}"
@@ -94,7 +86,7 @@ ln -sf /Applications .
   .DS_Store Quicksilver.app Applications \
   >> "${LOG}"
 
-codesign --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
+codesign --deep --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
 mv Quicksilver.dmg "../Quicksilver ${QS_INFO_VERSION}".dmg
 cd ..
 
@@ -110,7 +102,11 @@ codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
 ## Will fail with a self-signed cert unless added to spctl
 ## https://stackoverflow.com/a/53814748/1588795
 ## https://stackoverflow.com/a/40605003/1588795
-## Uncomment to add self-signed cert with label `QuicksilverTest`
+## Run below to approve self-signed cert with label `QuicksilverTest` (requires
+## admin password), and the line below that to remove the approval
 # spctl --add --requirement "certificate leaf[subject.CN] = \"${SIGNING_IDENTITY}\"" --label "QuicksilverSelfSignedTest"
+# spctl --remove --label QuicksilverTest
+spctl --assess --verbose --type open --type exec ./Quicksilver.app
+
+## Will fail with a self-signed cert
 spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg"
-## Run this to remove self-signed cert with label `QuicksilverTest`
