@@ -4705,7 +4705,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "## clean .pyc files\nfind \"$SRCROOT/Resources/bs4\" -name '*.pyc' -exec rm {} \\;\n## copy module to the Core Support Resources folder\ncp -r \"$SRCROOT/Resources/bs4\" \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n";
+			shellScript = "## clean .pyc files\nfind \"$SRCROOT/Resources/bs4\" -name '*.pyc' -exec rm {} \\;\n## copy module to the Core Support Resources folder\ncp -r \\\n    \"$SRCROOT/Resources/bs4\" \\\n    \"$SRCROOT/Resources/soupsieve\" \\\n    \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n";
 		};
 		D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */ = {
 			isa = PBXShellScriptBuildPhase;
