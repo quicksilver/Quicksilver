@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -euf
+set -x
 
 cleanup() {
   rm -f "${SETTINGS}"
