@@ -111,7 +111,7 @@ codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
 ## admin password), and the line below that to remove the approval
 # spctl --add --requirement "certificate leaf[subject.CN] = \"${SIGNING_IDENTITY}\"" --label "QuicksilverSelfSignedTest"
 # spctl --remove --label QuicksilverTest
-spctl --assess --verbose --type open --type exec ./Quicksilver.app
+spctl --assess --verbose --type open --type exec ./Quicksilver.app || true
 
 ## Will fail with a self-signed cert
-spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg"
+spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg" || true
