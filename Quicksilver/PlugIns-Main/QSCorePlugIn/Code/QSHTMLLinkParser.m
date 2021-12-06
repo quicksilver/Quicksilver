@@ -48,7 +48,7 @@
 	}
 	NSString *script = [[NSBundle bundleForClass:[self class]] pathForResource:@"QSURLExtractor" ofType:@"py"];
 	//NSLog(@"parsing with %@\r%@", script, source);
-	NSTask *task = [NSTask taskWithLaunchPath:@"/usr/bin/python" arguments:[NSArray arrayWithObject:script]];
+	NSTask *task = [NSTask taskWithLaunchPath:@"/usr/bin/env" arguments:[NSArray arrayWithObject:script]];
 	NSPipe *readPipe = [NSPipe pipe];
 	NSFileHandle *readHandle = [readPipe fileHandleForReading];
 	NSPipe *writePipe = [NSPipe pipe];

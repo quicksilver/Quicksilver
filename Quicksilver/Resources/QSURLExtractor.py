@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-"""
+#!/usr/bin/env python3
+'''
 QSURLExtractor.py
 
 Created by Rob McBroom on 2011-06-01.
@@ -10,22 +9,22 @@ output tab separated lines with the following fields:
     1 text
     2 shortcut (unused)
     3 imageurl
-"""
+'''
 
-from os import path
-from bs4 import BeautifulSoup
 import fileinput
-from sys import stdout
-import codecs
-streamWriter = codecs.lookup('utf-8')[-1]
-stdout = streamWriter(stdout)
+import sys
+from os import path
+
+from bs4 import BeautifulSoup
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 # a place to store the links we find
 links = []
 
 if __name__ == '__main__':
     page = ''.join([line for line in fileinput.input()])
-    soup = BeautifulSoup(page)
+    soup = BeautifulSoup(page, features='html.parser')
     for link in soup.findAll('a', href=True):
         # skip useless links
         if link['href'] == '' or link['href'] == '#':
@@ -57,14 +56,16 @@ if __name__ == '__main__':
             # if there's *still* no title (empty tag), skip it
             continue
         # convert to something immutable for storage
-        hashableLink = (thisLink['url'].strip(),
-                        thisLink['title'].strip(),
-                        '',  # shortcut
-                        thisLink['image'].strip())
+        hashableLink = (
+            thisLink['url'].strip(),
+            thisLink['title'].strip(),
+            '',  # shortcut
+            thisLink['image'].strip(),
+        )
         # store the result
         if hashableLink not in links:
             links.append(hashableLink)
 
 # print the results
 for link in links:
-    stdout.write('\t'.join(link) + '\n')
+    sys.stdout.write('\t'.join(link) + '\n')
