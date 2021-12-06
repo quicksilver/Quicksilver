@@ -100,7 +100,7 @@ This release requires macOS 10.12.
 
   * A new trigger is available to relaunch Quicksilver. It's activated with ⌃⌥⌘Q by default. It can be reconfigured in Preferences → Triggers → Quicksilver (#2399, #2404)
   * Allow searching of non-latin scripts using latin characters (transliteration). E.g type 'zhongguo' to search for '中国' or 'hangeul' to search for '한굴' (#2395)
-  
+
 ### Changed ###
 
   * The menu item to Relaunch Quicksilver and its shortcut (⌃⌘Q) have been removed because that shortcut is used by macOS now (#2404)
@@ -938,7 +938,7 @@ Changes - ß68 (3928) 2012-05-14
   * FIX: Typo in the setup routine (#876)
   * FIX: update the year in the About panel (#881)
 
-Changes - ß67 (3925) 2012-04-16 
+Changes - ß67 (3925) 2012-04-16
 -------
 
    * NEW: Running applications and processes are monitored in real time (improves use of 'Quit' actions and application proxy objects) (#575)
@@ -992,17 +992,17 @@ Changes - ß66 (3923) 2012-03-25
 -------
 
    * NEW: Quick Look support. Quick look files or URLs (including proxy objects) from Quicksilver using ⌘Y, ⌘⌥Y or ␣ (spacebar - set in preferences) #23, #115 #660, #715
-   
+
    * NEW: Updated Plugins Preferences sidebars and new 'Extended Documentation' window #697
-   
+
    * CHANGE: Improved wording for the Application Updater #662, 682
-   
+
    * FIX: 'Show Entry in Catalog' and 'Show Source in Catalog' actions crash #714, #716
-   
+
    * FIX: Clear Quicksilver's 1st pane when objects are passed to it #670, #699
-   
+
    * FIX: Triggers now work for actions that display a result #623, #699
-   
+
    * FIX: Prevent Quicksilver from freezing and ignoring input on login #580
 
 
@@ -1010,25 +1010,25 @@ Changes - ß65 (3920) 2012-02-17
 -------
 
    * FIX: Honour 'jump to action' preference when grabbing objects using the 'Get Selection' service #643
-   
+
    * FIX: Disable editing of tab names in Plugin Preference pane #644
-   
+
    * FIX: Resolve proxy objects consistently #652 #621
-   
+
    * FIX: Make 3rd pane visible for AppleScript actions that expect a file #661 #603
-   
+
    * FIX: 'Show Entry in Catalog' action only shows for objects in the catalog #678
-   
+
    * CHANGE: Allow non-admin users to set the dock icon preference #690 #686 #689
-   
+
    * CHANGE: Only allow disabling of the Catalog (by holding ⌥ on luanch) in Debug builds
-   
+
    * CHANGE: When using the Move To.../Copy To... actions display the file's parent folder in the 3rd pane #665
 
    * CHANGE: Allow Quicksilver to set URLs as 'remote host' types #497
-   
+
    * CHANGE: Development settings and CHANGELOG creation method #599 #658
-   
+
 Changes - ß64 (3915) 2012-02-02
 -------
 
@@ -1039,186 +1039,186 @@ Changes - ß64 (3913) 2012-02-02
 -------
 
   * FIX: Prevent all plug-ins from being deleted on launch
-  
+
   * FIX: Prevent some interfaces from showing `<QSCommand 0xffff>` as the command
-  
+
   * FIX: The plug-in download progress bar works
-  
+
   * FIX: Accented characters no longer wipe out the search string (Issue #539)
-  
+
   * FIX: Latest Download proxy object works with a symlinked Downloads folder (Issue #596, #616)
-  
+
   * FIX: Correctly display dynamically generated details for objects and actions (Issue #591)
-  
+
   * FIX: Correctly notify the user when there's no internet connection (Issue #640)
-  
+
   * FIX: Prevent a crash when trying to run an AppleScript that was moved or deleted
-  
+
   * FIX: Better handling of Dock icon preferences and crash protection (Issue #587)
-  
+
   * CHANGE: If the name and details are identical, don't show both
-  
+
   * CHANGE: Simplified the wording in the Setup Assistant
-  
+
   * CHANGE: Updated QSDroplet icon to reflect the new style
 
 Changes - ß63 (3912) 2011-11-22
 -------
 
   * FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased
-  
+
   * FIX: Fixed a bugin Quicksilver's internal updating mechanism. **Note:** ß63 will need to be downloaded manually by all users
-  
+
   * FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue #582)
-  
+
   * FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue #585)
 
 Changes - ß62 (3901) 2011-11-10
 -------
-  
+
   * CHANGE: So called "advanced features" are now just on all the time (Issues #479, #341)
-  
+
   * CHANGE: Proxy objects are enabled by default for new users (Issue #479)
-  
+
   * CHANGE: Selection is pulled from any application by default (instead of Finder only) for new users (Issue #479)
-  
+
   * NEW: Quicksilver will detect if it crashed previously and offer some actions that might help (Issue #532)
-  
+
   * NEW: Quicksilver can identify (and optionally remove) plug-ins that cause it to crash (Issue #532)
-    
+
   * FIX: When replacing plug-ins, Quicksilver will no longer remove those inside the application itself (such as Core Support) (Issue #534)
-  
+
   * FIX: Trigger scoping now correctly works (Issues #174, #85)
-  
+
   * FIX: Triggers are saved more reliably during editing (Issues #240, #248)
-  
+
   * FIX: Mouse triggers will continue to work after a restart (Issue #542)
-  
+
   * FIX: The command builder (the panel used to create/edit triggers) can be dismissed with ⎋ repeatedly (Issue #537)
-  
+
   * FIX: The command builder uses consistent colors to ensure readability (Issue #549)
-  
+
   * FIX: Custom icons for actions in `~/Library/Application Support/Quicksilver/Actions` are displayed in the second pane (Issue #361)
-  
+
   * FIX: Corrected typos in the French localization (Issue #554)
-  
+
   * FIX: Prevent a rare crash when loading plug-ins (Issue #561)
-  
+
   * FIX: Respect the preference to NOT check for updates (Issue #560)
 
 Changes - ß61 (3900) 2011-10-23
 -------
 
   * NEW: Quicksilver is now 10.6+ (Snow Leopard or higher) only
-  
+
   * NEW: New built-in plugins repository for downloading and automatic-updating of plugins (Issue #491)
-  
+
   * NEW: New Quicksilver icon thanks to [Dan Deming-Henes](http://strandeddesign.com) (Issue #383)
-  
+
   * NEW: vi bindings in command interface (⌃h, ⌃j, ⌃k, ⌃l) (Issue #368)
-  
+
   * NEW: Paste as Plain text action (Issue #230)
-  
+
   * NEW: Quicksilver now stores RTF and HTML data for URLs, allowing more versatile pasting into Rich Text Editors (Issue #439)
-  
+
   * NEW: New UI Agent. Fixes for remote plugin fetching (Issue #355, #374)
-  
+
   * NEW: Added the ability for AppleScripts to use indirect (3rd pane) objects (Issue #366)
-  
+
   * FIX: Drag multiple files onto 1st pane folder correctly 'moves' the files (if residing on the same filesystem) (Issue #508)
-  
+
   * FIX: Closing the Command window in the Triggers Pref pane could cause sporadic behaviour (Issue #89, #350)
-  
+
   * FIX: Crash on image creation (unretained) (Issue #500)
-  
+
   * FIX: Small interface changes for Lion compatibility (Issues #391, #411)
-  
+
   * FIX: Docking window fixes to stop it sporadicaly appearing (Issue #321)
-  
+
   * FIX: Latest Downloads proxy to show packages (e.g. .app, .pages) (Issue	#443)
-  
+
   * FIX: Crash when rendering fonts in Quicksilver's 1st pane (Issue #386)
-  
+
   * FIX: Display of plugin icons in the icons prefs (Issue #410)
-  
+
   * FIX: Symlinks are correctly displayed and resolved (Issue #288, #351)
-  
+
   * FIX: Assigning more reliable assignment of URL objects (Issue #370)
-  
+
   * FIX: Plugin preference pane now displays the date in localised format (e.g. EU: dd/mm/yyy, US: mm/d/yy) (Issue #373)
-  
+
   * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/master) for more detail
-  
+
   * FIX: Split view fixes. Specify a (non-zero) default size to avoid confusion, and fix 'requires relaunch' prompt (Issue #349)
-  
+
   * FIX: Allow QS's built-in browser to browse more URLs (PHP URLs ending in ?...) (Issue #379)
-  
+
   * FIX: Re-evoking Quicksilver could cause the 1st pane object to be mistaken as the 3rd pane object (Issue #384)
-  
+
   * FIX: Asynchronous icon loading is now more reliable, doesn't cause actions to reload (Issue #338, #339, #388)
-  
+
   * FIX: Trash sound on Lion (Issue #389)
-  
+
   * FIX: Current proxy object now works with multiple files (Issue #210)
-  
+
   * FIX: Display the correct label for objects (Issue #405)
-  
+
   * FIX: Avoid storing of useless mnemonics that clog up Quicksilver's Application Support folder (Issue #446)
-  
+
   * FIX: Bug in the HTML parser when dealing with strangely-formatted links (Issue #345)
-  
+
   * FIX: Fixed the trigger (null) bugs where objects were not saved to the catalog (Issue #27)
-  
+
   * FIX: Encoding warnings in the console (Issue #403)
-  
+
   * FIX: Bezel interface displaying on all spaces (Issue #358, #387)
-    
+
   * CHANGE: Simplified splitObjects method: now the recommended method for plugin developers using the comma trick (Issue #422)
-  
+
   * CHANGE: Method for determining IP Addresses is more thorough, only recognising a.b.c.d (where a,b,c,d are numbers of 1-3 digits only (Issue #455)
-  
+
   * CHANGE: Xcodeproj now creates a .dmg on 'Release' building (Issue #496)
-  
+
   * CHANGE: Renamed the 'Paste with Clipboard' action to simply 'Paste' (Issue #439)
-  
+
   * CHANGE: Improved the stringValue method to return more reliable info (Issue #424)
-  
+
   * CHANGE: Improved reliability of sniffing file path strings and turning them into file objects (Issue #430)
-  
+
   * CHANGE: Removed #def DEBUG definitions from code, cleaning up the release version of Quicksilver. Speed improvements (Issue #334)
-  
+
   * CHANGE: Small change to debug builds of Quicksilver and its dock icon to make debugging easier (Issue #381)
-  
+
   * CHANGE: Removed OS9 Applications catalog preset (Issue #384)
-  
+
   * CHANGE: Minor changes to the way Quicksilver loads and saves plugins (Issue #352)
-  
+
   * CHANGE: Interface classes to allow for further font customisation in interfaces (Issue #363)
-  
+
   * CHANGE: Further improvements to the latest download proxy. More reliable and displays packages (Issues #377, #443)
-  
+
   * CHANGE: Changes for Xcode 4 compatibility (Issue #444)
-  
+
   * PLUGIN: Small fix for Constellation interface (Issue #239)
-  
+
   * PLUGIN: Menu Interface fix for Mac OS X Lion (Issue #436)
-  
+
   * PLUGIN: Various 1Password plugin fixes
-  
+
   * PLUGIN: Fixes and improvements to the TextStart Ranker (Formerly TextMate Ranker) (Issue #359, #376)
-  
+
   * PLUGIN: New current document proxy object in the UI Access plugin (Issue #62)
-  
+
   * PLUGIN: Terminal plugin fixes: Only open 1 Terminal window, improved actions
-  
+
   * PLUGIN: NEW Microsoft Office plugin. Allows right arrowing into Office apps for recent documents
-  
+
   * PLUGIN: Growl plugin update to make use of the latest framework
-  
+
   * PLUGIN: Airport module rewrite for Mac OS X Snow Leopard and above
-  
+
   * PLUGIN: Improvements to the calculator plugin. Now displays the results in realtime
-  
+
 
 Changes - ß60 (3850) 2011-06-05
 -------
@@ -1260,35 +1260,35 @@ Changes - ß60 (3850) 2011-06-05
   * NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue #323)
 
   * NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue #328)
-  
+
   * NEW: Preference that allows jumping to the action automatically for actions that return results (Issue #225)
-  
+
   * PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)
 
   * PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)
 
   * PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app
-  
+
   * PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation
-  
+
   * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows...' actions, speed increases
-  
-  * PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action 
-  
+
+  * PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action
+
   * PLUGIN: Made Window Interface appear on all spaces (Issue #61)
-  
+
   * CHANGED: Task Viewer modified to make it more robust
-  
+
   * CHANGED: Localisation improvements and refactoring (Issue #260)
- 
+
   * CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)
 
   * CHANGED: Small speed improvement to object ranking (Issue #336)
 
   * CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like `~/Documents` (Issue #331)
-  
+
   * FIX: Crash when Quicksilver tries to combine the same object (Issue #342)
-  
+
   * FIX: Searches like "Itchy & Scratchy" are now correctly passed to the browser (Issue #313)
 
   * FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)
@@ -1316,15 +1316,15 @@ Changes - ß60 (3850) 2011-06-05
   * FIX: Pressing '/' to enter items could accidentally drill down to the root (Issue #63)
 
   * FIX: The about window stops rendering images when closed
-  
+
   * FIX: Assignment of mailto: strings as objects with Email actions (Issue #267)
 
   * FIX: Always display the interface when Quicksilver returns a result (Issue #232)
 
-  * FIX: URLs with <>|#"?$! characters are parsed properly 
-  
+  * FIX: URLs with <>|#"?$! characters are parsed properly
+
   * FIX: Copy To… action only shows folders in the 3rd pane
-  
+
   * FIX: 'Visible Applications' proxy displays only apps that aren't hidden (Issue #221)
 
   * FIX: Bezel and Primer interface names display correctly in the preferences (Issue #190)
@@ -1332,7 +1332,7 @@ Changes - ß60 (3850) 2011-06-05
   * FIX: Changing interface properly registers '.' as a special character to enter text mode (Issue #233)
 
   * FIX: Incorrect size settings for two .xibs
-  
+
   * FIX: Size of result window remembered on relaunch (Issue #176)
 
   * FIX: Possible crashes when installing plugins (Issue #241)
@@ -1364,98 +1364,98 @@ Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )
 
 Changes - ß59(3842) 2011-04-16
 -------
-  
+
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
-  
+
   * NEW: New 'Latest Download' proxy, corresponding to the latest file in the ~/Downloads folder (Bug #70)
 
   * NEW: Auto Update of Application using QSApp.com (this is the last time you'll ever have to go looking for a new release!)
-  
+
   * NEW: New menu bar icon
 
   * NEW: French localisation for the Finder Module
-  
+
   * NEW: German localisation for actions
 
   * NEW: an 'Open Url in Background action'. Also set as alternate action to 'Open URL' (hit CMD+RTN)
-  
+
   * NEW: Speed improvements through the use of 'fast enumeration' in Leopard and Snow Leopard
-  
+
   * NEW: Added 'descend into bundle' option for catalog entries (containing Mac OS X bundles)
-  
+
   * NEW: Changes to build Quicksilver as a 64 bit application in the future
-  
+
   * NEW: Proxy objects for applications and windows use the correct application's icon
-  
+
   * NEW: PPC build support removed
-  
+
   * PLUGIN: New Cyberduck Plugin
-  
+
   * PLUGIN: Mail Module fixed to allow right arrowing
-  
+
   * PLUGIN: UI Elements plugin updated to enable menu services (Bug #19)
-  
+
   * PLUGIN: Fix small clipboard leak
-  
+
   * PLUGIN: New Yojimbo plugin
-  
+
   * PLUGIN: New 1Password Module for interaction with 1Password
-  
+
   * PLUGIN: New Remote Hosts Module
-  
+
   * PLUGIN: Fixed Dictionary Plugin to work with 10.5+
-  
+
   * PLUGIN: Pinboard.in added to del.icio.us Plugin
-  
+
   * PLUGIN: Added 'Current Focused Window' proxy to UI Elements Plugin
-  
+
   * PLUGIN: Newly written documentation on plugin development (see Quicksilver Plugins source on GitHub)
-  
+
   * CHANGE: Framework and source code tidy up
-  
+
   * CHANGE: Updated deprecated NSFileManager actions (10.5+)
 
   * CHANGE: Changed links to reflect change to QSApp.com website
-  
+
   * CHANGE: Quietened noisy logs, giving less (unwanted) console logs
-  
+
   * FIX: AppleScript 'Process Text' fix (Bug #144)
-  
+
   * FIX: 'Do Not Open At Login' action fixed (Bug #35)
-  
+
   * FIX: Proxy Objects now work again as previously (Bug #8 & more)
-  
+
   * FIX: A crash when installing an already installed plugin
-  
+
   * FIX: Application actions now work again (Bug #102 & #7)
-  
+
   * FIX: Calling AppleScripts now works as expected (revert old commit)
-  
+
   * FIX: Disabled items in catalog are now ignored
-  
+
   * FIX: Typos and incorrect tooltips (Bug #138 & more)
-  
+
   * FIX: 'Make Hard Link' and 'Make Link' actions fixed
-  
+
   * FIX: Memory leak fixes as returned by Clang checker
-  
+
   * FIX: Show Quicksilver Command Window when a result is required to be shown
-  
+
   * FIX: AppleScript actions now show the result in the Quicksilver Command Window
-  
+
   * FIX: Fixed build warnings within XCode, and made Source Code compiling much quicker and easier
-  
+
   * FIX: Crashes on interface rapid changing
-  
+
   * FIX: Make the 'Eject' action validate to reduce lag/wait times (Bug #56)
-  
+
   * FIX: Sizing of drawers in the Quicksilver preferences (Bug #71)
-  
+
   * FIX: Task viewer now reliably loads (Bug #119)
-  
+
   * FIX: Webkit fixes (Bug #113)
-  
-  
+
+
 Thanks for this release goes to:
 
 Development from:
@@ -1484,25 +1484,25 @@ GitHub for hosting the source and downloads.
 Changes - ß58 (3841)
 ------
 
-  * NEW: Make shell scripts with "additional shebang" info work. 
+  * NEW: Make shell scripts with "additional shebang" info work.
 
   * README: Make real links.
 
-  * CHANGE: Disable Info.plist preprocessing on Plugins.   
+  * CHANGE: Disable Info.plist preprocessing on Plugins.
 
-  * CHANGE: Removed dangling NSLog calls 
+  * CHANGE: Removed dangling NSLog calls
 
   * CHANGE: Add Core Plugins to Release Build
 
   * CHANGE: Menus improved
 
-  * CHANGE: Object context menus improved  
-  
+  * CHANGE: Object context menus improved
+
   * CHANGE: Update score ranking code
 
   * CHANGE: NSEnumerator - loop optimization
 
-  * CHANGE: Turn on a couple release optimizations 
+  * CHANGE: Turn on a couple release optimizations
 
   * FIX: Error messages
 
@@ -1514,23 +1514,23 @@ Changes - ß58 (3841)
 
   * FIX: Recent Items made Snow Leopard compatible
 
-  * FIX: Text fields only allow plain text 
+  * FIX: Text fields only allow plain text
 
   * FIX: Bug creating an indexSet from the UI Access plugin
 
-  * FIX: 10.5 compilation issue 
+  * FIX: 10.5 compilation issue
 
   * FIX: Do Not Open At Login Action now working (Issue #35)
 
   * FIX: Issue #34
 
-  * FIX: relaunch action for fussy apps that did not quit straight away 
+  * FIX: relaunch action for fussy apps that did not quit straight away
 
   * FIX: Incorrect display of Websearch (Issue #39)
 
-  * FIX: Issues 26, 47, 57 and 61 
+  * FIX: Issues 26, 47, 57 and 61
 
-  * FIX: lingering issue PjRobertson found 
+  * FIX: lingering issue PjRobertson found
 
   * FIX: single/double tap Modifier Key Activation
 
