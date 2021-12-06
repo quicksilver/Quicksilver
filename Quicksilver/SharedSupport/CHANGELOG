@@ -7,7 +7,7 @@
 ### Changed ###
 
   * Prefer running natively on M1 Macs (#2560)
-  * Switch from Python 2 to Python 3 (#2581, #2582)
+  * Switch from Python 2 to Python 3 (#2581, #2577)
 
 ### Fixed ###
 
