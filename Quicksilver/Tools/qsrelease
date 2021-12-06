@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e # fail on error
+
 ## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
