@@ -1,65 +1,118 @@
-#!/bin/zsh
+#!/bin/sh
+
+set -euf
+set -x
+
+cleanup() {
+  rm -f "${SETTINGS}"
+}
+trap cleanup EXIT
+
+# Allow users to pass in a custom signing identity name for testing with
+# self-signed certs
+SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
+
+# Default to x86_64 for CI builds
+if [ -n "${CI:-}" ]; then
+  CURRENT_ARCH=x86_64
+else
+  CURRENT_ARCH=$(arch)
+fi
 
 ## Quicksilver Release build
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
-xcodebuild -configuration Release -scheme 'Quicksilver Distribution' -showBuildSettings | sort -u > $SETTINGS
+xcodebuild \
+  -destination generic/platform=macos \
+  -configuration Release \
+  -scheme 'Quicksilver Distribution' \
+  -showBuildSettings |
+  sort -u > "${SETTINGS}"
 
-SOURCE_ROOT="$( egrep '\bSOURCE_ROOT\b' $SETTINGS | sed -e 's/.*SOURCE_ROOT *= *\(.*\)/\1/' )"
-BUILT_PRODUCTS_DIR="$( egrep '\bBUILT_PRODUCTS_DIR\b' $SETTINGS | sed -e 's/.*BUILT_PRODUCTS_DIR *= *\(.*\)/\1/' )"
-QS_INFO_VERSION="$( egrep '\bQS_INFO_VERSION\b' $SETTINGS | sed -e 's/.*QS_INFO_VERSION *= *\(.*\)/\1/' )"
+SOURCE_ROOT=$(awk '$1 == "SOURCE_ROOT" { print $NF }' < "${SETTINGS}")
+BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
+QS_INFO_VERSION=$(awk '$1 == "QS_INFO_VERSION" { print $NF }' < "${SETTINGS}")
 
 ## Create the directory (for logging purposes)
-mkdir -p "$BUILT_PRODUCTS_DIR"
-LOG="$BUILT_PRODUCTS_DIR/build.log"
-DMG_TEMP="$BUILT_PRODUCTS_DIR/dmg"
+mkdir -p "${BUILT_PRODUCTS_DIR}"
+LOG=${BUILT_PRODUCTS_DIR}/build.log
+DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
 ## Clean and Build
 ## (This could be done with a single command, but if `clean` fails, the
 ## exit status won't be 0. It usually fails because something didn't exist
 ## in the first place. We don't care.)
-# xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
-xcodebuild -scheme 'Quicksilver Distribution' test > $LOG
-xcodebuild -configuration Release -scheme 'Quicksilver Distribution' clean > $LOG
-xcodebuild -configuration Release -scheme 'Quicksilver Distribution' build >> $LOG
+{
+  # xcodebuild -configuration Debug -scheme 'Quicksilver' test > $LOG
+  xcodebuild \
+    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+    -scheme 'Quicksilver Distribution' \
+    test || true
 
-if [[ $? == 0 ]]; then
-  ## Build succeeded
-  cd $BUILT_PRODUCTS_DIR
+  # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
+  xcodebuild \
+    -destination generic/platform=macos \
+    -configuration Release \
+    -scheme 'Quicksilver Distribution' \
+    clean || true
+  xcodebuild \
+    -destination generic/platform=macos \
+    -configuration Release \
+    -scheme 'Quicksilver Distribution' \
+    build
+} > "${LOG}"
 
-  ## Set the correct plist permissions
-  chmod 644 Quicksilver.app/Contents/Info.plist
+## Build succeeded
+cd "${BUILT_PRODUCTS_DIR}"
 
-  ## Sign for Gatekeeper
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/Frameworks/*.framework
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/PlugIns/*.qsplugin
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/Resources/QSDroplet.app
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/Library/Automator/*.action
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/Resources/*.plist
-  codesign -s "Developer ID Application" Quicksilver.app/Contents/Info.plist
-  codesign -s "Developer ID Application" Quicksilver.app
+## Set the correct plist permissions
+chmod 644 Quicksilver.app/Contents/Info.plist
 
-  ## Package it in a disk image
-  mkdir $DMG_TEMP
-  cp -a Quicksilver.app $DMG_TEMP
-  cp $SOURCE_ROOT/Resources/DMG_DS_Store $DMG_TEMP/.DS_Store
-  cd $DMG_TEMP
-  ln -s /Applications
-  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 .DS_Store Quicksilver.app Applications >> $LOG
-  codesign -s "Developer ID Application" Quicksilver.dmg
-  mv Quicksilver.dmg "../Quicksilver $QS_INFO_VERSION.dmg"
-  cd ..
+# Mass codesign everything. Will fail the first time through due to unsignable
+# items; here we explicitly ignore the error and hide a bunch of "bundle format
+# unrecognized" and "already signed" errors
 
-  ## Easy access to plist
-  cp Quicksilver.app/Contents/Info.plist $BUILT_PRODUCTS_DIR
+find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + 2> /dev/null || true
 
-  ## Show the folder
-  open $BUILT_PRODUCTS_DIR
+# Codesign the whole app now that all contents are signed
+codesign --force --sign "${SIGNING_IDENTITY}" ./Quicksilver.app
 
-  ## Verify app and DMG signing
-  codesign --verify --deep --strict --verbose=1 Quicksilver.app
-  spctl -avt open --context context:primary-signature "Quicksilver $QS_INFO_VERSION.dmg"
-fi
+## Package it in a disk image
+mkdir -p "${DMG_TEMP}"
+cp -a Quicksilver.app "${DMG_TEMP}"
+cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store "${DMG_TEMP}"/.DS_Store
+cd "${DMG_TEMP}"
+ln -sf /Applications .
+"${SOURCE_ROOT}"/Tools/buildDMG.pl \
+  -dmgName Quicksilver \
+  -volName Quicksilver \
+  -volSize 50 \
+  -volIcon "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns \
+  -compressionLevel 9 \
+  .DS_Store Quicksilver.app Applications \
+  >> "${LOG}"
 
-## Cleanup
-rm $SETTINGS
+codesign --deep --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
+mv Quicksilver.dmg "../Quicksilver ${QS_INFO_VERSION}".dmg
+cd ..
+
+## Easy access to plist
+cp Quicksilver.app/Contents/Info.plist "${BUILT_PRODUCTS_DIR}"
+
+## Show the folder
+open "${BUILT_PRODUCTS_DIR}"
+
+## Verify app and DMG signing, don't fail due to already signed
+codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
+
+## Will fail with a self-signed cert unless added to spctl
+## https://stackoverflow.com/a/53814748/1588795
+## https://stackoverflow.com/a/40605003/1588795
+## Run below to approve self-signed cert with label `QuicksilverTest` (requires
+## admin password), and the line below that to remove the approval
+# spctl --add --requirement "certificate leaf[subject.CN] = \"${SIGNING_IDENTITY}\"" --label "QuicksilverSelfSignedTest"
+# spctl --remove --label QuicksilverTest
+spctl --assess --verbose --type open --type exec ./Quicksilver.app || true
+
+## Will fail with a self-signed cert
+spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg" || true
