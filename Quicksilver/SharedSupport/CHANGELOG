@@ -15,6 +15,10 @@
   * “Application Quit” event triggers would never run (#2551)
   * Correctly relaunch on M1 Macs (#2557)
 
+### Development ###
+
+  * Clean up and improve the `qsrelease` script (#2582)
+
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
 ### New ###
