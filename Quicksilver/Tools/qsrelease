@@ -83,12 +83,11 @@ cp -a Quicksilver.app "${DMG_TEMP}"
 cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store "${DMG_TEMP}"/.DS_Store
 cd "${DMG_TEMP}"
 ln -sf /Applications .
-"${SOURCE_ROOT}"/Tools/buildDMG.pl \
-  -dmgName Quicksilver \
-  -volName Quicksilver \
-  -volSize 50 \
-  -volIcon "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns \
-  -compressionLevel 9 \
+"${SOURCE_ROOT}"/Tools/create-dmg \
+  -volname Quicksilver \
+  -volicon "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns \
+  -disk-image-size 50 \
+  Quicksilver \
   .DS_Store Quicksilver.app Applications \
   >> "${LOG}"
 
