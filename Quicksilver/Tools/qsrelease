@@ -86,6 +86,7 @@ ln -sf /Applications .
 "${SOURCE_ROOT}"/Tools/buildDMG.pl \
   -dmgName Quicksilver \
   -volName Quicksilver \
+  -volSize 50 \
   -volIcon "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns \
   -compressionLevel 9 \
   .DS_Store Quicksilver.app Applications \
@@ -102,12 +103,7 @@ cp Quicksilver.app/Contents/Info.plist "${BUILT_PRODUCTS_DIR}"
 open "${BUILT_PRODUCTS_DIR}"
 
 ## Verify app and DMG signing, don't fail due to already signed
-codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
-
-## TODO
-## spctl currently fails with ad-hoc signing; if a real developer certificate
-## is incorporated and succeeds, remove the `|| true`s below.
-# See also: https://github.com/quicksilver/Quicksilver/issues/2576
+codesign --verify --deep --strict --verbose=1 Quicksilver.app || echo $?
 
 ## Will fail with a self-signed cert unless added to spctl
 ## https://stackoverflow.com/a/53814748/1588795
@@ -116,7 +112,8 @@ codesign --verify --deep --strict --verbose=1 Quicksilver.app || true
 ## admin password), and the line below that to remove the approval
 # spctl --add --requirement "certificate leaf[subject.CN] = \"${SIGNING_IDENTITY}\"" --label "QuicksilverSelfSignedTest"
 # spctl --remove --label QuicksilverTest
-spctl --assess --verbose --type open --type exec ./Quicksilver.app || true
+
+spctl --assess --verbose --type open --type exec ./Quicksilver.app || echo $?
 
 ## Will fail with a self-signed cert
-spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg" || true
+spctl --assess --verbose --type open --context context:primary-signature "Quicksilver ${QS_INFO_VERSION}.dmg" || echo $?
