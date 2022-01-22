@@ -4247,14 +4247,9 @@
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
-				Spanish,
 				en,
 				de,
 				fr,
@@ -4265,8 +4260,6 @@
 				pt,
 				zh_CN,
 				fi,
-				Italian,
-				Dutch,
 				no,
 				sv,
 				en_US,
@@ -4294,6 +4287,7 @@
 				id,
 				th,
 				"en-GB",
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Quicksilver */;
 			projectDirPath = "";
