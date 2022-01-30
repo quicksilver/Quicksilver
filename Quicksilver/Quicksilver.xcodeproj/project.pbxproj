@@ -979,6 +979,13 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
+		CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
+			remoteInfo = "FMDB watchOS";
+		};
 		E179ACF206482A0300083F3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2716,6 +2723,7 @@
 				4DFD65C01EA93336003CD3CE /* libFMDB-IOS.a */,
 				4DFD65C21EA93336003CD3CE /* FMDB.framework */,
 				4DFD65C41EA93336003CD3CE /* FMDB.framework */,
+				CDFDE59B27A6893B00458991 /* FMDB.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4368,6 +4376,13 @@
 			fileType = wrapper.framework;
 			path = FMDB.framework;
 			remoteRef = 4DFD65C31EA93336003CD3CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CDFDE59B27A6893B00458991 /* FMDB.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FMDB.framework;
+			remoteRef = CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
