@@ -4,22 +4,22 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Primer Interface</string>
 	<key>CFBundleExecutable</key>
 	<string>Primer Interface</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.blacktree.Quicksilver.QSPrimerInterfacePlugIn</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Primer Interface</string>
-	<key>CFBundleDisplayName</key>
-	<string>Primer Interface</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleVersion</key>
-	<string>191A</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.3.0</string>
+	<key>CFBundleVersion</key>
+	<string>191A</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
 	<key>QSPlugIn</key>
