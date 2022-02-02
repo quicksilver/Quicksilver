@@ -182,7 +182,7 @@ typedef enum {
 			if (userInitiated) {
 				NSAlert *alert = [[NSAlert alloc] init];
 
-				alert.alertStyle = NSInformationalAlertStyle;
+				alert.alertStyle = NSAlertStyleInformational;
 				alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title"),
 				alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
 				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
@@ -206,14 +206,14 @@ typedef enum {
 			/* We should ask the user if we're user-initiated or automatic downloads are not enabled. */
 			if (userInitiated || ![[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
 				NSAlert *alert = [[NSAlert alloc] init];
-				alert.alertStyle = NSInformationalAlertStyle;
+				alert.alertStyle = NSAlertStyleInformational;
 				alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
 				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], availableVersion];
 				[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
 
-				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nullEvent completionHandler:^(QSAlertResponse response) {
+				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:^(QSAlertResponse response) {
 					if (response == QSAlertResponseOK)
 						[self installAppUpdate];
 					else if (response == QSAlertResponseThird)
@@ -235,10 +235,10 @@ typedef enum {
 				QSGCDMainSync(^{
 					NSAlert *alert = [[NSAlert alloc] init];
 
-					alert.alertStyle = NSAlertStyleInformational;
-					alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
-					alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
-					[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
+				alert.alertStyle = NSAlertStyleInformational;
+				alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
+				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
 
 					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 				});

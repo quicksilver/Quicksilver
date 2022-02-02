@@ -128,7 +128,7 @@
         [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Cancel Setup", @"Setup assistant - Cancel alert title")
                                                      message:NSLocalizedString(@"Would you like to stop setup and quit Quicksilver?", @"Setup assistant - Cancel alert message")
                                                      buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]
-                                                       style:NSInformationalAlertStyle
+													   style:NSAlertStyleInformational
                                                     onWindow:[self window]
                                            completionHandler:^(QSAlertResponse response) {
                                                if (response == QSAlertResponseOK)
