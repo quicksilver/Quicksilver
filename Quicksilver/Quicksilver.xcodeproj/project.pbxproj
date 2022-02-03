@@ -979,6 +979,13 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
+		CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
+			remoteInfo = "FMDB watchOS";
+		};
 		E179ACF206482A0300083F3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2716,6 +2723,7 @@
 				4DFD65C01EA93336003CD3CE /* libFMDB-IOS.a */,
 				4DFD65C21EA93336003CD3CE /* FMDB.framework */,
 				4DFD65C41EA93336003CD3CE /* FMDB.framework */,
+				CDFDE59B27A6893B00458991 /* FMDB.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4364,6 +4372,13 @@
 			remoteRef = 4DFD65C31EA93336003CD3CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CDFDE59B27A6893B00458991 /* FMDB.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FMDB.framework;
+			remoteRef = CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -4684,7 +4699,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /usr/bin/python3;
+			shellPath = "/usr/bin/env python3";
 			shellScript = "#!/usr/bin/env python3\n\nimport os\nimport sys\nimport re\nimport platform\nfrom pathlib import Path\n\nsrcroot = Path(os.getenv('SRCROOT'))\nif srcroot is None:\n    sys.exit(78) # configuration error\n\n## location for input and output files\nsupp_dir = srcroot / \"SharedSupport\"\n\n## fake the deployment target to make distutils happy\nos.environ['MACOSX_DEPLOYMENT_TARGET'] = '.'.join(platform.mac_ver()[0].split('.')[0:2])\n\n## import Markdown support\nsys.path.append(str(srcroot / \"Tools\" / \"python-support\"))\nimport markdown\n\n## get the original text\ntext = (supp_dir / \"CHANGELOG\").read_text()\n\n## make issue numbers link to GitHub\ntext = re.sub(r'#(\\d+)', r'[#\\g<1>](https://github.com/quicksilver/Quicksilver/issues/\\g<1>)', text)\n\n## convert to HTML\n## https://stackoverflow.com/a/59055691/1588795\nmd = markdown.Markdown(extensions = [\n    \"markdown.extensions.abbr\",\n    \"markdown.extensions.attr_list\",\n    \"markdown.extensions.def_list\",\n    \"markdown.extensions.fenced_code\",\n    \"markdown.extensions.footnotes\",\n    \"markdown.extensions.tables\",\n    \"markdown.extensions.md_in_html\",\n], output_format = 'html')\nhtml = md.convert(text)\n\n## read in Quicksilver's stylesheet\nstyle = (srcroot / \"Resources\" / \"QSStyle.css\").read_text()\n\n## write the result\n(supp_dir / \"Changes.html\").write_text(\n    f\"\"\"\n<!DOCTYPE html>\n<html>\n    <head>\n        <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n        <link rel=\"stylesheet\" href=\"../Resources/QSStyle.css\" type=\"text/css\" charset=\"utf-8\">\n    </head>\n    <body id=\"qsrn\">\n        <div id=\"content\">\n            {html}\n        </div>\n    </body>\n</html>\n    \"\"\".strip()\n)\n(supp_dir /  \"ChangesBare.html\").write_text(html)\n";
 		};
 		D4CA6A5E161B5AE1005F5BAE /* Copy BeautifulSoup 4 */ = {
@@ -6327,6 +6342,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
