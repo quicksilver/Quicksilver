@@ -122,7 +122,7 @@
 	}
 }
 - (void)flagsChanged:(NSEvent *)theEvent {
-    NSString *newString = stringForModifiers([theEvent modifierFlags]);
+    NSString *newString = NDStringForModifiers((UInt32)[theEvent modifierFlags]);
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
@@ -270,7 +270,7 @@
 			}
 			break;
 			case NSEventTypeFlagsChanged: {
-                NSString *newString = stringForModifiers([theEvent modifierFlags]);
+                NSString *newString = NDStringForModifiers((UInt32)[theEvent modifierFlags]);
 
 				//NSLog(@"%@", newString);
 				[self setStringValue:[newString length] ? newString : @""];

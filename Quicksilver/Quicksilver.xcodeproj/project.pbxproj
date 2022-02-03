@@ -83,8 +83,6 @@
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
 		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF51487018700351C42 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF61487018700351C42 /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -384,6 +382,10 @@
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */; };
 		CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CDC89A6827AB69C600727225 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC89A4927AB69C000727225 /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CDC89A6927AB69C900727225 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC89A4B27AB69C000727225 /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CDC89A6A27AB69CC00727225 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC89A4E27AB69C000727225 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDC89A6B27AB69D200727225 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC89A4C27AB69C000727225 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
@@ -400,8 +402,6 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -979,12 +979,12 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
-		CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */ = {
+		CDC89A6627AB69C000727225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
+			containerPortal = CDC89A4527AB69C000727225 /* NDHotKeyEvent.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
-			remoteInfo = "FMDB watchOS";
+			remoteGlobalIDString = D8FBCF4D123CF87800084E89;
+			remoteInfo = NDHotKeyEvent;
 		};
 		E179ACF206482A0300083F3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1182,8 +1182,6 @@
 		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
-		4D66BBF51487018700351C42 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		4D66BBF61487018700351C42 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
 		4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
 		4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
 		4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
@@ -1810,6 +1808,36 @@
 		CDC10E6F1622146C005FA734 /* SUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUConstants.m; path = Sparkle/SUConstants.m; sourceTree = "<group>"; };
 		CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUPlainInstallerInternals.h; path = Sparkle/SUPlainInstallerInternals.h; sourceTree = "<group>"; };
 		CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUPlainInstallerInternals.m; path = Sparkle/SUPlainInstallerInternals.m; sourceTree = "<group>"; };
+		CDC89A3F27AB69C000727225 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CDC89A4127AB69C000727225 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		CDC89A4327AB69C000727225 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CDC89A4427AB69C000727225 /* NDHotKeyEvent_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent_Prefix.pch; sourceTree = "<group>"; };
+		CDC89A4527AB69C000727225 /* NDHotKeyEvent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = NDHotKeyEvent.xcodeproj; sourceTree = "<group>"; };
+		CDC89A4927AB69C000727225 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
+		CDC89A4A27AB69C000727225 /* NDHotKeyControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyControl.m; sourceTree = "<group>"; };
+		CDC89A4B27AB69C000727225 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
+		CDC89A4C27AB69C000727225 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
+		CDC89A4D27AB69C000727225 /* NDHotKeyControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDHotKeyControl.h; sourceTree = "<group>"; };
+		CDC89A4E27AB69C000727225 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
+		CDC89A4F27AB69C000727225 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		CDC89A5127AB69C000727225 /* AddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddController.m; sourceTree = "<group>"; };
+		CDC89A5227AB69C000727225 /* NDHotKeyEventAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEventAppDelegate.h; sourceTree = "<group>"; };
+		CDC89A5327AB69C000727225 /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
+		CDC89A5427AB69C000727225 /* AddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddController.h; sourceTree = "<group>"; };
+		CDC89A5527AB69C000727225 /* NDHotKeyEventAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEventAppDelegate.m; sourceTree = "<group>"; };
+		CDC89A5627AB69C000727225 /* WindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		CDC89A5727AB69C000727225 /* NDHotKeyEvent-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NDHotKeyEvent-Info.plist"; sourceTree = "<group>"; };
+		CDC89A5827AB69C000727225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CDC89A5B27AB69C000727225 /* 498f3425f35dff6a0f3d4b6d251d126d-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "498f3425f35dff6a0f3d4b6d251d126d-desc.xcbuild"; sourceTree = "<group>"; };
+		CDC89A5C27AB69C000727225 /* 0abb71f2bfffac67318c2f7605f99eff-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "0abb71f2bfffac67318c2f7605f99eff-desc.xcbuild"; sourceTree = "<group>"; };
+		CDC89A5D27AB69C000727225 /* 498f3425f35dff6a0f3d4b6d251d126d-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "498f3425f35dff6a0f3d4b6d251d126d-manifest.xcbuild"; sourceTree = "<group>"; };
+		CDC89A5E27AB69C000727225 /* 5d773d4601fc3ba5dcc3a4b8b9ba528d-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "5d773d4601fc3ba5dcc3a4b8b9ba528d-desc.xcbuild"; sourceTree = "<group>"; };
+		CDC89A5F27AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "4de1db05a982cc2692e138b3ba835189-manifest.xcbuild"; sourceTree = "<group>"; };
+		CDC89A6027AB69C000727225 /* 0abb71f2bfffac67318c2f7605f99eff-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "0abb71f2bfffac67318c2f7605f99eff-manifest.xcbuild"; sourceTree = "<group>"; };
+		CDC89A6127AB69C000727225 /* 5d773d4601fc3ba5dcc3a4b8b9ba528d-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "5d773d4601fc3ba5dcc3a4b8b9ba528d-manifest.xcbuild"; sourceTree = "<group>"; };
+		CDC89A6227AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "4de1db05a982cc2692e138b3ba835189-desc.xcbuild"; sourceTree = "<group>"; };
+		CDC89A6327AB69C000727225 /* BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975"; sourceTree = "<group>"; };
+		CDC89A6427AB69C000727225 /* build.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = build.db; sourceTree = "<group>"; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -1826,8 +1854,6 @@
 		CDE1E660158A4D0900355A9F /* VDKQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VDKQueue.h; path = VDKQueue/VDKQueue.h; sourceTree = "<group>"; };
 		CDE1E661158A4D0900355A9F /* VDKQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VDKQueue.m; path = VDKQueue/VDKQueue.m; sourceTree = "<group>"; };
 		CDE6C623157E39AE006E66BD /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; usesTabs = 1; };
-		CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
-		CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
 		CDEA57F316C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CDEA57F416C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
 		CDEA57F516C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSCatalog.strings"; sourceTree = "<group>"; };
@@ -2723,7 +2749,6 @@
 				4DFD65C01EA93336003CD3CE /* libFMDB-IOS.a */,
 				4DFD65C21EA93336003CD3CE /* FMDB.framework */,
 				4DFD65C41EA93336003CD3CE /* FMDB.framework */,
-				CDFDE59B27A6893B00458991 /* FMDB.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2913,6 +2938,83 @@
 				D4BDCC1E19E7F8F50080710C /* SUVersionComparisonProtocol.h */,
 			);
 			name = Sparkle;
+			sourceTree = "<group>";
+		};
+		CDC89A3D27AB69C000727225 /* NDHotKeyEvent */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A3E27AB69C000727225 /* InfoPlist.strings */,
+				CDC89A4027AB69C000727225 /* Credits.rtf */,
+				CDC89A4227AB69C000727225 /* MainMenu.xib */,
+				CDC89A4427AB69C000727225 /* NDHotKeyEvent_Prefix.pch */,
+				CDC89A4527AB69C000727225 /* NDHotKeyEvent.xcodeproj */,
+				CDC89A4827AB69C000727225 /* Classes */,
+				CDC89A4F27AB69C000727225 /* README */,
+				CDC89A5027AB69C000727225 /* Test Classes */,
+				CDC89A5727AB69C000727225 /* NDHotKeyEvent-Info.plist */,
+				CDC89A5827AB69C000727225 /* main.m */,
+				CDC89A5927AB69C000727225 /* build */,
+			);
+			path = NDHotKeyEvent;
+			sourceTree = "<group>";
+		};
+		CDC89A4627AB69C000727225 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A6727AB69C000727225 /* NDHotKeyEvent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CDC89A4827AB69C000727225 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A4927AB69C000727225 /* NDHotKeyEvent.m */,
+				CDC89A4A27AB69C000727225 /* NDHotKeyControl.m */,
+				CDC89A4B27AB69C000727225 /* NDKeyboardLayout.m */,
+				CDC89A4C27AB69C000727225 /* NDHotKeyEvent.h */,
+				CDC89A4D27AB69C000727225 /* NDHotKeyControl.h */,
+				CDC89A4E27AB69C000727225 /* NDKeyboardLayout.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		CDC89A5027AB69C000727225 /* Test Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A5127AB69C000727225 /* AddController.m */,
+				CDC89A5227AB69C000727225 /* NDHotKeyEventAppDelegate.h */,
+				CDC89A5327AB69C000727225 /* WindowController.h */,
+				CDC89A5427AB69C000727225 /* AddController.h */,
+				CDC89A5527AB69C000727225 /* NDHotKeyEventAppDelegate.m */,
+				CDC89A5627AB69C000727225 /* WindowController.m */,
+			);
+			path = "Test Classes";
+			sourceTree = "<group>";
+		};
+		CDC89A5927AB69C000727225 /* build */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A5A27AB69C000727225 /* XCBuildData */,
+			);
+			path = build;
+			sourceTree = "<group>";
+		};
+		CDC89A5A27AB69C000727225 /* XCBuildData */ = {
+			isa = PBXGroup;
+			children = (
+				CDC89A5B27AB69C000727225 /* 498f3425f35dff6a0f3d4b6d251d126d-desc.xcbuild */,
+				CDC89A5C27AB69C000727225 /* 0abb71f2bfffac67318c2f7605f99eff-desc.xcbuild */,
+				CDC89A5D27AB69C000727225 /* 498f3425f35dff6a0f3d4b6d251d126d-manifest.xcbuild */,
+				CDC89A5E27AB69C000727225 /* 5d773d4601fc3ba5dcc3a4b8b9ba528d-desc.xcbuild */,
+				CDC89A5F27AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-manifest.xcbuild */,
+				CDC89A6027AB69C000727225 /* 0abb71f2bfffac67318c2f7605f99eff-manifest.xcbuild */,
+				CDC89A6127AB69C000727225 /* 5d773d4601fc3ba5dcc3a4b8b9ba528d-manifest.xcbuild */,
+				CDC89A6227AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-desc.xcbuild */,
+				CDC89A6327AB69C000727225 /* BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975 */,
+				CDC89A6427AB69C000727225 /* build.db */,
+			);
+			path = XCBuildData;
 			sourceTree = "<group>";
 		};
 		CDD30972160B860C00CD34EC /* Count Badges */ = {
@@ -3108,6 +3210,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				CDC89A3D27AB69C000727225 /* NDHotKeyEvent */,
 				4DFD65751EA93134003CD3CE /* FMDB */,
 				CDA5253416AED83900D2017F /* DisableSubviews */,
 				CDC10E6D16221459005FA734 /* Sparkle */,
@@ -3637,8 +3740,6 @@
 				4D66BC0C148701E900351C42 /* NDAlias.m */,
 				4D66BC0D148701E900351C42 /* NDAlias+AliasFile.h */,
 				4D66BC0E148701E900351C42 /* NDAlias+AliasFile.m */,
-				CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */,
-				CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */,
 				4D66BC0F148701E900351C42 /* NDResourceFork.h */,
 				4D66BC10148701E900351C42 /* NDResourceFork.m */,
 				4D66BC11148701E900351C42 /* NDResourceFork+OtherSorces.h */,
@@ -3657,8 +3758,6 @@
 				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
 				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
 				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
-				4D66BBF51487018700351C42 /* NDHotKeyEvent.h */,
-				4D66BBF61487018700351C42 /* NDHotKeyEvent.m */,
 				4D66BBEE1486FFEF00351C42 /* NDProcess.h */,
 				4D66BBEF1486FFEF00351C42 /* NDProcess.m */,
 				4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */,
@@ -3858,6 +3957,7 @@
 				E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */,
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
 				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
+				CDC89A6A27AB69CC00727225 /* NDKeyboardLayout.h in Headers */,
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
@@ -3885,7 +3985,6 @@
 				D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
-				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
 				4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */,
 				4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */,
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
@@ -3903,6 +4002,7 @@
 				D4BDCC1C19E7F78F0080710C /* SUStandardVersionComparator.h in Headers */,
 				4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */,
 				4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */,
+				CDC89A6B27AB69D200727225 /* NDHotKeyEvent.h in Headers */,
 				4D6E8EC21EA93D61003CD3CE /* FMResultSet.h in Headers */,
 				4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */,
 				4D7DE22F1EA97614003CD3CE /* QSAlertManager.h in Headers */,
@@ -3913,7 +4013,6 @@
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
 				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
-				CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */,
 				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
@@ -4304,6 +4403,10 @@
 					ProductGroup = 4DFD65B11EA93335003CD3CE /* Products */;
 					ProjectRef = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
 				},
+				{
+					ProductGroup = CDC89A4627AB69C000727225 /* Products */;
+					ProjectRef = CDC89A4527AB69C000727225 /* NDHotKeyEvent.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -4372,11 +4475,11 @@
 			remoteRef = 4DFD65C31EA93336003CD3CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CDFDE59B27A6893B00458991 /* FMDB.framework */ = {
+		CDC89A6727AB69C000727225 /* NDHotKeyEvent.app */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = FMDB.framework;
-			remoteRef = CDFDE59A27A6893B00458991 /* PBXContainerItemProxy */;
+			fileType = wrapper.application;
+			path = NDHotKeyEvent.app;
+			remoteRef = CDC89A6627AB69C000727225 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -5002,6 +5105,7 @@
 				E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */,
 				E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */,
 				E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */,
+				CDC89A6827AB69C600727225 /* NDHotKeyEvent.m in Sources */,
 				7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */,
 				E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */,
 				E1E5FACE07B204BF0044D6EF /* NSTableView_BLTRExtensions.m in Sources */,
@@ -5019,7 +5123,6 @@
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
 				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
 				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
-				4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */,
 				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
 				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */,
@@ -5028,6 +5131,7 @@
 				4D66BC20148701EA00351C42 /* NDResourceFork.m in Sources */,
 				4D66BC22148701EA00351C42 /* NDResourceFork+OtherSorces.m in Sources */,
 				4D66BC24148701EA00351C42 /* NSOpenPanel+NDAlias.m in Sources */,
+				CDC89A6927AB69C900727225 /* NDKeyboardLayout.m in Sources */,
 				4D66BC26148701EA00351C42 /* NSPathControl+NDAlias.m in Sources */,
 				4D66BC28148701EA00351C42 /* NSSavePanel+NDAlias.m in Sources */,
 				4D66BC2A148701EA00351C42 /* NSString+NDCarbonUtilities.m in Sources */,
@@ -5038,7 +5142,6 @@
 				4D66BC441487024500351C42 /* NDScriptData.m in Sources */,
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
-				CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */,
 				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
@@ -5996,6 +6099,30 @@
 				CD59114C1B6FEA4A00A7BF02 /* en-GB */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		CDC89A3E27AB69C000727225 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDC89A3F27AB69C000727225 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CDC89A4027AB69C000727225 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDC89A4127AB69C000727225 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		CDC89A4227AB69C000727225 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDC89A4327AB69C000727225 /* en */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
