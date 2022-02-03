@@ -232,14 +232,16 @@ typedef enum {
 
 				if (!userInitiated) return;
 
-				NSAlert *alert = [[NSAlert alloc] init];
+				QSGCDMainSync(^{
+					NSAlert *alert = [[NSAlert alloc] init];
 
-				alert.alertStyle = NSInformationalAlertStyle;
-				alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
-				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
-				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
+					alert.alertStyle = NSAlertStyleInformational;
+					alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
+					alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+					[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
 
-				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+				});
 			}
 			return;
 		}
