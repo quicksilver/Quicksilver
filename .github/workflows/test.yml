@@ -1,0 +1,23 @@
+name: test
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    env:
+      SIGNING_IDENTITY: "-"
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Select Xcode
+      run: sudo xcode-select -s "/Applications/Xcode_13.1.app" && /usr/bin/xcodebuild -version
+    - name: Run unit tests
+      run: |
+           cd Quicksilver
+           ./Tools/qstest

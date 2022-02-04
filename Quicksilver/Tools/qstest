@@ -1,6 +1,43 @@
 #!/usr/bin/env sh
 
-xcodebuild test -scheme "QuickStep Core"
-xcodebuild test -scheme "QuickStep Foundation"
-xcodebuild test -scheme "Core Support"
-xcodebuild test -scheme "Quicksilver"
+set -euf
+set -x
+
+cleanup() {
+  rm -f "${SETTINGS}"
+}
+trap cleanup EXIT
+
+# Allow users to pass in a custom signing identity name for testing with
+# self-signed certs
+SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
+
+# Default to x86_64 for CI builds
+if [ -n "${CI:-}" ]; then
+  CURRENT_ARCH=x86_64
+else
+  CURRENT_ARCH=$(arch)
+fi
+
+## Quicksilver Debug build
+## Cache settings to save time
+SETTINGS=/tmp/qs_build_settings
+xcodebuild \
+  -destination generic/platform=macos \
+  -configuration Debug \
+  -project Quicksilver.xcodeproj \
+  -scheme 'Quicksilver Distribution' \
+  -showBuildSettings |
+  sort -u > "${SETTINGS}"
+
+SOURCE_ROOT=$(awk '$1 == "SOURCE_ROOT" { print $NF }' < "${SETTINGS}")
+BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
+QS_INFO_VERSION=$(awk '$1 == "QS_INFO_VERSION" { print $NF }' < "${SETTINGS}")
+
+## Create the directory (for logging purposes)
+mkdir -p "${BUILT_PRODUCTS_DIR}"
+
+xcodebuild \
+  -project Quicksilver.xcodeproj \
+  -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+  -scheme 'Quicksilver Distribution'

@@ -109,8 +109,6 @@
         @"http://qsapp.com:2:colons",
         @"/qsapp/",
         @"qsapp//",
-        @"qs.app/",
-        @"qs.app/",
         @"qsapp-/",
         @"qsapp:80/"
     ];
