@@ -47,39 +47,41 @@ QSTaskController *QSTasks;
 - (void)taskStarted:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 
-    @synchronized (self) {
+	QSGCDMainSync(^{
         self.tasksDictionary[task.identifier] = task;
 
         if (self.tasksDictionary.count == 1) {
             [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:task];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
-    }
+	});
 }
 
 - (void)taskStopped:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
-
-    @synchronized (self) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
-
-        if (self.tasksDictionary.count == 1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:task];
-        }
-
-        [self.tasksDictionary removeObjectForKey:task.identifier];
-    }
+	
+	QSGCDMainSync(^{
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
+		
+		if (self.tasksDictionary.count == 1) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:task];
+		}
+		
+		[self.tasksDictionary removeObjectForKey:task.identifier];
+	});
 }
 
 - (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
-    NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
-
-    QSTask *task = [QSTask taskWithIdentifier:identifier];
-
-    task.status = status;
-    task.progress = progress;
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
+	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+	QSGCDMainSync(^{
+		
+		QSTask *task = [QSTask taskWithIdentifier:identifier];
+		
+		task.status = status;
+		task.progress = progress;
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
+	});
 }
 
 - (void)removeTask:(NSString *)identifier {
