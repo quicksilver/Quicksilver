@@ -16,6 +16,7 @@
   * Correctly relaunch on Apple Silicon Macs (#2557)
   * Fixed bugs related to switching keyboard layouts (#1134, #2594)
   * Correctly display more keyboard shortcuts (#2418, #2594)
+  * Improve sorting triggers by keyboard shortcut (#2561, #2598)
 
 ### Development ###
 
