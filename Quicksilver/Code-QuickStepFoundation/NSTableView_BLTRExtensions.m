@@ -36,7 +36,7 @@ static const CGFunctionCallbacks linearFunctionCallbacks = {0, &_linearColorBlen
 	// Take the color apart
 	if (!color) color = [NSColor alternateSelectedControlColor];
 	CGFloat hue, saturation, brightness, alpha;
-	[[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+	[[color colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 
 	// Create synthetic darker and lighter versions
 	NSColor *lighterColor = [NSColor colorWithDeviceHue:hue saturation:MAX(0.0, saturation-.12) brightness:MIN(1.0, brightness+0.30) alpha:alpha];
@@ -54,9 +54,9 @@ static const CGFunctionCallbacks linearFunctionCallbacks = {0, &_linearColorBlen
 	//	if (![firstResponder isKindOfClass:[NSView class]] ||
 	//		![(NSView *)firstResponder isDescendantOf:self] ||
 	if (![[self window] isKeyWindow]) {
-		color = [[color colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-		lighterColor = [[lighterColor colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-		darkerColor = [[darkerColor colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+		color = [[color colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
+		lighterColor = [[lighterColor colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
+		darkerColor = [[darkerColor colorUsingColorSpaceName:NSDeviceWhiteColorSpace] colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
 	}
 
 	// Set up the helper function for drawing washes

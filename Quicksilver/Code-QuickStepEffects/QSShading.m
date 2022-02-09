@@ -33,8 +33,8 @@ void QSColorFade(void *info, const CGFloat *in, CGFloat *out) {
 }
 void QSFillRectWithGradientFromEdge(NSRect rect, NSColor *start, NSColor *end, NSRectEdge startEdge) {
 	CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-	start = [start colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-	end = [end colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	start = [start colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
+	end = [end colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
 	size_t components;
 	static const CGFloat domain[2] = { 0, 1 } ;
 	static const CGFloat range[10] = { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 } ;

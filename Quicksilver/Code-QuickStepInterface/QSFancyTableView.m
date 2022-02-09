@@ -28,7 +28,7 @@
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {
 	NSColor *backgroundColor = [self backgroundColor];
 	CGFloat hue, saturation, brightness, alpha;
-	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+	[[backgroundColor colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 
 	// Create synthetic darker and lighter versions
 	NSColor *lighterColor = [NSColor colorWithDeviceHue:hue saturation:MAX(0.0, saturation*.88) brightness:MIN(1.0, brightness*1.15) alpha:alpha];
@@ -79,7 +79,7 @@
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {
 	NSColor *backgroundColor = [self backgroundColor];
 	CGFloat hue, saturation, brightness, alpha;
-	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+	[[backgroundColor colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 
 	// Create synthetic darker and lighter versions
 	NSColor *lighterColor = [NSColor colorWithDeviceHue:hue saturation:MAX(0.0, saturation*.88) brightness:MIN(1.0, brightness*1.15) alpha:alpha];
