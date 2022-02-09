@@ -58,7 +58,7 @@ void QSFillRectWithGradientFromEdge(NSRect rect, NSColor *start, NSColor *end, N
 
 	CGShadingRef shading = CGShadingCreateAxial(colorspace, startPoint, endPoint, function, NO, NO);
 
-	CGContextRef currentContext = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef currentContext = (CGContextRef) [[NSGraphicsContext currentContext] CGContext];
 	CGContextDrawShading(currentContext, shading);
 	CGFunctionRelease(function);
 	CGShadingRelease(shading);

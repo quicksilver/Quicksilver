@@ -210,7 +210,7 @@ NSMutableDictionary *bindingsDict = nil;
 		rect = [self frame];
 
 		if (NSWidth(rect) > QSSizeMax.width && NSHeight(rect) > QSSizeMax.height) {
-			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
+			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] CGContext]);
 			CGContextSetAlpha(context, 0.92);
 		}
         // Use the background colour from the prefs for the text editor bg color (with a slight transparency)

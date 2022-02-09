@@ -32,7 +32,7 @@
 	if (opacity >= 1.0) {
 		[super _recursiveDisplayAllDirtyWithLockFocus:lock visRect:rect];
 	} else if(opacity) {
-		CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
+		CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] CGContext]);
 		CGContextSaveGState(context);
 		CGContextSetAlpha(context, opacity);
 		CGContextBeginTransparencyLayer(context, 0);

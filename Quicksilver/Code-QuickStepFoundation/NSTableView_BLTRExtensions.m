@@ -89,7 +89,7 @@ static const CGFunctionCallbacks linearFunctionCallbacks = {0, &_linearColorBlen
 		NSRectFill(topBar);
 
 		// Draw a soft wash underneath it
-		CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+		CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
 		CGContextSaveGState(context); {
 			CGContextClipToRect(context, (CGRect) {{NSMinX(washRect),NSMinY(washRect)},{NSWidth(washRect),NSHeight(washRect)}});
 			CGShadingRef cgShading = CGShadingCreateAxial(colorSpace, CGPointMake(0, NSMinY(washRect) ), CGPointMake(0, NSMaxY(washRect) ), linearBlendFunctionRef, NO, NO);
