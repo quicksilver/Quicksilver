@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="9532"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="19529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSAboutWindowController">
@@ -15,18 +15,18 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="About Quicksilver" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="About Window" customClass="QSWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="48" y="169" width="311" height="552"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="7" customClass="QSBackgroundView">
                 <rect key="frame" x="0.0" y="0.0" width="311" height="552"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" tag="1" id="22">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                         <rect key="frame" x="38" y="-93" width="294" height="680"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" tag="1" title="水" id="58">
@@ -35,7 +35,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" tag="1" id="26">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="26">
                         <rect key="frame" x="38" y="-362" width="294" height="680"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" tag="1" title="银" id="59">
@@ -44,26 +44,24 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box title="Box" titlePosition="noTitle" id="16">
+                    <box fixedFrame="YES" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                         <rect key="frame" x="85" y="-9" width="250" height="569"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <view key="contentView" id="GcL-02-bIi">
-                            <rect key="frame" x="2" y="2" width="246" height="565"/>
+                            <rect key="frame" x="3" y="3" width="244" height="563"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <textField verticalHuggingPriority="750" id="6">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="101" y="6" width="193" height="14"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="left" title="©2000-2012 Blacktree, Inc." id="52">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="left" title="©2000-2022 Blacktree, Inc." id="52">
                             <font key="font" metaFont="systemBold" size="10"/>
                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="15">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
                         <rect key="frame" x="101" y="21" width="193" height="13"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Quicksilver" id="57">
@@ -75,12 +73,12 @@
                             <outlet property="nextKeyView" destination="8" id="23"/>
                         </connections>
                     </textField>
-                    <imageView tag="2" id="14">
+                    <imageView fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                         <rect key="frame" x="72" y="353" width="230" height="192"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" image="QSLigature" id="56"/>
                     </imageView>
-                    <textField verticalHuggingPriority="750" tag="1" id="8">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                         <rect key="frame" x="63" y="132" width="24" height="307"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" tag="1" id="53">
@@ -99,7 +97,7 @@
                             <outlet property="nextKeyView" destination="9" id="24"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" tag="1" id="9">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                         <rect key="frame" x="38" y="-5" width="26" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" tag="1" id="54">
@@ -116,7 +114,7 @@
                             <outlet property="nextKeyView" destination="10" id="25"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" tag="1" id="10">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="10" y="28" width="25" height="378"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" tag="1" id="55">
@@ -132,7 +130,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <tabView drawsBackground="NO" type="noTabsNoBorder" id="27">
+                    <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="27">
                         <rect key="frame" x="88" y="36" width="223" height="316"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="system"/>
@@ -142,7 +140,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="223" height="316"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="13">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                                             <rect key="frame" x="13" y="32" width="136" height="14"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="translated by S. Mitchell" id="61">
@@ -151,7 +149,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="11">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                                             <rect key="frame" x="13" y="48" width="49" height="14"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Lao-Tze" id="60">
@@ -160,7 +158,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="17">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                                             <rect key="frame" x="13" y="61" width="147" height="238"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="62">
@@ -194,7 +192,7 @@ by a series of small acts.
                                     <rect key="frame" x="0.0" y="0.0" width="223" height="316"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button id="46">
+                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="46">
                                             <rect key="frame" x="0.0" y="4" width="224" height="302"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <buttonCell key="cell" type="square" title="Button" bezelStyle="shadowlessSquare" alignment="center" enabled="NO" borderStyle="border" transparent="YES" inset="2" id="63">
@@ -202,20 +200,20 @@ by a series of small acts.
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
-                                        <box title="Box" titlePosition="noTitle" id="44">
+                                        <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="44">
                                             <rect key="frame" x="-21" y="0.0" width="268" height="308"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <view key="contentView" id="48j-be-l8K">
-                                                <rect key="frame" x="2" y="2" width="264" height="304"/>
+                                                <rect key="frame" x="3" y="3" width="262" height="302"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
-                                        <webView maintainsBackForwardList="NO" id="36">
+                                        <webView maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36">
                                             <rect key="frame" x="0.0" y="4" width="224" height="302"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12"/>
+                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
                                         </webView>
                                     </subviews>
                                 </view>
@@ -225,7 +223,7 @@ by a series of small acts.
                             <binding destination="-2" name="selectedIndex" keyPath="showCredits" id="48"/>
                         </connections>
                     </tabView>
-                    <button verticalHuggingPriority="750" id="32">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                         <rect key="frame" x="15" y="11" width="56" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <buttonCell key="cell" type="squareTextured" title="Credits" bezelStyle="texturedSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="64">
@@ -241,6 +239,7 @@ by a series of small acts.
             <connections>
                 <outlet property="initialFirstResponder" destination="15" id="19"/>
             </connections>
+            <point key="canvasLocation" x="140" y="144"/>
         </window>
     </objects>
     <resources>
