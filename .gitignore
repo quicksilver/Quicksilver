@@ -21,4 +21,5 @@ Quicksilver*.dmg
 Quicksilver/SharedSupport/Changes*.html
 Quicksilver/Code-External/VDKQueue
 Quicksilver/Code-External/DisableSubviews
+Quicksilver/Code-External/NDHotKeyEvent
 .idea/

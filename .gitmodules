@@ -10,3 +10,6 @@
 [submodule "Quicksilver/Code-External/FMDB"]
 	path = Quicksilver/Code-External/FMDB
 	url = https://github.com/ccgus/fmdb.git
+[submodule "Quicksilver/Code-External/NDHotKeyEvent"]
+	path = Quicksilver/Code-External/NDHotKeyEvent
+	url = https://github.com/quicksilver/ndhotkeyevent.git
