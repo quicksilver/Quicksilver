@@ -6,14 +6,16 @@
 
 ### Changed ###
 
-  * Prefer running natively on M1 Macs (#2560)
+  * Prefer running natively on Apple Silicon Macs (#2560)
   * Switch from Python 2 to Python 3 (#2581, #2577)
 
 ### Fixed ###
 
   * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
   * “Application Quit” event triggers would never run (#2551)
-  * Correctly relaunch on M1 Macs (#2557)
+  * Correctly relaunch on Apple Silicon Macs (#2557)
+  * Fixed bugs related to switching keyboard layouts (#1134, #2594)
+  * Correctly display more keyboard shortcuts (#2418, #2594)
 
 ### Development ###
 
