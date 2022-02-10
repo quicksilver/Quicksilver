@@ -86,7 +86,7 @@
 		NSRect countTextRect = centerRectInRect(glyphRect, rect);
 
 		countTextRect.origin.x += 0.1;
-		countTextRect.origin.y += (-[[numAttributes objectForKey:NSFontAttributeName] descender] /2);
+		countTextRect.origin.y += (-[[numAttributes objectForKey:NSFontAttributeName] descender] /2-2);
 
 		if (highlighted) {
 			[[NSColor colorWithCalibratedWhite:1.0 alpha:0.4] set];
