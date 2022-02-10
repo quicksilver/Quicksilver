@@ -18,7 +18,6 @@
 #import "QSDockingWindow.h"
 #import "QSFancyTableView.h"
 #import "QSFileConflictPanel.h"
-#import "QSGlossyBarView.h"
 #import "QSHandledSplitView.h"
 #import "QSHotKeyEditor.h"
 #import "QSImageAndTextCell.h"

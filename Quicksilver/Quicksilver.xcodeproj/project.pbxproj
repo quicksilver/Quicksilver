@@ -301,8 +301,6 @@
 		7FDF341907F7D59E00594789 /* NSDictionary+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */; };
 		7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */; };
-		7FE2EDE409FECDA60046DBBF /* QSGlossyBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EDE209FECDA60046DBBF /* QSGlossyBarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FE2EDE509FECDA60046DBBF /* QSGlossyBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2EDE309FECDA60046DBBF /* QSGlossyBarView.m */; };
 		7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */; };
 		7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */; };
 		7FE8940E085D021C0016C421 /* QSProcessObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */; };
@@ -937,6 +935,13 @@
 			remoteGlobalIDString = E1E5F9B107B1FD100044D6EF;
 			remoteInfo = "QuickStep Effects";
 		};
+		CD03540A27B4FC5B00CC33B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
+			remoteInfo = "FMDB watchOS";
+		};
 		CD29AEB6195663770052C893 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1448,8 +1453,6 @@
 		7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BLTRExtensions.m"; sourceTree = "<group>"; usesTabs = 1; };
 		7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSortDescriptor+BLTRExtensions.h"; sourceTree = "<group>"; usesTabs = 1; };
 		7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSortDescriptor+BLTRExtensions.m"; sourceTree = "<group>"; usesTabs = 1; };
-		7FE2EDE209FECDA60046DBBF /* QSGlossyBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGlossyBarView.h; sourceTree = "<group>"; usesTabs = 1; };
-		7FE2EDE309FECDA60046DBBF /* QSGlossyBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGlossyBarView.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; usesTabs = 1; };
 		7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSProcessObjectSource.xib; sourceTree = "<group>"; };
@@ -2749,6 +2752,7 @@
 				4DFD65C01EA93336003CD3CE /* libFMDB-IOS.a */,
 				4DFD65C21EA93336003CD3CE /* FMDB.framework */,
 				4DFD65C41EA93336003CD3CE /* FMDB.framework */,
+				CD03540B27B4FC5B00CC33B9 /* FMDB.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3672,8 +3676,6 @@
 				E131F4F007B43BF400D0E4AC /* QSDockingWindow.m */,
 				E1E5FC5A07B20E4D0044D6EF /* QSFileConflictPanel.h */,
 				E1E5FC5B07B20E4D0044D6EF /* QSFileConflictPanel.m */,
-				7FE2EDE209FECDA60046DBBF /* QSGlossyBarView.h */,
-				7FE2EDE309FECDA60046DBBF /* QSGlossyBarView.m */,
 				7F9BDB2D09F86D25004F6E7A /* QSHandledSplitView.h */,
 				7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */,
 				7F6F524708906AA7009007DF /* QSHotKeyEditor.h */,
@@ -3895,7 +3897,6 @@
 				4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */,
 				E131F4F107B43BF400D0E4AC /* QSDockingWindow.h in Headers */,
 				E1E5FC8B07B20E4D0044D6EF /* QSFileConflictPanel.h in Headers */,
-				7FE2EDE409FECDA60046DBBF /* QSGlossyBarView.h in Headers */,
 				7F9BDB2F09F86D25004F6E7A /* QSHandledSplitView.h in Headers */,
 				7F6F524908906AA7009007DF /* QSHotKeyEditor.h in Headers */,
 				4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */,
@@ -4475,6 +4476,13 @@
 			remoteRef = 4DFD65C31EA93336003CD3CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CD03540B27B4FC5B00CC33B9 /* FMDB.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FMDB.framework;
+			remoteRef = CD03540A27B4FC5B00CC33B9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		CDC89A6727AB69C000727225 /* NDHotKeyEvent.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -5045,7 +5053,6 @@
 				4DB8915D0E13E93200F57EF7 /* QSDesktopBackgroundView.m in Sources */,
 				E131F4F207B43BF400D0E4AC /* QSDockingWindow.m in Sources */,
 				E1E5FC8C07B20E4D0044D6EF /* QSFileConflictPanel.m in Sources */,
-				7FE2EDE509FECDA60046DBBF /* QSGlossyBarView.m in Sources */,
 				7F9BDB3009F86D25004F6E7A /* QSHandledSplitView.m in Sources */,
 				7F6F524A08906AA7009007DF /* QSHotKeyEditor.m in Sources */,
 				4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */,
