@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "QSPreferencePane.h"
+#import "QSUpdateController.h"
 
 @interface QSSearchPrefPane : QSPreferencePane {
     IBOutlet NSPopUpButton *keyboardPopUp;
@@ -31,7 +32,9 @@
 
 
 @interface QSApplicationPrefPane : QSPreferencePane {
+	
 }
+- (QSUpdateController *)updateController;
 - (IBAction)checkNow:(id)sender;
 - (IBAction)resetQS:(id)sender;
 - (IBAction)uninstallQS:(id)sender;

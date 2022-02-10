@@ -55,7 +55,7 @@
 - (instancetype)init {
 	self = [super init];
 	if (!self) return nil;
-
+	_isCheckingForUpdates = NO;
 	if ([NSApp checkLaunchStatus] == QSApplicationUpgradedLaunch) {
 		NSLog(@"Updated: Forcing Check");
 		[self checkForUpdates:NO];
@@ -167,12 +167,21 @@ typedef enum {
 	return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
 }
 
+- (void)setIsCheckingForUpdates:(BOOL)val {
+	QSGCDMainAsync(^{
+		[self willChangeValueForKey:@"isCheckingForUpdates"];
+		self->_isCheckingForUpdates = val;
+		[self didChangeValueForKey:@"isCheckingForUpdates"];
+	});
+}
 - (void)checkForUpdates:(BOOL)userInitiated {
+	[self setIsCheckingForUpdates:YES];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	/* This is an automated check and updates are blocked or not enabled */
 	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] && !userInitiated) {
 		NSLog(@"Preventing update check.");
+		[self setIsCheckingForUpdates:NO];
 		return;
 	}
 
@@ -189,6 +198,7 @@ typedef enum {
 
 				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 			}
+			[self setIsCheckingForUpdates:NO];
 			return;
 		}
 
@@ -198,7 +208,8 @@ typedef enum {
 			/* Disable automatically checking for updates in the background for DEBUG builds
 			 * You can still check for updates by clicking the "Check Now" button */
 			if (!userInitiated) {
-				NSLog(@"Update available (%@) but disabled in DEBUG", availableVersion);
+				NSLog(@"Update availableself-> (%@) but disabled in DEBUG", availableVersion);
+				[self setIsCheckingForUpdates:NO];
 				return;
 			}
 #endif
@@ -208,7 +219,7 @@ typedef enum {
 				NSAlert *alert = [[NSAlert alloc] init];
 				alert.alertStyle = NSAlertStyleInformational;
 				alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
-				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], availableVersion];
+				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], self->availableVersion];
 				[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
@@ -222,6 +233,7 @@ typedef enum {
 						});
 				}];
 			}
+			[self setIsCheckingForUpdates:NO];
 			return;
 		}
 
@@ -243,6 +255,7 @@ typedef enum {
 					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 				});
 			}
+			[self setIsCheckingForUpdates:NO];
 			return;
 		}
 	});
