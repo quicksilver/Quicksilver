@@ -666,7 +666,7 @@ static QSController *defaultController = nil;
             [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"This is an old version of Quicksilver",nil)
                                                          message:NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil)
                                                          buttons:@[NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil)]
-                                                           style:NSInformationalAlertStyle
+														   style:NSAlertStyleInformational
                                                         onWindow:nil
                                                completionHandler:^(QSAlertResponse response) {
                                                    if (response == QSAlertResponseOK)

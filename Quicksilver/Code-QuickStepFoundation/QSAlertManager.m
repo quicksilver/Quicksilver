@@ -222,7 +222,7 @@ NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg,
 }
 
 NSInteger QSRunInformationalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {
-    return _QSRunSheet(attachToWin, title, msg, defaultButton, alternateButton, otherButton, NSInformationalAlertStyle);
+    return _QSRunSheet(attachToWin, title, msg, defaultButton, alternateButton, otherButton, NSAlertStyleInformational);
 }
 
 NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {

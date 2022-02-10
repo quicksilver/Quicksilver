@@ -4,15 +4,15 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Finder Plugin</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.blacktree.Quicksilver.QSFinderPlugIn</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Finder Plugin</string>
-	<key>CFBundleDisplayName</key>
 	<string>Finder Plugin</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
