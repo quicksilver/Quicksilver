@@ -11,7 +11,6 @@
             <connections>
                 <outlet property="_window" destination="5" id="21"/>
                 <outlet property="arrayController" destination="208" id="272"/>
-                <outlet property="docsButton" destination="628" id="632"/>
                 <outlet property="infoButton" destination="122" id="622"/>
                 <outlet property="infoDrawer" destination="168" id="213"/>
                 <outlet property="plugInTable" destination="45" id="140"/>
@@ -40,37 +39,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="418" height="23"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </customView>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="119" customClass="QSMenuButton">
-                        <rect key="frame" x="-1" y="0.0" width="28" height="23"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="119" customClass="QSMenuButton">
+                        <rect key="frame" x="1" y="1" width="28" height="19"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button-GearMenu" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="493">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="Button-GearMenu" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="493">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
                         <connections>
                             <outlet property="menu" destination="83" id="120"/>
                         </connections>
                     </button>
-                    <button toolTip="Plugin Information" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="122">
-                        <rect key="frame" x="372" y="0.0" width="24" height="23"/>
+                    <button toolTip="Plugin Information" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="122">
+                        <rect key="frame" x="388" y="1" width="24" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button-Info" imagePosition="only" alignment="right" borderStyle="border" inset="2" id="494">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="Button-Info" imagePosition="only" alignment="right" borderStyle="border" inset="2" id="494">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="systemBold" size="12"/>
+                            <string key="keyEquivalent">i</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                         </buttonCell>
                         <connections>
                             <action selector="toggle:" target="168" id="214"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Plugin Information" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="628">
-                        <rect key="frame" x="395" y="0.0" width="24" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button-docs" imagePosition="only" alignment="right" borderStyle="border" inset="2" id="629">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="getInfo:" target="-2" id="631"/>
                         </connections>
                     </button>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="0.0" verticalLineScroll="18" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43">
@@ -193,7 +183,7 @@
                         </textFieldCell>
                     </textField>
                     <progressIndicator verticalHuggingPriority="750" fixedFrame="YES" maxValue="1" bezeled="NO" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="313">
-                        <rect key="frame" x="313" y="5" width="56" height="12"/>
+                        <rect key="frame" x="329" y="5" width="56" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <connections>
                             <binding destination="311" name="value" keyPath="selection.installProgress" id="322"/>
@@ -205,7 +195,7 @@
                         </connections>
                     </progressIndicator>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="314">
-                        <rect key="frame" x="158" y="5" width="151" height="14"/>
+                        <rect key="frame" x="175" y="5" width="150" height="14"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Small System Font Text" id="496">
                             <font key="font" metaFont="smallSystem"/>
@@ -233,12 +223,12 @@
                             <binding destination="-2" name="value" keyPath="search" id="436"/>
                         </connections>
                     </searchField>
-                    <button toolTip="Reload plugin list" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="489">
-                        <rect key="frame" x="26" y="0.0" width="24" height="23"/>
+                    <button toolTip="Reload plugin list" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="489">
+                        <rect key="frame" x="26" y="1" width="24" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button-Rescan" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="498">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="Button-Rescan" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="498">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="systemBold" size="12"/>
                             <string key="keyEquivalent">r</string>
                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                         </buttonCell>
@@ -254,7 +244,7 @@
             <connections>
                 <outlet property="initialFirstResponder" destination="423" id="485"/>
             </connections>
-            <point key="canvasLocation" x="139" y="148"/>
+            <point key="canvasLocation" x="139" y="147.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="17" userLabel="Shared Defaults"/>
         <menu title="Menu" id="83" userLabel="PlugInMenu">
@@ -354,20 +344,6 @@
                         </binding>
                     </connections>
                 </textField>
-                <button toolTip="Plugin Documentation" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="281">
-                    <rect key="frame" x="239" y="9" width="25" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                    <buttonCell key="cell" type="help" bezelStyle="helpButton" image="?" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="502">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent">?</string>
-                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="getInfo:" target="-2" id="513"/>
-                        <binding destination="208" name="enabled" keyPath="selection.hasExtendedDescription" id="615"/>
-                    </connections>
-                </button>
                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="219">
                     <rect key="frame" x="10" y="304" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -543,7 +519,22 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button toolTip="Plugin Documentation" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="281">
+                    <rect key="frame" x="10" y="12" width="204" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" title="Open Plugin Documentation" bezelStyle="texturedRounded" image="Button-docs" imagePosition="left" alignment="center" borderStyle="border" inset="2" id="502">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent">?</string>
+                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="getInfo:" target="-2" id="513"/>
+                        <binding destination="208" name="enabled" keyPath="selection.hasExtendedDescription" id="615"/>
+                    </connections>
+                </button>
             </subviews>
+            <point key="canvasLocation" x="138.5" y="923.5"/>
         </customView>
         <drawer preferredEdge="minX" trailingOffset="15" id="168">
             <size key="contentSize" width="300" height="365"/>
@@ -690,7 +681,7 @@
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="516">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
@@ -699,11 +690,11 @@
             <connections>
                 <binding destination="-2" name="title" keyPath="plugInName" id="520"/>
             </connections>
+            <point key="canvasLocation" x="729" y="568"/>
         </window>
         <dateFormatter dateStyle="short" id="574" userLabel="Plug-in Date Formatter"/>
     </objects>
     <resources>
-        <image name="?" width="128" height="128"/>
         <image name="Button-GearMenu" width="20" height="12"/>
         <image name="Button-Info" width="12" height="12"/>
         <image name="Button-Rescan" width="16" height="16"/>

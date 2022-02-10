@@ -30,7 +30,7 @@
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="793">
                         <rect key="frame" x="0.0" y="23" width="543" height="361"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <webPreferences key="preferences" identifier="guideWebView" defaultFontSize="11" defaultFixedFontSize="13" javaScriptCanOpenWindowsAutomatically="NO"/>
+                        <webPreferences key="preferences" identifier="guideWebView" defaultFontSize="11" defaultFixedFontSize="13"/>
                         <connections>
                             <outlet property="UIDelegate" destination="-2" id="832"/>
                             <outlet property="downloadDelegate" destination="-2" id="828"/>
@@ -50,12 +50,12 @@
                                     <binding destination="872" name="value" keyPath="selection.estimatedProgress" id="875"/>
                                 </connections>
                             </progressIndicator>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="864">
-                                <rect key="frame" x="54" y="0.0" width="28" height="23"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="864">
+                                <rect key="frame" x="54" y="1" width="28" height="19"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ForwardArrow" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="888">
+                                <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="ForwardArrow" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="888">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="systemBold" size="12"/>
                                     <string key="keyEquivalent">]</string>
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </buttonCell>
@@ -63,12 +63,12 @@
                                     <action selector="goForward:" target="793" id="869"/>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="863">
-                                <rect key="frame" x="26" y="0.0" width="29" height="23"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="863">
+                                <rect key="frame" x="26" y="1" width="29" height="19"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="BackArrow" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="887">
+                                <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="BackArrow" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="887">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="systemBold" size="12"/>
                                     <string key="keyEquivalent">[</string>
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </buttonCell>
@@ -99,12 +99,12 @@
                             </textField>
                         </subviews>
                     </customView>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="844" customClass="QSMenuButton">
-                        <rect key="frame" x="-1" y="0.0" width="28" height="23"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="844" customClass="QSMenuButton">
+                        <rect key="frame" x="2" y="1" width="28" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Button-GearMenu" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="889">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="Button-GearMenu" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="889">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
                         <connections>
                             <outlet property="menu" destination="845" id="848"/>
