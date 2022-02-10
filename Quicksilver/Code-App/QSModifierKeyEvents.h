@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 extern NSInteger NSAllModifierKeysMask;
+extern NSUInteger lastModifiers;
 
-NSUInteger lastModifiers;
 @interface NSApplication (QSModifierKeyEvents)
 - (void)checkForModifierEvent:(NSEvent *)theEvent;
 @end

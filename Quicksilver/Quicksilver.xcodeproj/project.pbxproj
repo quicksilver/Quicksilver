@@ -169,7 +169,7 @@
 		4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */; };
 		4DF441B50ED9C66700656AD1 /* QSHandledObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */; };
 		4DFD65C51EA9334B003CD3CE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
-		4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; };
+		4DFD65C91EA93421003CD3CE /* FMDB.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFD65C41EA93336003CD3CE /* FMDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -481,7 +481,7 @@
 		E103ED5D06471DBF00447FE0 /* ResourceLocations.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103ECCC06471DBF00447FE0 /* ResourceLocations.plist */; };
 		E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */; };
-		E103F5A20647698200447FE0 /* QSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
+		E103F5A20647698200447FE0 /* QSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E103F5AA064769A300447FE0 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
 		E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B3F069BD5D300971A69 /* ContactAddress.icns */; };
 		E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B40069BD5D300971A69 /* ContactEmail.icns */; };
@@ -519,8 +519,8 @@
 		E180014007B2B48900010DB0 /* QSWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E180011807B2B48900010DB0 /* QSWebSource.m */; };
 		E180016707B2B91800010DB0 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
-		E180016907B2B92200010DB0 /* QSFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
-		E180016A07B2B92200010DB0 /* QSEffects.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
+		E180016907B2B92200010DB0 /* QSFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E180016A07B2B92200010DB0 /* QSEffects.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E180021807B2BBB900010DB0 /* AppKitPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001C307B2BBB800010DB0 /* AppKitPrivate.h */; };
 		E180021D07B2BBB900010DB0 /* QSApp.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001C807B2BBB800010DB0 /* QSApp.h */; };
 		E180021E07B2BBB900010DB0 /* QSApp.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001C907B2BBB800010DB0 /* QSApp.m */; };
@@ -551,7 +551,7 @@
 		E1B2890506E3DAFA00CACB9E /* AppearanceBack.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B2890206E3DAFA00CACB9E /* AppearanceBack.png */; };
 		E1B5F30F06573C2900FCFBE2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		E1B5F31D06573D0A00FCFBE2 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
-		E1B5F3E106573F1700FCFBE2 /* QSInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
+		E1B5F3E106573F1700FCFBE2 /* QSInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E1B5F3EB0657416200FCFBE2 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
 		E1C3BE5306EA0AE400B848D6 /* QSRegistration.plist in Copy Plists */ = {isa = PBXBuildFile; fileRef = E1C3BE4E06EA0A7F00B848D6 /* QSRegistration.plist */; };
 		E1C4FC5306B98A9300FA8819 /* Object.png in Resources */ = {isa = PBXBuildFile; fileRef = E1C4FC5206B98A9300FA8819 /* Object.png */; };
@@ -4342,7 +4342,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					CD29AEAA195663770052C893 = {
 						TestTargetID = E1E5F9C707B1FEC50044D6EF;
@@ -6134,6 +6134,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.BezelInterfacePlugIn;
 			};
 			name = Debug;
 		};
@@ -6143,6 +6144,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.BezelInterfacePlugIn;
 			};
 			name = Release;
 		};
@@ -6152,6 +6154,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSFinderPlugIn;
 			};
 			name = Debug;
 		};
@@ -6161,6 +6164,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSFinderPlugIn;
 			};
 			name = Release;
 		};
@@ -6170,6 +6174,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSPrimerInterfacePlugIn;
 			};
 			name = Debug;
 		};
@@ -6179,6 +6184,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSPrimerInterfacePlugIn;
 			};
 			name = Release;
 		};
@@ -6188,6 +6194,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSHotKeyTriggerPlugIn;
 			};
 			name = Debug;
 		};
@@ -6197,6 +6204,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSHotKeyTriggerPlugIn;
 			};
 			name = Release;
 		};
@@ -6214,6 +6222,7 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6233,6 +6242,7 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6254,6 +6264,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6274,6 +6285,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6284,6 +6296,7 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -6293,6 +6306,7 @@
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -6313,6 +6327,7 @@
 					"-weak_framework",
 					QuickLook,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSFoundation;
 				PRODUCT_NAME = QSFoundation;
 			};
 			name = Debug;
@@ -6333,6 +6348,7 @@
 					"-weak_framework",
 					QuickLook,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSFoundation;
 				PRODUCT_NAME = QSFoundation;
 			};
 			name = Release;
@@ -6348,6 +6364,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
 			};
 			name = Debug;
@@ -6363,6 +6380,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
 			};
 			name = Release;
@@ -6378,6 +6396,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSEffects;
 				PRODUCT_NAME = QSEffects;
 			};
 			name = Debug;
@@ -6393,6 +6412,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSEffects;
 				PRODUCT_NAME = QSEffects;
 			};
 			name = Release;
@@ -6408,6 +6428,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSInterface;
 				PRODUCT_NAME = QSInterface;
 			};
 			name = Debug;
@@ -6423,6 +6444,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSInterface;
 				PRODUCT_NAME = QSInterface;
 			};
 			name = Release;
@@ -6432,6 +6454,7 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -6441,6 +6464,7 @@
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -6451,6 +6475,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 			};
 			name = Debug;
 		};
@@ -6460,6 +6485,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 			};
 			name = Release;
 		};
@@ -6469,8 +6495,9 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6482,7 +6509,9 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -6493,6 +6522,7 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = Distribution;
 			};
 			name = Debug;
@@ -6502,6 +6532,7 @@
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = Distribution;
 			};
 			name = Release;
@@ -6511,8 +6542,22 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -6522,8 +6567,21 @@
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 			};
 			name = Release;
 		};
@@ -6532,6 +6590,8 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
@@ -6545,6 +6605,8 @@
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
@@ -6586,6 +6648,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6620,6 +6683,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6664,6 +6728,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Quicksilver Tests/Quicksilver Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -6704,6 +6769,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Quicksilver Tests/Quicksilver Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

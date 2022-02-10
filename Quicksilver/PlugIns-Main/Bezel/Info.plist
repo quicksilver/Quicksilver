@@ -4,22 +4,22 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Bezel Interface</string>
 	<key>CFBundleExecutable</key>
 	<string>Bezel Interface</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.blacktree.Quicksilver.BezelInterfacePlugIn</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Bezel Interface</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleVersion</key>
-	<string>186C</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.3.0</string>
-	<key>CFBundleDisplayName</key>
-	<string>Bezel Interface</string>
+	<key>CFBundleVersion</key>
+	<string>186C</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
 	<key>QSModulePreview</key>
