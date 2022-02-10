@@ -16,7 +16,7 @@
 - (void)windowDidLoad {
 	[super windowDidLoad];
 	// logRect([[self window] frame]);
-	[[self window] addInternalWidgetsForStyleMask:NSUtilityWindowMask closeOnly:YES];
+	[[self window] addInternalWidgetsForStyleMask:NSWindowStyleMaskUtilityWindow closeOnly:YES];
 	[[self window] setLevel:NSPopUpMenuWindowLevel];
 	[[self window] setFrameAutosaveName:@"PrimerInterfaceWindow"];
     
