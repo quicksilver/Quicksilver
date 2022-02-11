@@ -219,6 +219,7 @@
 				<string>'osas'</string>
 				<string>scpt</string>
 				<string>applescript</string>
+				<string>scptd</string>
 			</array>
 			<key>directTypes</key>
 			<array>
