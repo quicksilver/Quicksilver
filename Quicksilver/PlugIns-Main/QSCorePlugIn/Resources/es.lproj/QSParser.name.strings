@@ -11,7 +11,7 @@
     <key>QSTextLineParser</key>
     <string>Lineas de Texto</string>
     <key>QSOldCaminoBookmarksParser</key>
-    <string>Marcadores de Camino (viejo)</string>
+    <string>Marcadores de Camino (Viejo)</string>
     <key>QSOmniWebShortcutsParser</key>
     <string>Atajos de OmniWeb</string>
     <key>QSOperaBookmarksParser</key>
@@ -19,10 +19,10 @@
     <key>QSPresetOmniWebHistoryParser</key>
     <string>Historia de OmniWeb</string>
     <key>QSSafariBookmarksParser</key>
-    <string>Marcadores de Safari</string>
+    <string>Marcadores Safari</string>
     <key>QSSafariHistoryParser</key>
     <string>Historia de Safari</string>
     <key>QSSogudiLinkParser</key>
-    <string>Atajos de Sogudi</string>
+    <string>Atajos Sogudi</string>
   </dict>
 </plist>
