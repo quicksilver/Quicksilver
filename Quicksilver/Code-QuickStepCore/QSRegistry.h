@@ -2,6 +2,7 @@
 
 #define QSPlugInLoadedNotification    @"QSPlugInLoaded"
 #define QSPlugInInstalledNotification @"QSPlugInInstalled"
+#define QSApplicationActions 		  @"QSApplicationActions"
 
 #define kQSActionProviders     @"QSActionProviders"
 #define kQSFSParsers           @"QSFSParsers"
