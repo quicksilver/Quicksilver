@@ -70,7 +70,7 @@ type        = STRINGS
 
 [o:quicksilver:p:quicksilver:r:quicksilver-localized-en-lproj-qsactionsprefpane-strings--master]
 file_filter = Quicksilver/Localized/<lang>.lproj/QSActionsPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSHelpersPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSActionsPrefPane.strings
 source_lang = en_US
 type        = STRINGS
 
