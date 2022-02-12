@@ -1,124 +1,124 @@
 [main]
-host = https://www.transifex.com
-lang_map = cy_GB: cy, es_ES: es-ES, zh_TW: zh-Hant, pt_BR: pt-BR, en_US: en, nb_NO: nb-NO, zh_CN: zh-Hans, ca: ca-ES, es_MX: es-MX
+host     = https://www.transifex.com
+lang_map = es_MX: es-MX, cy_GB: cy, pt_BR: pt-BR, en_US: en, nb_NO: nb-NO, es_ES: es-ES, zh_TW: zh-Hant, zh_CN: zh-Hans, ca: ca-ES
 
-[quicksilver.Quicksilver-About]
-file_filter = Quicksilver/Localized/<lang>.lproj/About.strings
-source_file = Quicksilver/Localized/en.lproj/About.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-AdvancedPreferences]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSAdvancedPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSAdvancedPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Plugin-Core-QSActionCommandFormat]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.commandFormat.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.commandFormat.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Plugin-Core-QSActionDescription]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.description.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.description.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Plugin-Core-QSActionName]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.name.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.name.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Plugin-Core-QSCatalogPresetName]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSCatalogPreset.name.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSCatalogPreset.name.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Plugin-Core-QSParserName]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSParser.name.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSParser.name.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Plugin-Core-QSObjectSourceName]
-file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSObjectSource.name.strings
-source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSObjectSource.name.strings
-source_lang = en_US
-type = PLIST
-
-[quicksilver.Quicksilver-QSActionPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSActionsPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSActionsPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSAppearancePrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSAppearancePrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSAppearancePrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSApplicationPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSApplicationPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSApplicationPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSCatalog]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSCatalog.strings
-source_file = Quicksilver/Localized/en.lproj/QSCatalog.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSHelpersPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSHelpersPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSHelpersPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSMainMenuPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSMainMenuPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSMainMenuPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSPlugInsPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSPlugInsPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSPlugInsPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSSearchPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSSearchPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSSearchPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Quicksilver-QSTriggersPrefPane]
-file_filter = Quicksilver/Localized/<lang>.lproj/QSTriggersPrefPane.strings
-source_file = Quicksilver/Localized/en.lproj/QSTriggersPrefPane.strings
-source_lang = en_US
-type = STRINGS
-
-[quicksilver.Plugin-Bezel-Localizable]
+[o:quicksilver:p:quicksilver:r:Plugin-Bezel-Localizable]
 file_filter = Quicksilver/PlugIns-Main/Bezel/<lang>.lproj/Localizable.strings
 source_file = Quicksilver/PlugIns-Main/Bezel/en.lproj/Localizable.strings
 source_lang = en_US
-type = STRINGS
+type        = STRINGS
 
-[quicksilver.Plugin-Primer-Localizable]
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSActionCommandFormat]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.commandFormat.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.commandFormat.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSActionDescription]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.description.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.description.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSActionName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.name.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSCatalogPresetName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSCatalogPreset.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSCatalogPreset.name.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSObjectSourceName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSObjectSource.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSObjectSource.name.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Core-QSParserName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSParser.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSParser.name.strings
+source_lang = en_US
+type        = PLIST
+
+[o:quicksilver:p:quicksilver:r:Plugin-Primer-Localizable]
 file_filter = Quicksilver/PlugIns-Main/PrimerInterface/<lang>.lproj/Localizable.strings
 source_file = Quicksilver/PlugIns-Main/PrimerInterface/en.lproj/Localizable.strings
 source_lang = en_US
-type = STRINGS
+type        = STRINGS
 
-[quicksilver.Quicksilver-Localizable]
+[o:quicksilver:p:quicksilver:r:Quicksilver-About]
+file_filter = Quicksilver/Localized/<lang>.lproj/About.strings
+source_file = Quicksilver/Localized/en.lproj/About.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-AdvancedPreferences]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSAdvancedPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSAdvancedPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-Localizable]
 file_filter = Quicksilver/Localized/<lang>.lproj/Localizable.strings
 source_file = Quicksilver/Localized/en.lproj/Localizable.strings
 source_lang = en_US
-type = STRINGS
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSActionPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSActionsPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSActionsPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSAppearancePrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSAppearancePrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSAppearancePrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSApplicationPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSApplicationPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSApplicationPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSCatalog]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSCatalog.strings
+source_file = Quicksilver/Localized/en.lproj/QSCatalog.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSHelpersPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSHelpersPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSHelpersPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSMainMenuPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSMainMenuPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSMainMenuPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSPlugInsPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSPlugInsPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSPlugInsPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSSearchPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSSearchPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSSearchPrefPane.strings
+source_lang = en_US
+type        = STRINGS
+
+[o:quicksilver:p:quicksilver:r:Quicksilver-QSTriggersPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSTriggersPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSTriggersPrefPane.strings
+source_lang = en_US
+type        = STRINGS
 
