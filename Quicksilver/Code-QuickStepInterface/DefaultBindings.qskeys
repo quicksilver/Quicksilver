@@ -8,8 +8,7 @@
 		<string>insertSpace:</string>
 		<key>"</key>
 		<string>conditionalTransmogrify:</string>
-		<key>⇧
-</key>
+		<key>⇧↩</key>
 		<string>executeCommandAndContinue:</string>
 		<key>⇧ </key>
 		<string>insertSpace:</string>
@@ -47,8 +46,7 @@
 		<string>goBackwardInCollection:</string>
 		<key>⌘G</key>
 		<string>grabSelection:</string>
-		<key>⌃
-</key>
+		<key>⌃↩</key>
 		<string>encapsulateCommand:</string>
 		<key>⌃⌘[</key>
 		<string>showHistoryObjects</string>
