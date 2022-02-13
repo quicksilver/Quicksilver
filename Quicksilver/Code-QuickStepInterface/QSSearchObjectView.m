@@ -794,7 +794,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)performSearch:(NSTimer *)timer {
 	//NSLog(@"perform search, %d", self);
 	if (validSearch) {
-		[resultController.searchStringField setTextColor:[NSColor blackColor]];
+		[resultController.searchStringField setTextColor:[[NSUserDefaults standardUserDefaults] colorForKey:@"QSAppearance2T"]];
 		[resultController.searchStringField display];
 		[self performSearchFor:partialString from:timer];
 		[resultController.searchStringField display];
@@ -907,7 +907,8 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	
 	if (validSearch) {
-		[resultController.searchStringField setTextColor:[NSColor blueColor]];
+		NSColor *color = [[NSUserDefaults standardUserDefaults] colorForKey:@"QSAppearance2T"];
+		[resultController.searchStringField setTextColor:color];
 	}
     
 	[self setVisibleString:[partialString uppercaseString]];
@@ -1481,7 +1482,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[self partialStringChanged];
 		if (validMnemonic) {
 			// some objects found, change the colour of the results string
-			[resultController.searchStringField setTextColor:[NSColor blackColor]];
+			[resultController.searchStringField setTextColor:[[NSUserDefaults standardUserDefaults] colorForKey:@"QSAppearance2T"]];
 		}
 	}
     if ([self matchedString] == nil && ![[[self window] currentEvent] isARepeat]) {
