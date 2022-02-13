@@ -65,6 +65,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     return keyPaths;
 }
 
+
 + (instancetype)entryWithDictionary:(NSDictionary *)dict {
 	return [[QSCatalogEntry alloc] initWithDictionary:dict];
 }
@@ -290,6 +291,11 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
+	if (enabled && [self.source respondsToSelector:@selector(enableEntry:)]) {
+		[self.source enableEntry:self];
+    } else if (!enabled && [self.source respondsToSelector:@selector(disableEntry:)]) {
+		[self.source disableEntry:self];
+	}
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
