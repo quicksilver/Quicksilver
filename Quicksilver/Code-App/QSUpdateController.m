@@ -211,7 +211,7 @@ typedef enum {
 			/* Disable automatically checking for updates in the background for DEBUG builds
 			 * You can still check for updates by clicking the "Check Now" button */
 			if (!userInitiated) {
-				NSLog(@"Update availableself-> (%@) but disabled in DEBUG", availableVersion);
+				NSLog(@"Update availableself-> (%@) but disabled in DEBUG", self->availableVersion);
 				[self setIsCheckingForUpdates:NO];
 				return;
 			}
