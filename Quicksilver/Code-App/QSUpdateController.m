@@ -189,20 +189,23 @@ typedef enum {
 		NSInteger check = [self checkForUpdateStatus:userInitiated];
 		if (check == kQSUpdateCheckError) {
 			if (userInitiated) {
-				NSAlert *alert = [[NSAlert alloc] init];
-
-				alert.alertStyle = NSAlertStyleInformational;
-				alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title"),
-				alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
-				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
-
-				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+				QSGCDMainSync(^{
+					NSAlert *alert = [[NSAlert alloc] init];
+					
+					alert.alertStyle = NSAlertStyleInformational;
+					alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title");
+					alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
+					[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
+					
+					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+				});
 			}
 			[self setIsCheckingForUpdates:NO];
 			return;
 		}
 
 		if (check == kQSUpdateCheckUpdateAvailable) {
+
 
 #ifdef DEBUG
 			/* Disable automatically checking for updates in the background for DEBUG builds
@@ -216,6 +219,7 @@ typedef enum {
 
 			/* We should ask the user if we're user-initiated or automatic downloads are not enabled. */
 			if (userInitiated || ![[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+				QSGCDMainSync(^{
 				NSAlert *alert = [[NSAlert alloc] init];
 				alert.alertStyle = NSAlertStyleInformational;
 				alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
@@ -231,7 +235,11 @@ typedef enum {
 						QSGCDMainAsync(^{
 							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
 						});
-				}];
+					}];
+				});
+			} else {
+				//
+				[self installAppUpdate];
 			}
 			[self setIsCheckingForUpdates:NO];
 			return;
@@ -248,7 +256,7 @@ typedef enum {
 					NSAlert *alert = [[NSAlert alloc] init];
 
 				alert.alertStyle = NSAlertStyleInformational;
-				alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title"),
+					alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title");
 				alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
 				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
 
@@ -272,6 +280,7 @@ typedef enum {
 - (void)installAppUpdate {
 	if (self.downloadTask) return;
 
+	QSGCDMainSync(^{
 	NSString *fileURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSDownloadUpdateURL"];
 	if (!fileURL)
 		fileURL = kDownloadUpdateURL;
@@ -293,6 +302,7 @@ typedef enum {
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
+	
 	self.appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
 	if (self.appDownload) {
 		self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
@@ -311,6 +321,7 @@ typedef enum {
 		[self.downloadTask start];
 		[self.appDownload start];
 	}
+	});
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
@@ -320,16 +331,17 @@ typedef enum {
 	NSLog(@"Download Failed: %@", error);
 	[self.downloadTask stop];
 	self.downloadTask = nil;
-
-	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = NSLocalizedString(@"Download Failed", @"QSUpdateController - download failed alert title");
-	alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"An error occured while downloading the update: %@", @"QSUpdateController - download failed alert message"), error.localizedDescription];
-	alert.alertStyle = NSAlertStyleInformational;
-
-	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - download failed alert - default button")];
-
-	[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
-
+	QSGCDMainSync(^{
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Download Failed", @"QSUpdateController - download failed alert title");
+		alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"An error occured while downloading the update: %@", @"QSUpdateController - download failed alert message"), error.localizedDescription];
+		alert.alertStyle = NSAlertStyleInformational;
+		
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - download failed alert - default button")];
+		
+		[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+	});
+	
 	[self.appDownload cancel];
 	self.appDownload = nil;
 }
@@ -368,52 +380,66 @@ typedef enum {
 	NSString *path = [self.appDownload destination];
 
 
-	BOOL shouldUpdate = YES;
+	BOOL __block shouldUpdate = YES;
 	BOOL updateWithoutAsking = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
 	if (!updateWithoutAsking) {
-		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
-		alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"QSUpdateController - update downloaded alert message");
-		alert.alertStyle = NSAlertStyleInformational;
-
-		[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update downloaded alert - default button")];
-		[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - update downloaded alert - cancel button")];
-
-		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
-
-		shouldUpdate = (response == QSAlertResponseOK);
+		QSGCDMainSync(^{
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.alertStyle = NSAlertStyleInformational;
+			alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
+			alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], self->availableVersion];
+			[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update available alert default button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - update available alert cancel button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
+			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+			
+			if (response == QSAlertResponseOK) {
+				shouldUpdate = YES;
+			} else {
+				shouldUpdate = NO;
+			}
+			if (response == QSAlertResponseThird) {
+				QSGCDMainSync(^{
+					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
+				});
+			}
+		});
 	}
 
 	if (shouldUpdate && ![self installAppFromDiskImage:path]) {
-		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"Installation Failed", @"QSUpdateController - installation failed alert title");
-		alert.informativeText = NSLocalizedString(@"It was not possible to decompress the downloaded file.", @"QSUpdateController - installation failed alert message");
-		alert.alertStyle = NSAlertStyleWarning;
-
-		[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - installation failed alert - default button")];
-		[alert addButtonWithTitle:NSLocalizedString(@"Download manually", @"QSUpdateController - installation failed alert - cancel button")];
-
-		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
-
-		if (response == QSAlertResponseSecond)
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-
+		QSGCDMainSync(^{
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = NSLocalizedString(@"Installation Failed", @"QSUpdateController - installation failed alert title");
+			alert.informativeText = NSLocalizedString(@"It was not possible to decompress the downloaded file.", @"QSUpdateController - installation failed alert message");
+			alert.alertStyle = NSAlertStyleWarning;
+			
+			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - installation failed alert - default button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Download manually", @"QSUpdateController - installation failed alert - cancel button")];
+			
+			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+			
+			if (response == QSAlertResponseSecond)
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+		});
+		
 		return;
 	}
 
-	BOOL relaunch = updateWithoutAsking;
-	if (!updateWithoutAsking) {
-		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"Installation Successful", @"QSUpdateController - relauch required alert title");
-		alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"QSUpdateController - relauch required alert message");
-		alert.alertStyle = NSAlertStyleInformational;
+	BOOL __block relaunch = updateWithoutAsking;
+	if (shouldUpdate && !updateWithoutAsking) {
+		QSGCDMainSync(^{
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = NSLocalizedString(@"Installation Successful", @"QSUpdateController - relauch required alert title");
+			alert.informativeText = NSLocalizedString(@"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"QSUpdateController - relauch required alert message");
+			alert.alertStyle = NSAlertStyleInformational;
+			
+			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSUpdateController - relauch required alert - default button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch Later", @"QSUpdateController - relauch required alert - cancel button")];
+			
+			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+			relaunch = (response == QSAlertResponseOK);
 
-		[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSUpdateController - relauch required alert - default button")];
-		[alert addButtonWithTitle:NSLocalizedString(@"Relaunch Later", @"QSUpdateController - relauch required alert - cancel button")];
-
-		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
-
-		relaunch = (response == QSAlertResponseOK);
+		});
 	}
 	if (relaunch) {
 		[NSApp relaunchFromPath:nil];

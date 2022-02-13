@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>QSCaminoBookmarksParser</key>
-    <string>Marcadors Camino</string>
+    <string>Marcadors del Camino</string>
     <key>QSDirectoryParser</key>
     <string>Contingut de la carpeta</string>
     <key>QSHTMLLinkParser</key>
@@ -11,18 +11,18 @@
     <key>QSTextLineParser</key>
     <string>Línies de text</string>
     <key>QSOldCaminoBookmarksParser</key>
-    <string>Marcadors Camino (Vell)</string>
+    <string>Marcadors Camino (vell)</string>
     <key>QSOmniWebShortcutsParser</key>
-    <string>Dreceres de teclat OmniWeb</string>
+    <string>Dreceres de teclat de l&apos;OmniWeb</string>
     <key>QSOperaBookmarksParser</key>
     <string>Marcadors Opera</string>
     <key>QSPresetOmniWebHistoryParser</key>
-    <string>Historial OmniWeb</string>
+    <string>Historial de l&apos;OmniWeb</string>
     <key>QSSafariBookmarksParser</key>
     <string>Marcadors Safari</string>
     <key>QSSafariHistoryParser</key>
     <string>Historial Safari</string>
     <key>QSSogudiLinkParser</key>
-    <string>Dreceres de teclat Sogudi</string>
+    <string>Dreceres de teclat de Sogudi</string>
   </dict>
 </plist>
