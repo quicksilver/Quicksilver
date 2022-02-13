@@ -101,7 +101,18 @@
 	[[plugInText window] useOptimizedDrawing:NO];
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
-	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	NSNumber *selectedIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSPluginSelectedView"];
+	NSIndexSet *iSet = nil;
+	if (selectedIndex) {
+		NSUInteger val = [selectedIndex unsignedIntegerValue];
+		if ([(NSArray *)[setsArrayController content] count] > val) {
+			iSet = [NSIndexSet indexSetWithIndex:val];
+		}
+	}
+	if (!selectedIndex) {
+		iSet = [NSIndexSet indexSetWithIndex:0];
+	}
+	[pluginSetsTable selectRowIndexes:iSet byExtendingSelection:NO];
 
 	// update the list of plugins to match the selected category
 	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
@@ -139,6 +150,8 @@
 		//if ([dict objectForKey:@"category"]) {
 			[self setCategory:[dict objectForKey:@"category"]];
 		//}
+		NSIndexPath *selectedPath = [setsArrayController performSelector:@selector(selectionIndexPath)];
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithUnsignedInteger:[selectedPath indexAtPosition:0]] forKey:@"QSPluginSelectedView"];
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
 		NSString *htmlString;

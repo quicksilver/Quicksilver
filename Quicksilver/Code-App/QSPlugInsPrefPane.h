@@ -11,7 +11,7 @@
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSDrawer *infoDrawer;
 	IBOutlet NSArrayController *arrayController;
-	IBOutlet NSController *setsArrayController;
+	IBOutlet NSTreeController *setsArrayController;
 	NSMutableArray *plugInArray;
 	NSMutableArray *plugins;
 	NSMutableSet *disabledPlugIns;
