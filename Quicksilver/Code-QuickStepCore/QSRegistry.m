@@ -279,7 +279,20 @@ QSRegistry* QSReg = nil;
             }];
             providers = [providersMut copy];
         }
-        [[self tableNamed:table] addEntriesFromDictionary:providers];
+		NSMutableDictionary *regDict = [self tableNamed:table];
+		if ([table isEqualToString:QSApplicationActions]) {
+			// for application actions types, add each action individually to each app bundle id. See #460
+			[providers enumerateKeysAndObjectsUsingBlock:^(NSString *bundleID, NSDictionary *appActions, BOOL * _Nonnull stop) {
+				NSMutableDictionary *appActionsTable = [regDict objectForKey:bundleID];
+				if (!appActionsTable) {
+					appActionsTable = [NSMutableDictionary dictionaryWithCapacity:1];
+					[regDict setObject:appActionsTable forKey:bundleID];
+				}
+				[appActionsTable addEntriesFromDictionary:appActions];
+			}];
+		} else {
+			[regDict addEntriesFromDictionary:providers];
+		}
 		NSMutableDictionary *retainedInstances = [tableInstances objectForKey:table];
 		for(NSString *provider in providers) {
 			id entry = [providers objectForKey:provider];

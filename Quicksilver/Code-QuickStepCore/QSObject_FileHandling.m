@@ -563,7 +563,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
         NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 
         //NSLog(@"actions %d", [actions count]);
-        NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
+        NSDictionary *appActions = [[QSReg tableNamed:QSApplicationActions] objectForKey:bundleIdentifier];
         if([appActions count]) {
             for(NSString *actionID in appActions) {
 				NSDictionary *actionDict = [appActions objectForKey:actionID];
