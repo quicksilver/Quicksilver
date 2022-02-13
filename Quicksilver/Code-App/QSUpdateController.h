@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSUpdateController : NSObject
+@interface QSUpdateController : NSObject {
+
+}
+@property (nonatomic) BOOL isCheckingForUpdates;
 + (instancetype)sharedInstance;
 - (void)checkForUpdates:(BOOL)userInitiated;
 

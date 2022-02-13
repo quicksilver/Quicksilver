@@ -11,7 +11,6 @@
 #import "QSResourceManager.h"
 #import "QSMacros.h"
 #import "QSApp.h"
-#import "QSUpdateController.h"
 #import "QSNotifications.h"
 #import "QSController.h"
 
@@ -281,7 +280,11 @@
 }
 
 - (IBAction)checkNow:(id)sender {
-	[[QSUpdateController sharedInstance] checkForUpdates:YES];
+	[[self updateController] checkForUpdates:YES];
+}
+
+- (QSUpdateController *)updateController {
+	return [QSUpdateController sharedInstance];
 }
 
 - (void)deleteSupportFiles {
