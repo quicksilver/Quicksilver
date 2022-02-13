@@ -44,14 +44,8 @@
 		[cornerEraser appendBezierPathWithRoundedRectangle:[self frame] withRadius:4];
 		[cornerEraser addClip];
 	}
-	NSRect topRect, bottomRect;
-	NSDivideRect(fullRect, &topRect, &bottomRect, NSHeight(fullRect) /2, NSMaxYEdge);
 	[backgroundColor set];
 	NSRectFill(fullRect);
-	NSColor *highlightColor = [backgroundColor colorWithLighting:0.5*depth plasticity:0.667*depth];
-	NSColor *shadowColor = [backgroundColor colorWithLighting:-0.1*depth];
-	QSFillRectWithGradientFromEdge(topRect, highlightColor, backgroundColor, NSMaxYEdge);
-	QSFillRectWithGradientFromEdge(bottomRect, shadowColor, backgroundColor, NSMinYEdge);
 	[super drawRect:rect];
 }
 
