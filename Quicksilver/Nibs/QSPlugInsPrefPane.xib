@@ -71,7 +71,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="16" headerView="509" id="45" customClass="QSTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="358"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="418" height="358"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -92,7 +92,7 @@
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.enabled" id="258"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="271.923828125" minWidth="52.923000335693359" maxWidth="1000" id="44">
+                                        <tableColumn identifier="name" editable="NO" width="250" minWidth="52.923000335693359" maxWidth="1000" id="44">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plugins">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -120,7 +120,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="55.9609375" minWidth="10" maxWidth="1000" id="486">
+                                        <tableColumn editable="NO" width="48" minWidth="48" maxWidth="48" id="486">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Vers.">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -136,7 +136,7 @@
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.version" id="487"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="72" minWidth="48.708984375" maxWidth="82" id="297">
+                                        <tableColumn editable="NO" width="72" minWidth="72" maxWidth="82" id="297">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Updated">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -169,7 +169,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="509">
-                            <rect key="frame" x="0.0" y="0.0" width="428" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="418" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
