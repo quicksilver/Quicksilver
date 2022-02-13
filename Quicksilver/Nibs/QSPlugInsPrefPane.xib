@@ -212,7 +212,7 @@
                         </connections>
                     </textField>
                     <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="423">
-                        <rect key="frame" x="52" y="2" width="128" height="19"/>
+                        <rect key="frame" x="55" y="2" width="128" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" id="497">
                             <font key="font" metaFont="smallSystem"/>
@@ -224,7 +224,7 @@
                         </connections>
                     </searchField>
                     <button toolTip="Reload plugin list" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="489">
-                        <rect key="frame" x="26" y="1" width="24" height="19"/>
+                        <rect key="frame" x="29" y="1" width="24" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="Button-Rescan" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="498">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
