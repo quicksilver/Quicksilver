@@ -185,9 +185,11 @@
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Quickly create events and reminders.</string>
+	<string>Create events directly from Quicksilver (only used when the &apos;Calendar&apos; plugin is enabled)</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Quickly view/copy/paste information about your contacts.</string>
+	<string>View, copy and paste information from your contacts in Quicksilver (only used when the &apos;Contacts&apos; plugin is enabled)</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Create reminders directly from Quicksilver (only used when the &apos;Calendar&apos; plugin is enabled)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2000-2008 Blacktree, Inc.</string>
 	<key>NSMainNibFile</key>
