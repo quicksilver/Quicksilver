@@ -44,18 +44,22 @@
 
 //		  NSLog(@"adjust %d", indirectOptional);
 		// When the 3rd pane is not optional, show it (most likely case, so first)
+
 		if (!indirectOptional) {
+			// must show 3rd field, indirect is optional
 			[self expandWindow:sender];
 			return;
-		} else if ([iSelector objectValue]) {
-			return;
-		}else {
+		} else {
+			// indirect is optional
 			NSResponder *firstResponder = [[self window] firstResponder];
-			if (firstResponder == iSelector
-				 || firstResponder == [iSelector currentEditor]) {
+			BOOL focusingiSelector = (firstResponder == iSelector
+			|| firstResponder == [iSelector currentEditor]);
+			if (focusingiSelector) {
+				// show 3rd pane if explicitly tabbing to it (becoming first responder)
 				[self expandWindow:sender];
 				return;
 			}
+			
 		}
 	}
 	if (expanded) {
