@@ -35,9 +35,21 @@ if qs_build >= min_build:
         info['QSRequirements'] = {'version': min_build_string}
 
 ## increment version
-version_hex = info['CFBundleVersion']
-version_int = int(version_hex, 16)
-new_version = hex(version_int + 1)[2:].upper()  # uppercase, without 0x prefix
+version = info['CFBundleVersion']
+
+try:
+    version_int = int(version, 16)
+    new_version = hex(version_int + 1)[
+        2:
+    ].upper()  # uppercase, without 0x prefix
+except ValueError:
+    if '.' not in version:
+        print("I don't know how to interpret this version:", version)
+        raise
+
+    version_list = version.split(".")
+    version_list[-1] = str(int(version_list[-1]) + 1)
+    new_version = ".".join(version_list)
 info['CFBundleVersion'] = new_version
 
 ## look for documentation and convert to HTML
