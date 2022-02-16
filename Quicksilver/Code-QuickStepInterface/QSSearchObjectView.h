@@ -90,6 +90,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 @property (strong) NSTextView *textModeEditor;
 
 - (void)clearSearch; // reset everything and be ready for a new search
+- (void)clearTextView; // reset the text view. Not to be confused with clearSearch - clear search is called every time a new object is presented into the SOV, whereas keeping the underlying text is important in these cases. clearTextView should only be used in `deleteBackwards` style situations
 
 - (void)clearAll;
 

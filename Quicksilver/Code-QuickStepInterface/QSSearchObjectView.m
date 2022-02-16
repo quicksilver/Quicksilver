@@ -568,6 +568,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)clearObjectValue {
 	[self setObjectValue:nil];
+	[self clearTextView];
 	selection--;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
@@ -578,7 +579,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearAll {
-    [self clearObjectValue];
+	[self clearObjectValue];
 	[self clearHistory];
 	[self setSourceArray:nil];
 	[self setSearchArray:nil];
@@ -666,6 +667,12 @@ NSMutableDictionary *bindingsDict = nil;
     if([self isEqual:[self actionSelector]]) {
         [self setAlternateActionCounterpart:nil];
     }
+}
+
+- (void)clearTextView {
+	if ([self allowText] && [[[self textModeEditor] string] length]) {
+		[[self textModeEditor] setString:@""];
+	}
 }
 
 - (void)pageScroll:(NSInteger)direction {
@@ -1467,6 +1474,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if (defaultBool(kDoubleDeleteClearsObject)) {
 			// option to have delete clear the entire search string
 			[self clearSearch];
+			[self clearTextView];
 			return;
 		}
 		[searchTimer invalidate];
@@ -1474,6 +1482,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[self setSearchArray:nil];
 		if (!partialString || partialString.length <= 1) {
 			[self clearSearch];
+			[self clearTextView];
 			return;
 		}
 		
