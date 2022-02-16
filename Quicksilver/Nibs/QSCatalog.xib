@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -141,9 +142,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="345"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                    <color key="gridColor" white="0.80000001190000003" alpha="0.20000000300000001" colorSpace="calibratedWhite"/>
+                                    <color key="gridColor" name="separatorColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
                                         <tableColumn identifier="name" width="358" minWidth="16" maxWidth="1000" id="15">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Sources">
@@ -692,7 +693,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="130" height="234"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" red="0.92711919549999999" green="0.97254902119999997" blue="0.90588235859999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" red="0.94758063550000005" green="0.94758063550000005" blue="0.94758063550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableColumns>
                                     <tableColumn identifier="name" editable="NO" width="126.7744140625" minWidth="29.7744140625" maxWidth="1000" id="399">
@@ -714,7 +715,7 @@
                                 </tableColumns>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.79151397940000001" green="0.52189779280000004" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="538">
                         <rect key="frame" x="-100" y="-100" width="191" height="15"/>

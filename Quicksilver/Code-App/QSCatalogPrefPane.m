@@ -87,12 +87,6 @@ static id _sharedInstance;
 - (void)willUnselect { [itemContentsDrawer close]; }
 
 - (void)awakeFromNib {
-	[catalogSetsTable setBackgroundColor:[NSColor colorWithCalibratedHue:.60277777777777777777f saturation:0.070000f brightness:0.970000f alpha:1.000000f]];
-	NSColor *highlightColor = [NSColor colorWithCalibratedHue:.60277777777777777777f saturation:0.740000f brightness:0.84f alpha:1.000000f];
-
-	[(QSTableView *)catalogSetsTable setHighlightColor:highlightColor];
-	[(QSOutlineView *)itemTable setHighlightColor:highlightColor];
-	[(QSTableView *)itemContentsTable setHighlightColor:highlightColor];
 
 	NSArray *sources = [[[QSReg objectSources] allKeys] copy];
 

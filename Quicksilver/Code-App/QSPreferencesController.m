@@ -83,10 +83,6 @@ id QSPrefs;
 	[[self window] setDelegate:self];
 	[loadingProgress setUsesThreadedAnimation:YES];
 
-	[(QSTableView *)internalPrefsTable setOpaque:NO];
-	[(QSTableView *)internalPrefsTable setHighlightColor:[NSColor grayColor]];
-	[internalPrefsTable setBackgroundColor:[NSColor colorWithDeviceWhite:0.95 alpha:1.0]];
-	[[internalPrefsTable enclosingScrollView] setDrawsBackground:NO];
 	[self setWindowTitleWithInfo:nil];
 	//[settingsSplitView setDrawsDivider:NO];
 	[settingsSplitView setVertical:YES];

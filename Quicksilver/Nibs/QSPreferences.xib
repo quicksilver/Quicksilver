@@ -55,6 +55,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="3345"/>
             </connections>
+            <point key="canvasLocation" x="139" y="147"/>
         </window>
         <arrayController objectClassName="QSPreferencePane" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="3294" userLabel="Modules">
             <declaredKeys>
@@ -86,7 +87,7 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3417">
                     <rect key="frame" x="0.0" y="23" width="128" height="233"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" ambiguous="YES" id="fZf-Wq-jEj">
+                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="fZf-Wq-jEj">
                         <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -94,7 +95,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" red="0.90588236" green="0.92941176999999997" blue="0.97254901999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" red="0.94758063999999997" green="0.94758063999999997" blue="0.94758063999999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableColumns>
                                     <tableColumn identifier="name" editable="NO" width="48" minWidth="47.28955078125" maxWidth="1000" id="3420">
@@ -119,7 +120,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90588236" green="0.92941176999999997" blue="0.97254901999999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="backgroundColor"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="3544">
                         <rect key="frame" x="-100" y="-100" width="191" height="15"/>
@@ -143,6 +144,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="3463"/>
             </connections>
+            <point key="canvasLocation" x="139" y="636"/>
         </customView>
         <customView id="3454" userLabel="MainView">
             <rect key="frame" x="0.0" y="0.0" width="384" height="384"/>
@@ -168,6 +170,7 @@
                     </connections>
                 </button>
             </subviews>
+            <point key="canvasLocation" x="526" y="690"/>
         </customView>
         <customView id="3492" userLabel="CurrentView">
             <rect key="frame" x="0.0" y="0.0" width="256" height="48"/>
@@ -218,6 +221,7 @@
                     </connections>
                 </imageView>
             </subviews>
+            <point key="canvasLocation" x="139" y="443"/>
         </customView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="3556" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES"/>
@@ -231,12 +235,13 @@
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3558">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-517" y="493"/>
         </window>
     </objects>
     <resources>
