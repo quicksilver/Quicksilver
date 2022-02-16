@@ -39,9 +39,7 @@ version = info['CFBundleVersion']
 
 try:
     version_int = int(version, 16)
-    new_version = hex(version_int + 1)[
-        2:
-    ].upper()  # uppercase, without 0x prefix
+    new_version = hex(version_int + 1)[2:].upper()  # uppercase, without 0x prefix
 except ValueError:
     if '.' not in version:
         print("I don't know how to interpret this version:", version)
