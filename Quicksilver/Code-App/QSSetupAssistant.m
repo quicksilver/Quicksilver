@@ -36,7 +36,10 @@
 	return self;
 }
 - (void)awakeFromNib { [plugInsController setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];  }
+
 - (void)initiatePlugInDownload {
+	[continueButton setEnabled:NO];
+	[backButton setEnabled:NO];
 	plugInInfoStatus = 0;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoLoaded) name:QSPlugInInfoLoadedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoFailed) name:QSPlugInInfoFailedNotification object:nil];
@@ -51,17 +54,21 @@
 	[self setRecommendedPlugIns:plugins];
 
 	QSGCDMainSync(^{
-		[plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
-		[plugInLoadProgress stopAnimation:nil];
+		[self->plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
+		[self->plugInLoadProgress stopAnimation:nil];
 	});
+	[continueButton setEnabled:YES];
+	[backButton setEnabled:YES];
 }
 
 - (void)plugInInfoFailed {
 	plugInInfoStatus = -1;
 	NSLog(@"failed to get plugins");
 	QSGCDMainSync(^{
-		[plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
+		[self->plugInLoadTabView selectTabViewItemWithIdentifier:@"failed"];
 	});
+	[continueButton setEnabled:YES];
+	[backButton setEnabled:YES];
 }
 
 - (NSArray *)recommendedPlugIns { return recommendedPlugIns;  }
@@ -90,7 +97,8 @@
 
 	[(QSWindow *)[self window] setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.5] , @"duration", nil]];
 	[(QSWindow *)[self window] setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.5] , @"duration", nil]];
-	[[agreementView performSelector:@selector(documentView)] replaceCharactersInRange:NSMakeRange(0, 0) withRTF:[NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"License" ofType:@"rtf"]]];
+	NSString *licenseString = [[[NSAttributedString alloc] initWithRTF:[NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"License" ofType:@"rtf"]] documentAttributes:nil] string];
+	[[agreementView performSelector:@selector(documentView)] replaceCharactersInRange:NSMakeRange(0, 0) withString:licenseString];
 
 	[self selectedItem:[setupTabView selectedTabViewItem]];
 
@@ -141,13 +149,15 @@
 
 - (void)catalogIndexingFinished:(id)notif {
 	QSGCDMainSync(^{
-		[scanProgress stopAnimation:self];
-		[scanStatusField setHidden:YES];
+		[self->scanProgress stopAnimation:self];
+		[self->scanStatusField setHidden:YES];
 		[[self window] display];
 		//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
-		scanComplete = YES;
-		if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
-			[scanStatusField setStringValue:@"Scan Complete"];
+		self->scanComplete = YES;
+		[self->continueButton setEnabled:YES];
+		[self->backButton setEnabled:YES];
+		if ([[[self->setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
+			[self->scanStatusField setStringValue:@"Scan Complete"];
 			[[self window] display];
 		}
 	});
@@ -191,6 +201,8 @@
 
 	if ([[item identifier] isEqualToString:@"options"]) {
 		if (!scanComplete) {
+			[continueButton setEnabled:NO];
+			[backButton setEnabled:NO];
 			[scanStatusField setStringValue:@""];
 			[[self window] displayIfNeeded];
 			[scanProgress setUsesThreadedAnimation:YES];
