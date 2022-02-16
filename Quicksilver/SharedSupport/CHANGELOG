@@ -1,27 +1,31 @@
-## Changes - 1.7.0 (4027) ##
+## Changes - 2.0.0 (4027) ##
 
 ### New ###
 
-  * New Big Sur style icon (#2544, #2542, #2595)
+  * Runs natively on Apple Silicon (M1) Macs (#2560)
+  * Updated icon & interface for Big Sur & Catalina (#2544, #2542, #2595)
+  * Fully compatible with Catalina, Big Sur (#2537, #2555)
+  * Updated, more modern preference panes. Easier searching, sorting and management (#1377, #2561)
   * New translations for: Chinese (Simplified) 中文简体, Chinese (Traditional) 中文繁體， Dutch, Estonian, Finnish, Catalonian, Spanish, Portuguese (Brazil), Indonesia, Korean, Russian, Turkish, Czech, French
-
-### Changed ###
-
-  * Prefer running natively on Apple Silicon Macs (#2560)
-  * Switch from Python 2 to Python 3 (#2581, #2577)
-
+  * Allow management of To Dos (Reminders.app) from within Quicksilver
+  * Zoom plugin for managing Zoom meetings directly from within Quicksilver
+  * Improved 'Updates' interface for installing new Quicksilver updates (#1849)
+  
 ### Fixed ###
 
-  * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
-  * “Application Quit” event triggers would never run (#2551)
+  * Allow multiple plugins to add 'Application Actions' for a single application (#2605, #460)
+  * Make “Application Quit” event triggers work properly (#2551)
+  * Quicksilver can now correctly launch and run .sptd AppleScript files (#2603, #1268)
   * Correctly relaunch on Apple Silicon Macs (#2557)
-  * Fixed bugs related to switching keyboard layouts (#1134, #2594)
-  * Correctly display more keyboard shortcuts (#2418, #2594)
+  * Improved compatibility with different keyboard layouts and improved shortcut reliability (#2594, #1134, #1482, #1486, #1440, #1679, #1386, #1850, #1918)
+  * Correctly display more keyboard shortcuts (#2594, #2418)
   * Improve sorting triggers by keyboard shortcut (#2561, #2598)
 
 ### Development ###
 
   * Clean up and improve the `qsrelease` script (#2582)
+  * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
+  * Switch from Python 2 to Python 3 for development building (#2581, #2577)
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
