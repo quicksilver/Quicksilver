@@ -334,6 +334,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		NSLog(@"Error while resolving wildcards in path: %@", err);
 		return nil;
 	}
+	contents = [contents sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 	
 	for (NSString *resolvedPathPart in contents) {
 		resolved = [[[basePath
