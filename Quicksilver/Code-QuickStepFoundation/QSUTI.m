@@ -17,14 +17,12 @@
  *  @return Boolean value specifying if UTIString is a valid UTI
  */
 BOOL QSIsUTI(NSString *UTIString) {
-    if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
-        // UTIString conforms to public.item - it must be a UTI
+	if (UTTypeIsDeclared((__bridge CFStringRef)UTIString)) {
+        // UTIString has a declaration dictionary - it must be a UTI
         return YES;
     }
-    CFDictionaryRef dict = UTTypeCopyDeclaration((__bridge CFStringRef)UTIString);
-    if (dict != NULL) {
-        // UTIString has a declaration dictionary - it must be a UTI
-        CFRelease(dict);
+    if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
+        // UTIString conforms to public.item - it must be a UTI
         return YES;
     }
     
