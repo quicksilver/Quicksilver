@@ -9,21 +9,27 @@
 #import <QuickLook/QuickLook.h> // Remember to import the QuickLook framework into your project!
 
 @implementation NSImage (QuickLook)
+static CFDictionaryRef thumbnailOptions = nil;
 
 
+//TODO: when 10.14 support is dropped, switch to latest method for generating previews: https://developer.apple.com/documentation/quicklookthumbnailing
 + (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSize)size asIcon:(BOOL)icon
 {
     NSURL *fileURL = [NSURL fileURLWithPath:path];
     if (!path || !fileURL) {
         return nil;
     }
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:icon] 
-                                                     forKey:(NSString *)kQLThumbnailOptionIconModeKey];
-    CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		thumbnailOptions = CFRetain((CFDictionaryRef) [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:icon]
+																				  forKey:(NSString *)kQLThumbnailOptionIconModeKey]);
+		
+	});
+
+	CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault,
                                             (CFURLRef)fileURL, 
                                             CGSizeMake(size.width, size.height),
-                                            (CFDictionaryRef)dict);
+                                            thumbnailOptions);
     
     if (ref != NULL) {
         // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
