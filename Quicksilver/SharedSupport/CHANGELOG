@@ -10,6 +10,7 @@
   * Allow management of To Dos (Reminders.app) from within Quicksilver
   * Zoom plugin for managing Zoom meetings directly from within Quicksilver
   * Improved 'Updates' interface for installing new Quicksilver updates (#1849)
+  * New “Automatically update when files change” setting to immediately rescan folders (#330, #2633)
   
 ### Fixed ###
 
