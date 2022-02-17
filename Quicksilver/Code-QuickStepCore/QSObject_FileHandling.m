@@ -729,7 +729,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     NSError *err = nil;
     
     // Note: NSURLLocalizedLabelKey gives a localized string of the Finder label (tag in 10.9+). E.g. Red / Rouge
-    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey] error:&err];
+    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeIsLocalKey, NSURLIsExecutableKey] error:&err];
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
     if (!dict) {
@@ -765,26 +765,10 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
         if (record.extension) {
             CFRelease(record.extension);
         }
-    } else {
-        NSURL *volumeURL = [dict objectForKey:NSURLVolumeURLKey];
-        NSNumber *isLocal;
-        [volumeURL getResourceValue:&isLocal forKey:NSURLVolumeIsLocalKey error:&err];
-        if (isLocal) {
-            [mutableDict setObject:@YES forKey:NSURLVolumeIsLocalKey];
-        }
-        [mutableDict removeObjectForKey:NSURLVolumeURLKey];
     }
     [mutableDict setObject:[fileURL pathExtension] forKey:@"extension"];
     [self setObject:[mutableDict copy] forCache:@"QSItemInfoRecord"];
     return dict;
-}
-
-- (NSColor *)labelColor {
-    return [[self infoRecord] objectForKey:NSURLLabelColorKey];
-}
-
-- (BOOL)isWriteable {
-    return [[[self infoRecord] objectForKey:NSURLIsWritableKey] boolValue];
 }
 
 - (BOOL)isExecutable {
