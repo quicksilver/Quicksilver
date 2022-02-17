@@ -93,7 +93,7 @@
 - (void)interfaceDeactivated {
 	NSArray *theTriggers = [triggersDict allValues];
 	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:
-	 [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"]];
+	 [[[NSWorkspace sharedWorkspace] frontmostApplication] bundleIdentifier]];
 }
 
 // Method that listens for app changes (other than QS) and notifies the trigger scope method
