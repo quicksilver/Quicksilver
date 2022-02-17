@@ -89,6 +89,9 @@ NSSize QSMaxIconSize;
 		anObject = [(QSRankedObject *)anObject object];
 	}
 	if (self == anObject) return YES;
+	if ([self class] != [anObject class]) {
+		return NO;
+	}
 	NSString *otherIdentifier = anObject->identifier;
 	if ((identifier || otherIdentifier) && [identifier isEqualToString:otherIdentifier]) {
 		return YES;
