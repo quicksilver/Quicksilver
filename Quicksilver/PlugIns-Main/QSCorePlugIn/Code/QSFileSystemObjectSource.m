@@ -50,7 +50,7 @@
     NSMutableDictionary *settings = entry.sourceSettings;
 	if (!settings) return [workspace iconForFile:@"/Volumes"];
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *path = [self fullPathForSettings:settings];
+	NSString *path = entry.fullWatchPath;
 	BOOL isDirectory, exists;
 	exists = [manager fileExistsAtPath:path isDirectory:&isDirectory];
 	NSImage *theImage = (exists?[workspace iconForFile:path] : [QSResourceManager imageNamed:@"Question"]);
@@ -149,7 +149,7 @@
 
 	NSString *path = [settings objectForKey:kItemPath];
 	[itemLocationField setStringValue:(path ? path : @"")];
-	NSString *fullPath = [self fullPathForSettings:settings];
+	NSString *fullPath = self.selectedEntry.fullWatchPath;
 
 	NSString *parser = [settings objectForKey:kItemParser];
 
@@ -221,32 +221,14 @@
 }
 
 - (void)enableEntry:(QSCatalogEntry *)entry {
-	NSMutableDictionary *settings = entry.sourceSettings;
-	NSString *path = [self fullPathForSettings:settings];
-	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
-	if ([settings[@"watchTarget"] boolValue]) {
-		[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
-#ifdef DEBUG
-		if (VERBOSE) NSLog(@"Watching Path %@", path);
-#endif
-		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
-	}
-	NSArray *paths = settings[@"watchPaths"];
-	for (NSString * p in paths) {
-		[[QSVoyeur sharedInstance] addPath:p];
-#ifdef DEBIG
-		if (VERBOSE) NSLog(@"Watching Path %@", p);
-#endif
-		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:VDKQueueWriteNotification object:p];
+	if (entry.watchTarget) {
+		[entry enableWatching];
 	}
 }
 
 - (void)disableEntry:(QSCatalogEntry *)entry {
-	NSMutableDictionary *settings = entry.sourceSettings;
-	NSString *path = [self fullPathForSettings:settings];
-	if ([settings[@"watchTarget"] boolValue]) {
-		[[QSVoyeur sharedInstance] removePath:path];
-		[[NSNotificationCenter defaultCenter] removeObserver:entry];
+	if (entry.watchTarget) {
+		[entry disableWatching];
 	}
 }
 
@@ -256,10 +238,10 @@
 	NSString *path = nil;
 	NSMutableArray *containedItems = [NSMutableArray arrayWithCapacity:1];
 
-	path = [self fullPathForSettings:settings];
+	path = theEntry.fullWatchPath;
 
 	if (![manager fileExistsAtPath:path isDirectory:nil]) return [NSArray array];
-	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+	if (theEntry.watchTarget) {
 		[[QSVoyeur sharedInstance] addPath:path];
 	}
 
@@ -278,7 +260,7 @@
 }
 
 - (IBAction)showFile:(id)sender {
-    NSString *filePath = [self fullPathForSettings:self.selectedEntry.sourceSettings];
+    NSString *filePath = self.selectedEntry.fullWatchPath;
     [[NSWorkspace sharedWorkspace] selectFile:filePath inFileViewerRootedAtPath:@""];
 }
 
@@ -305,25 +287,14 @@
 	return YES;
 }
 
-- (NSString *)fullPathForSettings:(NSDictionary *)settings {
-	if (![settings objectForKey:kItemPath]) return nil;
-	NSString *itemPath = [[settings objectForKey:kItemPath] stringByResolvingWildcardsInPath];
-	if (![itemPath isAbsolutePath]) {
-		NSString *bundlePath = [[QSReg bundleWithIdentifier:[settings objectForKey:kItemBaseBundle]] bundlePath];
-		if (!bundlePath) bundlePath = [[NSBundle mainBundle] bundlePath];
-		itemPath = [bundlePath stringByAppendingPathComponent:itemPath];
-	}
-	return itemPath;
-}
-
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(QSCatalogEntry *)theEntry {
 	NSMutableDictionary *settings = theEntry.sourceSettings;
 
-    if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+    if (theEntry.watchTarget) {
         // no need to scan - this entry is updated automatically
         return YES;
     }
-	NSString *itemPath = [self fullPathForSettings:settings];
+	NSString *itemPath = theEntry.fullWatchPath;
 	if (!itemPath) return YES;
 
 	NSFileManager *manager = [NSFileManager defaultManager];
@@ -334,6 +305,69 @@
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
     NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
     return modDate == nil;
+}
+
+@end
+
+@implementation QSCatalogEntry (QSFileSystemObjectSource)
+
+- (void)setWatchTarget:(BOOL)shouldWatch {
+	[self willChangeValueForKey:kQSWatchTarget];
+	[self.sourceSettings setObject:[NSNumber numberWithBool:shouldWatch] forKey:kQSWatchTarget];
+	[self didChangeValueForKey:kQSWatchTarget];
+	if (shouldWatch) {
+		[self enableWatching];
+	} else {
+		[self disableWatching];
+	}
+}
+
+- (BOOL)watchTarget {
+	return [[self.sourceSettings objectForKey:kQSWatchTarget] boolValue];
+}
+
+- (void)enableWatching {
+	NSMutableDictionary *settings = self.sourceSettings;
+	NSString *path = self.fullWatchPath;
+	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
+	[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"Watching Path %@", path);
+#endif
+	[wsNotif addObserver:self selector:@selector(invalidateIndex:) name:nil object:path];
+	NSArray *paths = settings[kQSWatchPaths];
+	for (NSString * p in paths) {
+		[[QSVoyeur sharedInstance] addPath:p];
+#ifdef DEBIG
+		if (VERBOSE) NSLog(@"Watching Path %@", p);
+#endif
+		[wsNotif addObserver:self selector:@selector(invalidateIndex:) name:VDKQueueWriteNotification object:p];
+	}
+}
+
+- (void)disableWatching {
+	#ifdef DEBUG
+		if (VERBOSE) NSLog(@"Disable watching path %@", self.fullWatchPath);
+	#endif
+	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
+	[[QSVoyeur sharedInstance] removePath:self.fullWatchPath];
+	[wsNotif removeObserver:self];
+	for (NSString *p in self.sourceSettings[kQSWatchPaths]) {
+		[[QSVoyeur sharedInstance] removePath:p];
+		[wsNotif removeObserver:self name:VDKQueueWriteNotification object:p];
+	}
+}
+
+- (NSString *)fullWatchPath {
+	NSDictionary *settings = self.sourceSettings;
+	if (![settings objectForKey:kItemPath]) return nil;
+	NSString *itemPath = [[settings objectForKey:kItemPath] stringByResolvingWildcardsInPath];
+	if (![itemPath isAbsolutePath]) {
+		NSString *bundlePath = [[QSReg bundleWithIdentifier:[settings objectForKey:kItemBaseBundle]] bundlePath];
+		if (!bundlePath) bundlePath = [[NSBundle mainBundle] bundlePath];
+		itemPath = [bundlePath stringByAppendingPathComponent:itemPath];
+	}
+	return itemPath;
 }
 
 @end

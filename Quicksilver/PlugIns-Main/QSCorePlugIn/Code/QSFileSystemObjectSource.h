@@ -5,6 +5,9 @@
 @interface QSEncapsulatedTextCell : NSTextFieldCell @end
 #endif
 
+#define kQSWatchTarget @"watchTarget"
+#define kQSWatchPaths @"watchPaths"
+
 @interface QSFileSystemObjectSource : QSObjectSource {
 	IBOutlet NSButton *itemSkipItemSwitch, *itemLocationChooseButton, *itemLocationShowButton;
 	IBOutlet NSTextField *itemLocationField;
@@ -23,4 +26,12 @@
 - (NSString *)fullPathForSettings:(NSDictionary *)settings;
 - (IBAction)endContainingSheet:(id)sender;
 
+@end
+
+@interface QSCatalogEntry (QSFileSystemObjectSource)
+
+@property (nonatomic) BOOL watchTarget;
+-(void)enableWatching;
+-(void)disableWatching;
+@property (readonly) NSString *fullWatchPath;
 @end
