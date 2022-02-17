@@ -942,13 +942,6 @@
 			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
 			remoteInfo = "FMDB watchOS";
 		};
-		CD29AEB6195663770052C893 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
-			remoteInfo = "Core Support";
-		};
 		CD34CCD7192B97BB00AC63A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -983,6 +976,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
+		};
+		CDBA07DC27BCA5FD00D11AF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
+			remoteInfo = "Core Support";
 		};
 		CDC89A6627AB69C000727225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4209,7 +4209,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CD29AEB7195663770052C893 /* PBXTargetDependency */,
+				CDBA07DD27BCA5FD00D11AF1 /* PBXTargetDependency */,
 			);
 			name = "Core Support Tests";
 			productName = "Core Support Tests";
@@ -5310,11 +5310,6 @@
 			target = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
 			targetProxy = 7FAF850E092EC7C700DD5295 /* PBXContainerItemProxy */;
 		};
-		CD29AEB7195663770052C893 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
-			targetProxy = CD29AEB6195663770052C893 /* PBXContainerItemProxy */;
-		};
 		CD34CCD8192B97BB00AC63A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
@@ -5339,6 +5334,11 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = CD61BBC4192B18FA00040609 /* PBXContainerItemProxy */;
+		};
+		CDBA07DD27BCA5FD00D11AF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
+			targetProxy = CDBA07DC27BCA5FD00D11AF1 /* PBXContainerItemProxy */;
 		};
 		E179ACF306482A0300083F3E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

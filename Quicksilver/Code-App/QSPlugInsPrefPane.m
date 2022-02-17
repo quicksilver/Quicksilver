@@ -79,10 +79,6 @@
 	return [QSPlugInManager sharedInstance];
 }
 - (void)awakeFromNib {
-	[pluginSetsTable setBackgroundColor:[NSColor colorWithCalibratedHue:0.75f saturation:0.10000f brightness:0.970000f alpha:1.000000f]];
-	NSColor *highlightColor = [NSColor colorWithCalibratedHue:0.75f saturation:0.500000f brightness:0.8500000f alpha:1.000000f];
-	[(QSTableView *)pluginSetsTable setHighlightColor:highlightColor];
-	[(QSTableView *)plugInTable setHighlightColor:highlightColor];
 
 	NSSortDescriptor* aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 	[arrayController setSortDescriptors:[NSArray arrayWithObject: aSortDesc]];

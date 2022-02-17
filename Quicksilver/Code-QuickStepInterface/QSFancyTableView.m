@@ -25,16 +25,6 @@
 	[nc addObserver:self selector:@selector(_windowDidChangeKeyNotification:) name:NSWindowDidBecomeKeyNotification object:newWindow];
 }
 
-- (void)drawBackgroundInClipRect:(NSRect)clipRect {
-	NSColor *backgroundColor = [self backgroundColor];
-	CGFloat hue, saturation, brightness, alpha;
-	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-
-	// Create synthetic darker and lighter versions
-	NSColor *lighterColor = [NSColor colorWithDeviceHue:hue saturation:MAX(0.0, saturation*.88) brightness:MIN(1.0, brightness*1.15) alpha:alpha];
-
-	QSFillRectWithGradientFromEdge([self frame], lighterColor, backgroundColor, NSMinYEdge);
-}
 
 - (void)highlightSelectionInClipRect:(NSRect)rect {
 	[self highlightSelectionInClipRect:rect withGradientColor:[self highlightColor]];
@@ -74,21 +64,6 @@
 	[nc addObserver:self selector:@selector(_windowDidChangeKeyNotification:) name:NSWindowDidResignKeyNotification object:newWindow];
 	[nc removeObserver:self name:NSWindowDidBecomeKeyNotification object:nil];
 	[nc addObserver:self selector:@selector(_windowDidChangeKeyNotification:) name:NSWindowDidBecomeKeyNotification object:newWindow];
-}
-
-- (void)drawBackgroundInClipRect:(NSRect)clipRect {
-	NSColor *backgroundColor = [self backgroundColor];
-	CGFloat hue, saturation, brightness, alpha;
-	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-
-	// Create synthetic darker and lighter versions
-	NSColor *lighterColor = [NSColor colorWithDeviceHue:hue saturation:MAX(0.0, saturation*.88) brightness:MIN(1.0, brightness*1.15) alpha:alpha];
-
-//	NSColor *lighterColor = [backgroundColor colorWithLighting:1.0 plasticity:0.0];
-
-//	NSColor *darkerColor = [NSColor colorWithDeviceHue:hue saturation:MIN(1.0, (saturation > .04) ? saturation*1.12 : 0.0) brightness:MAX(0.0, brightness*0.9) alpha:alpha];
-	QSFillRectWithGradientFromEdge([self frame] , lighterColor, backgroundColor, NSMinYEdge);
-
 }
 
 - (void)highlightSelectionInClipRect:(NSRect)rect {

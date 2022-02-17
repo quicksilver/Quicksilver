@@ -170,23 +170,6 @@
 	[triggerTable setOutlineTableColumn:[triggerTable tableColumnWithIdentifier:@"command"]];
 	[[[triggerTable tableColumnWithIdentifier:@"type"] dataCell] setArrowPosition:NSPopUpNoArrow];
 
-	NSColor *color = [triggerSetsTable backgroundColor];
-	CGFloat hue, saturation, brightness, alpha;
-	[color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-	// NSLog(@"hu %f %f %f %f", hue, saturation, brightness, alpha);
-
-	[triggerSetsTable setBackgroundColor:[NSColor colorWithCalibratedHue:0.15f
-                                                              saturation:0.1f
-                                                              brightness:0.980000f
-                                                                   alpha:1.000000f]];
-	NSColor *highlightColor = [NSColor colorWithCalibratedHue:0.11944444444
-                                                   saturation:0.88f
-                                                   brightness:1.000000f
-                                                        alpha:1.000000f];
-
-	[(QSTableView *)triggerSetsTable setHighlightColor:highlightColor];
-	[(QSOutlineView *)triggerTable setHighlightColor:highlightColor];
-
     [triggerTreeController addObserver:self
                             forKeyPath:@"selection.info.applicationScopeType"
                                options:0

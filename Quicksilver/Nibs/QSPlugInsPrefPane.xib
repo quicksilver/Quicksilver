@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="15505"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -76,7 +77,7 @@
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                    <color key="gridColor" red="0.96195649999999999" green="0.96195649999999999" blue="0.96195649999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="gridColor" name="separatorColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
                                         <tableColumn identifier="enabled" width="16.40625" minWidth="16" maxWidth="17.169921875" id="64">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="✓">
@@ -596,7 +597,7 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="15" horizontalPageScroll="10" verticalLineScroll="15" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="442">
                     <rect key="frame" x="0.0" y="23" width="128" height="233"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" ambiguous="YES" id="ewz-qP-VMQ">
+                    <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ewz-qP-VMQ">
                         <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -604,7 +605,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn editable="NO" width="125" minWidth="16" maxWidth="1000" id="445">
@@ -629,6 +630,7 @@
                                 </connections>
                             </outlineView>
                         </subviews>
+                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="511">
                         <rect key="frame" x="-100" y="-100" width="128" height="15"/>

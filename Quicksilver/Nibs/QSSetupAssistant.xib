@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="15505"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,13 +32,13 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="7" y="122" width="512" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="6" customClass="QSBackgroundView">
                 <rect key="frame" x="0.0" y="0.0" width="512" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tabView controlSize="mini" type="noTabsBezelBorder" id="8">
+                    <tabView fixedFrame="YES" controlSize="mini" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                         <rect key="frame" x="3" y="35" width="506" height="450"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="miniSystem"/>
@@ -47,7 +48,7 @@
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="28">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
                                             <rect key="frame" x="17" y="68" width="457" height="153"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="449">
@@ -60,7 +61,7 @@ This assistant will help you get set up, and provide you with a basic introducti
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="30">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
                                             <rect key="frame" x="139" y="256" width="216" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Welcome to Quicksilver" id="450">
@@ -69,7 +70,7 @@ This assistant will help you get set up, and provide you with a basic introducti
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <imageView id="219" customClass="QSImageView">
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="219" customClass="QSImageView">
                                             <rect key="frame" x="182" y="282" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="451"/>
@@ -82,16 +83,17 @@ This assistant will help you get set up, and provide you with a basic introducti
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="240">
+                                        <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="240">
                                             <rect key="frame" x="23" y="157" width="450" height="221"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="uFm-1H-ytS">
+                                            <clipView key="contentView" ambiguous="YES" id="uFm-1H-ytS">
                                                 <rect key="frame" x="1" y="1" width="448" height="219"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="440">
+                                                    <textView ambiguous="YES" editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="440">
                                                         <rect key="frame" x="0.0" y="-13" width="448" height="219"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="448" height="219"/>
                                                         <size key="maxSize" width="906" height="10000000"/>
@@ -100,16 +102,16 @@ This assistant will help you get set up, and provide you with a basic introducti
                                                 </subviews>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="473">
+                                            <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="473">
                                                 <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="472">
+                                            <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="472">
                                                 <rect key="frame" x="-30" y="1" width="15" height="337"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <button id="241">
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="241">
                                             <rect key="frame" x="21" y="108" width="320" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="I have read and accept the terms of this license" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="452">
@@ -120,7 +122,7 @@ This assistant will help you get set up, and provide you with a basic introducti
                                                 <binding destination="306" name="value" keyPath="values.QSAgreementAccepted" id="309"/>
                                             </connections>
                                         </button>
-                                        <textField verticalHuggingPriority="750" id="244">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="244">
                                             <rect key="frame" x="20" y="402" width="192" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="License Agreement" id="453">
@@ -133,16 +135,16 @@ This assistant will help you get set up, and provide you with a basic introducti
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Plugins" identifier="plugins" id="9">
-                                <view key="view" id="10">
+                                <view key="view" ambiguous="YES" id="10">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView id="170" customClass="QSImageView">
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="170" customClass="QSImageView">
                                             <rect key="frame" x="0.0" y="303" width="128" height="131"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="QSPlugIn" id="444"/>
                                         </imageView>
-                                        <textField verticalHuggingPriority="750" id="98">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98">
                                             <rect key="frame" x="131" y="399" width="192" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Recommended Plugins" id="442">
@@ -151,7 +153,7 @@ This assistant will help you get set up, and provide you with a basic introducti
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="103">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
                                             <rect key="frame" x="140" y="206" width="323" height="159"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="443">
@@ -163,7 +165,7 @@ Select and install the plugins for applications you use frequently from the list
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <tabView drawsBackground="NO" type="noTabsNoBorder" id="391">
+                                        <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="391">
                                             <rect key="frame" x="136" y="11" width="313" height="173"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <font key="font" metaFont="message"/>
@@ -173,11 +175,11 @@ Select and install the plugins for applications you use frequently from the list
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" id="396">
+                                                            <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="396">
                                                                 <rect key="frame" x="143" y="82" width="32" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </progressIndicator>
-                                                            <textField verticalHuggingPriority="750" id="397">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="397">
                                                                 <rect key="frame" x="52" y="57" width="214" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Loading Plugin Information" id="447">
@@ -190,16 +192,16 @@ Select and install the plugins for applications you use frequently from the list
                                                     </view>
                                                 </tabViewItem>
                                                 <tabViewItem label="Plugins" identifier="loaded" id="392">
-                                                    <view key="view" id="394">
+                                                    <view key="view" ambiguous="YES" id="394">
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <scrollView autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="194">
+                                                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="194">
                                                                 <rect key="frame" x="4" y="57" width="307" height="112"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                <clipView key="contentView" id="jwy-4e-TRd">
+                                                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="jwy-4e-TRd">
                                                                     <rect key="frame" x="1" y="1" width="305" height="110"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" id="195">
                                                                             <rect key="frame" x="0.0" y="0.0" width="305" height="110"/>
@@ -207,7 +209,7 @@ Select and install the plugins for applications you use frequently from the list
                                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                                                            <color key="gridColor" red="0.96195649999999999" green="0.96195649999999999" blue="0.96195649999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="gridColor" name="separatorColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="enabled" width="16" minWidth="16" maxWidth="16" id="203">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="✓">
@@ -223,7 +225,7 @@ Select and install the plugins for applications you use frequently from the list
                                                                                         <binding destination="222" name="value" keyPath="arrangedObjects.shouldInstall" id="323"/>
                                                                                     </connections>
                                                                                 </tableColumn>
-                                                                                <tableColumn identifier="" editable="NO" width="18" minWidth="10" maxWidth="1000" id="196">
+                                                                                <tableColumn editable="NO" width="18" minWidth="10" maxWidth="1000" id="196">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
                                                                                         <font key="font" metaFont="smallSystem"/>
                                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -257,18 +259,18 @@ Select and install the plugins for applications you use frequently from the list
                                                                             </tableColumns>
                                                                         </tableView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="backgroundColor"/>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="471">
+                                                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="471">
                                                                     <rect key="frame" x="-100" y="-100" width="361" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
-                                                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="470">
+                                                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="470">
                                                                     <rect key="frame" x="-30" y="1" width="15" height="110"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                             </scrollView>
-                                                            <textField verticalHuggingPriority="750" id="289">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="289">
                                                                 <rect key="frame" x="11" y="0.0" width="300" height="30"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" title="Small System Font Text" id="445">
@@ -286,7 +288,7 @@ IA
                                                                     </binding>
                                                                 </connections>
                                                             </textField>
-                                                            <textField verticalHuggingPriority="750" id="293">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="293">
                                                                 <rect key="frame" x="11" y="33" width="300" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" title="Small System Font Text" id="446">
@@ -310,7 +312,7 @@ IA
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <textField verticalHuggingPriority="750" id="406">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="406">
                                                                 <rect key="frame" x="7" y="12" width="301" height="150"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences." id="448">
@@ -332,7 +334,7 @@ IA
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="258">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="258">
                                             <rect key="frame" x="20" y="228" width="61" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Catalog" id="455">
@@ -341,7 +343,7 @@ IA
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="267">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="267">
                                             <rect key="frame" x="20" y="382" width="136" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Activation" id="456">
@@ -350,7 +352,7 @@ IA
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="275">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="275">
                                             <rect key="frame" x="40" y="118" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="457">
@@ -361,11 +363,11 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="277">
-                                            <rect key="frame" x="80" y="228" width="16" height="16"/>
+                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="277">
+                                            <rect key="frame" x="78" y="228" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </progressIndicator>
-                                        <textField verticalHuggingPriority="750" id="336">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="336">
                                             <rect key="frame" x="40" y="320" width="398" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="458">
@@ -375,7 +377,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton toolTip="Rescan frequency" verticalHuggingPriority="750" id="338">
+                                        <popUpButton toolTip="Rescan frequency" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="338">
                                             <rect key="frame" x="171" y="69" width="201" height="26"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <popUpButtonCell key="cell" type="push" title="Every hour" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="60" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="340" id="459">
@@ -398,7 +400,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <binding destination="306" name="selectedTag" keyPath="values.QSCatalogRescanFrequency" id="372"/>
                                             </connections>
                                         </popUpButton>
-                                        <textField verticalHuggingPriority="750" id="347">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="347">
                                             <rect key="frame" x="59" y="75" width="110" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Rescan Catalog:" id="460">
@@ -407,7 +409,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" id="373">
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="373">
                                             <rect key="frame" x="59" y="276" width="97" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Shortcut:" id="461">
@@ -416,12 +418,12 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" id="378" customClass="QSHotKeyField">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="378" customClass="QSHotKeyField">
                                             <rect key="frame" x="173" y="273" width="97" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="462">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
@@ -429,7 +431,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <outlet property="setButton" destination="379" id="380"/>
                                             </connections>
                                         </textField>
-                                        <button verticalHuggingPriority="750" misplaced="YES" id="379">
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="379">
                                             <rect key="frame" x="272" y="272" width="31" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="smallSquare" title="Edit" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="463">
@@ -448,7 +450,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <webView id="387">
+                                        <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387">
                                             <rect key="frame" x="20" y="11" width="446" height="404"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
@@ -463,12 +465,12 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView id="337" customClass="QSImageView">
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="337" customClass="QSImageView">
                                             <rect key="frame" x="179" y="292" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="464"/>
                                         </imageView>
-                                        <webView id="402">
+                                        <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="402">
                                             <rect key="frame" x="20" y="0.0" width="446" height="284"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
@@ -483,7 +485,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                             <outlet property="delegate" destination="-2" id="64"/>
                         </connections>
                     </tabView>
-                    <button verticalHuggingPriority="750" id="16">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                         <rect key="frame" x="0.0" y="1" width="108" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <buttonCell key="cell" type="push" title="Go Back" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="465">
@@ -494,8 +496,8 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                             <action selector="prevSection:" target="-2" id="55"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="17">
-                        <rect key="frame" x="404" y="1" width="108" height="32"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                        <rect key="frame" x="402" y="1" width="108" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <buttonCell key="cell" type="push" title="Continue" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="466">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -513,6 +515,7 @@ DQ
             <connections>
                 <outlet property="delegate" destination="-2" id="26"/>
             </connections>
+            <point key="canvasLocation" x="139" y="147"/>
         </window>
         <objectController objectClassName="QSUpdateController" id="189" userLabel="UpdateController">
             <declaredKeys>
@@ -561,20 +564,20 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="353" y="431" width="352" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="213" height="60"/>
             <view key="contentView" id="255" customClass="QSBackgroundView">
                 <rect key="frame" x="0.0" y="0.0" width="352" height="107"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <progressIndicator verticalHuggingPriority="750" maxValue="1" bezeled="NO" style="bar" id="256">
+                    <progressIndicator verticalHuggingPriority="750" fixedFrame="YES" maxValue="1" bezeled="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="256">
                         <rect key="frame" x="18" y="67" width="324" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <binding destination="317" name="value" keyPath="selection.installProgress" id="319"/>
                         </connections>
                     </progressIndicator>
-                    <textField verticalHuggingPriority="750" id="257">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="257">
                         <rect key="frame" x="17" y="43" width="326" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Small System Font Text" id="467">
@@ -586,7 +589,7 @@ DQ
                             <binding destination="317" name="value" keyPath="selection.installStatus" id="320"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" id="321">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="321">
                         <rect key="frame" x="256" y="12" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="468">
@@ -599,6 +602,7 @@ DQ
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="139" y="544"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="306" userLabel="Shared Defaults"/>
         <objectController objectClassName="QSPlugInManager" id="317" userLabel="Manager">
@@ -614,7 +618,7 @@ DQ
         </objectController>
     </objects>
     <resources>
-        <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="QSPlugIn" width="256" height="256"/>
     </resources>
 </document>
