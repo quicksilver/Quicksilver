@@ -21,6 +21,7 @@
   * Correctly display more keyboard shortcuts (#2594, #2418)
   * Improve sorting triggers by keyboard shortcut (#2561, #2598)
   * Remove gradients that were being drawn incorrectly (#2635)
+  * Improve appearance in dark mode (#2639)
 
 ### Development ###
 
