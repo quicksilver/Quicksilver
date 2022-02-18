@@ -90,7 +90,7 @@ ln -sf /Applications .
   .DS_Store Quicksilver.app Applications \
   >> "${LOG}"
 
-codesign --deep --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
+codesign --deep --timestamp --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
 mv Quicksilver.dmg "../Quicksilver ${QS_INFO_VERSION}".dmg
 cd ..
 
