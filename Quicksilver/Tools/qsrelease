@@ -72,8 +72,6 @@ chmod 644 Quicksilver.app/Contents/Info.plist
 # items; here we explicitly ignore the error and hide a bunch of "bundle format
 # unrecognized" and "already signed" errors
 
-# find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + 2> /dev/null || true
-
 # Codesign the whole app now that all contents are signed
 codesign --force --deep --timestamp --sign "${SIGNING_IDENTITY}" ./Quicksilver.app
 
