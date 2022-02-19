@@ -23,7 +23,6 @@
 - (IBAction)chooseFile:(id)sender;
 - (BOOL)chooseFile;
 
-- (NSString *)fullPathForSettings:(NSDictionary *)settings;
 - (IBAction)endContainingSheet:(id)sender;
 
 @end
@@ -34,4 +33,5 @@
 -(void)enableWatching;
 -(void)disableWatching;
 @property (readonly) NSString *fullWatchPath;
+@property (readonly) NSArray *fullWatchPaths;
 @end

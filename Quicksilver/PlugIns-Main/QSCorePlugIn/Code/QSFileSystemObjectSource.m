@@ -11,6 +11,7 @@
 #import "QSVoyeur.h"
 
 #import "QSObject_FileHandling.h"
+#import "QSDirectoryParser.h"
 
 #import "QSUTI.h"
 
@@ -328,14 +329,16 @@
 
 - (void)enableWatching {
 	NSMutableDictionary *settings = self.sourceSettings;
-	NSString *path = self.fullWatchPath;
+	NSArray *paths = self.fullWatchPaths;
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
+	for (NSString *path in paths) {
 	[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Watching Path %@", path);
 #endif
 	[wsNotif addObserver:self selector:@selector(invalidateIndex:) name:nil object:path];
-	NSArray *paths = settings[kQSWatchPaths];
+	}
+	paths = settings[kQSWatchPaths];
 	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPath:p];
 #ifdef DEBIG
@@ -347,10 +350,13 @@
 
 - (void)disableWatching {
 	#ifdef DEBUG
-		if (VERBOSE) NSLog(@"Disable watching path %@", self.fullWatchPath);
+		if (VERBOSE) NSLog(@"Disable watching paths %@", self.fullWatchPaths);
 	#endif
+	NSArray *paths = self.fullWatchPaths;
+	for (NSString *path in paths) {
+		[[QSVoyeur sharedInstance] removePath:path];
+	}
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
-	[[QSVoyeur sharedInstance] removePath:self.fullWatchPath];
 	[wsNotif removeObserver:self];
 	for (NSString *p in self.sourceSettings[kQSWatchPaths]) {
 		[[QSVoyeur sharedInstance] removePath:p];
@@ -368,6 +374,18 @@
 		itemPath = [bundlePath stringByAppendingPathComponent:itemPath];
 	}
 	return itemPath;
+}
+
+- (NSArray *)fullWatchPaths {
+	NSDictionary *settings = self.sourceSettings;
+	NSString *itemPath = [self fullWatchPath];
+	NSInteger depth = [(NSNumber *)[settings objectForKey:kItemFolderDepth] integerValue];
+	if (depth == 1) {
+		return @[itemPath];
+	}
+    QSDirectoryParser *parser = [QSDirectoryParser new];
+	NSArray *files = [[parser objectsFromPath:itemPath depth:depth types:@[@"public.folder"] excludeTypes:nil descend:NO] arrayByPerformingSelector:@selector(singleFilePath)];
+	return files;
 }
 
 @end
