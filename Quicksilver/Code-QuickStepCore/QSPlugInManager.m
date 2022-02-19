@@ -796,6 +796,7 @@
 		alert.messageText = NSLocalizedString(@"Failed to Extract Plugin", @"Plugin extraction failed - title");
 		alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"There was a problem extracting the QSPkg %@.\nThe file is most likely corrupt.", @"Plugin extraction failed - message"), pluginName];
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+		NSLog(@"There was a problem extracting the QSPkg: %@.\nFull Path: %@\nThe file is most likely corrupt.", pluginName, path);
 
 		[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 		return nil;
