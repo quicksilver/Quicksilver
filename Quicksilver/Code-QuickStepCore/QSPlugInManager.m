@@ -752,10 +752,9 @@
 	}
     
 	if ([updatedPlugIns count]) {
-        QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
-        
         __block NSArray *arr;
         QSGCDMainSync(^{
+			QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
             arr = [c showModal];
         });
         if (!arr) {
