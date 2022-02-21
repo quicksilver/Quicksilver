@@ -207,7 +207,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Get Current Selection (Do Not Change Shortcut)</string>
+				<string>Send to Quicksilver</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>getSelection</string>
