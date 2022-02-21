@@ -202,7 +202,7 @@
 			<key>NSKeyEquivalent</key>
 			<dict>
 				<key>default</key>
-				<string>\033</string>
+				<string>⎋</string>
 			</dict>
 			<key>NSMenuItem</key>
 			<dict>
