@@ -222,6 +222,7 @@ id QSPrefs;
 
 - (void)windowDidLoad {
 	NSWindow *win = [self window];
+	[win setCollectionBehavior:NSWindowCollectionBehaviorDefault];
 	[win center];
 	[win setFrameAutosaveName:@"preferences"];
 
