@@ -1,92 +1,22 @@
-/* File extracted from ./Nibs/QSAdvancedPrefPane.xib by stringstool v1.0*/
+"QSShowTaskViewerAutomatically:title" = "Show the Task Viewer automatically when tasks are created";
+"Hide Other Apps When Switching:title" = "Hide other applications when switching applications (shift prevents)";
 
-/* 12.title */
-"<< do not localize >>" = "<< do not localize >>";
+"Multithreaded Execute:title" = "Run tasks and actions in the background";
 
-/* 290.title */
-"All" = "All";
+"QSActionAppReopenBehavior:title" = "Reopening the current application";
+"QSActionAppReopenBehavior:activates the application" = "activates the application";
+"QSActionAppReopenBehavior:shows the front window" = "shows the front window";
+"QSActionAppReopenBehavior:shows all windows" = "shows all windows";
 
-/* 186.title */
-"Box" = "Box";
+"QSUpdateReleaseLevel:title" = "Application Update Type";
+"QSUpdateReleaseLevel:Final Releases" = "Final Releases";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Prerelease Candidates";
+"QSUpdateReleaseLevel:Developer Previews" = "Developer Previews";
+"QSUpdateWithoutAsking:title" = "Update without asking";
 
-/* 312.title */
-"Capitalized keys modify action in command window" = "Capitalized keys modify action in command window";
+"Shift Actions:title" = "Allow capitalized keys to select the action";
 
-/* 107.ibShadowedToolTip */
-"Create new threads for tasks" = "Create new threads for tasks";
+"Suppress HotKeys in Command:title" = "Disable Keyboard Triggers when Quicksilver is focused";
 
-/* 319.title */
-"Enable" = "Enable";
-
-/* 308.title */
-"Hide other applications when switching (shift prevents)" = "Hide other applications when switching (shift prevents)";
-
-/* 138.ibShadowedToolTip */
-"Holding shift causes the action to change" = "Holding shift causes the action to change";
-
-/* 139.ibShadowedToolTip */
-"Ignore Keyboard Triggers when command is active" = "Ignore Keyboard Triggers when command is active";
-
-/* 212.title */
-"Item1" = "Item1";
-
-/* 213.title */
-"Item2" = "Item2";
-
-/* 214.title */
-"Item3" = "Item3";
-
-/* 178.headerCell.title */
-"Name" = "Name";
-
-/* 109.title */
-"OtherViews" = "OtherViews";
-
-/* 314.title */
-"Pull selection from front application instead of Finder" = "Pull selection from front application instead of Finder";
-
-/* 310.title */
-"Reopening an application" = "Reopening an application";
-
-/* 112.ibShadowedToolTip */
-"Reopening behavior" = "Reopening behavior";
-
-/* 307.title */
-"Reopening the current application shows all windows" = "Reopening the current application shows all windows";
-
-/* 309.title */
-"Run tasks in background" = "Run tasks in background";
-
-/* 313.title */
-"Suppress Keyboard Triggers while command window is open" = "Suppress Keyboard Triggers while command window is open";
-
-/* 101.ibShadowedToolTip */
-"Tell other apps to hide whenever the front app changes" = "Tell other apps to hide whenever the front app changes";
-
-/* 157.ibShadowedToolTip */
-"Uses the front app's selection rather than pulling current selection from the Finder" = "Uses the front app's selection rather than pulling current selection from the Finder";
-
-/* 271.headerCell.title */
-"Value" = "Value";
-
-/* 100.title */
-"activates" = "activates";
-
-/* 316.title */
-"posttext" = "posttext";
-
-/* 315.title */
-"pretext" = "pretext";
-
-/* 304.ibShadowedDisplayName */
-"search" = "search";
-
-/* 108.title */
-"shows all windows" = "shows all windows";
-
-/* 106.title */
-"shows front window" = "shows front window";
-
-/* 321.title */
-"subtext\n" = "subtext\n";
-
+"Double Delete Clears Object:title" = "Pressing the Delete key clears the whole search string";
+"QSHistoryMaxLength:title" = "Number of items in Quicksilver’s history";
