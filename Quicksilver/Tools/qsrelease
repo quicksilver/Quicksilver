@@ -72,10 +72,8 @@ chmod 644 Quicksilver.app/Contents/Info.plist
 # items; here we explicitly ignore the error and hide a bunch of "bundle format
 # unrecognized" and "already signed" errors
 
-find ./Quicksilver.app -exec codesign --continue --sign "${SIGNING_IDENTITY}" {} + 2> /dev/null || true
-
 # Codesign the whole app now that all contents are signed
-codesign --force --sign "${SIGNING_IDENTITY}" ./Quicksilver.app
+codesign --force --deep --timestamp --sign "${SIGNING_IDENTITY}" ./Quicksilver.app
 
 ## Package it in a disk image
 mkdir -p "${DMG_TEMP}"
@@ -92,12 +90,15 @@ ln -sf /Applications .
   .DS_Store Quicksilver.app Applications \
   >> "${LOG}"
 
-codesign --deep --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
+codesign --deep --timestamp --sign "${SIGNING_IDENTITY}" Quicksilver.dmg
 mv Quicksilver.dmg "../Quicksilver ${QS_INFO_VERSION}".dmg
 cd ..
 
 ## Easy access to plist
 cp Quicksilver.app/Contents/Info.plist "${BUILT_PRODUCTS_DIR}"
+
+# package for notarization
+ditto -c -k --keepParent Quicksilver.app Quicksilver.zip
 
 ## Show the folder
 open "${BUILT_PRODUCTS_DIR}"
