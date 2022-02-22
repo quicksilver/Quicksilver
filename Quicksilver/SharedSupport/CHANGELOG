@@ -11,7 +11,11 @@
   * Zoom plugin for managing Zoom meetings directly from within Quicksilver
   * Improved 'Updates' interface for installing new Quicksilver updates (#1849)
   * New “Automatically update when files change” setting to immediately rescan folders (#330, #2633)
-  
+
+### Changed ###
+
+  * The “Get Current Selection (Do Not Change Shortcut)” service is now called “Send to Quicksilver” (#2119, #2651)
+
 ### Fixed ###
 
   * Allow multiple plugins to add 'Application Actions' for a single application (#2605, #460)
@@ -23,12 +27,14 @@
   * Improve sorting triggers by keyboard shortcut (#2561, #2598)
   * Remove gradients that were being drawn incorrectly (#2635)
   * Improve appearance in dark mode (#2639)
+  * The “Send to Quicksilver” service now works on newer versions of macOS (#2646, #2651)
 
 ### Development ###
 
   * Clean up and improve the `qsrelease` script (#2582)
   * Removed a special character from the `Info.plist` to help with packaging (#2527, #2528)
   * Switch from Python 2 to Python 3 for development building (#2581, #2577)
+  * Update `qsrelease` to successfully sign the application bundle (#2674)
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
