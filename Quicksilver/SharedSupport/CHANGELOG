@@ -29,6 +29,7 @@
   * Improve appearance in dark mode (#2639)
   * The “Send to Quicksilver” service now works on newer versions of macOS (#2646, #2651)
   * Correctly wrap text in text-entry mode (#2127, #2652)
+  * Watch subdirectories for changes in File & Folder catalog entries (#2509, #2649)
 
 ### Development ###
 
