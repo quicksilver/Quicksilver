@@ -203,7 +203,9 @@
 }
 
 - (void)reloadPlugInsList:(NSNotification *)notif {
-	[self setPlugins:[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
+	QSGCDMainSync(^{
+		[self setPlugins:[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
+	});
 }
 
 - (NSString *)mainNibName {
