@@ -20,7 +20,7 @@
 
   * Allow multiple plugins to add 'Application Actions' for a single application (#2605, #460)
   * Make “Application Quit” event triggers work properly (#2551)
-  * Quicksilver can now correctly launch and run .sptd AppleScript files (#2603, #1268)
+  * Quicksilver can now correctly launch and run `.scptd` AppleScript files (#2603, #1268)
   * Correctly relaunch on Apple Silicon Macs (#2557)
   * Improved compatibility with different keyboard layouts and improved shortcut reliability (#2594, #1134, #1482, #1486, #1440, #1679, #1386, #1850, #1918)
   * Correctly display more keyboard shortcuts (#2594, #2418)
@@ -28,6 +28,7 @@
   * Remove gradients that were being drawn incorrectly (#2635)
   * Improve appearance in dark mode (#2639)
   * The “Send to Quicksilver” service now works on newer versions of macOS (#2646, #2651)
+  * Correctly wrap text in text-entry mode (#2127, #2652)
 
 ### Development ###
 
