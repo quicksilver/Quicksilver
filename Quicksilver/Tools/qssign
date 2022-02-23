@@ -1,0 +1,78 @@
+#!/bin/sh
+
+set -euf
+
+MOUNT_DIR="/Volumes/Quicksilver"
+
+if [ -d "${MOUNT_DIR}" ]; then
+  echo "error: ${MOUNT_DIR} exists. Please eject ${MOUNT_DIR} and re-run."
+  exit 1
+fi
+
+KEYCHAIN_PROFILE=${KEYCHAIN_PROFILE:-"Quicksilver Notarization"}
+SETTINGS=/tmp/qs_build_settings
+QS_INFO_VERSION=$(awk '$1 == "QS_INFO_VERSION" { print $NF }' < "${SETTINGS}")
+BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
+DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
+
+# Allow users to pass in a custom signing identity name for testing with
+# self-signed certs
+SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
+
+# Codesign the whole app
+cd "${DMG_TEMP}"
+
+# QSDroplet.app must be signed *first* (inside-out)
+codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Resources/QSDroplet.app
+codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" Quicksilver.app
+codesign --verify --deep --strict --verbose=1 Quicksilver.app
+spctl --assess --verbose --type open --type exec Quicksilver.app
+
+QS_VERSIONED_DMG="Quicksilver ${QS_INFO_VERSION}.dmg"
+
+cd ..
+hdiutil create \
+  -ov \
+  -fs HFS+ \
+  -volname "Quicksilver" \
+  -srcfolder "${DMG_TEMP}" \
+  -format UDRW \
+  -attach \
+  "${QS_VERSIONED_DMG}"
+
+SetFile -c icnC "${MOUNT_DIR}"/.VolumeIcon.icns
+SetFile -a C . "${MOUNT_DIR}"
+
+hdiutil detach "${MOUNT_DIR}"
+hdiutil convert \
+  "${QS_VERSIONED_DMG}" \
+  -format UDZO \
+  -imagekey zlib-level=9 \
+  -ov \
+  -o "${QS_VERSIONED_DMG}"
+
+codesign --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" "${QS_VERSIONED_DMG}"
+codesign --verify --deep --strict --verbose=1 "${QS_VERSIONED_DMG}"
+
+# Replace unsigned version of the app with the signed version; BSD cp won't overwrite
+rm -rf "${BUILT_PRODUCTS_DIR}/Quicksilver.app"
+cp -a \
+  "${DMG_TEMP}"/Quicksilver.app \
+  "${DMG_TEMP}"/Quicksilver.app/Contents/Info.plist \
+  "${BUILT_PRODUCTS_DIR}"
+
+## Show the folder
+open "${BUILT_PRODUCTS_DIR}"
+
+submission_id=$(
+  xcrun notarytool submit "${QS_VERSIONED_DMG}" --keychain-profile "${KEYCHAIN_PROFILE}" |
+    awk '$1 ~ /^id:$/ { id=$2 } END { print id }'
+)
+xcrun notarytool wait "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
+xcrun notarytool log "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
+
+xcrun stapler staple -vvv "${QS_VERSIONED_DMG}"
+xcrun stapler validate -vvv "${QS_VERSIONED_DMG}"
+
+## Will fail with a self-signed cert
+spctl --assess --verbose --type open --context context:primary-signature "${QS_VERSIONED_DMG}"
