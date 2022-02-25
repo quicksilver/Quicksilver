@@ -765,7 +765,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	@try {
 		[self _registerPlugIn];
     } @catch (NSException *exc) {
-        NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plugin \"%@\": %@", self, exc];
+        NSString *errorMessage = [NSString stringWithFormat:@"An error occurred while loading plugin \"%@\": %@", self, exc];
         NSLog(@"%@", errorMessage);
 		[self setLoadError:[exc reason]];
 	}

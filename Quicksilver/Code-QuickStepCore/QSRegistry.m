@@ -361,7 +361,7 @@ QSRegistry* QSReg = nil;
 //		NS_DURING
 //			[self loadPlugIn:curBundle];
 //		NS_HANDLER
-//			NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plugin \"%@\": %@", curBundle, localException];
+//			NSString *errorMessage = [NSString stringWithFormat:@"An error occurred while loading plugin \"%@\": %@", curBundle, localException];
 //			if (VERBOSE) {
 //				NSLog(errorMessage);
 //				[localException printStackTrace];

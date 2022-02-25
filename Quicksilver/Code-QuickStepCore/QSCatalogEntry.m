@@ -660,7 +660,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             itemContents = [self.source objectsForEntry:self];
         }
         @catch (NSException *exception) {
-            NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
+            NSLog(@"An error occurred while scanning \"%@\": %@", self.name, exception);
             [exception printStackTrace];
         }
     }
