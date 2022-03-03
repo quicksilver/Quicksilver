@@ -1839,7 +1839,7 @@
 		CDC89A6027AB69C000727225 /* 0abb71f2bfffac67318c2f7605f99eff-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "0abb71f2bfffac67318c2f7605f99eff-manifest.xcbuild"; sourceTree = "<group>"; };
 		CDC89A6127AB69C000727225 /* 5d773d4601fc3ba5dcc3a4b8b9ba528d-manifest.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = text; path = "5d773d4601fc3ba5dcc3a4b8b9ba528d-manifest.xcbuild"; sourceTree = "<group>"; };
 		CDC89A6227AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "4de1db05a982cc2692e138b3ba835189-desc.xcbuild"; sourceTree = "<group>"; };
-		CDC89A6327AB69C000727225 /* BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975"; sourceTree = "<group>"; };
+		CDC89A6327AB69C000727225 /* BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975"; sourceTree = "<group>"; };
 		CDC89A6427AB69C000727225 /* build.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = build.db; sourceTree = "<group>"; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -6502,7 +6502,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6516,7 +6515,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6598,7 +6596,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
@@ -6613,7 +6610,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.droplet;
