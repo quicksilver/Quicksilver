@@ -23,6 +23,7 @@
 #define kForumsURL              @"http://groups.google.com/group/blacktree-quicksilver"
 #define kBugsURL                @"https://github.com/quicksilver/Quicksilver/issues"
 #define kWebSiteURL             @"https://qsapp.com/"
+#define kDonatePageURL			@"https://qsapp.com/donate.php"
 #define kChangelogURL           @"https://qsapp.com/changelog.php"
 #define kHelpURL                @"https://qsapp.com/manual/"
 #define kHelpSearchURL          @"https://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"

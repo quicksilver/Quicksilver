@@ -11,6 +11,7 @@
 #import "QSTaskViewer.h"
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
+#import "QSDonationController.h"
 
 
 #import "QSIntValueTransformer.h"
@@ -221,6 +222,10 @@ static QSController *defaultController = nil;
 	[aboutWindowController showWindow:self];
 }
 
+- (IBAction)openDonatePage:(id)sender {
+	[[QSDonationController sharedInstance] openDonationPage];
+}
+	 
 - (IBAction)showPreferences:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];

@@ -332,6 +332,8 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
+		CD13225427D301360005EDB1 /* QSDonationController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD13225227D301360005EDB1 /* QSDonationController.h */; };
+		CD13225527D301360005EDB1 /* QSDonationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD13225327D301360005EDB1 /* QSDonationController.m */; };
 		CD14B79018D06604000FE86A /* QSThreadSafeMutableDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
@@ -1488,6 +1490,8 @@
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; usesTabs = 1; };
 		CD02BB4116A2BA5700DAFE50 /* QSGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGCD.h; sourceTree = "<group>"; usesTabs = 1; };
 		CD02BB4216A2BA5700DAFE50 /* QSGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGCD.m; sourceTree = "<group>"; usesTabs = 1; };
+		CD13225227D301360005EDB1 /* QSDonationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSDonationController.h; sourceTree = "<group>"; };
+		CD13225327D301360005EDB1 /* QSDonationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSDonationController.m; sourceTree = "<group>"; };
 		CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSThreadSafeMutableDictionary.h; sourceTree = "<group>"; usesTabs = 1; };
 		CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSThreadSafeMutableDictionary.m; sourceTree = "<group>"; usesTabs = 1; };
 		CD17323E1683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
@@ -3347,6 +3351,8 @@
 				E180021407B2BBB900010DB0 /* QSUpdateController.h */,
 				E180021507B2BBB900010DB0 /* QSUpdateController.m */,
 				4D00307513116304009040B7 /* Quicksilver.h */,
+				CD13225227D301360005EDB1 /* QSDonationController.h */,
+				CD13225327D301360005EDB1 /* QSDonationController.m */,
 			);
 			path = "Code-App";
 			sourceTree = "<group>";
@@ -3788,6 +3794,7 @@
 				E180025D07B2BBB900010DB0 /* QSTaskViewer.h in Headers */,
 				E180026707B2BBB900010DB0 /* QSTriggersPrefPane.h in Headers */,
 				E180026907B2BBB900010DB0 /* QSUpdateController.h in Headers */,
+				CD13225427D301360005EDB1 /* QSDonationController.h in Headers */,
 				7FF63FF407CC0DF500A5EE4A /* QSPreferencesController.h in Headers */,
 				7F60F12807FA134600922645 /* QSMainPreferencePanes.h in Headers */,
 				7F975A2607FC9C5E007FC20F /* QSDefaultsManager.h in Headers */,
@@ -4939,6 +4946,7 @@
 				E180026A07B2BBB900010DB0 /* QSUpdateController.m in Sources */,
 				E18002D307B2F0B800010DB0 /* main.m in Sources */,
 				7FF63FF507CC0DF500A5EE4A /* QSPreferencesController.m in Sources */,
+				CD13225527D301360005EDB1 /* QSDonationController.m in Sources */,
 				7F60F12907FA134600922645 /* QSMainPreferencePanes.m in Sources */,
 				7F975A2707FC9C5E007FC20F /* QSDefaultsManager.m in Sources */,
 				7F8C658408116FD10051113C /* QSAboutWindowController.m in Sources */,

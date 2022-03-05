@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSApp">
@@ -22,6 +22,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showAbout:" target="217" id="1334"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Donate..." id="fWD-oC-mMX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showGuide:" target="217" id="Bda-za-2Yv"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="1881">
@@ -454,12 +460,6 @@ CA
                                     <action selector="showForums:" target="217" id="1916"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Quicksilver IRC Channel..." id="1595">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="openIRCChannel:" target="217" id="1904"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="1896">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -478,6 +478,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="267" y="154"/>
         </menu>
         <customObject id="217" userLabel="Main Controller" customClass="QSController">
             <connections>
