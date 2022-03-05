@@ -383,29 +383,56 @@
 	return YES;
 }
 
-- (QSObject *)openFile:(QSObject *)dObject {
-	NSFileManager *manager = [NSFileManager defaultManager];
+
+- (BOOL)openURLs:(NSArray *)urls withApp:(NSString *)bundleID {
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	for (QSObject *thisFile in [dObject splitObjects]) {
-        NSString *thisPath = [thisFile singleFilePath];
-        if ([thisFile isAlias]) {
-            NSString *aliasFile = [manager resolveAliasAtPathWithUI:thisPath];
-            if (aliasFile && [manager fileExistsAtPath:aliasFile])
-                thisPath = aliasFile;
-        }
-        NSString *fileHandler = [thisFile objectForMeta:@"QSPreferredApplication"];
-        if (fileHandler) {
-#ifdef DEBUG
-            if (VERBOSE) NSLog(@"Using %@", fileHandler);
-#endif
-            // don't open with this app on subsequent calls
-            [thisFile setObject:nil forMeta:@"QSPreferredApplication"];
-            [ws openFile:thisPath withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
-        } else if (![mQSFSBrowser openFile:thisPath]) {  // try the File System Browser handler
-            // fallback to the workspace manager
-            [ws openFile:thisPath];
-        }
+
+	BOOL success = [ws openURLs:urls withAppBundleIdentifier:bundleID options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
+	if ((!success)) {
+		NSLog(@"Error opening files %@ with %@", urls, bundleID);
+		NSBeep();
 	}
+	return success;
+}
+
+- (QSObject *)openFile:(QSObject *)dObject {
+	
+	// First, deal with opening files with the QS preferred app (usually happens after → into an app to open 'Recent Files'
+	NSArray *preferredAppObjects = [[dObject splitObjects] arrayByEnumeratingArrayUsingBlock:^id(QSObject *obj) {
+		if ([obj objectForMeta:@"QSPreferredApplication"]) {
+			return obj;
+		}
+		return nil;
+	}];
+	if ([preferredAppObjects count]) {
+		NSMutableDictionary *appsWithFiles = [NSMutableDictionary dictionary];
+		for (QSObject *obj in preferredAppObjects) {
+			NSString *identifier = [obj objectForMeta:@"QSPreferredApplication"];
+			if (![appsWithFiles objectForKey:identifier]) {
+				[appsWithFiles setObject:[NSMutableArray array] forKey:identifier];
+			}
+			[(NSMutableArray *)[appsWithFiles objectForKey:identifier] addObject:[NSURL fileURLWithPath:[obj singleFilePath]]];
+		}
+		for (NSString *bundleID in appsWithFiles) {
+			NSArray *URLs = [appsWithFiles objectForKey:bundleID];
+#ifdef DEBUG
+			if (VERBOSE) NSLog(@"Using %@ to open %@", bundleID, URLs);
+#endif
+			[self openURLs:URLs withApp:bundleID];
+		}
+	}
+	
+	// Second, deal with opening any other files with their default app
+	NSArray *defaultAppURLs = [[dObject splitObjects] arrayByEnumeratingArrayUsingBlock:^id(QSObject *obj) {
+		if (![preferredAppObjects containsObject:obj]) {
+			return [NSURL fileURLWithPath:[obj singleFilePath]];
+		}
+		return nil;
+	}];
+	if ([defaultAppURLs count]) {
+		[self openURLs:defaultAppURLs withApp:nil];
+	}
+	
 	return nil;
 }
 
@@ -422,17 +449,13 @@
 // FileOpenWithAction
 - (QSObject *)openFile:(QSObject *)dObject with:(QSObject *)iObject {
 	NSArray *splitObjects = [iObject splitObjects];
-	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	// Enumerate through list of files in dObject and apps in iObject
+	NSArray *urls = [[dObject validPaths] arrayByEnumeratingArrayUsingBlock:^id(NSString *obj) {
+		return [NSURL fileURLWithPath:obj];
+	}];
 	for(QSObject *individual in splitObjects) {
-		for(NSString *thisFile in [dObject validPaths]) {
-			// If there's only a single value in iObject
-			if([individual isApplication]) {
-				[ws openFile:thisFile withApplication:[individual singleFilePath]];
-			}
-			else {
-				NSBeep();
-			}
+		if ([individual isApplication]) {
+			NSString *identifier = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
+			[self openURLs:urls withApp:identifier];
 		}
 	}	
 	return nil;
