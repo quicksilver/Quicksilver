@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSApplication_BLTRExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (QSDonationController * )sharedInstance;
 - (BOOL)openDonationPage;
+- (BOOL)checkDonationStatus:(QSApplicationLaunchStatusFlags)launchStatus;
 
 @end
 

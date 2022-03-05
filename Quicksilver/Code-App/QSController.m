@@ -88,7 +88,7 @@ static QSController *defaultController = nil;
 	if (defaultBool(@"verbose") )
 		setenv("verbose", "1", YES);
 #endif
-
+		
 	// Pre instantiate to avoid bug
 //	[NSColor controlShadowColor];
 	[NSColor setIgnoresAlpha:NO];
@@ -625,16 +625,16 @@ static QSController *defaultController = nil;
 - (void)checkForFirstRun {
 
 #ifdef DEBUG
-    QSApplicationLaunchStatusFlags status = QSApplicationNormalLaunch;
+	launchStatus = QSApplicationNormalLaunch;
 #else
-	QSApplicationLaunchStatusFlags status = [NSApp checkLaunchStatus];
+	launchStatus = [NSApp checkLaunchStatus];
 #endif
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
 	NSUInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
-	switch (status) {
+	switch (launchStatus) {
 		case QSApplicationUpgradedLaunch: {
 /** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/
 #ifndef DEBUG     
@@ -1092,7 +1092,9 @@ static QSController *defaultController = nil;
 
     // make sure we're visible on the first activation
     [NSApp unhideWithoutActivation];
-    
+	
+	[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
+	
 	[QSApp setCompletedLaunch:YES];
 }
 

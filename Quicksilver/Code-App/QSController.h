@@ -15,6 +15,7 @@
 	BOOL versionChanged, runningSetupAssistant;
 	NSObject *dropletProxy;
     NSString *crashReportPath;
+	QSApplicationLaunchStatusFlags launchStatus;
 }
 
 @property (strong) NSString* crashReportPath;
