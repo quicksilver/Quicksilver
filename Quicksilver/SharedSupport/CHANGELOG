@@ -15,6 +15,7 @@
 ### Changed ###
 
   * The “Get Current Selection (Do Not Change Shortcut)” service is now called “Send to Quicksilver” (#2119, #2651)
+  * Tweak default purples for a more modern look (#2653)
 
 ### Fixed ###
 
