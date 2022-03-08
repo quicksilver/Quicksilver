@@ -5,6 +5,7 @@
 #import "QSSearchObjectView.h"
 #import "QSAction.h"
 #import "QSTextProxy.h"
+
 @implementation QSResizingInterfaceController
 
 - (id)initWithWindowNibName:(NSString *)nib {
@@ -16,12 +17,16 @@
 }
 
 - (void)showIndirectSelector:(id)sender {
-	[super showIndirectSelector:sender];
-	[self adjustWindow:nil];
+	QSGCDMainSync(^{
+		[super showIndirectSelector:sender];
+		[self adjustWindow:nil];
+	});
 }
 - (void)hideIndirectSelector:(id)sender {
-	[super hideIndirectSelector:sender];
-	[self adjustWindow:nil];
+	QSGCDMainSync(^{
+		[super hideIndirectSelector:sender];
+		[self adjustWindow:nil];
+	});
 }
 
 - (void)resetAdjustTimer {
