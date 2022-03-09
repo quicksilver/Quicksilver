@@ -132,9 +132,7 @@
                 [[NSWorkspace sharedWorkspace] hideApplication:obj];
             }];
 		} else {
-            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [self switchToApplication:obj];
-            }];
+			[self switchToApplication:dObject];
 		}
 	} else {
 		array = [dObject validPaths];
