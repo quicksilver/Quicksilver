@@ -287,15 +287,15 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
         
         usleep(100000);
         
-        // break: it's been 20s since the action was called
+        // break: it's been 12s since the action was called
         if (-[aDate timeIntervalSinceNow] > 12) {
             NSLog(@"Could not terminate %@, abandoning restart",[runningApplication localizedName]);
             return;
         }
         
-		}
-		usleep(200000);
-		[self openURL:bundleURL];
+	}
+	usleep(100000);
+	[self openURL:bundleURL];
 }
 
 @end
