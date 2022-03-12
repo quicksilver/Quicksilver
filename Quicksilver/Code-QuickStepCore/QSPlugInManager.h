@@ -19,6 +19,10 @@ typedef enum {
     QSPluginUpdateStatusPluginsUpdated,
 } QSPluginUpdateStatus;
 
+typedef void(^QSPluginUpdateBlock)(BOOL success);
+typedef void(^QSPluginUpdatePromptBlock)(QSPluginUpdateStatus status);
+
+
 @class QSPlugIn;
 @interface QSPlugInManager : NSObject <QSURLDownloadDelegate> {
 	BOOL startupLoadComplete;
@@ -47,7 +51,6 @@ typedef enum {
 	CGFloat installProgress;
 	BOOL isInstalling;
 	BOOL supressRelaunchMessage;
-    NSInteger errorCount;
     NSTimeInterval lastCheck;
 }
 
@@ -62,7 +65,7 @@ typedef enum {
 - (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles;
 - (BOOL)plugInMeetsRequirements:(QSPlugIn *)plugIn;
 - (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn;
-- (void)downloadWebPlugInInfoFromDate:(NSDate *)date forUpdateVersion:(NSString *)version synchronously:(BOOL)synchro;
+- (void)downloadWebPlugInInfoFromDate:(NSDate *)date forUpdateVersion:(NSString *)version completionHandler:(QSPluginUpdateBlock)block;
 - (NSMutableDictionary *)loadedPlugIns;
 - (NSMutableArray *)oldPlugIns;
 
@@ -87,9 +90,8 @@ typedef enum {
 //- (NSString *)installPlugInFromFile:(NSString *)path;
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs;
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version;
-- (void)loadNewWebData:(NSData *)data;
-- (QSPluginUpdateStatus)checkForPlugInUpdates;
-- (QSPluginUpdateStatus)checkForPlugInUpdatesForVersion:(NSString *)version;
+- (void)checkForPlugInUpdates:(QSPluginUpdatePromptBlock)block;
+- (void)checkForPlugInUpdatesForVersion:(NSString *)version completionHandler:(QSPluginUpdatePromptBlock)block;
 
 - (NSMutableDictionary *)localPlugIns;
 - (void)setLocalPlugIns:(NSMutableDictionary *)newLocalPlugIns;
@@ -108,9 +110,9 @@ typedef enum {
 - (BOOL)supressRelaunchMessage;
 - (void)setSupressRelaunchMessage:(BOOL)flag;
 - (NSString *)installPlugInFromFile:(NSString *)path;
-- (void)downloadWebPlugInInfo;
-- (void)downloadWebPlugInInfoIgnoringDate;
-- (BOOL)updatePlugInsForNewVersion:(NSString *)version;
+- (void)downloadWebPlugInInfo:(QSPluginUpdateBlock)block;
+- (void)downloadWebPlugInInfoIgnoringDate:(QSPluginUpdateBlock)block;
+- (void)updatePlugInsForNewVersion:(NSString *)version completionHandler:(QSPluginUpdatePromptBlock)block;
 - (CGFloat)downloadProgress;
 - (NSMutableSet *)updatedPlugIns;
 - (BOOL)handleInstallURL:(NSURL *)url;
