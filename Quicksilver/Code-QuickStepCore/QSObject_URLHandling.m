@@ -29,17 +29,8 @@
 	if (![favIconURL host]) {
 		return nil;
 	}
-    NSString *faviconScheme = [favIconURL scheme];
-    if ([faviconScheme hasPrefix:@"qss-"]) {
-        faviconScheme = [faviconScheme substringFromIndex:4];
-    } else if ([faviconScheme hasPrefix:@"qssp-"]) {
-        faviconScheme = [faviconScheme substringFromIndex:5];
-    }
-    if (!faviconScheme) {
-        faviconScheme = @"http";
-    }
     
-	NSString *favIconString = [NSString stringWithFormat:@"http://grabicon.com/icon?domain=%@://%@&origin=quicksilverosx", faviconScheme, [favIconURL host]];
+	NSString *favIconString = [NSString stringWithFormat:@"https://icons.duckduckgo.com/ip3/%@.ico", [favIconURL host]];
 	NSImage *favicon = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:favIconString]];
 	return favicon;
 }
