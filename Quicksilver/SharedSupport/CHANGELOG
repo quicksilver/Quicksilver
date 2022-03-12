@@ -34,6 +34,7 @@
   * The app is signed and notarized (#2654, #2655)
   * The Toggle Application action would sometimes fail to show a hidden application (#2666)
   * Prevent a crash after moving files (#2656, #2667)
+  * Fix getting the favicon for search objects - now use Duckduckgo's service
 
 ### Development ###
 
