@@ -44,6 +44,7 @@
   * Update `qsrelease` to successfully sign the application bundle (#2674)
   * Split code signing into a separate `qssign` script (#2655)
   * Remove the `buildDMG.pl` script (#2655)
+  * Disable library validation (#2672)
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
