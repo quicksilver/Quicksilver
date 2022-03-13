@@ -1758,6 +1758,7 @@
 		CD4B1BBF17C259C000F2C5A7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = th; path = th.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CD4B1BC017C259C100F2C5A7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = th; path = th.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CD4B1BC117C25BC000F2C5A7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/About.strings"; sourceTree = "<group>"; };
+		CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Quicksilver.entitlements; sourceTree = "<group>"; };
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; usesTabs = 1; };
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; usesTabs = 1; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
@@ -2618,6 +2619,7 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
+				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
 				4DC3DD0B0E0BB27B009902EF /* Configuration */,
@@ -6502,6 +6504,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6515,6 +6518,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
