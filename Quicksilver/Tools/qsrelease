@@ -21,6 +21,9 @@ xcodebuild \
   -showBuildSettings |
   sort -u > "${SETTINGS}"
 
+# Copy library signing entitlements
+cp Quicksilver.entitlements /tmp/Quicksilver.entitlements
+
 SOURCE_ROOT=$(awk '$1 == "SOURCE_ROOT" { print $NF }' < "${SETTINGS}")
 BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
 

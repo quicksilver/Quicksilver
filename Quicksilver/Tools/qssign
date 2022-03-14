@@ -23,8 +23,8 @@ SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
 cd "${DMG_TEMP}"
 
 # QSDroplet.app must be signed *first* (inside-out)
-codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" Quicksilver.app/Contents/Resources/QSDroplet.app
-codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" Quicksilver.app
+codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app/Contents/Resources/QSDroplet.app
+codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app
 codesign --verify --deep --strict --verbose=1 Quicksilver.app
 spctl --assess --verbose --type open --type exec Quicksilver.app
 
