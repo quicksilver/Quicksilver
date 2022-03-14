@@ -25,6 +25,7 @@ jobs:
       working-directory: /tmp/QS/build/Release/
       run: |
         cp /tmp/qs_build_settings ./dmg/
+        cp /tmp/Quicksilver.entitlements ./dmg/
         tar -czvf ./dmg_ingredients.tar.gz ./dmg
     - name: Upload components for sign action
       uses: actions/upload-artifact@v2
@@ -56,7 +57,7 @@ jobs:
       run: |
         tar -xzvf ./dmg_ingredients.tar.gz
         mv ./dmg/qs_build_settings /tmp/
-
+        mv ./dmg/Quicksilver.entitlements /tmp/
         QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' /tmp/qs_build_settings)
         echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> $GITHUB_ENV
     - uses: actions/checkout@v2
