@@ -35,6 +35,7 @@
   * The Toggle Application action would sometimes fail to show a hidden application (#2666)
   * Prevent a crash after moving files (#2656, #2667)
   * Fix getting the favicon for search objects - now use Duckduckgo's service
+  * Increase default width of plugin preference pane sidebars (#2673, #2674)
 
 ### Development ###
 
@@ -45,6 +46,7 @@
   * Split code signing into a separate `qssign` script (#2655)
   * Remove the `buildDMG.pl` script (#2655)
   * Disable library validation (#2672)
+  * Add entitlements for Contacts, Calendars, etc. (#2676, #2677)
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
