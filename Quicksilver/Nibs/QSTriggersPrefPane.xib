@@ -504,32 +504,32 @@
             </connections>
         </arrayController>
         <customView id="726" userLabel="sidebar">
-            <rect key="frame" x="0.0" y="0.0" width="128" height="256"/>
+            <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="756" customClass="QSSplitHandleView">
-                    <rect key="frame" x="106" y="0.0" width="22" height="23"/>
+                    <rect key="frame" x="158" y="0.0" width="22" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                 </customView>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="755">
-                    <rect key="frame" x="0.0" y="0.0" width="128" height="23"/>
+                    <rect key="frame" x="0.0" y="0.0" width="180" height="23"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </customView>
                 <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="730">
-                    <rect key="frame" x="0.0" y="23" width="128" height="233"/>
+                    <rect key="frame" x="0.0" y="23" width="180" height="233"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="2q3-MA-dsf">
-                        <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
+                        <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" id="731" customClass="QSTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="name" editable="NO" width="124.7744140625" minWidth="29.7744140625" maxWidth="1000" id="734">
+                                    <tableColumn identifier="name" editable="NO" width="176.7744140625" minWidth="29.7744140625" maxWidth="1000" id="734">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Sets">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -552,7 +552,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="backgroundColor"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="843">
                         <rect key="frame" x="-100" y="-100" width="191" height="15"/>
