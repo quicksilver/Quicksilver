@@ -3,7 +3,7 @@
 ### New ###
 
   * Runs natively on Apple Silicon (M1) Macs (#2560)
-  * Updated icon & interface for Big Sur & Catalina (#2544, #2542, #2595)
+  * Updated icon & interface for Big Sur & Monterey (#2544, #2542, #2595)
   * Fully compatible with Catalina, Big Sur (#2537, #2555)
   * Updated, more modern preference panes. Easier searching, sorting and management (#1377, #2561)
   * New translations for: Chinese (Simplified) 中文简体, Chinese (Traditional) 中文繁體， Dutch, Estonian, Finnish, Catalonian, Spanish, Portuguese (Brazil), Indonesia, Korean, Russian, Turkish, Czech, French
