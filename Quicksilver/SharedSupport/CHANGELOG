@@ -36,6 +36,7 @@
   * Prevent a crash after moving files (#2656, #2667)
   * Fix getting the favicon for search objects - now use Duckduckgo's service
   * Increase default width of plugin preference pane sidebars (#2673, #2674)
+  * General improvements and crash prevention for the plugin updater (#2668, #2671)
 
 ### Development ###
 
