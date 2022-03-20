@@ -41,13 +41,17 @@
 	[continueButton setEnabled:NO];
 	[backButton setEnabled:NO];
 	plugInInfoStatus = 0;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoLoaded) name:QSPlugInInfoLoadedNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoFailed) name:QSPlugInInfoFailedNotification object:nil];
-	[[self plugInManager] downloadWebPlugInInfoIgnoringDate];
+	[[self plugInManager] downloadWebPlugInInfo:^(BOOL success) {
+		if (success) {
+			[self plugInInfoLoaded];
+		} else {
+			[self plugInInfoFailed];
+		}
+	}];
 }
+
 - (void)plugInInfoLoaded {
 	plugInInfoStatus = 1;
-	[[self plugInManager] downloadWebPlugInInfoIgnoringDate];
 	NSArray *plugins = [[self plugInManager] knownPlugInsWithWebInfo];
 	plugins = [plugins filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isInstalled == NO && isRecommended == YES"]];
 

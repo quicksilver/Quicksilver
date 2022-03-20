@@ -52,28 +52,12 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInInstalledNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInLoadedNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInInfoLoadedNotification object:nil];
-#if 0
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installStatusChanged:) name:@"QSUpdateControllerStatusChanged" object:nil];
-#endif
+
+		
 		[self reloadPlugInsList:nil];
 	}
 	return self;
 }
-
-#if 0
-- (void)installStatusChanged:(NSNotification *)notif {
-	//	float progress = [[QSUpdateController sharedInstance] downloadProgress];
-	//	[installProgress setDoubleValue:progress];
-	//	[installProgress displayIfNeeded];
-	//
-	//	if (progress == 1) {
-	//		//[installProgress setDoubleValue:progress];
-	//		[self setDownloadComplete:YES];
-	//		[installProgress setHidden:YES];
-	//		[installTextField setStringValue:@"Download Complete"];
-	//	}
-}
-#endif
 
 - (id)manager {
 	return [QSPlugInManager sharedInstance];
@@ -233,7 +217,7 @@
 
 - (IBAction)deleteSelection:(id)sender {
 	[[QSPlugInManager sharedInstance] deletePlugIns:[self selectedPlugIns] fromWindow:[plugInTable window]];
-    [[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
+	[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate:nil];
 }
 
 - (IBAction)revealSelection:(id)sender { [[self selectedPlugIns] valueForKey:@"reveal"];  }
@@ -259,7 +243,7 @@
 	[pluginInfoPanel makeKeyAndOrderFront:sender];
 }
 
-- (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates];  }
+- (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates:nil];  }
 
 #if 0
 - (IBAction)showPlugInsRSS:(id)sender {
@@ -267,7 +251,7 @@
 }
 #endif
 
-- (IBAction)reloadPlugIns:(id)sender { [[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];  }
+- (IBAction)reloadPlugIns:(id)sender { [[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate:nil];  }
 
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(NSTextFieldCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {

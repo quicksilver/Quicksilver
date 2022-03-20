@@ -33,6 +33,14 @@
  *
  */
 
+
+typedef enum {
+	kQSUpdateCheckError = -1,
+	kQSUpdateCheckNoUpdate = 0,
+	kQSUpdateCheckUpdateAvailable = 1,
+} QSUpdateCheckResult;
+
+
 @interface QSUpdateController () <QSURLDownloadDelegate> {
 	NSTimer *updateTimer;
 	NSString *availableVersion;
@@ -69,11 +77,8 @@
 - (void)setUpdateTimer {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-#ifdef DEBUG
-	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"]) return;
-#else
+
 	if (![defaults boolForKey:kCheckForUpdates]) return;
-#endif
 
 	NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
 	// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
@@ -125,15 +130,9 @@
 	return [NSURL URLWithString:checkURL];
 }
 
-typedef enum {
-	kQSUpdateCheckError = -1,
-	kQSUpdateCheckNoUpdate = 0,
-	kQSUpdateCheckUpdateAvailable = 1,
-} QSUpdateCheckResult;
-
-- (QSUpdateCheckResult)checkForUpdateStatus:(BOOL)userInitiated {
+- (void)checkForUpdateStatus:(BOOL)userInitiated completionHandler:(void (^)(QSUpdateCheckResult result))block {
+	
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-	NSString *checkVersionString = nil;
 
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
 	task.status = NSLocalizedString(@"Checking for Updates", @"QSUpdateController - task status");
@@ -142,29 +141,35 @@ typedef enum {
 
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-
-	NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
-	[task stop];
-
-	checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
-	if (![checkVersionString length] || [checkVersionString length] > 10) {
-		NSString *preview = [checkVersionString substringToIndex:([checkVersionString length] < 10 ? [checkVersionString length] : 9)];
-		NSLog(@"Strange reply from update server: %@", preview);
-		return kQSUpdateCheckError;
-	}
-
-	BOOL newVersionAvailable = [checkVersionString hexIntValue] > [thisVersionString hexIntValue];
-	/* We have to get the current available version, because it will get displayed to the user,
-	 * so force happens only if there's a valid response from the server
-	 */
-	availableVersion = checkVersionString;
+	NSURLSession *session = [NSURLSession sharedSession];
+	NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:theRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+		QSGCDMainSync(^{
+			[task stop];
+			
+			NSString *checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+			
+			[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
+			if (![checkVersionString length] || [checkVersionString length] > 10) {
+				NSString *preview = [checkVersionString substringToIndex:([checkVersionString length] < 10 ? [checkVersionString length] : 9)];
+				NSLog(@"Strange reply from update server: %@", preview);
+				block(kQSUpdateCheckError);
+				return;
+			}
+			
+			BOOL newVersionAvailable = [checkVersionString hexIntValue] > [thisVersionString hexIntValue];
+			/* We have to get the current available version, because it will get displayed to the user,
+			 * so force happens only if there's a valid response from the server
+			 */
+			self->availableVersion = checkVersionString;
 #ifdef DEBUG
-	if (VERBOSE)
-		NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, User-initiated: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (userInitiated ? @"YES" : @"NO"));
+			if (VERBOSE)
+				NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, User-initiated: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (userInitiated ? @"YES" : @"NO"));
 #endif
-	return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
+			block(newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate);
+			return;
+		});
+	}];
+	[dataTask resume];
 }
 
 - (void)setIsCheckingForUpdates:(BOOL)val {
@@ -177,36 +182,33 @@ typedef enum {
 - (void)checkForUpdates:(BOOL)userInitiated {
 	[self setIsCheckingForUpdates:YES];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
+	
 	/* This is an automated check and updates are blocked or not enabled */
 	if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] && !userInitiated) {
 		NSLog(@"Preventing update check.");
 		[self setIsCheckingForUpdates:NO];
 		return;
 	}
-
-	QSGCDQueueAsync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-		NSInteger check = [self checkForUpdateStatus:userInitiated];
+	
+	[self checkForUpdateStatus:userInitiated completionHandler:^(QSUpdateCheckResult check) {
 		if (check == kQSUpdateCheckError) {
 			if (userInitiated) {
-				QSGCDMainSync(^{
-					NSAlert *alert = [[NSAlert alloc] init];
-					
-					alert.alertStyle = NSAlertStyleInformational;
-					alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title");
-					alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
-					[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
-					
-					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
-				});
+				NSAlert *alert = [[NSAlert alloc] init];
+				
+				alert.alertStyle = NSAlertStyleInformational;
+				alert.messageText = NSLocalizedString(@"Internet Connection Error", @"QSUpdateController - update check error title");
+				alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
+				[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
+				
+				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
 			}
 			[self setIsCheckingForUpdates:NO];
 			return;
 		}
-
+		
 		if (check == kQSUpdateCheckUpdateAvailable) {
-
-
+			
+			
 #ifdef DEBUG
 			/* Disable automatically checking for updates in the background for DEBUG builds
 			 * You can still check for updates by clicking the "Check Now" button */
@@ -216,10 +218,9 @@ typedef enum {
 				return;
 			}
 #endif
-
+			
 			/* We should ask the user if we're user-initiated or automatic downloads are not enabled. */
 			if (userInitiated || ![[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
-				QSGCDMainSync(^{
 				NSAlert *alert = [[NSAlert alloc] init];
 				alert.alertStyle = NSAlertStyleInformational;
 				alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
@@ -227,7 +228,7 @@ typedef enum {
 				[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 				[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
-
+				
 				[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:^(QSAlertResponse response) {
 					if (response == QSAlertResponseOK)
 						[self installAppUpdate];
@@ -235,8 +236,7 @@ typedef enum {
 						QSGCDMainAsync(^{
 							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
 						});
-					}];
-				});
+				}];
 			} else {
 				//
 				[self installAppUpdate];
@@ -244,15 +244,13 @@ typedef enum {
 			[self setIsCheckingForUpdates:NO];
 			return;
 		}
-
+		
 		if (check == kQSUpdateCheckNoUpdate) {
-			QSPluginUpdateStatus updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
-			if (updateStatus == QSPluginUpdateStatusNoUpdates) {
-				NSLog(@"Quicksilver is up to date");
-				
-				if (userInitiated) {
+			[[QSPlugInManager sharedInstance] checkForPlugInUpdates:^(QSPluginUpdateStatus updateStatus) {
+				if (updateStatus == QSPluginUpdateStatusNoUpdates) {
+					NSLog(@"Quicksilver is up to date");
 					
-					QSGCDMainSync(^{
+					if (userInitiated) {
 						NSAlert *alert = [[NSAlert alloc] init];
 						
 						alert.alertStyle = NSAlertStyleInformational;
@@ -261,13 +259,12 @@ typedef enum {
 						[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
 						
 						[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
-					});
+					}
 				}
-			}
-			[self setIsCheckingForUpdates:NO];
-			return;
+				[self setIsCheckingForUpdates:NO];
+			}];
 		}
-	});
+	}];
 }
 
 - (void)handleURL:(NSURL *)url {
@@ -354,21 +351,9 @@ typedef enum {
 	self.downloadTask.status = NSLocalizedString(@"Download Complete", @"QSUpdateController - download task status");
 	self.downloadTask.progress = 1.0;
 
-	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:availableVersion];
-
-	if (plugInUpdates) {
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(finishAppInstall)
-													 name:@"QSPlugInUpdatesFinished"
-												   object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(finishAppInstall)
-													 name:@"QSPlugInUpdatesFailed"
-												   object:nil];
-	} else {
-		NSLog(@"Plugins don't need updates");
+	[[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:availableVersion completionHandler:^(QSPluginUpdateStatus status) {
 		[self finishAppInstall];
-	}
+	}];
 }
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
