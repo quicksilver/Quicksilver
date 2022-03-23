@@ -11,6 +11,7 @@
   * Zoom plugin for managing Zoom meetings directly from within Quicksilver
   * Improved 'Updates' interface for installing new Quicksilver updates (#1849)
   * New “Automatically update when files change” setting to immediately rescan folders (#330, #2633)
+  * Make donations easier to get to and remind users about them (#2665)
 
 ### Changed ###
 
