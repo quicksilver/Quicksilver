@@ -15,6 +15,7 @@
 	BOOL versionChanged, runningSetupAssistant;
 	NSObject *dropletProxy;
     NSString *crashReportPath;
+	QSApplicationLaunchStatusFlags launchStatus;
 }
 
 @property (strong) NSString* crashReportPath;
@@ -22,6 +23,7 @@
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
 - (NSProgressIndicator *)progressIndicator;
+- (IBAction)openDonatePage:(id)sender;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)showGuide:(id)sender;
 - (IBAction)showPlugins:(id)sender;
