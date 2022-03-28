@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface QSAboutWindowController : NSWindowController <NSWindowDelegate>
+@interface QSAboutWindowController : NSWindowController <NSWindowDelegate, WebPolicyDelegate>
 {
 	IBOutlet WebView *creditsView;
 	BOOL showCredits;
