@@ -45,7 +45,10 @@
 	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.333] , @"duration", nil, [NSNumber numberWithDouble:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil]
 					   forKey:kQSWindowCancelEffect];
 
-
+	[commandView setTextColor:[NSColor secondaryLabelColor]];
+	[background setBackgroundColor:[NSColor windowBackgroundColor]];
+	[progressIndicator setControlTint:NSGraphiteControlTint];
+	[menuButton setContentTintColor:[NSColor secondaryLabelColor]];
 	//  standardRect = [[self window] frame] , [[NSScreen mainScreen] frame]);
 
 	// [setHidden:![NSApp isUIElement]];
