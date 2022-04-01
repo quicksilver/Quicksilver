@@ -55,12 +55,16 @@
 
 	_mainView = splitView;
 	return _mainView;
+
 }
 
 - (id)init {
 	self = [super initWithBundle:[NSBundle bundleForClass:[self class]]];
 	if (self) {
+		
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(triggerChanged:) name:NDKeyboardLayoutSelectedKeyboardInputSourceChangedNotification object:nil];
+
 		[nc addObserver:self
 			   selector:@selector(triggerChanged:)
 				   name:QSTriggerChangedNotification
