@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSPrimerInterfaceController">
@@ -11,6 +12,7 @@
                 <outlet property="aSearchResultDisclosure" destination="30" id="109"/>
                 <outlet property="aSearchText" destination="117" id="121"/>
                 <outlet property="aSelector" destination="33" id="52"/>
+                <outlet property="background" destination="5" id="01U-9u-ilo"/>
                 <outlet property="commandView" destination="47" id="53"/>
                 <outlet property="dSearchCount" destination="46" id="112"/>
                 <outlet property="dSearchResultDisclosure" destination="29" id="111"/>
@@ -33,29 +35,29 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="258" y="217" width="466" height="301"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="213" height="113"/>
             <view key="contentView" id="5" customClass="QSBackgroundView">
                 <rect key="frame" x="0.0" y="0.0" width="466" height="301"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box title="Indirect Object" titlePosition="noTitle" id="124">
+                    <box fixedFrame="YES" title="Indirect Object" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="124">
                         <rect key="frame" x="438" y="-172" width="44" height="495"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <view key="contentView" id="uvz-jN-CvG">
-                            <rect key="frame" x="2" y="2" width="40" height="491"/>
+                        <view key="contentView" ambiguous="YES" id="uvz-jN-CvG">
+                            <rect key="frame" x="3" y="3" width="38" height="489"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <box title="Indirect Object" titlePosition="noTitle" id="37">
+                    <box fixedFrame="YES" title="Indirect Object" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="37">
                         <rect key="frame" x="-14" y="-182" width="44" height="495"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <view key="contentView" id="qkZ-lu-DLt">
-                            <rect key="frame" x="2" y="2" width="40" height="491"/>
+                        <view key="contentView" ambiguous="YES" id="qkZ-lu-DLt">
+                            <rect key="frame" x="3" y="3" width="38" height="489"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="10">
+                    <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="55" y="13" width="25" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" inset="2" id="180">
@@ -63,23 +65,23 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <box title="Object" titlePosition="noTitle" id="16">
+                    <box fixedFrame="YES" title="Object" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                         <rect key="frame" x="51" y="211" width="360" height="66"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <view key="contentView" id="Ubl-86-BeX">
-                            <rect key="frame" x="2" y="2" width="356" height="62"/>
+                        <view key="contentView" ambiguous="YES" id="Ubl-86-BeX">
+                            <rect key="frame" x="3" y="3" width="354" height="60"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <box title="Action" titlePosition="noTitle" id="18">
+                    <box fixedFrame="YES" title="Action" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                         <rect key="frame" x="51" y="128" width="360" height="66"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <view key="contentView" id="6rc-Js-t4y">
-                            <rect key="frame" x="2" y="2" width="356" height="62"/>
+                        <view key="contentView" ambiguous="YES" id="6rc-Js-t4y">
+                            <rect key="frame" x="3" y="3" width="354" height="60"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <button verticalHuggingPriority="750" id="22">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                         <rect key="frame" x="339" y="11" width="74" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                         <buttonCell key="cell" type="push" title="Execute" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="181">
@@ -94,7 +96,7 @@ DQ
                             <outlet property="nextKeyView" destination="32" id="102"/>
                         </connections>
                     </button>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="29">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="29">
                         <rect key="frame" x="395" y="282" width="13" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="above" alignment="left" borderStyle="border" inset="2" id="182">
@@ -105,7 +107,7 @@ DQ
                             <action selector="toggleResultView:" target="32" id="127"/>
                         </connections>
                     </button>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="30">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
                         <rect key="frame" x="395" y="196" width="13" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="above" alignment="left" borderStyle="border" inset="2" id="183">
@@ -116,60 +118,75 @@ DQ
                             <action selector="toggleResultView:" target="33" id="126"/>
                         </connections>
                     </button>
-                    <customView id="32" customClass="QSCollectingSearchObjectView">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32" customClass="QSCollectingSearchObjectView">
                         <rect key="frame" x="58" y="219" width="346" height="52"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <connections>
                             <outlet property="nextKeyView" destination="33" id="95"/>
                         </connections>
                     </customView>
-                    <customView id="33" customClass="QSSearchObjectView">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33" customClass="QSSearchObjectView">
                         <rect key="frame" x="58" y="136" width="346" height="52"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <connections>
                             <outlet property="nextKeyView" destination="34" id="96"/>
                         </connections>
                     </customView>
-                    <textField verticalHuggingPriority="750" id="45">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="45">
                         <rect key="frame" x="262" y="195" width="129" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="No items" id="184">
                             <font key="font" metaFont="smallSystemBold"/>
-                            <color key="textColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="placeholderTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="46">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46">
                         <rect key="frame" x="262" y="281" width="129" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="No items" id="185">
                             <font key="font" metaFont="smallSystemBold"/>
-                            <color key="textColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="placeholderTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="47">
-                        <rect key="frame" x="54" y="17" width="285" height="16"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="47">
+                        <rect key="frame" x="55" y="17" width="285" height="16"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Command Summary" id="186">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <binding destination="my1-iW-lFE" name="textColor" keyPath="values.values.QSAppearance1T" id="viR-ab-dL7">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </textFieldCell>
+                        <connections>
+                            <binding destination="my1-iW-lFE" name="textColor" keyPath="values.values.QSAppearance1T" id="Whk-t9-mDw">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
                     </textField>
-                    <button id="55" customClass="QSMenuButton">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55" customClass="QSMenuButton">
                         <rect key="frame" x="442" y="281" width="24" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="Button-GearMenu" imagePosition="only" alignment="center" inset="2" id="187">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
+                        <color key="contentTintColor" name="systemBrownColor" catalog="System" colorSpace="catalog"/>
                     </button>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="99">
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                         <rect key="frame" x="4" y="5" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </progressIndicator>
-                    <textField verticalHuggingPriority="750" id="117">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117">
                         <rect key="frame" x="55" y="195" width="91" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Action" id="188">
@@ -178,7 +195,7 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="118">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="118">
                         <rect key="frame" x="55" y="280" width="91" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Subject" id="189">
@@ -187,18 +204,18 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <customView id="137" customClass="QSFadingView">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="137" customClass="QSFadingView">
                         <rect key="frame" x="52" y="43" width="361" height="87"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box title="Title" titlePosition="noTitle" id="177">
+                            <box fixedFrame="YES" title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="177">
                                 <rect key="frame" x="-1" y="2" width="360" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" id="ylH-Ac-HN4">
-                                    <rect key="frame" x="2" y="2" width="356" height="62"/>
+                                <view key="contentView" ambiguous="YES" id="ylH-Ac-HN4">
+                                    <rect key="frame" x="3" y="3" width="354" height="60"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <customView id="34" customClass="QSCollectingSearchObjectView">
+                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34" customClass="QSCollectingSearchObjectView">
                                             <rect key="frame" x="5" y="6" width="346" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <connections>
@@ -208,7 +225,7 @@ DQ
                                     </subviews>
                                 </view>
                             </box>
-                            <textField verticalHuggingPriority="750" id="116">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="116">
                                 <rect key="frame" x="3" y="69" width="96" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Object" id="192">
@@ -217,16 +234,16 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" id="44">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44">
                                 <rect key="frame" x="210" y="70" width="129" height="14"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="No items" id="191">
                                     <font key="font" metaFont="smallSystemBold"/>
-                                    <color key="textColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="placeholderTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="31">
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31">
                                 <rect key="frame" x="343" y="71" width="13" height="13"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="above" alignment="left" borderStyle="border" inset="2" id="190">
@@ -245,7 +262,9 @@ DQ
                 <outlet property="delegate" destination="-2" id="98"/>
                 <outlet property="initialFirstResponder" destination="32" id="97"/>
             </connections>
+            <point key="canvasLocation" x="139" y="150"/>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="my1-iW-lFE"/>
     </objects>
     <resources>
         <image name="Button-GearMenu" width="20" height="12"/>

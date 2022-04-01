@@ -4,9 +4,12 @@
 #import <Cocoa/Cocoa.h>
 #import <QSCore/QSCore.h>
 #import <QSInterface/QSResizingInterfaceController.h>
+#import <QSInterface/QSInterface.h>
 
 @interface QSPrimerInterfaceController : QSResizingInterfaceController {
 	//	 NSRect standardRect;
+	IBOutlet QSBackgroundView *background;
+
 	IBOutlet NSButton *executeButton;
 
 	IBOutlet NSTextField *dSearchText;
