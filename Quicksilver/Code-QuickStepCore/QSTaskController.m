@@ -47,7 +47,7 @@ QSTaskController *QSTasks;
 - (void)taskStarted:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
         self.tasksDictionary[task.identifier] = task;
 
         if (self.tasksDictionary.count == 1) {
@@ -60,7 +60,7 @@ QSTaskController *QSTasks;
 - (void)taskStopped:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 	
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
 		
 		if (self.tasksDictionary.count == 1) {
@@ -73,7 +73,7 @@ QSTaskController *QSTasks;
 
 - (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
 	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		
 		QSTask *task = [QSTask taskWithIdentifier:identifier];
 		
