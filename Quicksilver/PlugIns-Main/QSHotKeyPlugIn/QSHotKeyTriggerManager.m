@@ -140,7 +140,7 @@
 - (BOOL)enableTrigger:(QSTrigger *)trigger {
 	NSDictionary *entry = (NSDictionary*)[trigger info];
 	if ([entry objectForKey:@"keyCode"]) {
-		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] unsignedShortValue] character:([[entry objectForKey:@"characters"] length]) ? [[entry objectForKey:@"characters"] characterAtIndex:0] :0 safeModifierFlags:[[entry objectForKey:@"modifiers"] integerValue]];
+		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] unsignedShortValue] modifierFlags:[[entry objectForKey:@"modifiers"] integerValue]];
 
 		[activationKey setTarget:self selectorReleased:@selector(hotKeyReleased:) selectorPressed:@selector(hotKeyPressed:)];
 		[activationKey setIdentifier:[entry objectForKey:kItemID]];
@@ -157,7 +157,7 @@
 
 - (NSString *)descriptionForTrigger:(NSDictionary *)thisTrigger {
 	if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"])
-		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] unsignedShortValue] character:0 safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] unsignedIntegerValue]] stringValue];
+		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] unsignedShortValue] modifierFlags:[[thisTrigger objectForKey:@"modifiers"] unsignedLongValue]] stringValue];
 	else
 		return @"None";
 }

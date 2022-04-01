@@ -128,7 +128,7 @@
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
 	NSUInteger modifiers = [theEvent modifierFlags];
 	unsigned short keyCode = [theEvent keyCode];
-	NSString *characters = (keyCode == 48) ? @"\t" : [theEvent charactersIgnoringModifiers];
+	NSString *characters = [theEvent charactersIgnoringModifiers];
 	//	NSLog(@"event %@", theEvent);
 	if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
 	  	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode], @"keyCode", characters, @"character", nil];
@@ -189,8 +189,7 @@
 - (NSDictionary *)hotKeyDictForEvent:(NSEvent *)event {
 	NSUInteger modifiers = [event modifierFlags];
 	unsigned short keyCode = [event keyCode];
-//	NSString *character = (keyCode == 48) ? @"\t" : [event charactersIgnoringModifiers];
-	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", [event charactersIgnoringModifiers], @"character", nil];
 }
 
 - (NSDictionary *)hotKey { return hotKey;  }
@@ -206,7 +205,9 @@
 
 - (void)updateStringForHotKey {
 	if ([hotKey isKindOfClass:[NSDictionary class]]) {
-		NSString *descrip = [[QSHotKeyEvent hotKeyWithDictionary:hotKey] stringValue];
+		UInt16 keyCode = [[hotKey objectForKey:@"keyCode"] unsignedShortValue];
+		NSUInteger modifiers = [[hotKey objectForKey:@"modifiers"] unsignedLongValue];
+		NSString *descrip = [[QSHotKeyEvent getHotKeyForKeyCode:keyCode modifierFlags:modifiers] stringValue];
 		[self setStringValue:descrip?descrip:@""];
 	} else if (hotKey) {
 		[self setStringValue:@"invalid"];

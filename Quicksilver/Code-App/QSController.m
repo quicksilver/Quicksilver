@@ -1031,8 +1031,9 @@ static QSController *defaultController = nil;
 - (id)activationHotKey { return nil;  }
 - (void)setActivationHotKey:(id)object {
 	[[QSHotKeyEvent hotKeyWithIdentifier:kActivationHotKey] setEnabled:NO];
-
-	QSHotKeyEvent *activationKey = (QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithDictionary:object];
+	UInt16 keyCode = [[object objectForKey:@"keyCode"] unsignedShortValue];
+	NSUInteger modifiers = [[object objectForKey:@"modifiers"] unsignedLongValue];
+	QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
 	[activationKey setTarget:self selectorReleased:(SEL) 0 selectorPressed:@selector(activateInterface:)];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
