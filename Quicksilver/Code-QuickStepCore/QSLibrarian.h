@@ -18,6 +18,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 @interface QSLibrarian : NSObject {
 	QSCatalogEntry *catalog; //Root Catalog Entry
 
+	dispatch_queue_t scanning_queue;
 	NSMutableDictionary *enabledPresetsDictionary;
 	NSMutableSet *defaultSearchSet;
 	NSMutableSet *omittedIDs;
@@ -39,7 +40,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableDictionary *entriesByID;
 
 	NSMutableArray *invalidIndexes;
-	NSInteger scannerCount;
     
     @private
     BOOL catalogLoaded;

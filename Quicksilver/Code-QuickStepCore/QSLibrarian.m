@@ -33,6 +33,7 @@ static CGFloat searchSpeed = 0.0;
 
 + (id)sharedInstance {
 	if (!QSLib) QSLib = [[[self class] allocWithZone:nil] init];
+	
 	return QSLib;
 }
 
@@ -55,7 +56,7 @@ static CGFloat searchSpeed = 0.0;
 	if (self = [super init]) {
         // Set a BOOL to ensure nothing attempts to access the catalog until it's fully loaded
         catalogLoaded = NO;
-        
+		scanning_queue = dispatch_queue_create("quicksilver.qslibrarian.scanning", DISPATCH_QUEUE_SERIAL);
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
 			QSMinScore = [minScore doubleValue];
@@ -260,14 +261,16 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)reloadSource:(NSNotification *)notif {
-	NSArray *entries = [entriesBySource objectForKey:[notif object]];
-    self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
-    [self.scanTask start];
-
-	for (id loopItem in entries) {
-		[loopItem scanForced:NO];
-	}
-	[self.scanTask stop];
+	dispatch_async(scanning_queue, ^{
+		NSArray *entries = [self->entriesBySource objectForKey:[notif object]];
+		self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
+		[self.scanTask start];
+		
+		for (id loopItem in entries) {
+			[loopItem scanForced:NO];
+		}
+		[self.scanTask stop];
+	});
 }
 
 - (void)reloadEntrySources:(NSNotification *)notif {
@@ -289,10 +292,12 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)reloadEntry:(NSNotification *)notif
 {
-	QSCatalogEntry *entry = [self entryForID:[notif object]];
-	if (entry) {
-		[entry scanForced:YES];
-	}
+	dispatch_async(scanning_queue, ^{
+		QSCatalogEntry *entry = [self entryForID:[notif object]];
+		if (entry) {
+			[entry scanForced:YES];
+		}
+	});
 }
 
 - (void)reloadIDDictionary:(NSNotification *)notif {
@@ -333,11 +338,13 @@ static CGFloat searchSpeed = 0.0;
     if (!entry) {
         return;
     }
+	QSGCDMainSync(^{
     if ([notif.name isEqualToString:QSCatalogEntryIsIndexingNotification]) {
         [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), entry.name]];
     } else if ([notif.name isEqualToString:QSCatalogEntryIndexedNotification]) {
         [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), entry.name]];
     }
+	});
 }
 
 - (QSCatalogEntry *)entryForID:(NSString *)theID {
@@ -543,19 +550,13 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
-    if (scannerCount >= 1) {
-        NSLog(@"Multiple Scans Attempted");
-        return;
-    }
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(scanning_queue, ^{
         @autoreleasepool {
             self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
             self.scanTask.progress = -1;
             [self.scanTask start];
 
-            scannerCount++;
-            NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+            NSArray *children = [self->catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
@@ -567,7 +568,6 @@ static CGFloat searchSpeed = 0.0;
             [self.scanTask stop];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-            scannerCount--;
         }
     });
 }
