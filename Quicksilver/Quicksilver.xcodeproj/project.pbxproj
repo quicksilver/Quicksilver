@@ -214,7 +214,6 @@
 		7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */; };
 		7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */; };
 		7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */; };
-		7F5D70D0091D9C76007A22C4 /* QSSplash.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */; };
 		7F60F12807FA134600922645 /* QSMainPreferencePanes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F12607FA134600922645 /* QSMainPreferencePanes.h */; };
 		7F60F12907FA134600922645 /* QSMainPreferencePanes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */; };
 		7F60F13307FA13B900922645 /* QSPreferencePane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F13107FA13B900922645 /* QSPreferencePane.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1343,7 +1342,6 @@
 		7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSMainMenuPrefPane.xib; sourceTree = "<group>"; };
 		7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSetupAssistant.xib; sourceTree = "<group>"; };
 		7F5CFFC707FA76E700123A49 /* Quicksilver.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Quicksilver.sdef; sourceTree = "<group>"; };
-		7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = QSSplash.qtz; sourceTree = "<group>"; };
 		7F60F12607FA134600922645 /* QSMainPreferencePanes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMainPreferencePanes.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F60F12707FA134600922645 /* QSMainPreferencePanes.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMainPreferencePanes.m; sourceTree = "<group>"; usesTabs = 1; };
 		7F60F13107FA13B900922645 /* QSPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPreferencePane.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3120,7 +3118,6 @@
 				CDDB44ED1518ED3800800B66 /* CrashReporterText.html */,
 				CD53FEB2151A0ACF006B734B /* PluginReporterText.html */,
 				4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */,
-				7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */,
 				7F8401D009690F00006E6F0E /* ClientDescription.plist */,
 				E129F348071DD65A001E1D5A /* License.rtf */,
 				E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */,
@@ -4633,7 +4630,6 @@
 				E103ED4206471DBF00447FE0 /* QuicksilverMenuPressed.png in Resources */,
 				E103ED4706471DBF00447FE0 /* ResizeWidget.png in Resources */,
 				E177C41A067D09F700182A11 /* ScriptIcon.png in Resources */,
-				7F5D70D0091D9C76007A22C4 /* QSSplash.qtz in Resources */,
 				E129F349071DD65A001E1D5A /* License.rtf in Resources */,
 				7FC20B5407FB589B00FDD3CA /* Quicksilver.scriptSuite in Resources */,
 				7FC20B5507FB589B00FDD3CA /* QuicksilverHandlers.scriptSuite in Resources */,
