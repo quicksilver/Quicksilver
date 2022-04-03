@@ -12,7 +12,7 @@
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
 #import "QSDonationController.h"
-
+#import <IOKit/hidsystem/IOHIDLib.h>
 
 #import "QSIntValueTransformer.h"
 
@@ -45,31 +45,72 @@ static QSController *defaultController = nil;
     QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
     [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
-	if (![NSApplication isMavericks]) {
+	
+	if (![NSApplication isMojave]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
-
-		NSString *minimumVersionString = @"macOS 10.9+";
-		NSString *oldVersionsString = @"10.3–10.8";
-
+		
+		NSString *minimumVersionString = @"macOS 10.14+";
+		NSString *oldVersionsString = @"10.3–10.13";
+		
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = [NSString stringWithFormat:
-			NSLocalizedString(@"%@ %@ requires %@", @"macOS version required alert title (bundle name, bundle version, minimum macOS version)"),
-			[appBundle objectForInfoDictionaryKey:@"CFBundleName"],
-			[appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-			minimumVersionString
-		];
+							 NSLocalizedString(@"%@ %@ requires %@", @"macOS version required alert title (bundle name, bundle version, minimum macOS version)"),
+							 [appBundle objectForInfoDictionaryKey:@"CFBundleName"],
+							 [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+							 minimumVersionString
+							 ];
 		alert.informativeText = [NSString stringWithFormat:
-			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", @"macOS version required alert message"),
-			minimumVersionString,
-			oldVersionsString];
+								 NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", @"macOS version required alert message"),
+								 minimumVersionString,
+								 oldVersionsString];
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-
+		
 		[alert runModal];
 
 		// Quit - we don't want to be running :)
 		[NSApp terminate:nil];
 	}
-
+	
+	if (@available(macOS 10.15, *)) {
+		// below requests "Input Monitoring"
+		NSMutableArray *permissionsNeeded = [NSMutableArray array];
+		for (IOHIDRequestType type = kIOHIDRequestTypePostEvent; type <= kIOHIDRequestTypeListenEvent; type++ ) {
+			IOHIDAccessType theType = IOHIDCheckAccess(type);
+			switch (theType) {
+				case kIOHIDAccessTypeGranted:
+					break;
+				case kIOHIDAccessTypeDenied:
+				{
+					[permissionsNeeded addObject:(type == kIOHIDRequestTypePostEvent) ? @"Input Monitoring" : @"Acessibility"];
+					break;
+				}
+				case kIOHIDAccessTypeUnknown:
+				{
+					bool result = IOHIDRequestAccess(kIOHIDRequestTypeListenEvent);
+					if (!result) {
+						[permissionsNeeded addObject:(type == kIOHIDRequestTypePostEvent) ? @"Input Monitoring" : @"Acessibility"];
+					}
+					break;
+				}
+				default:
+					break;
+			}
+			NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent";
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+			if ([permissionsNeeded count]) {
+				NSString *permissions = [permissionsNeeded componentsJoinedByString:@" and "];
+				NSString *message = [NSString stringWithFormat:@"Quicksilver requires %@ permissions in order to function properly. System Preferences will now be opened. You must allow Quicksilver under the %@ options", permissions, permissions];
+				NSAlert *alert = [[NSAlert alloc] init];
+				alert.messageText = @"Access Required";
+				alert.informativeText = message;
+				[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+				[alert runModal];
+				NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent";
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+				
+			}
+		}
+	}
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;

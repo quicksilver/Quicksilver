@@ -386,6 +386,7 @@
 		CDC89A6927AB69C900727225 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC89A4B27AB69C000727225 /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CDC89A6A27AB69CC00727225 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC89A4E27AB69C000727225 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDC89A6B27AB69D200727225 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC89A4C27AB69C000727225 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDC9397527F9F1A200A6A880 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC9397427F9F1A100A6A880 /* IOKit.framework */; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
@@ -1846,6 +1847,7 @@
 		CDC89A6227AB69C000727225 /* 4de1db05a982cc2692e138b3ba835189-desc.xcbuild */ = {isa = PBXFileReference; lastKnownFileType = file; path = "4de1db05a982cc2692e138b3ba835189-desc.xcbuild"; sourceTree = "<group>"; };
 		CDC89A6327AB69C000727225 /* BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "BuildDescriptionCacheIndex-32883bd06d348fd96e55403013a8a975"; sourceTree = "<group>"; };
 		CDC89A6427AB69C000727225 /* build.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = build.db; sourceTree = "<group>"; };
+		CDC9397427F9F1A100A6A880 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -2477,6 +2479,7 @@
 				E180016707B2B91800010DB0 /* QSFoundation.framework in Frameworks */,
 				E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				CDC9397527F9F1A200A6A880 /* IOKit.framework in Frameworks */,
 				E103F5AA064769A300447FE0 /* QSCore.framework in Frameworks */,
 				E1B5F3EB0657416200FCFBE2 /* QSInterface.framework in Frameworks */,
 				E178F649065CF849004655DA /* Carbon.framework in Frameworks */,
@@ -2651,6 +2654,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9397427F9F1A100A6A880 /* IOKit.framework */,
 				CD661C5519DBD341000F3695 /* AppKit.framework */,
 				CD61BBB9192B18FA00040609 /* XCTest.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
