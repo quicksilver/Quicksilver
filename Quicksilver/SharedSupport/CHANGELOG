@@ -1,3 +1,17 @@
+## Changes - 2.0.1 (4028) 2022-04-03 ##
+
+### Fixed ###
+
+  * Fix 'Ctrl+Space' / 'Cmd+Space' appearing as 'Ctrl+1' / 'Cmd+1' for some users (#2692, #2694)
+  * Fix keyboard shortcuts appearing incorrectly for some users (#2699)
+  * Fix hangs when rescanning the 'Processes' catalog entry (#2681, #2608)
+  * Fix Primer interface colours in dark mode (#2695, #2697)
+  * Fix 'About' window colours in dark mode (#2689, #2690)
+
+## Changed ##
+  
+  * Tweaked Quicksilver app icons to improve visual for all sizes (#2685) - thanks to @lgarron
+
 ## Changes - 2.0.0 (4027) 2022-03-25 ##
 
 ### New ###
