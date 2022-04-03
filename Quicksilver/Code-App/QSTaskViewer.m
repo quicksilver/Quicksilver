@@ -150,27 +150,30 @@ static QSTaskViewer * _sharedInstance;
     QSTask *task = notif.object;
 //    NSLog(@"Adding task: %@", task);
 
+    QSGCDMainAsync(^{
     if (!self.taskControllers[task.identifier]) {
         self.taskControllers[task.identifier] = [QSTaskViewController controllerWithTask:task];
     }
 
-    QSGCDMainAsync(^{
         [self updateTaskView];
     });
 }
 
 - (void)removeTask:(NSNotification *)notif {
+	
     QSTask *task = notif.object;
 //    NSLog(@"Removing task: %@", task);
 
-    QSTaskViewController *removedController = self.taskControllers[task.identifier];
 
-    QSGCDMainDelayed(STOP_DELAY, ^{
-        [self.taskControllers removeObjectForKey:task.identifier];
-        [removedController.view removeFromSuperview];
-
-        [self updateTaskView];
-    });
+	// delay removing the task for 0.5s, so that the user can see
+	usleep(STOP_DELAY*1000000);
+	
+	QSGCDMainAsync(^{
+		QSTaskViewController *removedController = self.taskControllers[task.identifier];
+		[self.taskControllers removeObjectForKey:task.identifier];
+		[removedController.view removeFromSuperview];
+		[self updateTaskView];
+	});
 
 }
 
