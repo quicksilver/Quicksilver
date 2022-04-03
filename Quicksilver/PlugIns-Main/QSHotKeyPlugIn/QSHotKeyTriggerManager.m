@@ -159,7 +159,7 @@
 	if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"])
 		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] unsignedShortValue] modifierFlags:[[thisTrigger objectForKey:@"modifiers"] unsignedLongValue]] stringValue];
 	else
-		return @"None";
+		return NSLocalizedString(@"None", @"text to display when a keyboard trigger doesn't have a shortcut set");
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject {

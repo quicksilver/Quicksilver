@@ -204,15 +204,13 @@
 }
 
 - (void)updateStringForHotKey {
-	if ([hotKey isKindOfClass:[NSDictionary class]]) {
+	if (hotKey && [hotKey count]) {
 		UInt16 keyCode = [[hotKey objectForKey:@"keyCode"] unsignedShortValue];
 		NSUInteger modifiers = [[hotKey objectForKey:@"modifiers"] unsignedLongValue];
 		NSString *descrip = [[QSHotKeyEvent getHotKeyForKeyCode:keyCode modifierFlags:modifiers] stringValue];
 		[self setStringValue:descrip?descrip:@""];
-	} else if (hotKey) {
-		[self setStringValue:@"invalid"];
 	} else {
-		[self setStringValue:@""];
+		[self setStringValue:NSLocalizedString(@"None", @"text to display when a keyboard trigger doesn't have a shortcut set")];
 	}
 }
 
