@@ -12,7 +12,7 @@
 #define kQSDonateReminderSuppressUntilNextVersion @"donate.reminder.suppress.next"
 #define kQSDonateReminderLast @"donate.reminder.last"
 #define kQSDonateReminderInterval (60 * 60 * 24 * 7 ) // 1 week
-
+#define kQSdonateAlreadyDonatedReminderInterval kQSDonateReminderInterval*15
 
 static QSDonationController *_controller;
 
@@ -44,6 +44,8 @@ static QSDonationController *_controller;
 	[[alert suppressionButton] setTitle:NSLocalizedString(@"Don't show again for this version", @"Donate")];
 	NSInteger result = [alert runModal];
 	if (result == NSAlertFirstButtonReturn) {
+		// user clicked the donate button. Open donate page and hide this message for 16 weeks (4 months)
+		[[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kQSdonateAlreadyDonatedReminderInterval] forKey:kQSDonateReminderLast];
 		[self openDonationPage];
 	}
 	if (alert.showsSuppressionButton) {
@@ -63,26 +65,27 @@ static QSDonationController *_controller;
 		return NO;
 	}
 
-	// show alert if upgraded, or if time since last alert is greater than interval
-	BOOL showAlert = (launchStatus == QSApplicationUpgradedLaunch);
-	NSDate *lastReminderDate = [u objectForKey:kQSDonateReminderLast];
-	if (!showAlert) {
-		if ([u boolForKey:kQSDonateReminderSuppressUntilNextVersion]) {
-			// don't show if the user chose the "Don't show again for this version" option
-			showAlert = NO;
-		} else {
-			showAlert = (!lastReminderDate || (lastReminderDate.timeIntervalSinceNow*-1 > kQSDonateReminderInterval));
-		}
-	}
-	if (showAlert) {
-		// only show the "Don't show again for this version" option if it's not the first time they've seen this message.
-		BOOL allowHideUntilNextVersion = (lastReminderDate != nil);
-		[self showDonationAlert:allowHideUntilNextVersion];
-		[u setObject:[NSDate date] forKey:kQSDonateReminderLast];
-		return YES;
+	BOOL upgraded = (launchStatus == QSApplicationUpgradedLaunch);
+	if (upgraded) {
+		// reset "Don't show again for this version"
+		[u removeObjectForKey:kQSDonateReminderSuppressUntilNextVersion];
+	} else if([u boolForKey:kQSDonateReminderSuppressUntilNextVersion]) {
+		// don't show if the user if we haven't upgraded and the user selected "Don't show again for this version" option
+		return NO;
 	}
 	
-	return NO;
+	NSDate *lastReminderDate = [u objectForKey:kQSDonateReminderLast];
+	if (lastReminderDate && (lastReminderDate.timeIntervalSinceNow*-1 < kQSDonateReminderInterval)) {
+		// don't show if it the last time we showed was less than 1 week ago
+		return NO;
+	}
+
+	// only show the "Don't show again for this version" option if it's not the first time they've seen this message.
+	BOOL allowHideUntilNextVersion = (lastReminderDate != nil);
+	[self showDonationAlert:allowHideUntilNextVersion];
+	[u setObject:[NSDate date] forKey:kQSDonateReminderLast];
+	return YES;
+
 }
 
 @end
