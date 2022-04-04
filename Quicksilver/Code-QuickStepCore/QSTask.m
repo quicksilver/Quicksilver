@@ -93,7 +93,9 @@
 #endif
 
         self.running = NO;
-        [self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
+		QSGCDMainSync(^{
+			[self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
+		});
         [QSTasks taskStopped:self];
     }
 }
