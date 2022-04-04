@@ -8,7 +8,7 @@
  */
 
 #include "QSUTI.h"
-
+static NSArray *QSFixedUTITypes = nil;
 /**
  *  Determines if a given string is an existing UTI or not
  *
@@ -17,14 +17,20 @@
  *  @return Boolean value specifying if UTIString is a valid UTI
  */
 BOOL QSIsUTI(NSString *UTIString) {
-    if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
-        // UTIString conforms to public.item - it must be a UTI
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		// 'fixed uti types' are typically Quicksilver internally defined strings, that don't have a corresponding reverse dot formatted UTI (like real UTIs). We know these types won't resolve to an actual UTI, so for performance gains, we consider them to already be 'UTIs'. See https://github.com/quicksilver/Quicksilver/issues/2356 for more info
+		QSFixedUTITypes = @[@"ABPeopleUIDsPboardType", @"AppActions", @"AttributedString", @"CalculatorActionProvider", @"ClipboardActions", @"CorePasteboardFlavorType 0x7374796C", @"CorePasteboardFlavorType 0x7573746C", @"CorePasteboardFlavorType 0x75743136", @"FSActions", @"FSDiskActions", @"mkdn", @"NSColorPboardType", @"NSFileContentsPboardType", @"NSFilesPromisePboardType", @"NSFontPboardType", @"NSHTMLPboardType", @"NSPDFPboardType", @"NSRulerPboardType", @"NSTabularTextPboardType", @"NSURLPboardType", @"NSVCardPboardType", @"OakPasteboardOptionsPboardType", @"OnePasswordAction", @"QS1PasswordForm", @"QSABContactActions", @"QSABMimicActionProvider", @"QSAdvancedProcessActionProvider", @"QSAirPortItemType", @"QSAirPortNetworkActionProvider", @"QSAppleMailPlugIn_Action", @"QSAppleScriptActions", @"QSCatalogEntrySource", @"QSChat_SupportType", @"QSCLExecutableProvider", @"QSCompressionActionProvider", @"QSDashDocsetType", @"QSDashPluginActionProvider", @"QSDisplayIDType", @"QSDisplayParametersType", @"QSDisplaysActionProvider", @"QSEmailActions", @"QSFileTag", @"QSFileTagsPlugInAction", @"QSFileTemplateManager", @"QSFormulaType", @"QSGoogleChromeActions", @"QSGoogleChromeCanaryActions", @"QSGoogleChromeProxies", @"QSHFSAttributeActions", @"QSImageManipulationPlugInAction", @"QSiPhotoActionProvider", @"QSiTerm2ActionProvider", @"QSiTunesActionProvider", @"QSKeychainActionProvider", @"QSKeychainItemType", @"QSKeychainType", @"QSLineReferenceActions", @"QSLineReferenceType", @"QSNetworkingActionProvider", @"QSNetworkingType", @"QSNetworkLocationActionProvider", @"QSObjCMessageSource", @"QSObjectActions", @"QSObjectName", @"QSPDQuicksilverPluginActionProvider", @"QSProcessActionProvider", @"QSQRCodeAction", @"QSQSFacetimeActionProvider", @"QSRemoteHostsAction", @"QSRemoteHostsGroupType", @"QSRemoteHostsType", @"QSRemovableVolumesParentType", @"QSSafariActionProvider", @"QSShelfSource", @"QSSpotlightPlugIn_Action", @"QSSpotlightSavedSearchSource", @"QSTextActions", @"QSTextManipulationPlugIn", @"QSTransmitSiteType", @"QSUIAccessPlugIn_Action", @"QSUnreadMailParent", @"QSURLSearchActions", @"QSViscosityAction", @"QSViscosityType", @"QSViscosityVPNAction", @"QSWirelessNetworkType", @"QSYojimboPlugInAction", @"URLActions", @"WindowsType"];
+	});
+	if ([QSFixedUTITypes containsObject:UTIString]) {
+		return YES;
+	}
+	if (UTTypeIsDeclared((__bridge CFStringRef)UTIString)) {
+        // UTIString has a declaration dictionary - it must be a UTI
         return YES;
     }
-    CFDictionaryRef dict = UTTypeCopyDeclaration((__bridge CFStringRef)UTIString);
-    if (dict != NULL) {
-        // UTIString has a declaration dictionary - it must be a UTI
-        CFRelease(dict);
+    if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
+        // UTIString conforms to public.item - it must be a UTI
         return YES;
     }
     
