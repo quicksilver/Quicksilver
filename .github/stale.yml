@@ -9,7 +9,7 @@ exemptLabels:
 staleLabel: noactivity
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
-  This issue hasn't been updated in over 2 years. It has been marked as 'stale' and will be closed in 30 days. Please check whether this is still an issue that needs to be fixed, and if so please update or comment on this issue to keep it open.
+  This issue hasn't been updated in over 2 years. It has been marked as 'stale' and will be closed in 30 days. Please check whether this is still an issue with the latest version of Quicksilver. If so, update or comment on this issue to keep it open.
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
 
