@@ -1,3 +1,9 @@
+## Changes - 2.1.0 (402A) ##
+
+### Fixed ###
+
+  * Various performance tweaks (#2356, #2644)
+
 ## Changes - 2.0.1 (4029) 2022-04-03 ##
 
 ### Fixed ###
