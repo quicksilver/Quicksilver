@@ -338,7 +338,7 @@ static CGFloat searchSpeed = 0.0;
     if (!entry) {
         return;
     }
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
     if ([notif.name isEqualToString:QSCatalogEntryIsIndexingNotification]) {
         [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), entry.name]];
     } else if ([notif.name isEqualToString:QSCatalogEntryIndexedNotification]) {
