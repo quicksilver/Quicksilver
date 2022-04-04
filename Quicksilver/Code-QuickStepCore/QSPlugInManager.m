@@ -607,7 +607,10 @@
 			[depending addObject:plugIn];
 			//NSLog(@"depends %@", depending);
 		}
-		[plugIn setLoadError:@"Unmet dependencies"];
+		NSArray *unmetNames = [unmet arrayByEnumeratingArrayUsingBlock:^NSString *(NSDictionary *dict) {
+			return [dict objectForKey:@"name"];
+		}];
+		[plugIn setLoadError:[NSString stringWithFormat:@"The following plugins must be enabled for this plugin to work: %@", [unmetNames componentsJoinedByString:@", "]]];
 		return NO;
 	}
 	return YES;
