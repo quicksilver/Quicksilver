@@ -4,7 +4,9 @@ daysUntilStale: 730
 daysUntilClose: 30
 # Issues with these labels will never be considered stale
 exemptLabels:
+  - Bug
   - pinned
+  - Visual
 # Label to use when marking an issue as stale
 staleLabel: noactivity
 # Comment to post when marking an issue as stale. Set to `false` to disable
