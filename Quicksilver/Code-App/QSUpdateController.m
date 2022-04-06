@@ -135,8 +135,10 @@ typedef enum {
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
-	task.status = NSLocalizedString(@"Checking for Updates", @"QSUpdateController - task status");
+	task.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
+	task.status = NSLocalizedString(@"Checking for Updates…", @"QSUpdateController - task status");
 	task.progress = -1;
+	task.icon = [NSApp applicationIconImage];
 	[task start];
 
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
@@ -306,7 +308,8 @@ typedef enum {
 		self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
 		self.downloadTask.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
 		self.downloadTask.status = NSLocalizedString(@"Downloading Update…", @"QSUpdateController - download task status");
-		self.downloadTask.progress = -1;
+		self.downloadTask.progress = 0;
+		self.downloadTask.icon = [NSApp applicationIconImage];
 
 		__weak QSUpdateController *weakSelf = self;
 		self.downloadTask.cancelBlock = ^{
@@ -362,7 +365,11 @@ typedef enum {
 - (void)downloadDidUpdate:(QSURLDownload *)download {
 	NSString *status = [NSString stringWithFormat:@"%.2fMB of %.2fMB", (double) [download currentContentLength] /1024/1024, (double)[download expectedContentLength]/1024/1024];
 	self.downloadTask.status = status;
+	[self.downloadTask willChangeValueForKey:@"indeterminateProgress"];
+	[self.downloadTask willChangeValueForKey:@"progress"];
 	self.downloadTask.progress = [(QSURLDownload *)download progress];
+	[self.downloadTask didChangeValueForKey:@"indeterminateProgress"];
+	[self.downloadTask didChangeValueForKey:@"progress"];
 }
 
 - (void)finishAppInstall {
