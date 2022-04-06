@@ -360,7 +360,7 @@ typedef enum {
 }
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
-	NSString *status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
+	NSString *status = [NSString stringWithFormat:@"%.2fMB of %.2fMB", (double) [download currentContentLength] /1024/1024, (double)[download expectedContentLength]/1024/1024];
 	self.downloadTask.status = status;
 	self.downloadTask.progress = [(QSURLDownload *)download progress];
 }
