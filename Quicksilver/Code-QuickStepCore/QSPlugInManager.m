@@ -218,7 +218,7 @@
 
 	NSURLSession *session = [NSURLSession sharedSession];
 	NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-		QSGCDMainSync(^{
+		QSGCDMainAsync(^{
 			if (error) {
 				self.downloadTask.status = NSLocalizedString(@"Download failed", @"");
 				[self.downloadTask stop];
