@@ -313,6 +313,9 @@ typedef enum {
 			__strong QSUpdateController *strongSelf = weakSelf;
 			[strongSelf.appDownload cancel];
 			strongSelf.appDownload = nil;
+			strongSelf.downloadTask.status = NSLocalizedString(@"Cancelled", @"QSUpdateController - cancelled task status");
+			[strongSelf.downloadTask stop];
+			strongSelf.downloadTask = nil;
 		};
 
 		[[QSTaskViewer sharedInstance] showWindow:self];;
