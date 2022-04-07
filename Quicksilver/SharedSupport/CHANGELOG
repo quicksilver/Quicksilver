@@ -1,6 +1,8 @@
 ## Changes - 2.0.2 (4030) ##
 
-Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
+*Requires macOS 10.14+*
+
+**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
 
 ### Fixed ###
 
@@ -11,6 +13,8 @@ Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 o
   * Show short version numbers in release builds (#2710, #2705)
 
 ## Changes - 2.0.1 (4029) 2022-04-03 ##
+
+*Requires macOS 10.14+*
 
 ### Fixed ###
 
@@ -25,6 +29,8 @@ Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 o
   * Tweaked Quicksilver app icons to improve visual for all sizes (#2685) - thanks to @lgarron
 
 ## Changes - 2.0.0 (4027) 2022-03-25 ##
+
+*Requires macOS 10.14+*
 
 ### New ###
 
@@ -78,6 +84,8 @@ Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 o
 
 ## Changes - 1.6.1 (4026) 2020-06-25 ##
 
+*Requires macOS 10.12+*
+
 ### New ###
 
   * A new preference has been added to Extras that controls the number of items kept in Quicksilver’s history (#2490)
@@ -111,7 +119,7 @@ Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 o
 
 ## Changes - 1.6.0 (4025) 2018-09-19 ##
 
-This release requires macOS 10.12.
+*Requires macOS 10.12+*
 
 ### New ###
 
@@ -128,11 +136,15 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.9 (4024) 2018-03-12 ##
 
+*Requires macOS 10.10+*
+
 ### Fixed ###
 
   * Recent documents are available on a clean install of macOS 10.13 (#2431, #2432)
 
 ## Changes - 1.5.8 (4023) 2018-03-06 ##
+
+*Requires macOS 10.10+*
 
 ### New ###
 
@@ -157,6 +169,8 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.7 (4022) 2017-11-06 ##
 
+*Requires macOS 10.10+*
+
 ### New ###
 
   * A new trigger is available to relaunch Quicksilver. It's activated with ⌃⌥⌘Q by default. It can be reconfigured in Preferences → Triggers → Quicksilver (#2399, #2404)
@@ -177,6 +191,8 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.6 (4021) 2017-09-06 ##
 
+*Requires macOS 10.10+*
+
 ### Fixed ###
 
   * Additional safety checks and crash prevention (#2383)
@@ -186,6 +202,8 @@ This release requires macOS 10.12.
   * Include FMDB in the core application to avoid conflicts between different plugins. It should be possible to remove FMDB from your plugins in the next release. (#2348)
 
 ## Changes - 1.5.5 (4020) 2017-06-12 ##
+
+*Requires macOS 10.10+*
 
 ### Fixed ###
 
@@ -198,6 +216,8 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.4 (401F) 2017-05-24 ##
 
+*Requires macOS 10.10+*
+
 ### Fixed ###
 
   * Update watched files and folders in the background (#2345)
@@ -209,6 +229,8 @@ This release requires macOS 10.12.
   * Clean up and consolidate code related to ranking (#2342)
 
 ## Changes - 1.5.3 (401E) 2017-03-03 ##
+
+*Requires macOS 10.10+*
 
 ### New ###
 
@@ -231,6 +253,8 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.2 (401D) 2017-01-18 ##
 
+*Requires macOS 10.10+*
+
 ### Fixed ###
 
   * Abbreviations are remembered more reliably (#2301, #2308)
@@ -240,7 +264,7 @@ This release requires macOS 10.12.
 
 ## Changes - 1.5.1 (401C) 2016-12-24 ##
 
-This release requires macOS 10.10.
+*Requires macOS 10.10+*
 
 ### New ###
 
