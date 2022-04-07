@@ -4788,7 +4788,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n# Script to append development information to the QS version string\n\n# Created by Henning Jungkurth on Apr 18 2012\n# Modifications by Nathan Henrie on 20220405\n\nset -euf\n\nCURRENT_TAG=$(git describe --exact-match --tags 2> /dev/null || true)\nCURRENT_BRANCH=$(git branch --show-current)\nHEAD=$(git rev-parse --short HEAD)\n\n# Default: `2.0.2:master-a83756f6:Debug`\nNEW_VERSION_STRING=${QS_INFO_VERSION}:${CURRENT_BRANCH:-\"deatched HEAD\"}-${HEAD}:${CONFIGURATION}\n\n# If on an tag, make pretty: `v2.0.2:Debug` or `v2.0.2`\nif [ -n \"${CURRENT_TAG}\" ]; then\n  if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    NEW_VERSION_STRING=${CURRENT_TAG}\n  else\n    NEW_VERSION_STRING=${CURRENT_TAG}:${CONFIGURATION}\n  fi\nfi\n\nif [ -n \"${NEW_VERSION_STRING}\" ]; then\n  defaults write $QS_APP_CONTENTS_FOLDER/Info CFBundleShortVersionString \"\\\"${NEW_VERSION_STRING}\\\"\"\nfi\n";
+			shellScript = "#!/bin/sh\n# Script to append development information to the QS version string\n\n# Created by Henning Jungkurth on Apr 18 2012\n# Modifications by Nathan Henrie on 20220405\n\nset -euf\n\nCURRENT_TAG=$(git describe --exact-match --tags 2> /dev/null || true)\nCURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)\nHEAD=$(git rev-parse --short HEAD)\n\n# Default: `2.0.2:master-a83756f6:Debug`\nNEW_VERSION_STRING=${QS_INFO_VERSION}:${CURRENT_BRANCH:-\"deatched HEAD\"}-${HEAD}:${CONFIGURATION}\n\n# If on an tag, make pretty: `v2.0.2:Debug` or `v2.0.2`\nif [ -n \"${CURRENT_TAG}\" ]; then\n  if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    NEW_VERSION_STRING=${CURRENT_TAG}\n  else\n    NEW_VERSION_STRING=${CURRENT_TAG}:${CONFIGURATION}\n  fi\nfi\n\nif [ -n \"${NEW_VERSION_STRING}\" ]; then\n  defaults write $QS_APP_CONTENTS_FOLDER/Info CFBundleShortVersionString \"\\\"${NEW_VERSION_STRING}\\\"\"\nfi\n";
 		};
 		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6509,6 +6509,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6523,6 +6524,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
