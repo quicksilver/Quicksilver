@@ -1,8 +1,14 @@
-## Changes - 2.1.0 (402A) ##
+## Changes - 2.0.2 (4030) ##
+
+Note: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
 
 ### Fixed ###
 
   * Various performance tweaks (#2356, #2644)
+  * Fix Modifier-only activation on macOS 11 and 12 (#2706, #2533) - thanks to @dhoepfl
+  * Fix hangs for some users when updating via the in-app updater (#2704)
+  * Various fixes and improvements to the task viewer
+  * Show short version numbers in release builds (#2710, #2705)
 
 ## Changes - 2.0.1 (4029) 2022-04-03 ##
 
