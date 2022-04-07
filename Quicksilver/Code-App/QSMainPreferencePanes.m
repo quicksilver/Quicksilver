@@ -280,7 +280,10 @@
 }
 
 - (IBAction)checkNow:(id)sender {
-	[[self updateController] checkForUpdates:YES];
+	QSGCDAsync(^{
+		// run updates checks on background thread
+		[[self updateController] checkForUpdates:YES];
+	});
 }
 
 - (QSUpdateController *)updateController {
