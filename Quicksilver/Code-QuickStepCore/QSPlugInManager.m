@@ -256,16 +256,18 @@
 			[self.downloadTask stop];
 			self.downloadTask = nil;
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoLoadedNotification object:nil];
-			if (block) {
-				block(YES);
-			}
 		});
+		if (block) {
+			block(YES);
+		}
 	}];
-	self.downloadTask = [QSTask taskWithIdentifier:@"PluginUpdateInfo"];
-	self.downloadTask.status = NSLocalizedString(@"Updating Plugin Info", @"");
-	self.downloadTask.cancelBlock = ^{
-		[task cancel];
-	};
+	QSGCDMainAsync(^{
+		self.downloadTask = [QSTask taskWithIdentifier:@"PluginUpdateInfo"];
+		self.downloadTask.status = NSLocalizedString(@"Updating Plugin Info", @"");
+		self.downloadTask.cancelBlock = ^{
+			[task cancel];
+		};
+	});
 	[task resume];
 }
 

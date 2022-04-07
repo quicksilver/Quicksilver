@@ -9,7 +9,7 @@
 #import "QSTaskViewController.h"
 
 const NSString *QSTaskProxyObservationContext = @"QSTaskProxyObservationContext";
-#define QSTaskKeyPaths @[@"name", @"status", @"progress", @"icon"]
+#define QSTaskKeyPaths @[@"name", @"status", @"progress", @"icon", @"indeterminateProgress", @"animateProgress", @"canBeCancelled"]
 
 @interface QSTaskProxy : NSObject {
 	QSTask *_task;
@@ -89,6 +89,7 @@ const NSString *QSTaskProxyObservationContext = @"QSTaskProxyObservationContext"
 
 - (void)awakeFromNib {
     [self.progressIndicator bind:@"hidden" toObject:self.task withKeyPath:@"showProgress" options:@{NSValueTransformerNameBindingOption: NSNegateBooleanTransformerName}];
+	[self.progressIndicator bind:@"isIndeterminate" toObject:self.task withKeyPath:@"indeterminateProgress" options:nil];
     [self.progressIndicator setUsesThreadedAnimation:YES];
 }
 

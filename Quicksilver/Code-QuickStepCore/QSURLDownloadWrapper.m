@@ -8,11 +8,11 @@
 
 #import "QSURLDownloadWrapper.h"
 
-@interface QSURLDownload () <NSURLDownloadDelegate> {
+@interface QSURLDownload () <NSURLSessionDownloadDelegate> {
 	NSURLRequest *request;
-	NSURLDownload *download;
-	long long expectedContentLength;
-	long long currentContentLength;
+	NSURLSessionDownloadTask *download;
+	int64_t expectedContentLength;
+	int64_t currentContentLength;
 	id userInfo;
 	NSString *destination;
 	id <QSURLDownloadDelegate> delegate;
@@ -45,8 +45,11 @@
 }
 
 - (void)start {
-    if (!download)
-        download = [[NSURLDownload alloc] initWithRequest:request delegate:self];
+	if (!download) {
+		NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+		download = [session downloadTaskWithRequest:request];
+		[download resume];
+	}
 }
 
 - (void)cancel {
@@ -89,11 +92,11 @@
 	}
 }
 
-- (long long)expectedContentLength {
+- (int64_t)expectedContentLength {
 	return expectedContentLength;
 }
 
-- (long long)currentContentLength {
+- (int64_t)currentContentLength {
 	return currentContentLength;
 }
 
@@ -102,66 +105,44 @@
         [delegate performSelector:@selector(downloadDidUpdate:) withObject:self];
 }
 
-#pragma mark NSURLDownload Delegate
-- (void)downloadDidBegin:(NSURLDownload *)download {
+#pragma mark NSURLSession Delegate
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+			 didWriteData:(int64_t)bytesWritten
+		totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+	expectedContentLength = totalBytesExpectedToWrite;
+	currentContentLength = totalBytesWritten;
+	[self sendDidUpdate];
 }
 
-/*- (NSURLRequest *)download:(NSURLDownload *)download willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
-    
-}*/
-
-- (void)download:(NSURLDownload *)download didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    
-}
-
-- (void)download:(NSURLDownload *)download didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    
-}
-
-- (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response {
-    expectedContentLength = [response expectedContentLength];
-	if (expectedContentLength == NSURLResponseUnknownLength) {
-		NSNumber *contentLength = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:@"Content-Length"];
-		if (contentLength)
-			expectedContentLength = [contentLength longLongValue];
-	}
-}
-
-- (void)download:(NSURLDownload *)download willResumeWithResponse:(NSURLResponse *)response fromByte:(long long)startingByte {
-    expectedContentLength = [response expectedContentLength];
-	if (expectedContentLength == NSURLResponseUnknownLength) {
-		NSNumber *contentLength = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:@"Content-Length"];
-		if (contentLength)
-			expectedContentLength = [contentLength longLongValue];
-	}
-    currentContentLength = startingByte;
-}
-
-- (void)download:(NSURLDownload *)download didReceiveDataOfLength:(NSUInteger)length {
-    currentContentLength += length;
-    [self sendDidUpdate];
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes {
+	expectedContentLength = expectedTotalBytes;
+	currentContentLength = fileOffset;
 }
 
 //- (BOOL)download:(NSURLDownload *)download shouldDecodeSourceDataOfMIMEType:(NSString *)encodingType {}
-- (void)download:(NSURLDownload *)aDownload decideDestinationWithSuggestedFilename:(NSString *)filename {
-    NSString *newDestination = NSTemporaryDirectory();
-    newDestination = [newDestination stringByAppendingPathComponent:[NSString uniqueString]];
-    newDestination = [newDestination stringByAppendingPathExtension:@"qspkg"];
-    [aDownload setDestination:newDestination allowOverwrite:YES];
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location {
+	NSString *newDestination = NSTemporaryDirectory();
+	newDestination = [newDestination stringByAppendingPathComponent:[NSString uniqueString]];
+	newDestination = [newDestination stringByAppendingPathExtension:@"qspkg"];
+	[[NSFileManager defaultManager] moveItemAtPath:[location path] toPath:newDestination error:nil];
+	destination = newDestination;
 }
 
-- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path {
-    destination = path; 
-}
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didCompleteWithError:(nullable NSError *)error {
+	if (error) {
+		if(delegate && [delegate respondsToSelector:@selector(download:didFailWithError:)])
+        [delegate download:self didFailWithError:error];
+		return;
+	}
 
-- (void)downloadDidFinish:(QSURLDownload *)download {
     if(delegate && [delegate respondsToSelector:@selector(downloadDidFinish:)])
         [delegate performSelector:@selector(downloadDidFinish:) withObject:self];
-}
-
-- (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-    if(delegate && [delegate respondsToSelector:@selector(download:didFailWithError:)])
-        [delegate download:self didFailWithError:error];
 }
 
 @end

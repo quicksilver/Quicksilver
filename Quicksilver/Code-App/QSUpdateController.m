@@ -133,19 +133,20 @@ typedef enum {
 - (void)checkForUpdateStatus:(BOOL)userInitiated completionHandler:(void (^)(QSUpdateCheckResult result))block {
 	
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
-	task.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
-	task.status = NSLocalizedString(@"Checking for Updates…", @"QSUpdateController - task status");
-	task.progress = -1;
-	task.icon = [NSApp applicationIconImage];
-	[task start];
+	QSGCDMainAsync(^{
+		task.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
+		task.status = NSLocalizedString(@"Checking for Updates…", @"QSUpdateController - task status");
+		task.progress = -1;
+		task.icon = [NSApp applicationIconImage];
+		[task start];
+	});
 
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 	NSURLSession *session = [NSURLSession sharedSession];
 	NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:theRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-		QSGCDMainSync(^{
+		QSGCDMainAsync(^{
 			[task stop];
 			
 			NSString *checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -280,7 +281,6 @@ typedef enum {
 - (void)installAppUpdate {
 	if (self.downloadTask) return;
 
-	QSGCDMainSync(^{
 	NSString *fileURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSDownloadUpdateURL"];
 	if (!fileURL)
 		fileURL = kDownloadUpdateURL;
@@ -297,35 +297,31 @@ typedef enum {
 #endif
 
 	NSURL *url = [NSURL URLWithString:fileURL];
-	NSURLRequest *theRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
-
-	// NSLog(@"app %@", theRequest);
-	// create the connection with the request
-	// and start loading the data
+	self.appDownload = [QSURLDownload downloadWithURL:url delegate:self];
 	
-	self.appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
 	if (self.appDownload) {
-		self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
-		self.downloadTask.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
-		self.downloadTask.status = NSLocalizedString(@"Downloading Update…", @"QSUpdateController - download task status");
-		self.downloadTask.progress = 0;
-		self.downloadTask.icon = [NSApp applicationIconImage];
-
-		__weak QSUpdateController *weakSelf = self;
-		self.downloadTask.cancelBlock = ^{
-			__strong QSUpdateController *strongSelf = weakSelf;
-			[strongSelf.appDownload cancel];
-			strongSelf.appDownload = nil;
-			strongSelf.downloadTask.status = NSLocalizedString(@"Cancelled", @"QSUpdateController - cancelled task status");
-			[strongSelf.downloadTask stop];
-			strongSelf.downloadTask = nil;
-		};
-
-		[[QSTaskViewer sharedInstance] showWindow:self];;
-		[self.downloadTask start];
+		QSGCDMainSync(^{
+			self.downloadTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
+			self.downloadTask.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
+			self.downloadTask.status = NSLocalizedString(@"Downloading Update…", @"QSUpdateController - download task status");
+			self.downloadTask.progress = 0;
+			self.downloadTask.icon = [NSApp applicationIconImage];
+			
+			__weak QSUpdateController *weakSelf = self;
+			self.downloadTask.cancelBlock = ^{
+				__strong QSUpdateController *strongSelf = weakSelf;
+				[strongSelf.appDownload cancel];
+				strongSelf.appDownload = nil;
+				strongSelf.downloadTask.status = NSLocalizedString(@"Cancelled", @"QSUpdateController - cancelled task status");
+				[strongSelf.downloadTask stop];
+				strongSelf.downloadTask = nil;
+			};
+			
+			[[QSTaskViewer sharedInstance] showWindow:self];;
+			[self.downloadTask start];
+		});
 		[self.appDownload start];
 	}
-	});
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
@@ -365,16 +361,11 @@ typedef enum {
 - (void)downloadDidUpdate:(QSURLDownload *)download {
 	NSString *status = [NSString stringWithFormat:@"%.2fMB of %.2fMB", (double) [download currentContentLength] /1024/1024, (double)[download expectedContentLength]/1024/1024];
 	self.downloadTask.status = status;
-	[self.downloadTask willChangeValueForKey:@"indeterminateProgress"];
-	[self.downloadTask willChangeValueForKey:@"progress"];
 	self.downloadTask.progress = [(QSURLDownload *)download progress];
-	[self.downloadTask didChangeValueForKey:@"indeterminateProgress"];
-	[self.downloadTask didChangeValueForKey:@"progress"];
 }
 
 - (void)finishAppInstall {
 	NSString *path = [self.appDownload destination];
-
 
 	BOOL __block shouldUpdate = YES;
 	BOOL updateWithoutAsking = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
@@ -387,17 +378,19 @@ typedef enum {
 			[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update available alert default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - update available alert cancel button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
-			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+			NSModalResponse response = [alert runModal];
 			
-			if (response == QSAlertResponseOK) {
-				shouldUpdate = YES;
-			} else {
-				shouldUpdate = NO;
-			}
-			if (response == QSAlertResponseThird) {
-				QSGCDMainSync(^{
+			switch (response) {
+				case NSAlertFirstButtonReturn:
+					shouldUpdate = YES;
+					break;
+				case NSAlertSecondButtonReturn:
+					shouldUpdate = NO;
+					break;
+				default:
+					// third button
+					shouldUpdate = NO;
 					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
-				});
 			}
 		});
 	}
@@ -432,13 +425,15 @@ typedef enum {
 			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSUpdateController - relauch required alert - default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch Later", @"QSUpdateController - relauch required alert - cancel button")];
 			
-			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
-			relaunch = (response == QSAlertResponseOK);
+			NSModalResponse response = [alert runModal];
+			relaunch = (response == NSAlertFirstButtonReturn);
 
 		});
 	}
 	if (relaunch) {
-		[NSApp relaunchFromPath:nil];
+		QSGCDMainAsync(^{
+			[NSApp relaunchFromPath:nil];
+		});
 	}
 
 	[self.downloadTask stop];
@@ -458,10 +453,10 @@ typedef enum {
 		NSLog(@"Error: %@", err);
 		return NO;
 	}
-
+	
 	self.downloadTask.status = NSLocalizedString(@"Verifying Data", @"QSUpdateController - download task status");
 	self.downloadTask.progress = -1;
-
+	
 	// mount the .dmg
 	NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
 											arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
