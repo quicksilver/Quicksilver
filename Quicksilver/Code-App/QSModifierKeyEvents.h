@@ -21,9 +21,8 @@ extern NSUInteger lastModifiers;
 	SEL action;
 
 	@private
-    NSTimeInterval timeSinceLastKeyDown;
-    NSDate *firstModifierPressedTime;
-    
+    uint32_t pressedKeyDownCount;
+
 }
 
 @property __block NSInteger timesKeysPressed;
