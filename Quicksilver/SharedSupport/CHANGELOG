@@ -6,6 +6,17 @@
 
 ### Fixed ###
 
+  * Crash when checking for updates via the in-app updater (#2715)
+  * Drop 'v' from start of version number (#2719, #2705)
+
+## Changes - 2.0.2 (4030) ##
+
+*Requires macOS 10.14+*
+
+**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
+
+### Fixed ###
+
   * Various performance tweaks (#2356, #2644)
   * Fix Modifier-only activation on macOS 11 and 12 (#2706, #2533) - thanks to @dhoepfl
   * Fix hangs for some users when updating via the in-app updater (#2704)
