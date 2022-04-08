@@ -1,4 +1,4 @@
-## Changes - 2.0.2 (4030) ##
+## Changes - 2.0.3 (4031) 2022-04-07 ##
 
 *Requires macOS 10.14+*
 
@@ -7,13 +7,16 @@
 ### Fixed ###
 
   * Crash when checking for updates via the in-app updater (#2715)
-  * Drop 'v' from start of version number (#2719, #2705)
 
-## Changes - 2.0.2 (4030) ##
+### Development ###
+
+  * Drop `v` from start of version number (#2719, #2705)
+
+## Changes - 2.0.2 (4030) 2022-04-04 ##
 
 *Requires macOS 10.14+*
 
-**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
+**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from [https://qsapp.com/download.php]()
 
 ### Fixed ###
 
