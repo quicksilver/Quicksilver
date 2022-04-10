@@ -7,13 +7,13 @@ body:
     id: before-posting
     attributes:
       label: "Before submitting your bug report, please confirm you have completed the following steps"
-      description: All conditions are **required**. Your issue may be closed if not.
+      description: All steps are **required**. Your issue may be closed if not.
       options:
         - label: Searched the issue is not already listed in the [Issue List](https://github.com/quicksilver/Quicksilver/issues?q=is%3Aissue) (I've searched it)
           required: true
         - label: Searched in the [Quicksilver Users' Group](https://groups.google.com/forum/#!forum/blacktree-quicksilver) for questions relating to tech support.
           required: true
-        - label: Downloaded the [latest version of Quicksilver](https://qsapp.com/) for your system and confirmed the issue still persists. versions.
+        - label: Downloaded the [latest version of Quicksilver](https://qsapp.com/) for your system and confirmed the issue still persists.
           required: true
   - type: textarea
     id: bug-description
@@ -65,9 +65,9 @@ body:
     id: crash-hang
     attributes:
       label: Crash Logs or Spindump
-      description: If you are reporting a crash with Quicksilver, please upload a crash log from Console.app. If you are reporting a hang or 'spinning beach ball', please upload a spindump. You can obtain a spindump by following [these steps](https://support.zoom.us/hc/en-us/articles/206435255-Creating-a-Spindump-file-on-macOS) but replacing Step 5 with 'Quicksilver'.
-      
-      Tip: You can attach log files by clicking this area to highlight it and then dragging files in.
+      description: |
+        If you are reporting a crash with Quicksilver, please upload a crash log from Console.app. If you are reporting a hang or 'spinning beach ball', please upload a spindump. You can obtain a spindump by following [these steps](https://support.zoom.us/hc/en-us/articles/206435255-Creating-a-Spindump-file-on-macOS) but replacing Step 5 with 'Quicksilver'.
+        Tip: You can attach log files by clicking this area to highlight it and then dragging files in.
   - type: textarea
     id: screenshot
     attributes:
@@ -77,4 +77,5 @@ body:
     id: additional-info
     attributes:
       label: Additional info
-      description: Any additional information related to the issue (e.g. Console.app errors, other conflicting software, computer/keyboard language).
+      description: |
+        Any additional information related to the issue (e.g. Console.app errors, other conflicting software, computer/keyboard language).
