@@ -26,12 +26,17 @@ NSInteger NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternat
 NSMutableDictionary *modifierKeyEvents = nil;
 NSUInteger lastModifiers;
 BOOL modifierEventsEnabled = YES;
+BOOL capsLockIsOn = NO;
 
 @implementation QSModifierKeyEvent
 
 @synthesize timesKeysPressed, target, action, identifier, modifierActivationCount;
 
-+ (void)enableModifierEvents {modifierEventsEnabled = YES;}
++ (void)enableModifierEvents {
+    modifierEventsEnabled = YES;
+    capsLockIsOn = ([NSEvent modifierFlags] & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+}
+
 + (void)disableModifierEvents {modifierEventsEnabled = NO;}
 
 
@@ -41,30 +46,27 @@ BOOL modifierEventsEnabled = YES;
 
 	NSUInteger mods = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 
-    BOOL modsKeyPressed = NO;
-    if((mods & NSAllModifierKeysMask))
-        modsKeyPressed = YES;
+	BOOL capsLockIsNowOn = (mods & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+	if (capsLockIsNowOn != capsLockIsOn) {
+		mods |= NSAlphaShiftKeyMask;
+	} else {
+		mods &= ~NSAlphaShiftKeyMask;
+	}
+	capsLockIsOn = capsLockIsNowOn;
 
-    // To determine if the caps lock key is the only key press check if mods is
-    // in one of the 3 states below.  NSMouseEnteredMask is set if QS has current
-    // focus.
-    if(!modsKeyPressed && (mods & (NSAlphaShiftKeyMask | NSMouseEnteredMask)) ) {
-        mods = NSAlphaShiftKeyMask;
-    }
+	QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? @(mods) : @(lastModifiers))];
 
-    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? @(mods) : @(lastModifiers))];
-    
-    [modifierKeyEvents enumerateKeysAndObjectsUsingBlock:^(id key, QSModifierKeyEvent *ev, BOOL *stop) {
-        if (match != ev) {
-            // reset the modifier state for any non-matching modifier key events (Issue #1950)
-            [ev resetTimesKeysPressed:self];
-        }
-    }];
-    
-    BOOL modsAdded = mods >= lastModifiers;
-    
-	lastModifiers = mods;
-    [match checkForModifierTap:modsAdded];
+	[modifierKeyEvents enumerateKeysAndObjectsUsingBlock:^(id key, QSModifierKeyEvent *ev, BOOL *stop) {
+		if (match != ev) {
+			// reset the modifier state for any non-matching modifier key events (Issue #1950)
+			[ev resetTimesKeysPressed:self];
+		}
+	}];
+
+	BOOL modsAdded = mods > lastModifiers;
+
+	lastModifiers = mods & ~NSAlphaShiftKeyMask;
+	[match checkForModifierTap:modsAdded];
 }
 
 + (void)regisiterForGlobalModifiers {
@@ -81,6 +83,8 @@ BOOL modifierEventsEnabled = YES;
 }
 
 + (void)initialize {
+	capsLockIsOn = ([NSEvent modifierFlags] & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+
 	[self regisiterForGlobalModifiers];
 }
 
@@ -105,23 +109,6 @@ BOOL modifierEventsEnabled = YES;
 	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:@(self.modifierActivationMask)];
 }
 
-
-//- (id)init {
-//
-//	if (self = [super init]) {
-//		NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
-//
-//		[self bind:@"modifierActivationMask" toObject:defaultsController
-//	   withKeyPath:@"values.QSModifierActivationKey"
-//		   options:nil];
-//
-//		[self bind:@"modifierActivationCount" toObject:defaultsController
-//	   withKeyPath:@"values.QSModifierActivationCount"
-//		   options:nil];
-//	}
-//	return self;
-//}
-
 - (NSUInteger)modifierActivationMask {
     return _modifierActivationMask;
 }
@@ -130,13 +117,6 @@ BOOL modifierEventsEnabled = YES;
 	_modifierActivationMask = 1 << value;
 
     self.timesKeysPressed = 0;
-	//	KeyMapInit((char *)&modRequireMap);
-	//	KeyMapAddKeyCode((char *)&modRequireMap, keyCode);
-	//
-	//	KeyMapInit((char *)&modExcludeMap);
-	//	KeyMapAddKeyCode((char *)&modExcludeMap, keyCode);
-	//	KeyMapAddKeyCode((char *)&modExcludeMap, NSAlphaShiftCode);
-	//	KeyMapInvert((char *)&modExcludeMap);
 }
 
 
@@ -145,33 +125,36 @@ BOOL modifierEventsEnabled = YES;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resetTimesKeysPressed:) object:nil];
         [self resetTimesKeysPressed:nil];
         [self.target performSelector:self.action withObject:nil];
-                                       
     );
 }
 
 - (void)checkForModifierTap:(BOOL)modsAdded {
-
-    if (!modsAdded || (self.modifierActivationMask == NSAlphaShiftKeyMask && self.timesKeysPressed == 1)) {
-        if (self.modifierActivationMask == NSAlphaShiftKeyMask) {
-            // keyUp events aren't sent for the caps lock key, so we have to check it here and manually increase the key pressed count
-            self.timesKeysPressed += 1;
-        }
-        uint32_t newPressedKeyDownCount = CGEventSourceCounterForEventType (
-                                                                 kCGEventSourceStateHIDSystemState,
-                                                                 kCGEventKeyDown
-                                                                 );
-        if (newPressedKeyDownCount == pressedKeyDownCount && self.timesKeysPressed == self.modifierActivationCount) {
-            [self sendAction];
-        }
-    } else {
+    if (modsAdded) {
         pressedKeyDownCount = CGEventSourceCounterForEventType(
                                                                kCGEventSourceStateHIDSystemState,
                                                                kCGEventKeyDown
                                                                );
-        double window = 0.3;
+
         self.timesKeysPressed += 1;
+
+        double window = 0.3;
         [self performSelector:@selector(resetTimesKeysPressed:) withObject:nil afterDelay:window extend:YES];
-        
+
+        // Workaround: CapsLock does not generate keyUp events -> simulate keyUp right after keyDown.
+        if (self.modifierActivationMask & NSAlphaShiftKeyMask) {
+        	modsAdded = NO;
+        }
+    }
+
+    if (!modsAdded) {
+        uint32_t newPressedKeyDownCount = CGEventSourceCounterForEventType (
+                                                                            kCGEventSourceStateHIDSystemState,
+                                                                            kCGEventKeyDown
+                                                                            );
+
+        if (newPressedKeyDownCount == pressedKeyDownCount && self.timesKeysPressed == self.modifierActivationCount) {
+            [self sendAction];
+        }
     }
 }
 
