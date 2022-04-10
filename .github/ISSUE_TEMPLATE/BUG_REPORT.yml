@@ -62,6 +62,11 @@ body:
       label: Quicksilver Version
       description: Type the version of Quicksilver you are using
   - type: textarea
+    id: plugins
+    attributes:
+      label: Relevant Plugins
+      description: Ener a list of any plugins and their versions relevant to this issue. You can view a list of your [installed plugins here](qs://preferences#QSPlugInsPrefPane)
+  - type: textarea
     id: crash-hang
     attributes:
       label: Crash Logs or Spindump
