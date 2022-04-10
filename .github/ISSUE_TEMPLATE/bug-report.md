@@ -1,29 +1,78 @@
----
 name: Bug Report
-about: Report a known problem with Quicksilver here
-
----
-
-For questions or tech support, please start with the [users’ group][1]. If you know the problem is in Quicksilver itself, report it here.
-
-[1]: https://groups.google.com/forum/#!forum/blacktree-quicksilver
-
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**What version of macOS?**
-
-**What version of Quicksilver?**
+about: Submit a report for an issue you're having with Quicksilver
+body:
+  - type: checkboxes
+    id: before-posting
+    attributes:
+      label: "Before submitting your bug report, please confirm you have completed the following steps"
+      description: All conditions are **required**. Your issue may be closed if not.
+      options:
+        - label: Searched the issue is not already listed in the [Issue List](https://github.com/quicksilver/Quicksilver/issues?q=is%3Aissue) (I've searched it)
+          required: true
+        - label: Searched in the [Quicksilver Users' Group](https://groups.google.com/forum/#!forum/blacktree-quicksilver) for questions relating to tech support.
+          required: true
+        - label: Downloaded the [latest version of Quicksilver](https://qsapp.com/) for your system and confirmed the issue still persists. versions.
+          required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      description: |
+        Provide a clear, concise description of the bug you're experiencing.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Describe the steps to reproduce the bug.
+        The better your description is, the faster we'll be able to help solve your issue. 
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen instead.
+    validations:
+      required: true
+  - type: dropdown
+    id: macos-version
+    attributes:
+      label: MacOS Version
+      description: |
+        Select the macOS version you are using
+        _Describe in the "Additional info" section if you chose "Other"._
+      options:
+        - macOS 12
+        - macOS 11
+        - macOS 10.15
+        - macOS 10.14
+        - Other
+  - type: input
+    id: qs-version
+    attributes:
+      label: Quicksilver Version
+      description: Type the version of Quicksilver you are using
+  - type: textarea
+    id: crash-hang
+    attributes:
+      label: Crash Logs or Spindump
+      description: If you are reporting a crash with Quicksilver, please upload a crash log from Console.app. If you are reporting a hang or 'spinning beach ball', please upload a spindump. You can obtain a spindump by following [these steps](https://support.zoom.us/hc/en-us/articles/206435255-Creating-a-Spindump-file-on-macOS) but replacing Step 5 with 'Quicksilver'.
+      
+      Tip: You can attach log files by clicking this area to highlight it and then dragging files in.
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshots
+      description: Please provide screenshots that illustrate your bug.
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional info
+      description: Any additional information related to the issue (e.g. Console.app errors, other conflicting software, computer/keyboard language).
