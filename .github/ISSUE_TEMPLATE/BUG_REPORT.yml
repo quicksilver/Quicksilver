@@ -66,8 +66,8 @@ body:
     attributes:
       label: Crash Logs or Spindump
       description: |
-        If you are reporting a crash with Quicksilver, please upload a crash log from Console.app. If you are reporting a hang or 'spinning beach ball', please upload a spindump. You can obtain a spindump by following [these steps](https://support.zoom.us/hc/en-us/articles/206435255-Creating-a-Spindump-file-on-macOS) but replacing Step 5 with 'Quicksilver'.
-        Tip: You can attach log files by clicking this area to highlight it and then dragging files in.
+        * Crash Report: Please upload a crash log from Console.app.
+        * Hang Report: Please upload a spindump log. You can obtain a spindump by following [these steps](https://support.zoom.us/hc/en-us/articles/206435255-Creating-a-Spindump-file-on-macOS) but selecting 'Quicksilver' in Step 5.
   - type: textarea
     id: screenshot
     attributes:
