@@ -1,5 +1,7 @@
 name: Bug Report
-about: Submit a report for an issue you're having with Quicksilver
+description: Submit a report for an issue you're having with Quicksilver
+title: "[Bug]: "
+labels: ["Needs Review"]
 body:
   - type: checkboxes
     id: before-posting
