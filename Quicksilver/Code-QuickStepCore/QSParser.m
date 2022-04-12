@@ -43,9 +43,10 @@
     }
 	  if ([response textEncodingName])
 		  encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef) [response textEncodingName]));
-//if (VERBOSE) NSLog(@"Downloading complete - %@", url);
 
-	  //	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding] autorelease];
+	// get the actual base URL from the response (e.g. in case of a redirect e.g. www → non-www or http:// → https://
+	url = response.URL;
+
 	return [self objectsFromData:data encoding:encoding settings:settings source:url];
 }
 
