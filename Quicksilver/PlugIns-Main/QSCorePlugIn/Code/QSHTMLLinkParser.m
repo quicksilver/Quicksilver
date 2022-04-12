@@ -10,7 +10,7 @@
 
 #import "QSHTMLLinkParser.h"
 #import <QSCore/QSResourceManager.h>
-
+#import "HTMLReader.h"
 
 @implementation QSHTMLLinkParser
 
@@ -46,71 +46,58 @@
 	if (prefix || suffix) {
 		data = [string dataUsingEncoding:encoding];
 	}
-	NSString *script = [[NSBundle bundleForClass:[self class]] pathForResource:@"QSURLExtractor" ofType:@"py"];
-	//NSLog(@"parsing with %@\r%@", script, source);
-	NSTask *task = [NSTask taskWithLaunchPath:@"/usr/bin/env" arguments:[NSArray arrayWithObject:script]];
-	NSPipe *readPipe = [NSPipe pipe];
-	NSFileHandle *readHandle = [readPipe fileHandleForReading];
-	NSPipe *writePipe = [NSPipe pipe];
-	NSFileHandle *writeHandle = [writePipe fileHandleForWriting];
-	[task setStandardInput:writePipe];
-	[task setStandardOutput:readPipe];
-	// [task setStandardError:[NSPipe pipe]];
-	
-	[task launch];
-	[writeHandle writeData:data];
-	[writeHandle closeFile];
-	
-	NSMutableData *returnData = [[NSMutableData alloc] init];
-	NSData *readData;
-	while ((readData = [readHandle availableData]) && [readData length]) {
-		[returnData appendData:readData];
-	}
-	
-	string = [[NSString alloc] initWithData:returnData encoding:encoding?encoding:NSUTF8StringEncoding];
-	NSArray *array = [string componentsSeparatedByStrings:[NSArray arrayWithObjects:@"\n", @"\t", nil]];
-	
-	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
-	QSObject *newObject;
-	NSArray *link;
+	NSMutableArray *foundLinks = [NSMutableArray array];
+	HTMLDocument *document = [HTMLDocument documentWithString:string];
+	QSObject *newObject = nil;
+	NSMutableArray *objects = [NSMutableArray array];
 	NSCharacterSet *wncs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	for(link in array) {
-		if ([link count] < 4) continue;
-		NSString *shortcut = [link objectAtIndex:2];
-		NSString *urlString = [[[link objectAtIndex:0] stringByReplacingOccurrencesOfString:@"&amp; " withString:@"&"] stringByReplacingOccurrencesOfString:@"%s" withString:QUERY_KEY];
-		NSString *text = [link objectAtIndex:1];
-		NSString *imageurl = [link objectAtIndex:3];
-		NSString *name;
-		// make sure there's an actual URL
-		if (urlString.length) {
-			// empty <a></a> tags, give the name of the url
-			if(!(text.length || imageurl.length)) {
-				name = urlString; 
+	for (HTMLElement *elem in [document nodesMatchingSelector:@"a"]) {
+		NSString *href = elem.attributes[@"href"];
+		if (!href || [href isEqualToString:@"#"]) {
+			continue;
+		}
+		NSString *urlString = [[href stringByReplacingOccurrencesOfString:@"&amp; " withString:@"&"] stringByReplacingOccurrencesOfString:@"%s" withString:QUERY_KEY];
+		urlString = [[NSURL URLWithString:[urlString URLEncoding] relativeToURL:source] absoluteString];
+		
+		// skip over URLs that have already been found
+		if ([foundLinks containsObject:urlString]) {
+			continue;
+		}
+		[foundLinks addObject:urlString];
+		
+		NSString *name = [elem.textContent stringByTrimmingCharactersInSet:wncs];
+		NSString *imageurl = nil;
+		HTMLElement *img = [elem firstNodeMatchingSelector:@"img"];
+		if (img && img.attributes[@"src"]) {
+			imageurl = img.attributes[@"src"];
+			if (!name || ![name length]) {
+                // look for a link title here if none exists
+				for (NSString *attribute in @[@"title", @"alt", @"src"]) {
+					if (img.attributes[attribute]) {
+						name = img.attributes[attribute];
+						if ([attribute isEqualToString:@"src"]) {
+							// take just the base part
+							name = [name lastPathComponent];
+						}
+						break;
+					}
+				}
 			}
-			// The link is represented by an image, give it the name of the image
-			else if(!text.length) {
-				name = imageurl;
-			}
-			else {
-				name = [shortcut length] ? shortcut : text;
-			}
-			
-			// make sure it's an actual URL
-			urlString = [[NSURL URLWithString:[urlString URLEncoding] relativeToURL:source] absoluteString];
-			newObject = [QSObject URLObjectWithURL:urlString title:[name stringByTrimmingCharactersInSet:wncs]];
-			[newObject assignURLTypesWithURL:urlString];
-			
-            NSString *label = [shortcut length] ? text : nil;
-            [newObject setLabel:label];
-			// If the link is an image, set this as the icon
-			if (imageurl.length) {
-				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
-				[newObject setObject:imageurl forMeta:kQSObjectIconName];
-				[newObject setIconLoaded:NO];
-			}
-			if (newObject) {
-				[objects addObject:newObject];
-			}
+		}
+		name = [name stringByTrimmingCharactersInSet:wncs];
+		// make sure it's an actual URL
+		newObject = [QSObject URLObjectWithURL:urlString title:name];
+		[newObject assignURLTypesWithURL:urlString];
+		
+		[newObject setLabel:name];
+		// If the link is an image, set this as the icon
+		if (imageurl.length) {
+			imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
+			[newObject setObject:imageurl forMeta:kQSObjectIconName];
+			[newObject setIconLoaded:NO];
+		}
+		if (newObject) {
+			[objects addObject:newObject];
 		}
 	}
 	return objects;

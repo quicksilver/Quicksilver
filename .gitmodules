@@ -13,3 +13,6 @@
 [submodule "Quicksilver/Code-External/NDHotKeyEvent"]
 	path = Quicksilver/Code-External/NDHotKeyEvent
 	url = https://github.com/quicksilver/ndhotkeyevent.git
+[submodule "Quicksilver/Code-External/HTMLReader"]
+	path = Quicksilver/Code-External/HTMLReader
+	url = https://github.com/nolanw/HTMLReader.git

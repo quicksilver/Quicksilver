@@ -337,6 +337,23 @@
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD23537C28054FBB00DDEA0A /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23535228054FBA00DDEA0A /* HTMLParser.m */; };
+		CD23537D28054FBB00DDEA0A /* HTMLTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23535328054FBA00DDEA0A /* HTMLTextNode.m */; };
+		CD23537E28054FBB00DDEA0A /* HTMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23535528054FBA00DDEA0A /* HTMLEntities.m */; };
+		CD23537F28054FBB00DDEA0A /* HTMLTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536628054FBA00DDEA0A /* HTMLTokenizer.m */; };
+		CD23538028054FBB00DDEA0A /* HTMLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536828054FBA00DDEA0A /* HTMLComment.m */; };
+		CD23538128054FBB00DDEA0A /* HTMLTreeEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536928054FBA00DDEA0A /* HTMLTreeEnumerator.m */; };
+		CD23538228054FBB00DDEA0A /* HTMLDocumentType.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536A28054FBA00DDEA0A /* HTMLDocumentType.m */; };
+		CD23538328054FBB00DDEA0A /* HTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536B28054FBA00DDEA0A /* HTMLDocument.m */; };
+		CD23538428054FBB00DDEA0A /* HTMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536C28054FBA00DDEA0A /* HTMLSerialization.m */; };
+		CD23538528054FBB00DDEA0A /* NSString+HTMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536D28054FBA00DDEA0A /* NSString+HTMLEntities.m */; };
+		CD23538628054FBB00DDEA0A /* HTMLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23536F28054FBA00DDEA0A /* HTMLEncoding.m */; };
+		CD23538728054FBB00DDEA0A /* HTMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537028054FBA00DDEA0A /* HTMLElement.m */; };
+		CD23538828054FBB00DDEA0A /* HTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537128054FBA00DDEA0A /* HTMLString.m */; };
+		CD23538928054FBB00DDEA0A /* HTMLSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537228054FBA00DDEA0A /* HTMLSelector.m */; };
+		CD23538A28054FBB00DDEA0A /* HTMLPreprocessedInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537428054FBA00DDEA0A /* HTMLPreprocessedInputStream.m */; };
+		CD23538B28054FBB00DDEA0A /* HTMLOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537528054FBA00DDEA0A /* HTMLOrderedDictionary.m */; };
+		CD23538C28054FBB00DDEA0A /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23537728054FBA00DDEA0A /* HTMLNode.m */; };
 		CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD29AEB0195663770052C893 /* InfoPlist.strings */; };
 		CD29AEB4195663770052C893 /* Core_Support_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD29AEB3195663770052C893 /* Core_Support_Tests.m */; };
 		CD29AEBC195664110052C893 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
@@ -1514,6 +1531,47 @@
 		CD1732531683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSObjectSource.name.strings"; sourceTree = "<group>"; };
 		CD1732541683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
 		CD1732551683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
+		CD23535228054FBA00DDEA0A /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		CD23535328054FBA00DDEA0A /* HTMLTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTextNode.m; sourceTree = "<group>"; };
+		CD23535428054FBA00DDEA0A /* HTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLString.h; sourceTree = "<group>"; };
+		CD23535528054FBA00DDEA0A /* HTMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLEntities.m; sourceTree = "<group>"; };
+		CD23535628054FBA00DDEA0A /* HTMLTokenizerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTokenizerState.h; sourceTree = "<group>"; };
+		CD23535828054FBA00DDEA0A /* NSString+HTMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTMLEntities.h"; sourceTree = "<group>"; };
+		CD23535928054FBA00DDEA0A /* HTMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSerialization.h; sourceTree = "<group>"; };
+		CD23535A28054FBA00DDEA0A /* HTMLQuirksMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLQuirksMode.h; sourceTree = "<group>"; };
+		CD23535B28054FBA00DDEA0A /* HTMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLElement.h; sourceTree = "<group>"; };
+		CD23535C28054FBA00DDEA0A /* HTMLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLEncoding.h; sourceTree = "<group>"; };
+		CD23535D28054FBA00DDEA0A /* HTMLSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSupport.h; sourceTree = "<group>"; };
+		CD23535E28054FBA00DDEA0A /* HTMLSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSelector.h; sourceTree = "<group>"; };
+		CD23535F28054FBA00DDEA0A /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
+		CD23536028054FBA00DDEA0A /* HTMLTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTextNode.h; sourceTree = "<group>"; };
+		CD23536128054FBA00DDEA0A /* HTMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLReader.h; sourceTree = "<group>"; };
+		CD23536228054FBA00DDEA0A /* HTMLNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNamespace.h; sourceTree = "<group>"; };
+		CD23536328054FBA00DDEA0A /* HTMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLDocument.h; sourceTree = "<group>"; };
+		CD23536428054FBA00DDEA0A /* HTMLDocumentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLDocumentType.h; sourceTree = "<group>"; };
+		CD23536528054FBA00DDEA0A /* HTMLOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLOrderedDictionary.h; sourceTree = "<group>"; };
+		CD23536628054FBA00DDEA0A /* HTMLTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTokenizer.m; sourceTree = "<group>"; };
+		CD23536728054FBA00DDEA0A /* HTMLPreprocessedInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPreprocessedInputStream.h; sourceTree = "<group>"; };
+		CD23536828054FBA00DDEA0A /* HTMLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLComment.m; sourceTree = "<group>"; };
+		CD23536928054FBA00DDEA0A /* HTMLTreeEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTreeEnumerator.m; sourceTree = "<group>"; };
+		CD23536A28054FBA00DDEA0A /* HTMLDocumentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLDocumentType.m; sourceTree = "<group>"; };
+		CD23536B28054FBA00DDEA0A /* HTMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLDocument.m; sourceTree = "<group>"; };
+		CD23536C28054FBA00DDEA0A /* HTMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLSerialization.m; sourceTree = "<group>"; };
+		CD23536D28054FBA00DDEA0A /* NSString+HTMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTMLEntities.m"; sourceTree = "<group>"; };
+		CD23536E28054FBA00DDEA0A /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		CD23536F28054FBA00DDEA0A /* HTMLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLEncoding.m; sourceTree = "<group>"; };
+		CD23537028054FBA00DDEA0A /* HTMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLElement.m; sourceTree = "<group>"; };
+		CD23537128054FBA00DDEA0A /* HTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLString.m; sourceTree = "<group>"; };
+		CD23537228054FBA00DDEA0A /* HTMLSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLSelector.m; sourceTree = "<group>"; };
+		CD23537328054FBA00DDEA0A /* HTMLTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTokenizer.h; sourceTree = "<group>"; };
+		CD23537428054FBA00DDEA0A /* HTMLPreprocessedInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPreprocessedInputStream.m; sourceTree = "<group>"; };
+		CD23537528054FBA00DDEA0A /* HTMLOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLOrderedDictionary.m; sourceTree = "<group>"; };
+		CD23537628054FBA00DDEA0A /* HTMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLEntities.h; sourceTree = "<group>"; };
+		CD23537728054FBA00DDEA0A /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
+		CD23537828054FBA00DDEA0A /* HTMLEncoding+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMLEncoding+Private.h"; sourceTree = "<group>"; };
+		CD23537928054FBA00DDEA0A /* HTMLDocument+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTMLDocument+Private.h"; sourceTree = "<group>"; };
+		CD23537A28054FBA00DDEA0A /* HTMLTreeEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTreeEnumerator.h; sourceTree = "<group>"; };
+		CD23537B28054FBA00DDEA0A /* HTMLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLComment.h; sourceTree = "<group>"; };
 		CD29AEAB195663770052C893 /* Core Support Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Core Support Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD29AEAF195663770052C893 /* Core Support Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Core Support Tests-Info.plist"; sourceTree = "<group>"; };
 		CD29AEB1195663770052C893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2872,6 +2930,71 @@
 			path = QSDroplet;
 			sourceTree = "<group>";
 		};
+		CD23534928054FAB00DDEA0A /* HTMLReader */ = {
+			isa = PBXGroup;
+			children = (
+				CD23535128054FBA00DDEA0A /* Sources */,
+			);
+			name = HTMLReader;
+			sourceTree = "<group>";
+		};
+		CD23535128054FBA00DDEA0A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CD23535228054FBA00DDEA0A /* HTMLParser.m */,
+				CD23535328054FBA00DDEA0A /* HTMLTextNode.m */,
+				CD23535428054FBA00DDEA0A /* HTMLString.h */,
+				CD23535528054FBA00DDEA0A /* HTMLEntities.m */,
+				CD23535628054FBA00DDEA0A /* HTMLTokenizerState.h */,
+				CD23535728054FBA00DDEA0A /* include */,
+				CD23536528054FBA00DDEA0A /* HTMLOrderedDictionary.h */,
+				CD23536628054FBA00DDEA0A /* HTMLTokenizer.m */,
+				CD23536728054FBA00DDEA0A /* HTMLPreprocessedInputStream.h */,
+				CD23536828054FBA00DDEA0A /* HTMLComment.m */,
+				CD23536928054FBA00DDEA0A /* HTMLTreeEnumerator.m */,
+				CD23536A28054FBA00DDEA0A /* HTMLDocumentType.m */,
+				CD23536B28054FBA00DDEA0A /* HTMLDocument.m */,
+				CD23536C28054FBA00DDEA0A /* HTMLSerialization.m */,
+				CD23536D28054FBA00DDEA0A /* NSString+HTMLEntities.m */,
+				CD23536E28054FBA00DDEA0A /* HTMLParser.h */,
+				CD23536F28054FBA00DDEA0A /* HTMLEncoding.m */,
+				CD23537028054FBA00DDEA0A /* HTMLElement.m */,
+				CD23537128054FBA00DDEA0A /* HTMLString.m */,
+				CD23537228054FBA00DDEA0A /* HTMLSelector.m */,
+				CD23537328054FBA00DDEA0A /* HTMLTokenizer.h */,
+				CD23537428054FBA00DDEA0A /* HTMLPreprocessedInputStream.m */,
+				CD23537528054FBA00DDEA0A /* HTMLOrderedDictionary.m */,
+				CD23537628054FBA00DDEA0A /* HTMLEntities.h */,
+				CD23537728054FBA00DDEA0A /* HTMLNode.m */,
+				CD23537828054FBA00DDEA0A /* HTMLEncoding+Private.h */,
+				CD23537928054FBA00DDEA0A /* HTMLDocument+Private.h */,
+				CD23537A28054FBA00DDEA0A /* HTMLTreeEnumerator.h */,
+				CD23537B28054FBA00DDEA0A /* HTMLComment.h */,
+			);
+			name = Sources;
+			path = HTMLReader/Sources;
+			sourceTree = "<group>";
+		};
+		CD23535728054FBA00DDEA0A /* include */ = {
+			isa = PBXGroup;
+			children = (
+				CD23535828054FBA00DDEA0A /* NSString+HTMLEntities.h */,
+				CD23535928054FBA00DDEA0A /* HTMLSerialization.h */,
+				CD23535A28054FBA00DDEA0A /* HTMLQuirksMode.h */,
+				CD23535B28054FBA00DDEA0A /* HTMLElement.h */,
+				CD23535C28054FBA00DDEA0A /* HTMLEncoding.h */,
+				CD23535D28054FBA00DDEA0A /* HTMLSupport.h */,
+				CD23535E28054FBA00DDEA0A /* HTMLSelector.h */,
+				CD23535F28054FBA00DDEA0A /* HTMLNode.h */,
+				CD23536028054FBA00DDEA0A /* HTMLTextNode.h */,
+				CD23536128054FBA00DDEA0A /* HTMLReader.h */,
+				CD23536228054FBA00DDEA0A /* HTMLNamespace.h */,
+				CD23536328054FBA00DDEA0A /* HTMLDocument.h */,
+				CD23536428054FBA00DDEA0A /* HTMLDocumentType.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		CD29AEAD195663770052C893 /* Core Support Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3217,6 +3340,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				CD23534928054FAB00DDEA0A /* HTMLReader */,
 				CDC89A3D27AB69C000727225 /* NDHotKeyEvent */,
 				4DFD65751EA93134003CD3CE /* FMDB */,
 				CDA5253416AED83900D2017F /* DisableSubviews */,
@@ -5182,25 +5306,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD23538C28054FBB00DDEA0A /* HTMLNode.m in Sources */,
 				E180011C07B2B48900010DB0 /* QSActionProvider_EmbeddedProviders.m in Sources */,
+				CD23538428054FBB00DDEA0A /* HTMLSerialization.m in Sources */,
+				CD23537C28054FBB00DDEA0A /* HTMLParser.m in Sources */,
+				CD23538828054FBB00DDEA0A /* HTMLString.m in Sources */,
+				CD23538628054FBB00DDEA0A /* HTMLEncoding.m in Sources */,
+				CD23537D28054FBB00DDEA0A /* HTMLTextNode.m in Sources */,
 				7F9442990803B48A007EDC31 /* QSAllApplicationsObjectSource.m in Sources */,
+				CD23538328054FBB00DDEA0A /* HTMLDocument.m in Sources */,
 				E180011E07B2B48900010DB0 /* QSAppleScriptActions.m in Sources */,
+				CD23538928054FBB00DDEA0A /* HTMLSelector.m in Sources */,
+				CD23537E28054FBB00DDEA0A /* HTMLEntities.m in Sources */,
 				E180012007B2B48900010DB0 /* QSCatalogEntrySource.m in Sources */,
+				CD23537F28054FBB00DDEA0A /* HTMLTokenizer.m in Sources */,
 				E180012607B2B48900010DB0 /* QSConsoleNotifier.m in Sources */,
 				E180012807B2B48900010DB0 /* QSDefaultsObjectSource.m in Sources */,
 				7FF590210804398F0031368C /* QSDirectoryParser.m in Sources */,
+				CD23538528054FBB00DDEA0A /* NSString+HTMLEntities.m in Sources */,
 				E180012E07B2B48900010DB0 /* QSFileSystemObjectSource.m in Sources */,
 				D48F231D1C99CCC4006504A8 /* QSSharedFileListSource.m in Sources */,
+				CD23538728054FBB00DDEA0A /* HTMLElement.m in Sources */,
 				7FBE3D1209586FE60049CC78 /* QSFileTemplateManager.m in Sources */,
 				E180013007B2B48900010DB0 /* QSFSBrowserMediator.m in Sources */,
 				7F9441C60803AB2D007EDC31 /* QSGroupObjectSource.m in Sources */,
+				CD23538028054FBB00DDEA0A /* HTMLComment.m in Sources */,
 				7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */,
 				E180013207B2B48900010DB0 /* QSHTMLLinkParser.m in Sources */,
+				CD23538A28054FBB00DDEA0A /* HTMLPreprocessedInputStream.m in Sources */,
 				E180013807B2B48900010DB0 /* QSObject+ColorHandling.m in Sources */,
 				7FDF328A07F7B11800594789 /* QSObjectActions.m in Sources */,
 				E180013A07B2B48900010DB0 /* QSShellScriptRunAction.m in Sources */,
 				7FF59035080439B00031368C /* QSTextParser.m in Sources */,
+				CD23538128054FBB00DDEA0A /* HTMLTreeEnumerator.m in Sources */,
 				E180013E07B2B48900010DB0 /* QSTextSource.m in Sources */,
+				CD23538B28054FBB00DDEA0A /* HTMLOrderedDictionary.m in Sources */,
+				CD23538228054FBB00DDEA0A /* HTMLDocumentType.m in Sources */,
 				7F9441E80803ABB1007EDC31 /* QSVolumesObjectSource.m in Sources */,
 				E180014007B2B48900010DB0 /* QSWebSource.m in Sources */,
 				D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */,
@@ -6487,6 +6628,7 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 			};
@@ -6497,6 +6639,7 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 			};
