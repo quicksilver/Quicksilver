@@ -455,7 +455,6 @@
 		D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */ = {isa = PBXBuildFile; fileRef = D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */; };
 		D49B9D1916C80755003880DC /* Button-docs.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A416B682FE007439AE /* Button-docs.png */; };
 		D49B9D1A16C80758003880DC /* Button-docs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A516B682FE007439AE /* Button-docs@2x.png */; };
-		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
 		D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */; };
 		D4BDCC1B19E7F78F0080710C /* SUStandardVersionComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDCC1919E7F78F0080710C /* SUStandardVersionComparator.m */; };
 		D4BDCC1C19E7F78F0080710C /* SUStandardVersionComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */; };
@@ -2140,7 +2139,6 @@
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; usesTabs = 1; };
 		D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxySource.h; sourceTree = "<group>"; };
 		D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserDefinedProxySource.m; sourceTree = "<group>"; };
-		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
 		D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSUserDefinedProxySource.xib; sourceTree = "<group>"; };
 		D4BDCC1919E7F78F0080710C /* SUStandardVersionComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUStandardVersionComparator.m; path = Sparkle/SUStandardVersionComparator.m; sourceTree = "<group>"; };
 		D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle/SUStandardVersionComparator.h; sourceTree = "<group>"; };
@@ -3234,7 +3232,6 @@
 		E103EC5006471DBE00447FE0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */,
 				7F4AD9150A4DA3D1002A2A1B /* Guide.html */,
 				7F8403BD096A05E4006E6F0E /* GettingStarted.html */,
 				7F841766096CB23B006E6F0E /* GettingSupport.html */,
@@ -4453,7 +4450,6 @@
 			buildConfigurationList = 7F6B3E63085CE68E000735A8 /* Build configuration list for PBXNativeTarget "Core Support" */;
 			buildPhases = (
 				E1E5F9CA07B1FEC50044D6EF /* Resources */,
-				D4CA6A5E161B5AE1005F5BAE /* Copy BeautifulSoup 4 */,
 				E1E5F9CC07B1FEC50044D6EF /* Sources */,
 				E1E5F9CE07B1FEC50044D6EF /* Frameworks */,
 			);
@@ -4890,7 +4886,6 @@
 				7F840FEF096C3356006E6F0E /* QSParser.name.strings in Resources */,
 				7F840FF0096C3356006E6F0E /* QSAction.commandFormat.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
-				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
 				CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */,
 				2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */,
 				D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */,
@@ -4941,20 +4936,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/env python3";
 			shellScript = "#!/usr/bin/env python3\n\nimport os\nimport sys\nimport re\nimport platform\nfrom pathlib import Path\n\nsrcroot = Path(os.getenv('SRCROOT'))\nif srcroot is None:\n    sys.exit(78) # configuration error\n\n## location for input and output files\nsupp_dir = srcroot / \"SharedSupport\"\n\n## fake the deployment target to make distutils happy\nos.environ['MACOSX_DEPLOYMENT_TARGET'] = '.'.join(platform.mac_ver()[0].split('.')[0:2])\n\n## import Markdown support\nsys.path.append(str(srcroot / \"Tools\" / \"python-support\"))\nimport markdown\n\n## get the original text\ntext = (supp_dir / \"CHANGELOG\").read_text()\n\n## make issue numbers link to GitHub\ntext = re.sub(r'#(\\d+)', r'[#\\g<1>](https://github.com/quicksilver/Quicksilver/issues/\\g<1>)', text)\n\n## convert to HTML\n## https://stackoverflow.com/a/59055691/1588795\nmd = markdown.Markdown(extensions = [\n    \"markdown.extensions.abbr\",\n    \"markdown.extensions.attr_list\",\n    \"markdown.extensions.def_list\",\n    \"markdown.extensions.fenced_code\",\n    \"markdown.extensions.footnotes\",\n    \"markdown.extensions.tables\",\n    \"markdown.extensions.md_in_html\",\n], output_format = 'html')\nhtml = md.convert(text)\n\n## read in Quicksilver's stylesheet\nstyle = (srcroot / \"Resources\" / \"QSStyle.css\").read_text()\n\n## write the result\n(supp_dir / \"Changes.html\").write_text(\n    f\"\"\"\n<!DOCTYPE html>\n<html>\n    <head>\n        <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n        <link rel=\"stylesheet\" href=\"../Resources/QSStyle.css\" type=\"text/css\" charset=\"utf-8\">\n    </head>\n    <body id=\"qsrn\">\n        <div id=\"content\">\n            {html}\n        </div>\n    </body>\n</html>\n    \"\"\".strip()\n)\n(supp_dir /  \"ChangesBare.html\").write_text(html)\n";
-		};
-		D4CA6A5E161B5AE1005F5BAE /* Copy BeautifulSoup 4 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy BeautifulSoup 4";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "## clean .pyc files\nfind \"$SRCROOT/Resources\" -name '*.pyc' -exec rm {} \\;\n## copy module to the Core Support Resources folder\ncp -r \\\n    \"$SRCROOT/Resources/bs4\" \\\n    \"$SRCROOT/Resources/soupsieve\" \\\n    \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n";
 		};
 		D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */ = {
 			isa = PBXShellScriptBuildPhase;
