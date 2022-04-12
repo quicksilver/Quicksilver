@@ -53,7 +53,7 @@
 	NSCharacterSet *wncs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	for (HTMLElement *elem in [document nodesMatchingSelector:@"a"]) {
 		NSString *href = elem.attributes[@"href"];
-		if (!href || [href isEqualToString:@"#"] || [elem.attributes[@"aria-hidden"] isEqualToString:@"true"]) {
+		if (!href || [href isEqualToString:@"#"] || [elem.attributes[@"aria-hidden"] isEqualToString:@"true"] || [href rangeOfString:@"javascript:"].location == 0) {
 			continue;
 		}
 		NSString *urlString = [[href stringByReplacingOccurrencesOfString:@"&amp; " withString:@"&"] stringByReplacingOccurrencesOfString:@"%s" withString:QUERY_KEY];
