@@ -209,11 +209,9 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)bump:(NSInteger)i {
 	NSRect frame = [[self window] frame];
-	NSInteger j;
-	for (j = 1; j <= 8; j++)
-		[[self window] setFrameOrigin:NSOffsetRect(frame, i*j/8, 0) .origin];
-	for (; j >= 0; j--)
-		[[self window] setFrameOrigin:NSOffsetRect(frame, i*j/8, 0) .origin];
+	NSRect bumpedFrame = NSOffsetRect(frame, i, 0);
+	[[self window] setFrame:bumpedFrame display:NO animate:YES];
+	[[self window] setFrame:frame display:NO animate:YES];
 }
 
 - (void)loadChildren {
