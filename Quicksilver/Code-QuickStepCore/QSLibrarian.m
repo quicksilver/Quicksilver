@@ -513,7 +513,8 @@ static CGFloat searchSpeed = 0.0;
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
 	NSMutableArray *typeEntry;
 	for(QSObject *object in array) {
-		for (NSString *key in [[object dataDictionary] allKeys]) {
+		NSDictionary *data = [[object dataDictionary] copy];
+		for (NSString *key in [data allKeys]) {
 			if ([key hasPrefix:@"QSObject"]) continue;
 			typeEntry = [dict objectForKey:key];
 			if (!typeEntry) {
