@@ -1,0 +1,21 @@
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+- name: Update Homebrew formula
+  uses: dawidd6/action-homebrew-bump-formula@v3
+  with:
+    # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
+    token: ${{secrets.TOKEN}}
+    # Optional, will create tap repo fork in organization
+    org: ORG
+    # Optional, defaults to homebrew/core
+    tap: USER/REPO
+    # Formula name, required
+    formula: FORMULA
+    # Optional, will be determined automatically
+    tag: ${{github.ref}}
+    # Optional, will be determined automatically
+    revision: ${{github.sha}}
+    # Optional, if don't want to check for already open PRs
+    force: false # true
