@@ -204,7 +204,7 @@ typedef enum {
 					alert.informativeText = NSLocalizedString(@"Unable to check for updates, the server could not be reached. Please check your internet connection.", @"QSUpdateController - update check error message");
 					[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - update check default button")];
 					
-					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+					[alert runModal];
 				});
 			}
 			[self setIsCheckingForUpdates:NO];
@@ -235,14 +235,13 @@ typedef enum {
 					[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 					[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
 					
-					[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:^(QSAlertResponse response) {
-						if (response == QSAlertResponseOK)
-							[self installAppUpdate];
-						else if (response == QSAlertResponseThird)
-							QSGCDMainAsync(^{
-								[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
-							});
-					}];
+					QSAlertResponse response = [alert runAlert];
+					if (response == QSAlertResponseOK)
+						[self installAppUpdate];
+					else if (response == QSAlertResponseThird)
+						QSGCDMainAsync(^{
+							[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kChangelogURL]];
+						});
 				});
 			} else {
 				//
@@ -266,7 +265,7 @@ typedef enum {
 							alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
 							[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
 							
-							[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+							[alert runModal];
 						});
 					}
 				}
@@ -345,7 +344,7 @@ typedef enum {
 		
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - download failed alert - default button")];
 		
-		[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+		[alert runModal];
 	});
 	
 	[self.appDownload cancel];
@@ -411,7 +410,7 @@ typedef enum {
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - installation failed alert - default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Download manually", @"QSUpdateController - installation failed alert - cancel button")];
 			
-			QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+			QSAlertResponse response = [alert runAlert];
 			
 			if (response == QSAlertResponseSecond)
 				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];

@@ -668,15 +668,13 @@ static QSController *defaultController = nil;
 #ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
 #endif
-            [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"This is an old version of Quicksilver",nil)
-                                                         message:NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil)
-                                                         buttons:@[NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil)]
-														   style:NSAlertStyleInformational
-                                                        onWindow:nil
-                                               completionHandler:^(QSAlertResponse response) {
-                                                   if (response == QSAlertResponseOK)
-                                                       [[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
-                                               }];
+			QSAlertResponse response =  [NSAlert runAlertWithTitle:NSLocalizedString(@"This is an old version of Quicksilver",nil)
+														   message:NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil)
+														   buttons:@[NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil)]
+															 style:NSAlertStyleInformational];
+			if (response == QSAlertResponseOK) {
+				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
+			}
             versionChanged = YES;
             break;
         }
@@ -693,7 +691,7 @@ static QSController *defaultController = nil;
                                                    otherButton:NSLocalizedString(@"Choose Location...",nil)
                                      informativeTextWithFormat:@"%@", NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil)];
 
-                QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+                QSAlertResponse response = [alert runAlert];
 
 				NSString *installPath = nil;
 				if (response == QSAlertResponseFirst) {

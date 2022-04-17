@@ -189,7 +189,7 @@ static id _sharedInstance;
 	[alert addButtonWithTitle:NSLocalizedString(@"Replace", @"QSCatalogPrefPane - Restore default catalog - default button")];
 	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"QSCatalogPrefPane - Restore default catalog - cancel button")];
 
-	QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+	QSAlertResponse response = [alert runAlert];
 	if (response == QSAlertResponseOK) {
 		[[QSLibrarian sharedInstance] loadDefaultCatalog];
 		[itemTable reloadData];

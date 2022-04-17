@@ -24,7 +24,7 @@ typedef void(^QSPluginUpdatePromptBlock)(QSPluginUpdateStatus status);
 
 
 @class QSPlugIn;
-@interface QSPlugInManager : NSObject <QSURLDownloadDelegate> {
+@interface QSPlugInManager : NSObjectController <QSURLDownloadDelegate> {
 	BOOL startupLoadComplete;
 
 	NSMutableDictionary 			*localPlugIns; 	// Most recent version of every plugin on this machine. Includes restricted.
@@ -102,7 +102,6 @@ typedef void(^QSPluginUpdatePromptBlock)(QSPluginUpdateStatus status);
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
 - (CGFloat) installProgress;
-- (void)setInstallProgress:(CGFloat)newInstallProgress;
 - (BOOL)isInstalling;
 - (void)setIsInstalling:(BOOL)flag;
 - (void)updateDownloadProgressInfo;
@@ -113,7 +112,6 @@ typedef void(^QSPluginUpdatePromptBlock)(QSPluginUpdateStatus status);
 - (void)downloadWebPlugInInfo:(QSPluginUpdateBlock)block;
 - (void)downloadWebPlugInInfoIgnoringDate:(QSPluginUpdateBlock)block;
 - (void)updatePlugInsForNewVersion:(NSString *)version completionHandler:(QSPluginUpdatePromptBlock)block;
-- (CGFloat)downloadProgress;
 - (NSMutableSet *)updatedPlugIns;
 - (BOOL)handleInstallURL:(NSURL *)url;
 - (BOOL)installPlugInsFromFiles:(NSArray *)fileList;

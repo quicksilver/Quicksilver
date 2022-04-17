@@ -1,114 +1,14 @@
-#import "QSAlertManager.h"
+#import "NSAlert_QSExtensions.h"
 
-@interface QSAlertManager () <NSUserNotificationCenterDelegate>
-
-@property (assign) NSInteger returnCode;
-
-@property (retain) NSMutableDictionary *notificationHandlers;
-
-@end
-
-@implementation QSAlertManager
-
-+ (instancetype)defaultManager {
-    static QSAlertManager *defaultManager;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        defaultManager = [[self alloc] init];
-    });
-    return defaultManager;
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (!self) return nil;
-
-    _notificationHandlers = [NSMutableDictionary dictionary];
-
-    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-
-    return self;
-}
+@implementation NSAlert (QSExtensions)
 
 #pragma mark -
-#pragma mark NSAlert
 
-- (void)beginAlert:(NSAlert *)alert onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler {
-    NSParameterAssert(alert != nil);
-
-    QSGCDMainAsync(^{
-		NSAlert *mainAlert = [[NSAlert alloc] init];
-		mainAlert.alertStyle = alert.alertStyle;
-		mainAlert.messageText = alert.messageText;
-		mainAlert.informativeText = alert.informativeText;
-		mainAlert.icon = alert.icon;
-		for (NSButton *button in alert.buttons) {
-			[mainAlert addButtonWithTitle:button.title];
-		}
-		mainAlert.showsHelp = alert.showsHelp;
-		mainAlert.helpAnchor = alert.helpAnchor;
-		mainAlert.delegate = alert.delegate;
-		mainAlert.showsSuppressionButton = alert.showsSuppressionButton;
-		mainAlert.accessoryView = alert.accessoryView;
-
-        NSModalResponse response = 0;
-        if (window) {
-            [mainAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
-                [NSApp stopModalWithCode:response];
-            }];
-
-            response = [NSApp runModalForWindow:window];
-        } else {
-            response = [mainAlert runModal];
-        }
-
-        QSAlertResponse realResponse = response - 1000;
-
-        if (handler) handler(realResponse);
-    });
+- (QSAlertResponse)runAlert {
+	return [self runModal] - 1000;
 }
 
-- (void)beginAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style onWindow:(NSWindow *)window completionHandler:(QSAlertHandler)handler {
-    NSParameterAssert(title != nil);
-    NSParameterAssert(message != nil);
-
-    // Configure the alert
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = title;
-    alert.informativeText = message;
-    for (NSString *buttonTitle in buttons) {
-        [alert addButtonWithTitle:buttonTitle];
-    }
-
-    alert.alertStyle = style;
-
-    [self beginAlert:alert onWindow:window completionHandler:handler];
-}
-
-- (void)alertDidEnd:(NSAlert *)sheet returnCode:(NSInteger)theReturnCode contextInfo:(void *)contextInfo {
-    [NSApp stopModalWithCode:theReturnCode];
-}
-
-- (QSAlertResponse)runAlert:(NSAlert *)alert onWindow:(NSWindow *)window {
-    __block QSAlertResponse alertResponse = QSAlertResponseOK;
-    __block dispatch_semaphore_t alertSemaphore = dispatch_semaphore_create(0);
-
-    [self beginAlert:alert onWindow:window completionHandler:^(QSAlertResponse response) {
-        alertResponse = response;
-        dispatch_semaphore_signal(alertSemaphore);
-    }];
-
-    // Now let's mostly-busy loop while we wait for the semaphore above to get signaled
-    long result = 0;
-    do {
-        [[NSRunLoop mainRunLoop] runMode:NSModalPanelRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:5]];
-        result = dispatch_semaphore_wait(alertSemaphore, DISPATCH_TIME_NOW);
-    } while (result != 0);
-
-    return alertResponse;
-}
-
-- (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style attachToWindow:(NSWindow *)window {
++ (QSAlertResponse)runAlertWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons style:(NSAlertStyle)style {
     NSParameterAssert(title != nil);
     NSParameterAssert(buttons != nil);
     NSAssert(buttons.count >= 1, @"Must have at least one button");
@@ -123,108 +23,57 @@
 
     alert.alertStyle = style;
 
-    return [self runAlert:alert onWindow:window];
+    return [alert runAlert];
 }
 
-// FIXME: This (and the property) can die when we're sure the QSRun.*Sheet functions are gone
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    self.returnCode = returnCode;
-    [NSApp stopModal];
+- (QSAlertResponse)runModalSheetForWindow:(NSWindow *)window {
+	// Set ourselves as the target for button clicks
+	for (NSButton *button in [self buttons]) {
+		[button setTarget:self];
+		[button setAction:@selector(QS_stopSynchronousSheet:)];
+	}
+	
+	// Bring up the sheet and wait until stopSynchronousSheet is triggered by a button click
+	[self performSelectorOnMainThread:@selector(QS_beginSheetModalForWindow:) withObject:window waitUntilDone:YES];
+	NSInteger modalCode = [NSApp runModalForWindow:[self window]];
+	
+	// This is called only after stopSynchronousSheet is called (that is,
+	// one of the buttons is clicked)
+	[NSApp performSelectorOnMainThread:@selector(endSheet:) withObject:[self window] waitUntilDone:YES];
+	
+	// Remove the sheet from the screen
+	[[self window] performSelectorOnMainThread:@selector(orderOut:) withObject:self waitUntilDone:YES];
+	
+	return modalCode - 1000;
 }
 
-- (void)notifyWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completionHandler:(QSAlertHandler)handler {
-    NSUserNotification *notif = [[NSUserNotification alloc] init];
-    notif.title = title;
-    notif.informativeText = message;
+#pragma mark Private methods
 
-    if (buttons.count > 0) {
-        notif.actionButtonTitle = buttons[0];
-    }
-    if (buttons.count > 1) {
-        notif.otherButtonTitle = buttons[1];
-    }
-
-    [self notifyWithNotification:notif completionHandler:handler];
+-(IBAction)QS_stopSynchronousSheet:(id)sender {
+	// See which of the buttons was clicked
+	NSUInteger clickedButtonIndex = [[self buttons] indexOfObject:sender];
+	
+	// Be consistent with Apple's documentation (see NSAlert's addButtonWithTitle) so that
+	// the fourth button is numbered NSAlertThirdButtonReturn + 1, and so on
+	//
+	// TODO: handle case when alert created with alertWithMessageText:... where the buttons
+	//       have values NSAlertDefaultReturn, NSAlertAlternateReturn, ... instead (see also
+	//       the documentation for the runModal method)
+	NSInteger modalCode = 0;
+	if (clickedButtonIndex == NSAlertFirstButtonReturn)
+		modalCode = NSAlertFirstButtonReturn;
+	else if (clickedButtonIndex == NSAlertSecondButtonReturn)
+		modalCode = NSAlertSecondButtonReturn;
+	else if (clickedButtonIndex == NSAlertThirdButtonReturn)
+		modalCode = NSAlertThirdButtonReturn;
+	else
+		modalCode = NSAlertThirdButtonReturn + (clickedButtonIndex - 2);
+	
+	[NSApp stopModalWithCode:modalCode];
 }
 
-- (void)notifyWithNotification:(NSUserNotification *)notif completionHandler:(QSAlertHandler)handler {
-	NSParameterAssert(notif != nil);
-
-    if (!notif.identifier) {
-        notif.identifier = [[NSUUID UUID] UUIDString];
-    }
-
-    self.notificationHandlers[notif.identifier] = handler;
-
-    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notif];
-}
-
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    QSAlertHandler handler = self.notificationHandlers[notification.identifier];
-
-    QSAlertResponse response = QSAlertResponseOK;
-    // Convert activation type to alert response
-    switch (notification.activationType) {
-        case NSUserNotificationActivationTypeContentsClicked:
-            response = QSAlertResponseFirst;
-            break;
-
-        case NSUserNotificationActivationTypeActionButtonClicked:
-            response = QSAlertResponseOK;
-            break;
-
-		case NSUserNotificationActivationTypeAdditionalActionClicked:
-			response = QSAlertResponseCancel;
-			break;
-			
-        default:
-            break;
-    }
-
-    if (handler) handler(response);
-
-    [self.notificationHandlers removeObjectForKey:notification.identifier];
-}
-
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
-    // For now, always notify
-    return YES;
+-(void) QS_beginSheetModalForWindow:(NSWindow *)aWindow {
+	[self beginSheetModalForWindow:aWindow completionHandler:nil];
 }
 
 @end
-
-// Eeek. This doesn't eve uses its parameters...
-NSInteger QSRunSheet(id panel, NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {
-    NSInteger result;
-    @synchronized ([QSAlertManager defaultManager]) {
-        [NSApp beginSheet:panel modalForWindow:attachToWin modalDelegate:[QSAlertManager defaultManager] didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-        [NSApp runModalForWindow:panel];
-        [NSApp endSheet:panel];
-        [panel orderOut:nil];
-        NSReleaseAlertPanel(panel);
-        result = [[QSAlertManager defaultManager] returnCode];
-    }
-    return result;
-}
-
-NSInteger _QSRunSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, NSAlertStyle style) {
-    NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
-    if (defaultButton)   [buttons addObject:defaultButton];
-    if (alternateButton) [buttons addObject:alternateButton];
-    if (otherButton)     [buttons addObject:otherButton];
-
-    NSModalResponse response = [[QSAlertManager defaultManager] runAlertWithTitle:title message:msg buttons:buttons style:style attachToWindow:attachToWin];
-	return response;
-}
-
-NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {
-    return _QSRunSheet(attachToWin, title, msg, defaultButton, alternateButton, otherButton, NSWarningAlertStyle);
-}
-
-NSInteger QSRunInformationalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {
-    return _QSRunSheet(attachToWin, title, msg, defaultButton, alternateButton, otherButton, NSAlertStyleInformational);
-}
-
-NSInteger QSRunCriticalAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg, NSString *defaultButton, NSString *alternateButton, NSString *otherButton) {
-    return _QSRunSheet(attachToWin, title, msg, defaultButton, alternateButton, otherButton, NSCriticalAlertStyle);
-}

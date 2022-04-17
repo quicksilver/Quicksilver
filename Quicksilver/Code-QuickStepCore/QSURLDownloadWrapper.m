@@ -78,7 +78,7 @@
 }
 
 - (double)progress {
-	if (expectedContentLength == NSURLResponseUnknownLength) return 0.0;
+	if (expectedContentLength == NSURLResponseUnknownLength || expectedContentLength == 0) return 0.0;
 	return (double)currentContentLength / expectedContentLength;
 }
 

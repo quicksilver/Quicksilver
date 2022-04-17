@@ -16,7 +16,7 @@
 #import "QSObject_StringHandling.h"
 #import "QSTaskController.h"
 
-#import "QSAlertManager.h"
+#import "NSAlert_QSExtensions.h"
 #import "QSTypes.h"
 
 #import "NSPasteboard_BLTRExtensions.h"
@@ -480,8 +480,7 @@
 	[alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete file action - default button")];
 	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Delete file action - cancel button")];
 
-	QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:[QSIC window]];
-
+	QSAlertResponse response = [alert runModalSheetForWindow:[QSIC window]];
 	[QSIC setHiding:NO];
 	if (response == QSAlertResponseOK) {
 		NSString *lastDeletedFile = nil;
@@ -496,8 +495,8 @@
 		// get settings for playing sound
 		Boolean isSet;
 		CFIndex val = CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
-													   CFSTR("com.apple.systemsound"),
-													   &isSet);
+													  CFSTR("com.apple.systemsound"),
+													  &isSet);
 		if (val == 1 || !isSet) {
 			// play trash sound
 			CFURLRef soundURL = (__bridge CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
@@ -505,13 +504,15 @@
 			AudioServicesCreateSystemSoundID(soundURL, &soundId);
 			AudioServicesPlaySystemSound(soundId);
 		}
-
+		
 		// return folder that contained the last file that was deleted
 		return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
 	}
 	
 	// permanent delete was canceled, so leave files in first pane again
 	return nil;
+	 
+
 }
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
@@ -777,11 +778,10 @@
                     [newPaths addObject:destinationFile];
                 } else {
                     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The following error occured while trying to move \"%1$@\" to \"%2$@\"\n\n%3$@", nil), thisFile, destination, [err localizedDescription]];
-                    [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Move error", nil)
+                    [NSAlert runAlertWithTitle:NSLocalizedString(@"Move error", nil)
                                                                message:message
                                                                buttons:@[NSLocalizedString(@"OK", nil)]
-                                                                 style:NSWarningAlertStyle
-                                                        attachToWindow:nil];
+                                                                 style:NSWarningAlertStyle];
                 }
             }
             [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];

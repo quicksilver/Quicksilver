@@ -137,15 +137,12 @@
 
 - (BOOL)windowShouldClose:(id)sender {
 	if (!defaultBool(@"QSAgreementAccepted") ) {
-        [[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Cancel Setup", @"Setup assistant - Cancel alert title")
+        QSAlertResponse response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Cancel Setup", @"Setup assistant - Cancel alert title")
                                                      message:NSLocalizedString(@"Would you like to stop setup and quit Quicksilver?", @"Setup assistant - Cancel alert message")
                                                      buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]
-													   style:NSAlertStyleInformational
-                                                    onWindow:[self window]
-                                           completionHandler:^(QSAlertResponse response) {
-                                               if (response == QSAlertResponseOK)
-                                                   [NSApp terminate:self];
-                                           }];
+														style:NSAlertStyleInformational];
+		if (response == QSAlertResponseOK)
+			[NSApp terminate:self];
 		return NO;
 	}
 	return YES;
@@ -248,7 +245,7 @@
 }
 
 - (void)installStatusChanged:(NSNotification *)notif {
-	CGFloat progress = [[self plugInManager] downloadProgress];
+	CGFloat progress = [[self plugInManager] installProgress];
 	[installProgress setDoubleValue:progress];
 	[installProgress displayIfNeeded];
 	if (progress == 1) {

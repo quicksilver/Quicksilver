@@ -80,19 +80,16 @@
 @implementation NSApplication (Relaunching)
 
 - (void)requestRelaunch:(id)sender {
-	[[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Relaunch required", "Request relaunch alert title")
+	QSAlertResponse response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Relaunch required", "Request relaunch alert title")
 											   message:NSLocalizedString(@"Quicksilver needs to be relaunched for some changes to take effect", @"Request relaunch alert message")
 											   buttons:@[
 														 NSLocalizedString(@"Relaunch", @"Request relaunch alert accept button"),
 														 NSLocalizedString(@"Later", @"Request relaunch alert cancel button"),
 														 ]
-												 style:NSWarningAlertStyle
-										  onWindow:nil
-									   completionHandler:^(QSAlertResponse response) {
-										   if (response == QSAlertResponseOK) {
-											   [self relaunch:self];
-										   }
-									   }];
+													style:NSAlertStyleWarning];
+	if (response == QSAlertResponseOK) {
+		[self relaunch:self];
+	}
 }
 
 // Use a method taken from Sparkle that deals with: Authentication, Quarantine and more

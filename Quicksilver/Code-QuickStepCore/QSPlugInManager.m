@@ -263,10 +263,12 @@
 	}];
 	QSGCDMainAsync(^{
 		self.downloadTask = [QSTask taskWithIdentifier:@"PluginUpdateInfo"];
-		self.downloadTask.status = NSLocalizedString(@"Updating Plugin Info", @"");
+		self.downloadTask.name = NSLocalizedString(@"Updating Plugin Info", @"");
+		self.downloadTask.icon = [QSResourceManager imageNamed:@"QSPlugIn"];
 		self.downloadTask.cancelBlock = ^{
 			[task cancel];
 		};
+		[self.downloadTask start];
 	});
 	[task resume];
 }
@@ -324,23 +326,21 @@
 
 	QSAlertResponse response;
 	if (needsRelaunch) {
-		response = [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
-															  message:NSLocalizedString(@"Would you like to delete the selected plugins? A relaunch will be required", @"Delete & relaunch alert message")
-															  buttons:@[
-																		NSLocalizedString(@"Delete and Relaunch", @"Delete & relaunch alert default button"),
-																		NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
-																		]
-																style:NSAlertStyleWarning
-													   attachToWindow:nil];
+		response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
+									  message:NSLocalizedString(@"Would you like to delete the selected plugins? A relaunch will be required", @"Delete & relaunch alert message")
+									  buttons:@[
+										  NSLocalizedString(@"Delete and Relaunch", @"Delete & relaunch alert default button"),
+										  NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
+									  ]
+										style:NSAlertStyleWarning];
 	} else {
-		response = [[QSAlertManager defaultManager] runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
-															  message:NSLocalizedString(@"Would you like to delete the selected plugins?", @"Delete & relaunch alert message (alternate)")
-															  buttons:@[
-																		NSLocalizedString(@"Delete", @"Delete & relaunch alert default button (alternate)"),
-																		NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
-																		]
-																style:NSAlertStyleWarning
-													   attachToWindow:nil];
+		response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Delete plugins?", @"Delete & relaunch alert title")
+									  message:NSLocalizedString(@"Would you like to delete the selected plugins?", @"Delete & relaunch alert message (alternate)")
+									  buttons:@[
+										  NSLocalizedString(@"Delete", @"Delete & relaunch alert default button (alternate)"),
+										  NSLocalizedString(@"Cancel", @"Delete & relaunch alert cancel button")
+									  ]
+										style:NSAlertStyleWarning];
 	}
 
 	if (response == QSAlertResponseOK) {
@@ -435,20 +435,20 @@
 						 NSLocalizedString(@"Always Install Requirements", @"Missing dependencies alert - button 3")
 						 ];
 
-	[[QSAlertManager defaultManager] beginAlertWithTitle:NSLocalizedString(@"Plugin requirements", @"Missing dependencies alert - title")
-												 message:message
-												 buttons:buttons
-												   style:NSAlertStyleWarning
-												onWindow:nil
-									   completionHandler:^(QSAlertResponse response) {
-										   if (response == QSAlertResponseCancel) return;
-
-										   if (response == QSAlertResponseThird) {
-											   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
-										   }
-
-										   [self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
-									   }];
+	QSAlertResponse response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Plugin requirements", @"Missing dependencies alert - title")
+												  message:message
+												  buttons:buttons
+													style:NSAlertStyleWarning];
+	
+	if (response == QSAlertResponseCancel) {
+		return;
+		
+	}
+	
+	if (response == QSAlertResponseThird) {
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"QSAlwaysInstallPrerequisites"];
+	}
+	[self installPlugInsForIdentifiers:[array valueForKey:@"id"] version:nil];
 }
 
 - (void)checkForObsoletes:(QSPlugIn *)plugin
@@ -790,7 +790,7 @@
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 		NSLog(@"There was a problem extracting the QSPkg: %@.\nFull Path: %@\nThe file is most likely corrupt.", pluginName, path);
 
-		[[QSAlertManager defaultManager] beginAlert:alert onWindow:nil completionHandler:nil];
+		[alert runAlert];
 		return nil;
 	}
 
@@ -872,7 +872,11 @@
 		}
 		[self setInstallStatus:status];
 		self.installTask = [QSTask taskWithIdentifier:@"QSPlugInInstallation"];
-		self.installTask.status = status;
+		self.installTask.name = status;
+		self.installTask.icon = [QSResourceManager imageNamed:@"QSPlugIn"];
+		if (!self.installTask.isRunning) {
+			[self.installTask start];
+		}
     }
 
 }
@@ -896,6 +900,7 @@
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
+//	if (YES) {
         BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
         if (!relaunch) {
 			NSAlert *alert = [[NSAlert alloc] init];
@@ -905,7 +910,7 @@
 			[alert addButtonWithTitle:NSLocalizedString(@"Relaunch", @"QSPlugin manager - Plugin requires relaunch alert - default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSPlugin manager - Plugin requires relaunch alert - cancel button")];
 
-			relaunch = ([[QSAlertManager defaultManager] runAlert:alert onWindow:nil] == QSAlertResponseOK);
+			relaunch = ([alert runAlert] == QSAlertResponseOK);
         }
 		if (relaunch) {
 			[NSApp relaunch:self];
@@ -950,7 +955,7 @@
 		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"QSPlugin manager - Plugin install alert - cancel button")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Always Install", @"QSPlugin manager - Plugin install alert - other button")];
 
-		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+		QSAlertResponse response = [alert runAlert];
 		if (response == QSAlertResponseThird) {
 			[defaults setBool:YES forKey:kClickInstallWithoutAsking];
 			[defaults synchronize];
@@ -1001,13 +1006,7 @@
 	for(ident in bundleIDs) {
 		NSString *url = [self urlStringForPlugIn:ident version:version];
 		NSLog(@"Downloading %@", url);
-		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
-	}
-	
-	if ([queuedDownloads count]) {
-		[self updateDownloadCount];
-		[self setIsInstalling:YES];
-		[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+		[self installPlugInWithInfo:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil]];
 	}
 	return YES;
 }
@@ -1016,7 +1015,12 @@
     QSURLDownload *download = [QSURLDownload downloadWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] delegate:self];
     [download setUserInfo:[info objectForKey:@"id"]];
 	[queuedDownloads addObject:download];
+	[self updateDownloadCount];
+	[self setIsInstalling:YES];
 	[self updateDownloadProgressInfo];
+	QSGCDAsync(^{
+		[download start];
+	});
 }
 
 - (void)startDownloadQueue {
@@ -1069,7 +1073,7 @@
 		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Always Install Plugins", @"")];
 
-		QSAlertResponse response = [[QSAlertManager defaultManager] runAlert:alert onWindow:nil];
+		QSAlertResponse response = [alert runAlert];
 		if (response == QSAlertResponseThird) {
 			[defaults setBool:YES forKey:kWebInstallWithoutAsking];
 			[defaults synchronize];
@@ -1088,58 +1092,69 @@
 
 - (void)updateDownloadProgressInfo {
 	//NSLog(@"count %d %d %f", [queuedDownloads count], downloadsCount, [[queuedDownloads objectAtIndex:0] progress]);
+	
     CGFloat progress = 1.0;
     for (QSURLDownload *download in queuedDownloads) {
+		NSLog(@"%f", [download progress]);
         progress *= [download progress];
     }
-	[self setInstallProgress:progress];
+	QSGCDMainAsync(^{
+		[self willChangeValueForKey:@"installProgress"];
+		self->installProgress = progress;
+		[self didChangeValueForKey:@"installProgress"];
+	});
+	self.installTask.progress = progress;
 }
-
-- (CGFloat) downloadProgress {return [self installProgress];}
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
 	[self updateDownloadProgressInfo];
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
-	//NSLog(@"path %@", download);
-	//NSLog(@"FINISHED %@ %@", download, currentDownload);
-    [queuedDownloads removeObject:download];
-    [activeDownloads removeObject:download];
-	NSString *path = [download destination];
-    NSString *plugInPath = nil;
-	if (path && (plugInPath = [[self installPlugInFromCompressedFile:path] lastObject])) {
-		[self plugInWasInstalled:plugInPath];
-    } else {
-        NSLog(@"Failed installing plugin at path %@ from url %@", path, [download URL]);
-        // FIXME tiennou Report ! ATM the checkbox will just blink...
-        [[self plugInWithID:[download userInfo]] downloadFailed];
-    }
-    [download cancel];
-    
-	[self startDownloadQueue];
-	[self updateDownloadCount];
+	QSGCDMainAsync(^{
+		//NSLog(@"path %@", download);
+		//NSLog(@"FINISHED %@ %@", download, currentDownload);
+		[self->queuedDownloads removeObject:download];
+		[self->activeDownloads removeObject:download];
+		NSString *path = [download destination];
+		NSString *plugInPath = nil;
+		if (path && (plugInPath = [[self installPlugInFromCompressedFile:path] lastObject])) {
+			[self plugInWasInstalled:plugInPath];
+		} else {
+			NSLog(@"Failed installing plugin at path %@ from url %@", path, [download URL]);
+			// FIXME tiennou Report ! ATM the checkbox will just blink...
+			[[self plugInWithID:[download userInfo]] downloadFailed];
+		}
+		[download cancel];
+		
+		[self startDownloadQueue];
+		[self updateDownloadCount];
+	});
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-	[[self plugInWithID:[download userInfo]] downloadFailed];
-    NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    // -1009 means no internet connection, don't bother the user in this case
-    if ([error code] != -1009) {
-        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:kQSBundleID],QSNotifierIcon,nil]);
-    }
-	self.installTask.status = NSLocalizedString(@"Plugin download failed", @"");
-    
-    [queuedDownloads removeObject:download];
-    [activeDownloads removeObject:download];
-    [download cancel];
+	QSGCDMainAsync(^{
+		[[self plugInWithID:[download userInfo]] downloadFailed];
+		NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+		// -1009 means no internet connection, don't bother the user in this case
+		if ([error code] != -1009) {
+			QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:kQSBundleID],QSNotifierIcon,nil]);
+		}
+		self.installTask.status = NSLocalizedString(@"Plugin download failed", @"");
+		
+		[self->queuedDownloads removeObject:download];
+		[self->activeDownloads removeObject:download];
+		[download cancel];
+	});
 }
 
 - (void)cancelPlugInInstall {
-	for (QSURLDownload *download in queuedDownloads)
-		[download cancel];
-	[queuedDownloads removeAllObjects];
-	[self updateDownloadCount];
+	QSGCDMainAsync(^{
+		for (QSURLDownload *download in self->queuedDownloads)
+			[download cancel];
+		[self->queuedDownloads removeAllObjects];
+		[self updateDownloadCount];
+	});
 }
 
 
@@ -1148,28 +1163,36 @@
 }
 - (void)setInstallStatus:(NSString *)newInstallStatus {
 	if (installStatus != newInstallStatus) {
-		installStatus = newInstallStatus;
+		QSGCDMainAsync(^{
+			[self willChangeValueForKey:@"installStatus"];
+			self->installStatus = newInstallStatus;
+			[self didChangeValueForKey:@"installStatus"];
+		});
 	}
 }
 
 - (CGFloat) installProgress {
 	return installProgress;
 }
-- (void)setInstallProgress:(CGFloat)newInstallProgress {
-	//NSLog(@"prof %f", newInstallProgress);
-	installProgress = newInstallProgress;
-}
 
 - (BOOL)isInstalling {
 	return isInstalling;
 }
 - (void)setIsInstalling:(BOOL)flag {
-	isInstalling = flag;
+	QSGCDMainAsync(^{
+		[self willChangeValueForKey:@"isInstalling"];
+		self->isInstalling = flag;
+		[self didChangeValueForKey:@"isInstalling"];
+	});
 }
 
 - (BOOL)showNotifications { return showNotifications;  }
 - (void)setShowNotifications: (BOOL)flag {
-	showNotifications = flag;
+	QSGCDMainAsync(^{
+		[self willChangeValueForKey:@"showNotifications"];
+		self->showNotifications = flag;
+		[self didChangeValueForKey:@"showNotifications"];
+	});
 }
 
 @end
