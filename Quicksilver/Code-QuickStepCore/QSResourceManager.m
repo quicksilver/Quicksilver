@@ -110,11 +110,12 @@ QSResourceManager * QSRez;
     if ([locator isKindOfClass:[NSNull class]]) { return nil; }
     if (locator) {
         image = [self imageWithLocatorInformation:locator];
-    } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+    } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) && [[NSFileManager defaultManager] fileExistsAtPath:name]) {
         NSString *path = [name stringByStandardizingPath];
         if ([[NSImage imageUnfilteredTypes] containsObject:[path pathExtension]]) {
             image = [[NSImage alloc] initByReferencingFile:path];
-        } else {
+        }
+		if (!image) {
             image = [[NSWorkspace sharedWorkspace] iconForFile:path];
         }
     } else {// Try the systemicons bundle
