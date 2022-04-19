@@ -418,6 +418,7 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */ = {isa = PBXBuildFile; fileRef = CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -1986,6 +1987,7 @@
 		CDEA588616C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CDEA588716C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDEA588816C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
+		CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AccessibilityPermission.gif; sourceTree = "<group>"; };
 		CDFAC87C1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CDFAC87D1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CDFAC87E1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
@@ -3257,6 +3259,7 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */,
 				D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */,
 				D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */,
 				D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */,
@@ -4727,6 +4730,7 @@
 				7FDBC3120A0153CA00E496FF /* Button-Info.png in Resources */,
 				7FDBC3130A0153CA00E496FF /* Button-Remove.png in Resources */,
 				7FC6AD770A0996E200D5B2C3 /* Button-Rescan.png in Resources */,
+				CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */,
 				E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */,
 				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
 				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
