@@ -101,6 +101,7 @@
 - (void)hideIndirectSelector:(id)sender {
 	//[super hideIndirectSelector:sender];
 
+	[(QSFadingView*)indirectView setOpacity:0.0];
 	[indirectView setHidden:YES];
 
 	[self adjustWindow:nil];
@@ -127,10 +128,12 @@
 	expandedRect.size.height += DIFF;
 	expandedRect.origin.y -= DIFF;
 	constrainRectToRect(expandedRect, [[[self window] screen] frame]);
-	if (!expanded)
+	if (!expanded) {
+		// expand iSelector then fade in
 		[[self window] setFrame:expandedRect display:YES animate:YES];
+		[(QSFadingView*)indirectView setOpacity:1.0];
+	}
 	[super expandWindow:sender];
-	[(QSFadingView*)indirectView setOpacity:1.0];
 }
 
 - (void)contractWindow:(id)sender {
@@ -139,10 +142,11 @@
 
 	contractedRect.size.height -= DIFF;
 	contractedRect.origin.y += DIFF;
-	//   NSLog(@"expnded? %d", expanded);
-	if (expanded)
+	if (expanded) {
+		// fade out iSelector then contract
+		[(QSFadingView *)indirectView setOpacity:0.0];
 		[[self window] setFrame:contractedRect display:YES animate:YES];
-
+	}
 	[super contractWindow:sender];
 }
 
