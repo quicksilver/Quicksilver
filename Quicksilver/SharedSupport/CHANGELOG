@@ -12,6 +12,7 @@
 
 * Results window now correctly 'bumps' when trying to → (right arrow) into objects that don't allow it (#2729)
 * Correctly expand/contract the 3rd pane in Primer Interface (#2669, #1215)
+* Web Search Plugin wouldn't correctly download the list of search URLs (#2729, #2728)
 * Fix enabling/disabling proxy objects from the Catalog pref pane (#2670, #1660)
 * Crash for some users when using the 'Get Current Selection' proxy
 * Crash when rescanning running processes (#2735, #2718)
