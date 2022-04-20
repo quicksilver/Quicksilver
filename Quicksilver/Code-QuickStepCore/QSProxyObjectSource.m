@@ -83,7 +83,7 @@
 			[proxyObject setObject:name forMeta:kQSObjectIconName];
 		[proxyObject setPrimaryType:QSProxyType];
 
-		if (proxyObject && [proxyObject enabled])
+		if (proxyObject)
 			[array addObject:proxyObject];
 	}
 	return array;
