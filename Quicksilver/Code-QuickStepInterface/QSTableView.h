@@ -26,6 +26,8 @@
 	BOOL opaque;
 	BOOL drawsBackground;
 }
+@property BOOL hasSeparators;
+
 - (NSColor *)highlightColor;
 - (void)setHighlightColor:(NSColor *)aHighlightColor;
 - (id)draggingDelegate QS_DEPRECATED_MSG("Use -tableView:draggingSession:... and friends");

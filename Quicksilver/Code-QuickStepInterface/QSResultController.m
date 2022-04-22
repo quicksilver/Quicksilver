@@ -137,7 +137,9 @@ NSMutableDictionary *kindDescriptions = nil;
     };
     b(resultTable);
     b(resultChildTable);
-
+	
+	resultTable.hasSeparators = NO;
+	resultChildTable.hasSeparators = NO;
 }
 
 - (void)dealloc {

@@ -18,6 +18,11 @@
 
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
+@interface QSObjectCell() {
+	BOOL stylesLoaded;
+}
+@end
+
 @implementation QSObjectCell
 
 
@@ -56,6 +61,7 @@
 		[self setImagePosition:-1];
 		[self setRepresentedObject:nil];
         [self setImageScaling:NSImageScaleProportionallyUpOrDown];
+		stylesLoaded = NO;
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
@@ -344,7 +350,9 @@
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	QSObject *drawObject = [self representedObject];
     
-	[self buildStylesForFrame:cellFrame inView:controlView];
+	if (!stylesLoaded) {
+		[self buildStylesForFrame:cellFrame inView:controlView];
+	}
 
 	if ([drawObject isKindOfClass:[QSNullObject class]]) return;
 	//	[drawObject loadIcon];
@@ -363,15 +371,16 @@
 }
 
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-
 	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[style setFirstLineHeadIndent:1.0];
-	[style setHeadIndent:1.0];
 	[style setAlignment:[self alignment]];
+	
+	[style setHeadIndent:1.0];
 	if ([NSApplication isYosemite] && ![[NSUserDefaults standardUserDefaults] boolForKey:kQSTextAllowTightening]) {
 		[style setTighteningFactorForTruncation:0.0];
 	}
+
 	//
 	/// NSLog(@"%d %d", [self isHighlighted] , [self state]);
 
@@ -405,6 +414,7 @@
                          [fadedColor colorWithAlphaComponent:0.8], NSForegroundColorAttributeName,
                          style, NSParagraphStyleAttributeName,
                          nil];
+	stylesLoaded = YES;
 }
 
 // method for drawing the text (e.g. object label, name etc.) on the interface
@@ -536,20 +546,20 @@
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
-		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositingOperationSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
+		[icon drawInRect:drawingRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
 
 		if (proxyDraw && NSWidth(drawingRect) >= 32) {
 			NSRect badgeRect = NSMakeRect(0, 0, NSWidth(drawingRect) /2, NSHeight(drawingRect)/2);
 			NSPoint offset = rectOffset(badgeRect, drawingRect, 2);
 			badgeRect = NSOffsetRect(badgeRect, offset.x, offset.y);
-			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
+			[cornerBadge drawInRect:badgeRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 		}
 
 		if ([drawObject primaryCount] > 1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
 			QSCountBadgeImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
 			if (countImage) {
 				NSRect badgeRect = [self badgeRectForBounds:drawingRect badgeImage:countImage];
-				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
+				[countImage drawInRect:badgeRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 			}
 		}
 	}
