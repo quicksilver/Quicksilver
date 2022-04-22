@@ -7,6 +7,7 @@
 ### New ###
 
 * Optimized HTML parser to handle browsing websites from within Quicksilver (when → into a URL) (#2729, #2728)
+* Open multiple files 'together', to be consistent with Finder's behavior (#2664, #2035)
 
 ### Fixed ###
 
