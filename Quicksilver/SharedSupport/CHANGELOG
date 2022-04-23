@@ -8,6 +8,7 @@
 
 * Optimized HTML parser to handle browsing websites from within Quicksilver (when → into a URL) (#2729, #2728)
 * Open multiple files 'together', to be consistent with Finder's behavior (#2664, #2035)
+* Further optimizations and speed improvements (#2734)
 
 ### Fixed ###
 
@@ -19,6 +20,7 @@
 * Crash when rescanning running processes (#2735, #2718)
 * Popup alerts sometimes caused Quicksilver to crash or hang (#2738)
 * Using Caps-lock as a double-modifier activation didn't always work (#2717)
+* Using number pad keys as trigger shortcuts (#2742)
 
 ### Changed ###
 
