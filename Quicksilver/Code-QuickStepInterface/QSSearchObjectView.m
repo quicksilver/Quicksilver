@@ -1231,7 +1231,8 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)handleBoundKey:(NSEvent *)theEvent {
-    NSString *theEventString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
+
+    NSString *theEventString = [[NDKeyboardLayout asciiKeyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
 	NSString *selectorString = [bindingsDict objectForKey:theEventString];
     
 	if (selectorString) {
