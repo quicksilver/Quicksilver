@@ -1,4 +1,4 @@
-## Changes - 2.1.0 (4032) ##
+## Changes - 2.1.0 (4032) 2022-04-23 ##
 
 *Requires macOS 10.14+*
 
@@ -6,8 +6,8 @@
 
 ### New ###
 
+* Open 'together' when opening files from Quicksilver's 1st pane - consistent with Finder's behavior (#2664, #2035)
 * Optimized HTML parser to handle browsing websites from within Quicksilver (when → into a URL) (#2729, #2728)
-* Open multiple files 'together', to be consistent with Finder's behavior (#2664, #2035)
 * Further optimizations and speed improvements (#2734)
 
 ### Fixed ###
@@ -21,6 +21,8 @@
 * Popup alerts sometimes caused Quicksilver to crash or hang (#2738)
 * Using Caps-lock as a double-modifier activation didn't always work (#2717)
 * Using number pad keys as trigger shortcuts (#2742)
+* Fix Quicksilver's internal shortcuts such as ⌘[ to work on non-ASCII keyboards (e.g. Chinese, Japanese, Korean)
+* Allow triggers that use punctuation marks (e.g. .\'"?}) to work across keyboard layout changes
 
 ### Changed ###
 
