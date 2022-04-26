@@ -45,7 +45,7 @@
     
     if (downloads) {
 		downloads = [downloads stringByResolvingSymlinksInPath];
-		return [NSURL URLWithString:downloads];
+		return [NSURL URLWithString:[downloads stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
     } else {
 		// fall back to the default downloads folder if the user settings couldn't be resolved
 		NSArray *downloadURLs = [manager URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask];
