@@ -11,6 +11,7 @@
 #import "QSTaskViewer.h"
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
+#import "QSScreenshots.h"
 #import "QSDonationController.h"
 
 
