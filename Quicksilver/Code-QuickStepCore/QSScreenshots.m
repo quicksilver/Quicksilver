@@ -48,9 +48,9 @@
 
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSError *err = nil;
-	// An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
+	// An array of the directory contents, keeping the attributeModificationDate key and skipping hidden files
 	NSArray *contents = [manager contentsOfDirectoryAtURL:screenshotsURL
-												includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
+												includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLAttributeModificationDateKey,nil]
 												options:NSDirectoryEnumerationSkipsHiddenFiles
 												error:&err];
 	if (err) {
@@ -63,8 +63,6 @@
 	NSDate *modified = nil;
 	NSDate *mostRecent = [NSDate distantPast];
 
-	NSNumber *isDir;
-	NSNumber *isPackage;
 	for (NSURL *screenshotFile in contents) {
 		err = nil;
 
