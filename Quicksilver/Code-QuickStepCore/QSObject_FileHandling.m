@@ -18,6 +18,7 @@
 #import "QSObject_PropertyList.h"
 #include "QSLocalization.h"
 #import "QSDownloads.h"
+#import "QSScreenshots.h"
 #import "QSPaths.h"
 #import <sys/mount.h>
 

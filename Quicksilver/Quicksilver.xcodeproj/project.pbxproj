@@ -52,6 +52,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0D15B5B82817EE7000CD72C5 /* QSScreenshots.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D15B5B72817EE7000CD72C5 /* QSScreenshots.h */; };
+		0D15B5C12817EE7B00CD72C5 /* QSScreenshots.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D15B5C02817EE7B00CD72C5 /* QSScreenshots.m */; };
 		2E34EDA0134C9ED9005E66A1 /* NSButton-NTExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB8F0653BE030026BAF2 /* NSButton-NTExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA1134C9EEE005E66A1 /* NTLocalizedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB910653BE030026BAF2 /* NTLocalizedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1137,6 +1139,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D15B5B72817EE7000CD72C5 /* QSScreenshots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScreenshots.h; sourceTree = "<group>"; };
+		0D15B5C02817EE7B00CD72C5 /* QSScreenshots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScreenshots.m; sourceTree = "<group>"; };
 		1011467D14BEA45B000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1011468114BEA6FF000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/About.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -3666,6 +3670,8 @@
 				4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */,
 				D49399091350078E00B908C6 /* QSDownloads.h */,
 				D493990A1350078E00B908C6 /* QSDownloads.m */,
+				0D15B5B72817EE7000CD72C5 /* QSScreenshots.h */,
+				0D15B5C02817EE7B00CD72C5 /* QSScreenshots.m */,
 				E1E5FB7B07B20DD10044D6EF /* QSExecutor.h */,
 				E1E5FB7C07B20DD10044D6EF /* QSExecutor.m */,
 				E1E5FB7D07B20DD10044D6EF /* QSGlobalSelectionProvider.h */,
@@ -3955,6 +3961,7 @@
 				7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */,
 				7F4D6872083AB7DE00541FEB /* QSHistoryController.h in Headers */,
 				E1E5FBEC07B20DD20044D6EF /* QSIconLoader.h in Headers */,
+				0D15B5B82817EE7000CD72C5 /* QSScreenshots.h in Headers */,
 				E1E5FBF007B20DD20044D6EF /* QSInterfaceMediator.h in Headers */,
 				4DD89F270EBDDBA9005A15AE /* QSKeys.h in Headers */,
 				E1E5FBF207B20DD20044D6EF /* QSLibrarian.h in Headers */,
@@ -5119,6 +5126,7 @@
 				E1E5FC0F07B20DD20044D6EF /* QSObject_PropertyList.m in Sources */,
 				E1E5FC1107B20DD20044D6EF /* QSObject_StringHandling.m in Sources */,
 				E1E5FC1307B20DD20044D6EF /* QSObject_URLHandling.m in Sources */,
+				0D15B5C12817EE7B00CD72C5 /* QSScreenshots.m in Sources */,
 				E1E5FC1707B20DD20044D6EF /* QSObjectFormatter.m in Sources */,
 				E1E5FC1907B20DD20044D6EF /* QSObjectRanker.m in Sources */,
 				E1E5FC1B07B20DD20044D6EF /* QSObjectSource.m in Sources */,

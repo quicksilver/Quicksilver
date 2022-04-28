@@ -464,6 +464,19 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 		</dict>
+		<key>QSMostRecentScreenshotProxy</key>
+		<dict>
+			<key>icon</key>
+			<string>ProxyIcon</string>
+			<key>name</key>
+			<string>Latest Screenshot</string>
+			<key>providerClass</key>
+			<string>QSScreenshots</string>
+			<key>types</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+		</dict>
 		<key>QSDefaultBrowserProxy</key>
 		<dict>
 			<key>icon</key>
