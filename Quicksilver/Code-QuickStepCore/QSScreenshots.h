@@ -11,7 +11,5 @@
 #import "QSObject.h"
 
 @interface QSScreenshots : NSObject <QSProxyObjectProvider>
-{
-}
-+ (NSURL *)screenshotsLocation;
+
 @end
