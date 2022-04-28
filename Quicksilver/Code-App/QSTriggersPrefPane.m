@@ -124,9 +124,10 @@
 		NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[manager name]
 													   action:NULL
 												keyEquivalent:@""];
-
+		NSImage *managerImage = [manager image];
+		[managerImage setSize:NSMakeSize(16, 16)];
 		[item setRepresentedObject:key];
-		[item setImage:[manager image]];
+		[item setImage:managerImage];
 		if ([key isEqualToString:@"QSGroupTrigger"])
 			groupItem = item;
 		else

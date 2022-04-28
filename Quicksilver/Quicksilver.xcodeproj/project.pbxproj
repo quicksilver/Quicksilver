@@ -333,6 +333,8 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
+		CD0A436F281B6BA3008D008A /* KeyboardTrigger.icns in Resources */ = {isa = PBXBuildFile; fileRef = CD0A436D281B6BA2008D008A /* KeyboardTrigger.icns */; };
+		CD0A4370281B6BA3008D008A /* MouseTrigger.icns in Resources */ = {isa = PBXBuildFile; fileRef = CD0A436E281B6BA3008D008A /* MouseTrigger.icns */; };
 		CD13225427D301360005EDB1 /* QSDonationController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD13225227D301360005EDB1 /* QSDonationController.h */; };
 		CD13225527D301360005EDB1 /* QSDonationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD13225327D301360005EDB1 /* QSDonationController.m */; };
 		CD14B79018D06604000FE86A /* QSThreadSafeMutableDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -438,7 +440,6 @@
 		D46D3C6416B33C2800387EA9 /* Button-Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */; };
 		D46D3C6516B33C2800387EA9 /* Button-Rescan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */; };
 		D46D3C6616B33C2800387EA9 /* ForwardArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */; };
-		D46D3C6716B33C2800387EA9 /* KeyboardTrigger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */; };
 		D46D3C6816B33C2800387EA9 /* Pref-PlugIns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */; };
 		D46D3C6916B33C2800387EA9 /* Pref-Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */; };
 		D46D3C6A16B33C2800387EA9 /* QSDroplet@2x.icns in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */; };
@@ -483,8 +484,6 @@
 		E103ED2606471DBF00447FE0 /* DefaultBookmarkIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E103EC9106471DBF00447FE0 /* DefaultBookmarkIcon.icns */; };
 		E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */ = {isa = PBXBuildFile; fileRef = E103EC9306471DBF00447FE0 /* DocPrefs.png */; };
 		E103ED2A06471DBF00447FE0 /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = E103EC9506471DBF00447FE0 /* Dot.png */; };
-		E103ED3206471DBF00447FE0 /* KeyboardTrigger.png in Resources */ = {isa = PBXBuildFile; fileRef = E103EC9D06471DBF00447FE0 /* KeyboardTrigger.png */; };
-		E103ED3306471DBF00447FE0 /* MouseTrigger.png in Resources */ = {isa = PBXBuildFile; fileRef = E103EC9E06471DBF00447FE0 /* MouseTrigger.png */; };
 		E103ED3606471DBF00447FE0 /* Catalog.icns in Resources */ = {isa = PBXBuildFile; fileRef = E103ECA106471DBF00447FE0 /* Catalog.icns */; };
 		E103ED3706471DBF00447FE0 /* prefsClipboard.png in Resources */ = {isa = PBXBuildFile; fileRef = E103ECA206471DBF00447FE0 /* prefsClipboard.png */; };
 		E103ED3806471DBF00447FE0 /* PresetIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E103ECA306471DBF00447FE0 /* PresetIcon.png */; };
@@ -1508,6 +1507,8 @@
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; usesTabs = 1; };
 		CD02BB4116A2BA5700DAFE50 /* QSGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGCD.h; sourceTree = "<group>"; usesTabs = 1; };
 		CD02BB4216A2BA5700DAFE50 /* QSGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGCD.m; sourceTree = "<group>"; usesTabs = 1; };
+		CD0A436D281B6BA2008D008A /* KeyboardTrigger.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = KeyboardTrigger.icns; sourceTree = "<group>"; };
+		CD0A436E281B6BA3008D008A /* MouseTrigger.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MouseTrigger.icns; sourceTree = "<group>"; };
 		CD13225227D301360005EDB1 /* QSDonationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSDonationController.h; sourceTree = "<group>"; };
 		CD13225327D301360005EDB1 /* QSDonationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSDonationController.m; sourceTree = "<group>"; };
 		CD14B78C18D065F5000FE86A /* QSThreadSafeMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSThreadSafeMutableDictionary.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -2124,7 +2125,6 @@
 		D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Remove@2x.png"; sourceTree = "<group>"; };
 		D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Rescan@2x.png"; sourceTree = "<group>"; };
 		D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ForwardArrow@2x.png"; sourceTree = "<group>"; };
-		D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardTrigger@2x.png"; sourceTree = "<group>"; };
 		D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-PlugIns@2x.png"; sourceTree = "<group>"; };
 		D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-Settings@2x.png"; sourceTree = "<group>"; };
 		D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "QSDroplet@2x.icns"; sourceTree = "<group>"; };
@@ -2177,8 +2177,6 @@
 		E103EC9106471DBF00447FE0 /* DefaultBookmarkIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DefaultBookmarkIcon.icns; sourceTree = "<group>"; };
 		E103EC9306471DBF00447FE0 /* DocPrefs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DocPrefs.png; sourceTree = "<group>"; };
 		E103EC9506471DBF00447FE0 /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
-		E103EC9D06471DBF00447FE0 /* KeyboardTrigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KeyboardTrigger.png; sourceTree = "<group>"; };
-		E103EC9E06471DBF00447FE0 /* MouseTrigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MouseTrigger.png; sourceTree = "<group>"; };
 		E103ECA106471DBF00447FE0 /* Catalog.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Catalog.icns; sourceTree = "<group>"; };
 		E103ECA206471DBF00447FE0 /* prefsClipboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prefsClipboard.png; sourceTree = "<group>"; };
 		E103ECA306471DBF00447FE0 /* PresetIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PresetIcon.png; sourceTree = "<group>"; };
@@ -3261,6 +3259,8 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD0A436D281B6BA2008D008A /* KeyboardTrigger.icns */,
+				CD0A436E281B6BA3008D008A /* MouseTrigger.icns */,
 				D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */,
 				D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */,
 				D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */,
@@ -3272,7 +3272,6 @@
 				D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */,
 				D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */,
 				D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */,
-				D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */,
 				D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */,
 				D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */,
 				D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */,
@@ -3321,8 +3320,6 @@
 				E103EC9306471DBF00447FE0 /* DocPrefs.png */,
 				E103EC9506471DBF00447FE0 /* Dot.png */,
 				D45B7E0720CC575800B8B4C0 /* GrabSelectionTemplate.png */,
-				E103EC9D06471DBF00447FE0 /* KeyboardTrigger.png */,
-				E103EC9E06471DBF00447FE0 /* MouseTrigger.png */,
 				E1388481073AAE8A0080A9E1 /* Triggers.icns */,
 				E103ECA106471DBF00447FE0 /* Catalog.icns */,
 				E103ECA206471DBF00447FE0 /* prefsClipboard.png */,
@@ -4714,6 +4711,7 @@
 				E1CF688B06F2897900C848F3 /* Recent.icns in Resources */,
 				E1388482073AAE8A0080A9E1 /* Triggers.icns in Resources */,
 				E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */,
+				CD0A4370281B6BA3008D008A /* MouseTrigger.icns in Resources */,
 				7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */,
 				E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */,
 				E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */,
@@ -4728,6 +4726,7 @@
 				E1B2890406E3DAFA00CACB9E /* AppearanceSelection.png in Resources */,
 				E1B2890306E3DAFA00CACB9E /* AppearanceText.png in Resources */,
 				7F4ADB600A4EB766002A2A1B /* BackArrow.png in Resources */,
+				CD0A436F281B6BA3008D008A /* KeyboardTrigger.icns in Resources */,
 				7FDBC3160A0153CA00E496FF /* Button-Add.png in Resources */,
 				7FDBC3150A0153CA00E496FF /* Button-AddMenu.png in Resources */,
 				7FDBC3140A0153CA00E496FF /* Button-GearMenu.png in Resources */,
@@ -4738,8 +4737,6 @@
 				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
 				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
 				7F4ADB610A4EB766002A2A1B /* ForwardArrow.png in Resources */,
-				E103ED3206471DBF00447FE0 /* KeyboardTrigger.png in Resources */,
-				E103ED3306471DBF00447FE0 /* MouseTrigger.png in Resources */,
 				E1C4FC5306B98A9300FA8819 /* Object.png in Resources */,
 				7F4ADAFE0A4DDA33002A2A1B /* Pref-Catalog.png in Resources */,
 				7F4ADAFF0A4DDA33002A2A1B /* Pref-PlugIns.png in Resources */,
@@ -4814,7 +4811,6 @@
 				D46D3C6416B33C2800387EA9 /* Button-Remove@2x.png in Resources */,
 				D46D3C6516B33C2800387EA9 /* Button-Rescan@2x.png in Resources */,
 				D46D3C6616B33C2800387EA9 /* ForwardArrow@2x.png in Resources */,
-				D46D3C6716B33C2800387EA9 /* KeyboardTrigger@2x.png in Resources */,
 				D46D3C6816B33C2800387EA9 /* Pref-PlugIns@2x.png in Resources */,
 				D46D3C6916B33C2800387EA9 /* Pref-Settings@2x.png in Resources */,
 				D46D3C6A16B33C2800387EA9 /* QSDroplet@2x.icns in Resources */,
