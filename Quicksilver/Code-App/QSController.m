@@ -1113,7 +1113,7 @@ static QSController *defaultController = nil;
 	NSArray *plugIns = nil;
 	if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObjects:@"qspkg", @"qsplugin", nil]]) count]) {
 		[[QSPlugInManager sharedInstance] installPlugInsFromFiles:plugIns];
-	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscatalogentry"]]) count]) {
+	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscatalog"]]) count]) {
 		for(NSString * path in plugIns)
 			[QSCatalogPrefPane addEntryForCatFile:path];
 	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscommand"]]) count]) {
