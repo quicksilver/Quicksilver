@@ -23,7 +23,17 @@
 @implementation QSAppleScriptActions
 
 - (QSAction *)scriptActionForPath:(NSString *)path {
-	NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"aevtoapp", @"DAEDopnt", @"aevtodoc",@"DAEDopfl", nil] inScriptFile:path];
+	NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:
+                                                               @"aevtoapp",
+                                                               @"DAEDopnt",
+                                                               @"aevtodoc",
+                                                               @"DAEDopfl",
+                                                               @"function processText(",
+                                                               @"function openFiles(",
+                                                               @"function getArgumentCount()",
+                                                               @"function getDirectTypes()",
+                                                               @"function getIndirectTypes()",
+                                                               nil] inScriptFile:path];
 
 	NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSStringFromClass([self class]),    kActionClass,
@@ -39,17 +49,17 @@
     // get the argument count of the script. 1 = dObj only. 2 = dObj + iObj. 3 = indirect Optional
     NSInteger argumentCount = [self argumentCountForScript:path];
     
-    if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"]) {
+    if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"] || [handlers containsObject:@"function openFiles("]) {
         // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
         if (!validDirectTypes) {
             validDirectTypes = [NSArray arrayWithObject:QSFilePathType];
         }
-		[actionDict setObject:[handlers containsObject:@"DAEDopfl"] ? @"QSOpenFileWithEventPlaceholder" : @"QSOpenFileEventPlaceholder" forKey:kActionHandler];
+		[actionDict setObject:([handlers containsObject:@"DAEDopfl"] || [handlers containsObject:@"function openFiles("]) ? @"QSOpenFileWithEventPlaceholder" : @"QSOpenFileEventPlaceholder" forKey:kActionHandler];
         if (!validIndirectTypes) {
             validIndirectTypes = [NSArray arrayWithObject:QSFilePathType];
         }
 	}
-	if ([handlers containsObject:@"DAEDopnt"] && ![handlers containsObject:@"DAEDopfl"]) {
+	if (([handlers containsObject:@"DAEDopnt"] || [handlers containsObject:@"function processText("]) && !([handlers containsObject:@"DAEDopfl"] || [handlers containsObject:@"function openFiles("]) ) {
         // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
         if (!validDirectTypes) {
             validDirectTypes = [NSArray arrayWithObject:QSTextType];
@@ -272,12 +282,17 @@
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	if ([dObject objectForType:QSFilePathType]) {
-		NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"aevtoapp", @"DAEDopnt", @"aevtodoc", nil] inScriptFile:[dObject singleFilePath]];
+		NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:
+                                                                   @"aevtoapp",
+                                                                   @"DAEDopnt",
+                                                                   @"function processText()",
+                                                                   @"aevtodoc",
+                                                                   nil] inScriptFile:[dObject singleFilePath]];
 		//  **** store this information in metadata
 		NSMutableArray *array = [NSMutableArray array];
 		if ([handlers containsObject:@"aevtoapp"] || ![handlers count])
 			[array addObject:kAppleScriptRunAction];
-		if ([handlers containsObject:@"DAEDopnt"])
+		if ([handlers containsObject:@"DAEDopnt"] || [handlers containsObject:@"function processText()"])
 			[array addObject:kAppleScriptOpenTextAction];
 		if ([handlers containsObject:@"aevtodoc"])
 			[array addObject:kAppleScriptOpenFilesAction];
@@ -371,7 +386,7 @@
 -(NSInteger)argumentCountForScript:(NSString *)scriptPath {
     NSInteger argumentCount = 1;
 
-    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:@"DAEDgarc"] inScriptFile:scriptPath];
+    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"DAEDgarc", @"function getArgumentCount()", nil] inScriptFile:scriptPath];
     if( handlers != nil && [handlers count] != 0 ) {
         NSAppleEventDescriptor *event;
         int pid = [[NSProcessInfo processInfo] processIdentifier];
