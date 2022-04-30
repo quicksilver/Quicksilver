@@ -155,13 +155,15 @@
 }
 
 - (IBAction)toggle:(id)sender {
-	if (hidden) {
-		[self show:sender];
-	} else if ([self isVisible]) {
-		[self hideOrOrderOut:sender];
-	} else {
-		[self makeKeyAndOrderFront:sender];
-	}
+	QSGCDMainAsync(^{
+		if (self->hidden) {
+			[self show:sender];
+		} else if ([self isVisible]) {
+			[self hideOrOrderOut:sender];
+		} else {
+			[self makeKeyAndOrderFront:sender];
+		}
+	});
 }
 
 - (IBAction)hide:(id)sender {
