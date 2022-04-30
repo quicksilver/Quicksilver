@@ -126,7 +126,6 @@
 		4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4D6E8EC01EA93D61003CD3CE /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6E8EBA1EA93D61003CD3CE /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6E8EC11EA93D61003CD3CE /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6E8EBB1EA93D61003CD3CE /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -328,7 +327,6 @@
 		929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 929052F80D0FEAD600579DAE /* QSMiscFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		929052FB0D0FEAD600579DAE /* QSMiscFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 929052F90D0FEAD600579DAE /* QSMiscFunctions.m */; };
 		9294A4E70D0FA219000EAE2E /* QSPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A4E60D0FA219000EAE2E /* QSPaths.m */; };
-		92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D9C9690D134BDD00D91825 /* QSTreeController.m */; };
 		92DC402C0E25A0C40091BD92 /* Action_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402A0E25A0C30091BD92 /* Action_p.png */; };
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
@@ -1497,8 +1495,6 @@
 		929052F80D0FEAD600579DAE /* QSMiscFunctions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMiscFunctions.h; sourceTree = "<group>"; usesTabs = 1; };
 		929052F90D0FEAD600579DAE /* QSMiscFunctions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMiscFunctions.m; sourceTree = "<group>"; usesTabs = 1; };
 		9294A4E60D0FA219000EAE2E /* QSPaths.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSPaths.m; sourceTree = "<group>"; usesTabs = 1; };
-		92D9C9680D134BDD00D91825 /* QSTreeController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTreeController.h; sourceTree = "<group>"; usesTabs = 1; };
-		92D9C9690D134BDD00D91825 /* QSTreeController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTreeController.m; sourceTree = "<group>"; usesTabs = 1; };
 		92DC402A0E25A0C30091BD92 /* Action_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action_p.png; sourceTree = "<group>"; };
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3621,8 +3617,6 @@
 				7F0843CD098ACB2F00F136CC /* QSLog.m */,
 				7FF447E8080479E200316DB6 /* QSLSTools.h */,
 				7FF447E9080479E200316DB6 /* QSLSTools.m */,
-				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
-				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
 				7F943F6308033961007EDC31 /* QSUTI.h */,
 				7F943F6408033961007EDC31 /* QSUTI.m */,
 				CD02BB4116A2BA5700DAFE50 /* QSGCD.h */,
@@ -4103,7 +4097,6 @@
 				4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */,
 				CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */,
 				7F943F6508033961007EDC31 /* QSUTI.h in Headers */,
-				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
 				4D6E8EC41EA93D61003CD3CE /* FMDatabaseAdditions.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
 				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
@@ -5233,7 +5226,6 @@
 				4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */,
 				CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */,
 				7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */,
-				92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */,
 				7F943F6608033961007EDC31 /* QSUTI.m in Sources */,
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
 				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,

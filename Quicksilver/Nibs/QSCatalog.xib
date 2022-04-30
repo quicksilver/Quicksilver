@@ -640,7 +640,7 @@
             </connections>
         </drawer>
         <userDefaultsController representsSharedInstance="YES" id="227" userLabel="Shared Defaults"/>
-        <treeController objectClassName="QSCatalogEntry" automaticallyPreparesContent="YES" childrenKeyPath="children" leafKeyPath="isLeaf" avoidsEmptySelection="NO" preservesSelection="NO" id="229" userLabel="CatalogTreeController" customClass="QSTreeController">
+        <treeController objectClassName="QSCatalogEntry" automaticallyPreparesContent="YES" childrenKeyPath="children" leafKeyPath="isLeaf" avoidsEmptySelection="NO" preservesSelection="NO" id="229" userLabel="CatalogTreeController">
             <declaredKeys>
                 <string>enabled</string>
                 <string>count</string>
