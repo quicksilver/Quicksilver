@@ -36,7 +36,7 @@
 	CGFloat f;
 	NSDate *date = [NSDate date];
 	CGFloat elapsed;
-	while ((elapsed = -[date timeIntervalSinceNow]) <FLAREDURATION) {
+	while ((elapsed = - [date timeIntervalSinceNow]) <FLAREDURATION) {
 		f = elapsed/FLAREDURATION;
 		CGFloat s = .97+3*pow(f-0.1, 2);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );

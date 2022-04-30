@@ -441,50 +441,41 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-    NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
-    {
-        splashWindow = [NSWindow windowWithImage:splashImage];
-        [splashWindow setReleasedWhenClosed:NO];
-#if 0
-        //		if ([NSApp isPrerelease]) {
-        NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
-        NSBezierPath *path = [NSBezierPath bezierPath];
-        [path appendBezierPathWithRoundedRectangle:rect withRadius:12];
-        [[NSColor colorWithCalibratedRed:0.0 green:0.33 blue:0.0 alpha:0.8] set];
-        [path fill];
-        [[splashWindow contentView] lockFocus];
-        NSAttributedString *string = [[[NSAttributedString alloc] initWithString:@"Unofficial" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]] autorelease];
-        [string drawWithRect:NSOffsetRect(centerRectInRect(rectFromSize([string size]), rect), 0, 4) options:NSStringDrawingOneShot];
-        [path addClip];
-        [QSGlossClipPathForRectAndStyle(rect, 4) addClip];
-        [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
-        NSRectFillUsingOperation(rect, NSCompositingOperationSourceOver);
-        
-        [[splashWindow contentView] unlockFocus];
-        //		}
-#endif
-    }
-    
+
+	[splashWindow setReleasedWhenClosed:NO];
+	[splashWindow setBackgroundColor:[NSColor clearColor]];
+	[splashWindow setLevel:NSFloatingWindowLevel];
     [splashWindow reallyCenter];
     [splashWindow setAlphaValue:0];
     [splashWindow setSticky:YES];
-    
+	__weak QSController *weakSelf = self;
     if ([NSApp wasLaunchedAtLogin]) {
         [splashWindow setLevel:NSNormalWindowLevel-1];
-        [splashWindow orderFront:self];
-        [splashWindow setAlphaValue:0.25 fadeTime:0.333];
+		[splashWindow orderFront:self];
+		QSWindowAnimation *animation = [QSWindowAnimation effectWithWindow:splashWindow attributes:@{kQSGSDuration: @0.33, kQSGSAlphaA: @0, kQSGSAlphaB: @0.25}];
+		[animation setDelegate:weakSelf];
+		[animation setAnimationBlockingMode:NSAnimationBlocking];
+		[animation startAnimation];
+		
     } else {
-        [splashWindow orderFront:self];
+		[splashWindow orderFront:self];
         QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
+		[animation setDelegate:weakSelf];
         [animation setTransformFt:QSExtraExtraEffect];
         [animation setDuration:1.0];
         [animation setAnimationBlockingMode:NSAnimationBlocking];
         [animation startAnimation];
+		
     }
 }
+- (void)animationDidEnd:(NSAnimation *)animation {
+	QSGCDMainDelayed(0.05, ^{
+		[self hideSplash:animation];
+	});
+}
+
 - (void)hideSplash:sender {
     if (splashWindow) {
-        [splashWindow setLevel:NSFloatingWindowLevel];
         [splashWindow flare:self];
         [splashWindow close];
         splashWindow = nil;
@@ -861,22 +852,11 @@ static QSController *defaultController = nil;
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
 		[self showSplash:nil];
-        double delayInSeconds = 0.1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void) {
-            // hide the splash in a background thread
-            [self hideSplash:nil];
-        });
 	}
 }
 - (void)startQuicksilver:(id)sender {
 	[self checkForFirstRun];
 	[self checkForCrash];
-    
-	// Show Splash Screen
-	BOOL atLogin = [NSApp wasLaunchedAtLogin];
-	if (!atLogin)
-		[self setupSplash];
 
 #ifdef DEBUG
 	if (DEBUG_STARTUP)
@@ -944,9 +924,6 @@ static QSController *defaultController = nil;
 #endif
 	
 	[[QSLibrarian sharedInstance] reloadEntrySources:nil];
-
-	if (atLogin)
-		[self setupSplash];
 
 	[NSApp setServicesProvider:self];
 
@@ -1016,7 +993,7 @@ static QSController *defaultController = nil;
 
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 
-	if (atLogin)
+	if ([NSApp wasLaunchedAtLogin])
 		[nc postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedAtLoginEvent" userInfo:nil];
 
 	[nc postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedEvent" userInfo:nil];
@@ -1025,6 +1002,9 @@ static QSController *defaultController = nil;
         [self delayedStartup];
     });
 	[self startDropletConnection];
+	if (!runningSetupAssistant) {
+		[self setupSplash];
+	}
 }
 
 - (id)activationHotKey { return nil;  }
