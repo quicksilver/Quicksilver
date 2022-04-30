@@ -94,14 +94,6 @@ static id _sharedInstance;
 	NSImage *icon;
 	NSMenu *itemAddButtonMenu = [[NSMenu alloc] initWithTitle:@"Sources"];
 	[itemAddButton setMenu:itemAddButtonMenu];
-
-    [itemAddButton setKeyEquivalent:@"+"];
-    [itemRemoveButton setKeyEquivalent:@"-"];
-    [infoButton setKeyEquivalent:@"i"];
-    [refreshButton setKeyEquivalent:@"r"];
-    for (NSButton *aButton in [NSArray arrayWithObjects:itemAddButton,itemRemoveButton,infoButton,refreshButton, nil]) {
-        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
-    }
     
 	for (NSString *theID in sources) {
 		id source = [[QSReg objectSources] objectForKey:theID];
@@ -221,6 +213,7 @@ static id _sharedInstance;
 	[[[[QSLibrarian sharedInstance] entryForID:@"QSCatalogCustom"] children] addObject:entry];
 	[itemTable reloadData];
 	[QSCatalogPrefPane showEntryInCatalog:entry];
+	[entry scanForced:YES];
 }
 
 - (void)selectIndexPath:(NSIndexPath *)ipath {
@@ -236,6 +229,7 @@ static id _sharedInstance;
 	else
 		section = entry;
 	[catalogSetsController setSelectedObjects:[NSArray arrayWithObject:section]];
+	[self reloadData];
 	[self selectIndexPath:[entry catalogSetIndexPath]];
 }
 
@@ -283,13 +277,17 @@ static id _sharedInstance;
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	[savePanel setNameFieldLabel:@"Save Catalog:"];
 	[savePanel setCanCreateDirectories:YES];
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"qscatalogentry"]];
-	[savePanel runModal];
-	if ([savePanel URL]){
-		NSMutableDictionary *item = [currentItem mutableCopy];
+	savePanel.nameFieldStringValue = [currentItem name];
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"qscatalog"]];
+	[savePanel beginSheetModalForWindow:[itemTable window] completionHandler:^(NSModalResponse result) {
+		if (result != NSModalResponseOK || ! [savePanel URL]) {
+			return;
+		}
+		NSMutableDictionary *item = [[self->currentItem dictionaryRepresentation] mutableCopy];
 		[item removeObjectForKey:kItemID];
 		[[NSArray arrayWithObject:item] writeToURL:[savePanel URL] atomically:NO];
-	}
+	}];
+
 }
 
 //Outline Methods
@@ -397,7 +395,7 @@ static id _sharedInstance;
 }
 
 - (QSCatalogEntry *)entryForDraggedFile:(NSString *)path {
-	if ([[path pathExtension] isEqualToString:@"qscatalogentry"])
+	if ([[path pathExtension] isEqualToString:@"qscatalog"])
 		return [self entryForCatFile:path];
 	else {
 		NSMutableDictionary *settingsDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:path, kItemPath, nil];
