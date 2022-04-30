@@ -15,7 +15,7 @@
 
 #pragma mark QSLargeTypeDisplay
 
-void QSShowLargeType(NSString *aString) {
+void QSShowLargeType(NSString *aString) {	
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSColor *textColor = [defaults colorForKey:@"QSAppearance1T"];
@@ -168,7 +168,9 @@ void QSShowLargeType(NSString *aString) {
 
 @implementation QSLargeTypeScriptCommand
 - (id)performDefaultImplementation {
-	QSShowLargeType([self directParameter]);
+	QSGCDMainSync(^{
+		QSShowLargeType([self directParameter]);
+	});
 	return nil;
 }
 @end

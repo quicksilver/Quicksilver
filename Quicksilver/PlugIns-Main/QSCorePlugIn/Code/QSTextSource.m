@@ -33,7 +33,10 @@
     } else {
         display = [dObject stringValue];
     }
-	QSShowLargeType(display);
+	QSGCDMainAsync(^{
+		QSShowLargeType(display);
+	});
+
 	return nil;
 }
 
