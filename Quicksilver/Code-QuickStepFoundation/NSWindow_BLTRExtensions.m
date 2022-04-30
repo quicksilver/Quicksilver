@@ -35,6 +35,23 @@
 
 @end
 
+@implementation NSWindow (Resize)
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag completionHandler:(nullable void (^)(void))completionHandler {
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		[context setDuration:[self animationResizeTime:frameRect]];
+		[[self animator] setFrame:frameRect display:flag];
+		[[self animator] setAlphaValue:alpha];
+	} completionHandler:^{
+		if (completionHandler) {
+			completionHandler();
+		}
+	}];
+}
+
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag {
+	[self resizeToFrame:frameRect alpha:alpha display:flag completionHandler:nil];
+}
+@end
 
 @implementation NSWindow (Physics)
 - (void)animateVelocity:(CGFloat)velocity inDirection:(CGFloat)angle withFriction:(CGFloat)friction startTime:(NSTimeInterval)startTime {

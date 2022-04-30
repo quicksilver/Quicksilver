@@ -13,8 +13,6 @@
 - (void)fold:(id)sender;
 @end
 
-@class QSMoveHelper;
-
 #define kQSWindowHideEffect @"hideEffect"
 #define kQSWindowShowEffect @"showEffect"
 
@@ -35,7 +33,6 @@
 	BOOL hadShadow;
 	BOOL liesAboutKey;
 	BOOL delegatesEvents;
-	QSMoveHelper *helper;
 	NSMutableDictionary *properties;
 	NSMutableArray *eventDelegates;
 }
@@ -61,9 +58,6 @@
 - (void)setDelegatesEvents:(BOOL)flag;
 - (BOOL)fastShow;
 - (void)setFastShow:(BOOL)flag;
-
-- (QSMoveHelper *)helper;
-- (void)setHelper:(QSMoveHelper *)aHelper;
 
 - (id <QSWindowDelegate>)delegate;
 - (void)setDelegate:(id <QSWindowDelegate>)delegate;

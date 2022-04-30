@@ -89,7 +89,7 @@
 
 - (void)timerHide:(NSTimer *)timer {
 	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO)) {
-		if ([NSDate timeIntervalSinceReferenceDate] - lastTime > 0.5) {
+		if ([NSDate timeIntervalSinceReferenceDate] - lastTime > 0.3) {
 			[self hideOrOrderOut:self];
 			[hideTimer invalidate];
 		}
@@ -180,8 +180,10 @@
 	hidden = YES;
 	if ([self isVisible]) {
 		// hide on mouse out
-		[[self helper] _resizeWindow:self toFrame:hideRect alpha:0 display:YES];
-		[self saveFrame];
+		[self resizeToFrame:hideRect alpha:1 display:YES completionHandler:^{
+			[self setAlphaValue:0];
+			[self saveFrame];
+		}];
 	} else {
 		// hide on application launch
 		[self setFrame:hideRect display:YES];
@@ -215,16 +217,18 @@
 - (IBAction)show:(id)sender {
 	[self orderFront:sender];
 	[self setHasShadow:YES];
-	[[self helper] _resizeWindow:self toFrame:constrainRectToRect([self frame], [[self screen] frame]) alpha:1.0 display:YES];
-	hidden = NO;
-	[self makeKeyAndOrderFront:self];
+	[self resizeToFrame:constrainRectToRect([self frame], [[self screen] frame]) alpha:1 display:NO completionHandler:^{
+		self->hidden = NO;
+		[self makeKeyAndOrderFront:self];
+	}];
 }
 
 - (IBAction)showKeyless:(id)sender {
 	[self orderFront:sender];
 	[self setHasShadow:YES];
-	[[self helper] _resizeWindow:self toFrame:constrainRectToRect([self frame], [[self screen] frame]) alpha:1.0 display:YES];
-	hidden = NO;
+	[self resizeToFrame:constrainRectToRect([self frame], [[self screen] frame]) alpha:1 display:NO completionHandler:^{
+		self->hidden = NO;
+	}];
 }
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)aScreen {
