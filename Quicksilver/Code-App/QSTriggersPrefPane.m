@@ -193,6 +193,7 @@
 	}
 	[triggerArrayController rearrangeObjects];
 	[self reloadFilters];
+	isRearranging = NO;
 
 	/* Bind the trigger set list selection to our currentSet property */
 	[self bind:@"currentSet"
@@ -214,6 +215,9 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if (isRearranging) {
+		return;
+	}
     if ([keyPath rangeOfString:@"selection.info"].location != NSNotFound) {
         [[QSTriggerCenter sharedInstance] triggerChanged:[self selectedTrigger]];
         return;
@@ -221,11 +225,13 @@
 }
 
 - (IBAction)triggerChanged:(id)sender {
+	isRearranging = YES;
     [triggerSetsController rearrangeObjects];
     [triggerArrayController rearrangeObjects];
     QSGCDMainSync(^{
         [triggerTable reloadData];
     });
+	isRearranging = NO;
 }
 
 - (QSTrigger *)currentTrigger {
@@ -352,7 +358,7 @@
 
 - (IBAction)editTrigger:(id)sender {
 	if ([triggerTable selectedRow] >= 0) {
-        QSTrigger *editedTrigger = [triggerArray objectAtIndex:[triggerTable selectedRow]];
+        QSTrigger *editedTrigger = [[self triggerArray] objectAtIndex:[triggerTable selectedRow]];
         [commandEditor setCommand:[editedTrigger command]];
 		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
             QSCommand *command = [commandEditor representedCommand];
@@ -391,10 +397,10 @@
 	sort = newSort;
 }
 
-- (NSArray *)triggerArray { return triggerArray; }
+- (NSArray *)triggerArray { return [triggerArrayController arrangedObjects]; }
 
 - (void)setTriggerArray:(NSMutableArray *)newTriggerArray {
-	triggerArray = newTriggerArray;
+	[triggerArrayController setContent:newTriggerArray];
 }
 
 - (IBAction)removeTrigger:(id)sender {
