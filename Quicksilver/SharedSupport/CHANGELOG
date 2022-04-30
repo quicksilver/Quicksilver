@@ -6,6 +6,7 @@
 
 * Save your catalog entries and share them with friends (#2755)
 * "Latest Screenshot" proxy object to allow you to select the latest screenshot (created by Grab.app) in Quicksilver (#2752, #2749)
+* Use JXA (JavaScript for Automation) to control Quicksilver (#2745, #2604)
 
 ### Fixed ###
 
