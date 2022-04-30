@@ -2,6 +2,7 @@
 
 @interface NSWindow (Fade)
 - (void)setSticky:(BOOL)flag;
+- (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds completionHandler:(nullable void (^)(void))completionHandler;
 - (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds;
 - (void)reallyCenter;
 +(NSWindow *)windowWithImage:(NSImage *)image;
