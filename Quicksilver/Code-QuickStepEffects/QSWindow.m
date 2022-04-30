@@ -170,6 +170,10 @@
 //	[self release];
 }
 
+- (BOOL)allowsConcurrentViewDrawing {
+	return NO;
+}
+
 - (void)reallySendEvent:(NSEvent *)theEvent {
 	[super sendEvent:theEvent];
 }
