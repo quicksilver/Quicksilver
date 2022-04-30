@@ -163,7 +163,7 @@
             [self setEnabled:NO];
         }
     };
-    if (defaultBool(kExecuteInThread)) {
+    if (defaultBool(kExecuteInThread) && [[cmd aObject] canThread]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), block);
     } else {
         block();
