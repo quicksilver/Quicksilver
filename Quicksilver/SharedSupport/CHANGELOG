@@ -1,3 +1,18 @@
+## Changes - ##
+
+*Requires macOS 10.14+*
+
+### New ###
+
+* Save your catalog entries and share them with friends (#2755)
+* "Latest Screenshot" proxy object to allow you to select the latest screenshot (created by Grab.app) in Quicksilver (#2752, #2749)
+
+### Fixed ###
+
+* Mouse and Keyboard Trigger icons are now high-res (#2755)
+* "Latest Download" proxy object can now find downloads in folders with spaces (#2751)
+* Occasional bugs when opening Quicksilver's preferences (#2754)
+
 ## Changes - 2.1.0 (4032) 2022-04-23 ##
 
 *Requires macOS 10.14+*
