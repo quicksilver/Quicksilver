@@ -581,8 +581,6 @@
 		E1E5FA5E07B204580044D6EF /* QSEmbeddedEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA4E07B204580044D6EF /* QSEmbeddedEffects.m */; };
 		E1E5FA5F07B204580044D6EF /* QSFadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA4F07B204580044D6EF /* QSFadingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FA6007B204580044D6EF /* QSFadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5007B204580044D6EF /* QSFadingView.m */; };
-		E1E5FA6107B204580044D6EF /* QSMoveHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA5107B204580044D6EF /* QSMoveHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FA6207B204580044D6EF /* QSMoveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5207B204580044D6EF /* QSMoveHelper.m */; };
 		E1E5FA6307B204580044D6EF /* QSShading.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA5307B204580044D6EF /* QSShading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FA6407B204580044D6EF /* QSShading.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5407B204580044D6EF /* QSShading.m */; };
 		E1E5FA6507B204580044D6EF /* QSTrackingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA5507B204580044D6EF /* QSTrackingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2291,8 +2289,6 @@
 		E1E5FA4E07B204580044D6EF /* QSEmbeddedEffects.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSEmbeddedEffects.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA4F07B204580044D6EF /* QSFadingView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSFadingView.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA5007B204580044D6EF /* QSFadingView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSFadingView.m; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FA5107B204580044D6EF /* QSMoveHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMoveHelper.h; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FA5207B204580044D6EF /* QSMoveHelper.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMoveHelper.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA5307B204580044D6EF /* QSShading.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSShading.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA5407B204580044D6EF /* QSShading.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSShading.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA5507B204580044D6EF /* QSTrackingWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTrackingWindow.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3525,8 +3521,6 @@
 				E1E5FA4E07B204580044D6EF /* QSEmbeddedEffects.m */,
 				E1E5FA4F07B204580044D6EF /* QSFadingView.h */,
 				E1E5FA5007B204580044D6EF /* QSFadingView.m */,
-				E1E5FA5107B204580044D6EF /* QSMoveHelper.h */,
-				E1E5FA5207B204580044D6EF /* QSMoveHelper.m */,
 				E1E5FA5307B204580044D6EF /* QSShading.h */,
 				E1E5FA5407B204580044D6EF /* QSShading.m */,
 				E1E5FA5507B204580044D6EF /* QSTrackingWindow.h */,
@@ -4162,7 +4156,6 @@
 				E131FA4C07B44C0900D0E4AC /* QSEffects.h in Headers */,
 				E1E5FA5D07B204580044D6EF /* QSEmbeddedEffects.h in Headers */,
 				E1E5FA5F07B204580044D6EF /* QSFadingView.h in Headers */,
-				E1E5FA6107B204580044D6EF /* QSMoveHelper.h in Headers */,
 				E1E5FA6307B204580044D6EF /* QSShading.h in Headers */,
 				E1E5FA6507B204580044D6EF /* QSTrackingWindow.h in Headers */,
 				E1E5FA6907B204580044D6EF /* QSWindow.h in Headers */,
@@ -5279,7 +5272,6 @@
 				7F86016408FA092500622BEF /* QSCGSTransition.m in Sources */,
 				E1E5FA5E07B204580044D6EF /* QSEmbeddedEffects.m in Sources */,
 				E1E5FA6007B204580044D6EF /* QSFadingView.m in Sources */,
-				E1E5FA6207B204580044D6EF /* QSMoveHelper.m in Sources */,
 				E1E5FA6407B204580044D6EF /* QSShading.m in Sources */,
 				E1E5FA6607B204580044D6EF /* QSTrackingWindow.m in Sources */,
 				E1E5FA6A07B204580044D6EF /* QSWindow.m in Sources */,

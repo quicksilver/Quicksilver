@@ -62,9 +62,6 @@
 - (BOOL)fastShow;
 - (void)setFastShow:(BOOL)flag;
 
-- (QSMoveHelper *)helper;
-- (void)setHelper:(QSMoveHelper *)aHelper;
-
 - (id <QSWindowDelegate>)delegate;
 - (void)setDelegate:(id <QSWindowDelegate>)delegate;
 - (id)hideEffect;

@@ -8,6 +8,13 @@
 - (id)windowPropertyForKey:(NSString *)key;
 @end
 
+@interface NSWindow (Resize)
+
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag completionHandler:(nullable void (^)(void))completionHandler;
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag;
+
+@end
+
 @interface NSWindow (Physics)
 - (void)animateVelocity:(CGFloat)velocity inDirection:(CGFloat)angle withFriction:(CGFloat)friction startTime:(NSTimeInterval)startTime;
 @end
