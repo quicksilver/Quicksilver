@@ -167,7 +167,7 @@
     [removeButton setKeyEquivalent:@"-"];
     [infoButton setKeyEquivalent:@"i"];
     for (NSButton *aButton in [NSArray arrayWithObjects:addButton,removeButton,infoButton, nil]) {
-        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
+		[aButton setKeyEquivalentModifierMask:NSEventModifierFlagCommand];
     }
     
 	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSTriggerDragType, nil]];
@@ -333,8 +333,8 @@
 							 row:row withEvent:[NSApp currentEvent] select:YES];
 	} else if (!mOptionKeyIsDown) {
         [commandEditor setCommand:[selectedTrigger command]];
-		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
-            QSCommand *command = [commandEditor representedCommand];
+		[self.mainView.window beginSheet:self->commandEditor.window completionHandler:^(NSModalResponse returnCode) {
+            QSCommand *command = [self->commandEditor representedCommand];
             if (command) {
                 [trigger setCommand:command];
                 [[QSTriggerCenter sharedInstance] triggerChanged:trigger];
@@ -344,13 +344,13 @@
             }
             if (command) {
                 // select the trigger (its position has changed since adding the trigger)
-                NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
-                if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [triggerTable numberOfRows]) {
-                    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
-                    [triggerTable scrollRowToVisible:selectTriggerIndex];
+				NSUInteger selectTriggerIndex = [[self->triggerArrayController arrangedObjects] indexOfObject:trigger];
+				if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [self->triggerTable numberOfRows]) {
+                    [self->triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+                    [self->triggerTable scrollRowToVisible:selectTriggerIndex];
                 }
             }
-            [commandEditor.window orderOut:self];
+            [self->commandEditor.window orderOut:self];
         }];
 	}
 }
@@ -360,12 +360,12 @@
         QSTrigger *editedTrigger = [[self triggerArray] objectAtIndex:[triggerTable selectedRow]];
         [commandEditor setCommand:[editedTrigger command]];
 		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
-            QSCommand *command = [commandEditor representedCommand];
+            QSCommand *command = [self->commandEditor representedCommand];
             if (command) {
                 [editedTrigger setCommand:command];
                 [[QSTriggerCenter sharedInstance] triggerChanged:editedTrigger];
             }
-            [commandEditor.window orderOut:self];
+            [self->commandEditor.window orderOut:self];
         }];
 	}
 }
@@ -511,7 +511,7 @@
 	if ([[aTableColumn identifier] isEqualToString:@"command"] || [[aTableColumn identifier] isEqualToString:@"icon"]) {
 		if ([theSelectedTrigger usesPresetCommand])
 			return NO;
-		if ([[NSApp currentEvent] type] == NSKeyDown) {
+		if ([[NSApp currentEvent] type] == NSEventTypeKeyDown) {
 			[self reloadData:outlineView];
 			[[outlineView window] makeFirstResponder:outlineView];
 			return YES;
@@ -519,12 +519,12 @@
 		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
         [commandEditor setCommand:[theSelectedTrigger command]];
 		[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
-            QSCommand *command = [commandEditor representedCommand];
+            QSCommand *command = [self->commandEditor representedCommand];
             if (command) {
                 [theSelectedTrigger setCommand:command];
                 [[QSTriggerCenter sharedInstance] triggerChanged:theSelectedTrigger];
             }
-            [commandEditor.window orderOut:self];
+            [self->commandEditor.window orderOut:self];
         }];
 
 		return NO;
@@ -584,7 +584,7 @@
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	id realItem = item;
 	item = [item representedObject];
-    NSInteger dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
+	NSInteger dragOperation = (([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ? NSDragOperationCopy : NSDragOperationMove);
 
     /*    if ([draggedEntries containsObject:item])
      return NSDragOperationNone;*/
@@ -675,8 +675,8 @@
 
 - (NSTokenStyle) tokenField:(NSTokenField *)tokenField styleForRepresentedObject:(id)representedObject {
 
-	if ([representedObject hasPrefix:@"."]) return NSPlainTextTokenStyle;
-	return NSRoundedTokenStyle;
+	if ([representedObject hasPrefix:@"."]) return NSTokenStyleNone;
+	return NSTokenStyleRounded;
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
