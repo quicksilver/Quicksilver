@@ -444,6 +444,8 @@
 		predicate = [NSCompoundPredicate andPredicateWithSubpredicates:
                      [NSArray arrayWithObjects:predicate, rootPredicate, nil]];
 	} else if ([currentSet isEqual:@"All Triggers"]) {
+	} else if ([currentSet isEqual:@"Enabled"]) {
+		predicate = [NSPredicate predicateWithFormat:@"enabled == YES"];
 	} else {
 		predicate = [NSPredicate predicateWithFormat:@"triggerSet == %@", currentSet];
 	}
@@ -625,12 +627,12 @@
 	NSMutableDictionary *registrySets = [QSReg tableNamed:@"QSTriggerSets"];
 
     /* Capacity = size of the triggers in the registry sets + the 2 default ones */
-	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
+	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 3];
+	[sets addObject:@{@"text": @"Enabled", @"image": [QSResourceManager imageNamed:@"Pref-Triggers"]}];
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"Custom Triggers", @"text",
 					 [QSResourceManager imageNamed:@"Triggers"], @"image",
 					 nil]];
-
 	for (NSString *key in registrySets) {
 		NSDictionary *set = [registrySets objectForKey:key];
 		NSImage *icon = [QSResourceManager imageNamed:[set objectForKey:@"icon"]];
