@@ -681,7 +681,6 @@
             </declaredKeys>
             <connections>
                 <binding destination="229" name="contentArray" keyPath="selection.contents" id="336"/>
-                <binding destination="229" name="sortDescriptors" keyPath="sortDescriptors" id="Tda-8n-OOS"/>
             </connections>
         </arrayController>
         <customView id="395" userLabel="Sidebar">
