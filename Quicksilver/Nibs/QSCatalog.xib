@@ -640,7 +640,7 @@
             </connections>
         </drawer>
         <userDefaultsController representsSharedInstance="YES" id="227" userLabel="Shared Defaults"/>
-        <treeController objectClassName="QSCatalogEntry" automaticallyPreparesContent="YES" childrenKeyPath="children" leafKeyPath="isLeaf" avoidsEmptySelection="NO" preservesSelection="NO" id="229" userLabel="CatalogTreeController">
+        <treeController objectClassName="QSCatalogEntry" automaticallyPreparesContent="YES" childrenKeyPath="children" leafKeyPath="isLeaf" avoidsEmptySelection="NO" id="229" userLabel="CatalogTreeController">
             <declaredKeys>
                 <string>enabled</string>
                 <string>count</string>
@@ -660,9 +660,14 @@
             </declaredKeys>
             <connections>
                 <binding destination="406" name="contentArray" keyPath="selection.children" id="482"/>
+                <binding destination="227" name="sortDescriptors" keyPath="values.catalogSortDescriptors" id="NIT-UG-5ic">
+                    <dictionary key="options">
+                        <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                    </dictionary>
+                </binding>
             </connections>
         </treeController>
-        <arrayController objectClassName="QSBasicObject" preservesSelection="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="319" userLabel="ContentsController">
+        <arrayController objectClassName="QSBasicObject" avoidsEmptySelection="NO" id="319" userLabel="ContentsController">
             <declaredKeys>
                 <string>name</string>
                 <string>self</string>
@@ -676,6 +681,7 @@
             </declaredKeys>
             <connections>
                 <binding destination="229" name="contentArray" keyPath="selection.contents" id="336"/>
+                <binding destination="229" name="sortDescriptors" keyPath="sortDescriptors" id="Tda-8n-OOS"/>
             </connections>
         </arrayController>
         <customView id="395" userLabel="Sidebar">

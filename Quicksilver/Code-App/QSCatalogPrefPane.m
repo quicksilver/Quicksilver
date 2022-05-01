@@ -136,10 +136,10 @@ static id _sharedInstance;
 
 //	NSButtonCell *buttonCell = [[QSCatalogSwitchButtonCell alloc] init];
 	NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
-	[buttonCell setButtonType:NSSwitchButton];
+	[buttonCell setButtonType:NSButtonTypeSwitch];
 	[buttonCell setImagePosition:NSImageOnly];
 	[buttonCell setTitle:@""];
-	[buttonCell setControlSize:NSSmallControlSize];
+	[buttonCell setControlSize:NSControlSizeSmall];
 	[buttonCell setAllowsMixedState:YES];
 	[[itemTable tableColumnWithIdentifier:kItemEnabled] setDataCell:buttonCell];
 	[[itemTable tableColumnWithIdentifier:@"searched"] setDataCell:buttonCell];
@@ -153,7 +153,7 @@ static id _sharedInstance;
 	[[[itemContentsTable tableColumnWithIdentifier:kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setFont:[NSFont labelFontOfSize:9]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setWraps:NO];
-
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChangedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIndexedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEntrySelection) name:NSOutlineViewSelectionDidChangeNotification object:nil];
@@ -292,18 +292,6 @@ static id _sharedInstance;
 
 //Outline Methods
 
-#if 0
-- (void)updateCurrentItemContents {
-	return;
-	//NSLog(@"update contents");
-	NSMutableArray *contents = [[[currentItem valueForKey:@"contents"] mutableCopy] autorelease];
-	NSSortDescriptor *nameDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES] autorelease];
-	[contents sortUsingDescriptors:[NSArray arrayWithObject:nameDescriptor]];
-	[self setCurrentItemContents:contents];
-	[itemContentsTable reloadData];
-}
-#endif
-
 - (IBAction)selectContentsItem:(id)sender {
     if ([itemContentsTable clickedRow] == -1) {
         return;
@@ -374,7 +362,7 @@ static id _sharedInstance;
 - (NSInteger) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item { return 0; }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
-	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
+	if ([[NSApp currentEvent] type] == NSEventTypeLeftMouseDragged) {
 		return (![[item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject] isPreset]);
 	}
 	return YES;
@@ -475,7 +463,7 @@ static id _sharedInstance;
 -(void)reloadData {
     [treeController rearrangeObjects];
     QSGCDMainAsync(^{
-        [itemTable reloadData];
+		[self->itemTable reloadData];
     });
 }
 
@@ -507,7 +495,7 @@ static id _sharedInstance;
 			if ([[NSSet setWithArray:[item ancestors]] intersectsSet:[NSSet setWithArray:draggedEntries]])
 				return NSDragOperationNone;
 			if ([[draggedEntries objectAtIndex:0] isPreset])
-				return ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationNone;
+				return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ? NSDragOperationCopy : NSDragOperationNone;
 		}
 		return NSDragOperationMove;
 	}
@@ -532,22 +520,23 @@ static id _sharedInstance;
 }
 
 - (void)catalogChanged:(NSNotification *)notification {
+	[treeController rearrangeObjects];
     QSGCDMainAsync(^{
-        [itemTable reloadData];
+        [self->itemTable reloadData];
     });
 }
 
 - (void)catalogIndexed:(NSNotification *)notification {
     QSGCDMainAsync(^{
-        [itemContentsTable reloadData];
-        [itemTable reloadData];
+        [self->itemContentsTable reloadData];
+        [self->itemTable reloadData];
     });
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
 	if (currentItem) {
         QSGCDAsync(^{
-            [currentItem scanForced:YES];
+            [self->currentItem scanForced:YES];
         });
 	}
 }

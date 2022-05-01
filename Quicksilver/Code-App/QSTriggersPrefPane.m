@@ -226,10 +226,9 @@
 
 - (IBAction)triggerChanged:(id)sender {
 	isRearranging = YES;
-    [triggerSetsController rearrangeObjects];
-    [triggerArrayController rearrangeObjects];
+	[triggerArrayController rearrangeObjects];
     QSGCDMainSync(^{
-        [triggerTable reloadData];
+		[self->triggerTable reloadData];
     });
 	isRearranging = NO;
 }
@@ -277,12 +276,12 @@
 - (IBAction)editCommand:(id)sender {
     [commandEditor setCommand:[selectedTrigger command]];
 	[self.mainView.window beginSheet:commandEditor.window completionHandler:^(NSModalResponse returnCode) {
-        QSCommand *command = [commandEditor representedCommand];
+		QSCommand *command = [self->commandEditor representedCommand];
         if (command) {
-            [selectedTrigger setCommand:command];
-            [[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
+			[self->selectedTrigger setCommand:command];
+			[[QSTriggerCenter sharedInstance] triggerChanged:self->selectedTrigger];
         }
-        [commandEditor.window orderOut:self];
+		[self->commandEditor.window orderOut:self];
     }];
 }
 
