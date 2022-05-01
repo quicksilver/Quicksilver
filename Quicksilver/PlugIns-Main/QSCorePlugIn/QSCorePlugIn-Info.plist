@@ -990,6 +990,8 @@
 			<false/>
 			<key>icon</key>
 			<string>Quicksilver</string>
+			<key>runInMainThread</key>
+			<true/>
 		</dict>
 		<key>QSObjectShowActionMenu</key>
 		<dict>

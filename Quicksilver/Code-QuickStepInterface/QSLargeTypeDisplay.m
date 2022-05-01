@@ -168,9 +168,7 @@ void QSShowLargeType(NSString *aString) {
 
 @implementation QSLargeTypeScriptCommand
 - (id)performDefaultImplementation {
-	QSGCDMainSync(^{
 		QSShowLargeType([self directParameter]);
-	});
 	return nil;
 }
 @end
