@@ -122,8 +122,8 @@
 
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
 	NSEvent *event;
-    event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-    if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
+	event = [NSApp nextEventMatchingMask:NSEventMaskAny untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+	if ([event type] == NSEventTypeSystemDefined && [event subtype] == 9) // A hotkey up event
         return event;
 #ifdef DEBUG
     else if (event)

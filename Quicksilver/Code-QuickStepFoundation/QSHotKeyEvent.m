@@ -15,19 +15,19 @@
 NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags ) {
 	NSUInteger theCocoaModifierFlags = 0;
 	if (aModifierFlags & shiftKey)
-		theCocoaModifierFlags |= NSShiftKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagShift;
     if (aModifierFlags & alphaLock)
-		theCocoaModifierFlags |= NSAlphaShiftKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagCapsLock;
 	if (aModifierFlags & controlKey)
-		theCocoaModifierFlags |= NSControlKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagControl;
 	if (aModifierFlags & optionKey)
-		theCocoaModifierFlags |= NSAlternateKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagOption;
 	if (aModifierFlags & cmdKey)
-		theCocoaModifierFlags |= NSCommandKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagCommand;
     if (aModifierFlags & kEventKeyModifierFnMask)
-        theCocoaModifierFlags |= NSFunctionKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagFunction;
     if (aModifierFlags & kEventKeyModifierNumLockMask)
-        theCocoaModifierFlags |= NSNumericPadKeyMask;
+		theCocoaModifierFlags |= NSEventModifierFlagNumericPad;
 	return theCocoaModifierFlags;
 }
 

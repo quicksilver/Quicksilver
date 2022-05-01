@@ -159,7 +159,7 @@
     }
     void (^block)(void) =  ^{
         [cmd executeIgnoringModifiers];
-        if ([info objectForKey:@"oneshot"]) {
+        if ([self->info objectForKey:@"oneshot"]) {
             [self setEnabled:NO];
         }
     };
