@@ -3,7 +3,7 @@
 
 require 'set'
 
-commit_range = ENV['TRAVIS_COMMIT_RANGE'] || 'master'
+commit_range = ENV['TRAVIS_COMMIT_RANGE'] || 'main'
 
 puts "#{File.basename($0)}: commit range #{commit_range}"
 
