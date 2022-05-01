@@ -1297,7 +1297,7 @@ Changes - ß61 (3900) 2011-10-23
 
   * FIX: Plugin preference pane now displays the date in localised format (e.g. EU: dd/mm/yyy, US: mm/d/yy) (Issue #373)
 
-  * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/master) for more detail
+  * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/main) for more detail
 
   * FIX: Split view fixes. Specify a (non-zero) default size to avoid confusion, and fix 'requires relaunch' prompt (Issue #349)
 
