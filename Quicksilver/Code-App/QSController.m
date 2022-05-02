@@ -1073,7 +1073,9 @@ static QSController *defaultController = nil;
     // make sure we're visible on the first activation
     [NSApp unhideWithoutActivation];
 	
-	[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
+	if (!runningSetupAssistant) {
+		[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
+	}
 	
 	[QSApp setCompletedLaunch:YES];
 }

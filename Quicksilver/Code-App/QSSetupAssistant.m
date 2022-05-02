@@ -60,9 +60,9 @@
 	QSGCDMainSync(^{
 		[self->plugInLoadTabView selectTabViewItemWithIdentifier:@"loaded"];
 		[self->plugInLoadProgress stopAnimation:nil];
+		[self->continueButton setEnabled:YES];
+		[self->backButton setEnabled:YES];
 	});
-	[continueButton setEnabled:YES];
-	[backButton setEnabled:YES];
 }
 
 - (void)plugInInfoFailed {
