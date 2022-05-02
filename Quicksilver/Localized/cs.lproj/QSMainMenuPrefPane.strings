@@ -1,2 +1,29 @@
-﻿"Loading" = "Načítá se";
+/* File extracted from ./Nibs/QSMainMenuPrefPane.xib by stringstool v1.0*/
+
+/* 851.title */
+"Decrease Font Size" = "Zmenšit písmo";
+
+/* 847.title */
+"Increase Font Size" = "Zvětšit písmo";
+
+/* 885.title */
+"Loading" = "Načítá se";
+
+/* 62.title */
+"Main Menu" = "Hlavní nabídka";
+
+/* 845.title */
+"Menu" = "Nabídka";
+
+/* 856.title */
+"Print" = "Tisknout";
+
+/* 886.placeholderString */
 "Search Documentation" = "Hledat dokumentaci";
+
+/* 850.title */
+"Show in Browser" = "Zobrazit v prohlížeči";
+
+/* 878.title */
+"Start on Settings instead of Guide" = "Začít v Předvolbách namísto Příručky";
+
