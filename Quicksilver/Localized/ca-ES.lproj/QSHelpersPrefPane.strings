@@ -1,2 +1,11 @@
-﻿"Role" = "Labor";
+/* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
+
+/* 169.headerCell.title */
 "Helper" = "Asistent";
+
+/* 165.headerCell.title */
+"Role" = "Labor";
+
+/* 5.title */
+"Window" = "Finestra";
+
