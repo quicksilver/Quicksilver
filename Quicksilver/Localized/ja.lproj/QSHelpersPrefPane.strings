@@ -1,2 +1,11 @@
-﻿"Role" = "役割";
+/* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
+
+/* 169.headerCell.title */
 "Helper" = "ヘルパー";
+
+/* 165.headerCell.title */
+"Role" = "役割";
+
+/* 5.title */
+"Window" = "ウインドー";
+
