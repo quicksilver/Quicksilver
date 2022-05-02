@@ -1,20 +1,128 @@
-﻿"Box" = "Box";
-"Command Interface:" = "Rozhraní příkazů:";
-"Defaults" = "Výchozí";
-"Load Icons for all results" = "Načíst ikony pro všechny výsledky";
-"Bezels have shadows" = "Rámečky se stíny";
-"Customize" = "Přizpůsobit";
-"Superfluous visual effects" = "Nadbytečné vizuální efekty";
-"Bezels:" = "Rámečky:";
-"Enable eye-candy" = "Povolit vizuální efekty";
-"Load Previews" = "Načíst náhledy";
-"Headers:" = "Hlavičky:";
-"Selection & Accents" = "Výběry a akcenty";
-"Bezels are glass" = "Skleněné rámečky";
+/* File extracted from ./Nibs/QSAppearancePrefPane.xib by stringstool v1.0*/
+
+/* 12.title */
+"<< do not localize >>" = "<< do not localize >>";
+
+/* Z2c-mk-eka.title */
+"Add Glow to Matched Text" = "Rozzářit shodu v textu";
+
+/* 3x8-3C-Qos.ibShadowedToolTip */
+"Add a glow to the searched for characters in an item’s name" = "Rozzářit hledané znaky v názvu položky";
+
+/* tWF-dQ-7J6.title */
+"Always Show Name" = "Vždy zobrazovat jméno";
+
+/* 107.ibShadowedToolTip */
 "Background" = "Pozadí";
-"Menu Bar" = "Řádek nabídek";
-"Preview" = "Náhled";
-"Text" = "Text";
-"Lists:" = "Seznamy:";
-"Window" = "Okno";
+
+/* 106.ibShadowedToolTip */
+"Background color for the selected pane in the main window" = "Barva pozadí pro vybraný panel v hlavním okně";
+
+/* 121.ibShadowedToolTip */
+"Background color of the main window" = "Barva pozadí hlavního okna";
+
+/* 122.ibShadowedToolTip */
+"Background color of the results list" = "Barva pozadí seznamu výsledů";
+
+/* 196.title */
+"Bezels are glass" = "Skleněné rámečky";
+
+/* 197.title */
+"Bezels have shadows" = "Rámečky se stíny";
+
+/* 188.ibShadowedToolTip */
+"Click to customise the interface" = "Klepněte pro změnu vzhledu";
+
+/* 117.ibShadowedToolTip */
+"Color of the results list selected row" = "Barva vybraného řádku seznamu výsledků";
+
+/* 216.title */
+"Colors" = "Barvy";
+
+/* 4UN-QX-5xq.title */
+"Compress Long Names" = "Zkracovat dlouhé názvy";
+
+/* 209.title */
+"Customize" = "Přizpůsobit";
+
+/* 205.title */
+"Defaults" = "Výchozí";
+
+/* 98.ibShadowedToolTip */
+"Enable eye-candy" = "Povolit vizuální efekty";
+
+/* 123.ibShadowedToolTip */
+"Header and footer background color in the result list" = "Barva pozadí záhlaví a zápatí v seznamu výsledků";
+
+/* 212.title */
+"Interface" = "Vzhled";
+
+/* 105.ibShadowedToolTip */
 "Interface type" = "Typ rozhraní";
+
+/* 204.title */
+"Main Window:" = "Hlavní okno";
+
+/* 214.title */
+"Make the interface pop in and out" = "Poskakování v uživatelském rozhraní";
+
+/* 102.title */
+"Menu Bar" = "Řádek nabídek";
+
+/* 104.title */
+"OtherViews" = "OtherViews";
+
+/* 210.title */
+"Preview" = "Náhled";
+
+/* 190.ibShadowedToolTip */
+"Preview the colour changes in the interface" = "Zobrazit barevně změny v UI";
+
+/* 201.title */
+"Result Headers:" = "Hlavičky výsledků:";
+
+/* 202.title */
+"Result Lists:" = "Seznam výsledků:";
+
+/* 195.title */
+"Select Interface:" = "Vybraný vzhled";
+
+/* 119.ibShadowedToolTip */
+"Selection & Accents" = "Výběry a akcenty";
+
+/* 194.title */
+"Superfluous visual effects" = "Nadbytečné vizuální efekty";
+
+/* 113.ibShadowedToolTip */
+"Text" = "Text";
+
+/* 109.ibShadowedToolTip */
+"Text color in the main window" = "Barva textu hlavního okna";
+
+/* 118.ibShadowedToolTip */
+"Text color in the results list rows" = "Barva textu seznamu výsledků";
+
+/* 108.ibShadowedToolTip */
+"Text color of the result window header/footer text" = "Barva textu záhlaví/zápatí v okně výsledků";
+
+/* RuL-qQ-Adf.title */
+"Underline Matched Text" = "Podtrhnout odpovídající text";
+
+/* dSq-e1-t7W.ibShadowedToolTip */
+"Underline the searched for characters in an item’s name" = "Podtrhnout hledané znaky v názvu položky";
+
+/* 127.ibShadowedToolTip */
+"Unused" = "Nepoužito";
+
+/* 218.title */
+"Use the palette below to alter the colors of the interface" = "Pomocí palety níže, můžete změnit barvy rozhraní";
+
+/* QE0-Cl-LSL.ibShadowedToolTip */
+"When the item’s name can’t fit, try squeezing letters together before truncating" = "U příliš dlouhých položek, nejprve zúžit text";
+
+/* Xq1-Sv-bTE.ibShadowedToolTip */
+"When the search matches an item’s label, keep the name visible" = "U nalezené položky, ponechat název viditelný";
+
+/* 115.title */
+"Window" = "Okno";
+
