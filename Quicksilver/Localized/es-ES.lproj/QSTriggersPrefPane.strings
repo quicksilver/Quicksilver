@@ -1,5 +1,62 @@
-﻿"Trigger" = "Disparador";
-"Trigger Info" = "Información del disparador";
-"Delete selected trigger" = "Borrar el disparador seleccionado";
-"Command" = "Comando";
+/* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
+
+/* 515.ibShadowedToolTip */
 "Add trigger..." = "Añadir disparador";
+
+/* 483.headerCell.title */
+"Command" = "Comando";
+
+/* 535.label */
+"Commands" = "Comandos";
+
+/* 142.ibShadowedToolTip */
+"Delete selected trigger" = "Borrar el disparador seleccionado";
+
+/* 616.ibShadowedToolTip */
+"Delete trigger" = "Borrar el activador";
+
+/* 543.title */
+"Disabled in selected applications:" = "Desactivar en las aplicaciones seleccionadas:";
+
+/* 831.title */
+"Edit" = "Editar";
+
+/* 544.title */
+"Enabled in all applications" = "Activar en todas las aplicaciones";
+
+/* 542.title */
+"Enabled in selected applications:" = "Activar en las aplicaciones seleccionadas:";
+
+/* 541.title */
+"OtherViews" = "OtrasVistas";
+
+/* 531.label */
+"Scope" = "Alcance";
+
+/* 734.headerCell.title */
+"Sets" = "Establece";
+
+/* 533.label */
+"Settings" = "Ajustes";
+
+/* 768.title */
+"Text Cell" = "Celda de texto";
+
+/* 486.headerCell.title */
+"Trigger" = "Disparador";
+
+/* 143.ibShadowedToolTip */
+"Trigger Info" = "Información del disparador";
+
+/* 833.title */
+"Trigger Name" = "Nombre del activador";
+
+/* 62.title */
+"Triggers" = "Disparadores";
+
+/* 485.headerCell.title */
+"Type" = "Tipo";
+
+/* 484.headerCell.title */
+"✓" = "✓";
+
