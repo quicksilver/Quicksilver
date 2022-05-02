@@ -2,6 +2,8 @@ name: build
 
 on:
   push:
+    branches-ignore:
+      translations_**
   pull_request:
     branches-ignore:
       translations_**
