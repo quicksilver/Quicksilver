@@ -1,6 +1,47 @@
-﻿"Box" = "Cuadro";
-"by Type" = "por tipo";
+/* File extracted from ./Nibs/QSActionsPrefPane.xib by stringstool v1.0*/
+
+/* 115.ibShadowedDisplayPattern */
+"%{value1}@ actions" = "%{value1}@ acciones";
+
+/* 32.headerCell.title */
+"Action (↩)" = "Acción (\r)";
+
+/* 141.headerCell.title */
+"Alternate Action (⌘↩)" = "Acción alternativa (⌘\r)";
+
+/* 46.title */
+"Box" = "Cuadro";
+
+/* 124.title */
+"Description" = "Descripción";
+
+/* 140.title */
+"Enable/disable and rank the actions available for Quicksilver." = "Activar/desactivar y clasificar las acciones disponibles para Quicksilver.";
+
+/* 33.title */
+"OtherViews" = "OtrasVistas";
+
+/* 138.title */
+"Quicksilver ranks the enabled actions based on their position in the table below. Drag actions up or down to reorder their ranking. Dragging an action to the top will make it the default action for its type." = "Quicksilver clasifica las acciones habilitadas en función de su posición en la siguiente tabla. Arrastra las acciones hacia arriba o hacia abajo para reordenar su clasificación. Arrastrar una acción a la parte superior la convertirá en la acción predeterminada para su tipo.";
+
+/* 89.headerCell.title */
 "Rank" = "Categoría";
-"Actions" = "Acciones";
+
+/* 125.title */
+"Small System Font Text" = "Fuente del sistema pequeña";
+
+/* 31.headerCell.title */
 "Type" = "Tipo";
+
+/* 5.title */
+"Window" = "Ventana";
+
+/* 35.title */
 "by Plugin" = "por plugin";
+
+/* 93.title */
+"by Type" = "por tipo";
+
+/* 17.headerCell.title */
+"✓" = "✓";
+
