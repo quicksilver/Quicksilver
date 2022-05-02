@@ -71,7 +71,7 @@
     <key>FileGetInfoAction</key>
     <string>Get info on %@</string>
     <key>FileGetPathAction</key>
-    <string>Get POSIX path of %@</string>
+    <string>Get posix path of %@</string>
     <key>FileGetPosixPathAction</key>
     <string>Get absolute path of %@</string>
     <key>FileGetURLAction</key>
@@ -115,7 +115,7 @@
     <key>ProcessSuspendAction</key>
     <string>Suspend %@</string>
     <key>QSCatalogAddEntryAction</key>
-    <string>Add %@ to the Catalogue</string>
+    <string>Add %@ to the Catalog</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Rescan %@</string>
     <key>QSCatalogEntryShowAction</key>
@@ -127,9 +127,9 @@
     <key>QSLargeTypeAction</key>
     <string>Show &quot;%@&quot; in large type</string>
     <key>QSLoginItemAddAction</key>
-    <string>Add %@ to log-in items</string>
+    <string>Add %@ to login items</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>Remove %@ from log-in items</string>
+    <string>Remove %@ from login items</string>
     <key>QSNewFolderAction</key>
     <string>Make new folder in %1$@ named %2$@</string>
     <key>QSObjCSendMessageAction</key>
@@ -139,7 +139,7 @@
     <key>QSObjectAssignMnemonic</key>
     <string>Set mnemonic of %1$@ to %2$@</string>
     <key>QSObjectOmitAction</key>
-    <string>Omit %@ from catalogue</string>
+    <string>Omit %@ from catalog</string>
     <key>QSObjectSearchChildrenAction</key>
     <string>Search Contents of %@</string>
     <key>QSObjectSelectAction</key>
@@ -153,7 +153,7 @@
     <key>QSObjectShowMenu</key>
     <string>Show actions menu for %@</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Show source of %@ in catalogue</string>
+    <string>Show source of %@ in catalog</string>
     <key>QSPutOnShelfAction</key>
     <string>Put %@ on Shelf</string>
     <key>QSShelfShowAction</key>
@@ -165,7 +165,7 @@
     <key>QSTextDiffAction</key>
     <string>Diff %1$@ and %2$@</string>
     <key>QSTextShowDialogAction</key>
-    <string>Show dialogue: &quot;%@&quot;</string>
+    <string>Show dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>
     <string>Say &quot;%@&quot;</string>
     <key>QSTextTypeAction</key>
@@ -173,7 +173,7 @@
     <key>ShellScriptRunAction</key>
     <string>Run script: %@</string>
     <key>URLEmailAction</key>
-    <string>Email %@</string>
+    <string>E-mail %@</string>
     <key>URLFindWithAction</key>
     <string>Find %@ With %@</string>
     <key>URLJSAction</key>
