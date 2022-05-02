@@ -100,8 +100,6 @@
     <string>Recent Folders (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder Specific Search Places</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder Toolbar Items</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox Bookmarks</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -114,12 +112,6 @@
     <string>Internal Commands</string>
     <key>QSPresetInternalObjects</key>
     <string>Internal Objects</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorer Bookmarks</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer History</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>
@@ -136,6 +128,8 @@
     <string>Scripts (All Users)</string>
     <key>QSPresetMainApplications</key>
     <string>Applications</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Miscellaneous</string>
     <key>QSPresetModules</key>
