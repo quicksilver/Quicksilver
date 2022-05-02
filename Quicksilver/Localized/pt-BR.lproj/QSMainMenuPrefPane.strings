@@ -1,2 +1,29 @@
-﻿"Loading" = "Carregando";
+/* File extracted from ./Nibs/QSMainMenuPrefPane.xib by stringstool v1.0*/
+
+/* 851.title */
+"Decrease Font Size" = "Diminuir o Tamanho da Fonte";
+
+/* 847.title */
+"Increase Font Size" = "Aumentar o Tamanho da Fonte";
+
+/* 885.title */
+"Loading" = "Carregando";
+
+/* 62.title */
+"Main Menu" = "Menu Principal";
+
+/* 845.title */
+"Menu" = "Menu";
+
+/* 856.title */
+"Print" = "Imprimir";
+
+/* 886.placeholderString */
 "Search Documentation" = "Pesquisar documentação";
+
+/* 850.title */
+"Show in Browser" = "Exibir no Navegador";
+
+/* 878.title */
+"Start on Settings instead of Guide" = "Comece em Configurações em vez de Guia";
+
