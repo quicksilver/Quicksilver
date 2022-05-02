@@ -1,0 +1,132 @@
+
+/* Class = "NSWindow"; title = "Quicksilver Setup"; ObjectID = "5"; */
+"5.title" = "Quicksilver Setup";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "9"; */
+"9.label" = "Plugins";
+
+/* Class = "NSTabViewItem"; label = "Welcome"; ObjectID = "11"; */
+"11.label" = "Welcome";
+
+/* Class = "NSTabViewItem"; label = "Getting Started"; ObjectID = "56"; */
+"56.label" = "Getting Started";
+
+/* Class = "NSTableColumn"; headerCell.title = "Plugins"; ObjectID = "201"; */
+"201.headerCell.title" = "Plugins";
+
+/* Class = "NSTableColumn"; headerCell.title = "✓"; ObjectID = "203"; */
+"203.headerCell.title" = "✓";
+
+/* Class = "NSTabViewItem"; label = "License"; ObjectID = "232"; */
+"232.label" = "License";
+
+/* Class = "NSTabViewItem"; label = "Options"; ObjectID = "234"; */
+"234.label" = "Options";
+
+/* Class = "NSTabViewItem"; label = "Support"; ObjectID = "236"; */
+"236.label" = "Support";
+
+/* Class = "NSWindow"; title = "Panel"; ObjectID = "254"; */
+"254.title" = "Panel";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Select a plugin for more information"; ObjectID = "302"; */
+"302.ibShadowedNoSelectionPlaceholder" = "Select a plugin for more information";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = " "; ObjectID = "303"; */
+"303.ibShadowedNoSelectionPlaceholder" = " ";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Rescan frequency"; ObjectID = "338"; */
+"338.ibShadowedToolTip" = "Rescan frequency";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "339"; */
+"339.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Every hour"; ObjectID = "340"; */
+"340.title" = "Every hour";
+
+/* Class = "NSMenuItem"; title = "Every 10 minutes"; ObjectID = "341"; */
+"341.title" = "Every 10 minutes";
+
+/* Class = "NSMenuItem"; title = "Every day"; ObjectID = "342"; */
+"342.title" = "Every day";
+
+/* Class = "NSMenuItem"; title = "Manually (Command-R)"; ObjectID = "343"; */
+"343.title" = "Manually (Command-R)";
+
+/* Class = "NSMenuItem"; title = "Every half hour"; ObjectID = "345"; */
+"345.title" = "Every half hour";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "392"; */
+"392.label" = "Plugins";
+
+/* Class = "NSTabViewItem"; label = "Loading"; ObjectID = "393"; */
+"393.label" = "Loading";
+
+/* Class = "NSTabViewItem"; label = "Failed"; ObjectID = "404"; */
+"404.label" = "Failed";
+
+/* Class = "NSTextFieldCell"; title = "Recommended Plugins"; ObjectID = "442"; */
+"442.title" = "Recommended Plugins";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver comes with only a few basic features. Plugins can be installed to allow integration with many applications and services.\n\nSelect and install the plugins for applications you use frequently from the list below. Plugins can be installed or disabled at a later date from the “Plugins” section in Quicksilver's preferences."; ObjectID = "443"; */
+"443.title" = "Quicksilver comes with only a few basic features. Plugins can be installed to allow integration with many applications and services.\n\nSelect and install the plugins for applications you use frequently from the list below. Plugins can be installed or disabled at a later date from the “Plugins” section in Quicksilver's preferences.";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "445"; */
+"445.title" = "Small System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "446"; */
+"446.title" = "Small System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "Loading Plugin Information"; ObjectID = "447"; */
+"447.title" = "Loading Plugin Information";
+
+/* Class = "NSTextFieldCell"; title = "Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences."; ObjectID = "448"; */
+"448.title" = "Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences.";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is an application that lets you search and control data across your Mac.\n\nQuickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. \nThis assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality."; ObjectID = "449"; */
+"449.title" = "Quicksilver is an application that lets you search and control data across your Mac.\n\nQuickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. \nThis assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality.";
+
+/* Class = "NSTextFieldCell"; title = "Welcome to Quicksilver"; ObjectID = "450"; */
+"450.title" = "Welcome to Quicksilver";
+
+/* Class = "NSButtonCell"; title = "I have read and accept the terms of this license"; ObjectID = "452"; */
+"452.title" = "I have read and accept the terms of this license";
+
+/* Class = "NSTextFieldCell"; title = "License Agreement"; ObjectID = "453"; */
+"453.title" = "License Agreement";
+
+/* Class = "NSTextFieldCell"; title = "Catalog"; ObjectID = "455"; */
+"455.title" = "Catalog";
+
+/* Class = "NSTextFieldCell"; title = "Activation"; ObjectID = "456"; */
+"456.title" = "Activation";
+
+/* Class = "NSTextFieldCell"; title = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. \nBy default, the catalog is refreshed every 10 minutes. You can  alter the frequency below."; ObjectID = "457"; */
+"457.title" = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. \nBy default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the “Command” pane in the preferences."; ObjectID = "458"; */
+"458.title" = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the “Command” pane in the preferences.";
+
+/* Class = "NSTextFieldCell"; title = "Rescan Catalog:"; ObjectID = "460"; */
+"460.title" = "Rescan Catalog:";
+
+/* Class = "NSTextFieldCell"; title = "Shortcut:"; ObjectID = "461"; */
+"461.title" = "Shortcut:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "none"; ObjectID = "462"; */
+"462.placeholderString" = "none";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "463"; */
+"463.title" = "Edit";
+
+/* Class = "NSButtonCell"; title = "Go Back"; ObjectID = "465"; */
+"465.title" = "Go Back";
+
+/* Class = "NSButtonCell"; title = "Continue"; ObjectID = "466"; */
+"466.title" = "Continue";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "467"; */
+"467.title" = "Small System Font Text";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "468"; */
+"468.title" = "Cancel";

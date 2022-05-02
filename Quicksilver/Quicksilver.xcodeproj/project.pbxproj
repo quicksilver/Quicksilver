@@ -214,7 +214,6 @@
 		7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4E4B360A3CD83D0070336A /* QSMainMenuPrefPane.h */; };
 		7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */; };
 		7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */; };
-		7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */; };
 		7F60F12807FA134600922645 /* QSMainPreferencePanes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F12607FA134600922645 /* QSMainPreferencePanes.h */; };
 		7F60F12907FA134600922645 /* QSMainPreferencePanes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */; };
 		7F60F13307FA13B900922645 /* QSPreferencePane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F13107FA13B900922645 /* QSPreferencePane.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -386,6 +385,7 @@
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
+		CDA307E7282050A2002D4F64 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */; };
 		CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA524DC16AC8D8C00D2017F /* QSTargetPickerPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */; };
 		CDA524DE16AC92B300D2017F /* QSUserDefinedProxyTargetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */; };
@@ -1355,7 +1355,6 @@
 		7F4E4B360A3CD83D0070336A /* QSMainMenuPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMainMenuPrefPane.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMainMenuPrefPane.m; sourceTree = "<group>"; usesTabs = 1; };
 		7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSMainMenuPrefPane.xib; sourceTree = "<group>"; };
-		7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSetupAssistant.xib; sourceTree = "<group>"; };
 		7F5CFFC707FA76E700123A49 /* Quicksilver.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Quicksilver.sdef; sourceTree = "<group>"; };
 		7F60F12607FA134600922645 /* QSMainPreferencePanes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMainPreferencePanes.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F60F12707FA134600922645 /* QSMainPreferencePanes.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMainPreferencePanes.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -1861,6 +1860,8 @@
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
+		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
+		CDA307F2282050A7002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTargetPickerPanel.m; sourceTree = "<group>"; usesTabs = 1; };
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
@@ -3195,7 +3196,7 @@
 				E1264FAC072FE76C00206035 /* QSPreferences.xib */,
 				7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */,
 				E14B86910738158D003C1AED /* QSSearchPrefPane.xib */,
-				7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */,
+				CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */,
 				7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */,
 				E102F99006625D7400843027 /* QSTaskView.xib */,
 				E102F99106625D7400843027 /* QSTaskViewer.xib */,
@@ -4762,7 +4763,7 @@
 				E1264FAD072FE76C00206035 /* QSPreferences.xib in Resources */,
 				7FE8940E085D021C0016C421 /* QSProcessObjectSource.xib in Resources */,
 				E14B86950738158D003C1AED /* QSSearchPrefPane.xib in Resources */,
-				7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */,
+				CDA307E7282050A2002D4F64 /* QSSetupAssistant.xib in Resources */,
 				7F15A5FA08F996D70058D25E /* QSSimpleNotifier.xib in Resources */,
 				E102F9D106625D7400843027 /* QSTaskView.xib in Resources */,
 				7FF63D5207CC01E000A5EE4A /* QSTaskViewer.xib in Resources */,
@@ -6222,6 +6223,15 @@
 				CD59114C1B6FEA4A00A7BF02 /* en-GB */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDA307E8282050A2002D4F64 /* Base */,
+				CDA307F2282050A7002D4F64 /* en */,
+			);
+			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
 		};
 		CDC89A3E27AB69C000727225 /* InfoPlist.strings */ = {
