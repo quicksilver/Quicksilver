@@ -6,35 +6,22 @@
 - (id)windowPropertyForKey:(NSString *)key { return nil; }
 
 - (void)setSticky:(BOOL)flag {
-	CGSConnection cid;
-	CGSWindow wid;
-	wid = [self windowNumber];
-	if (wid < 0)
-		return;
-	cid = _CGSDefaultConnection();
-	CGSWindowTag tags[2];
-	tags[0] = tags[1] = 0;
-	OSStatus retVal = CGSGetWindowTags(cid, wid, tags, 32);
-	if (!retVal) {
-		if (flag)
-			tags[0] |= CGSTagSticky;
-		else
-			tags[0] &= CGSTagSticky;
-		CGSSetWindowTags(cid, wid, tags, 32);
-	}
+	[self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorIgnoresCycle];
 }
 
+- (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds completionHandler:(nullable void (^)(void))completionHandler {
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		[context setDuration:seconds];
+		[[self animator] setAlphaValue:fadeOut];
+	} completionHandler:^{
+		if (completionHandler) {
+			completionHandler();
+		}
+	}];
+
+}
 - (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds {
-	CGFloat elapsed;
-	NSTimeInterval fadeStart = [NSDate timeIntervalSinceReferenceDate];
-	CGFloat fadeIn = [self alphaValue];
-	CGFloat distance = fadeOut - fadeIn;
-    
-	for (elapsed = 0; elapsed < 1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
-		[self setAlphaValue:fadeIn + elapsed * distance];
-	}
-    
-	[self setAlphaValue:fadeOut];
+	[self setAlphaValue:fadeOut fadeTime:seconds completionHandler:nil];
 }
 
 - (BOOL)animationIsValid { return YES; }
@@ -45,20 +32,7 @@
 	[self setFrame:centeredRect display:NO];
 }
 
-+(NSWindow *)windowWithImage:(NSImage *)image {
-	NSRect windowRect = NSMakeRect(0, 0, [image size] .width, [image size] .height);
-	NSWindow *window = [[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-	[window setIgnoresMouseEvents:YES];
-	[window setBackgroundColor: [NSColor clearColor]];
-	[window setOpaque:NO];
-	[window setHasShadow:NO];
-	[[window contentView] lockFocus];
-	[image drawAtPoint:NSZeroPoint fromRect:windowRect operation:NSCompositingOperationCopy fraction:1.0];
-	[[window contentView] unlockFocus];
-	[window setAutodisplay:NO];
-	[window setReleasedWhenClosed:YES];
-	return window;
-}
+
 @end
 
 @implementation NSWindow (Resize)

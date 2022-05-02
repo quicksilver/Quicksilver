@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSApp">
@@ -476,6 +477,7 @@ CA
         </menu>
         <customObject id="217" userLabel="Main Controller" customClass="QSController">
             <connections>
+                <outlet property="splashWindow" destination="HOT-LT-c93" id="UVJ-Mf-tGY"/>
                 <outlet property="statusMenu" destination="1365" id="1961"/>
             </connections>
         </customObject>
@@ -559,5 +561,25 @@ CA
             <point key="canvasLocation" x="-57" y="348"/>
         </menu>
         <customObject id="1493" userLabel="Font Manager" customClass="NSFontManager"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="none" frameAutosaveName="" id="HOT-LT-c93">
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="109" y="131" width="228" height="204"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="hdA-U7-sNe">
+                <rect key="frame" x="0.0" y="0.0" width="228" height="204"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZfN-kS-iaa">
+                        <rect key="frame" x="0.0" y="-12" width="228" height="228"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="QSLigature" id="rkz-MX-taP"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="167" y="-78"/>
+        </window>
     </objects>
+    <resources>
+        <image name="QSLigature" width="226" height="188"/>
+    </resources>
 </document>
