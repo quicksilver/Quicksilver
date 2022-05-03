@@ -71,7 +71,7 @@
     <key>QSObjectShowSourceAction</key>
     <string>Exibir Origem do Item nas Preferências de Catálogo</string>
     <key>QSCreateFileTemplate</key>
-    <string>Create a New File from a Template</string>
+    <string>Criar um Novo Arquivo de um Modelo</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Execute Quicksilver Command after Delay</string>
     <key>FileMakeAliasInAction</key>
