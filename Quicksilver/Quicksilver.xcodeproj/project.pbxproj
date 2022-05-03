@@ -1306,10 +1306,7 @@
 		6535A9A01086F6A0009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A11086F6A4009D5C90 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = it.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A21086F6A7009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = es.lproj/About.strings; sourceTree = "<group>"; };
-		6535A9A31086F6AA009D5C90 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = nl.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A41086F6AE009D5C90 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/About.strings; sourceTree = "<group>"; };
-		6535A9A51086F6B0009D5C90 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/About.strings; sourceTree = "<group>"; };
-		6535A9A61086F6B3009D5C90 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/About.strings; sourceTree = "<group>"; };
 		6552BC9E109D0DDE003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
 		6615228314F43355006FDCB4 /* PathWildcardsData */ = {isa = PBXFileReference; explicitFileType = folder; name = PathWildcardsData; path = Tests/TestData/PathWildcardsData; sourceTree = "<group>"; };
@@ -5980,10 +5977,7 @@
 				6535A9A01086F6A0009D5C90 /* French */,
 				6535A9A11086F6A4009D5C90 /* Italian */,
 				6535A9A21086F6A7009D5C90 /* Spanish */,
-				6535A9A31086F6AA009D5C90 /* Dutch */,
 				6535A9A41086F6AE009D5C90 /* pl */,
-				6535A9A51086F6B0009D5C90 /* fi */,
-				6535A9A61086F6B3009D5C90 /* no */,
 				6552BCA1109D0E00003B4892 /* sv */,
 				1011468114BEA6FF000E7177 /* ja */,
 				CDFAC8851652E221006A0C5B /* cs */,
