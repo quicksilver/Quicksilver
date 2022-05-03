@@ -93,7 +93,7 @@
     <key>FileToTrashAction</key>
     <string>Mover Arquivo para a Pasta da Lixeira</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>Retira da lista de itens do Login</string>
+    <string>Remover da Lista de Itens do Login</string>
     <key>AppActivateAction</key>
     <string>Ativa um aplicativo</string>
     <key>AppHideAction</key>
