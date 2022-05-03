@@ -51,7 +51,7 @@
     <key>QSShellScriptRunAction</key>
     <string>Executar um Script Shell</string>
     <key>QSObjectSelectAction</key>
-    <string>Seleciona um item na interface do Quicksilver</string>
+    <string>Selecionar o item na interface do Quicksilver</string>
     <key>FileGetInfoAction</key>
     <string>Open &apos;Get Info&apos; Dialog for File</string>
     <key>FileAlwaysOpenTypeWithAction</key>
