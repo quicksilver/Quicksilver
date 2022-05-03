@@ -61,7 +61,7 @@
     <key>FileRenameAction</key>
     <string>Renomear um Arquivo</string>
     <key>QSObjectSearchChildrenAction</key>
-    <string>Mostra o conteúdo do ítem colocando o Quicksilver no modo de filtro</string>
+    <string>Exibir Conteúdo do Item colocando Quicksilver no Modo de Filtragem</string>
     <key>QSObjectAssignMnemonic</key>
     <string>Assign a Search Abbreviation for the Item</string>
     <key>AppleScriptOpenFilesAction</key>
