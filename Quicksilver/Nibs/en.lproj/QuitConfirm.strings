@@ -1,0 +1,9 @@
+
+/* Class = "NSWindow"; title = "Quit?"; ObjectID = "23"; */
+"23.title" = "Quit?";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "32"; */
+"32.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "Hold ⌘Q to Quit"; ObjectID = "38"; */
+"38.title" = "Hold ⌘Q to Quit";
