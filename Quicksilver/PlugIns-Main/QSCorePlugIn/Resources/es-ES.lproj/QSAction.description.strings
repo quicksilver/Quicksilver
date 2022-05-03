@@ -44,6 +44,10 @@
     <string>Muestra el texto en una ventana emergente</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Mostrar (contenido) inferior del artículo seleccionado</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Mostrar los elementos seleccionados en la lista de resultados</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Registrar detalles de este objeto en la consola</string>
     <key>QSShellScriptRunAction</key>
     <string>Ejecutar un shell script</string>
     <key>QSObjectSelectAction</key>
