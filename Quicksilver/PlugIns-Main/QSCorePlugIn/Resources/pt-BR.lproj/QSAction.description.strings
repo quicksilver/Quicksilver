@@ -69,7 +69,7 @@
     <key>QSCatalogEntryShowAction</key>
     <string>Exibir Item do Catálogo nas Preferências de Catálogo</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Mostra Fonte do Item nas Preferências de Catálogo</string>
+    <string>Exibir Origem do Item nas Preferências de Catálogo</string>
     <key>QSCreateFileTemplate</key>
     <string>Create a New File from a Template</string>
     <key>QSCommandExecuteAfterDelayAction</key>
