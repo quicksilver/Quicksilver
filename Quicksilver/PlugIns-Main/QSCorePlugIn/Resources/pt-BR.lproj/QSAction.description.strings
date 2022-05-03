@@ -89,7 +89,7 @@
     <key>URLEmailAction</key>
     <string>Compor um E-mail usando mailto:</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Execute an AppleScript with Text</string>
+    <string>Executar um AppleScript com Texto</string>
     <key>FileToTrashAction</key>
     <string>Move o arquivo para a pasta de lixo</string>
     <key>QSLoginItemRemoveAction</key>
