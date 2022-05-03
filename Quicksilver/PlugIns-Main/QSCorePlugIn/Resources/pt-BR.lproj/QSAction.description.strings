@@ -65,7 +65,7 @@
     <key>QSObjectAssignMnemonic</key>
     <string>Atribuir uma Abreviatura de Busca ao Item</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>Executa um AppleScript com Arquivo</string>
+    <string>Executar um AppleScript com Arquivo</string>
     <key>QSCatalogEntryShowAction</key>
     <string>Mostra Item do Catálogo nas Preferências de Catálogo</string>
     <key>QSObjectShowSourceAction</key>
