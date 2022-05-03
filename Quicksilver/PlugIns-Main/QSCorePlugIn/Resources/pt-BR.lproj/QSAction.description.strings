@@ -77,7 +77,7 @@
     <key>FileMakeAliasInAction</key>
     <string>Criar um novo Apelido em uma Pasta</string>
     <key>QSNewFolderAction</key>
-    <string>Criar uma nova pasta com o nome</string>
+    <string>Criar uma Nova Pasta com um Nome</string>
     <key>URLOpenWithAction</key>
     <string>Open URL with an alternative Application</string>
     <key>FileGetURLAction</key>
