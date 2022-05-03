@@ -63,3 +63,19 @@
 "Type to search" = "Teclee para buscar";
 
 "Choose Location..." = "Escoger carpeta de destino";
+
+// ---------------
+
+// ResultWindow
+
+/* No comment provided by engineer. */
+"%d of %d" = "%1$d of %2$d";
+
+/* Search mode shown in top right hand of results view when filtering catalog */
+"Filter Catalog" = "Filtrar catálogo";
+
+/* Search mode shown in top right hand of results view when filtering just the results */
+"Filter Results" = "Filtrar resultados";
+
+/* Search mode shown in top right hand of results when snapping to best option */
+"Snap to Best" = "Ajustar al mejor";
