@@ -83,7 +83,7 @@
     <key>FileGetURLAction</key>
     <string>Obter URL tipo file:// para Arquivo</string>
     <key>QSObjectShowActionMenu</key>
-    <string>Mostrar Menu de Ações disponíveis </string>
+    <string>Exibir Menu de Ações disponíveis </string>
     <key>AppQuitOthersAction</key>
     <string>Encerrar todos outros Aplicativos</string>
     <key>URLEmailAction</key>
