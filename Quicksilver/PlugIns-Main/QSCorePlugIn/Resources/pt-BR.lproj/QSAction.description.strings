@@ -63,7 +63,7 @@
     <key>QSObjectSearchChildrenAction</key>
     <string>Exibir Conteúdo do Item colocando Quicksilver no Modo de Filtragem</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Assign a Search Abbreviation for the Item</string>
+    <string>Atribuir uma Abreviatura de Busca ao Item</string>
     <key>AppleScriptOpenFilesAction</key>
     <string>Executa um AppleScript com Arquivo</string>
     <key>QSCatalogEntryShowAction</key>
