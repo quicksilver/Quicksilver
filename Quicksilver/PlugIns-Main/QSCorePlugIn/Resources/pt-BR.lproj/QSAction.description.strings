@@ -91,7 +91,7 @@
     <key>AppleScriptProcessTextAction</key>
     <string>Executar um AppleScript com Texto</string>
     <key>FileToTrashAction</key>
-    <string>Move o arquivo para a pasta de lixo</string>
+    <string>Mover Arquivo para a Pasta da Lixeira</string>
     <key>QSLoginItemRemoveAction</key>
     <string>Retira da lista de itens do Login</string>
     <key>AppActivateAction</key>
