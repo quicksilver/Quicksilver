@@ -27,11 +27,6 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
-// These should be localizable, but I'm not sure how to do that
-#define filterResultsString @"Filter Results"
-#define filterCatalogString @"Filter Catalog"
-#define snapToBestString @"Snap to Best"
-
 #import "QSTextProxy.h"
 
 NSMutableDictionary *kindDescriptions = nil;
@@ -167,29 +162,29 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)setSearchFilterAllActivated {
-	if ([filterCatalog state] == NSOffState) {
-		[filterCatalog setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterCatalogString];
+	if ([filterCatalog state] == NSControlStateValueOff) {
+		[filterCatalog setState:NSControlStateValueOn];
+		[filterResults setState:NSControlStateValueOff];
+		[snapToBest setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Filter Catalog", @"Search mode shown in top right hand of results view when filtering catalog")];
 	}
 }
 
 - (IBAction)setSearchFilterActivated {
-	if ([filterResults state] == NSOffState) {
-		[filterResults setState:NSOnState];
-		[filterCatalog setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterResultsString];
+	if ([filterResults state] == NSControlStateValueOff) {
+		[filterResults setState:NSControlStateValueOn];
+		[filterCatalog setState:NSControlStateValueOff];
+		[snapToBest setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Filter Results", @"Search mode shown in top right hand of results view when filtering just the results")];
 	}
 }
 
 - (IBAction)setSearchSnapActivated {
-	if ([snapToBest state] == NSOffState) {
-		[snapToBest setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[filterCatalog setState:NSOffState];
-		[searchModeField setStringValue:snapToBestString];
+	if ([snapToBest state] == NSControlStateValueOff) {
+		[snapToBest setState:NSControlStateValueOn];
+		[filterResults setState:NSControlStateValueOff];
+		[filterCatalog setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Snap to Best", @"Search mode shown in top right hand of results when snapping to best option")];
 	}
 }
 
@@ -198,14 +193,14 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)sortByName:(id)sender{
-	[sortByName setState:NSOnState];
-	[sortByScore setState:NSOffState];
+	[sortByName setState:NSControlStateValueOn];
+	[sortByScore setState:NSControlStateValueOff];
     [focus sortByName:sender];
 }
 
 - (IBAction)sortByScore:(id)sender {
-	[sortByName setState:NSOffState];
-	[sortByScore setState:NSOnState];
+	[sortByName setState:NSControlStateValueOff];
+	[sortByScore setState:NSControlStateValueOn];
     [focus sortByScore:sender];
 }
 

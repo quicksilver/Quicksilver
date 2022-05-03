@@ -387,6 +387,7 @@
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
 		CDA307E7282050A2002D4F64 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */; };
 		CDA3080B2820B71F002D4F64 /* QuitConfirm.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA3080D2820B71F002D4F64 /* QuitConfirm.xib */; };
+		CDA308172820BF9C002D4F64 /* ResultWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA308192820BF9C002D4F64 /* ResultWindow.xib */; };
 		CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA524DC16AC8D8C00D2017F /* QSTargetPickerPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */; };
 		CDA524DE16AC92B300D2017F /* QSUserDefinedProxyTargetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */; };
@@ -472,7 +473,6 @@
 		E102F9C906625D7400843027 /* QSDefaultsObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */; };
 		E102F9CA06625D7400843027 /* QSFileConflictPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98906625D7300843027 /* QSFileConflictPanel.xib */; };
 		E102F9CB06625D7400843027 /* QSFileSystemObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */; };
-		E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98D06625D7300843027 /* ResultWindow.xib */; };
 		E102F9D106625D7400843027 /* QSTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99006625D7400843027 /* QSTaskView.xib */; };
 		E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99206625D7400843027 /* QSTriggersPrefPane.xib */; };
 		E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */; };
@@ -1861,6 +1861,8 @@
 		CDA307F2282050A7002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CDA3080C2820B71F002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QuitConfirm.xib; sourceTree = "<group>"; };
 		CDA308162820B723002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
+		CDA308182820BF9C002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ResultWindow.xib; sourceTree = "<group>"; };
+		CDA3081B2820BF9F002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ResultWindow.strings; sourceTree = "<group>"; };
 		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTargetPickerPanel.m; sourceTree = "<group>"; usesTabs = 1; };
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
@@ -2155,7 +2157,6 @@
 		E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSDefaultsObjectSource.xib; sourceTree = "<group>"; };
 		E102F98906625D7300843027 /* QSFileConflictPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileConflictPanel.xib; sourceTree = "<group>"; };
 		E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileSystemObjectSource.xib; sourceTree = "<group>"; };
-		E102F98D06625D7300843027 /* ResultWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultWindow.xib; sourceTree = "<group>"; };
 		E102F99006625D7400843027 /* QSTaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskView.xib; sourceTree = "<group>"; };
 		E102F99106625D7400843027 /* QSTaskViewer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskViewer.xib; sourceTree = "<group>"; };
 		E102F99206625D7400843027 /* QSTriggersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTriggersPrefPane.xib; sourceTree = "<group>"; };
@@ -3200,7 +3201,7 @@
 				E102F99106625D7400843027 /* QSTaskViewer.xib */,
 				E102F99206625D7400843027 /* QSTriggersPrefPane.xib */,
 				CDA3080D2820B71F002D4F64 /* QuitConfirm.xib */,
-				E102F98D06625D7300843027 /* ResultWindow.xib */,
+				CDA308192820BF9C002D4F64 /* ResultWindow.xib */,
 				D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */,
 				D48FC4FB1FBE89B4009600EB /* QSWebSource.xib */,
 			);
@@ -4767,7 +4768,7 @@
 				7FF63D5207CC01E000A5EE4A /* QSTaskViewer.xib in Resources */,
 				E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */,
 				CDA3080B2820B71F002D4F64 /* QuitConfirm.xib in Resources */,
-				E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */,
+				CDA308172820BF9C002D4F64 /* ResultWindow.xib in Resources */,
 				6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */,
 				6535A98A1086F627009D5C90 /* About.strings in Resources */,
 				4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */,
@@ -6236,6 +6237,15 @@
 				CDA308162820B723002D4F64 /* en */,
 			);
 			name = QuitConfirm.xib;
+			sourceTree = "<group>";
+		};
+		CDA308192820BF9C002D4F64 /* ResultWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDA308182820BF9C002D4F64 /* Base */,
+				CDA3081B2820BF9F002D4F64 /* en */,
+			);
+			name = ResultWindow.xib;
 			sourceTree = "<group>";
 		};
 		CDC89A3E27AB69C000727225 /* InfoPlist.strings */ = {
