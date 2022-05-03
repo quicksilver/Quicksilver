@@ -85,7 +85,7 @@
     <key>QSObjectShowActionMenu</key>
     <string>Mostrar Menu de Ações disponíveis </string>
     <key>AppQuitOthersAction</key>
-    <string>Fecha todos outras aplicações</string>
+    <string>Encerrar todos os outros Aplicativos</string>
     <key>URLEmailAction</key>
     <string>Escreva um E-mail usando mailto:</string>
     <key>AppleScriptProcessTextAction</key>
