@@ -73,7 +73,7 @@
     <key>QSCreateFileTemplate</key>
     <string>Criar um Novo Arquivo de um Modelo</string>
     <key>QSCommandExecuteAfterDelayAction</key>
-    <string>Execute Quicksilver Command after Delay</string>
+    <string>Executar Comando Quicksilver após Atraso</string>
     <key>FileMakeAliasInAction</key>
     <string>Make a new Alias in a Folder</string>
     <key>QSNewFolderAction</key>
