@@ -49,7 +49,7 @@
     <key>QSObjectLogConsoleAction</key>
     <string>Registrar detalhes deste objeto no Console</string>
     <key>QSShellScriptRunAction</key>
-    <string>Executa um Script Shell</string>
+    <string>Executar um Script Shell</string>
     <key>QSObjectSelectAction</key>
     <string>Seleciona um item na interface do Quicksilver</string>
     <key>FileGetInfoAction</key>
