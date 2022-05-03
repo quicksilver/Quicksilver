@@ -55,7 +55,7 @@
     <key>FileGetInfoAction</key>
     <string>Abrir Diálogo &apos;Obter Informações&quot; para Arquivo</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Set File Type to always open with one Application</string>
+    <string>Ajustar Tipo de Arquivo [ara sempre abrir com um Aplicativo</string>
     <key>QSCommandSaveAction</key>
     <string>Save Quicksilver Command to a File</string>
     <key>FileRenameAction</key>
