@@ -263,6 +263,7 @@ static CGFloat searchSpeed = 0.0;
 - (void)reloadSource:(NSNotification *)notif {
 	dispatch_async(scanning_queue, ^{
 		NSArray *entries = [self->entriesBySource objectForKey:[notif object]];
+		// TODO: these should not be set on a background thread. May cause a crash
 		self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
 		[self.scanTask start];
 		
