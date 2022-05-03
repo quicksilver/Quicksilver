@@ -5,45 +5,49 @@
     <key>QSCommandExecuteAtTimeAction</key>
     <string>Executa comando em uma determinada hora</string>
     <key>QSTextTypeAction</key>
-    <string>Type Text into active Application</string>
+    <string>Digitar texto em um Aplicativo ativo</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Rescan &amp; Reindex Catalog Entry</string>
+    <string>Reexaminar &amp; Reindexar Entrtada de Catáogo</string>
     <key>QSTextSpeakAction</key>
-    <string>Fale o texto</string>
+    <string>Falar Texto usando o Voiceover</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Make a new Hard Link in a Folder</string>
+    <string>Criar um Link Direto em uma Pasta</string>
     <key>QSLoginItemAddAction</key>
-    <string>Adiciona a lista de itens de Login</string>
+    <string>Adicionar a Lista de Itens de Login</string>
     <key>QSObjCSendMessageAction</key>
-    <string>Executa uma mensagem Objective-C</string>
+    <string>Executar uma Mensagem Objective-C</string>
     <key>FileGetHFSPathAction</key>
-    <string>Get Mac formatted HFS Path</string>
+    <string>Obter Caminho formatado em Mac HFS</string>
     <key>QSObjectShowMenu</key>
-    <string>Mostra menu com ações disponíveis</string>
+    <string>Exibir Menu de Ações disponíveis</string>
     <key>FileDeleteAction</key>
-    <string>Apaga um arquivo permanentemente</string>
+    <string>Apagar Arquivo Definitivamente</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Add Command as Trigger</string>
+    <string>Adicionar Comando como Gatilho</string>
     <key>QSObjectShowChildMenu</key>
-    <string>Mostra contúdos em um Menu</string>
+    <string>Exibir Conteúdos em um Menu</string>
     <key>QSCommandExecuteAction</key>
-    <string>Executa um comando Quicksilver</string>
+    <string>Executar um Comando Quicksilver</string>
     <key>AppRelaunchAction</key>
-    <string>Reabre um aplicativo</string>
+    <string>Reabrir Aplicativo</string>
     <key>AppShowHideAction</key>
-    <string>Toggle Application visibility</string>
+    <string>Alterar visibilidade do Aplicativo</string>
     <key>QSLargeTypeAction</key>
-    <string>Show Text as Large Type</string>
+    <string>Exibir Texto em Fonte Grande</string>
     <key>AppleScriptRunTextAction</key>
-    <string>Executa o texto como um AppleScript</string>
+    <string>Executar Texto como um AppleScript</string>
     <key>PasteboardCopyAction</key>
-    <string>Copia item para a área de tranasferência</string>
+    <string>Copiar Item para Área de Transferência</string>
     <key>AppHideOthersAction</key>
-    <string>Esconde todos os outros aplicativos</string>
+    <string>Esconder todos os outros Aplicativos</string>
     <key>QSTextShowDialogAction</key>
-    <string>Mostra texto em uma tela Pop-up</string>
+    <string>Mostrar Texto em um Diálogo Pop-up</string>
     <key>QSObjectShowChildrenAction</key>
-    <string>Abre conteúdos de um item no Quicksilver</string>
+    <string>Abrir Conteúdos do item no Quicksilver</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Exibir itens selecionados na lista de resultados</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Registrar detalhes deste objeto no Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Executa um Script Shell</string>
     <key>QSObjectSelectAction</key>
