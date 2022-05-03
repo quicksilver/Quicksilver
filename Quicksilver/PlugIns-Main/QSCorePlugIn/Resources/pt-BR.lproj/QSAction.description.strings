@@ -57,7 +57,7 @@
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>Ajustar Tipo de Arquivo para sempre abrir com um Aplicativo</string>
     <key>QSCommandSaveAction</key>
-    <string>Save Quicksilver Command to a File</string>
+    <string>Salvar Comando Quicksilver para um Arquivo</string>
     <key>FileRenameAction</key>
     <string>Renomeia um arquivo</string>
     <key>QSObjectSearchChildrenAction</key>
