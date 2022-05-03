@@ -87,7 +87,7 @@
     <key>AppQuitOthersAction</key>
     <string>Encerrar todos outros Aplicativos</string>
     <key>URLEmailAction</key>
-    <string>Escreva um E-mail usando mailto:</string>
+    <string>Compor um E-mail usando mailto:</string>
     <key>AppleScriptProcessTextAction</key>
     <string>Execute an AppleScript with Text</string>
     <key>FileToTrashAction</key>
