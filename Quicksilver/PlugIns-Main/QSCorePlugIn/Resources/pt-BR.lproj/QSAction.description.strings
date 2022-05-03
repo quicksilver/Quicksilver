@@ -53,7 +53,7 @@
     <key>QSObjectSelectAction</key>
     <string>Selecionar o item na Interface do Quicksilver</string>
     <key>FileGetInfoAction</key>
-    <string>Open &apos;Get Info&apos; Dialog for File</string>
+    <string>Abrir Diálogo &apos;Obter Informações&quot; para Arquivo</string>
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>Set File Type to always open with one Application</string>
     <key>QSCommandSaveAction</key>
