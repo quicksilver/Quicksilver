@@ -59,7 +59,7 @@
     <key>QSCommandSaveAction</key>
     <string>Salvar Comando Quicksilver para um Arquivo</string>
     <key>FileRenameAction</key>
-    <string>Renomeia um arquivo</string>
+    <string>Renomear um Arquivo</string>
     <key>QSObjectSearchChildrenAction</key>
     <string>Mostra o conteúdo do ítem colocando o Quicksilver no modo de filtro</string>
     <key>QSObjectAssignMnemonic</key>
