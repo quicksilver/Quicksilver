@@ -79,7 +79,7 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Vytvořit zástupce %@ do %@</string>
+    <string>Vytvořit zástupce %1$@ do %2$@</string>
     <key>FileMakeHardLinkInAction</key>
     <string>Vytvořit hard link %@ do %@</string>
     <key>FileMakeLinkInAction</key>
