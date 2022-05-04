@@ -47,7 +47,7 @@
     <key>AppRootLaunchAction</key>
     <string>Spustit %@ jako administrátor</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>AppleScriptProcessTextAction</key>
     <string>Zpracovat %@ pomocí %@</string>
     <key>AppleScriptRunAction</key>
