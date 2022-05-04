@@ -44,6 +44,10 @@
     <string>Zobrazí text v dialogu</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Otevře obsah položky v aplikaci Quicksilver</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Zobrazit vybrané výsledky</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Zaznamenat podrobnosti o tomto objektu do Konzole</string>
     <key>QSShellScriptRunAction</key>
     <string>Spustí Shell skript</string>
     <key>QSObjectSelectAction</key>
