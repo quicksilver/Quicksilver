@@ -97,7 +97,7 @@
     <key>FileToTrashAction</key>
     <string>Přesunout %@ do Koše</string>
     <key>ItemSendToContactEmailAction</key>
-    <string>E-mail %@ pro %@</string>
+    <string>E-mail %1$@ pro %2$@</string>
     <key>ItemSendToContactIMAction</key>
     <string>IM %1$@ pro %2$@</string>
     <key>PasteboardCopyAction</key>
