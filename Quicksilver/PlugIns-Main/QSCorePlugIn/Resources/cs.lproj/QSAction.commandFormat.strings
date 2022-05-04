@@ -99,7 +99,7 @@
     <key>ItemSendToContactEmailAction</key>
     <string>E-mail %@ pro %@</string>
     <key>ItemSendToContactIMAction</key>
-    <string>IM %@ pro %@</string>
+    <string>IM %1$@ pro %2$@</string>
     <key>PasteboardCopyAction</key>
     <string>Kopírovat %@ do Schránky</string>
     <key>PasteboardPasteAction</key>
