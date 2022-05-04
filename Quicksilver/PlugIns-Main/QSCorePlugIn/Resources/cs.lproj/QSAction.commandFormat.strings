@@ -61,7 +61,7 @@
     <key>FileCompressAction</key>
     <string>Zkomprimovat %@</string>
     <key>FileCopyToAction</key>
-    <string>Kopírovat %@ do %@</string>
+    <string>Kopírovat %1$@ do %2$@</string>
     <key>FileDecompressAction</key>
     <string>Dekomprimovat %@</string>
     <key>FileDeleteAction</key>
