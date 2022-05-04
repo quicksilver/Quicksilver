@@ -13,7 +13,7 @@
     <key>AppShowHideAction</key>
     <string>Přepnout viditelnost %@</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Vždy otevřít %@ pomocí %@</string>
+    <string>Vždy otevřít %1$@ pomocí %2$@</string>
     <key>QSCommandSaveAction</key>
     <string>Uložit %@ do souboru</string>
     <key>PasteboardPasteActionAsPlainText</key>
