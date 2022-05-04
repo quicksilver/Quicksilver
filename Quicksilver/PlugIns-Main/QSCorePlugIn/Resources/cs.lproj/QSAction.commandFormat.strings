@@ -49,7 +49,7 @@
     <key>AppleScriptOpenFilesAction</key>
     <string>Otevřít %1$@ pomocí %2$@</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Zpracovat %@ pomocí %@</string>
+    <string>Zpracovat %1$@ pomocí %2$@</string>
     <key>AppleScriptRunAction</key>
     <string>Spustit skript: %@</string>
     <key>AppleScriptRunTextAction</key>
