@@ -85,7 +85,7 @@
     <key>FileMakeLinkInAction</key>
     <string>Vytvořit link %1$@ do %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Přesunout %@ do %@</string>
+    <string>Přesunout %1$@ do %2$@</string>
     <key>FileOpenAction</key>
     <string>Otevřít %@</string>
     <key>FileOpenWithAction</key>
