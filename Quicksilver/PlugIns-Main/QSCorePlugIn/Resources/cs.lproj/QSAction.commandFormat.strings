@@ -35,7 +35,7 @@
     <key>AppLaunchAsRootAction</key>
     <string>Spusit %@ jako administrátor</string>
     <key>AppOpenFileAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>AppQuitAction</key>
     <string>Ukončit %@</string>
     <key>AppQuitOthersAction</key>
