@@ -1,0 +1,51 @@
+
+/* Class = "NSWindow"; title = "Results"; ObjectID = "9"; */
+"9.title" = "Résultatsart has been assigned";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "43"; */
+"43.ibShadowedToolTip" = "Terme de recherche";
+
+/* Class = "NSTableColumn"; headerCell.title = "Results"; ObjectID = "60"; */
+"60.headerCell.title" = "Résultats";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Selected item information"; ObjectID = "130"; */
+"130.ibShadowedToolTip" = "Informations sur l’élément sélectionné";
+
+/* Class = "NSTableColumn"; headerCell.title = "•"; ObjectID = "143"; */
+"143.headerCell.title" = "•";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "231"; */
+"231.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Sort by Name"; ObjectID = "237"; */
+"237.title" = "Trier par nom";
+
+/* Class = "NSMenuItem"; title = "Sort by Score"; ObjectID = "238"; */
+"238.title" = "Trier par score";
+
+/* Class = "NSMenu"; title = "Search Mode ⌘←/⌘→"; ObjectID = "265"; */
+"265.title" = "Mode de recherche ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Search Mode ⌘←/⌘→"; ObjectID = "266"; */
+"266.title" = "Mode de recherche ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Snap to Best"; ObjectID = "267"; */
+"267.title" = "Rester sur le meilleur";
+
+/* Class = "NSMenuItem"; title = "Filter Results"; ObjectID = "268"; */
+"268.title" = "Filtrerésultats les r";
+
+/* Class = "NSMenuItem"; title = "Filter Catalog"; ObjectID = "269"; */
+"269.title" = "Catalogue de filtres";
+
+/* Class = "NSTextFieldCell"; title = "SEARCH"; ObjectID = "282"; */
+"282.title" = "RECHERCHE";
+
+/* Class = "NSTextFieldCell"; title = "Details"; ObjectID = "283"; */
+"283.title" = "Détails";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "307"; */
+"307.ibShadowedToolTip" = "Terme de recherche";
+
+/* Class = "NSTextFieldCell"; title = "RESULTS MODE"; ObjectID = "308"; */
+"308.title" = "MODE RMalcolm Low.11.02.2015.Fisher";
