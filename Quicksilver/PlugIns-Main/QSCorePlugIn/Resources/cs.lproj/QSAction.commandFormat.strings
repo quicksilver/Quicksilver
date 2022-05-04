@@ -5,7 +5,7 @@
     <key>QSCommandExecuteAtTimeAction</key>
     <string>Vykonat %@ v čase</string>
     <key>QSCreateFileAction</key>
-    <string>Vytvořit nový soubor obsahující %@ ve složce %@</string>
+    <string>Vytvořit nový soubor obsahující %1$@ ve složce %2$@</string>
     <key>QSCommandAddTriggerAction</key>
     <string>Přidat %@ jako spouštěč</string>
     <key>QSCommandExecuteAction</key>
