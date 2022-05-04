@@ -81,7 +81,7 @@
     <key>FileMakeAliasInAction</key>
     <string>Vytvořit zástupce %1$@ do %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Vytvořit hard link %@ do %@</string>
+    <string>Vytvořit hard link %1$@ do %2$@</string>
     <key>FileMakeLinkInAction</key>
     <string>Vytvořit link %1$@ do %2$@</string>
     <key>FileMoveToAction</key>
