@@ -19,7 +19,7 @@
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Vložti %@ jako prostý text</string>
     <key>QSCreateFileTemplate</key>
-    <string>Ve složce %@ vytvořit nový soubor předlohy %@</string>
+    <string>Ve složce %1$@ vytvořit nový soubor předlohy %2$@</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Vykonat %@ po prodlevě</string>
     <key>AppActivateAction</key>
