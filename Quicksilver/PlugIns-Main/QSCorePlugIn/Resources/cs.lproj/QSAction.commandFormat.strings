@@ -89,7 +89,7 @@
     <key>FileOpenAction</key>
     <string>Otevřít %@</string>
     <key>FileOpenWithAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>FileRenameAction</key>
     <string>Přejmenovat %1$@ na %2$@</string>
     <key>FileRevealAction</key>
