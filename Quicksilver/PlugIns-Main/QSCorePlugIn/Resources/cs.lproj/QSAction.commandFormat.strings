@@ -83,7 +83,7 @@
     <key>FileMakeHardLinkInAction</key>
     <string>Vytvořit hard link %@ do %@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Vytvořit link %@ do %@</string>
+    <string>Vytvořit link %1$@ do %2$@</string>
     <key>FileMoveToAction</key>
     <string>Přesunout %@ do %@</string>
     <key>FileOpenAction</key>
