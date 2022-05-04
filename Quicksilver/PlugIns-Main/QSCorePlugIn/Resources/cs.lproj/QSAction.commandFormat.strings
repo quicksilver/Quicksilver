@@ -187,6 +187,6 @@
     <key>URLSearchAction</key>
     <string>Hledat %@</string>
     <key>URLSearchForAction</key>
-    <string>Hledat %@ v %@</string>
+    <string>Hledat %1$@ v %2$@</string>
   </dict>
 </plist>
