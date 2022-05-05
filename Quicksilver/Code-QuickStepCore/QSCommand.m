@@ -332,6 +332,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 }
 
+- (BOOL)canThread {
+	if ([dObject isKindOfClass:[QSAction class]]) {
+		return [(QSAction *)dObject canThread];
+	}
+	return [aObject canThread];
+}
+
 - (QSAction *)aObject {
     QSAction *action = aObject;
 	if (action) {

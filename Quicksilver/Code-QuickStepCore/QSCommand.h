@@ -31,6 +31,10 @@
 - (QSObject *)dObject;
 - (QSAction *)aObject;
 - (QSObject *)iObject;
+
+// returns YES if the current QSCommand can execute threaded (in a background thread, and not on the main thread)
+- (BOOL)canThread;
+
 - (void)setDirectObject:(QSObject*)dObject;
 - (void)setActionObject:(QSAction*)aObject;
 - (void)setIndirectObject:(QSObject*)iObject;
