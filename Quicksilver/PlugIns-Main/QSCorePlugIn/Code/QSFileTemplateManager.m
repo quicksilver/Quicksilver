@@ -49,12 +49,11 @@
 }
 - (QSObject *)templateFromFile:(NSString *)path {
 	QSObject *fileObject = [QSObject fileObjectWithPath:path];
-	[fileObject setLabel:[[path lastPathComponent] stringByDeletingPathExtension]];
-
-    CFStringRef kind = NULL;
-	LSCopyKindStringForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path] , &kind);
-    [fileObject setDetails:(__bridge NSString *)kind];
-    CFRelease(kind);
+	
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSString *type = nil;
+	[url getResourceValue:&type forKey:NSURLLocalizedTypeDescriptionKey error:nil];
+    [fileObject setLabel:[NSString stringWithFormat:NSLocalizedString(@"%@ Template (%@)", @"Name format for the 'Make New...' action. First argument is typically one of 'Text', 'HTML', 'Python' etc."), [type localizedCapitalizedString], [[[path lastPathComponent] stringByDeletingPathExtension] localizedCapitalizedString]]];
 	return fileObject;
 }
 @end
