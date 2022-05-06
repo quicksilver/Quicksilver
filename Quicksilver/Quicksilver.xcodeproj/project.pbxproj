@@ -1855,6 +1855,8 @@
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
+		CD98DB612825EBF300D392F9 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/ResultWindow.strings"; sourceTree = "<group>"; };
+		CD98DB692825EBF700D392F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ResultWindow.strings; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
 		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
@@ -6244,6 +6246,8 @@
 			children = (
 				CDA308182820BF9C002D4F64 /* Base */,
 				CDA3081B2820BF9F002D4F64 /* en */,
+				CD98DB612825EBF300D392F9 /* es-ES */,
+				CD98DB692825EBF700D392F9 /* fr */,
 			);
 			name = ResultWindow.xib;
 			sourceTree = "<group>";
