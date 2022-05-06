@@ -206,7 +206,7 @@
                         </connections>
                     </textField>
                     <textField toolTip="Search string" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="307">
-                        <rect key="frame" x="225" y="183" width="72" height="13"/>
+                        <rect key="frame" x="180" y="183" width="117" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" alignment="right" title="RESULTS MODE" id="308">
                             <font key="font" metaFont="systemBold" size="10"/>
