@@ -14,6 +14,10 @@
 * Mouse and Keyboard Trigger icons are now high-res (#2755)
 * "Latest Download" proxy object can now find downloads in folders with spaces (#2751)
 * Occasional bugs when opening Quicksilver's preferences (#2754)
+* Improved descriptions for the 'Make New...' action templates
+* Fix crash with the 'Make New...' action in certain cases
+* Fix occasional crash when actions are set to run in the background
+* Fix triggers using the hotkey F14 did not work properly (#2863)
 
 ## Changes - 2.1.0 (4032) 2022-04-23 ##
 
