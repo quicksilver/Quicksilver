@@ -120,12 +120,19 @@ git:
       source_language: en_US
       file_format: STRINGS
 
+    - filter_type: file
+      translation_files_expression: 'Quicksilver/Resources/<lang>.lproj/Guide.html'
+      source_file: Quicksilver/Resources/en.lproj/Guide.html
+      source_language: en_US
+      file_format: HTML
+
     - filter_type: dir
       translation_files_expression: 'Quicksilver/Nibs/<lang>.lproj'
       source_file_dir: Quicksilver/Nibs/en.lproj
       source_file_extension: strings
       file_format: STRINGS
       source_language: en_US
+
  
   settings:
       language_mapping:
