@@ -666,7 +666,7 @@
 		// this ensures the interface is hidden before an action is run e.g. the 'capture screen region' and 'type text' actions needs this
 		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
 	}
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [[self currentCommand] canThread]) {
         QSGCDAsync(^{
             [self executeCommandThreaded];
         });
