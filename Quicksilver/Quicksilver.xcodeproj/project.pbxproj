@@ -202,7 +202,6 @@
 		7F35FC7D07F8D8BB0056051D /* QSPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F35FC7C07F8D8BB0056051D /* QSPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */; };
 		7F46BFDD0A87F37F002D31E8 /* prefsGeneral.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */; };
-		7F4AD9160A4DA3D1002A2A1B /* Guide.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7F4AD9150A4DA3D1002A2A1B /* Guide.html */; };
 		7F4ADAFE0A4DDA33002A2A1B /* Pref-Catalog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADAFA0A4DDA33002A2A1B /* Pref-Catalog.png */; };
 		7F4ADAFF0A4DDA33002A2A1B /* Pref-PlugIns.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADAFB0A4DDA33002A2A1B /* Pref-PlugIns.png */; };
 		7F4ADB000A4DDA33002A2A1B /* Pref-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADAFC0A4DDA33002A2A1B /* Pref-Settings.png */; };
@@ -383,6 +382,7 @@
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
+		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
 		CDA307E7282050A2002D4F64 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */; };
@@ -1124,7 +1124,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 12;
 			files = (
-				7F4AD9160A4DA3D1002A2A1B /* Guide.html in Copy SharedSupport */,
 				7FA4EF270913AF3B007DB407 /* Changes.html in Copy SharedSupport */,
 				7F8C65A50811728E0051113C /* Credits.html in Copy SharedSupport */,
 			);
@@ -1340,7 +1339,6 @@
 		7F35FC7C07F8D8BB0056051D /* QSPaths.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPaths.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+BLTRExtensions.m"; sourceTree = "<group>"; usesTabs = 1; };
 		7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prefsGeneral.png; sourceTree = "<group>"; };
-		7F4AD9150A4DA3D1002A2A1B /* Guide.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = Guide.html; sourceTree = "<group>"; };
 		7F4ADAFA0A4DDA33002A2A1B /* Pref-Catalog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-Catalog.png"; sourceTree = "<group>"; };
 		7F4ADAFB0A4DDA33002A2A1B /* Pref-PlugIns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-PlugIns.png"; sourceTree = "<group>"; };
 		7F4ADAFC0A4DDA33002A2A1B /* Pref-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-Settings.png"; sourceTree = "<group>"; };
@@ -1857,6 +1855,9 @@
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD98DB612825EBF300D392F9 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/ResultWindow.strings"; sourceTree = "<group>"; };
 		CD98DB692825EBF700D392F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ResultWindow.strings; sourceTree = "<group>"; };
+		CD98DB6B2825F4E800D392F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Guide.html; sourceTree = "<group>"; };
+		CD98DB6D2825F4F400D392F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Guide.html; sourceTree = "<group>"; };
+		CD98DB6E2825F51F00D392F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = fr; path = fr.lproj/Guide.html; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
 		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
@@ -3228,7 +3229,7 @@
 		E103EC5006471DBE00447FE0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7F4AD9150A4DA3D1002A2A1B /* Guide.html */,
+				CD98DB6C2825F4E800D392F9 /* Guide.html */,
 				7F8403BD096A05E4006E6F0E /* GettingStarted.html */,
 				7F841766096CB23B006E6F0E /* GettingSupport.html */,
 				CDDB44ED1518ED3800800B66 /* CrashReporterText.html */,
@@ -4679,6 +4680,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */,
 				E1A2B21406F954F80084C47B /* wildcard.* in Resources */,
 				7F9704EB09B0A15F00E9EA77 /* QSDroplet.app in Resources */,
 				7F73BC66084787A500D01BDB /* QSStyle.css in Resources */,
@@ -6221,6 +6223,16 @@
 				CD59114C1B6FEA4A00A7BF02 /* en-GB */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		CD98DB6C2825F4E800D392F9 /* Guide.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD98DB6B2825F4E800D392F9 /* Base */,
+				CD98DB6D2825F4F400D392F9 /* en */,
+				CD98DB6E2825F51F00D392F9 /* fr */,
+			);
+			name = Guide.html;
 			sourceTree = "<group>";
 		};
 		CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */ = {

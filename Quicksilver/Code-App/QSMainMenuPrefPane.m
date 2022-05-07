@@ -79,7 +79,7 @@
 }
 
 - (IBAction)goHome:(id)sender {
-	[[guideView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Guide.html"]]]];
+	[[guideView mainFrame] loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"Guide" withExtension:@"html"]]];
 }
 
 - (IBAction)showInBrowser:(id)sender {

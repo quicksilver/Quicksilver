@@ -780,7 +780,7 @@ static QSController *defaultController = nil;
     NSURL *appURL = nil;
     CFURLRef *appURLRefPointer = (void *)&appURL;
     LSGetApplicationForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, appURLRefPointer);
-    [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"] withApplication:[appURL path]];
+    [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] sharedSupportPath] stringByAppendingPathComponent:@"Changes.html"] withApplication:[appURL path]];
 }
 
 - (QSInterfaceController *)interfaceController { return [QSReg preferredCommandInterface];  }
