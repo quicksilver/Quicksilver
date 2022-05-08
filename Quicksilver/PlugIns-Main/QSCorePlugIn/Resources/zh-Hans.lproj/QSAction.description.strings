@@ -44,6 +44,10 @@
     <string>在弹出对话框中显示文本</string>
     <key>QSObjectShowChildrenAction</key>
     <string>在Quicksilver中打开项目内容</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>在结果列表中显示当前条目</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>将此对象的详细信息记录到控制台</string>
     <key>QSShellScriptRunAction</key>
     <string>运行Shell脚本</string>
     <key>QSObjectSelectAction</key>
