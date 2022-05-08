@@ -1,20 +1,128 @@
-﻿"Box" = "Box";
-"Command Interface:" = "命令界面";
-"Defaults" = "默认";
-"Load Icons for all results" = "为所有结果加载图标";
-"Bezels have shadows" = "Bezels显示阴影";
-"Customize" = "自定义";
-"Superfluous visual effects" = "Superfluous视觉效果";
-"Bezels:" = "Bezels：";
-"Enable eye-candy" = "启用养眼效果";
-"Load Previews" = "加载预览";
-"Headers:" = "题头：";
-"Selection & Accents" = "选择与强调";
-"Bezels are glass" = "Bezels玻璃";
+/* File extracted from ./Nibs/QSAppearancePrefPane.xib by stringstool v1.0*/
+
+/* 12.title */
+"<< do not localize >>" = "<< do not localize >>";
+
+/* Z2c-mk-eka.title */
+"Add Glow to Matched Text" = "突出显示匹配文本";
+
+/* 3x8-3C-Qos.ibShadowedToolTip */
+"Add a glow to the searched for characters in an item’s name" = "将条目名称中与搜索文字相匹配的内容突出显示";
+
+/* tWF-dQ-7J6.title */
+"Always Show Name" = "总是显示文件名";
+
+/* 107.ibShadowedToolTip */
 "Background" = "背景";
-"Menu Bar" = "菜单栏";
-"Preview" = "预览";
-"Text" = "文本";
-"Lists:" = "列表：";
-"Window" = "窗口";
+
+/* 106.ibShadowedToolTip */
+"Background color for the selected pane in the main window" = "主窗口选择面板背景颜色";
+
+/* 121.ibShadowedToolTip */
+"Background color of the main window" = "主窗口背景颜色";
+
+/* 122.ibShadowedToolTip */
+"Background color of the results list" = "结果列表背景颜色";
+
+/* 196.title */
+"Bezels are glass" = "Bezels玻璃";
+
+/* 197.title */
+"Bezels have shadows" = "Bezels显示阴影";
+
+/* 188.ibShadowedToolTip */
+"Click to customise the interface" = "点击以定制界面";
+
+/* 117.ibShadowedToolTip */
+"Color of the results list selected row" = "结果列表中选定行的颜色";
+
+/* 216.title */
+"Colors" = "颜色";
+
+/* 4UN-QX-5xq.title */
+"Compress Long Names" = "压缩显示长文件名";
+
+/* 209.title */
+"Customize" = "自定义";
+
+/* 205.title */
+"Defaults" = "默认";
+
+/* 98.ibShadowedToolTip */
+"Enable eye-candy" = "启用养眼效果";
+
+/* 123.ibShadowedToolTip */
+"Header and footer background color in the result list" = "结果列表顶栏和底栏的背景颜色";
+
+/* 212.title */
+"Interface" = "界面";
+
+/* 105.ibShadowedToolTip */
 "Interface type" = "界面类型";
+
+/* 204.title */
+"Main Window:" = "主窗口";
+
+/* 214.title */
+"Make the interface pop in and out" = "启用界面弹入弹出";
+
+/* 102.title */
+"Menu Bar" = "菜单栏";
+
+/* 104.title */
+"OtherViews" = "其它视图";
+
+/* 210.title */
+"Preview" = "预览";
+
+/* 190.ibShadowedToolTip */
+"Preview the colour changes in the interface" = "预览界面中颜色变化";
+
+/* 201.title */
+"Result Headers:" = "结果顶栏:";
+
+/* 202.title */
+"Result Lists:" = "结果列表:";
+
+/* 195.title */
+"Select Interface:" = "选择界面:";
+
+/* 119.ibShadowedToolTip */
+"Selection & Accents" = "选择与强调";
+
+/* 194.title */
+"Superfluous visual effects" = "Superfluous视觉效果";
+
+/* 113.ibShadowedToolTip */
+"Text" = "文本";
+
+/* 109.ibShadowedToolTip */
+"Text color in the main window" = "主窗口文本显示颜色";
+
+/* 118.ibShadowedToolTip */
+"Text color in the results list rows" = "结果列表行文本颜色";
+
+/* 108.ibShadowedToolTip */
+"Text color of the result window header/footer text" = "结果列表窗口顶栏/底栏文本显示颜色";
+
+/* RuL-qQ-Adf.title */
+"Underline Matched Text" = "下划线标示匹配文本";
+
+/* dSq-e1-t7W.ibShadowedToolTip */
+"Underline the searched for characters in an item’s name" = "使用下划线标示条目名称中相应搜索文字";
+
+/* 127.ibShadowedToolTip */
+"Unused" = "未使用";
+
+/* 218.title */
+"Use the palette below to alter the colors of the interface" = "使用如下调色盘改变界面颜色搭配";
+
+/* QE0-Cl-LSL.ibShadowedToolTip */
+"When the item’s name can’t fit, try squeezing letters together before truncating" = "当条目名称太长不能在结果窗口全部显示时，截断文字前先尝试所有文字挤在一起";
+
+/* Xq1-Sv-bTE.ibShadowedToolTip */
+"When the search matches an item’s label, keep the name visible" = "当搜索匹配条目标签时，保持条目名称可见";
+
+/* 115.title */
+"Window" = "窗口";
+
