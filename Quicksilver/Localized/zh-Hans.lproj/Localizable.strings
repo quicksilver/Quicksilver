@@ -20,7 +20,7 @@
 // QSController.m Alerts
 "requires" = "要求";
 /* Message displayed for users who don't have a supported OS. 1st %@ is the latest version required (e.g. 10.7 Lion), 2nd %@ is a list of previous OS X versions (e.g. 10.3–10.6) */
-"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php" = "Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php";
+"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php" = "Quicksilver最新版本需要macOS %@. 旧 %@ 兼容版本请前往";
 
 "Quicksilver Crashed" = "Quicksilver 崩溃了";
 
