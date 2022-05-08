@@ -129,7 +129,7 @@
     <key>QSPresetMainApplications</key>
     <string>应用程序</string>
     <key>QSPresetSystemApplications</key>
-    <string>系统应用程序</string>
+    <string>系统程序</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>其它</string>
     <key>QSPresetModules</key>
