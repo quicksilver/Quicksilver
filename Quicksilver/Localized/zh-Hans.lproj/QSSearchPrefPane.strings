@@ -37,7 +37,7 @@
 "Enter the hotkey you want to use to display Quicksilver" = "输入你用以启动Quicksilver的快捷键";
 
 /* 351.title */
-"Focus action when displaying results" = "显示结果时聚集动作";
+"Focus action when displaying results" = "返回运行结果后聚焦于动作面板";
 
 /* 166.title */
 "Function" = "功能";
