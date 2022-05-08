@@ -17,7 +17,8 @@
 * Improved descriptions for the 'Make New...' action templates
 * Fix crash with the 'Make New...' action in certain cases
 * Fix occasional crash when actions are set to run in the background
-* Fix triggers using the hotkey F14 did not work properly (#2863)
+* Fix triggers that used F14 as the hotkey (#2863)
+* Fix crash when running Quicksilver for the first time on a new computer (#2760)
 
 ## Changes - 2.1.0 (4032) 2022-04-23 ##
 
