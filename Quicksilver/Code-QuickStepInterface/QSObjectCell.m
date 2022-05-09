@@ -620,12 +620,14 @@
 		[menu addItem:[NSMenuItem separatorItem]];
 	}
 	item = [[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
-  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
-  [menu addItem:item];
-  item = [[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
-  [item setTarget:[self controlView]];
-  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
-  [menu addItem:item];
+	[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
+	[menu addItem:item];
+	if ([[self controlView] respondsToSelector:@selector(delete:)]) {
+		item = [[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
+		[item setTarget:[self controlView]];
+		[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
+		[menu addItem:item];
+	}
 	return menu;
 }
 
