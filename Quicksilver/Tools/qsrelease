@@ -1,22 +1,19 @@
 #!/bin/sh
 
 set -euf
+set -x
 
 TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
 
-# Default to x86_64 for CI builds
-if [ -n "${CI:-}" ]; then
-  CURRENT_ARCH=x86_64
-else
-  CURRENT_ARCH=$(arch)
-fi
+CURRENT_ARCH=$(uname -m)
 
-## Quicksilver Release build
+CONFIGURATION=${1-Release}
+
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
 xcodebuild \
   -destination generic/platform=macos \
-  -configuration Release \
+  -configuration "${CONFIGURATION}" \
   -scheme 'Quicksilver Distribution' \
   -showBuildSettings |
   sort -u > "${SETTINGS}"
@@ -39,20 +36,20 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 {
   xcodebuild \
     -destination generic/platform=macos \
-    -configuration Release \
+    -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
     clean || true
 
   # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
   xcodebuild \
     -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-    -configuration Release \
+    -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
     test || true
 
   xcodebuild \
     -destination generic/platform=macos \
-    -configuration Release \
+    -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
     build
 } > "${LOG}"
