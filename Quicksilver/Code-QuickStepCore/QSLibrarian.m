@@ -552,11 +552,13 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
-	self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
-	self.scanTask.progress = -1;
-	[self.scanTask start];
     dispatch_async(scanning_queue, ^{
         @autoreleasepool {
+			QSGCDMainAsync(^{
+				self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
+				self.scanTask.progress = -1;
+				[self.scanTask start];
+			});
 
             NSArray *children = [self->catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
