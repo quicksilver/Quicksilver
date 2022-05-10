@@ -202,6 +202,10 @@
     <string>Zobrazit nabídku akcí</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Zobrazit obsah</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Rozbalit výběr</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Záznam objektu do Konzole</string>
     <key>QSObjectShowSourceAction</key>
     <string>Zobrazit zdroj v katalogu</string>
     <key>QSPutOnShelfAction</key>
