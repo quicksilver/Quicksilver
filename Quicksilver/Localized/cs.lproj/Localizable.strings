@@ -63,3 +63,19 @@
 "Type to search" = "Pro hledání zadejte text";
 
 "Choose Location..." = "Vybrat umístění…";
+
+// ---------------
+
+// ResultWindow
+
+/* No comment provided by engineer. */
+"%d of %d" = "%1$d z %2$d";
+
+/* Search mode shown in top right hand of results view when filtering catalog */
+"Filter Catalog" = "Filtrovat katalog";
+
+/* Search mode shown in top right hand of results view when filtering just the results */
+"Filter Results" = "Filtrovat výsledky";
+
+/* Search mode shown in top right hand of results when snapping to best option */
+"Snap to Best" = "Vybrat nejlepší";
