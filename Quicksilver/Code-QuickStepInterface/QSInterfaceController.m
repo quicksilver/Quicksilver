@@ -799,8 +799,8 @@
 #pragma mark -
 #pragma mark NSResponder overrides
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-	if (([theEvent modifierFlags] & NSCommandKeyMask) && 
-       ([theEvent modifierFlags] & NSShiftKeyMask) && 
+	if (([theEvent modifierFlags] & NSEventModifierFlagCommand) &&
+		([theEvent modifierFlags] & NSEventModifierFlagShift) && 
        ([[theEvent characters] length]) && 
        ([[NSCharacterSet letterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]])) {
 		return [[self aSelector] executeText:(NSEvent *)theEvent];

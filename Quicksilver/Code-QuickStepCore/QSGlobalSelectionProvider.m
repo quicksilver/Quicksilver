@@ -163,8 +163,8 @@
 }
 
 - (BOOL)bypassValidation {
-	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+	NSRunningApplication *app = [[NSWorkspace sharedWorkspace] frontmostApplication];
+	NSString *identifier = [app bundleIdentifier];
 	if ([identifier isEqualToString:kQSBundleID])
 		return YES;
 	else

@@ -77,7 +77,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (BOOL)shouldSendEvent:(NSEvent *)event {
-	if ([event type] == NSKeyDown) {
+	if ([event type] == NSEventTypeKeyDown) {
 		[self keyDown:event];
 		return NO;
 	} else {
@@ -130,7 +130,7 @@
 	unsigned short keyCode = [theEvent keyCode];
 	NSString *characters = [theEvent charactersIgnoringModifiers];
 	//	NSLog(@"event %@", theEvent);
-	if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
+	if ([theEvent modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagFunction | NSEventModifierFlagControl | NSEventModifierFlagOption) ) {
 	  	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode], @"keyCode", characters, @"character", nil];
 		validCombo = YES;
 		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataWithPropertyList:dict format:NSPropertyListXMLFormat_v1_0 options:0 error:nil] encoding:NSUTF8StringEncoding];
@@ -237,7 +237,7 @@
 
 	//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[self setBackgroundColor:[NSColor selectedTextBackgroundColor]];
-	[setButton setState:NSOnState];
+	[setButton setState:NSControlStateValueOn];
 	[[self cell] setPlaceholderString:[self stringValue]];
 	[self setStringValue:@"Set Keys"];
 	[[self window] display];
@@ -247,12 +247,12 @@
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	BOOL collectEvents = YES;
 	while(collectEvents) {
-		theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask | NSFlagsChangedMask | NSLeftMouseDownMask | NSAppKitDefinedMask | NSSystemDefinedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:10.0] inMode:NSDefaultRunLoopMode dequeue:YES];
+		theEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyDown | NSEventMaskFlagsChanged | NSEventMaskLeftMouseDown | NSEventMaskAppKitDefined | NSEventMaskSystemDefined untilDate:[NSDate dateWithTimeIntervalSinceNow:10.0] inMode:NSDefaultRunLoopMode dequeue:YES];
 		switch ([theEvent type]) {
 			case NSEventTypeKeyDown: {
 //				unsigned short keyCode = [theEvent keyCode];
 //				NSString *characters = (keyCode == 48) ? @"\t" : [theEvent charactersIgnoringModifiers];
-				if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
+				if ([theEvent modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagFunction | NSEventModifierFlagControl | NSEventModifierFlagOption) ) {
 					[self setHotKey:[self hotKeyDictForEvent:theEvent]];
 					collectEvents = NO;
 				} else if ([theEvent keyCode] == 53) { //Escape
@@ -291,7 +291,7 @@
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	[self updateStringForHotKey];
 	[self setBackgroundColor:[NSColor textBackgroundColor]];
-	[setButton setState:NSOffState];
+	[setButton setState:NSControlStateValueOff];
 }
 
 

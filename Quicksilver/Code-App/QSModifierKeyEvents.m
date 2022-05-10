@@ -20,7 +20,7 @@
 #define NSControlKeyCode 59
 #define NSFunctionKeyCode 63
 
-NSInteger NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask | NSFunctionKeyMask;
+NSInteger NSAllModifierKeysMask = NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagCommand | NSEventModifierFlagFunction;
 
 
 NSMutableDictionary *modifierKeyEvents = nil;
@@ -34,7 +34,7 @@ BOOL capsLockIsOn = NO;
 
 + (void)enableModifierEvents {
     modifierEventsEnabled = YES;
-    capsLockIsOn = ([NSEvent modifierFlags] & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+	capsLockIsOn = ([NSEvent modifierFlags] & NSEventModifierFlagCapsLock) == NSEventModifierFlagCapsLock;
 }
 
 + (void)disableModifierEvents {modifierEventsEnabled = NO;}
@@ -44,13 +44,13 @@ BOOL capsLockIsOn = NO;
 	if (!modifierEventsEnabled) return;
 	if (!modifierKeyEvents) return;
 
-	NSUInteger mods = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	NSUInteger mods = [theEvent modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 
-	BOOL capsLockIsNowOn = (mods & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+	BOOL capsLockIsNowOn = (mods & NSEventModifierFlagCapsLock) == NSEventModifierFlagCapsLock;
 	if (capsLockIsNowOn != capsLockIsOn) {
-		mods |= NSAlphaShiftKeyMask;
+		mods |= NSEventModifierFlagCapsLock;
 	} else {
-		mods &= ~NSAlphaShiftKeyMask;
+		mods &= ~NSEventModifierFlagCapsLock;
 	}
 	capsLockIsOn = capsLockIsNowOn;
 
@@ -65,17 +65,17 @@ BOOL capsLockIsOn = NO;
 
 	BOOL modsAdded = mods > lastModifiers;
 
-	lastModifiers = mods & ~NSAlphaShiftKeyMask;
+	lastModifiers = mods & ~NSEventModifierFlagCapsLock;
 	[match checkForModifierTap:modsAdded];
 }
 
 + (void)regisiterForGlobalModifiers {
     // global monitor for when QS isn't active
-    [NSEvent addGlobalMonitorForEventsMatchingMask:NSFlagsChangedMask handler:^(NSEvent *theEvent) {
+	[NSEvent addGlobalMonitorForEventsMatchingMask:NSEventMaskFlagsChanged handler:^(NSEvent *theEvent) {
         [self checkForModifierEvent:theEvent];
     }];
     // local monitor for flags changed events when QS is active
-    [NSEvent addLocalMonitorForEventsMatchingMask:NSFlagsChangedMask handler:^NSEvent *(NSEvent *theEvent) {
+	[NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskFlagsChanged handler:^NSEvent *(NSEvent *theEvent) {
         [self checkForModifierEvent:theEvent];
         // return the event as is, incase anywhere else wants to use it (e.g. QSSearchObjectView.m:flagsChanged - to show alternate actions)
         return theEvent;
@@ -83,7 +83,7 @@ BOOL capsLockIsOn = NO;
 }
 
 + (void)initialize {
-	capsLockIsOn = ([NSEvent modifierFlags] & NSAlphaShiftKeyMask) == NSAlphaShiftKeyMask;
+	capsLockIsOn = ([NSEvent modifierFlags] & NSEventModifierFlagCapsLock) == NSEventModifierFlagCapsLock;
 
 	[self regisiterForGlobalModifiers];
 }
@@ -141,7 +141,7 @@ BOOL capsLockIsOn = NO;
         [self performSelector:@selector(resetTimesKeysPressed:) withObject:nil afterDelay:window extend:YES];
 
         // Workaround: CapsLock does not generate keyUp events -> simulate keyUp right after keyDown.
-        if (self.modifierActivationMask & NSAlphaShiftKeyMask) {
+		if (self.modifierActivationMask & NSEventModifierFlagCapsLock) {
         	modsAdded = NO;
         }
     }

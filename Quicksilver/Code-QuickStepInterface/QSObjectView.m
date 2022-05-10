@@ -99,10 +99,10 @@
 				[[self cell] drawInteriorWithFrame:NSMakeRect(0, 0, [dragImage size] .width, [dragImage size] .height) inView:self];
 				[dragImage unlockFocus];
 //				NSSize dragOffset = NSMakeSize(0.0, 0.0); // Just use NSZeroSize: Ankur, 21 Dec
-				if (!([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ) {
-					NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+				if (!([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ) {
+					NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSPasteboardNameDrag];
 					[[self objectValue] putOnPasteboard:pboard includeDataForTypes:nil];
-					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:NSZeroSize event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask)];
+					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:NSZeroSize event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand)];
 				} else {
 					NSPoint dragPosition;
 					NSRect imageLocation;
@@ -116,7 +116,7 @@
 
 			}
 		break;
-		case NSLeftMouseUp:
+		case NSEventTypeLeftMouseUp:
 			[self mouseClicked:theEvent];
 		break;
 		default:
@@ -232,7 +232,7 @@
 
 - (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
 	if (isLocal) return NSDragOperationMove;
-	else return ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask) ? NSDragOperationNone : NSDragOperationEvery;
+	else return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) ? NSDragOperationNone : NSDragOperationEvery;
 }
 
 - (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation {
@@ -271,7 +271,7 @@
 		cursor = [NSCursor informativeCursorWithString:@"Select"];
 		[cursor set];
 		[[self cell] setHighlighted:NO];
-	} else if ([[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
+	} else if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagControl) {
 		cursor = [NSCursor informativeCursorWithString:@"Choose Action..."];
 		[cursor performSelector:@selector(set) withObject:nil afterDelay:0.0];
 		operation = NSDragOperationPrivate;
@@ -302,7 +302,7 @@
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
 	NSString *action = [[self objectValue] actionForDragOperation:lastDragMask withObject:draggedObject];
 
-	if ([[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
+	if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagControl) {
         if ([[[self objectValue] resolvedObject] respondsToSelector:@selector(actionsMenu)]) {
             NSMenu *actionsMenu = [[[self objectValue] resolvedObject] performSelector:@selector(actionsMenu)];
             [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];

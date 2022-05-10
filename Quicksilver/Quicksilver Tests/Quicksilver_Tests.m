@@ -110,7 +110,7 @@
 	XCTAssertTrue([self isViewVisible:[i iSelector] forController:i]);
 	
 	// Clear the first pane (use ⌃U is easiest)
-	NSEvent *clearEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:NSControlKeyMask timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
+	NSEvent *clearEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:NSEventModifierFlagControl timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
 	[[i dSelector] keyDown:clearEvent];
 
 
