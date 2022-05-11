@@ -4,10 +4,10 @@
 "%{value1}@ actions" = "%{value1}@ 动作";
 
 /* 32.headerCell.title */
-"Action (↩)" = "动作 (\r)";
+"Action (↩)" = "动作 (↩)";
 
 /* 141.headerCell.title */
-"Alternate Action (⌘↩)" = "替补动作 (⌘\r)";
+"Alternate Action (⌘↩)" = "替补动作 (⌘↩)";
 
 /* 46.title */
 "Box" = "Box";
