@@ -4,7 +4,7 @@
 "%{value1}@ actions" = "%{value1}@ actions";
 
 /* 32.headerCell.title */
-"Action (↩)" = "Action (\r)";
+"Action (↩)" = "Action (↩)";
 
 /* 141.headerCell.title */
 "Alternate Action (⌘↩)" = "Action alternative (⌘↩)";
