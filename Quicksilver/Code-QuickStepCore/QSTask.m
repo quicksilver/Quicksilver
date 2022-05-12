@@ -63,65 +63,57 @@
 }
 
 - (void)start {
-    @synchronized (self) {
-        if (self.isRunning) {
+	if (self.isRunning) {
 #ifdef DEBUG
-            if (VERBOSE) NSLog(@"Task already started, ignoring: %@", self);
+		if (VERBOSE) NSLog(@"Task already started, ignoring: %@", self);
 #endif
-            return;
-        }
-
+		return;
+	}
+	
 #ifdef DEBUG
-        if (VERBOSE) NSLog(@"Start Task: %@", self);
+	if (VERBOSE) NSLog(@"Start Task: %@", self);
 #endif
-
-        self.running = YES;
-        [QSTasks taskStarted:self];
-    }
+	
+	self.running = YES;
+	[QSTasks taskStarted:self];
 }
 
 - (void)stop {
-    @synchronized (self) {
-        if (self.isRunning == NO) {
+	if (self.isRunning == NO) {
 #ifdef DEBUG
-            if (VERBOSE) NSLog(@"Task already stopped, ignoring: %@", self);
+		if (VERBOSE) NSLog(@"Task already stopped, ignoring: %@", self);
 #endif
-            return;
-        }
-
+		return;
+	}
+	
 #ifdef DEBUG
-        if (VERBOSE) NSLog(@"Stop Task: %@", self);
+	if (VERBOSE) NSLog(@"Stop Task: %@", self);
 #endif
-
-        self.running = NO;
-		QSGCDMainSync(^{
-			[self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
-		});
-        [QSTasks taskStopped:self];
-    }
+	
+	self.running = NO;
+	QSGCDMainSync(^{
+		[self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
+	});
+	[QSTasks taskStopped:self];
 }
 
 - (void)cancel {
-    @synchronized (self) {
-        NSAssert(self.isRunning == YES, @"Asked to cancel stopped task %@", self);
-
+	NSAssert(self.isRunning == YES, @"Asked to cancel stopped task %@", self);
+	
 #ifdef DEBUG
-        if (VERBOSE) NSLog(@"Cancel Task: %@", self);
+	if (VERBOSE) NSLog(@"Cancel Task: %@", self);
 #endif
-
-        if (self.cancelBlock) {
-            self.cancelBlock();
-        }
-        [self stop];
-    }
+	
+	if (self.cancelBlock) {
+		self.cancelBlock();
+	}
+	[self stop];
 }
 
 - (void)addSubtask:(QSTask *)task {
-    NSAssert(task != nil, @"Sub task shouldn't be nil");
-    @synchronized (self) {
-        [self.subtasks addObject:task];
-        task.parentTask = self;
-    }
+	NSAssert(task != nil, @"Sub task shouldn't be nil");
+	[self.subtasks addObject:task];
+	task.parentTask = self;
 }
 
 // Bindings
