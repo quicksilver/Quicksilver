@@ -135,7 +135,7 @@ This assistant will help you get set up, and provide you with a basic introducti
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Plugins" identifier="plugins" id="9">
-                                <view key="view" ambiguous="YES" id="10">
+                                <view key="view" id="10">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -171,7 +171,7 @@ Select and install the plugins for applications you use frequently from the list
                                             <font key="font" metaFont="message"/>
                                             <tabViewItems>
                                                 <tabViewItem label="Loading" identifier="loading" id="393">
-                                                    <view key="view" id="395">
+                                                    <view key="view" ambiguous="YES" id="395">
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -192,7 +192,7 @@ Select and install the plugins for applications you use frequently from the list
                                                     </view>
                                                 </tabViewItem>
                                                 <tabViewItem label="Plugins" identifier="loaded" id="392">
-                                                    <view key="view" ambiguous="YES" id="394">
+                                                    <view key="view" id="394">
                                                         <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -201,7 +201,7 @@ Select and install the plugins for applications you use frequently from the list
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="jwy-4e-TRd">
                                                                     <rect key="frame" x="1" y="1" width="305" height="110"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" id="195">
                                                                             <rect key="frame" x="0.0" y="0.0" width="305" height="110"/>
@@ -330,7 +330,7 @@ IA
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Options" identifier="options" id="234">
-                                <view key="view" id="235">
+                                <view key="view" ambiguous="YES" id="235">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -385,7 +385,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="339">
                                                     <items>
-                                                        <menuItem title="Manually (Command-R)" tag="-1" id="343"/>
+                                                        <menuItem title="Manually (⌘R)" tag="-1" id="343"/>
                                                         <menuItem isSeparatorItem="YES" id="344">
                                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                         </menuItem>
@@ -448,7 +448,7 @@ By default, the catalog is refreshed every 10 minutes. You can  alter the freque
                             <tabViewItem label="Getting Started" identifier="gettingstarted" id="56">
                                 <view key="view" id="57">
                                     <rect key="frame" x="10" y="7" width="486" height="430"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387">
                                             <rect key="frame" x="20" y="11" width="446" height="404"/>
