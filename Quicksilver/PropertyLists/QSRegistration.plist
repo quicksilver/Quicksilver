@@ -286,7 +286,7 @@
 			<key>class</key>
 			<string>QSApplicationPrefPane</string>
 			<key>description</key>
-			<string>Launch, visibility, and update settings </string>
+			<string>Launch, visibility, and update settings</string>
 			<key>icon</key>
 			<string>SidebarApplicationsFolder</string>
 			<key>name</key>
@@ -374,7 +374,7 @@
 			<key>color</key>
 			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=</data>
 			<key>description</key>
-			<string>Act on keyboard shortcuts and other events</string>
+			<string>Automate actions with keyboard, mouse and other events</string>
 			<key>icon</key>
 			<string>Pref-Triggers</string>
 			<key>name</key>

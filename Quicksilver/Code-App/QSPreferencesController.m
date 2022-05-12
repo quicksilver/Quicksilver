@@ -202,7 +202,7 @@ id QSPrefs;
 	NSString *path = [info objectForKey:kItemPath];
     
 	if (!string) {
-        string = @"Preferences";
+        string = NSLocalizedString(@"Preferences", @"Default preference pane name");
     }
     
 	if (!image) {
@@ -654,10 +654,12 @@ id QSPrefs;
 	//NSTabViewItem *tabViewItem = [toolbarTabView tabViewItemAtIndex:index];
 	//NSLog(@"tool %@", info);
 	NSToolbarItem *newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-	[newItem setLabel:[info objectForKey:@"name"]];
-	[newItem setPaletteLabel:[info objectForKey:@"name"]];
+	NSString *name = NSLocalizedStringFromTable([info objectForKey:@"name"], [info objectForKey:@"class"], @"");
+	[newItem setLabel:name];
+	[newItem setPaletteLabel:name];
 	[newItem setImage:[QSResourceManager imageNamed:[info objectForKey:@"icon"]]];
-	[newItem setToolTip:[info objectForKey:@"description"]];
+	NSString *description = NSLocalizedStringFromTable([info objectForKey:@"description"], [info objectForKey:@"class"], @"");
+	[newItem setToolTip:description];
 	[newItem setTarget:self];
 	[newItem setAction:@selector(selectPane:)];
 	return newItem;

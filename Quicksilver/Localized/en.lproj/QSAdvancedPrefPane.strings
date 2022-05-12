@@ -1,3 +1,9 @@
+/* Preference Pane Name */
+"Extras" = "Extras";
+
+/* Preference Pane Description */
+"The Kitchen Sink" = "The Kitchen Sink";
+
 "QSShowTaskViewerAutomatically:title" = "Show the Task Viewer automatically when tasks are created";
 "Hide Other Apps When Switching:title" = "Hide other applications when switching applications (shift prevents)";
 
