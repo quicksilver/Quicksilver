@@ -1,3 +1,9 @@
+/* Preference Pane Name */
+"Extras" = "Další";
+
+/* Preference Pane Description */
+"The Kitchen Sink" = "Kuchyňský dřez";
+
 "QSShowTaskViewerAutomatically:title" = "Zobrazit prohlížeč úloh automaticky po vytvoření úlohy";
 "Hide Other Apps When Switching:title" = "Při přepínámí aplikací skrýt ostatní (lze přeřaďovačem zakázat)";
 
