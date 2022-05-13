@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
 
+/* 62.title */
+"Triggers" = "Spouštěče";
+
+/* Preference Pane Description */
+"Automate actions with keyboard, mouse and other events" = "Automatizujte akce pomocí klávesnice, myši a dalších událostí";
+
 /* 515.ibShadowedToolTip */
 "Add trigger..." = "Přidat spouštěč…";
 
@@ -50,9 +56,6 @@
 
 /* 833.title */
 "Trigger Name" = "Jméno spouštěče";
-
-/* 62.title */
-"Triggers" = "Spouštěče";
 
 /* 485.headerCell.title */
 "Type" = "Typ";
