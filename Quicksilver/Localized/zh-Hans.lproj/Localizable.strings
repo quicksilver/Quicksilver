@@ -7,6 +7,9 @@
 "General" = "通用";
 
 // Preference Strings
+/* Default preference pane name */
+"Preferences" = "偏好设置";
+
 "QSPlugInsPrefPane" = "插件";
 "QSUpdatePrefPane" = "更新";
 "QSHelpersPrefPane" = "帮助";
@@ -16,6 +19,12 @@
 "QSSilverNotifier" = "Quicksilver（内建）";
 "QSNotificationCenterNotifier" = "通知中心";
 "QSDefaultStringRanker" = "默认（内建）";
+
+
+// Preference Pane Information
+/* Guide preference pane name */
+"Guide" = "指南";
+
 
 // QSController.m Alerts
 "requires" = "要求";
