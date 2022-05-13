@@ -36,4 +36,7 @@
 
 - (NSBundle *)mainNibBundle;
 - (id)preferencesSplitView;
+- (NSString *)name;
+- (NSString *)description;
+
 @end

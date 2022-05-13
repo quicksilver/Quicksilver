@@ -135,10 +135,19 @@
 }
 
 - (NSString *)name {
-	return NSLocalizedStringFromTable([_info objectForKey:@"name"], [_info objectForKey:@"class"], @"Preference Pane Name");
+	NSString *class = [_info objectForKey:@"class"];
+	if (!class) {
+		NSLocalizedString([_info objectForKey:@"name"], @"Preference Pane Name");
+	}
+	
+	return NSLocalizedStringFromTableInBundle([_info objectForKey:@"name"], class, [NSBundle bundleForClass:NSClassFromString(class)], @"Preference Pane Name");
 }
 
 - (NSString *)description {
-	return NSLocalizedStringFromTable([_info objectForKey:@"description"], [_info objectForKey:@"class"], @"Preference Pane Name");
-}
+	NSString *class = [_info objectForKey:@"class"];
+	if (!class) {
+		NSLocalizedString([_info objectForKey:@"description"], @"Preference Pane Name");
+	}
+	
+	return NSLocalizedStringFromTableInBundle([_info objectForKey:@"description"], class, [NSBundle bundleForClass:NSClassFromString(class)], @"Preference Pane Name");}
 @end

@@ -198,7 +198,7 @@ id QSPrefs;
 - (void)setWindowTitleWithInfo:(NSDictionary *)info {
     
 	NSImage *image = info ? [QSResourceManager imageNamed:[info objectForKey:kItemIcon]] : nil;
-	NSString *string = [info objectForKey:kItemName];
+	NSString *string = info ? [currentPane name] : nil;
 	NSString *path = [info objectForKey:kItemPath];
     
 	if (!string) {
@@ -398,7 +398,6 @@ id QSPrefs;
 		[moduleController setSelectedObjects:[NSArray arrayWithObject:info]];
 	}
 
-	[self setWindowTitleWithInfo:isToolbar?info:nil];
 	if (switchSection)
 		[self setShowSettings:!isToolbar];
 
@@ -470,6 +469,7 @@ id QSPrefs;
 
 	[prefsBox setContentView:nil];
 	[self setCurrentPane:newPane];
+	[self setWindowTitleWithInfo:isToolbar?info:nil];
 
 	if (settingsPrefsBox == prefsBox) {
 
