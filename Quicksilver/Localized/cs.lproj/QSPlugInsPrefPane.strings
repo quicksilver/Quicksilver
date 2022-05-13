@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSPlugInsPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Plugins" = "Zásuvné moduly";
+
+/* Preference Pane Description */
+"Find and install plugins" = "Hledat a nainstalovat zásuvné moduly";
+
 /* 591.title */
 "Categories" = "Kategorie";
 
