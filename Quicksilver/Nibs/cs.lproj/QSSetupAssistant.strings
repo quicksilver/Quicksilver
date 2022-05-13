@@ -1,0 +1,132 @@
+
+/* Class = "NSWindow"; title = "Quicksilver Setup"; ObjectID = "5"; */
+"5.title" = "Nastavení Quicksilver";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "9"; */
+"9.label" = "Zásuvné moduly";
+
+/* Class = "NSTabViewItem"; label = "Welcome"; ObjectID = "11"; */
+"11.label" = "Vítejte";
+
+/* Class = "NSTabViewItem"; label = "Getting Started"; ObjectID = "56"; */
+"56.label" = "Příručka Začínáme";
+
+/* Class = "NSTableColumn"; headerCell.title = "Plugins"; ObjectID = "201"; */
+"201.headerCell.title" = "Zásuvné moduly";
+
+/* Class = "NSTableColumn"; headerCell.title = "✓"; ObjectID = "203"; */
+"203.headerCell.title" = "✓";
+
+/* Class = "NSTabViewItem"; label = "License"; ObjectID = "232"; */
+"232.label" = "Licence";
+
+/* Class = "NSTabViewItem"; label = "Options"; ObjectID = "234"; */
+"234.label" = "Volby";
+
+/* Class = "NSTabViewItem"; label = "Support"; ObjectID = "236"; */
+"236.label" = "Podpora";
+
+/* Class = "NSWindow"; title = "Panel"; ObjectID = "254"; */
+"254.title" = "Panel";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Select a plugin for more information"; ObjectID = "302"; */
+"302.ibShadowedNoSelectionPlaceholder" = "Pro více informací vyberte zásuvný modul ";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = " "; ObjectID = "303"; */
+"303.ibShadowedNoSelectionPlaceholder" = " ";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Rescan frequency"; ObjectID = "338"; */
+"338.ibShadowedToolTip" = "Frekvence načítání";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "339"; */
+"339.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Every hour"; ObjectID = "340"; */
+"340.title" = "Každou hodinu";
+
+/* Class = "NSMenuItem"; title = "Every 10 minutes"; ObjectID = "341"; */
+"341.title" = "Každých 10 minut";
+
+/* Class = "NSMenuItem"; title = "Every day"; ObjectID = "342"; */
+"342.title" = "Každý den";
+
+/* Class = "NSMenuItem"; title = "Manually (⌘R)"; ObjectID = "343"; */
+"343.title" = "Ručně (⌘R)";
+
+/* Class = "NSMenuItem"; title = "Every half hour"; ObjectID = "345"; */
+"345.title" = "Každou půlhodinu";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "392"; */
+"392.label" = "Zásuvné moduly";
+
+/* Class = "NSTabViewItem"; label = "Loading"; ObjectID = "393"; */
+"393.label" = "Načítá se";
+
+/* Class = "NSTabViewItem"; label = "Failed"; ObjectID = "404"; */
+"404.label" = "Selhal";
+
+/* Class = "NSTextFieldCell"; title = "Recommended Plugins"; ObjectID = "442"; */
+"442.title" = "Doporučení zásuvné moduly";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver comes with only a few basic features. Plugins can be installed to allow integration with many applications and services. Select and install the plugins for applications you use frequently from the list below. Plugins can be installed or disabled at a later date from the Plugins section in Quicksilver's preferences."; ObjectID = "443"; */
+"443.title" = "Aplikace Quicksilver má několik základních funkcí. Lze nainstalovat zásuvné moduly, které umožňují integraci s mnoha dalšími aplikacemi a službami.\n\nVyberte si ze seznamu a nainstalujte zásuvné moduly pro často používané aplikace. Zásuvné moduly lze nainstalovat nebo zakázat i později v oddíle „Zásuvné moduly“ v předvolbách.";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "445"; */
+"445.title" = "Systémové písmo malé";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "446"; */
+"446.title" = "Systémové písmo malé";
+
+/* Class = "NSTextFieldCell"; title = "Loading Plugin Information"; ObjectID = "447"; */
+"447.title" = "Načítají se informace o zásuvném modulu";
+
+/* Class = "NSTextFieldCell"; title = "Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences."; ObjectID = "448"; */
+"448.title" = "Získávání informací o zásuvném modulu se nezdařilo. Zásuvné moduly je možné zkopírovat později v předvolbách Quicksilver.";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is an application that lets you search and control data across your Mac. Quickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. This assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality."; ObjectID = "449"; */
+"449.title" = "Quicksilver je aplikace, která vám umožní vyhledávat a ovládat váš Mac.\n\n Rychle a bez námahy spouštějte aplikace, přehrávejte skladby v iTunes, vytvářejte události Kalendáři nebo posílejte soubory přátelům z vašeho adresáře. A to je jen začátek. \nTento asistent vám pomůže s nastavením a poskytne vám základní úvod do aplikace Quicksilver.";
+
+/* Class = "NSTextFieldCell"; title = "Welcome to Quicksilver"; ObjectID = "450"; */
+"450.title" = "Vítá Vás Quicksilver";
+
+/* Class = "NSButtonCell"; title = "I have read and accept the terms of this license"; ObjectID = "452"; */
+"452.title" = "Četl jsem a souhlasím s licenčním ujednáním";
+
+/* Class = "NSTextFieldCell"; title = "License Agreement"; ObjectID = "453"; */
+"453.title" = "Licenční ujednání";
+
+/* Class = "NSTextFieldCell"; title = "Catalog"; ObjectID = "455"; */
+"455.title" = "Katalog";
+
+/* Class = "NSTextFieldCell"; title = "Activation"; ObjectID = "456"; */
+"456.title" = "Aktivace";
+
+/* Class = "NSTextFieldCell"; title = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the Catalog pane in the preferences. By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below."; ObjectID = "457"; */
+"457.title" = "Aplikace, soubory, složky a položky, které Quicksilver může najít, jsou definovány v katalogu. Položky v katalogu můžete přidávat, odebírat nebo aktualizovat z okna „Katalog“ v předvolbách.\nVe výchozím nastavení se katalog obnovuje každých 10 minut. Frekvenci můžete níže změnit.";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the Command pane in the preferences."; ObjectID = "458"; */
+"458.title" = "Quicksilver není nikdy dále než jednu klávesovou zkratku. Vyberte požadovanou klávesovou zkratku nebo ji můžete kdykoliv změnit v okně „Příkaz“ v předvolbách.";
+
+/* Class = "NSTextFieldCell"; title = "Rescan Catalog:"; ObjectID = "460"; */
+"460.title" = "Znovu načíst katalog:";
+
+/* Class = "NSTextFieldCell"; title = "Shortcut:"; ObjectID = "461"; */
+"461.title" = "Zkratka:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "none"; ObjectID = "462"; */
+"462.placeholderString" = "nic";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "463"; */
+"463.title" = "Úpravy";
+
+/* Class = "NSButtonCell"; title = "Go Back"; ObjectID = "465"; */
+"465.title" = "Zpět";
+
+/* Class = "NSButtonCell"; title = "Continue"; ObjectID = "466"; */
+"466.title" = "Pokračovat";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "467"; */
+"467.title" = "Systémové písmo malé";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "468"; */
+"468.title" = "Zrušit";
