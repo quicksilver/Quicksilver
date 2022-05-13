@@ -7,6 +7,9 @@
 "General" = "Hlavní";
 
 // Preference Strings
+/* Default preference pane name */
+"Preferences" = "Předvolby";
+
 "QSPlugInsPrefPane" = "Zásuvné moduly";
 "QSUpdatePrefPane" = "Aktualizace";
 "QSHelpersPrefPane" = "Pomocníci";
@@ -16,6 +19,12 @@
 "QSSilverNotifier" = "Quicksilver (vestavěné)";
 "QSNotificationCenterNotifier" = "Centrum oznámení";
 "QSDefaultStringRanker" = "Výchozí (vestavěné)";
+
+
+// Preference Pane Information
+/* Guide preference pane name */
+"Guide" = "Příručka";
+
 
 // QSController.m Alerts
 "requires" = "vyžaduje";
