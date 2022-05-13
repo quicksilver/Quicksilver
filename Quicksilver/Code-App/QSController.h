@@ -16,6 +16,8 @@
 	NSObject *dropletProxy;
     NSString *crashReportPath;
 	QSApplicationLaunchStatusFlags launchStatus;
+	IBOutlet NSWindow *accessibilityPermissionWindow;
+	NSTimer *accessibilityChecker;
 }
 
 @property (strong) NSString* crashReportPath;
@@ -49,6 +51,7 @@
 - (NSMenu *)statusMenuWithQuit;
 - (void)activateInterface:(id)sender;
 - (void)checkForFirstRun;
+- (IBAction)launchPrivacyPreferences:(id)sender;
 - (IBAction)rescanItems:sender;
 - (IBAction)forceRescanItems:sender;
 - (void)receiveObject:(QSObject *)object;

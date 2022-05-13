@@ -803,6 +803,52 @@ static QSController *defaultController = nil;
 	[NSApp relaunch:nil];
 }
 
+# pragma mark - Accessibility Permissions
+
+-(BOOL)checkForAccessibilityPermission {
+       // Prompt for accessibility permissions on macOS Mojave and later.
+       if (!accessibilityChecker) {
+               accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                       [self checkForAccessibilityPermission];
+               }];
+               [accessibilityChecker fire];
+       }
+       NSDictionary *options = @{(id)CFBridgingRelease(kAXTrustedCheckOptionPrompt): @NO};
+       BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+       if(!accessibilityEnabled) {
+               if (![accessibilityPermissionWindow isVisible]) {
+                       [self showAccessibilityPrompt:nil];
+               }
+               return NO;
+       }else{
+               [accessibilityChecker invalidate];
+               accessibilityChecker = nil;
+               if([accessibilityPermissionWindow isVisible]) {
+                       [accessibilityPermissionWindow close];
+               }
+       }
+       return YES;
+}
+
+-(IBAction)showAccessibilityPrompt:(id)sender {
+       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
+    [NSApp activateIgnoringOtherApps:YES];
+    [accessibilityPermissionWindow center];
+    [accessibilityPermissionWindow setIsVisible:YES];
+    [accessibilityPermissionWindow makeKeyAndOrderFront:sender];
+       
+}
+
+- (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
+       [accessibilityChecker invalidate];
+       accessibilityChecker = nil;
+}
+
+-(IBAction)launchPrivacyPreferences:(id)sender {
+    NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+}
+
 @end
 
 @implementation QSController (Application)
@@ -1077,6 +1123,10 @@ static QSController *defaultController = nil;
 		[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
 	}
 	
+	// check for accessibility access
+	accessibilityChecker = nil;
+	[self checkForAccessibilityPermission];
+
 	[QSApp setCompletedLaunch:YES];
 }
 
