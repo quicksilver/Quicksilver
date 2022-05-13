@@ -1,5 +1,12 @@
 /* File extracted from ./Nibs/QSAppearancePrefPane.xib by stringstool v1.0*/
 
+
+/* Preference Pane Name */
+"Appearance" = "Vzhled";
+
+/* Preference Pane Description */
+"Color and visual settings" = "Nastavení vzhledu a barev";
+
 /* 12.title */
 "<< do not localize >>" = "<< do not localize >>";
 
