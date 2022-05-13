@@ -1,50 +1,47 @@
-﻿/* NSWindow (About Quicksilver) : <title:About Quicksilver> (oid:12) */
+/* File extracted from ./Nibs/About.xib by stringstool v1.0*/
+
+/* 12.title */
 "About Quicksilver" = "Co je Quicksilver";
 
-/* NSTextField (Act without doing;  work without effort.  Think of the small as large  and the few as many.   Confront the difficult  while it is still easy;  accomplish the great task  by a series of small acts.) : <title:Act without doing;
+/* 62.title */
+"Act without doing;\n\nwork without effort.\n\nThink of the small as large\n\nand the few as many.\n \nConfront the difficult\n\nwhile it is still easy;\n\naccomplish the great task\n\nby a series of small acts.\n \n" = "Jednej bez zasahování,\n\npracuj bez usilování\n\nNahlížej v malém velké,\n\na v nepočetném mnoho\n\nPopasuj se s těžkým,\n\ndokud je snadné\n\nZvládej velké úkoly\n\nskrze malé krůčky.\n\n";
 
-work without effort.
-
-Think of the small as large
-
-and the few as many.
- 
-Confront the difficult
-
-while it is still easy;
-
-accomplish the great task
-
-by a series of small acts.
- 
-> (oid:17) */
-"Act without doing;\n\nwork without effort.\n\nThink of the small as large\n\nand the few as many.\n \nConfront the difficult\n\nwhile it is still easy;\n\naccomplish the great task\n\nby a series of small acts.\n \n" = "Act without doing;\n\nwork without effort.\n\nThink of the small as large\n\nand the few as many.\n \nConfront the difficult\n\nwhile it is still easy;\n\naccomplish the great task\n\nby a series of small acts.\n \n";
-
-/* NSBox : <title:Box> (oid:16) */
+/* 16.title */
 "Box" = "Box";
 
-/* NSTextField (Lao-Tze) : <title:Lao-Tze> (oid:11) */
+/* 63.title */
+"Button" = "Tlačítko";
+
+/* 29.label */
+"Credits" = "Zásluhy";
+
+/* 60.title */
 "Lao-Tze" = "Lao-Tze";
 
-/* NSTextField (Quicksilver) : <title:Quicksilver> (oid:15) */
+/* 57.title */
 "Quicksilver" = "Quicksilver";
 
-/* NSTextField (translated by S. Mitchell) : <title:translated by S. Mitchell> (oid:13) */
+/* 28.label */
+"Quote" = "Citát";
+
+/* 61.title */
 "translated by S. Mitchell" = "translated by Czech X Team";
 
-/* NSTextField (©2000-2004 Blacktree, Inc.) : <title:©2000-2004 Blacktree, Inc.> (oid:6) */
-"©2000-2004 Blacktree, Inc." = "©2000-2004 Blacktree, Inc.";
+/* 52.title */
+"©2000-2012 Blacktree, Inc." = "©2000-2012 Blacktree, Inc.";
 
-/* NSTextField (報怨以德。圖難於其易。為大於其細。天下難事必作於易。天下大事) : <title:報怨以德。圖難於其易。為大於其細。天下難事必作於易。天下大事> (oid:9) */
-"報怨以德。圖難於其易。為大於其細。天下難事必作於易。天下大事" = "報怨以德。圖難於其易。為大於其細。天下難事必作於易。天下大事";
+/* 54.title */
+"報怨以德\n\n圖難於其易\n\n為大於其細" = "報怨以德\n\n圖難於其易\n\n為大於其細";
 
-/* NSTextField (必作於細) : <title:必作於細> (oid:22) */
-"必作於細" = "必作於細";
+/* 55.title */
+"天下難事\n\n必作於易\n\n天下大事\n\n必作於細" = "天下難事\n\n必作於易\n\n天下大事\n\n必作於細";
 
-/* NSTextField (必作於細。是以聖人終不為其大。故能成其大。) : <title:必作於細。是以聖人終不為其大。故能成其大。> (oid:10) */
-"必作於細。是以聖人終不為其大。故能成其大。" = "必作於細。是以聖人終不為其大。故能成其大。";
+/* 58.title */
+"水" = "Voda";
 
-/* NSTextField (為無為。事無事。味無味。 大小多少。) : <title:為無為。事無事。味無味。
-大小多少。> (oid:8) */
-"為無為。事無事。味無味。\n大小多少。" = "為無為。事無事。味無味。\n大小多少。";
+/* 53.title */
+"為無為\n\n事無事\n\n味無味\n\n大小多少" = "為無為\n\n事無事\n\n味無味\n\n大小多少";
+
+/* 59.title */
+"银" = "Stříbro";
 

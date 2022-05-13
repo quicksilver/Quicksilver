@@ -1,0 +1,51 @@
+
+/* Class = "NSWindow"; title = "Results"; ObjectID = "9"; */
+"9.title" = "结果";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "43"; */
+"43.ibShadowedToolTip" = "搜索字符串";
+
+/* Class = "NSTableColumn"; headerCell.title = "Results"; ObjectID = "60"; */
+"60.headerCell.title" = "结果";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Selected item information"; ObjectID = "130"; */
+"130.ibShadowedToolTip" = "选中条目信息";
+
+/* Class = "NSTableColumn"; headerCell.title = "•"; ObjectID = "143"; */
+"143.headerCell.title" = "•";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "231"; */
+"231.title" = "菜单";
+
+/* Class = "NSMenuItem"; title = "Sort by Name"; ObjectID = "237"; */
+"237.title" = "按名称排序";
+
+/* Class = "NSMenuItem"; title = "Sort by Score"; ObjectID = "238"; */
+"238.title" = "按赋分排序";
+
+/* Class = "NSMenu"; title = "Search Mode ⌘←/⌘→"; ObjectID = "265"; */
+"265.title" = "搜索模式 ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Search Mode ⌘←/⌘→"; ObjectID = "266"; */
+"266.title" = "搜索模式 ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Snap to Best"; ObjectID = "267"; */
+"267.title" = "显示最佳";
+
+/* Class = "NSMenuItem"; title = "Filter Results"; ObjectID = "268"; */
+"268.title" = "过滤结果";
+
+/* Class = "NSMenuItem"; title = "Filter Catalog"; ObjectID = "269"; */
+"269.title" = "过滤目录";
+
+/* Class = "NSTextFieldCell"; title = "SEARCH"; ObjectID = "282"; */
+"282.title" = "搜索";
+
+/* Class = "NSTextFieldCell"; title = "Details"; ObjectID = "283"; */
+"283.title" = "详细信息";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "307"; */
+"307.ibShadowedToolTip" = "搜索字符串";
+
+/* Class = "NSTextFieldCell"; title = "RESULTS MODE"; ObjectID = "308"; */
+"308.title" = "结果模式";

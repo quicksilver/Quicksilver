@@ -2,10 +2,17 @@
 
 @interface NSWindow (Fade)
 - (void)setSticky:(BOOL)flag;
+- (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds completionHandler:(nullable void (^)(void))completionHandler;
 - (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds;
 - (void)reallyCenter;
-+(NSWindow *)windowWithImage:(NSImage *)image;
 - (id)windowPropertyForKey:(NSString *)key;
+@end
+
+@interface NSWindow (Resize)
+
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag completionHandler:(nullable void (^)(void))completionHandler;
+- (void)resizeToFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag;
+
 @end
 
 @interface NSWindow (Physics)

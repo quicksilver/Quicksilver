@@ -44,21 +44,24 @@
 	downloads = [[safariPrefs objectForKey:@"DownloadsPath"] stringByStandardizingPath];
     
     if (downloads) {
-		downloads = [downloads stringByResolvingSymlinksInPath];
-		return [NSURL URLWithString:downloads];
-    } else {
-		// fall back to the default downloads folder if the user settings couldn't be resolved
-		NSArray *downloadURLs = [manager URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask];
-		if ([downloadURLs count]) {
-			return [downloadURLs objectAtIndex:0];
-		}
-	}
-	return nil;
+		return [NSURL fileURLWithPath:[downloads stringByResolvingSymlinksInPath]];
+    }
+	
+	return [manager URLForDirectory:NSDownloadsDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+
 }
 
 #pragma mark Proxy Methods
 
 - (id)resolveProxyObject:(id)proxy {
+	static NSArray *properties;
+	static NSArray *ignoredExtensions;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		properties = @[NSURLIsDirectoryKey,NSURLIsPackageKey,NSURLAttributeModificationDateKey];
+		ignoredExtensions = @[@"download", @"part", @"dtapart", @"crdownload", @"opdownload"];
+	});
+	
 	NSURL *downloadsURL = [QSDownloads downloadsLocation];
     if (!downloadsURL) {
         NSLog(@"Unable to locate downloads folder");
@@ -70,11 +73,11 @@
     NSError *err = nil;
     // An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
 	NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
-							   includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
+							   includingPropertiesForKeys:properties
 												  options:NSDirectoryEnumerationSkipsHiddenFiles
 													error:&err];
-	if (err) {
-		NSLog(@"Error resolving downloads path: %@", err);
+	if (err || ![contents count]) {
+		NSLog(@"Error retrieving contents of %@: %@", [downloadsURL path], err);
 		return nil;
 	}
 
@@ -83,40 +86,24 @@
 	NSDate *modified = nil;
     NSDate *mostRecent = [NSDate distantPast];
 
-	NSNumber *isDir;
-	NSNumber *isPackage;
-	NSSet *ignoredExtensions = [NSSet setWithObjects:@"download", @"part", @"dtapart", @"crdownload", @"opdownload", nil];
 	for (NSURL *downloadedFile in contents) {
-		err = nil;
-		NSString *fileExtension = [downloadedFile pathExtension];
-		if ([ignoredExtensions containsObject:fileExtension]) {
+		if ([ignoredExtensions containsObject:[downloadedFile pathExtension]]) {
+			continue;
+		}
+		
+		NSDictionary *resourceValues = [downloadedFile resourceValuesForKeys:properties error:nil];
+		// Do not show folders, but how packages (e.g. .app and .qspluign)
+		if ([[resourceValues objectForKey:NSURLIsDirectoryKey] boolValue] && ![[resourceValues objectForKey:NSURLIsPackageKey] boolValue]) {
 			continue;
 		}
 		
 		downloadPath = [downloadedFile path];
-		// Do not show folders
-		if ([downloadedFile getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:&err] && [isDir boolValue]) {
-			if (err != nil) {
-				NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
-				continue;
-			}
-			// Show packages (e.g. .app and .qsplugin packages)
-			if ([downloadedFile getResourceValue:&isPackage forKey:NSURLIsPackageKey error:&err] && ![isPackage boolValue]) {
-				if (err != nil) {
-					NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
-				}
-				continue;
-			}
-		}
 		if([manager fileExistsAtPath:[downloadPath stringByAppendingPathExtension:@"part"]]) {
 			continue;
 		}
+		
 		// compare the modified date of the file with the most recent download file
-		[downloadedFile getResourceValue:&modified forKey:NSURLAttributeModificationDateKey error:&err];
-		if (err != nil) {
-			NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
-			continue;
-		}
+		modified = [resourceValues objectForKey:NSURLAttributeModificationDateKey];
 		if ([mostRecent compare:modified] == NSOrderedAscending) {
 			mostRecent = modified;
 			mrdpath = downloadPath;

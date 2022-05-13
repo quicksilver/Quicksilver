@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSMainMenuPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Guide" = "Guide";
+
+/* Preference Pane Description */
+"Welcome to Quicksilver" = "Welcome to Quicksilver";
+
 /* 851.title */
 "Decrease Font Size" = "Decrease Font Size";
 

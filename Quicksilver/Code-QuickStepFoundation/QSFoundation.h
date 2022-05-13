@@ -27,7 +27,6 @@
 #import "QSGCD.h"
 #import "QSThreadSafeMutableDictionary.h"
 #import "QSUTI.h"
-#import "QSTreeController.h"
 #import "QSMDPredicate.h"
 #import "QSLSTools.h"
 #import "QSLog.h"

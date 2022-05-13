@@ -159,11 +159,11 @@
     }
     void (^block)(void) =  ^{
         [cmd executeIgnoringModifiers];
-        if ([info objectForKey:@"oneshot"]) {
+        if ([self->info objectForKey:@"oneshot"]) {
             [self setEnabled:NO];
         }
     };
-    if (defaultBool(kExecuteInThread)) {
+    if (defaultBool(kExecuteInThread) && [cmd canThread]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), block);
     } else {
         block();

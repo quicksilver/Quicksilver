@@ -88,7 +88,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 		case NSProcessNotificationEvent:
 			[[QSProcessMonitor sharedInstance] handleProcessEvent:theEvent];
 			break;
-		case NSRightMouseDown:
+		case NSEventTypeRightMouseDown:
 			if (![theEvent windowNumber]) { // Workaround for ignored right clicks on non activating panels
 				[self forwardWindowlessRightClick:theEvent];
 				return;
@@ -96,31 +96,31 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			}
 			break;
-		case NSLeftMouseDown:
+		case NSEventTypeLeftMouseDown:
 			if ([theEvent standardModifierFlags] > 0)
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			break;
-		case NSOtherMouseDown:
+		case NSEventTypeOtherMouseDown:
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
 #endif
 			[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			break;
-		case NSScrollWheel: {
+		case NSEventTypeScrollWheel: {
 			NSWindow *interfaceWindow = [[(QSController *)[self delegate] interfaceController] window];
 			if ([self keyWindow] == interfaceWindow)
 				[[interfaceWindow firstResponder] scrollWheel:theEvent];
 		}
 			break;
 
-		case NSKeyDown:
+		case NSEventTypeKeyDown:
 			if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
 				// Close the Quicksilver window when ⌘⌥Y is pressed in full screen, or the spacebar or ESC key is pressed (send event to QSSearchObjectView:keyDown)
 				QLPreviewPanel *quicklookPanel = [QLPreviewPanel sharedPreviewPanel];
 				NSString *key = [theEvent charactersIgnoringModifiers];
 				if (([quicklookPanel isInFullScreenMode] && [key isEqualToString:@"y"]
-					 && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) || [key isEqualToString:@" "] || [theEvent keyCode] == kVK_Escape) {
+					 && ([theEvent modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagOption))) || [key isEqualToString:@" "] || [theEvent keyCode] == kVK_Escape) {
 					[(QSSearchObjectView *)[quicklookPanel delegate] closePreviewPanel];
 					return;
 				}
@@ -136,7 +136,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
 	NSWindow *clickWindow = nil;
 	for (NSWindow *thisWindow in [self windows])
-		if ([thisWindow isVisible] && [thisWindow level] > [clickWindow level] && [thisWindow styleMask] & NSNonactivatingPanelMask && ![thisWindow ignoresMouseEvents] && NSPointInRect([theEvent locationInWindow] , NSInsetRect([thisWindow frame] , 0, -1) )) //These points are offset by one for some silly reason
+		if ([thisWindow isVisible] && [thisWindow level] > [clickWindow level] && [thisWindow styleMask] & NSWindowStyleMaskNonactivatingPanel && ![thisWindow ignoresMouseEvents] && NSPointInRect([theEvent locationInWindow] , NSInsetRect([thisWindow frame] , 0, -1) )) //These points are offset by one for some silly reason
 			clickWindow = thisWindow;
 	if (clickWindow) {
 		theEvent = [NSEvent mouseEventWithType:[theEvent type] location:[clickWindow convertScreenToBase:[theEvent locationInWindow]] modifierFlags:[theEvent modifierFlags] timestamp:[theEvent timestamp] windowNumber:[clickWindow windowNumber] context:[theEvent context] eventNumber:[theEvent eventNumber] clickCount:[theEvent clickCount] pressure:[theEvent pressure]];

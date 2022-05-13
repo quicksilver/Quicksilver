@@ -32,7 +32,7 @@
 		while (subview = [contentView viewWithTag:1])
 			[subview removeFromSuperview];
 	}
-	[[creditsView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[appBundle bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Credits.html"]]]];
+	[[creditsView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[appBundle sharedSupportPath] stringByAppendingPathComponent:@"Credits.html"]]]];
 //	[creditsView changeDocumentBackgroundColor:[NSColor greenColor]];
 	[[creditsView preferences] setDefaultTextEncodingName:@"utf-8"];
 	[creditsView setDrawsBackground:NO];

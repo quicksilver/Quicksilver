@@ -5,7 +5,7 @@
     <key>QSCommandExecuteAtTimeAction</key>
     <string>Vykonat %@ v čase</string>
     <key>QSCreateFileAction</key>
-    <string>Vytvořit nový soubor obsahující %@ ve složce %@</string>
+    <string>Vytvořit nový soubor obsahující %1$@ ve složce %2$@</string>
     <key>QSCommandAddTriggerAction</key>
     <string>Přidat %@ jako spouštěč</string>
     <key>QSCommandExecuteAction</key>
@@ -13,13 +13,13 @@
     <key>AppShowHideAction</key>
     <string>Přepnout viditelnost %@</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Vždy otevřít %@ pomocí %@</string>
+    <string>Vždy otevřít %1$@ pomocí %2$@</string>
     <key>QSCommandSaveAction</key>
     <string>Uložit %@ do souboru</string>
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Vložti %@ jako prostý text</string>
     <key>QSCreateFileTemplate</key>
-    <string>Ve složce %@ vytvořit nový soubor předlohy %@</string>
+    <string>Ve složce %1$@ vytvořit nový soubor předlohy %2$@</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Vykonat %@ po prodlevě</string>
     <key>AppActivateAction</key>
@@ -35,7 +35,7 @@
     <key>AppLaunchAsRootAction</key>
     <string>Spusit %@ jako administrátor</string>
     <key>AppOpenFileAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>AppQuitAction</key>
     <string>Ukončit %@</string>
     <key>AppQuitOthersAction</key>
@@ -47,9 +47,9 @@
     <key>AppRootLaunchAction</key>
     <string>Spustit %@ jako administrátor</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Zpracovat %@ pomocí %@</string>
+    <string>Zpracovat %1$@ pomocí %2$@</string>
     <key>AppleScriptRunAction</key>
     <string>Spustit skript: %@</string>
     <key>AppleScriptRunTextAction</key>
@@ -61,7 +61,7 @@
     <key>FileCompressAction</key>
     <string>Zkomprimovat %@</string>
     <key>FileCopyToAction</key>
-    <string>Kopírovat %@ do %@</string>
+    <string>Kopírovat %1$@ do %2$@</string>
     <key>FileDecompressAction</key>
     <string>Dekomprimovat %@</string>
     <key>FileDeleteAction</key>
@@ -79,27 +79,27 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Vytvořit zástupce %@ do %@</string>
+    <string>Vytvořit zástupce %1$@ do %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Vytvořit hard link %@ do %@</string>
+    <string>Vytvořit hard link %1$@ do %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Vytvořit link %@ do %@</string>
+    <string>Vytvořit link %1$@ do %2$@</string>
     <key>FileMoveToAction</key>
-    <string>Přesunout %@ do %@</string>
+    <string>Přesunout %1$@ do %2$@</string>
     <key>FileOpenAction</key>
     <string>Otevřít %@</string>
     <key>FileOpenWithAction</key>
-    <string>Otevřít %@ pomocí %@</string>
+    <string>Otevřít %1$@ pomocí %2$@</string>
     <key>FileRenameAction</key>
-    <string>Přejmenovat %@ na %@</string>
+    <string>Přejmenovat %1$@ na %2$@</string>
     <key>FileRevealAction</key>
     <string>Zobrazit %@</string>
     <key>FileToTrashAction</key>
     <string>Přesunout %@ do Koše</string>
     <key>ItemSendToContactEmailAction</key>
-    <string>E-mail %@ pro %@</string>
+    <string>E-mail %1$@ pro %2$@</string>
     <key>ItemSendToContactIMAction</key>
-    <string>IM %@ pro %@</string>
+    <string>IM %1$@ pro %2$@</string>
     <key>PasteboardCopyAction</key>
     <string>Kopírovat %@ do Schránky</string>
     <key>PasteboardPasteAction</key>
@@ -187,6 +187,6 @@
     <key>URLSearchAction</key>
     <string>Hledat %@</string>
     <key>URLSearchForAction</key>
-    <string>Hledat %@ v %@</string>
+    <string>Hledat %1$@ v %2$@</string>
   </dict>
 </plist>

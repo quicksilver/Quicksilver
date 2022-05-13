@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="15505"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="QSSetupAssistant">
+            <connections>
+                <outlet property="agreementView" destination="240" id="304"/>
+                <outlet property="backButton" destination="16" id="52"/>
+                <outlet property="continueButton" destination="17" id="51"/>
+                <outlet property="gettingStartedView" destination="387" id="388"/>
+                <outlet property="gettingSupportView" destination="402" id="403"/>
+                <outlet property="plugInLoadProgress" destination="396" id="400"/>
+                <outlet property="plugInLoadTabView" destination="391" id="401"/>
+                <outlet property="plugInsController" destination="222" id="310"/>
+                <outlet property="pluginStatusField" destination="257" id="316"/>
+                <outlet property="pluginStatusPanel" destination="254" id="314"/>
+                <outlet property="pluginStatusProgress" destination="256" id="332"/>
+                <outlet property="scanProgress" destination="277" id="329"/>
+                <outlet property="setupTabView" destination="8" id="53"/>
+                <outlet property="window" destination="5" id="25"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Quicksilver Setup" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window" customClass="QSWindow">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="7" y="122" width="512" height="490"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <value key="minSize" type="size" width="213" height="107"/>
+            <view key="contentView" id="6" customClass="QSBackgroundView">
+                <rect key="frame" x="0.0" y="0.0" width="512" height="490"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabView fixedFrame="YES" controlSize="mini" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                        <rect key="frame" x="3" y="35" width="506" height="450"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="miniSystem"/>
+                        <tabViewItems>
+                            <tabViewItem label="Welcome" identifier="welcome" id="11">
+                                <view key="view" id="7">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                                            <rect key="frame" x="17" y="68" width="457" height="153"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="449">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">Quicksilver is an application that lets you search and control data across your Mac.
+
+Quickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. 
+This assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality.</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                                            <rect key="frame" x="139" y="256" width="216" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Welcome to Quicksilver" id="450">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="219" customClass="QSImageView">
+                                            <rect key="frame" x="182" y="282" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="451"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="License" identifier="license" id="232">
+                                <view key="view" id="233">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="240">
+                                            <rect key="frame" x="23" y="157" width="450" height="221"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <clipView key="contentView" ambiguous="YES" id="uFm-1H-ytS">
+                                                <rect key="frame" x="1" y="1" width="448" height="219"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textView ambiguous="YES" editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="440">
+                                                        <rect key="frame" x="0.0" y="-13" width="448" height="219"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        <size key="minSize" width="448" height="219"/>
+                                                        <size key="maxSize" width="906" height="10000000"/>
+                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    </textView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </clipView>
+                                            <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="473">
+                                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                            <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="472">
+                                                <rect key="frame" x="-30" y="1" width="15" height="337"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                        </scrollView>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="241">
+                                            <rect key="frame" x="21" y="108" width="320" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="I have read and accept the terms of this license" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="452">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <binding destination="306" name="value" keyPath="values.QSAgreementAccepted" id="309"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="244">
+                                            <rect key="frame" x="20" y="402" width="192" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="License Agreement" id="453">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Plugins" identifier="plugins" id="9">
+                                <view key="view" id="10">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="170" customClass="QSImageView">
+                                            <rect key="frame" x="0.0" y="303" width="128" height="131"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="QSPlugIn" id="444"/>
+                                        </imageView>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98">
+                                            <rect key="frame" x="131" y="399" width="192" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Recommended Plugins" id="442">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                                            <rect key="frame" x="140" y="206" width="323" height="159"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="443">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">Quicksilver comes with only a few basic features. Plugins can be installed to allow integration with many applications and services.
+
+Select and install the plugins for applications you use frequently from the list below. Plugins can be installed or disabled at a later date from the “Plugins” section in Quicksilver's preferences.</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="391">
+                                            <rect key="frame" x="136" y="11" width="313" height="173"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <font key="font" metaFont="message"/>
+                                            <tabViewItems>
+                                                <tabViewItem label="Loading" identifier="loading" id="393">
+                                                    <view key="view" ambiguous="YES" id="395">
+                                                        <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="396">
+                                                                <rect key="frame" x="143" y="82" width="32" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                            </progressIndicator>
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="397">
+                                                                <rect key="frame" x="52" y="57" width="214" height="17"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Loading Plugin Information" id="447">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Plugins" identifier="loaded" id="392">
+                                                    <view key="view" id="394">
+                                                        <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="194">
+                                                                <rect key="frame" x="4" y="57" width="307" height="112"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="jwy-4e-TRd">
+                                                                    <rect key="frame" x="1" y="1" width="305" height="110"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" id="195">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="305" height="110"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <size key="intercellSpacing" width="3" height="2"/>
+                                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                                                            <color key="gridColor" name="separatorColor" catalog="System" colorSpace="catalog"/>
+                                                                            <tableColumns>
+                                                                                <tableColumn identifier="enabled" width="16" minWidth="16" maxWidth="16" id="203">
+                                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="✓">
+                                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </tableHeaderCell>
+                                                                                    <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="mini" inset="2" id="204">
+                                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                        <font key="font" metaFont="cellTitle"/>
+                                                                                    </buttonCell>
+                                                                                    <connections>
+                                                                                        <binding destination="222" name="value" keyPath="arrangedObjects.shouldInstall" id="323"/>
+                                                                                    </connections>
+                                                                                </tableColumn>
+                                                                                <tableColumn editable="NO" width="18" minWidth="10" maxWidth="1000" id="196">
+                                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
+                                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </tableHeaderCell>
+                                                                                    <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="197"/>
+                                                                                    <connections>
+                                                                                        <binding destination="222" name="value" keyPath="arrangedObjects.icon" id="225"/>
+                                                                                    </connections>
+                                                                                </tableColumn>
+                                                                                <tableColumn identifier="name" editable="NO" width="261.92300415039062" minWidth="52.923000335693359" maxWidth="1000" id="201">
+                                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plugins">
+                                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                    </tableHeaderCell>
+                                                                                    <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" id="469">
+                                                                                        <font key="font" metaFont="label"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                    </textFieldCell>
+                                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                    <connections>
+                                                                                        <binding destination="222" name="value" keyPath="arrangedObjects.name" id="224">
+                                                                                            <dictionary key="options">
+                                                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
+                                                                                </tableColumn>
+                                                                            </tableColumns>
+                                                                        </tableView>
+                                                                    </subviews>
+                                                                    <nil key="backgroundColor"/>
+                                                                </clipView>
+                                                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="471">
+                                                                    <rect key="frame" x="-100" y="-100" width="361" height="15"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </scroller>
+                                                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="470">
+                                                                    <rect key="frame" x="-30" y="1" width="15" height="110"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </scroller>
+                                                            </scrollView>
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="289">
+                                                                <rect key="frame" x="11" y="0.0" width="300" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" title="Small System Font Text" id="445">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <connections>
+                                                                    <binding destination="222" name="value" keyPath="selection.shortDescription" id="303">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                </connections>
+                                                            </textField>
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="293">
+                                                                <rect key="frame" x="11" y="33" width="300" height="16"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" title="Small System Font Text" id="446">
+                                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <connections>
+                                                                    <binding destination="222" name="value" keyPath="selection.name" id="302">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSNoSelectionPlaceholder">Select a plugin for more information</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Failed" identifier="failed" id="404">
+                                                    <view key="view" id="405">
+                                                        <rect key="frame" x="0.0" y="0.0" width="313" height="173"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="406">
+                                                                <rect key="frame" x="7" y="12" width="301" height="150"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences." id="448">
+                                                                    <font key="font" metaFont="systemBold"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                            </tabViewItems>
+                                        </tabView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Options" identifier="options" id="234">
+                                <view key="view" ambiguous="YES" id="235">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="258">
+                                            <rect key="frame" x="20" y="228" width="61" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Catalog" id="455">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="267">
+                                            <rect key="frame" x="20" y="382" width="136" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Activation" id="456">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="275">
+                                            <rect key="frame" x="40" y="118" width="414" height="102"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="justified" id="457">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. 
+By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="277">
+                                            <rect key="frame" x="78" y="228" width="16" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </progressIndicator>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="336">
+                                            <rect key="frame" x="40" y="320" width="398" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="458">
+                                                <font key="font" metaFont="system"/>
+                                                <string key="title">Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the “Command” pane in the preferences.</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton toolTip="Rescan frequency" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="338">
+                                            <rect key="frame" x="171" y="69" width="201" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Every hour" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="60" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="340" id="459">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="339">
+                                                    <items>
+                                                        <menuItem title="Manually (⌘R)" tag="-1" id="343"/>
+                                                        <menuItem isSeparatorItem="YES" id="344">
+                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                        </menuItem>
+                                                        <menuItem title="Every 10 minutes" tag="10" id="341"/>
+                                                        <menuItem title="Every half hour" tag="30" id="345"/>
+                                                        <menuItem title="Every hour" state="on" tag="60" id="340"/>
+                                                        <menuItem title="Every day" tag="1440" id="342"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <binding destination="306" name="selectedTag" keyPath="values.QSCatalogRescanFrequency" id="372"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="347">
+                                            <rect key="frame" x="59" y="75" width="110" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Rescan Catalog:" id="460">
+                                                <font key="font" metaFont="systemBold"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="373">
+                                            <rect key="frame" x="59" y="276" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Shortcut:" id="461">
+                                                <font key="font" metaFont="systemBold"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="378" customClass="QSHotKeyField">
+                                            <rect key="frame" x="173" y="273" width="97" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="462">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="306" name="value" keyPath="values.QSActivationHotKey" id="383"/>
+                                                <outlet property="setButton" destination="379" id="380"/>
+                                            </connections>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="379">
+                                            <rect key="frame" x="272" y="272" width="31" height="24"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="smallSquare" title="Edit" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="463">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                <font key="font" metaFont="label"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="set:" target="378" id="381"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Getting Started" identifier="gettingstarted" id="56">
+                                <view key="view" id="57">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387">
+                                            <rect key="frame" x="20" y="11" width="446" height="404"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
+                                        </webView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Support" identifier="support" id="236">
+                                <view key="view" id="237">
+                                    <rect key="frame" x="10" y="7" width="486" height="430"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="337" customClass="QSImageView">
+                                            <rect key="frame" x="179" y="292" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="464"/>
+                                        </imageView>
+                                        <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="402">
+                                            <rect key="frame" x="20" y="0.0" width="446" height="284"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO" allowsAnimatedImages="NO" allowsAnimatedImageLooping="NO">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
+                                        </webView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="64"/>
+                        </connections>
+                    </tabView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                        <rect key="frame" x="0.0" y="1" width="108" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="push" title="Go Back" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="465">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="prevSection:" target="-2" id="55"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                        <rect key="frame" x="402" y="1" width="108" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="push" title="Continue" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="466">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="nextSection:" target="-2" id="54"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="26"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="147"/>
+        </window>
+        <objectController objectClassName="QSUpdateController" id="189" userLabel="UpdateController">
+            <declaredKeys>
+                <string>installProgress</string>
+                <string>installStatus</string>
+                <string>name</string>
+                <string>QSAgreementAccepted</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="plugInManager" id="193"/>
+            </connections>
+        </objectController>
+        <arrayController objectClassName="QSPlugIn" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="222" userLabel="Recommended">
+            <declaredKeys>
+                <string>enabled</string>
+                <string>name</string>
+                <string>newKey</string>
+                <string>version</string>
+                <string>modifed</string>
+                <string>created</string>
+                <string>author</string>
+                <string>icon</string>
+                <string>info</string>
+                <string>statusBullet</string>
+                <string>canBeDisabled</string>
+                <string>smallIcon</string>
+                <string>enabledColor</string>
+                <string>byline</string>
+                <string>show</string>
+                <string>showHelp</string>
+                <string>attributedDescription</string>
+                <string>modified</string>
+                <string>modifiedDate</string>
+                <string>arran</string>
+                <string>@count</string>
+                <string>shouldBeInstalled</string>
+                <string>description</string>
+                <string>shortDescription</string>
+                <string>shouldInstall</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="recommendedPlugIns" id="223"/>
+            </connections>
+        </arrayController>
+        <window title="Panel" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="254" userLabel="PlugInStatus" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="353" y="431" width="352" height="107"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <value key="minSize" type="size" width="213" height="60"/>
+            <view key="contentView" id="255" customClass="QSBackgroundView">
+                <rect key="frame" x="0.0" y="0.0" width="352" height="107"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <progressIndicator verticalHuggingPriority="750" fixedFrame="YES" maxValue="1" bezeled="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="256">
+                        <rect key="frame" x="18" y="67" width="324" height="20"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <binding destination="317" name="value" keyPath="selection.installProgress" id="319"/>
+                        </connections>
+                    </progressIndicator>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="257">
+                        <rect key="frame" x="17" y="43" width="326" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Small System Font Text" id="467">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="317" name="value" keyPath="selection.installStatus" id="320"/>
+                        </connections>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="321">
+                        <rect key="frame" x="256" y="12" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="468">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelPlugInInstall:" target="-2" id="322"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="139" y="544"/>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="306" userLabel="Shared Defaults"/>
+        <objectController objectClassName="QSPlugInManager" id="317" userLabel="Manager">
+            <declaredKeys>
+                <string>isInstalling</string>
+                <string>install</string>
+                <string>installProgress</string>
+                <string>installStatus</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="plugInManager" id="318"/>
+            </connections>
+        </objectController>
+    </objects>
+    <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+        <image name="QSPlugIn" width="256" height="256"/>
+    </resources>
+</document>

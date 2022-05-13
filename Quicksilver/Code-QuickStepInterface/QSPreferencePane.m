@@ -133,4 +133,12 @@
 - (id)preferencesSplitView {
     return nil;
 }
+
+- (NSString *)name {
+	return NSLocalizedStringFromTable([_info objectForKey:@"name"], [_info objectForKey:@"class"], @"Preference Pane Name");
+}
+
+- (NSString *)description {
+	return NSLocalizedStringFromTable([_info objectForKey:@"description"], [_info objectForKey:@"class"], @"Preference Pane Name");
+}
 @end

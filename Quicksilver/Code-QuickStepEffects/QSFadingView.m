@@ -24,24 +24,14 @@
 - (CGFloat)opacity { return opacity;  }
 - (void)setOpacity:(CGFloat)newOpacity {
 	if (opacity != newOpacity)
-		[self setNeedsDisplay:YES];
+		[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+			context.duration = 0.1;
+			self.animator.alphaValue = newOpacity;
+		}
+		completionHandler:^{
+			
+		}];
 	opacity = newOpacity;
 }
-
-- (void)_recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect {
-	if (opacity >= 1.0) {
-		[super _recursiveDisplayAllDirtyWithLockFocus:lock visRect:rect];
-	} else if(opacity) {
-		CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
-		CGContextSaveGState(context);
-		CGContextSetAlpha(context, opacity);
-		CGContextBeginTransparencyLayer(context, 0);
-		[super _recursiveDisplayAllDirtyWithLockFocus:lock visRect:rect];
-		CGContextEndTransparencyLayer(context);
-		CGContextRestoreGState(context);
-	}
-}
-
-- (void)drawRect:(NSRect)rect {}
 
 @end

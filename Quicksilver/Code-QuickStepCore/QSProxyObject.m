@@ -105,7 +105,7 @@
     NSNumber *e = [[self proxyDict] objectForKey:@"enabled"];
     if (e)
         return [e boolValue];
-    return YES;
+    return [super enabled];
 }
 
 - (BOOL)hasChildren {return YES;}

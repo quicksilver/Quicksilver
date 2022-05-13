@@ -137,7 +137,7 @@ id QSPrefs;
 	NSDictionary *plugInPanes = [QSReg tableNamed:kQSPreferencePanes];
 //	NSLog(@"plug %@", plugInPanes);
 	for(NSString *paneKey in plugInPanes) {
-		if ([modulesByID objectForKey:paneKey]) continue;
+		if ([self paneForIdentifier:paneKey]) continue;
 		//if ([loadedPanes containsObject:paneKey]) continue;
 		NSMutableDictionary *paneInfo = [[plugInPanes objectForKey:paneKey] mutableCopy];
 		if ([paneInfo isKindOfClass:[NSString class]]) {
@@ -202,7 +202,7 @@ id QSPrefs;
 	NSString *path = [info objectForKey:kItemPath];
     
 	if (!string) {
-        string = @"Preferences";
+        string = NSLocalizedString(@"Preferences", @"Default preference pane name");
     }
     
 	if (!image) {
@@ -356,12 +356,15 @@ id QSPrefs;
 
 //Toolbar
 - (void)selectPane:(id)sender {
-//	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
 	[self selectPaneWithIdentifier:[sender itemIdentifier]];
 }
 
+- (NSMutableDictionary *)paneForIdentifier:(NSString *)identifier {
+	return [modulesByID objectForKey:identifier];
+}
+
 - (void)selectPaneWithIdentifier:(NSString *)identifier {
-	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
+	NSMutableDictionary *info = [self paneForIdentifier:identifier];
 	if (info) {
 		[self setPaneForInfo:info switchSection:YES];
 	} else if ([identifier isEqualToString:@"QSSettingsPanePlaceholder"]) {
@@ -401,7 +404,13 @@ id QSPrefs;
 
 	id instance = [info objectForKey:@"instance"];
 	if (!instance) {
-		instance = [[[QSReg getClass:[info objectForKey:@"class"]] alloc] init];
+		Class class = [QSReg getClass:[info objectForKey:@"class"]];
+		if ([class respondsToSelector:@selector(sharedInstance)]) {
+			// if the pref pane has a shared instance method, use that to get the singleton
+			instance = [class sharedInstance];
+		} else {
+			instance = [[class alloc] init];
+		}
 		if (instance) {
 			if ([instance respondsToSelector:@selector(setInfo:)])
 				[instance setInfo:info];
@@ -639,16 +648,18 @@ id QSPrefs;
 		return newItem;
 	}
 
-	NSDictionary *info = [modulesByID objectForKey:itemIdentifier];
+	NSDictionary *info = [self paneForIdentifier:itemIdentifier];
 	//int index = [toolbarTabView indexOfTabViewItemWithIdentifier:itemIdentifier];
 	//if (index == NSNotFound) return nil;
 	//NSTabViewItem *tabViewItem = [toolbarTabView tabViewItemAtIndex:index];
 	//NSLog(@"tool %@", info);
 	NSToolbarItem *newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-	[newItem setLabel:[info objectForKey:@"name"]];
-	[newItem setPaletteLabel:[info objectForKey:@"name"]];
+	NSString *name = NSLocalizedStringFromTable([info objectForKey:@"name"], [info objectForKey:@"class"], @"");
+	[newItem setLabel:name];
+	[newItem setPaletteLabel:name];
 	[newItem setImage:[QSResourceManager imageNamed:[info objectForKey:@"icon"]]];
-	[newItem setToolTip:[info objectForKey:@"description"]];
+	NSString *description = NSLocalizedStringFromTable([info objectForKey:@"description"], [info objectForKey:@"class"], @"");
+	[newItem setToolTip:description];
 	[newItem setTarget:self];
 	[newItem setAction:@selector(selectPane:)];
 	return newItem;

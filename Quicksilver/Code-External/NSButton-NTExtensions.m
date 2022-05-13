@@ -16,7 +16,7 @@
 - (BOOL)isSwitchButton {
 	NSButtonCell *cell = [self cell];
 	if ([cell respondsToSelector:@selector(_buttonType)])
-		return ([cell _buttonType] == NSSwitchButton);
+		return ([cell _buttonType] == NSButtonTypeSwitch);
 	else
 		return NO;
 }

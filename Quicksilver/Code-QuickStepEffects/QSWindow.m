@@ -36,7 +36,7 @@
 	CGFloat f;
 	NSDate *date = [NSDate date];
 	CGFloat elapsed;
-	while ((elapsed = -[date timeIntervalSinceNow]) <FLAREDURATION) {
+	while ((elapsed = - [date timeIntervalSinceNow]) <FLAREDURATION) {
 		f = elapsed/FLAREDURATION;
 		CGFloat s = .97+3*pow(f-0.1, 2);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
@@ -170,6 +170,10 @@
 //	[self release];
 }
 
+- (BOOL)allowsConcurrentViewDrawing {
+	return NO;
+}
+
 - (void)reallySendEvent:(NSEvent *)theEvent {
 	[super sendEvent:theEvent];
 }
@@ -240,7 +244,6 @@
 	[self setAlphaValue:1.0];
 	if ([self drawers])
 		[self performSelector:@selector(_unhideAllDrawers)];
-	[self setHelper:nil];
 }
 
 - (void)performEffect:(NSDictionary *)effect {
@@ -264,9 +267,9 @@
 		[hl startAnimation];
 	} else {
 		[self setFrame:NSOffsetRect(trueRect, showOffset.x, showOffset.y) display:YES animate:NO];
-		[[self helper] setTarget:self];
-		[[self helper] setAction:@selector(finishShow:)];
-		[[self helper] _resizeWindow:self toFrame:trueRect alpha:1.0 display:YES];
+		[self resizeToFrame:trueRect alpha:1.0 display:YES completionHandler:^{
+			[self finishShow:self];
+		}];
 		//NSLog(@"show");
 	}
 }
@@ -292,7 +295,6 @@
 		[self setHasShadow:YES];
 	[self setFrame:trueRect display:NO animate:NO];
 	[self setAlphaValue:0.0];
-	[self setHelper:nil];
 }
 
 - (IBAction)hideThreaded:(id)sender {
@@ -316,9 +318,9 @@
 		[hl setDelegate:self];
 		[hl startAnimation];
 	} else {
-		[[self helper] setTarget:self];
-		[[self helper] setAction:@selector(finishHide:)];
-		[[self helper] _resizeWindow:self toFrame:NSOffsetRect(trueRect, hideOffset.x, hideOffset.y) alpha:0.0 display:YES];
+		[self resizeToFrame:NSOffsetRect(trueRect, hideOffset.x, hideOffset.y) alpha:0.0 display:YES completionHandler:^{
+			[self finishHide:self];
+		}];
 	}
 }
 
@@ -374,20 +376,6 @@
 - (BOOL)delegatesEvents { return delegatesEvents;  }
 - (void)setDelegatesEvents:(BOOL)flag {
 	delegatesEvents = flag;
-}
-
-- (QSMoveHelper *)helper {
-	if (!helper){
-		id h = [[QSMoveHelper alloc] init];
-		[self setHelper:h];
-	}
-	return helper;
-}
-
-- (void)setHelper:(QSMoveHelper *)aHelper {
-	if (helper != aHelper) {
-		helper = aHelper;
-	}
 }
 
 - (NSMutableDictionary *)mutableProperties {

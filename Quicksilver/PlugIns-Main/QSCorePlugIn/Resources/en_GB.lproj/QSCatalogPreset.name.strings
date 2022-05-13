@@ -93,15 +93,13 @@
     <key>QSPresetDockOthers</key>
     <string>Dock Files &amp; Folders</string>
     <key>QSPresetFavorites</key>
-    <string>Favourites</string>
+    <string>Favorites</string>
     <key>QSPresetFinderGroup</key>
     <string>Finder</string>
     <key>QSPresetFinderRecentFolders</key>
     <string>Recent Folders (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder Specific Search Places</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder Toolbar Items</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox Bookmarks</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -114,12 +112,6 @@
     <string>Internal Commands</string>
     <key>QSPresetInternalObjects</key>
     <string>Internal Objects</string>
-    <key>QSPresetIEBookmarks</key>
-    <string>Internet Explorer Bookmarks</string>
-    <key>QSPresetIEGroup</key>
-    <string>Internet Explorer</string>
-    <key>QSPresetIEHistory</key>
-    <string>Internet Explorer History</string>
     <key>QSPresetILifeGroup</key>
     <string>iLife</string>
     <key>QSPresetITunesGroup</key>
@@ -136,10 +128,12 @@
     <string>Scripts (All Users)</string>
     <key>QSPresetMainApplications</key>
     <string>Applications</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Miscellaneous</string>
     <key>QSPresetModules</key>
-    <string>Plug-ins</string>
+    <string>Plugins</string>
     <key>QSPresetMozillaBookmarks</key>
     <string>Mozilla Bookmarks</string>
     <key>QSPresetNNWSubscriptions</key>
@@ -155,7 +149,7 @@
     <key>QSPresetOmniWebBookmarks</key>
     <string>OmniWeb Bookmarks</string>
     <key>QSPresetOmniWebFavorites</key>
-    <string>OmniWeb Favourites</string>
+    <string>OmniWeb Favorites</string>
     <key>QSPresetOmniWebGroup</key>
     <string>OmniWeb</string>
     <key>QSPresetOmniWebHistory</key>
@@ -179,7 +173,7 @@
     <key>QSPresetPrinters</key>
     <string>Printers</string>
     <key>QSPresetQSCatalogEntries</key>
-    <string>Quicksilver Catalogue Entries</string>
+    <string>Quicksilver Catalog Entries</string>
     <key>QSPresetQSDefaultLinks</key>
     <string>Starter URLs</string>
     <key>QSPresetQSExtraScripts</key>
@@ -197,7 +191,7 @@
     <key>QSPresetRecentServers</key>
     <string>Recent Servers</string>
     <key>QSPresetFavoriteServers</key>
-    <string>Favourite Servers</string>
+    <string>Favorite Servers</string>
     <key>QSPresetRendezvous</key>
     <string>Rendezvous Servers</string>
     <key>QSPresetRendezvousMachines</key>

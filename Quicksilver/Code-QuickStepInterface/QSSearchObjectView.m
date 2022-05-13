@@ -461,7 +461,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if (interfaceRect.origin.x + NSWidth(interfaceRect) + NSWidth(resultWindowRect) <NSMaxX(screenRect)) {
             // results view on the RHS of the interface
 			if (hFlip) {
-                [[resultController searchStringField] setAlignment:NSLeftTextAlignment];
+				[[resultController searchStringField] setAlignment:NSTextAlignmentLeft];
 
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = NO;
@@ -470,7 +470,7 @@ NSMutableDictionary *bindingsDict = nil;
 		} else {
             // results view on the LHS of the interface
 			if (!hFlip) {
-                [[resultController searchStringField] setAlignment:NSRightTextAlignment];
+				[[resultController searchStringField] setAlignment:NSTextAlignmentRight];
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = YES;
 			}
@@ -1000,9 +1000,9 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)flagsChanged:(NSEvent *)theEvent {
     QSSearchObjectView *aSelector = [self actionSelector];
     [aSelector setUpdatesSilently:YES];
-    NSUInteger flags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	NSUInteger flags = [theEvent modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
     // if only the command key is pressed
-	if (flags == NSCommandKeyMask || flags == (NSCommandKeyMask | NSAlphaShiftKeyMask)) {
+	if (flags == NSEventModifierFlagCommand || flags == (NSEventModifierFlagCommand | NSEventModifierFlagCapsLock)) {
 		// change the image
 		QSAction *theAction = [aSelector objectValue];
 		if (theAction && [theAction alternate]) {
@@ -1076,7 +1076,7 @@ NSMutableDictionary *bindingsDict = nil;
     
 	// ***warning  * have downshift move to indirect object
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Shift Actions"]
-        && [theEvent modifierFlags] &NSShiftKeyMask
+		&& [theEvent modifierFlags] &NSEventModifierFlagShift
         && ([[theEvent characters] length] >= 1)
         && [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]]
         && self == [self directSelector]) {
@@ -1094,7 +1094,7 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     }  
          
-	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) && [eventCharactersIgnoringModifiers characterAtIndex:0] != NSDeleteCharacter) {
+	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSEventModifierFlagFunction) && [eventCharactersIgnoringModifiers characterAtIndex:0] != NSDeleteCharacter) {
         if ([self handleRepeaterEvent:theEvent]) return;
 	}
 	
@@ -1107,7 +1107,7 @@ NSMutableDictionary *bindingsDict = nil;
 // Change the search mode if ⌘→ or ⌘← is pressed
 - (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent {
   
-    if ([theEvent modifierFlags] &NSCommandKeyMask) {
+	if ([theEvent modifierFlags] &NSEventModifierFlagCommand) {
         QSSearchMode aNewSearchMode;
         unichar aChar = [[theEvent characters] characterAtIndex:0];
         BOOL changeSearchModeRight;
@@ -1174,7 +1174,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([theEvent isARepeat]) return YES;
 	if (!allowNonActions) return YES;
 	
-	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:YES];
+	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
 	if (upEvent) {
 		[self moveRight:self];
@@ -1191,7 +1191,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!allowNonActions) return YES;
 	[self setObjectValue:[QSObject fileObjectWithPath:NSHomeDirectory()]];
     
-	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
+	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
 	if (!upEvent)
 		[self moveRight:self];
 	return YES;
@@ -1205,9 +1205,9 @@ NSMutableDictionary *bindingsDict = nil;
 	if (![mnemonics objectForKey:partialString]) {
 		//qu	NSLog(@"delaying before execution %@ %@", mnemonics, partialString);
         
-		NSEvent *keyUp = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:2.0] inMode:NSDefaultRunLoopMode dequeue:YES];
+		NSEvent *keyUp = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:2.0] inMode:NSDefaultRunLoopMode dequeue:YES];
 		if (keyUp) {
-			[NSApp discardEventsMatchingMask:NSKeyDownMask beforeEvent:keyUp];
+			[NSApp discardEventsMatchingMask:NSEventMaskKeyDown beforeEvent:keyUp];
 			return YES;
 		}
 	}
@@ -1220,18 +1220,19 @@ NSMutableDictionary *bindingsDict = nil;
 	NSDate *absorbDate = [NSDate dateWithTimeIntervalSinceNow:0.5];
     
     
-	if (nextEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:absorbDate inMode:NSDefaultRunLoopMode dequeue:NO]) {
+	if (nextEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:absorbDate inMode:NSDefaultRunLoopMode dequeue:NO]) {
 #ifdef DEBUG
 		if (VERBOSE) 	NSLog(@"discarding events till %@", nextEvent);
 #endif
-		[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:nextEvent];
+		[NSApp discardEventsMatchingMask:NSEventMaskAny beforeEvent:nextEvent];
         
 	}
 	return YES;
 }
 
 - (BOOL)handleBoundKey:(NSEvent *)theEvent {
-    NSString *theEventString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
+
+    NSString *theEventString = [[NDKeyboardLayout asciiKeyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
 	NSString *selectorString = [bindingsDict objectForKey:theEventString];
     
 	if (selectorString) {
@@ -1305,7 +1306,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//If the scroll event is really delayed (Nonactivating panels cause this) then ignore
 	if (currentTimeDouble/1000000-[theEvent timestamp] >0.25) return;
     
-	while (theEvent = [NSApp nextEventMatchingMask: NSScrollWheelMask untilDate:[NSDate date] inMode:NSDefaultRunLoopMode dequeue:YES]) {
+	while (theEvent = [NSApp nextEventMatchingMask: NSEventMaskScrollWheel untilDate:[NSDate date] inMode:NSDefaultRunLoopMode dequeue:YES]) {
 		delta += [theEvent deltaY];
 	}
     
@@ -1317,7 +1318,7 @@ NSMutableDictionary *bindingsDict = nil;
     if (![[self directSelector] objectValue]) {
         return NO;
     }
-	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"\r"] && ([theEvent modifierFlags] & NSCommandKeyMask) > 0) {
+	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"\r"] && ([theEvent modifierFlags] & NSEventModifierFlagCommand) > 0) {
 		[self insertNewline:nil];
 		return YES;
 	}
@@ -1365,7 +1366,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[self insertText:@" "];
 			break;
 		case QSSearchSpaceBarBehaviorSelectNextResult:
-			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+			if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 				[self moveUp:sender];
 			else
 				[self moveDown:sender];
@@ -1377,7 +1378,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[self transmogrify:sender];
 			break;
 		case QSSearchSpaceBarBehaviorSelectContents:
-			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+			if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
@@ -1394,7 +1395,7 @@ NSMutableDictionary *bindingsDict = nil;
                 [self shortCircuit:sender];
             }
             // go to parent if one exists
-            else if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+			else if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
             {
                 [self moveLeft:sender];
             }
@@ -1801,7 +1802,7 @@ NSMutableDictionary *bindingsDict = nil;
 	QSObject * newSelectedObject = [super objectValue];
     QSObject * parent = nil;
 
-    BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
+	BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) > 0;
 
 
     if (direction>0 && ([newSelectedObject hasChildren] || alt)) {
@@ -2018,13 +2019,13 @@ NSMutableDictionary *bindingsDict = nil;
 // Quick Look panel delegate
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event {
-    if ([event type]  != NSKeyDown) {
+	if ([event type]  != NSEventTypeKeyDown) {
         return NO;
     }
     NSString *key = [event charactersIgnoringModifiers];
     NSUInteger eventModifierFlags = [event modifierFlags];
-       if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
-        if (eventModifierFlags & NSAlternateKeyMask) {
+	if ([key isEqual:@"y"] && eventModifierFlags & NSEventModifierFlagCommand) {
+		if (eventModifierFlags & NSEventModifierFlagOption) {
             // Cmd + Optn + Y shortcut (full screen)
             [self togglePreviewPanelFullScreen:nil];
         } else {
@@ -2034,11 +2035,11 @@ NSMutableDictionary *bindingsDict = nil;
         return YES;
     }
     // Allow the default action to be executed (if CMD+ENTR or ENTR is pressed)
-    if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
+	if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSEventModifierFlagCommand || ((eventModifierFlags & NSEventModifierFlagDeviceIndependentFlagsMask) == 0))) {
         // close the preview panel first to avoid any quirkiness
         [[QLPreviewPanel sharedPreviewPanel] close];
         [self closePreviewPanel];
-        if (eventModifierFlags & NSCommandKeyMask) {
+		if (eventModifierFlags & NSEventModifierFlagCommand) {
             [self insertNewline:nil];
         } else {
             [self interpretKeyEvents:[NSArray arrayWithObject:event]];

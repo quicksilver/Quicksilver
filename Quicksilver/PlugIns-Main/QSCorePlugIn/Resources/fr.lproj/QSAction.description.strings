@@ -44,6 +44,10 @@
     <string>Afficher le texte dans une boîte de dialogue</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Ouvrir le contenu de l&apos;élément dans Quicksilver</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Afficher les éléments sélectionnés dans la liste des résultats</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Enregistrer les détails de ce projet dans la console</string>
     <key>QSShellScriptRunAction</key>
     <string>Exécuter un script shell</string>
     <key>QSObjectSelectAction</key>

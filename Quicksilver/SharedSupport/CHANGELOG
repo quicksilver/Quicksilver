@@ -1,8 +1,65 @@
+## Changes - ##
+
+*Requires macOS 10.14+*
+
+### New ###
+
+* Save your catalog entries and share them with friends (#2755)
+* "Latest Screenshot" proxy object to allow you to select the latest screenshot (created by Grab.app) in Quicksilver (#2752, #2749)
+* Use JXA (JavaScript for Automation) to control Quicksilver (#2745, #2604)
+* Updated translations for: Czech, French, German, Indonesian, Italian, Japanese, Korean, Norwegian, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Swedish, Turkish, Chinese (Simplified) - 中文简体, Chinese (Taiwan, Traditional) - 中文繁体 [learn more](https://www.transifex.com/quicksilver/quicksilver/)
+
+### Fixed ###
+
+* Mouse and Keyboard Trigger icons are now high-res (#2755)
+* "Latest Download" proxy object can now find downloads in folders with spaces (#2751)
+* Occasional bugs when opening Quicksilver's preferences (#2754)
+* Improved descriptions for the 'Make New...' action templates
+* Fix crash with the 'Make New...' action in certain cases
+* Fix occasional crash when actions are set to run in the background
+* Fix triggers that used F14 as the hotkey (#2863)
+* Fix crash when running Quicksilver for the first time on a new computer (#2760)
+
+## Changes - 2.1.0 (4032) 2022-04-23 ##
+
+*Requires macOS 10.14+*
+
+**Note**: some users are experiencing issues updating from Quicksilver v2.0.0-v2.0.3. If you encounter problems updating, you can try manually updating by downloading the latest version from [https://qsapp.com/download.php]()
+
+### New ###
+
+* Open 'together' when opening files from Quicksilver's 1st pane - consistent with Finder's behavior (#2664, #2035)
+* Optimized HTML parser to handle browsing websites from within Quicksilver (when → into a URL) (#2729, #2728)
+* Further optimizations and speed improvements (#2734)
+
+### Fixed ###
+
+* Results window now correctly 'bumps' when trying to → (right arrow) into objects that don't allow it (#2729)
+* Correctly expand/contract the 3rd pane in Primer Interface (#2669, #1215)
+* Web Search Plugin wouldn't correctly download the list of search URLs (#2729, #2728)
+* Fix enabling/disabling proxy objects from the Catalog pref pane (#2670, #1660)
+* Crash for some users when using the 'Get Current Selection' proxy
+* Crash when rescanning running processes (#2735, #2718)
+* Popup alerts sometimes caused Quicksilver to crash or hang (#2738)
+* Using Caps-lock as a double-modifier activation didn't always work (#2717)
+* Using number pad keys as trigger shortcuts (#2742)
+* Fix Quicksilver's internal shortcuts such as ⌘[ to work on non-ASCII keyboards (e.g. Chinese, Japanese, Korean)
+* Allow triggers that use punctuation marks (e.g. .\'"?}) to work across keyboard layout changes
+
+### Changed ###
+
+* Added list of open-source software used by Quicksilver to the credits
+
+### Development ###
+
+* Provide checksums for Quicksilver releases (#2730, #2727)
+
+
 ## Changes - 2.0.3 (4031) 2022-04-07 ##
 
 *Requires macOS 10.14+*
 
-**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from https://qsapp.com/download.php
+**Note**: some users are experiencing issues updating from Quicksilver v2.0.0-v2.0.3. If you encounter problems updating, you can try manually updating by downloading the latest version from [https://qsapp.com/download.php]()
 
 ### Fixed ###
 
@@ -16,7 +73,7 @@
 
 *Requires macOS 10.14+*
 
-**Note**: some users are experiencing hangs when upgrading from Quicksilver v2.0.0 or v2.0.1. If you encounter these problems, please upgrade manually by downloading the latest version from [https://qsapp.com/download.php]()
+**Note**: some users are experiencing issues updating from Quicksilver v2.0.0-v2.0.3. If you encounter problems updating, you can try manually updating by downloading the latest version from [https://qsapp.com/download.php]()
 
 ### Fixed ###
 
@@ -1246,7 +1303,7 @@ Changes - ß61 (3900) 2011-10-23
 
   * FIX: Plugin preference pane now displays the date in localised format (e.g. EU: dd/mm/yyy, US: mm/d/yy) (Issue #373)
 
-  * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/master) for more detail
+  * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/main) for more detail
 
   * FIX: Split view fixes. Specify a (non-zero) default size to avoid confusion, and fix 'requires relaunch' prompt (Issue #349)
 

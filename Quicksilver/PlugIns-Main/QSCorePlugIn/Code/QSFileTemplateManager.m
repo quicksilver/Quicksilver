@@ -12,16 +12,14 @@
 #import <QSCore/QSObject_FileHandling.h>
 
 @implementation QSFileTemplateManager
-#if 0
+
 - (QSObject *)instantiateTemplate:(QSObject *)dObject inDirectory:(QSObject *)iObject {
 	NSString *template = [dObject singleFilePath];
-	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:@"untitled"] stringByAppendingPathExtension:[template pathExtension]] firstUnusedFilePath];
-	[[NSFileManager defaultManager] copyItemAtPath:template toPath:destination error:nil];
-	return [QSObject fileObjectWithPath:destination];
-}
-#else
-- (QSObject *)instantiateTemplate:(QSObject *)dObject inDirectory:(QSObject *)iObject {
-	NSString *template = [dObject singleFilePath];
+	if (!template) {
+		// make sure that it's actually a file template
+		NSBeep();
+		return nil;
+	}
 	NSString *destination = [iObject singleFilePath];
 	destination = [[destination stringByAppendingPathComponent:@"untitled"] stringByAppendingPathExtension:
 		[template pathExtension]];
@@ -32,7 +30,6 @@
 	
 	return [QSObject fileObjectWithPath:destination];
 }
-#endif
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	return [self templateObjects];
@@ -52,12 +49,11 @@
 }
 - (QSObject *)templateFromFile:(NSString *)path {
 	QSObject *fileObject = [QSObject fileObjectWithPath:path];
-	[fileObject setLabel:[[path lastPathComponent] stringByDeletingPathExtension]];
-
-    CFStringRef kind = NULL;
-	LSCopyKindStringForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path] , &kind);
-    [fileObject setDetails:(__bridge NSString *)kind];
-    CFRelease(kind);
+	
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSString *type = nil;
+	[url getResourceValue:&type forKey:NSURLLocalizedTypeDescriptionKey error:nil];
+    [fileObject setLabel:[NSString stringWithFormat:NSLocalizedString(@"%@ Template (%@)", @"Name format for the 'Make New...' action. First argument is typically one of 'Text', 'HTML', 'Python' etc."), [type localizedCapitalizedString], [[[path lastPathComponent] stringByDeletingPathExtension] localizedCapitalizedString]]];
 	return fileObject;
 }
 @end

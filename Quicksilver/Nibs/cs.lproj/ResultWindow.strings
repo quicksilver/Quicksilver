@@ -1,0 +1,51 @@
+
+/* Class = "NSWindow"; title = "Results"; ObjectID = "9"; */
+"9.title" = "Výsledky";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "43"; */
+"43.ibShadowedToolTip" = "Hledat řetěžec";
+
+/* Class = "NSTableColumn"; headerCell.title = "Results"; ObjectID = "60"; */
+"60.headerCell.title" = "Výsledky";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Selected item information"; ObjectID = "130"; */
+"130.ibShadowedToolTip" = "Informace o vybrané položce";
+
+/* Class = "NSTableColumn"; headerCell.title = "•"; ObjectID = "143"; */
+"143.headerCell.title" = "•";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "231"; */
+"231.title" = "Nabídka";
+
+/* Class = "NSMenuItem"; title = "Sort by Name"; ObjectID = "237"; */
+"237.title" = "Seřadit podle jména";
+
+/* Class = "NSMenuItem"; title = "Sort by Score"; ObjectID = "238"; */
+"238.title" = "Seřadit podle skóre";
+
+/* Class = "NSMenu"; title = "Search Mode ⌘←/⌘→"; ObjectID = "265"; */
+"265.title" = "Režim vyhledávání ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Search Mode ⌘←/⌘→"; ObjectID = "266"; */
+"266.title" = "Režim vyhledávání ⌘←/⌘→";
+
+/* Class = "NSMenuItem"; title = "Snap to Best"; ObjectID = "267"; */
+"267.title" = "Vybrat nejlepší";
+
+/* Class = "NSMenuItem"; title = "Filter Results"; ObjectID = "268"; */
+"268.title" = "Filtrovat výsledky";
+
+/* Class = "NSMenuItem"; title = "Filter Catalog"; ObjectID = "269"; */
+"269.title" = "Filtrovat katalog";
+
+/* Class = "NSTextFieldCell"; title = "SEARCH"; ObjectID = "282"; */
+"282.title" = "Vyhledávání";
+
+/* Class = "NSTextFieldCell"; title = "Details"; ObjectID = "283"; */
+"283.title" = "Podrobnosti";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Search string"; ObjectID = "307"; */
+"307.ibShadowedToolTip" = "Hledat řetěžec";
+
+/* Class = "NSTextFieldCell"; title = "RESULTS MODE"; ObjectID = "308"; */
+"308.title" = "Režim výsledků";

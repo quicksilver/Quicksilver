@@ -90,7 +90,7 @@
 		return nil;
 	}
 
-	if ([[NSApp currentEvent] type] == NSKeyDown && [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+	if ([[NSApp currentEvent] type] == NSEventTypeKeyDown && [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
 		[workspace hideOtherApplications:array];
 
 	NSDictionary *procDict;

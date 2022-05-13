@@ -51,6 +51,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
 - (BOOL)isPackage;
 - (BOOL)isAlias;
 - (BOOL)isOnLocalVolume;
+- (BOOL)isIcloudFile;
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
 - (NSString *)singleFileType;

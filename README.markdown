@@ -2,7 +2,7 @@
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
-The `master` branch contains the source for the currently released Quicksilver.
+The `main` branch contains the source for the currently released Quicksilver.
 
 If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article"). For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
 

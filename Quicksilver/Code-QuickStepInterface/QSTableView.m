@@ -54,7 +54,7 @@
 - (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
 	// drawingRow = rowIndex;
 
-	if ([[self delegate] respondsToSelector:@selector(tableView:rowIsSeparator:)]
+	if (self.hasSeparators && [[self delegate] respondsToSelector:@selector(tableView:rowIsSeparator:)]
 		 && [[self delegate] tableView:self rowIsSeparator:rowIndex]) {
 
 		if (![[self delegate] respondsToSelector:@selector(tableView:shouldDrawRow:inClipRect:)]
@@ -72,6 +72,7 @@
 	if (self != nil) {
 		opaque = YES;
 		drawsBackground = YES;
+		_hasSeparators = YES;
 	}
 	return self;
 }

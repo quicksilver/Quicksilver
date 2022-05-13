@@ -6,7 +6,7 @@
 	return (double) [NSEvent doubleClickInterval] / 60.0;
 }
 - (NSInteger)standardModifierFlags {
-	return [self modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask | NSShiftKeyMask | NSFunctionKeyMask);
+	return [self modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagControl | NSEventModifierFlagShift | NSEventModifierFlagFunction);
 }
 
 @end

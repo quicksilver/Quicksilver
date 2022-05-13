@@ -263,6 +263,7 @@ static CGFloat searchSpeed = 0.0;
 - (void)reloadSource:(NSNotification *)notif {
 	dispatch_async(scanning_queue, ^{
 		NSArray *entries = [self->entriesBySource objectForKey:[notif object]];
+		// TODO: these should not be set on a background thread. May cause a crash
 		self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
 		[self.scanTask start];
 		
@@ -553,9 +554,11 @@ static CGFloat searchSpeed = 0.0;
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
     dispatch_async(scanning_queue, ^{
         @autoreleasepool {
-            self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
-            self.scanTask.progress = -1;
-            [self.scanTask start];
+			QSGCDMainAsync(^{
+				self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
+				self.scanTask.progress = -1;
+				[self.scanTask start];
+			});
 
             NSArray *children = [self->catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
@@ -565,10 +568,12 @@ static CGFloat searchSpeed = 0.0;
                 [[children objectAtIndex:i] scanForced:force];
             }
 
-            self.scanTask.progress = 1.0;
-            [self.scanTask stop];
+			QSGCDMainAsync(^{
+				self.scanTask.progress = 1.0;
+				[self.scanTask stop];
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+				[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+			});
         }
     });
 }

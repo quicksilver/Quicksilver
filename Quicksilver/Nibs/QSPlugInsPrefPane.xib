@@ -71,7 +71,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="418" height="375"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="16" headerView="509" id="45" customClass="QSTableView">
+                                <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="16" headerView="509" translatesAutoresizingMaskIntoConstraints="NO" id="45" customClass="QSTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="418" height="358"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -93,7 +93,7 @@
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.enabled" id="258"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="250" minWidth="52.923000335693359" maxWidth="1000" id="44">
+                                        <tableColumn identifier="name" editable="NO" width="268" minWidth="52.923000335693359" maxWidth="1000" id="44">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plugins">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +137,7 @@
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.version" id="487"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="72" minWidth="72" maxWidth="82" id="297">
+                                        <tableColumn editable="NO" width="74" minWidth="72" maxWidth="82" id="297">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Updated">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

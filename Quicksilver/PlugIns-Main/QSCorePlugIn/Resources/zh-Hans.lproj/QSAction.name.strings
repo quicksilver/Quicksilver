@@ -202,6 +202,10 @@
     <string>显示动作菜单</string>
     <key>QSObjectShowChildrenAction</key>
     <string>显示内容</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>显示选中</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>将此对象录到控制台</string>
     <key>QSObjectShowSourceAction</key>
     <string>在类别中显示来源</string>
     <key>QSPutOnShelfAction</key>

@@ -29,7 +29,6 @@
 	IBOutlet NSTabView *drawerTabView;
 	IBOutlet NSTabViewItem *settingsItem;
 
-	NSMutableArray *triggerArray;
     NSMenu *typeMenu;
 
 	NSMutableArray *triggerSets;
@@ -41,6 +40,7 @@
 
 	QSTrigger *selectedTrigger;
 	NSSplitView *splitView;
+	BOOL isRearranging;
 }
 + (QSTriggersPrefPane *)sharedInstance;
 
@@ -54,7 +54,6 @@
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets;
 
 - (NSArray *)triggerArray;
-- (void)setTriggerArray:(NSMutableArray *)newTriggerArray;
 
 - (NSSortDescriptor *)sort;
 - (void)setSort:(NSSortDescriptor *)newSort;

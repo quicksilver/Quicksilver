@@ -232,10 +232,9 @@
             </declaredKeys>
             <connections>
                 <binding destination="490" name="sortDescriptors" keyPath="sortDescriptors" id="868"/>
-                <binding destination="-2" name="contentArray" keyPath="triggerArray" id="387"/>
             </connections>
         </arrayController>
-        <treeController objectClassName="QSTrigger" childrenKeyPath="children" leafKeyPath="isLeaf" selectsInsertedObjects="NO" id="490" userLabel="TriggerTreeController" customClass="QSTreeController">
+        <treeController objectClassName="QSTrigger" childrenKeyPath="children" leafKeyPath="isLeaf" selectsInsertedObjects="NO" id="490" userLabel="TriggerTreeController">
             <declaredKeys>
                 <string>name</string>
                 <string>type</string>

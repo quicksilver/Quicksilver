@@ -62,7 +62,7 @@
 	<key>QSUpdateReleaseLevel</key>
 	<integer>0</integer>
 	<key>Reset Delay</key>
-	<real>2</real>
+	<real>1.5</real>
 	<key>Hide Dock Icon</key>
 	<false/>
 	<key>Result Window Behavior</key>

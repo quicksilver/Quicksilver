@@ -122,8 +122,8 @@
 
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
 	NSEvent *event;
-    event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-    if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
+	event = [NSApp nextEventMatchingMask:NSEventMaskAny untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+	if ([event type] == NSEventTypeSystemDefined && [event subtype] == 9) // A hotkey up event
         return event;
 #ifdef DEBUG
     else if (event)
@@ -191,16 +191,13 @@
     } else {
 		[[trigger info] addEntriesFromDictionary:dict];
     }
-    
-    // 'Disable' the trigger so that the hotkey is freed. Disable in this send just means disable the hotkey associated with the trigger
-    [self disableTrigger:trigger];
 
     // This KVC call to 'triggerDescription' sets the new hotKey
 	[[self currentTrigger] willChangeValueForKey:@"triggerDescription"];
-	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 	[self willChangeValueForKey:@"hotKey"];
-	[self didChangeValueForKey:@"hotKey"];
 	[[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerChanged:) withObject:[self currentTrigger]];
+	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
+	[self didChangeValueForKey:@"hotKey"];
 }
 
 - (NSDictionary *)hotKey {

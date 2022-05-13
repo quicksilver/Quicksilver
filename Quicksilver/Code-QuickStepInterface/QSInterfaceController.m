@@ -666,7 +666,7 @@
 		// this ensures the interface is hidden before an action is run e.g. the 'capture screen region' and 'type text' actions needs this
 		[self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
 	}
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [[self currentCommand] canThread]) {
         QSGCDAsync(^{
             [self executeCommandThreaded];
         });
@@ -799,8 +799,8 @@
 #pragma mark -
 #pragma mark NSResponder overrides
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-	if (([theEvent modifierFlags] & NSCommandKeyMask) && 
-       ([theEvent modifierFlags] & NSShiftKeyMask) && 
+	if (([theEvent modifierFlags] & NSEventModifierFlagCommand) &&
+		([theEvent modifierFlags] & NSEventModifierFlagShift) && 
        ([[theEvent characters] length]) && 
        ([[NSCharacterSet letterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]])) {
 		return [[self aSelector] executeText:(NSEvent *)theEvent];

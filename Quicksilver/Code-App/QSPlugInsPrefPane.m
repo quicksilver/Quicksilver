@@ -71,14 +71,14 @@
     [infoButton setKeyEquivalent:@"i"];
     [refreshButton setKeyEquivalent:@"r"];
     for (NSButton *aButton in [NSArray arrayWithObjects:infoButton,refreshButton, nil]) {
-        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
+		[aButton setKeyEquivalentModifierMask:NSEventModifierFlagCommand];
     }
 
 	[[plugInText preferences] setDefaultTextEncodingName:@"utf-8"];
 	[plugInText setPolicyDelegate:self];
 	[plugInText setResourceLoadDelegate:self];
     
-	[[plugInText window] useOptimizedDrawing:NO];
+
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	NSNumber *selectedIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSPluginSelectedView"];
@@ -148,7 +148,7 @@
 			htmlString = @"";
 		}
         QSGCDMainSync(^{
-            [[plugInText mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+            [[self->plugInText mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
         });
 	}
 }

@@ -94,14 +94,6 @@ static id _sharedInstance;
 	NSImage *icon;
 	NSMenu *itemAddButtonMenu = [[NSMenu alloc] initWithTitle:@"Sources"];
 	[itemAddButton setMenu:itemAddButtonMenu];
-
-    [itemAddButton setKeyEquivalent:@"+"];
-    [itemRemoveButton setKeyEquivalent:@"-"];
-    [infoButton setKeyEquivalent:@"i"];
-    [refreshButton setKeyEquivalent:@"r"];
-    for (NSButton *aButton in [NSArray arrayWithObjects:itemAddButton,itemRemoveButton,infoButton,refreshButton, nil]) {
-        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
-    }
     
 	for (NSString *theID in sources) {
 		id source = [[QSReg objectSources] objectForKey:theID];
@@ -144,10 +136,10 @@ static id _sharedInstance;
 
 //	NSButtonCell *buttonCell = [[QSCatalogSwitchButtonCell alloc] init];
 	NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
-	[buttonCell setButtonType:NSSwitchButton];
+	[buttonCell setButtonType:NSButtonTypeSwitch];
 	[buttonCell setImagePosition:NSImageOnly];
 	[buttonCell setTitle:@""];
-	[buttonCell setControlSize:NSSmallControlSize];
+	[buttonCell setControlSize:NSControlSizeSmall];
 	[buttonCell setAllowsMixedState:YES];
 	[[itemTable tableColumnWithIdentifier:kItemEnabled] setDataCell:buttonCell];
 	[[itemTable tableColumnWithIdentifier:@"searched"] setDataCell:buttonCell];
@@ -161,7 +153,7 @@ static id _sharedInstance;
 	[[[itemContentsTable tableColumnWithIdentifier:kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setFont:[NSFont labelFontOfSize:9]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setWraps:NO];
-
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChangedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIndexedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEntrySelection) name:NSOutlineViewSelectionDidChangeNotification object:nil];
@@ -221,6 +213,7 @@ static id _sharedInstance;
 	[[[[QSLibrarian sharedInstance] entryForID:@"QSCatalogCustom"] children] addObject:entry];
 	[itemTable reloadData];
 	[QSCatalogPrefPane showEntryInCatalog:entry];
+	[entry scanForced:YES];
 }
 
 - (void)selectIndexPath:(NSIndexPath *)ipath {
@@ -236,6 +229,7 @@ static id _sharedInstance;
 	else
 		section = entry;
 	[catalogSetsController setSelectedObjects:[NSArray arrayWithObject:section]];
+	[self reloadData];
 	[self selectIndexPath:[entry catalogSetIndexPath]];
 }
 
@@ -283,28 +277,20 @@ static id _sharedInstance;
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	[savePanel setNameFieldLabel:@"Save Catalog:"];
 	[savePanel setCanCreateDirectories:YES];
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"qscatalogentry"]];
-	[savePanel runModal];
-	if ([savePanel URL]){
-		NSMutableDictionary *item = [currentItem mutableCopy];
+	savePanel.nameFieldStringValue = [currentItem name];
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"qscatalog"]];
+	[savePanel beginSheetModalForWindow:[itemTable window] completionHandler:^(NSModalResponse result) {
+		if (result != NSModalResponseOK || ! [savePanel URL]) {
+			return;
+		}
+		NSMutableDictionary *item = [[self->currentItem dictionaryRepresentation] mutableCopy];
 		[item removeObjectForKey:kItemID];
 		[[NSArray arrayWithObject:item] writeToURL:[savePanel URL] atomically:NO];
-	}
+	}];
+
 }
 
 //Outline Methods
-
-#if 0
-- (void)updateCurrentItemContents {
-	return;
-	//NSLog(@"update contents");
-	NSMutableArray *contents = [[[currentItem valueForKey:@"contents"] mutableCopy] autorelease];
-	NSSortDescriptor *nameDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES] autorelease];
-	[contents sortUsingDescriptors:[NSArray arrayWithObject:nameDescriptor]];
-	[self setCurrentItemContents:contents];
-	[itemContentsTable reloadData];
-}
-#endif
 
 - (IBAction)selectContentsItem:(id)sender {
     if ([itemContentsTable clickedRow] == -1) {
@@ -376,7 +362,7 @@ static id _sharedInstance;
 - (NSInteger) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item { return 0; }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
-	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
+	if ([[NSApp currentEvent] type] == NSEventTypeLeftMouseDragged) {
 		return (![[item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject] isPreset]);
 	}
 	return YES;
@@ -397,7 +383,7 @@ static id _sharedInstance;
 }
 
 - (QSCatalogEntry *)entryForDraggedFile:(NSString *)path {
-	if ([[path pathExtension] isEqualToString:@"qscatalogentry"])
+	if ([[path pathExtension] isEqualToString:@"qscatalog"])
 		return [self entryForCatFile:path];
 	else {
 		NSMutableDictionary *settingsDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:path, kItemPath, nil];
@@ -477,7 +463,7 @@ static id _sharedInstance;
 -(void)reloadData {
     [treeController rearrangeObjects];
     QSGCDMainAsync(^{
-        [itemTable reloadData];
+		[self->itemTable reloadData];
     });
 }
 
@@ -509,7 +495,7 @@ static id _sharedInstance;
 			if ([[NSSet setWithArray:[item ancestors]] intersectsSet:[NSSet setWithArray:draggedEntries]])
 				return NSDragOperationNone;
 			if ([[draggedEntries objectAtIndex:0] isPreset])
-				return ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationNone;
+				return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ? NSDragOperationCopy : NSDragOperationNone;
 		}
 		return NSDragOperationMove;
 	}
@@ -534,22 +520,23 @@ static id _sharedInstance;
 }
 
 - (void)catalogChanged:(NSNotification *)notification {
+	[treeController rearrangeObjects];
     QSGCDMainAsync(^{
-        [itemTable reloadData];
+        [self->itemTable reloadData];
     });
 }
 
 - (void)catalogIndexed:(NSNotification *)notification {
     QSGCDMainAsync(^{
-        [itemContentsTable reloadData];
-        [itemTable reloadData];
+        [self->itemContentsTable reloadData];
+        [self->itemTable reloadData];
     });
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
 	if (currentItem) {
         QSGCDAsync(^{
-            [currentItem scanForced:YES];
+            [self->currentItem scanForced:YES];
         });
 	}
 }

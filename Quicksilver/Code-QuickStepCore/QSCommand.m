@@ -332,6 +332,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 }
 
+- (BOOL)canThread {
+	if ([dObject isKindOfClass:[QSAction class]]) {
+		return [(QSAction *)dObject canThread];
+	}
+	return [aObject canThread];
+}
+
 - (QSAction *)aObject {
     QSAction *action = aObject;
 	if (action) {
@@ -455,13 +462,12 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)execute {
-	QSAction *actionObject = [self aObject];
+	__block QSAction *actionObject = [self aObject];
 	QSObject *directObject = [self dObject];
 	QSObject *indirectObject = [self iObject];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 #endif
-	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 	NSInteger argumentCount = [(QSAction *)actionObject argumentCount];
 	if (argumentCount == 2 && ![actionObject indirectOptional] && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
 		// indirect object required, but is either missing or asking for text input
@@ -478,7 +484,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 			}
 		}
 		// use Quicksilver's interface to get the missing object
-		[controller executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+		QSGCDMainSync(^{
+			QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
+			[controller executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+		});
 	} else {
 		// indirect object is either present, or unnecessary - run the action
 		QSObject *returnValue = [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
@@ -487,26 +496,29 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 			// if the action returns something, wipe out the first pane
 			/* (The main object would get replaced anyway. This is only done to
 			 remove objects selected by the comma trick before the action was run.) */
-			[controller clearObjectView:[controller dSelector]];
-			// put the result in the first pane, results list, and history
-			[[controller dSelector] performSelectorOnMainThread:@selector(redisplayObjectValue:) withObject:returnValue waitUntilDone:YES];
-			[[controller dSelector] updateHistory];
-			if (actionObject) {
-				if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
-					QSAction* rankedAction = [(QSRankedObject *)actionObject object];
-					if (rankedAction != actionObject) {
-						actionObject = rankedAction;
+			QSGCDMainSync(^{
+				QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
+				[controller clearObjectView:[controller dSelector]];
+				// put the result in the first pane, results list, and history
+				[[controller dSelector] performSelectorOnMainThread:@selector(redisplayObjectValue:) withObject:returnValue waitUntilDone:YES];
+				[[controller dSelector] updateHistory];
+				if (actionObject) {
+					if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
+						QSAction* rankedAction = [(QSRankedObject *)actionObject object];
+						if (rankedAction != actionObject) {
+							actionObject = rankedAction;
+						}
+					}
+					// bring the interface back to show the result
+					if ([actionObject displaysResult]) {
+						// send focus to the second pane if the user has set the preference
+						if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+							[controller actionActivate:nil];
+						}
+						[controller showMainWindow:controller];
 					}
 				}
-				// bring the interface back to show the result
-				if ([actionObject displaysResult]) {
-					// send focus to the second pane if the user has set the preference
-					if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
-						[controller actionActivate:nil];
-					}
-					[controller showMainWindow:controller];
-				}
-			}
+			});
 			return returnValue;
 		}
 	}

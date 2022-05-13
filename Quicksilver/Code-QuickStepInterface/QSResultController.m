@@ -27,11 +27,6 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
-// These should be localizable, but I'm not sure how to do that
-#define filterResultsString @"Filter Results"
-#define filterCatalogString @"Filter Catalog"
-#define snapToBestString @"Snap to Best"
-
 #import "QSTextProxy.h"
 
 NSMutableDictionary *kindDescriptions = nil;
@@ -137,7 +132,9 @@ NSMutableDictionary *kindDescriptions = nil;
     };
     b(resultTable);
     b(resultChildTable);
-
+	
+	resultTable.hasSeparators = NO;
+	resultChildTable.hasSeparators = NO;
 }
 
 - (void)dealloc {
@@ -165,29 +162,29 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)setSearchFilterAllActivated {
-	if ([filterCatalog state] == NSOffState) {
-		[filterCatalog setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterCatalogString];
+	if ([filterCatalog state] == NSControlStateValueOff) {
+		[filterCatalog setState:NSControlStateValueOn];
+		[filterResults setState:NSControlStateValueOff];
+		[snapToBest setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Filter Catalog", @"Search mode shown in top right hand of results view when filtering catalog")];
 	}
 }
 
 - (IBAction)setSearchFilterActivated {
-	if ([filterResults state] == NSOffState) {
-		[filterResults setState:NSOnState];
-		[filterCatalog setState:NSOffState];
-		[snapToBest setState:NSOffState];
-		[searchModeField setStringValue:filterResultsString];
+	if ([filterResults state] == NSControlStateValueOff) {
+		[filterResults setState:NSControlStateValueOn];
+		[filterCatalog setState:NSControlStateValueOff];
+		[snapToBest setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Filter Results", @"Search mode shown in top right hand of results view when filtering just the results")];
 	}
 }
 
 - (IBAction)setSearchSnapActivated {
-	if ([snapToBest state] == NSOffState) {
-		[snapToBest setState:NSOnState];
-		[filterResults setState:NSOffState];
-		[filterCatalog setState:NSOffState];
-		[searchModeField setStringValue:snapToBestString];
+	if ([snapToBest state] == NSControlStateValueOff) {
+		[snapToBest setState:NSControlStateValueOn];
+		[filterResults setState:NSControlStateValueOff];
+		[filterCatalog setState:NSControlStateValueOff];
+		[searchModeField setStringValue:NSLocalizedString(@"Snap to Best", @"Search mode shown in top right hand of results when snapping to best option")];
 	}
 }
 
@@ -196,14 +193,14 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)sortByName:(id)sender{
-	[sortByName setState:NSOnState];
-	[sortByScore setState:NSOffState];
+	[sortByName setState:NSControlStateValueOn];
+	[sortByScore setState:NSControlStateValueOff];
     [focus sortByName:sender];
 }
 
 - (IBAction)sortByScore:(id)sender {
-	[sortByName setState:NSOffState];
-	[sortByScore setState:NSOnState];
+	[sortByName setState:NSControlStateValueOff];
+	[sortByScore setState:NSControlStateValueOn];
     [focus sortByScore:sender];
 }
 
@@ -247,10 +244,10 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
     QSGCDMainAsync(^{
-        if (loader == resultIconLoader) {
-            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
-        } else if (loader == resultChildIconLoader) {
-            [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
+        if (loader == self->resultIconLoader) {
+            [self->resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
+		} else if (loader == self->resultChildIconLoader) {
+            [self->resultChildTable setNeedsDisplayInRect:[self->resultChildTable rectOfRow:m]];
         }
     });
 }
@@ -293,9 +290,9 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-	[resultTable setNeedsDisplay];
+	[resultTable setNeedsDisplay:YES];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-		[resultChildTable setNeedsDisplay];
+		[resultChildTable setNeedsDisplay:YES];
 	}
 }
 
@@ -326,15 +323,15 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)arrayChanged:(NSNotification*)notif {
     QSGCDMainSync(^{
         [self setResultIconLoader:nil];
-        [self setCurrentResults:[focus resultArray]];
+        [self setCurrentResults:[self->focus resultArray]];
         [self updateStatusString];
         
-        [resultTable reloadData];
+        [self->resultTable reloadData];
         
         //visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
         //	NSLog(@"arraychanged %d", [[self currentResults] count]);
         //[self threadedIconLoad];
-        [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
+        [[self resultIconLoader] loadIconsInRange:[self->resultTable rowsInRect:[self->resultTable visibleRect]]];
     });
 }
 
@@ -368,13 +365,13 @@ NSMutableDictionary *kindDescriptions = nil;
 		
 		NSEvent *event = [NSApp currentEvent];
 		// Check the event can have isARepeat called on it safely. From the docs for -[NSEvent isARepeat]: "Raises an NSInternalInconsistencyException if sent to an NSFlagsChanged event or other non-key event."
-		BOOL validKeyEvent = ([event type] == NSKeyDown) || ([event type] == NSKeyUp);
-		if ([event modifierFlags] & NSFunctionKeyMask && validKeyEvent && [event isARepeat]) {
+		BOOL validKeyEvent = ([event type] == NSEventTypeKeyDown) || ([event type] == NSEventTypeKeyUp);
+		if ([event modifierFlags] & NSEventModifierFlagFunction && validKeyEvent && [event isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
 				[childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 			} else {
 				// ***warning  * this should be triggered by the keyUp
-                if (![NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO]) {
+				if (![NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO]) {
                     childrenLoadTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO];
                 }
 			}
@@ -509,7 +506,7 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
+	if ([[NSApp currentEvent] type] == NSEventTypeLeftMouseDragged) {
         CGFloat split = NSWidth([[resultChildTable enclosingScrollView] frame]) / NSWidth([splitView frame]);
         [[NSUserDefaults standardUserDefaults] setFloat:split
                                                  forKey:kResultTableSplit];
@@ -697,7 +694,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	} else if ([sender clickedColumn] == 0) {
 		NSPoint origin = [sender rectOfRow:[sender clickedRow]].origin;
 		origin.y += [sender rowHeight];
-		NSEvent *theEvent = [NSEvent mouseEventWithType:NSRightMouseDown location:[sender convertPoint:origin toView:nil]
+		NSEvent *theEvent = [NSEvent mouseEventWithType:NSEventTypeRightMouseDown location:[sender convertPoint:origin toView:nil]
 										modifierFlags:0 timestamp:0 windowNumber:[[sender window] windowNumber] context:nil eventNumber:0 clickCount:1 pressure:0];
 
 	//	[tableView selectRow:row byExtendingSelection:NO];

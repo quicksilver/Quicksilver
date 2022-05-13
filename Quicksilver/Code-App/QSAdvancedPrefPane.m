@@ -86,7 +86,7 @@
         
         if ([type isEqualToString:@"checkbox"]) {
             cell = [[NSButtonCell alloc] init];
-            [(NSButtonCell*)cell setButtonType:NSSwitchButton];
+			[(NSButtonCell*)cell setButtonType:NSButtonTypeSwitch];
             [cell setTitle:@""];
         } else if ([type hasPrefix:@"popup"]) {
             cell = [[NSPopUpButtonCell alloc] init];

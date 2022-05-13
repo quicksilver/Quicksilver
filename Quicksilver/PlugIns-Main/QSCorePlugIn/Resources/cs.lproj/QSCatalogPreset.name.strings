@@ -100,8 +100,6 @@
     <string>Poslední položky (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Místa hledání Finder</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Položky řádku nabídek Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Záložky Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Skripty (všichni uživatelé)</string>
     <key>QSPresetMainApplications</key>
     <string>Aplikace</string>
+    <key>QSPresetSystemApplications</key>
+    <string>Systémové aplikace</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Různé</string>
     <key>QSPresetModules</key>

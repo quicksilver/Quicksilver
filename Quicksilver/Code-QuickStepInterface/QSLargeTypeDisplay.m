@@ -15,7 +15,7 @@
 
 #pragma mark QSLargeTypeDisplay
 
-void QSShowLargeType(NSString *aString) {
+void QSShowLargeType(NSString *aString) {	
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSColor *textColor = [defaults colorForKey:@"QSAppearance1T"];
@@ -44,9 +44,10 @@ void QSShowLargeType(NSString *aString) {
 	[formattedNumber addAttribute:NSForegroundColorAttributeName value:textColor range:fullRange];
 
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	if ([aString rangeOfString:@"\n"] .location == NSNotFound && [aString rangeOfString:@"\r"] .location == NSNotFound)
-		[style setAlignment:NSCenterTextAlignment];
+	if ([aString rangeOfString:@"\n"] .location == NSNotFound && [aString rangeOfString:@"\r"] .location == NSNotFound) {
+		[style setAlignment:NSTextAlignmentCenter];
 		[style setLineBreakMode: NSLineBreakByWordWrapping];
+	}
 
 	[formattedNumber addAttribute:NSParagraphStyleAttributeName value:style range:fullRange];
 
@@ -83,7 +84,7 @@ void QSShowLargeType(NSString *aString) {
 	windowRect = NSInsetRect(windowRect, -EDGEINSET, -EDGEINSET);
 	windowRect = NSIntegralRect(windowRect);
     
-	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
+	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSWindowStyleMaskBorderless | NSWindowStyleMaskNonactivatingPanel backing:NSBackingStoreBuffered defer:NO];
 	[largeTypeWindow setIgnoresMouseEvents:NO];
 	[largeTypeWindow setFrame:centerRectInRect(windowRect, screenRect) display:YES];
 	[largeTypeWindow setBackgroundColor: [NSColor clearColor]];
@@ -104,7 +105,7 @@ void QSShowLargeType(NSString *aString) {
 	[largeTypeWindow setAlphaValue:0];
 	[largeTypeWindow makeKeyAndOrderFront:nil];
 	[largeTypeWindow setInitialFirstResponder:textView];
-	[largeTypeWindow setAlphaValue:1 fadeTime:0.333];
+	[largeTypeWindow setAlphaValue:1 fadeTime:0.1];
 	[[largeTypeWindow contentView] display];
     /* Released when closed */
 }
@@ -115,22 +116,26 @@ void QSShowLargeType(NSString *aString) {
 
 - (IBAction)copy:(id)sender {
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
-	[pb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
-	[pb setString:[(NSTextField *)[self initialFirstResponder] stringValue] forType:NSStringPboardType];
+	[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
+	[pb setString:[(NSTextField *)[self initialFirstResponder] stringValue] forType:NSPasteboardTypeString];
 }
 
 - (BOOL)canBecomeKeyWindow {return YES;}
 
+- (void)fadeOut {
+	__weak NSWindow *weakSelf = self;
+	[self setAlphaValue:0 fadeTime:0.1 completionHandler:^{
+		[weakSelf close];
+	}];
+}
 - (void)keyDown:(NSEvent *)theEvent {
-	[self setAlphaValue:0 fadeTime:0.333];
-	[self close];
+	[self fadeOut];
 }
 
 - (void)resignKeyWindow {
 	[super resignKeyWindow];
 	if ([self isVisible]) {
-		[self setAlphaValue:0 fadeTime:0.333];
-		[self close];
+		[self fadeOut];
 	}
 }
 @end
@@ -168,7 +173,7 @@ void QSShowLargeType(NSString *aString) {
 
 @implementation QSLargeTypeScriptCommand
 - (id)performDefaultImplementation {
-	QSShowLargeType([self directParameter]);
+		QSShowLargeType([self directParameter]);
 	return nil;
 }
 @end
