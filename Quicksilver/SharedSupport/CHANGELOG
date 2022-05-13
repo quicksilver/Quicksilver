@@ -7,6 +7,7 @@
 * Save your catalog entries and share them with friends (#2755)
 * "Latest Screenshot" proxy object to allow you to select the latest screenshot (created by Grab.app) in Quicksilver (#2752, #2749)
 * Use JXA (JavaScript for Automation) to control Quicksilver (#2745, #2604)
+* Instructional popup window explaining how users can allow Quicksilver within macOS's privacy settings (#2741)
 * Updated translations for: Czech, French, German, Indonesian, Italian, Japanese, Korean, Norwegian, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Swedish, Turkish, Chinese (Simplified) - 中文简体, Chinese (Taiwan, Traditional) - 中文繁体 [learn more](https://www.transifex.com/quicksilver/quicksilver/)
 
 ### Fixed ###
@@ -19,6 +20,13 @@
 * Fix occasional crash when actions are set to run in the background
 * Fix triggers that used F14 as the hotkey (#2863)
 * Fix crash when running Quicksilver for the first time on a new computer (#2760)
+* Make many more windows and text translatable
+* Occasional hangs when showing the tasks view
+
+### Development ####
+
+* Add debug builds of Quicksilver to Github CI, for debugging and testing purposes (#2871, #2870)
+* Fix deprecation build warnings
 
 ## Changes - 2.1.0 (4032) 2022-04-23 ##
 
