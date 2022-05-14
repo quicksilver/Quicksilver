@@ -1,0 +1,132 @@
+
+/* Class = "NSWindow"; title = "Quicksilver Setup"; ObjectID = "5"; */
+"5.title" = "Quicksilver 设置";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "9"; */
+"9.label" = "插件";
+
+/* Class = "NSTabViewItem"; label = "Welcome"; ObjectID = "11"; */
+"11.label" = "欢迎";
+
+/* Class = "NSTabViewItem"; label = "Getting Started"; ObjectID = "56"; */
+"56.label" = "入门";
+
+/* Class = "NSTableColumn"; headerCell.title = "Plugins"; ObjectID = "201"; */
+"201.headerCell.title" = "插件";
+
+/* Class = "NSTableColumn"; headerCell.title = "✓"; ObjectID = "203"; */
+"203.headerCell.title" = "✓";
+
+/* Class = "NSTabViewItem"; label = "License"; ObjectID = "232"; */
+"232.label" = "许可证";
+
+/* Class = "NSTabViewItem"; label = "Options"; ObjectID = "234"; */
+"234.label" = "选项";
+
+/* Class = "NSTabViewItem"; label = "Support"; ObjectID = "236"; */
+"236.label" = "支持";
+
+/* Class = "NSWindow"; title = "Panel"; ObjectID = "254"; */
+"254.title" = "面板";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Select a plugin for more information"; ObjectID = "302"; */
+"302.ibShadowedNoSelectionPlaceholder" = "选择一个插件显示更多信息";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = " "; ObjectID = "303"; */
+"303.ibShadowedNoSelectionPlaceholder" = " ";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Rescan frequency"; ObjectID = "338"; */
+"338.ibShadowedToolTip" = "重新扫描频率";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "339"; */
+"339.title" = "其它视图";
+
+/* Class = "NSMenuItem"; title = "Every hour"; ObjectID = "340"; */
+"340.title" = "每小时";
+
+/* Class = "NSMenuItem"; title = "Every 10 minutes"; ObjectID = "341"; */
+"341.title" = "每10分钟";
+
+/* Class = "NSMenuItem"; title = "Every day"; ObjectID = "342"; */
+"342.title" = "每天";
+
+/* Class = "NSMenuItem"; title = "Manually (⌘R)"; ObjectID = "343"; */
+"343.title" = "手动 (⌘R)";
+
+/* Class = "NSMenuItem"; title = "Every half hour"; ObjectID = "345"; */
+"345.title" = "每半小时";
+
+/* Class = "NSTabViewItem"; label = "Plugins"; ObjectID = "392"; */
+"392.label" = "插件";
+
+/* Class = "NSTabViewItem"; label = "Loading"; ObjectID = "393"; */
+"393.label" = "加载";
+
+/* Class = "NSTabViewItem"; label = "Failed"; ObjectID = "404"; */
+"404.label" = "失败";
+
+/* Class = "NSTextFieldCell"; title = "Recommended Plugins"; ObjectID = "442"; */
+"442.title" = "推荐插件";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver comes with only a few basic features. Plugins can be installed to allow integration with many applications and services. Select and install the plugins for applications you use frequently from the list below. Plugins can be installed or disabled at a later date from the Plugins section in Quicksilver's preferences."; ObjectID = "443"; */
+"443.title" = "Quicksilver 只带有一些基本功能，可以安装插件来实现与许多应用程序和服务的整合。\n\n从下面的列表中选择并安装你经常使用的应用程序的插件。插件可以在以后从Quicksilver偏好设置中的 \"插件 \"部分安装或禁用。";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "445"; */
+"445.title" = "小号系统字体文本";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "446"; */
+"446.title" = "小号系统字体文本";
+
+/* Class = "NSTextFieldCell"; title = "Loading Plugin Information"; ObjectID = "447"; */
+"447.title" = "加载插件信息";
+
+/* Class = "NSTextFieldCell"; title = "Downloading of plugin information failed. Plugins can be downloaded at a later date from within Quicksilver's preferences."; ObjectID = "448"; */
+"448.title" = "下载插件信息失败。插件可以稍后从Quicksilver的偏好设置中下载。";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is an application that lets you search and control data across your Mac. Quickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. This assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality."; ObjectID = "449"; */
+"449.title" = "Quicksilver是一款让你在Mac上搜索和控制数据的应用程序。\n\n快速而毫不费力地启动应用程序，在Music中播放歌曲，创建Cal事件，或向联系人中的朋友发送文件。而这仅仅是个开始。\n这个助手将帮助你进行设置，并为你提供Quicksilver功能的基本介绍。";
+
+/* Class = "NSTextFieldCell"; title = "Welcome to Quicksilver"; ObjectID = "450"; */
+"450.title" = "欢迎使用Quicksilver";
+
+/* Class = "NSButtonCell"; title = "I have read and accept the terms of this license"; ObjectID = "452"; */
+"452.title" = "我已阅读并接受本许可证的条款";
+
+/* Class = "NSTextFieldCell"; title = "License Agreement"; ObjectID = "453"; */
+"453.title" = "许可证协议";
+
+/* Class = "NSTextFieldCell"; title = "Catalog"; ObjectID = "455"; */
+"455.title" = "目录";
+
+/* Class = "NSTextFieldCell"; title = "Activation"; ObjectID = "456"; */
+"456.title" = "激活";
+
+/* Class = "NSTextFieldCell"; title = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the Catalog pane in the preferences. By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below."; ObjectID = "457"; */
+"457.title" = "Quicksilver能找到的应用程序、文件、文件夹和项目都在目录中定义。你可以从偏好设置中的 \"目录 \"窗格中添加、删除或更新目录中的项目。\n默认情况下，目录是每10分钟刷新一次。你可以在下面改变这个频率。";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the Command pane in the preferences."; ObjectID = "458"; */
+"458.title" = "Quicksilver没有键盘快捷键就没有灵魂。在下面选择你喜欢的快捷键，或在偏好设置中的 \"命令 \"窗格中随时改变它。";
+
+/* Class = "NSTextFieldCell"; title = "Rescan Catalog:"; ObjectID = "460"; */
+"460.title" = "重新扫描目录：";
+
+/* Class = "NSTextFieldCell"; title = "Shortcut:"; ObjectID = "461"; */
+"461.title" = "快捷键:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "none"; ObjectID = "462"; */
+"462.placeholderString" = "无";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "463"; */
+"463.title" = "编辑";
+
+/* Class = "NSButtonCell"; title = "Go Back"; ObjectID = "465"; */
+"465.title" = "后退";
+
+/* Class = "NSButtonCell"; title = "Continue"; ObjectID = "466"; */
+"466.title" = "继续";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "467"; */
+"467.title" = "小号系统字体文本";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "468"; */
+"468.title" = "取消";
