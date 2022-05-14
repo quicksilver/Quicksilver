@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Handlers" = "Handlers";
+
+/* Preference Pane Description */
+"Choose the helpers for specific tasks" = "选择具体任务的助手程序";
+
 /* 169.headerCell.title */
 "Helper" = "助手";
 
