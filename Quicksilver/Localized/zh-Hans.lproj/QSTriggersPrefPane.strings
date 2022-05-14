@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
 
+/* 62.title */
+"Triggers" = "触发器";
+
+/* Preference Pane Description */
+"Automate actions with keyboard, mouse and other events" = "利用键盘、鼠标和其他事件实现自动化操作";
+
 /* 515.ibShadowedToolTip */
 "Add trigger..." = "添加触发器...";
 
@@ -50,9 +56,6 @@
 
 /* 833.title */
 "Trigger Name" = "触发器名称";
-
-/* 62.title */
-"Triggers" = "触发器";
 
 /* 485.headerCell.title */
 "Type" = "类型";
