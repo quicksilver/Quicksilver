@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSApplicationPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Application" = "应用程序";
+
+/* Preference Pane Description */
+"Launch, visibility, and update settings" = "启动、可见性与更新配置";
+
 /* 12.title */
 "<< do not localize >>" = "<< do not localize >>";
 
