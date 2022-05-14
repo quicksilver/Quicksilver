@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSSearchPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Command" = "Command";
+
+/* Preference Pane Description */
+"Activation and Matching options" = "激活和匹配选项";
+
 /* 254.title */
 "0.00s" = "0.00秒";
 
