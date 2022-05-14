@@ -3,6 +3,9 @@
 /* Preference Pane Name */
 "Guide" = "指南";
 
+/* Preference Pane Description */
+"Welcome to Quicksilver" = "欢迎使用Quicksilver";
+
 /* 851.title */
 "Decrease Font Size" = "缩小字号";
 
