@@ -1,5 +1,12 @@
 /* File extracted from ./Nibs/QSAppearancePrefPane.xib by stringstool v1.0*/
 
+
+/* Preference Pane Name */
+"Appearance" = "外观";
+
+/* Preference Pane Description */
+"Color and visual settings" = "颜色与视觉配置";
+
 /* 12.title */
 "<< do not localize >>" = "<< do not localize >>";
 
