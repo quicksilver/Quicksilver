@@ -66,4 +66,5 @@
 + (NSMutableDictionary *)missingLocalizedValuesForAllBundles;
 #endif
 
+-(NSArray *)executableArchitecturesPretty;
 @end

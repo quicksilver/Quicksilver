@@ -701,29 +701,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
         NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
         NSLog(@"Moving unsupported plugin '%@' to %@. It may have an unsupported architecture.", [self name], unsupportedFolder);
 
-		NSMutableArray *archs = [[NSMutableArray alloc] init];
-		for (NSNumber *arch in [bundle executableArchitectures]) {
-			NSString *archstr;
-			switch ([arch intValue]) {
-				case NSBundleExecutableArchitectureARM64:
-					archstr = @"arm64";
-					break;
-				case NSBundleExecutableArchitectureI386:
-					archstr = @"i386";
-					break;
-				case NSBundleExecutableArchitectureX86_64:
-					archstr = @"x86_64";
-					break;
-				case NSBundleExecutableArchitecturePPC:
-					archstr = @"ppc32";
-					break;
-				case NSBundleExecutableArchitecturePPC64:
-					archstr = @"ppc64";
-					break;
-			}
-			[archs addObject:archstr];
-		}
+		NSArray *archs = [bundle executableArchitecturesPretty];
 		NSLog(@"Detected architectures for '%@': %@", [self name], archs);
+
         NSFileManager *fm = [NSFileManager defaultManager];
         [fm moveItemAtPath:[self path] toPath:destination error:nil];
         //[NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
