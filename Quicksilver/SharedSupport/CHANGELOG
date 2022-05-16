@@ -9,6 +9,7 @@
 * Use JXA (JavaScript for Automation) to control Quicksilver (#2745, #2604)
 * Instructional popup window explaining how users can allow Quicksilver within macOS's privacy settings (#2741)
 * Updated translations for: Czech, French, German, Indonesian, Italian, Japanese, Korean, Norwegian, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Swedish, Turkish, Chinese (Simplified) - 中文简体, Chinese (Taiwan, Traditional) - 中文繁体 [learn more](https://www.transifex.com/quicksilver/quicksilver/)
+* Improved 3rd pane default times for 'Run after delay...' and 'Run at time...' commands
 
 ### Fixed ###
 
@@ -22,6 +23,7 @@
 * Fix crash when running Quicksilver for the first time on a new computer (#2760)
 * Make many more windows and text translatable
 * Occasional hangs when showing the tasks view
+* Several issues with the 'Run after delay...' and 'Run at time...' commands (#2875)
 
 ### Development ####
 
