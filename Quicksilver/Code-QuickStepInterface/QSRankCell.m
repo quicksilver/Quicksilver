@@ -37,9 +37,9 @@
 
 			[[NSBezierPath bezierPathWithOvalInRect:dotRect] fill];
 		}
-		[[[NSColor alternateSelectedControlColor] colorWithAlphaComponent:pow(MIN(self.score/3, 1), 2.0)] set];
+		[[[NSColor alternateSelectedControlColor] colorWithAlphaComponent:MIN(self.score/4, 1)] set];
 	} else {
-		[[[NSColor blackColor] colorWithAlphaComponent:MAX(pow(MIN(self.score/3, 1), 2.0), 0.08)] set];
+		[[[NSColor blackColor] colorWithAlphaComponent:MAX(MIN(self.score/4, 1), 0.08)] set];
 
 	}
 
