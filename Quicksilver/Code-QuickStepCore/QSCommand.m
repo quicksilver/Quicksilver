@@ -333,8 +333,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (BOOL)canThread {
-	if ([dObject isKindOfClass:[QSAction class]]) {
-		return [(QSAction *)dObject canThread];
+	if ([dObject isKindOfClass:[QSAction class]] || [dObject isKindOfClass:[QSCommand class]]) {
+		return [(id)dObject canThread];
 	}
 	return [aObject canThread];
 }
