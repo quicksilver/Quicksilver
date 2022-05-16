@@ -599,11 +599,10 @@ NSMutableDictionary *bindingsDict = nil;
     
 	if ([self.resultArray count]) {
 		QSObject *object = [self.resultArray objectAtIndex:selection];
-        
-		[self selectObjectValue:object];
 		[resultController.resultTable scrollRowToVisible:selection];
-		//[resultController->resultTable centerRowInView:selection];
 		[resultController.resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
+		[self selectObjectValue:object];
+		//[resultController->resultTable centerRowInView:selection];
 	} else
 		[self selectObjectValue:nil];
     
