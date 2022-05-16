@@ -1525,6 +1525,9 @@
 		CD1732541683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
 		CD1732551683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
 		CD1AAFC9282E5F2000B34D4A /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
+		CD1AAFD12832429A00B34D4A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
+		CD1AAFD2283242A400B34D4A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
+		CD1AAFD3283242B100B34D4A /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
 		CD23535228054FBA00DDEA0A /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
 		CD23535328054FBA00DDEA0A /* HTMLTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTextNode.m; sourceTree = "<group>"; };
 		CD23535428054FBA00DDEA0A /* HTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLString.h; sourceTree = "<group>"; };
@@ -6203,6 +6206,7 @@
 				CDA307E8282050A2002D4F64 /* Base */,
 				CD7EE3FD282DCA450033614B /* en */,
 				CD1AAFC9282E5F2000B34D4A /* cs */,
+				CD1AAFD12832429A00B34D4A /* zh-Hans */,
 			);
 			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
@@ -6212,6 +6216,8 @@
 			children = (
 				CDA3080C2820B71F002D4F64 /* Base */,
 				CDA308162820B723002D4F64 /* en */,
+				CD1AAFD2283242A400B34D4A /* zh-Hans */,
+				CD1AAFD3283242B100B34D4A /* cs */,
 			);
 			name = QuitConfirm.xib;
 			sourceTree = "<group>";
