@@ -686,9 +686,12 @@
 	if (VERBOSE) NSLog(@"Encapsulating Command");
 #endif
 	QSCommand *commandObject = [self currentCommand];
-    [self clearObjectView:dSelector];
+    
 	[self selectObject:commandObject];
 	[self actionActivate:commandObject];
+	QSSearchObjectView *ov = (QSSearchObjectView *)[[self window] firstResponder];
+	[ov clearSearch];
+	[[self window] makeFirstResponder:aSelector];
 }
 
 
