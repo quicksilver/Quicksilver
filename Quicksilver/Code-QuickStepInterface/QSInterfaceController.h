@@ -90,8 +90,6 @@
 
 - (QSMenuButton *)menuButton;
 
-- (NSProgressIndicator *)progressIndicator;
-
 - (NSSize)maxIconSize;
 
 - (void)fireActionUpdateTimer;

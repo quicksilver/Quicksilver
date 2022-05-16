@@ -24,7 +24,6 @@
 
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
-- (NSProgressIndicator *)progressIndicator;
 - (IBAction)openDonatePage:(id)sender;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)showGuide:(id)sender;
