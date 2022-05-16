@@ -74,7 +74,7 @@
                                     <rect key="frame" x="1" y="1" width="155" height="167"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="12" id="58" customClass="QSTableView">
+                                        <tableView canDrawConcurrently="YES" focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="12" id="58" customClass="QSTableView">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="167"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="3"/>
