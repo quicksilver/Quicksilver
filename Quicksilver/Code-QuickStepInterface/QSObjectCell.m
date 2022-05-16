@@ -543,7 +543,7 @@
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
 	if (!handlerDraw) {
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationMedium];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
 		[icon drawInRect:drawingRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
