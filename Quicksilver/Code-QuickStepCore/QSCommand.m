@@ -77,9 +77,21 @@
         return [triggerTypesObjects sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(QSObject *obj1, QSObject *obj2) {
             return [[obj1 name] localizedCompare:[obj2 name]];
         }];
-    } else {
+	} else {
+		if ([action isEqualToString:@"QSCommandExecuteAfterDelayAction"]) {
+			return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"1m 30s"]];
+		} else if ([action isEqualToString:@"QSCommandExecuteAtTimeAction"]) {
+			NSDate *date = [NSDate date];
+			NSCalendar *calendar = [NSCalendar currentCalendar];	
+			NSDateComponents *comps = [calendar components: NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:date];
+			comps.minute = (comps.minute) ? 60 - comps.minute : 0;
+			comps.second = -comps.second;
+			date = [calendar dateByAddingComponents:comps toDate:date options:0];
+			NSString *text = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
+			return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:text]];
+		}
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
-    }
+	}
 }
 
 // CommandsAsActionsHandling
