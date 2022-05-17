@@ -66,7 +66,7 @@
 "Show Release Notes" = "Mirar notas de lanzamiento";
 
 "Quicksilver is now 64-bit" = "Quicksilver ahora funciona a 64 bits";
-"64-bit details" = "Algunos complementos antiguos no se cargaran. Está disponible una lista de los complementos desactivados en las Preferencias.⏎ ⏎ Si no puede vivir sin un complemento antiguo, Quicksilver puede ejecutarse en modo de 32-bit. (El soporte a 32-bits se abandonará en una versión futura).";
+"64-bit details" = "Algunos complementos antiguos no se cargaran. Está disponible una lista de los complementos desactivados en las Preferencias.\n\nSi no puede vivir sin un complemento antiguo, Quicksilver puede ejecutarse en modo de 32-bit. (El soporte a 32-bits se abandonará en una versión futura).";
 "Network and Removable Disks" = "Discos extraíbles y unidades de red";
 
 "Type to search" = "Teclee para buscar";
