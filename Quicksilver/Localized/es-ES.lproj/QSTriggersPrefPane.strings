@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
 
+/* 62.title */
+"Triggers" = "Disparadores";
+
+/* Preference Pane Description */
+"Automate actions with keyboard, mouse and other events" = "Automatice acciones con teclado, ratón y otros eventos";
+
 /* 515.ibShadowedToolTip */
 "Add trigger..." = "Añadir disparador";
 
@@ -50,9 +56,6 @@
 
 /* 833.title */
 "Trigger Name" = "Nombre del activador";
-
-/* 62.title */
-"Triggers" = "Disparadores";
 
 /* 485.headerCell.title */
 "Type" = "Tipo";
