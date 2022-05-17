@@ -701,6 +701,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
         NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
         NSLog(@"Moving unsupported plugin '%@' to %@. It may have an unsupported architecture.", [self name], unsupportedFolder);
 
+		NSArray *qsArchs = [[NSBundle mainBundle] executableArchitecturesPretty];
+		NSLog(@"Quicksilver supports the following architectures: %@", qsArchs);
+
 		NSArray *archs = [bundle executableArchitecturesPretty];
 		NSLog(@"Detected architectures for '%@': %@", [self name], archs);
 
