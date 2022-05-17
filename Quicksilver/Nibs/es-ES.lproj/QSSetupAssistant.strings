@@ -9,7 +9,7 @@
 "11.label" = "Bienvenido";
 
 /* Class = "NSTabViewItem"; label = "Getting Started"; ObjectID = "56"; */
-"56.label" = "Empezando";
+"56.label" = "Primeros pasos";
 
 /* Class = "NSTableColumn"; headerCell.title = "Plugins"; ObjectID = "201"; */
 "201.headerCell.title" = "Plug-ins";
