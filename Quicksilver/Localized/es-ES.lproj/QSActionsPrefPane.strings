@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSActionsPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Actions" = "Acciones";
+
+/* Preference Pane Description */
+"Modify the list and ordering of actions" = "Modificar la lista y el orden de las acciones";
+
 /* 115.ibShadowedDisplayPattern */
 "%{value1}@ actions" = "%{value1}@ acciones";
 
