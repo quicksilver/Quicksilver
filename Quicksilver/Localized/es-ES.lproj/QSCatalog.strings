@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSCatalog.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Catalog" = "Catálogo";
+
+/* Preference Pane Description */
+"Modify the list of searchable items" = "Modificar la lista de elementos que se pueden buscar";
+
 /* 499.ibShadowedDisplayPattern */
 "%{value1}@ Items" = "%{value1}@ elementos";
 
