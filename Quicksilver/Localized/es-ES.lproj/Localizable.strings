@@ -35,7 +35,7 @@
 
 "Quicksilver crashed when loading the %@ plugin.\nDo you wish to delete this plugin and continue launching Quicksilver?" = "Quicksilver se cerró inesperadamente cuando cargaba el plug-in %@.\n¿Desea borrar el plug-in y continuar abriendo Quicksilver?";
 
-"Sorry. Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ." = "Perdón. Quicksilver se cerro inesperadament la ultima vez.⏎ Borrar las cachés puede ayudar a resolver el problema.⏎ Por otro lado, puedes intentar arrancar Quicksilver de nuevo o salir y leer la FAQ.";
+"Sorry. Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ." = "Perdón. Quicksilver se cerro inesperadamente durante su último uso.\nBorrar las cachés puede ayudar a resolver el problema.\nPor otro lado, puedes intentar arrancar Quicksilver de nuevo o salir y leer la FAQ.";
 "Do Nothing" = "No hacer nada";
 "Read FAQ" = "Leer las preguntas mas frecuentes (FAQ)";
 "Clear Caches" = "Limpiar las caches";
