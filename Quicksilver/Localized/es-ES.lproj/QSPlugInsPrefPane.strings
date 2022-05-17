@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSPlugInsPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Plugins" = "Pluguins";
+
+/* Preference Pane Description */
+"Find and install plugins" = "Buscar e instalar complementos";
+
 /* 591.title */
 "Categories" = "Categorías";
 
