@@ -10,6 +10,7 @@
 * Instructional popup window explaining how users can allow Quicksilver within macOS's privacy settings (#2741)
 * Updated translations for: Czech, French, German, Indonesian, Italian, Japanese, Korean, Norwegian, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Swedish, Turkish, Chinese (Simplified) - 中文简体, Chinese (Taiwan, Traditional) - 中文繁体 [learn more](https://www.transifex.com/quicksilver/quicksilver/)
 * Improved 3rd pane default times for 'Run after delay...' and 'Run at time...' commands
+* Various other performance improvements
 
 ### Fixed ###
 
@@ -24,6 +25,7 @@
 * Make many more windows and text translatable
 * Occasional hangs when showing the tasks view
 * Several issues with the 'Run after delay...' and 'Run at time...' commands (#2875)
+* Improved messaging when unsupported plugins are installed (#2872, #2864)
 
 ### Development ####
 
