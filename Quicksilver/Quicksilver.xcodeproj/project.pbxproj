@@ -1856,6 +1856,8 @@
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
 		CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+DisableSubviews.m"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.m"; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
+		CDB83E1728353DFC00295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
+		CDB83E1F28353E0200295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
 		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
 		CDC10E6F1622146C005FA734 /* SUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUConstants.m; path = Sparkle/SUConstants.m; sourceTree = "<group>"; };
 		CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUPlainInstallerInternals.h; path = Sparkle/SUPlainInstallerInternals.h; sourceTree = "<group>"; };
@@ -6207,6 +6209,7 @@
 				CD7EE3FD282DCA450033614B /* en */,
 				CD1AAFC9282E5F2000B34D4A /* cs */,
 				CD1AAFD12832429A00B34D4A /* zh-Hans */,
+				CDB83E1728353DFC00295CD2 /* es-ES */,
 			);
 			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
@@ -6218,6 +6221,7 @@
 				CDA308162820B723002D4F64 /* en */,
 				CD1AAFD2283242A400B34D4A /* zh-Hans */,
 				CD1AAFD3283242B100B34D4A /* cs */,
+				CDB83E1F28353E0200295CD2 /* es-ES */,
 			);
 			name = QuitConfirm.xib;
 			sourceTree = "<group>";
