@@ -13,10 +13,6 @@
 
 #import <unistd.h>
 
-#ifndef MAC_OS_VERSION_11_0
-	int NSBundleExecutableArchitectureARM64 = 0x0100000c;
-#endif
-
 
 @implementation NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin {

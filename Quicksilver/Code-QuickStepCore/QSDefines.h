@@ -168,3 +168,7 @@
  *  Key to the reason the interface was hidden/deactivated
  */
 #define kQSInterfaceDeactivatedReason @"deactivate reason"
+
+#ifndef MAC_OS_VERSION_11_0
+	#define NSBundleExecutableArchitectureARM64 0x0100000c
+#endif
