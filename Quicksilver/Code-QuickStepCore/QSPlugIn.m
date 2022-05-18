@@ -699,7 +699,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
         NSString *unsupportedFolder = @"PlugIns (disabled)";
         NSString *pluginFileName = [[self path] lastPathComponent];
         NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
-        NSLog(@"Moving unsupported plugin '%@' to %@. Quicksilver only supports 64-bit plugins. i386 and PPC plugins are being disabled to avoid repeated warnings.", [self name], unsupportedFolder);
+        NSLog(@"Moving unsupported plugin '%@' to %@. It may have an unsupported architecture.", [self name], unsupportedFolder);
+
+		NSArray *qsArchs = [[NSBundle mainBundle] executableArchitecturesPretty];
+		NSLog(@"Quicksilver supports the following architectures: %@", qsArchs);
+
+		NSArray *archs = [bundle executableArchitecturesPretty];
+		NSLog(@"Detected architectures for '%@': %@", [self name], archs);
+
         NSFileManager *fm = [NSFileManager defaultManager];
         [fm moveItemAtPath:[self path] toPath:destination error:nil];
         //[NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
