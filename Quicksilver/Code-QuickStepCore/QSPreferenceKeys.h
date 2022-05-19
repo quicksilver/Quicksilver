@@ -31,7 +31,6 @@ Following lines are no longer used in this project.
 #define kDelayQuit @"Delay Before Quitting"
 
 #define kResetDelay @"Reset Delay"
-#define kSearchDelay @"Search Delay"
 
 #define kActivationHotKey @"ActivationHotKey"
 #define kHideDockIcon @"Hide Dock Icon"

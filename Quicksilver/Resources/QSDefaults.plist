@@ -67,8 +67,6 @@
 	<false/>
 	<key>Result Window Behavior</key>
 	<integer>1</integer>
-	<key>Search Delay</key>
-	<real>0.05</real>
 	<key>Show Release Notes on Upgrade</key>
 	<true/>
 	<key>Use Effects</key>
