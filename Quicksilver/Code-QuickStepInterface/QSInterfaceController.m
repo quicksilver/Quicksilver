@@ -88,18 +88,18 @@
 		[actionsUpdateTimer invalidate];
 	if([hideTimer isValid])
 		[hideTimer invalidate];
-	//[progressIndicator release];
-	//[iSelector release];
+
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc removeObserver:progressIndicator];
 	[nc removeObserver:self];
-	
+	[progressIndicator unbind:@"animate"];
 }
 
 - (void)windowDidLoad {
 	//if (![[self window] setFrameUsingName:[self window] Key]) [[self window] center];
 	[progressIndicator stopAnimation:self];
 	[progressIndicator setDisplayedWhenStopped:NO];
+	QSTaskController * controller = [QSTaskController sharedInstance];
+	[progressIndicator bind:@"animate" toObject:controller withKeyPath:@"showsProgressIndicator" options:nil];
 	[aSelector setEnabled:NO];
 	[aSelector setAllowText:NO];
 	// [aSelector setInitiatesDrags:NO];
@@ -131,21 +131,6 @@
 	//[[commandView textStorage] appendAttributedString:attributedString];
 	[self searchObjectChanged:nil];
 
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(taskStarted:) name:QSTasksStartedNotification object:nil];
-	[nc addObserver:self selector:@selector(taskEnded:) name:QSTasksEndedNotification object:nil];
-}
-
-- (void)taskStarted:(NSNotification *)notif {
-	QSGCDMainAsync(^{
-		[progressIndicator startAnimation:self];
-	});
-}
-
-- (void)taskEnded:(NSNotification *)notif {
-	QSGCDMainAsync(^{
-		[progressIndicator stopAnimation:self];
-	});
 }
 
 - (QSCommand *)currentCommand { 
@@ -821,8 +806,6 @@
 - (QSSearchObjectView *)iSelector { return iSelector; }
 
 - (QSMenuButton *)menuButton { return menuButton; }
-
-- (NSProgressIndicator *)progressIndicator { return progressIndicator;  }
 
 - (NSSize) maxIconSize { return QSSize256; }
 

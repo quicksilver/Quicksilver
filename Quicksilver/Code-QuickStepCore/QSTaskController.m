@@ -47,8 +47,10 @@ QSTaskController *QSTasks;
 - (void)taskStarted:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 
+	[self willChangeValueForKey:@"showsProgressIndicator"];
 	self.tasksDictionary[task.identifier] = task;
-	
+	[self didChangeValueForKey:@"showsProgressIndicator"];
+
 	if (self.tasksDictionary.count == 1) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:task];
 	}
@@ -58,6 +60,7 @@ QSTaskController *QSTasks;
 - (void)taskStopped:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 	
+	[self willChangeValueForKey:@"showsProgressIndicator"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
 	
 	if (self.tasksDictionary.count == 1) {
@@ -65,6 +68,16 @@ QSTaskController *QSTasks;
 	}
 	
 	[self.tasksDictionary removeObjectForKey:task.identifier];
+	[self didChangeValueForKey:@"showsProgressIndicator"];
+}
+
+- (BOOL)showsProgressIndicator {
+	for (QSTask *task in self.tasks) {
+		if (task.showProgress) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 - (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
