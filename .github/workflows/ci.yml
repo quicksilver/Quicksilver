@@ -3,10 +3,12 @@ name: build
 on:
   push:
     branches-ignore:
-      translations_**
+      - 'translations_**'
+    tags:
+      - 'v*'
   pull_request:
     branches-ignore:
-      translations_**
+      - 'translations_**'
 
 jobs:
   build:
