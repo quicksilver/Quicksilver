@@ -66,7 +66,7 @@ jobs:
         mv ./dmg/qs_build_settings /tmp/
         mv ./dmg/Quicksilver.entitlements /tmp/
         QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' /tmp/qs_build_settings)
-        echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> $GITHUB_ENV
+        echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
     - uses: actions/checkout@v2
       with:
         submodules: recursive
