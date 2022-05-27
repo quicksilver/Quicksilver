@@ -1,4 +1,12 @@
-## Changes - ##
+## Changes - 2.2.1 (4035) 2022-05-21 ##
+
+*Requires macOS 10.14+*
+
+### Fixes ###
+
+* Regression introduced in 2.2.0 that could cause the wrong action/item to be executed (#2880)
+
+## Changes - 2.2.0 (4034) 2022-05-21 ##
 
 *Requires macOS 10.14+*
 
