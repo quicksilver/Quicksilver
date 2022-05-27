@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	BOOL validSearch;
 
 	NSTimer *resetTimer;
+	NSTimer *searchTimer;
 	NSTimer *resultTimer;
 
 	NSTimeInterval lastTime;

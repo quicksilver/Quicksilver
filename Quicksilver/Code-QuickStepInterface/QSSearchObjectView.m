@@ -70,6 +70,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	resetTimer = nil;
+	searchTimer = nil;
 	resultTimer = nil;
 	preferredEdge = NSMaxXEdge;
 	partialString = [[NSMutableString alloc] initWithCapacity:1];
@@ -874,6 +875,13 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController.searchStringField setTextColor:[NSColor redColor]];
 	}
     
+	// Extend Timers
+	if ([searchTimer isValid]) {
+		// NSLog(@"extend");
+		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay]]];
+        
+	}
+    
 	if ([resetTimer isValid]) {
 		CGFloat resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
 		if (resetDelay) [resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
@@ -890,8 +898,19 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)partialStringChanged {
 	[self setSearchString:[partialString copy]];
-    	
-	[self performSearch:nil];
+    
+	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
+	
+	// only wait for 'search delay' if we're searching all objects
+	if ([self searchMode] != SearchFilterAll) {
+		[searchTimer invalidate];
+		[self performSearch:nil];
+	} else {
+		if (![searchTimer isValid]) {
+			searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+		}
+		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+	}
 	
 	if (validSearch) {
 		NSColor *color = [[NSUserDefaults standardUserDefaults] colorForKey:@"QSAppearance2T"];
@@ -912,8 +931,11 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)executeCommand:(id)sender {
 	[resultTimer invalidate];
-	[self performSearchFor:partialString from:self];
-	[self display];
+	if ([searchTimer isValid]) {
+		[searchTimer invalidate];
+		[self performSearchFor:partialString from:self];
+		[self display];
+	}
 	[resetTimer fire];
 	[[self controller] executeCommand:self];
 }
@@ -1455,6 +1477,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[self clearTextView];
 			return;
 		}
+		[searchTimer invalidate];
 		// reset the search array
 		[self setSearchArray:nil];
 		if (!partialString || partialString.length <= 1) {
