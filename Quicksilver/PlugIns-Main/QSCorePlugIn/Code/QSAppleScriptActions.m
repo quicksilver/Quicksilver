@@ -20,6 +20,8 @@
 
 #import "NSAppleEventDescriptor+NDCoercion.h"
 
+#import <OSAKit/OSAKit.h>
+
 @implementation QSAppleScriptActions
 
 - (QSAction *)scriptActionForPath:(NSString *)path {
@@ -38,7 +40,7 @@
 	NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSStringFromClass([self class]),    kActionClass,
                                        self,    kActionProvider,
-                                    path,    kActionScript,
+                                       path,    kActionScript,
                                        [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
@@ -285,16 +287,17 @@
 		NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:
                                                                    @"aevtoapp",
                                                                    @"DAEDopnt",
-                                                                   @"function processText()",
                                                                    @"aevtodoc",
+                                                                   @"function processText(",
+                                                                   @"function openFiles(",
                                                                    nil] inScriptFile:[dObject singleFilePath]];
 		//  **** store this information in metadata
 		NSMutableArray *array = [NSMutableArray array];
 		if ([handlers containsObject:@"aevtoapp"] || ![handlers count])
 			[array addObject:kAppleScriptRunAction];
-		if ([handlers containsObject:@"DAEDopnt"] || [handlers containsObject:@"function processText()"])
+		if ([handlers containsObject:@"DAEDopnt"] || [handlers containsObject:@"function processText("])
 			[array addObject:kAppleScriptOpenTextAction];
-		if ([handlers containsObject:@"aevtodoc"])
+		if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"function openFiles("])
 			[array addObject:kAppleScriptOpenFilesAction];
 		return array;
 	} else if ([[dObject primaryType] isEqualToString:QSTextType]) {
@@ -305,11 +308,28 @@
 
 
 -(NSArray *)validDirectTypesForScript:(NSString *)path {
-    return [self typeArrayForScript:path forHandler:@"DAEDgdob"];
+    return [self validTypesForScript:path handlerType:@"direct"];
 }
 
 -(NSArray *)validIndrectTypesForScript:(NSString *)path {
-    return [self typeArrayForScript:path forHandler:@"DAEDgiob"];
+    return [self validTypesForScript:path handlerType:@"indirect"];
+}
+
+-(NSArray *)validTypesForScript:(NSString *)path handlerType:(NSString *)hType {
+    NSArray *appleScriptTypeArray;
+    NSArray *jxaTypeArray;
+    if ([hType isEqualToString:@"direct"]) {
+        appleScriptTypeArray = [self typeArrayForScript:path forHandler:@"DAEDgdob"];
+        jxaTypeArray = [self typeArrayForScript:path forHandler:@"function getDirectTypes()"];
+    } else {
+        appleScriptTypeArray = [self typeArrayForScript:path forHandler:@"DAEDgiob"];
+        jxaTypeArray = [self typeArrayForScript:path forHandler:@"function getIndirectTypes()"];
+    }
+
+    NSMutableArray *dTypesArray = [NSMutableArray array];
+    [dTypesArray addObjectsFromArray:appleScriptTypeArray];
+    [dTypesArray addObjectsFromArray:jxaTypeArray];
+    return dTypesArray;
 }
 
 -(NSArray *)defaultIndirectObjectForScript:(NSString *)path {
@@ -419,9 +439,13 @@
         NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
         
         NSDictionary *errorDict = nil;
-        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
-        
-		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:[handler isEqualToString:@"DAEDgdob"] ? kQSGetDirectObjectTypesCommand : kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+
+        OSAScript *script = [[OSAScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] language:[OSALanguage languageForName:@"AppleScript"] error:&errorDict];
+        if (errorDict != nil) {
+            script = [[OSAScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] language:[OSALanguage languageForName:@"JavaScript"] error:&errorDict];
+        }
+
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:([handler isEqualToString:@"DAEDgdob"] || [handler isEqualToString:@"function getDirectTypes()"]) ? kQSGetDirectObjectTypesCommand : kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
         
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
         if( result ) {
