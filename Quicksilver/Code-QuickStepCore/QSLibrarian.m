@@ -262,11 +262,11 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)reloadSource:(NSNotification *)notif {
 	dispatch_async(scanning_queue, ^{
-		NSArray *entries = [self->entriesBySource objectForKey:[notif object]];
-		// TODO: these should not be set on a background thread. May cause a crash
-		self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
+		NSArray *entries = [[self->entriesBySource objectForKey:[notif object]] copy];
+		QSGCDMainSync(^{
+			self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
+		});
 		[self.scanTask start];
-		
 		for (id loopItem in entries) {
 			[loopItem scanForced:NO];
 		}
@@ -564,7 +564,9 @@ static CGFloat searchSpeed = 0.0;
             NSUInteger i;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
-                self.scanTask.progress = (CGFloat)i / c;
+				QSGCDMainSync(^{
+					self.scanTask.progress = (CGFloat)i / c;
+				});
                 [[children objectAtIndex:i] scanForced:force];
             }
 
