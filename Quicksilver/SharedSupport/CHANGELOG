@@ -1,3 +1,11 @@
+## Changes - 2.2.2 (4036) 2022-06-06 ##
+
+*Requires macOS 10.14+*
+
+### Fixes ###
+
+* Occasional crashes that could occur when the task viewer updates. (#2878)
+
 ## Changes - 2.2.1 (4035) 2022-05-21 ##
 
 *Requires macOS 10.14+*
