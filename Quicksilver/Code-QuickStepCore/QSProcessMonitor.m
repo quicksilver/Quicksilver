@@ -390,7 +390,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 	NDProcess *thisProcess;
 	NSValue *thisProcessPSN;
-	for (thisProcessPSN in [[self processesDict] allKeys]) {
+
+	for (thisProcessPSN in [[[self processesDict] copy] allKeys]) {
 		thisProcess = [NDProcess processWithProcessSerialNumber:[thisProcessPSN processSerialNumberValue]];
 
 		if (!hidden && [thisProcess isBackground]) continue;
