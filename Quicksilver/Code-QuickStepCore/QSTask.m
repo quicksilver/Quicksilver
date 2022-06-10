@@ -73,9 +73,10 @@
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Start Task: %@", self);
 #endif
-	
-	self.running = YES;
-	[QSTasks taskStarted:self];
+	QSGCDMainSync(^{
+		self.running = YES;
+		[QSTasks taskStarted:self];
+	});
 }
 
 - (void)stop {
@@ -90,11 +91,11 @@
 	if (VERBOSE) NSLog(@"Stop Task: %@", self);
 #endif
 	
-	self.running = NO;
 	QSGCDMainSync(^{
+		self.running = NO;
 		[self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
+		[QSTasks taskStopped:self];
 	});
-	[QSTasks taskStopped:self];
 }
 
 - (void)cancel {

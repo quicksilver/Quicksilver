@@ -684,25 +684,25 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 		return nil;
 	} else {
         __block NSArray *itemContents = nil;
-        // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
+		self.scanning = YES;
         QSGCDQueueSync(scanQueue, ^{
-            self.scanning = YES;
-            [self willChangeValueForKey:@"self"];
-            NSString *ID = self.identifier;
+			// Use a serial queue to do the actual scanning. Ensures that a catalog entry cannot be scanned multiple times at the same time.
             itemContents = [self scannedObjects];
-            if (itemContents && ID) {
-                self.contents = itemContents;
-                if (self.canBeIndexed) {
-                    [self saveIndex];
-                }
-            } else if (ID) {
-                self.contents = nil;
-            }
-            [self didChangeValueForKey:@"self"];
-            self.scanning = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexedNotification object:self];
-        });
-        return itemContents;
+		});
+		[self willChangeValueForKey:@"self"];
+		NSString *ID = self.identifier;
+		if (itemContents && ID) {
+			self.contents = itemContents;
+			if (self.canBeIndexed) {
+				[self saveIndex];
+			}
+		} else if (ID) {
+			self.contents = nil;
+		}
+		[self didChangeValueForKey:@"self"];
+		self.scanning = NO;
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexedNotification object:self];
+		return itemContents;
     }
 }
 
