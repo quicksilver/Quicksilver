@@ -76,7 +76,7 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)windowDidLoad {
     QSDockingWindow *win = [self window];
-    [win addInternalWidgetsForStyleMask:NSUtilityWindowMask];
+	[win addInternalWidgetsForStyleMask:NSWindowStyleMaskUtilityWindow];
     [win setHidesOnDeactivate:NO];
     [win setLevel:NSFloatingWindowLevel];
     [win setBackgroundColor:[NSColor whiteColor]];

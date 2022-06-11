@@ -263,9 +263,7 @@ static CGFloat searchSpeed = 0.0;
 - (void)reloadSource:(NSNotification *)notif {
 	dispatch_async(scanning_queue, ^{
 		NSArray *entries = [[self->entriesBySource objectForKey:[notif object]] copy];
-		QSGCDMainSync(^{
-			self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
-		});
+		self.scanTask.status = [NSString localizedStringWithFormat:@"Reloading Index for %@", [entries lastObject]];
 		[self.scanTask start];
 		for (id loopItem in entries) {
 			[loopItem scanForced:NO];
@@ -339,13 +337,11 @@ static CGFloat searchSpeed = 0.0;
     if (!entry) {
         return;
     }
-	QSGCDMainAsync(^{
     if ([notif.name isEqualToString:QSCatalogEntryIsIndexingNotification]) {
         [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), entry.name]];
     } else if ([notif.name isEqualToString:QSCatalogEntryIndexedNotification]) {
         [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), entry.name]];
     }
-	});
 }
 
 - (QSCatalogEntry *)entryForID:(NSString *)theID {
@@ -554,26 +550,21 @@ static CGFloat searchSpeed = 0.0;
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
     dispatch_async(scanning_queue, ^{
         @autoreleasepool {
-			QSGCDMainAsync(^{
-				self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
-				self.scanTask.progress = -1;
-				[self.scanTask start];
-			});
+			self.scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
+			self.scanTask.progress = -1;
+			[self.scanTask start];
 
             NSArray *children = [self->catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
-				QSGCDMainSync(^{
-					self.scanTask.progress = (CGFloat)i / c;
-				});
+				self.scanTask.progress = (CGFloat)i / c;
                 [[children objectAtIndex:i] scanForced:force];
             }
 
+			self.scanTask.progress = 1.0;
+			[self.scanTask stop];
 			QSGCDMainAsync(^{
-				self.scanTask.progress = 1.0;
-				[self.scanTask stop];
-
 				[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
 			});
         }

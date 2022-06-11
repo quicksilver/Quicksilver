@@ -134,13 +134,11 @@ typedef enum {
 	
 	NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	QSTask *task = [QSTask taskWithIdentifier:@"QSUpdateControllerTask"];
-	QSGCDMainAsync(^{
-		task.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
-		task.status = NSLocalizedString(@"Checking for Updates…", @"QSUpdateController - task status");
-		task.progress = -1;
-		task.icon = [NSApp applicationIconImage];
-		[task start];
-	});
+	task.name = NSLocalizedString(@"Updating Quicksilver", @"QSUpdateController - download task name");
+	task.status = NSLocalizedString(@"Checking for Updates…", @"QSUpdateController - task status");
+	task.progress = -1;
+	task.icon = [QSResourceManager imageNamed:@"Quicksilver"];
+	[task start];
 
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];

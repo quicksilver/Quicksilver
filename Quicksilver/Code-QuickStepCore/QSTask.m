@@ -19,6 +19,12 @@
 
 @implementation QSTask
 
+@synthesize status = _status;
+@synthesize name = _name;
+@synthesize progress = _progress;
+@synthesize icon = _icon;
+@synthesize showProgress = _showProgress;
+
 // KVO
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
@@ -96,6 +102,82 @@
 		[self setStatus:NSLocalizedString(@"Complete", @"Text that is displayed in the task viewer when a task has finished running")];
 		[QSTasks taskStopped:self];
 	});
+}
+
+#pragma mark KVO
+
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key {
+	// see here for more info: https://developer.apple.com/documentation/objectivec/nsobject/1409370-automaticallynotifiesobserversfo?language=objc
+	// By default, Cocoa automatically notifies objects when values have changed. To ensure thread-safety, we disable this automatic notification, and send the notifications ourselves manually (using willChangeValueForKey: and didChangeValueForKey:).
+	// Since we know that all QSTask-related values are used on the main thread, by doing this we can ensure the notifications are always sent on the main thread.
+	return NO;
+}
+
+#pragma mark Getters & Setters
+
+// the following manually created setters/getters are required, to ensure values are only set on the main thread - required for UI updates and KVO
+- (void)setStatus:(NSString *)status {
+	QSGCDMainSync(^{
+		if (status != self->_status) {
+			[self willChangeValueForKey:@"status"];
+			self->_status = status;
+			[self didChangeValueForKey:@"status"];
+		}
+	});
+}
+- (NSString *)status {
+	return self->_status;
+}
+
+- (void)setProgress:(CGFloat)progress {
+	QSGCDMainSync(^{
+		if (progress != self->_progress) {
+			[self willChangeValueForKey:@"progress"];
+			self->_progress = progress;
+			[self didChangeValueForKey:@"progress"];
+		}
+	});
+}
+- (CGFloat)progress {
+	return self->_progress;
+}
+
+
+- (void)setName:(NSString *)name {
+	QSGCDMainSync(^{
+		if (name != self->_name) {
+			[self willChangeValueForKey:@"name"];
+			self->_name = name;
+			[self didChangeValueForKey:@"name"];
+		}
+	});
+}
+- (NSString *)name {
+	return self->_name;
+}
+
+- (void)setIcon:(NSImage *)icon {
+	QSGCDMainSync(^{
+		if (icon != self->_icon) {
+			[self willChangeValueForKey:@"icon"];
+			self->_icon = icon;
+			[self didChangeValueForKey:@"icon"];
+		}
+	});
+}
+-(NSImage *)icon {
+	return self->_icon;
+}
+
+- (void)setShowProgress:(BOOL)showProgress {
+	QSGCDMainSync(^{
+		[self willChangeValueForKey:@"showProgress"];
+		self->_showProgress = showProgress;
+		[self didChangeValueForKey:@"showProgress"];
+	});
+}
+- (BOOL)showProgress {
+	return _showProgress;
 }
 
 - (void)cancel {
