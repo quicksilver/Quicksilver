@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
 
+/* 62.title */
+"Triggers" = "Déclencheurs";
+
+/* Preference Pane Description */
+"Automate actions with keyboard, mouse and other events" = "Automate actions with keyboard, mouse and other events";
+
 /* 515.ibShadowedToolTip */
 "Add trigger..." = "Ajouter un déclencheur...";
 
@@ -50,9 +56,6 @@
 
 /* 833.title */
 "Trigger Name" = "Nom du déclencheur";
-
-/* 62.title */
-"Triggers" = "Déclencheurs";
 
 /* 485.headerCell.title */
 "Type" = "Type";
