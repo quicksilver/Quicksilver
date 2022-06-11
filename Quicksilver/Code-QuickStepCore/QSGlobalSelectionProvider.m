@@ -71,7 +71,9 @@
 - (void)invokeService {
 	QSGCDMainAsync(^{
 		@autoreleasepool {
-			NSLog(@"%@", [[[NSWorkspace sharedWorkspace] frontmostApplication] isActive]? @"YES" : @"NO");
+#ifdef DEBUG
+			NSLog(@"Frontmost application is active: %@", [[[NSWorkspace sharedWorkspace] frontmostApplication] isActive]? @"YES" : @"NO");
+#endif
 			pid_t pid = [[[NSWorkspace sharedWorkspace] frontmostApplication] processIdentifier];
 			
 			
