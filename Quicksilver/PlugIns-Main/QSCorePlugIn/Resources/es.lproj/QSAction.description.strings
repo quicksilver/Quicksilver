@@ -44,6 +44,10 @@
     <string>Display Text in a Pop-up Dialog</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Mostrar (contenido) inferior del artículo seleccionado</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Show selected items in the results list</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log details of this object to the Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Run a Shell Script</string>
     <key>QSObjectSelectAction</key>
