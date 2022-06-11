@@ -100,8 +100,6 @@
     <string>Son Klasörler (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder Belirli Arama Konumları</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder Araç Çubuğu Öğeleri</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox Yer İmleri</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Betikler (Tüm Kullanıcılar)</string>
     <key>QSPresetMainApplications</key>
     <string>Uygulamalar</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Diğer</string>
     <key>QSPresetModules</key>
