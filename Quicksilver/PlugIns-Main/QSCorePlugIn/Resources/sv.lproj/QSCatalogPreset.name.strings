@@ -100,8 +100,6 @@
     <string>Senaste mappar (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finderspecifika sökvägar</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Objekt i Finders verktygsfält</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox-bokmärken</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Skript (alla användare)</string>
     <key>QSPresetMainApplications</key>
     <string>Program</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Övrigt</string>
     <key>QSPresetModules</key>
