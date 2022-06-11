@@ -44,6 +44,10 @@
     <string>Açılır pencerede metin görüntüler</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Öğe içeriğini QuickSilver&apos;da açar</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Show selected items in the results list</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log details of this object to the Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Kabuk betiği çalıştırır</string>
     <key>QSObjectSelectAction</key>
