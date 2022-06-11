@@ -100,8 +100,6 @@
     <string>Ostatnie katalogi (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Typowe miejsca wyszukiwania Findera</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Rzeczy z paska narzędzi Findera</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Zakładki Firefoxa</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Skrypty (wszyscy użytkownicy)</string>
     <key>QSPresetMainApplications</key>
     <string>Aplikacje</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Różne</string>
     <key>QSPresetModules</key>
