@@ -42,5 +42,7 @@
     <string>Прокси</string>
     <key>QSUserDefinedProxySource</key>
     <string>Synonym</string>
+    <key>QSWebSource</key>
+    <string>URL Scanner</string>
   </dict>
 </plist>
