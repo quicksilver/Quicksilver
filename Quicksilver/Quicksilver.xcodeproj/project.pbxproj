@@ -1836,6 +1836,7 @@
 		CD7EE3F1282C790F0033614B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = cs; path = cs.lproj/Guide.html; sourceTree = "<group>"; };
 		CD7EE3FD282DCA450033614B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLListItem.h; sourceTree = "<group>"; };
+		CD885025285562F100BDCB00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -6210,6 +6211,7 @@
 				CD1AAFC9282E5F2000B34D4A /* cs */,
 				CD1AAFD12832429A00B34D4A /* zh-Hans */,
 				CDB83E1728353DFC00295CD2 /* es-ES */,
+				CD885025285562F100BDCB00 /* fr */,
 			);
 			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
