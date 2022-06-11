@@ -100,8 +100,6 @@
     <string>最近使用過的資料夾（Finder）</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder 專屬搜尋位置</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder 工具列項目</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox 書籤</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Scripts （所有使用者）</string>
     <key>QSPresetMainApplications</key>
     <string>應用程式</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>其他</string>
     <key>QSPresetModules</key>
