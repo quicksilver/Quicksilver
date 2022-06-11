@@ -5,5 +5,5 @@
 /* Class = "NSBox"; title = "Box"; ObjectID = "32"; */
 "32.title" = "Box";
 
-/* Class = "NSTextFieldCell"; title = "Hold cmd-Q to Quit"; ObjectID = "38"; */
+/* Class = "NSTextFieldCell"; title = "Hold ⌘Q to Quit"; ObjectID = "38"; */
 "38.title" = "Pro ukončení podržte ⌘Q";
