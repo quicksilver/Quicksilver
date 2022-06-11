@@ -100,8 +100,6 @@
     <string>Benutzte Ordner (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder Bestimmte Suchorte</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder Symbolleistenobjekte</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox Lesezeichen</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Scripts (Alle Benutzer)</string>
     <key>QSPresetMainApplications</key>
     <string>Programme</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Verschiedenes</string>
     <key>QSPresetModules</key>
