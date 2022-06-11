@@ -202,6 +202,10 @@
     <string>Mostra il Menù Azioni</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Mostra Contenuti</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Explode Selection</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log Object to Console</string>
     <key>QSObjectShowSourceAction</key>
     <string>Mostra l&apos;Origine nel Catalogo</string>
     <key>QSPutOnShelfAction</key>

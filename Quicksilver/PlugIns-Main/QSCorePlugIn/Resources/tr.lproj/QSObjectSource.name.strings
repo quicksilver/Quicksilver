@@ -42,5 +42,7 @@
     <string>Vekil Sunucular/Proxy</string>
     <key>QSUserDefinedProxySource</key>
     <string>Eşanlamlı</string>
+    <key>QSWebSource</key>
+    <string>URL Scanner</string>
   </dict>
 </plist>

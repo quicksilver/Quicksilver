@@ -100,8 +100,6 @@
     <string>최근 폴더 (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder 한정 검색 구역</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Finder 도구 상자 항목</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox 책갈피</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>스크립트 (모든 사용자)</string>
     <key>QSPresetMainApplications</key>
     <string>응용 프로그램</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>기타</string>
     <key>QSPresetModules</key>

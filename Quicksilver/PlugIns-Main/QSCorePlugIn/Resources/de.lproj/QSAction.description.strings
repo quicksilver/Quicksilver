@@ -44,6 +44,10 @@
     <string>Zeigen Text im Pop-Up Dialog</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Zeige die Inhalte des markierten Objektes</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Show selected items in the results list</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log details of this object to the Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Führe Shell Skript aus</string>
     <key>QSObjectSelectAction</key>

@@ -202,6 +202,10 @@
     <string>Показать меню действий</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Показать содержимое</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Explode Selection</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log Object to Console</string>
     <key>QSObjectShowSourceAction</key>
     <string>Показать источник в каталоге</string>
     <key>QSPutOnShelfAction</key>

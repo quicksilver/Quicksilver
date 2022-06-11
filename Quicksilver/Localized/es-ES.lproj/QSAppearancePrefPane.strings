@@ -1,20 +1,135 @@
-﻿"Box" = "Cuadro";
-"Command Interface:" = "Interfaz de comandos:";
-"Defaults" = "Valores por defecto";
-"Load Icons for all results" = "Cargar iconos para todos los resultados";
-"Bezels have shadows" = "Los biseles tienen sombras";
-"Customize" = "Personalizar";
-"Superfluous visual effects" = "Efectos visuales supérfluos";
-"Bezels:" = "Biseles:";
-"Enable eye-candy" = "Activar gráficos vistosos";
-"Load Previews" = "Cargar vistas previas";
-"Headers:" = "Cabeceras:";
-"Selection & Accents" = "Selección y destacados";
-"Bezels are glass" = "Biseles de cristal";
+/* File extracted from ./Nibs/QSAppearancePrefPane.xib by stringstool v1.0*/
+
+
+/* Preference Pane Name */
+"Appearance" = "Apariencia";
+
+/* Preference Pane Description */
+"Color and visual settings" = "Color y efectos visuales";
+
+/* 12.title */
+"<< do not localize >>" = "<< do not localize >>";
+
+/* Z2c-mk-eka.title */
+"Add Glow to Matched Text" = "Añadir resaltado al texto coincidente";
+
+/* 3x8-3C-Qos.ibShadowedToolTip */
+"Add a glow to the searched for characters in an item’s name" = "Añadir resaltado a los caracteres buscados en el nombre de un elemento";
+
+/* tWF-dQ-7J6.title */
+"Always Show Name" = "Mostrar siempre el nombre";
+
+/* 107.ibShadowedToolTip */
 "Background" = "Fondo";
-"Menu Bar" = "Barra de menú";
-"Preview" = "Vista previa";
-"Text" = "Texto";
-"Lists:" = "Listas:";
-"Window" = "Ventana";
+
+/* 106.ibShadowedToolTip */
+"Background color for the selected pane in the main window" = "Color de fondo para el panel seleccionado en la ventana principal";
+
+/* 121.ibShadowedToolTip */
+"Background color of the main window" = "Color de fondo de la ventana principal";
+
+/* 122.ibShadowedToolTip */
+"Background color of the results list" = "Color de fondo para el listado de resultados";
+
+/* 196.title */
+"Bezels are glass" = "Biseles de cristal";
+
+/* 197.title */
+"Bezels have shadows" = "Los biseles tienen sombras";
+
+/* 188.ibShadowedToolTip */
+"Click to customise the interface" = "Click para personalizar la interfaz";
+
+/* 117.ibShadowedToolTip */
+"Color of the results list selected row" = "Color de la fila seleccionada en la lista de resultados";
+
+/* 216.title */
+"Colors" = "Colores";
+
+/* 4UN-QX-5xq.title */
+"Compress Long Names" = "Comprimir nombres largos";
+
+/* 209.title */
+"Customize" = "Personalizar";
+
+/* 205.title */
+"Defaults" = "Valores por defecto";
+
+/* 98.ibShadowedToolTip */
+"Enable eye-candy" = "Activar gráficos vistosos";
+
+/* 123.ibShadowedToolTip */
+"Header and footer background color in the result list" = "Color de fondo del pie y la cabecera en la lista de resultados";
+
+/* 212.title */
+"Interface" = "Interfaz";
+
+/* 105.ibShadowedToolTip */
 "Interface type" = "Tipo de interfaz";
+
+/* 204.title */
+"Main Window:" = "Ventana principal:";
+
+/* 214.title */
+"Make the interface pop in and out" = "Hacer que la interfaz aparezca y desaparezca";
+
+/* 102.title */
+"Menu Bar" = "Barra de menú";
+
+/* 104.title */
+"OtherViews" = "OtrasVistas";
+
+/* 210.title */
+"Preview" = "Vista previa";
+
+/* 190.ibShadowedToolTip */
+"Preview the colour changes in the interface" = "Previsualizar los cambios de color en la interfaz";
+
+/* 201.title */
+"Result Headers:" = "Cabeceras de resultados:";
+
+/* 202.title */
+"Result Lists:" = "Lista de resultados:";
+
+/* 195.title */
+"Select Interface:" = "Seleccionar interfaz:";
+
+/* 119.ibShadowedToolTip */
+"Selection & Accents" = "Selección y destacados";
+
+/* 194.title */
+"Superfluous visual effects" = "Efectos visuales supérfluos";
+
+/* 113.ibShadowedToolTip */
+"Text" = "Texto";
+
+/* 109.ibShadowedToolTip */
+"Text color in the main window" = "Color del texto en la ventana principal";
+
+/* 118.ibShadowedToolTip */
+"Text color in the results list rows" = "Color del texto de las filas en la lista de resultados";
+
+/* 108.ibShadowedToolTip */
+"Text color of the result window header/footer text" = "Color del texto de la cabecera/pie de la ventana de resultados";
+
+/* RuL-qQ-Adf.title */
+"Underline Matched Text" = "Subrayar el texto coincidente";
+
+/* dSq-e1-t7W.ibShadowedToolTip */
+"Underline the searched for characters in an item’s name" = "Subrayar los caracteres buscados en el nombre de un elemento";
+
+/* 127.ibShadowedToolTip */
+"Unused" = "Sin usar";
+
+/* 218.title */
+"Use the palette below to alter the colors of the interface" = "Utilice la siguiente paleta para modificar los colores de la interfaz";
+
+/* QE0-Cl-LSL.ibShadowedToolTip */
+"When the item’s name can’t fit, try squeezing letters together before truncating" = "Si el nombre del elemento no cabe, intentar juntar las letras antes de truncarlas";
+
+/* Xq1-Sv-bTE.ibShadowedToolTip */
+"When the search matches an item’s label, keep the name visible" = "Cuando la búsqueda coincide con la etiqueta de un elemento, mantiene el nombre visible";
+
+/* 115.title */
+"Window" = "Ventana";
+

@@ -100,8 +100,6 @@
     <string>Последние папки (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Места поиска Finder</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Элементы тулбара Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Закладки Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Сценарии (всех пользователей)</string>
     <key>QSPresetMainApplications</key>
     <string>Приложения</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Разное</string>
     <key>QSPresetModules</key>

@@ -7,6 +7,9 @@
 "General" = "Général";
 
 // Preference Strings
+/* Default preference pane name */
+"Preferences" = "Preferences";
+
 "QSPlugInsPrefPane" = "Modules externes";
 "QSUpdatePrefPane" = "Mise à jour";
 "QSHelpersPrefPane" = "Assistants";
@@ -16,6 +19,12 @@
 "QSSilverNotifier" = "Quicksilver (incorporé)";
 "QSNotificationCenterNotifier" = "Centre de notification";
 "QSDefaultStringRanker" = "Par défaut (incorporé)";
+
+
+// Preference Pane Information
+/* Guide preference pane name */
+"Guide" = "Guide";
+
 
 // QSController.m Alerts
 "requires" = "nécessite";

@@ -44,6 +44,10 @@
     <string>Mostra Testo in un Dialogo Pop-up</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Apri il Contenuto dell&apos;Elemento in Quicksilver</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Show selected items in the results list</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log details of this object to the Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Esegui uno Script di Shell</string>
     <key>QSObjectSelectAction</key>

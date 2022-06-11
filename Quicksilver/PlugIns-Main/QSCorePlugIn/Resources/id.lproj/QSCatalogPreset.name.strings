@@ -100,8 +100,6 @@
     <string>Folder Terakhir (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Tempat Pencarian Khusus Finder</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Butir Toolbar Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Penanda Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Skrip (Semua Pengguna)</string>
     <key>QSPresetMainApplications</key>
     <string>Aplikasi</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Lain-Lain</string>
     <key>QSPresetModules</key>

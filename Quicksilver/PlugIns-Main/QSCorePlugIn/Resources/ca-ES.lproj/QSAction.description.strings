@@ -44,6 +44,10 @@
     <string>Mostrar text en un quadre de diàleg</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Obrir el contingut de l&apos;element en el Quicksilver</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Show selected items in the results list</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log details of this object to the Console</string>
     <key>QSShellScriptRunAction</key>
     <string>Executar un script de línia de comandaments</string>
     <key>QSObjectSelectAction</key>
