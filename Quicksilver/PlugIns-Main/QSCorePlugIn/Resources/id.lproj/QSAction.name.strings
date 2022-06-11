@@ -202,6 +202,10 @@
     <string>Tampilkan Menu Tindakan</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Tampilkan Isi</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Explode Selection</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log Object to Console</string>
     <key>QSObjectShowSourceAction</key>
     <string>Tampilkan Sumber di Katalog</string>
     <key>QSPutOnShelfAction</key>
