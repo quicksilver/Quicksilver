@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSTriggersPrefPane.xib by stringstool v1.0*/
 
+/* 62.title */
+"Triggers" = "Gatilhos";
+
+/* Preference Pane Description */
+"Automate actions with keyboard, mouse and other events" = "Automate actions with keyboard, mouse and other events";
+
 /* 515.ibShadowedToolTip */
 "Add trigger..." = "Adicionar gatilho...";
 
@@ -50,9 +56,6 @@
 
 /* 833.title */
 "Trigger Name" = "Nome do Gatilho";
-
-/* 62.title */
-"Triggers" = "Gatilhos";
 
 /* 485.headerCell.title */
 "Type" = "Tipo";
