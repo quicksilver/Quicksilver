@@ -202,6 +202,10 @@
     <string>Visa åtgärdsmeny</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Visa innehåll</string>
+    <key>QSObjectExplodeCombinedAction</key>
+    <string>Explode Selection</string>
+    <key>QSObjectLogConsoleAction</key>
+    <string>Log Object to Console</string>
     <key>QSObjectShowSourceAction</key>
     <string>Visa källa i katalog</string>
     <key>QSPutOnShelfAction</key>
