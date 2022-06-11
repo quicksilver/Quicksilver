@@ -42,5 +42,7 @@
     <string>代理伺服器</string>
     <key>QSUserDefinedProxySource</key>
     <string>Synonym</string>
+    <key>QSWebSource</key>
+    <string>URL Scanner</string>
   </dict>
 </plist>
