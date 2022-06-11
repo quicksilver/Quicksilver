@@ -100,8 +100,6 @@
     <string>Carpetes recents (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Llocs de recerca específica del Finder</string>
-    <key>QSPresetFinderToolbarItems</key>
-    <string>Elements de la barra d&apos;eines del Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Marcadors del Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
@@ -130,6 +128,8 @@
     <string>Scripts (tots els usuaris)</string>
     <key>QSPresetMainApplications</key>
     <string>Aplicacions</string>
+    <key>QSPresetSystemApplications</key>
+    <string>System Applications</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Miscel·lània</string>
     <key>QSPresetModules</key>
