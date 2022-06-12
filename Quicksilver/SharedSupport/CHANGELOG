@@ -10,6 +10,7 @@
 * Various other fixes to the Catalog Preferences pane
 * Correctly show whether synonyms have children (#1813)
 * Improve visuals when entering text into Quicksilver's 3rd pane (#1515)
+* Fix proxy objects in triggers that use partial commands (#1517)
 * Improve speed when re-scanning the catalog
 * Deprecation and warnings cleanup
 
