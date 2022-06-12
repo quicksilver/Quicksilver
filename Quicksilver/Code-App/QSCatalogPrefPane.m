@@ -318,6 +318,10 @@ static id _sharedInstance;
 			[self populateCatalogEntryFields];
 			id source = [currentItem source];
 			NSView *settingsView = nil;
+			currentItemHasSettings = NO;
+			if ([source respondsToSelector:@selector(settingsView)])
+				currentItemHasSettings = nil != (settingsView = [source settingsView]);
+
 
 			if ([source respondsToSelector:@selector(setSelectedEntry:)])
 				[source setSelectedEntry:currentItem];

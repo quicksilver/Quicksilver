@@ -38,6 +38,7 @@
 	NSMutableDictionary *currentItemSettings;
 	NSArray *currentItemContents;
 
+	BOOL currentItemHasSettings;
 
 	IBOutlet NSView *messageView;
 	IBOutlet NSTextField *messageTextField;
