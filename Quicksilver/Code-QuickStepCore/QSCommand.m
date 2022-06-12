@@ -205,6 +205,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (QSObject *)executeCommand:(QSObject *)dObject atTime:(QSObject *)iObject {
 	NSDate *date = [NSDate dateWithNaturalLanguageString:[iObject stringValue]];
 	if (!date) { NSBeep(); return nil; }
+	if ([date timeIntervalSinceNow]*-1 > 60*10) {
+		// if the time is more than 10 minutes ago, assume that it should be run at the same time tomorrow
+		date = [NSDate dateWithTimeInterval:60*60*24 sinceDate:date];
+	}
 	[self createTaskToRun:(QSCommand *)dObject atTime:date];
 	return nil;
 }
