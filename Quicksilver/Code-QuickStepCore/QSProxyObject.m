@@ -108,7 +108,13 @@
     return [super enabled];
 }
 
-- (BOOL)hasChildren {return YES;}
+- (BOOL)hasChildren {
+	NSString *target = [self objectForMeta:@"target"];
+	if (target) {
+		return [[QSLib objectWithIdentifier:target] hasChildren];
+	}
+	return YES;
+}
 
 - (NSArray *)types {
 	return [self proxyTypes];
