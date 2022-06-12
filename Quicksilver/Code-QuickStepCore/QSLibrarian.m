@@ -312,8 +312,7 @@ static CGFloat searchSpeed = 0.0;
     [self.objectDictionary removeAllObjects];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
-        NSArray *entryContents = [[entry contents] copy];
-        for (QSObject *obj in entryContents) {
+        for (QSObject *obj in [entry contents]) {
             if ([obj identifier]) {
                 [self setIdentifier:[obj identifier] forObject:obj];
             } else {
@@ -492,6 +491,7 @@ static CGFloat searchSpeed = 0.0;
 
 - (NSArray *)arrayForType:(NSString *)string {
 	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
+
 	for(NSArray *typeEntry in [[typeArrays objectForKey:string] allValues]) {
 		[typeSet addObjectsFromArray:typeEntry];
 	}
