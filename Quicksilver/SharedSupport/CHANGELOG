@@ -1,3 +1,20 @@
+## Changes - 2.X.X (4038)  ##
+
+*Requires macOS 10.14+*
+
+### Fixes ###
+
+* Ensure active app retains focus when getting current selection (#1351)
+* Fix dragging/dropping catalog entries in the preferences (#1412)
+* Various other fixes to the Catalog Preferences pane
+* Improve visuals when entering text into Quicksilver's 3rd pane (#1515)
+* Improve speed when re-scanning the catalog
+* Deprecation and warnings cleanup
+
+### Changed ###
+
+* Display the donation popup at most once a fortnight
+
 ## Changes - 2.2.3 (4037)  2022-06-12 ##
 
 *Requires macOS 10.14+*
