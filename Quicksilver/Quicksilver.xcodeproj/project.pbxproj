@@ -381,6 +381,8 @@
 		CD661C5619DBD341000F3695 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD661C5519DBD341000F3695 /* AppKit.framework */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; };
+		CD88502928559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
@@ -1837,6 +1839,8 @@
 		CD7EE3FD282DCA450033614B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLListItem.h; sourceTree = "<group>"; };
 		CD885025285562F100BDCB00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
+		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTreeController+BLTRExtensions.h"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
+		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSTreeController+BLTRExtensions.m"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -2663,6 +2667,8 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
+				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
+				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
 				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
@@ -4102,6 +4108,7 @@
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
 				4D66BC1B148701EA00351C42 /* NDAlias.h in Headers */,
 				4D66BC1D148701EA00351C42 /* NDAlias+AliasFile.h in Headers */,
+				CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */,
 				4D66BC1F148701EA00351C42 /* NDResourceFork.h in Headers */,
 				4D66BC21148701EA00351C42 /* NDResourceFork+OtherSorces.h in Headers */,
 				4D66BC23148701EA00351C42 /* NSOpenPanel+NDAlias.h in Headers */,
@@ -5244,6 +5251,7 @@
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
 				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
+				CD88502928559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m in Sources */,
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
 				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,

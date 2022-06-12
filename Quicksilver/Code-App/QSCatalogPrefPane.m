@@ -224,11 +224,9 @@ static id _sharedInstance;
 	else
 		section = entry;
 	[catalogSetsController setSelectedObjects:[NSArray arrayWithObject:section]];
-	[treeController rearrangeObjects];
-    QSGCDMainAsync(^{
-		[treeController setSelectionIndexPath:[entry catalogSetIndexPath]];
-		[self->itemTable reloadData];
-    });
+
+	NSIndexPath *iPath = [treeController indexPathOfObject:entry];
+	[treeController setSelectionIndexPath:iPath];
 }
 
 - (IBAction)addSource:(id)sender {
@@ -432,6 +430,7 @@ static id _sharedInstance;
 	insertionArray = (NSMutableArray *)[item children];
 	if (index >= 0) [insertionArray replaceObjectsInRange:NSMakeRange(index, 0) withObjectsFromArray:objects];
 	else [insertionArray addObjectsFromArray:objects];
+	[self reloadData];
 	[self selectEntry:[objects lastObject]];
 	
 	if (shouldShowOptions)

@@ -43,6 +43,7 @@
 #import "NSString_BLTRExtensions.h"
 #import "NSSortDescriptor+BLTRExtensions.h"
 #import "NSScreen_BLTRExtensions.h"
+#import "NSTreeController+BLTRExtensions.h"
 #import "NSPasteboard_BLTRExtensions.h"
 #import "NSObject+ReaperExtensions.h"
 #import "NSObject+BLTRExtensions.h"
@@ -68,3 +69,4 @@
 #import "NDAlias+QSMods.h"
 #import "QSIntValueTransformer.h"
 #import "SFLListItem.h"
+
