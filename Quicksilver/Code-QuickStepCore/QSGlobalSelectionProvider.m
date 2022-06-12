@@ -125,11 +125,10 @@
 - (id)currentSelection
 {
     // check to see if a plug-in is providing special behavior for the current application
-    NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-    NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+    NSRunningApplication *app = [[NSWorkspace sharedWorkspace] frontmostApplication];
+    NSString *identifier = [app bundleIdentifier];
     if ([identifier isEqualToString:kQSBundleID]) {
-        appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
-        identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+        identifier = [[[QSProcessMonitor sharedInstance] previousApplication] objectForKey:@"NSApplicationBundleIdentifier"];
     }
     self.currentAppSelectionProxyInfo = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (self.currentAppSelectionProxyInfo) {
