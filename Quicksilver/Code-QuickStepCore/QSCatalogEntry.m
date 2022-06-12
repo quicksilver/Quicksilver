@@ -719,8 +719,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         }
         return;
     }
-    BOOL valid = [self indexIsValid];
-    if (valid && !force) {
+	if (!force && [self indexIsValid]) {
 #ifdef DEBUG
         if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", self.name);
 #endif
