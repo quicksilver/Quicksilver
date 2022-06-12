@@ -8,6 +8,7 @@
 * Allow commands to be scheduled to run past midnight (#1220)
 * Fix dragging/dropping catalog entries in the preferences (#1412)
 * Various other fixes to the Catalog Preferences pane
+* Correctly show whether synonyms have children (#1813)
 * Improve visuals when entering text into Quicksilver's 3rd pane (#1515)
 * Improve speed when re-scanning the catalog
 * Deprecation and warnings cleanup
