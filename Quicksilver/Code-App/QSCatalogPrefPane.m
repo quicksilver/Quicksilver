@@ -408,7 +408,7 @@ static id _sharedInstance;
 	NSArray *objects = nil;
 	if ([info draggingSource] == outlineView) {
 		objects = draggedEntries;
-		if (![item isPreset] || [info draggingSourceOperationMask] == NSDragOperationCopy)
+		if ([item isPreset] || [info draggingSourceOperationMask] == NSDragOperationCopy)
 			objects = [objects valueForKey:@"uniqueCopy"];
 	} else {
 		// FIXME: ***warning  * support dragging of multiple items
