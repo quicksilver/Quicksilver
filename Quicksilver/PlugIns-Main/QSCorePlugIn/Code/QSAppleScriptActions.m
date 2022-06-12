@@ -321,9 +321,11 @@
     if ([hType isEqualToString:@"direct"]) {
         appleScriptTypeArray = [self typeArrayForScript:path forHandler:@"DAEDgdob"];
         jxaTypeArray = [self typeArrayForScript:path forHandler:@"function getDirectTypes()"];
-    } else {
+    } else if ([hType isEqualToString:@"indirect"]) {
         appleScriptTypeArray = [self typeArrayForScript:path forHandler:@"DAEDgiob"];
         jxaTypeArray = [self typeArrayForScript:path forHandler:@"function getIndirectTypes()"];
+    } else {
+        NSLog(@"Expected 'indirect' or 'direct' for hType, found %@\n", hType);
     }
 
     NSMutableArray *dTypesArray = [NSMutableArray array];
@@ -438,15 +440,24 @@
         int pid = [[NSProcessInfo processInfo] processIdentifier];
         NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
         
+        NSError *err = nil;
+
+        NSAppleEventDescriptor *aed = [OSAScript scriptDataDescriptorWithContentsOfURL:[NSURL fileURLWithPath:scriptPath]];
+        OSALanguage *language = [OSALanguage languageForScriptDataDescriptor:aed];
+
+        OSAScript *script = [[OSAScript alloc] initWithScriptDataDescriptor:aed
+            fromURL:[NSURL fileURLWithPath:scriptPath]
+            languageInstance:[language sharedLanguageInstance]
+            usingStorageOptions:OSANull error:&err];
+
+        AEEventID eventID = ([handler isEqualToString:@"DAEDgdob"] || [handler isEqualToString:@"function getDirectTypes()"]) ? kQSGetDirectObjectTypesCommand : kQSGetIndirectObjectTypesCommand;
+
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite
+            eventID:eventID targetDescriptor:targetAddress
+            returnID:kAutoGenerateReturnID
+            transactionID:kAnyTransactionID];
+
         NSDictionary *errorDict = nil;
-
-        OSAScript *script = [[OSAScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] language:[OSALanguage languageForName:@"AppleScript"] error:&errorDict];
-        if (errorDict != nil) {
-            script = [[OSAScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] language:[OSALanguage languageForName:@"JavaScript"] error:&errorDict];
-        }
-
-		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:([handler isEqualToString:@"DAEDgdob"] || [handler isEqualToString:@"function getDirectTypes()"]) ? kQSGetDirectObjectTypesCommand : kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
-        
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
         if( result ) {
             // Convert the AS list type to an array
