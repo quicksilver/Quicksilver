@@ -698,6 +698,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
+			[[self dataDictionary] setObject:path forKey:NSPasteboardTypeString];
 			NSString *uti = [self fileUTI];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
@@ -710,6 +711,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 		} else {
 			[[self dataDictionary] setObject:paths forKey:QSFilePathType];
+			[[self dataDictionary] setObject:[paths componentsJoinedByString:@"\n"] forKey:NSPasteboardTypeString];
 		}
 		[self setIdentifier:thisIdentifier];
 		[self setPrimaryType:QSFilePathType];
