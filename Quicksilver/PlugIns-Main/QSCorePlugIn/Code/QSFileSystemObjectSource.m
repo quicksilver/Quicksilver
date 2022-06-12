@@ -271,13 +271,13 @@
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	NSString *oldFile = [[itemLocationField stringValue] stringByStandardizingPath];
 	[openPanel setCanChooseDirectories:YES];
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:[oldFile stringByDeletingLastPathComponent]]];
+	[openPanel setDirectoryURL:oldFile ? [NSURL fileURLWithPath:[oldFile stringByDeletingLastPathComponent]] : nil];
 
     // open the choose file dialog box
 	NSInteger result = [openPanel runModal];
     
     // user clicked cancel
-    if (result == NSFileHandlingPanelCancelButton) {
+	if (result == NSModalResponseCancel) {
         return NO;
     }
     
