@@ -216,11 +216,6 @@ static id _sharedInstance;
 	[entry scanForced:YES];
 }
 
-- (void)selectIndexPath:(NSIndexPath *)ipath {
-	[[itemTable window] makeFirstResponder:itemTable];
-	[treeController setSelectionIndexPath:ipath];
-}
-
 - (void)selectEntry:(QSCatalogEntry *)entry {
 	id section;
 	NSArray *ancestors = [entry ancestors];
@@ -229,8 +224,11 @@ static id _sharedInstance;
 	else
 		section = entry;
 	[catalogSetsController setSelectedObjects:[NSArray arrayWithObject:section]];
-	[self reloadData];
-	[self selectIndexPath:[entry catalogSetIndexPath]];
+	[treeController rearrangeObjects];
+    QSGCDMainAsync(^{
+		[treeController setSelectionIndexPath:[entry catalogSetIndexPath]];
+		[self->itemTable reloadData];
+    });
 }
 
 - (IBAction)addSource:(id)sender {
@@ -432,18 +430,15 @@ static id _sharedInstance;
 	}
 
 	insertionArray = (NSMutableArray *)[item children];
-
 	if (index >= 0) [insertionArray replaceObjectsInRange:NSMakeRange(index, 0) withObjectsFromArray:objects];
 	else [insertionArray addObjectsFromArray:objects];
-
-	[treeController rearrangeObjects];
-	[outlineView reloadData];
-
 	[self selectEntry:[objects lastObject]];
+	
 	if (shouldShowOptions)
 		[self showOptionsDrawer];
-
+	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
+
 	return YES;
 }
 
