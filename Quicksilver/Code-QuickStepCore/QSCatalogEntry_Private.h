@@ -33,6 +33,7 @@
  */
 @property (readonly, retain) NSMutableDictionary *info;
 
+@property (readonly) BOOL canBeDeleted;
 @end
 
 @interface QSCatalogEntry (OldStyleSourceSupport)
