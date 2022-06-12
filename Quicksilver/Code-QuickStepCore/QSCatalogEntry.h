@@ -209,10 +209,6 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 /** Returns whether the receiver is the root catalog entry. */
 - (BOOL)isCatalog;
 
-- (NSIndexPath *)catalogIndexPath;
-
-- (NSIndexPath *)catalogSetIndexPath;
-
 /**
  * Get only the non-ommited objects from that entry and its children
  */
