@@ -1,13 +1,18 @@
-## Changes - 2.2.3 (4037)  ##
+## Changes - 2.2.3 (4037)  2022-06-12 ##
 
 *Requires macOS 10.14+*
 
 ### New ###
-* Updated Korean translations
+
+* Updated Korean and French translations
 
 ### Fixes ###
 
-* Crashes occuring when re-scanning the catalog (#2886)
+* Crash in some circumstances when re-scanning the catalog (#2886)
+* Crash when displaying QS Tasks in the background (#2886)
+* Crash when scanning the 'running processes' catalog item (#2886)
+* Removed unusable 'Group triggers' from the Triggers pref pane (#135)
+* Fix keyboard shortcuts on JIS keyboards (#2885)
 
 ## Changes - 2.2.2 (4036) 2022-06-06 ##
 
