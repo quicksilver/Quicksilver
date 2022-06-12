@@ -1914,6 +1914,8 @@
 			<true/>
 			<key>icon</key>
 			<string>Quicksilver</string>
+			<key>resolvesProxy</key>
+			<false/>
 		</dict>
 		<key>FileOpenWithAction</key>
 		<dict>

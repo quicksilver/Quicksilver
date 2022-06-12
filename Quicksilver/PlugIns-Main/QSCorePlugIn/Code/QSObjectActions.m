@@ -52,11 +52,36 @@
 }
 
 - (QSObject *)selectObjectInCommandWindow:(QSObject *)dObject {
-	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
-
-	[[controller dSelector] redisplayObjectValue:[dObject resolvedObject]];
-	[[controller dSelector] updateHistory];
-	[controller actionActivate:self];
+	NSRunningApplication *frontmost = [[NSWorkspace sharedWorkspace] frontmostApplication];
+	
+	
+	// NOTE: this calls the service, and makes Quicksilver the 'active' application
+	dObject = [dObject resolvedObject];
+	
+	// we then need to make the previous frontmost application 'active' again:
+	[frontmost activateWithOptions:0];
+	
+	if (!dObject) {
+		// couldn't get an object. Return
+		return nil;
+	}
+	
+	NSDate *start = [NSDate date];
+	[[NSTimer scheduledTimerWithTimeInterval:0.05 repeats:YES block:^(NSTimer * _Nonnull timer) {
+		// wait until the previous application is frontmost, or for a maximum of 1s
+		if ([frontmost isActive] || [start timeIntervalSinceNow] < -1) {
+			[timer invalidate];
+			NSLog(@"invalidated");
+			QSGCDMainDelayed(0.05, ^{
+				QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
+				
+				[[controller dSelector] redisplayObjectValue:dObject];
+				[[controller dSelector] updateHistory];
+				[controller actionActivate:self];
+			});
+		}
+	}] fire];
+	
 
 	return nil;
 }

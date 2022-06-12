@@ -240,7 +240,7 @@
 				<string>NSFilesPromisePboardType</string>
 			</array>
 			<key>NSTimeout</key>
-			<string>5000</string>
+			<string>3000</string>
 			<key>NSUserData</key>
 			<string>GetSelection</string>
 		</dict>
