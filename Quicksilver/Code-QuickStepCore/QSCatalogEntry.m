@@ -206,7 +206,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (BOOL)canBeDeleted {
-	if (self.isPreset) {
+	if (self.isPreset || [self.name isEqualToString:@"QSCATALOGROOT"]) {
         return NO;
     }
 
