@@ -11,8 +11,8 @@
 #define kQSDonateReminderSuppressForever @"donate.reminder.suppress.forever"
 #define kQSDonateReminderSuppressUntilNextVersion @"donate.reminder.suppress.next"
 #define kQSDonateReminderLast @"donate.reminder.last"
-#define kQSDonateReminderInterval (60 * 60 * 24 * 7 ) // 1 week
-#define kQSdonateAlreadyDonatedReminderInterval kQSDonateReminderInterval*15
+#define kQSDonateReminderInterval (60 * 60 * 24 * 7 * 2 ) // 2 weeks
+#define kQSDonateAlreadyDonatedReminderInterval kQSDonateReminderInterval*15
 
 static QSDonationController *_controller;
 
@@ -45,7 +45,7 @@ static QSDonationController *_controller;
 	NSInteger result = [alert runModal];
 	if (result == NSAlertFirstButtonReturn) {
 		// user clicked the donate button. Open donate page and hide this message for 16 weeks (4 months)
-		[[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kQSdonateAlreadyDonatedReminderInterval] forKey:kQSDonateReminderLast];
+		[[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kQSDonateAlreadyDonatedReminderInterval] forKey:kQSDonateReminderLast];
 		[self openDonationPage];
 	}
 	if (alert.showsSuppressionButton) {
