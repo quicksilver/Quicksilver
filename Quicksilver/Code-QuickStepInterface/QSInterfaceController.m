@@ -590,15 +590,18 @@
 }
 
 - (void)executePartialCommand:(NSArray *)array {
+	QSObject *dObject = array[0];
+	QSAction *aObject = [array count] > 1 ? array[1] : nil;
+	dObject = [aObject resolvesProxy] ? [dObject resolvedObject] : dObject;
 	// remove objects previously selected by the comma trick
 	[self clearObjectView:dSelector];
-	[dSelector setObjectValue:[array objectAtIndex:0]];
+	[dSelector setObjectValue:dObject];
 	if ([array count] == 1) {
 		[self updateActionsNow];
 		[[self window] makeFirstResponder:aSelector];
 	} else {
 		[actionsUpdateTimer invalidate];
-		[aSelector setObjectValue:[array objectAtIndex:1]];
+		[aSelector setObjectValue:aObject];
 		if ([array count] > 2) {
 			[iSelector setObjectValue:[array objectAtIndex:2]];
 		} else {
