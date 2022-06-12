@@ -381,7 +381,7 @@
 		CD661C5619DBD341000F3695 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD661C5519DBD341000F3695 /* AppKit.framework */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; };
+		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502928559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
@@ -4108,7 +4108,6 @@
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
 				4D66BC1B148701EA00351C42 /* NDAlias.h in Headers */,
 				4D66BC1D148701EA00351C42 /* NDAlias+AliasFile.h in Headers */,
-				CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */,
 				4D66BC1F148701EA00351C42 /* NDResourceFork.h in Headers */,
 				4D66BC21148701EA00351C42 /* NDResourceFork+OtherSorces.h in Headers */,
 				4D66BC23148701EA00351C42 /* NSOpenPanel+NDAlias.h in Headers */,
@@ -4130,6 +4129,7 @@
 				4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */,
 				4D66BC431487024500351C42 /* NDScriptData.h in Headers */,
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
+				CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */,
 				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
 				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
