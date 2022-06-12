@@ -62,6 +62,9 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
     
     // Indicates if extras (such as indirect objects) should be updated when the 'search object' is changed. Default is NO
     BOOL updatesSilently;
+	
+	// whether or not the string in the underlying text editor should be 'sniffed' when editing (see QSObject_StringHandling.m - sniffString for more info)
+	BOOL shouldSniff;
     QSAction *alternateActionCounterpart;
 
 @public
@@ -74,7 +77,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	BOOL hasHistory;
 	BOOL allowText;
 	BOOL allowNonActions;
-    
+	
     QSObject *quicklookObject;
 
 }

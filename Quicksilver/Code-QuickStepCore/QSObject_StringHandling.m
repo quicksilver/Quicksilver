@@ -58,11 +58,19 @@
 
 @implementation QSObject (StringHandling)
 
++ (id)objectWithString:(NSString *)string shouldSniff:(BOOL)shouldSniff {
+    return [(QSObject *)[QSObject alloc] initWithString:string shouldSniff:shouldSniff];
+}
+
 + (id)objectWithString:(NSString *)string {
-    return [(QSObject *)[QSObject alloc] initWithString:string];
+	return [(QSObject *)[QSObject alloc] initWithString:string shouldSniff:YES];
 }
 
 - (id)initWithString:(NSString *)string {
+	return [(QSObject *)[QSObject alloc] initWithString:string shouldSniff:YES];
+}
+
+- (id)initWithString:(NSString *)string shouldSniff:(BOOL)shouldSniff {
     if (![string length]) {
         return nil;
     }
@@ -70,7 +78,9 @@
 		[data setObject:string forKey:QSTextType];
 		[self setName:string];
 		[self setPrimaryType:QSTextType];
-		[self sniffString];
+		if (shouldSniff) {
+			[self sniffString];
+		}
 	}
 	return self;
 }

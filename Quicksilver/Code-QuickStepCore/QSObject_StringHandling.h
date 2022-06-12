@@ -19,6 +19,7 @@
 @end
 
 @interface QSObject (StringHandling)
++ (id)objectWithString:(NSString *)string shouldSniff:(BOOL)shouldSniff;
 + (id)objectWithString:(NSString *)string;
 - (id)initWithString:(NSString *)string;
 - (void)sniffString;

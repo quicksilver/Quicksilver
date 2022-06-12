@@ -108,7 +108,8 @@ NSMutableDictionary *bindingsDict = nil;
 	parentStack = [[NSMutableArray alloc] initWithCapacity:10];
 
 	validSearch = YES;
-    
+	shouldSniff = YES;
+	
 	[resultController window];
 	[self setVisibleString:@""];
 
@@ -756,7 +757,6 @@ NSMutableDictionary *bindingsDict = nil;
                 [[self textModeEditor] setSelectedRange:NSMakeRange(0, [stringValue length])];
             }
 		}
-		// Set the underlying object of the pane to be a text object
 		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
 		NSRect titleFrame = [self frame];
@@ -976,12 +976,16 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)becomeFirstResponder {
+	shouldSniff = YES;
 	if ([[[self objectValue] primaryType] isEqual:QSTextProxyType]) {
+		if (self == [self indirectSelector]) {
+			shouldSniff = NO;
+		}
 		NSString *defaultValue = [[self objectValue] objectForType:QSTextProxyType];
 		[self transmogrify:self];
 		//  NSLog(@"%@", [[self objectValue] dataDictionary]);
 		if (defaultValue) {
-			[self setObjectValue:[QSObject objectWithString:defaultValue]];
+			[self setObjectValue:[QSObject objectWithString:defaultValue shouldSniff:shouldSniff]];
 			[[self currentEditor] setString:defaultValue];
 			if([[[[self actionSelector] objectValue] identifier] isEqualToString:@"FileRenameAction"]) {
 				NSString *fileName = [defaultValue stringByDeletingPathExtension];
@@ -1600,7 +1604,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self shortCircuit:self];
 		return;
 	}
-	[self setObjectValue:[QSObject objectWithString:string]];
+	[self setObjectValue:[QSObject objectWithString:string shouldSniff:shouldSniff]];
 	[self setMatchedString:nil];
 }
 
