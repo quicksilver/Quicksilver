@@ -407,7 +407,7 @@ NSMutableDictionary *bindingsDict = nil;
     [savePanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
      {
-         if (result == NSFileHandlingPanelOKButton) {
+		if (result == NSModalResponseOK) {
              [self setObjectValue:[QSObject fileObjectWithFileURL:[savePanel URL]]];
 
          }
@@ -432,7 +432,7 @@ NSMutableDictionary *bindingsDict = nil;
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
      {
-         if (result == NSFileHandlingPanelOKButton) {
+		if (result == NSModalResponseOK) {
              [self setObjectValue:[QSObject fileObjectWithFileURL:[openPanel URL]]];
          }
      }];
@@ -481,7 +481,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[[resultController window] setFrameTopLeftPoint:resultWindowRect.origin];
         
 	} else {
-		NSPoint resultPoint = [[self window] convertBaseToScreen:[self frame] .origin];
+		NSPoint resultPoint = [[self window] convertPointToScreen:[self frame].origin];
 		//resultPoint.x;
 		CGFloat extraHeight = resultWindowRect.size.height-(resultPoint.y-screenRect.origin.y);
         
@@ -742,7 +742,7 @@ NSMutableDictionary *bindingsDict = nil;
             NSString *text;
             NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
             // getting characters raises an exception if this wasn't a key event
-            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask | NSFlagsChangedMask)) {
+			if (currentEventMask & (NSEventMaskKeyUp | NSEventMaskKeyDown | NSEventMaskFlagsChanged)) {
                 text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
             } else {
                 text = partialString;
@@ -891,8 +891,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)resetString {
     QSGCDMainSync(^{
-        [resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
-        [resultController.searchStringField display];
+		[self->resultController.searchStringField setTextColor:[[self->resultController.self->searchStringField textColor] colorWithAlphaComponent:0.5]];
+		[self->resultController.self->searchStringField display];
     });
 }
 
@@ -1074,7 +1074,7 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     
 	if ([eventCharactersIgnoringModifiers isEqualToString:@" "]) {
-        if ([theEvent type] == NSKeyDown) {
+        if ([theEvent type] == NSEventTypeKeyDown) {
             [self insertSpace:nil];
         }
 		return;
