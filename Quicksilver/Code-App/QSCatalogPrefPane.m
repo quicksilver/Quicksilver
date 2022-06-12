@@ -496,6 +496,13 @@ static id _sharedInstance;
 				return NSDragOperationNone;
 			if ([[draggedEntries objectAtIndex:0] isPreset])
 				return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ? NSDragOperationCopy : NSDragOperationNone;
+			
+			BOOL isPartOfGroup = [[[draggedEntries objectAtIndex:0] ancestors] indexesOfObjectsPassingTest:^BOOL(QSCatalogEntry *  _Nonnull ent, NSUInteger idx, BOOL * _Nonnull stop) {
+				return [ent isGroup] && [ent canBeDeleted];
+			}].count > 0;
+			if (!isPartOfGroup && [[treeController sortDescriptors] count] && ![item isGroup]) {
+				return NSDragOperationNone;
+			}
 		}
 		return NSDragOperationMove;
 	}
