@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Handlers" = "Spouštěč";
+
+/* Preference Pane Description */
+"Choose the helpers for specific tasks" = "Vyberte pomocné aplikace pro úlohu";
+
 /* 169.headerCell.title */
 "Helper" = "Pomocník";
 
