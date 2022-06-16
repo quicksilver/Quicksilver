@@ -1293,6 +1293,12 @@ NSMutableDictionary *bindingsDict = nil;
 }*/
 
 - (void)scrollWheel:(NSEvent *)theEvent {
+	CGFloat delta = [theEvent deltaY];
+
+	if (!delta) {
+		// don't do anything unless the user is actually scrolling
+		return;
+	}
 	// ***warning  * this still goes to the wrong view if over another search view
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         return;
@@ -1305,7 +1311,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController scrollWheel:theEvent];
 		return;
 	}
-	CGFloat delta = [theEvent deltaY];
     
 	// This is really really awful.
 	UnsignedWide currentTime;
