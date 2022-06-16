@@ -69,11 +69,13 @@
         keyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:buffer];
         // key down event
         keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
+		CGEventSetFlags(keyEvent, 0);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
         if (keyEvent) {
             CFRelease(keyEvent);
         }
+		
         // key up event
         keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, false);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
@@ -85,3 +87,4 @@
 }
 
 @end
+
