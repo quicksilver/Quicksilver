@@ -13,6 +13,7 @@
 * Fix proxy objects in triggers that use partial commands (#1517)
 * Improve speed when re-scanning the catalog
 * Deprecation and warnings cleanup
+* Don't inadvertently show the results window when right clicking in Quicksilver
 
 ### Changed ###
 
