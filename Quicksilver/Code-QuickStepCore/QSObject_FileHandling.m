@@ -698,15 +698,18 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
-			NSString *uti = [self fileUTI];
-			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
-			if (handler) {
-				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
-					[handler createFileObject:self ofType:uti];
-				else if ([handler respondsToSelector:@selector(initFileObject:ofType:)])
-					/* Try with the old selector */
-					[handler performSelector:@selector(initFileObject:ofType:) withObject:self withObject:uti];
-				return self;
+			if ([[QSReg tableNamed:@"QSFileObjectCreationHandlers"] count]) {
+				// only get the file UTI if there's actually any QSFileObjectCreationHandlers to check
+				NSString *uti = [self fileUTI];
+				id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
+				if (handler) {
+					if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
+						[handler createFileObject:self ofType:uti];
+					else if ([handler respondsToSelector:@selector(initFileObject:ofType:)])
+						/* Try with the old selector */
+						[handler performSelector:@selector(initFileObject:ofType:) withObject:self withObject:uti];
+					return self;
+				}
 			}
 		} else {
 			[[self dataDictionary] setObject:paths forKey:QSFilePathType];
