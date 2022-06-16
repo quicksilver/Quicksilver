@@ -14,6 +14,7 @@
 * Improve speed when re-scanning the catalog
 * Deprecation and warnings cleanup
 * Don't inadvertently show the results window when right clicking in Quicksilver
+* Fix the 'Type Text' action to make sure it types properly even if modifier keys are being pressed
 
 ### Changed ###
 
