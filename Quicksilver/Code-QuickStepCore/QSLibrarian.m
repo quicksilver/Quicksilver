@@ -162,11 +162,15 @@ static CGFloat searchSpeed = 0.0;
 			parent = [catalog childWithPath:@"QSPresetModules"];
 		}
 		[parent.children addObject:entry];
-#warning oh yeah, while we're at it, sort on each loop !
+
         [parent.children sortUsingComparator:^NSComparisonResult(QSCatalogEntry *obj1, QSCatalogEntry *obj2) {
             return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
         }];
-		if (scan) [entry scanForced:YES];
+		if (scan) {
+			QSGCDQueueAsync(scanning_queue, ^{
+				[entry scanForced:YES];
+			});
+		}
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];
 }
