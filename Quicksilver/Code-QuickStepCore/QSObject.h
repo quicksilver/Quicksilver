@@ -65,7 +65,7 @@ typedef struct _QSObjectFlags {
 	NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
 	QSThreadSafeMutableDictionary *cache; 		//Icons, children, alias data,
 	QSObjectFlags			flags;
-	NSTimeInterval			lastAccess;
+
 }
 + (void)initialize;
 + (void)purgeOldImagesAndChildren;

@@ -5,7 +5,6 @@
 
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
-static NSTimeInterval globalLastAccess;
 
 BOOL QSObjectInitialized = NO;
 
@@ -17,7 +16,6 @@ NSSize QSMaxIconSize;
 		QSMaxIconSize = QSSizeMax;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
-		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
 
 	//	controller = [NSApp delegate];
@@ -27,32 +25,22 @@ NSSize QSMaxIconSize;
 		QSObjectInitialized = YES;
 	}
 }
-
-+ (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}
-+ (void)purgeAllImagesAndChildren {[self purgeImagesAndChildrenOlderThan:0.0];}
-
-+ (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
-    NSTimeInterval tempLastAccess = 0;
++ (void)purgeAllImagesAndChildren {
     NSSet *tempIconSet = nil;
     NSSet *tempChildSet = nil;
 
     // Make copies of the sets so we can purge them without bothering about threading
     // We're synchronizing on the class instance, since those are class-ivars
     @synchronized ([QSObject class]) {
-        tempLastAccess = globalLastAccess;
         tempIconSet = [iconLoadedSet copy];
         tempChildSet = [childLoadedSet copy];
     }
 
 	for (QSObject *obj in tempIconSet) {
-		if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
 			[obj unloadIcon];
-		}
 	}
 	for (QSObject *obj in tempChildSet) {
-		if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
 			[obj unloadChildren];
-		}
 	}
 }
 
@@ -73,7 +61,6 @@ NSSize QSMaxIconSize;
 		icon = nil;
 		identifier = nil;
 		primaryType = nil;
-		lastAccess = 0;
 	}
 	return self;
 }
@@ -240,7 +227,7 @@ NSSize QSMaxIconSize;
 // and display the result. The advantage is that this formatter will go less out of scope
 
 - (const char *) gdbDataFormatter {
-	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
+	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@",
              (name ? name : @"nil"),
              (label ? label : @"nil"),
              (identifier ? identifier : @"nil"),
@@ -249,8 +236,7 @@ NSSize QSMaxIconSize;
              (meta ? [meta descriptionInStringsFileFormat] : @"nil"),
              (data ? [data descriptionInStringsFileFormat] : @"nil"),
              (cache ? [cache descriptionInStringsFileFormat] : @"nil"),
-             (icon ? [icon description] : @"nil"),
-			 (lastAccess ? lastAccess : 0.0f)] UTF8String];
+             (icon ? [icon description] : @"nil")] UTF8String];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -268,7 +254,6 @@ NSSize QSMaxIconSize;
     copy.cache = [cache mutableCopy];
     
     copy.flags = flags;
-    copy.lastAccess = lastAccess;
     
     return copy;
 }
@@ -287,10 +272,6 @@ NSSize QSMaxIconSize;
 
 - (void)setFlags:(QSObjectFlags)fl {
     flags = fl;
-}
-
-- (void)setLastAccess:(NSTimeInterval)lastAcc {
-    lastAccess = lastAcc;
 }
 
 - (NSString *)displayName {
@@ -587,12 +568,8 @@ NSSize QSMaxIconSize;
 	id handler = [self handlerForSelector:@selector(loadChildrenForObject:)];
 	if (handler && [handler loadChildrenForObject:self]) {
         flags.childrenLoaded = YES;
-        NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-        self.childrenLoadedDate = now;
-        self.lastAccess = now;
-
+		self.childrenLoadedDate = [NSDate timeIntervalSinceReferenceDate];
         @synchronized ([QSObject class]) {
-            globalLastAccess = now;
             [childLoadedSet addObject:self];
         }
     }
@@ -821,10 +798,6 @@ NSSize QSMaxIconSize;
 	[meta setObject:[NSNumber numberWithDouble:newChildrenLoadedDate] forKey:kQSObjectChildrenLoadDate];
 }
 
-- (NSTimeInterval) lastAccess { return lastAccess;  }
-- (void)setlastAccess:(NSTimeInterval)newlastAccess {
-	lastAccess = newlastAccess;
-}
 
 @end
 
@@ -892,11 +865,6 @@ NSSize QSMaxIconSize;
         return NO;
 	}
 	[self setIconLoaded:YES];
-    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	self.lastAccess = now;
-    @synchronized ([QSObject class]) {
-        globalLastAccess = now;
-    }
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -942,11 +910,6 @@ NSSize QSMaxIconSize;
 }
 
 - (NSImage *)icon {
-    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	self.lastAccess = now;
-    @synchronized ([QSObject class]) {
-        globalLastAccess = now;
-    }
     
 	if (icon) return icon;
     
