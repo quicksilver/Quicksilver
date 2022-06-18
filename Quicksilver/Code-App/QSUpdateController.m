@@ -173,6 +173,14 @@ typedef enum {
 	[dataTask resume];
 }
 
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key {
+	if ([key isEqualToString:@"isCheckingForUpdates"]) {
+		// we udpate isCheckingForUpdates manually, so we can do it on the main thread
+		return NO;
+	}
+	return YES;
+}
+
 - (void)setIsCheckingForUpdates:(BOOL)val {
 	QSGCDMainAsync(^{
 		[self willChangeValueForKey:@"isCheckingForUpdates"];
