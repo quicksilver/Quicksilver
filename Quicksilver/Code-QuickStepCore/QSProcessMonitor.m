@@ -304,21 +304,22 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)addProcessWithPSN:(ProcessSerialNumber)psn {
-	NDProcess *thisProcess = [NDProcess processWithProcessSerialNumber:psn];
 
 	NSDictionary *info = [self infoForPSN:psn];
     QSObject *procObject = [self imbuedFileProcessForDict:info];
 	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
 
     if (procObject) {
+		BOOL isBackground = [[NDProcess processWithProcessSerialNumber:psn] isBackground];
+
 		if (!isReloading) {
 			[self willChangeValueForKey:@"allProcesses"];
-			[self willChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
+			[self willChangeValueForKey: isBackground ? @"backgroundProcesses" : @"visibleProcesses"];
 		}
 		[[self processesDict] setObject:procObject forKey:psnValue];
 		if (!isReloading) {
-			[self didChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
 			[self didChangeValueForKey:@"allProcesses"];
+			[self didChangeValueForKey:isBackground ? @"backgroundProcesses" : @"visibleProcesses"];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 		}
 	}
@@ -393,11 +394,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 	for (thisProcessPSN in [[[self processesDict] copy] allKeys]) {
 		thisProcess = [NDProcess processWithProcessSerialNumber:[thisProcessPSN processSerialNumberValue]];
-
-		if (!hidden && [thisProcess isBackground]) continue;
-		else if (hidden && ![thisProcess isBackground]) continue;
-
-		QSObject *newObject = [self imbuedFileProcessForDict:[self infoForPSN:[thisProcessPSN processSerialNumberValue]]];
+		BOOL isBackground = [thisProcess isBackground];
+		if (!hidden && isBackground) continue;
+		else if (hidden && !isBackground) continue;
+		NSDictionary *processDict = [[self infoForPSN:[thisProcessPSN processSerialNumberValue]] copy];
+		QSObject *newObject = [self imbuedFileProcessForDict:processDict];
 		if (newObject)
 			[objects addObject:newObject];
 	}
@@ -464,11 +465,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (NSArray *)getVisibleProcesses {
-	return [self processesWithHiddenState:NO];
+	return [self visibleProcesses];
 }
 
 - (NSArray *)visibleProcesses {
-	return [self getVisibleProcesses];
+	return [self processesWithHiddenState:NO];
 }
 
 - (NSArray *)backgroundProcesses {
