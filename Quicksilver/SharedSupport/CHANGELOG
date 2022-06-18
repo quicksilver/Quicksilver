@@ -27,6 +27,7 @@ This release is all about stability. v2.3.0 brings over **50** changes and bug f
 ### Plugins ###
 
 Recent plugin updates include:
+
 * **Calculator Plugin**: Fix crashes when displaying results as large type
 * **Text Manipulation Plugin**: Speed optimizations and improve 3rd pane usability
 * **File Compression Plugin**: Add option to remove macOS hidden files when compressing
