@@ -573,7 +573,8 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 #endif
 
         @try {
-            NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+			NSArray *contents = [self.contents copy];
+            NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
             [writeArray writeToFile:self.indexLocation atomically:YES];
         }
         @catch (NSException *exception) {
