@@ -459,7 +459,6 @@ static CGFloat searchSpeed = 0.0;
 	NSString *currentItemID = [entry identifier];
 	NSDictionary *typeDictionary = [self typeArraysFromArray:[entry enabledContents]];
 
-	//NSLog(@"%@", [typeDictionary allKeys]);
 	NSArray *typeKeys = [typeDictionary allKeys];
 	for (NSString *key in typeKeys) {
 		NSMutableDictionary *typeEntry = [typeArrays objectForKey:key];
@@ -522,7 +521,7 @@ static CGFloat searchSpeed = 0.0;
 				typeEntry = [NSMutableArray arrayWithCapacity:1];
 				[dict setObject:typeEntry forKey:key];
 			}
-			[typeEntry addObject:object];
+			[typeEntry addObject:[object copy]];
 		}
 		
 	}
