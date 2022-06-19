@@ -419,110 +419,113 @@
 
 // method for drawing the text (e.g. object label, name etc.) on the interface
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
-		NSString *abbreviationString = nil;
-		if ([controlView respondsToSelector:@selector(matchedString)]) {
-			abbreviationString = [(QSSearchObjectView *)controlView matchedString];   
-        }
-        
-		NSString *nameString = nil;
-		NSIndexSet *hitMask = nil;
-        
-        id ranker = [drawObject ranker];
-		if (ranker && abbreviationString) {
-			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
-        }
-        
-		if (!nameString) nameString = [drawObject displayName];
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		BOOL showRankedStringOnly = nameString == nil
-			|| ![defaults boolForKey:kQSTextMatchedAlwaysShowName]
-			|| [nameString isEqualToString:[drawObject displayName]];
-        if (!nameString) {
-            // fall back to the identifier if no reasonable name can be found
-            nameString = [drawObject identifier];
-        }
-        if (!nameString) {
-            // Couldn't find anything sensible to use for the name, fallback to avoid a crash
-            nameString = @"Unknown";
-        }
-		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
-		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
-		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
-		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
-        
-		NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
-        [titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
-        
-        
-		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:showRankedStringOnly ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
-            
-			// Organise displaying the text, underlining the letters typed (in the name)
-			NSUInteger i = 0;
-			NSUInteger j = 0;
-			NSUInteger hits[[titleString length]];
-			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
-			NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				showRankedStringOnly ? mainColor : fadedColor, NSForegroundColorAttributeName,
-				nil];
-			if ([defaults boolForKey:kQSTextMatchedUnderline]) {
-				[attributes setObject:showRankedStringOnly ? mainColor : fadedColor forKey:NSUnderlineColorAttributeName];
-				[attributes setObject:[NSNumber numberWithFloat:2.0] forKey:NSUnderlineStyleAttributeName];
-				[attributes setObject:[NSNumber numberWithFloat:1.0] forKey:NSBaselineOffsetAttributeName];
-			}
-			if ([defaults boolForKey:kQSTextMatchedGlow]) {
-				NSShadow *glow = [[NSShadow alloc] init];
-				CGFloat divisor = [[defaults objectForKey:kQSTextGlowDivisor] floatValue];
-				CGFloat radius = self.nameFont.pointSize/divisor;
-				[glow setShadowBlurRadius:radius];
-				[glow setShadowColor:fadedColor];
-				[attributes setObject:glow forKey:NSShadowAttributeName];
-			}
-
-			for(i = 0; i<count; i += j) {
-				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
-				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
-			}
-		} else {
-			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
-		}
-        
-        // Ranked string and nameString aren't the same. Show 'nameString  ⟷ rankedString' in the UI
-        if (!showRankedStringOnly && [drawObject displayName].length) {
-            [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
-            NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
-            [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
-            
-            [attributedNameString appendAttributedString:[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes]];
-            // the replaceCharacters... method inserts the new string into the receiver at the start of the work (range.location and range.length are 0)
-            [titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
-        }
-        
-        if (showDetails) {
-            NSString *detailsString = [drawObject details];
-            if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
-                NSSize detailsSize = NSZeroSize;
-                detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-                NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-                
-                CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
-                NSRange returnRange;
-                if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound) {
-                    detailsString = [detailsString substringToIndex:returnRange.location];
-                }
-                // Append the details string if it exists, and the UI wants it (showDetails BOOL)
-                if (detailsString != nil && detailsString.length) {
-                    [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes]];
-                }
-            }
-        }
-        
-		NSRect centerRect = rectFromSize([titleString size]);
-		centerRect.size.width = NSWidth(textDrawRect);
-		centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);
-		[titleString drawInRect:centerRectInRect(centerRect, textDrawRect)];
+	if ([self imagePosition] == NSImageOnly) {
+		// no text needed
+		return;
 	}
+	// Text Drawing Routines
+	NSString *abbreviationString = nil;
+	if ([controlView respondsToSelector:@selector(matchedString)]) {
+		abbreviationString = [(QSSearchObjectView *)controlView matchedString];
+	}
+	
+	NSString *nameString = nil;
+	NSIndexSet *hitMask = nil;
+	
+	id ranker = [drawObject ranker];
+	if (ranker && abbreviationString) {
+		nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+	}
+	
+	if (!nameString) nameString = [drawObject displayName];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	BOOL showRankedStringOnly = nameString == nil
+	|| ![defaults boolForKey:kQSTextMatchedAlwaysShowName]
+	|| [nameString isEqualToString:[drawObject displayName]];
+	if (!nameString) {
+		// fall back to the identifier if no reasonable name can be found
+		nameString = [drawObject identifier];
+	}
+	if (!nameString) {
+		// Couldn't find anything sensible to use for the name, fallback to avoid a crash
+		nameString = @"Unknown";
+	}
+	BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
+	NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
+	NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
+	NSRect textDrawRect = [self titleRectForBounds:cellFrame];
+	
+	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
+	[titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+	
+	
+	if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
+		[titleString addAttribute:NSForegroundColorAttributeName value:showRankedStringOnly ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
+		
+		// Organise displaying the text, underlining the letters typed (in the name)
+		NSUInteger i = 0;
+		NSUInteger j = 0;
+		NSUInteger hits[[titleString length]];
+		NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
+		NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   showRankedStringOnly ? mainColor : fadedColor, NSForegroundColorAttributeName,
+										   nil];
+		if ([defaults boolForKey:kQSTextMatchedUnderline]) {
+			[attributes setObject:showRankedStringOnly ? mainColor : fadedColor forKey:NSUnderlineColorAttributeName];
+			[attributes setObject:[NSNumber numberWithFloat:2.0] forKey:NSUnderlineStyleAttributeName];
+			[attributes setObject:[NSNumber numberWithFloat:1.0] forKey:NSBaselineOffsetAttributeName];
+		}
+		if ([defaults boolForKey:kQSTextMatchedGlow]) {
+			NSShadow *glow = [[NSShadow alloc] init];
+			CGFloat divisor = [[defaults objectForKey:kQSTextGlowDivisor] floatValue];
+			CGFloat radius = self.nameFont.pointSize/divisor;
+			[glow setShadowBlurRadius:radius];
+			[glow setShadowColor:fadedColor];
+			[attributes setObject:glow forKey:NSShadowAttributeName];
+		}
+		
+		for(i = 0; i<count; i += j) {
+			for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
+			[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
+		}
+	} else {
+		[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
+	}
+	
+	// Ranked string and nameString aren't the same. Show 'nameString  ⟷ rankedString' in the UI
+	if (!showRankedStringOnly && [drawObject displayName].length) {
+		[titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
+		NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
+		[attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
+		
+		[attributedNameString appendAttributedString:[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes]];
+		// the replaceCharacters... method inserts the new string into the receiver at the start of the work (range.location and range.length are 0)
+		[titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
+	}
+	
+	if (showDetails) {
+		NSString *detailsString = [drawObject details];
+		if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
+			NSSize detailsSize = NSZeroSize;
+			detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
+			NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+			
+			CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
+			NSRange returnRange;
+			if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound) {
+				detailsString = [detailsString substringToIndex:returnRange.location];
+			}
+			// Append the details string if it exists, and the UI wants it (showDetails BOOL)
+			if (detailsString != nil && detailsString.length) {
+				[titleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes]];
+			}
+		}
+	}
+	
+	NSRect centerRect = rectFromSize([titleString size]);
+	centerRect.size.width = NSWidth(textDrawRect);
+	centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);
+	[titleString drawInRect:centerRectInRect(centerRect, textDrawRect)];
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
