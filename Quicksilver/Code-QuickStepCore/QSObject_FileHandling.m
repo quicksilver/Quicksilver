@@ -485,9 +485,14 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
             // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
             fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
             visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-            
-            newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
-            newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
+
+			newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
+			if ([visibleFileChildren isEqual:fileChildren]) {
+				newAltChildren = newChildren;
+			} else {
+				newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
+			}
+
 
             if (newAltChildren) [object setAltChildren:newAltChildren];
         }
@@ -654,13 +659,24 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray array];
-	QSObject *object = nil;
-    for (NSString* loopItem in pathArray) {
-        if (object = [QSObject fileObjectWithPath:loopItem]) {
-			[fileObjectArray addObject:object];
-        }
-    };
+	NSMutableArray *fileObjectArray = [pathArray mutableCopy];
+
+	NSMutableIndexSet __block *objsToRemove = nil;
+
+	[pathArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString * loopItem, NSUInteger idx, BOOL * _Nonnull stop) {
+		QSObject *object = [QSObject fileObjectWithPath:loopItem];
+		if (object) {
+			[fileObjectArray replaceObjectAtIndex:idx withObject:object];
+		} else {
+			if (objsToRemove == nil) {
+				objsToRemove = [NSMutableIndexSet indexSet];
+			}
+			[objsToRemove addIndex:idx];
+		}
+	}];
+	if ([objsToRemove count]) {
+		[fileObjectArray removeObjectsAtIndexes:objsToRemove];
+	}
 	return fileObjectArray;
 }
 
