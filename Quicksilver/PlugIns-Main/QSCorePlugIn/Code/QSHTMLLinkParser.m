@@ -28,6 +28,11 @@
 
 - (NSArray *)objectsFromData:(NSData *)data encoding:(NSStringEncoding)encoding settings:(NSDictionary *)settings source:(NSURL *)source {
 	NSString *string = [[NSString alloc] initWithData:data encoding:encoding?encoding:NSUTF8StringEncoding];
+    if (data && !string) {
+        // no string, most likely becuase the encoding was wrong. Try to sniff the encoding
+        encoding = [NSString stringEncodingForData:data encodingOptions:@{NSStringEncodingDetectionAllowLossyKey: @NO, NSStringEncodingDetectionDisallowedEncodingsKey:@[[NSNumber numberWithUnsignedInteger:NSUTF8StringEncoding]]} convertedString:&string usedLossyConversion:nil];
+    }
+    
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
 	NSString *prefix;
 	if (prefix = [settings objectForKey:@"contentPrefix"]) {
