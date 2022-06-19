@@ -211,11 +211,8 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-        if ([object isApplication]) {
-            theImage = [QSResourceManager imageNamed:@"GenericApplicationIcon"];
-        } else {
-            theImage = [[NSWorkspace sharedWorkspace] iconForFileType:[object fileUTI]];
-        }
+		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[object singleFilePath]];
+
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
@@ -253,12 +250,6 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (![manager fileExistsAtPath:path]) {
 		return NO;
 	}
-    
-    // try to use the file's actual icon immediately
-    theImage = [[NSWorkspace sharedWorkspace] iconForFiles:[object arrayForType:QSFilePathType]];
-    if (theImage) {
-        [object setIcon:theImage];
-    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
