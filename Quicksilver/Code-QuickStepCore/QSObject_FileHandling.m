@@ -729,10 +729,17 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSDictionary *)infoRecord {
-    NSDictionary *dict;
-    if (dict = [self objectForCache:@"QSItemInfoRecord"])
-        return dict;
-    
+	
+	@synchronized (self) {
+		if (![self objectForCache:@"QSItemInfoRecord"]) {
+			[self setObject:[self loadInfoRecord] forCache:@"QSItemInfoRecord"];
+		}
+	}
+	return [self objectForCache:@"QSItemInfoRecord"];
+}
+
+- (NSDictionary *)loadInfoRecord {
+
     NSString *path = [self validSingleFilePath];
     if (!path) {
         return nil;
@@ -742,45 +749,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     NSError *err = nil;
     
     // Note: NSURLLocalizedLabelKey gives a localized string of the Finder label (tag in 10.9+). E.g. Red / Rouge
-    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeIsLocalKey, NSURLIsExecutableKey, NSURLIsUbiquitousItemKey, NSURLIsApplicationKey] error:&err];
-    NSMutableDictionary *mutableDict = [dict mutableCopy];
-
-    if (!dict) {
-        // The file is either a socket or fifo. Not much information is available on these files
-        LSItemInfoRecord record;
-        OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
-        if (status) {
-            NSLog(@"LSCopyItemInfoForURL error: %ld", (long)status);
-            return nil;
-        }
-        
-        NSString *uti = QSUTIWithLSInfoRec(path, &record);
-        struct statfs sfsb;
-        statfs([path UTF8String], &sfsb);
-        NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
-        BOOL isLocal = [device hasPrefix:@"/dev/"];
-        unsigned long fflags = record.flags;
-        mutableDict = [NSMutableDictionary dictionaryWithObjects:@[
-                                                        [NSNumber numberWithBool:isLocal],
-                                                        [NSNumber numberWithBool:(BOOL)(fflags & kLSItemInfoIsContainer)],
-                                                        [NSNumber numberWithBool:(BOOL)(fflags & kLSItemInfoIsPackage)],
-                                                        [NSNumber numberWithBool:(BOOL)(fflags & kLSItemInfoIsAliasFile)],
-                                                    ] forKeys:@[
-                                                        NSURLVolumeIsLocalKey,
-                                                        NSURLIsDirectoryKey,
-                                                        NSURLIsPackageKey,
-                                                        NSURLIsAliasFileKey,
-                                                    ]];
-        if (uti) {
-            [mutableDict setObject:uti forKey:NSURLTypeIdentifierKey];
-        }
-        /* Release the file's extension if one was returned */
-        if (record.extension) {
-            CFRelease(record.extension);
-        }
-    }
-    [mutableDict setObject:[fileURL pathExtension] forKey:@"extension"];
-    [self setObject:[mutableDict copy] forCache:@"QSItemInfoRecord"];
+    NSDictionary *dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeIsLocalKey, NSURLIsExecutableKey, NSURLIsUbiquitousItemKey, NSURLIsApplicationKey] error:&err];
     return dict;
 }
 
@@ -852,8 +821,14 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)fileExtension {
-	NSDictionary *infoRec = [self infoRecord];
-    return [infoRec objectForKey:@"extension"];
+	NSString *extension;
+	if (extension = [self objectForCache:@"extension"]) {
+		return extension;
+	}
+	NSURL *fileURL = [NSURL fileURLWithPath:[self singleFilePath]];
+	extension = [fileURL pathExtension];
+	[self setObject:extension forCache:@"extension"];
+	return extension;
 }
 
 - (NSString *)fileUTI {
