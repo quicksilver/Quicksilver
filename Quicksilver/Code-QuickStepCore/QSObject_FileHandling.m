@@ -901,29 +901,42 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (void)getNameFromFiles {
 	NSString *newName = nil;
-	NSString *newLabel = nil;
 	if ([self count] >1) {
 		NSArray *paths = [self arrayForType:QSFilePathType];
 		NSString *container = [self filesContainer];
 		NSString *type = [self filesType];
 		BOOL onDesktop = [container isEqualToString:[@"~/Desktop/" stringByStandardizingPath]];
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
-	} else {
-		// generally: name = what you see in Terminal, label = what you see in Finder
-        newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
-        NSString *path = [self singleFilePath];
-        newName = [path lastPathComponent];
-        if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
-            // kMDItemDisplayName works better for Preference Panes
-            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
-            if (mdItem) {
-                newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
-                CFRelease(mdItem);
-            }
-        }
+		[self setName:newName];
+		return;
 	}
-    [self setName:newName];
-	[self setLabel:newLabel];
+	// single object
+	
+	NSString *path = [self singleFilePath];
+	newName = [path lastPathComponent];
+	
+	if ([[path pathExtension] isEqualToString:@"app"]) {
+		// most apps just remove the extension
+		newName = [path stringByDeletingPathExtension];
+	}
+	[self setName:newName];
+	[self setLabel:newName];
+	
+	// generally: name = what you see in Terminal, label = what you see in Finder
+	
+	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+	if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
+		// kMDItemDisplayName works better for Preference Panes
+		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
+		if (mdItem) {
+			newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
+			CFRelease(mdItem);
+		}
+	}
+	if (![newLabel isEqualToString:newName]) {
+		[self setLabel:newLabel];
+	}
+
 }
 
 - (NSString *)filesContainer {
