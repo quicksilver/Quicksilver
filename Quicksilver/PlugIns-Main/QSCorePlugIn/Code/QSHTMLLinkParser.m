@@ -33,6 +33,10 @@
         encoding = [NSString stringEncodingForData:data encodingOptions:@{NSStringEncodingDetectionAllowLossyKey: @NO, NSStringEncodingDetectionDisallowedEncodingsKey:@[[NSNumber numberWithUnsignedInteger:NSUTF8StringEncoding]]} convertedString:&string usedLossyConversion:nil];
     }
     
+    if (string == nil) {
+        // Data could not be converted to a string. Abort
+        return nil;
+    }
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
 	NSString *prefix;
 	if (prefix = [settings objectForKey:@"contentPrefix"]) {
@@ -51,6 +55,7 @@
 	if (prefix || suffix) {
 		data = [string dataUsingEncoding:encoding];
 	}
+
 	NSMutableArray *foundLinks = [NSMutableArray array];
 	HTMLDocument *document = [HTMLDocument documentWithString:string];
 	QSObject *newObject = nil;
