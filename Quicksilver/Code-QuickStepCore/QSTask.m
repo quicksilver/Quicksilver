@@ -117,7 +117,7 @@
 
 // the following manually created setters/getters are required, to ensure values are only set on the main thread - required for UI updates and KVO
 - (void)setStatus:(NSString *)status {
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		if (status != self->_status) {
 			[self willChangeValueForKey:@"status"];
 			self->_status = status;
@@ -130,7 +130,7 @@
 }
 
 - (void)setProgress:(CGFloat)progress {
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		if (progress != self->_progress) {
 			[self willChangeValueForKey:@"progress"];
 			self->_progress = progress;
@@ -144,7 +144,7 @@
 
 
 - (void)setName:(NSString *)name {
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		if (name != self->_name) {
 			[self willChangeValueForKey:@"name"];
 			self->_name = name;
@@ -157,7 +157,7 @@
 }
 
 - (void)setIcon:(NSImage *)icon {
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		if (icon != self->_icon) {
 			[self willChangeValueForKey:@"icon"];
 			self->_icon = icon;
@@ -170,7 +170,7 @@
 }
 
 - (void)setShowProgress:(BOOL)showProgress {
-	QSGCDMainSync(^{
+	QSGCDMainAsync(^{
 		[self willChangeValueForKey:@"showProgress"];
 		self->_showProgress = showProgress;
 		[self didChangeValueForKey:@"showProgress"];
