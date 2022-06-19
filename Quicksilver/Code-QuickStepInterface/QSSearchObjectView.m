@@ -243,6 +243,7 @@ NSMutableDictionary *bindingsDict = nil;
 		NSRect editorFrame = [self frame];
 		editorFrame.origin = NSZeroPoint;
 		editorFrame = NSInsetRect(editorFrame, 3, 3);
+		editorFrame.origin.x = editorFrame.origin.x + 48;
 		[[[self currentEditor] enclosingScrollView] setFrame: editorFrame];
 		[[self currentEditor] setMinSize:editorFrame.size];
 	}
@@ -759,10 +760,7 @@ NSMutableDictionary *bindingsDict = nil;
 		}
 		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
-		NSRect titleFrame = [self frame];
-		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-        editorFrame = NSIntegralRect(editorFrame);
+		NSRect editorFrame = [self textEditorFrame];
 
         [[self textModeEditor] setMaxSize:editorFrame.size];
         [[self textModeEditor] setFocusRingType:NSFocusRingTypeNone];        
@@ -795,6 +793,13 @@ NSMutableDictionary *bindingsDict = nil;
 		[[self window] makeFirstResponder:[self textModeEditor]];
 		[self setCurrentEditor:[self textModeEditor]];
 	}
+}
+- (NSRect)textEditorFrame {
+	NSRect titleFrame = [self frame];
+	NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
+	editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
+	editorFrame = NSIntegralRect(editorFrame);
+	return editorFrame;
 }
 
 - (void)performSearch:(NSTimer *)timer {
@@ -1621,7 +1626,7 @@ NSMutableDictionary *bindingsDict = nil;
     }
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
-    [[self cell] setImagePosition:-1];
+    [[self cell] setImagePosition:[[self cell] preferredImagePosition]];
 	[self setCurrentEditor:nil];
 }
 

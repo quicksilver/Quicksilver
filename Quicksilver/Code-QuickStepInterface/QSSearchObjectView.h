@@ -92,6 +92,9 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 @property (strong) QSAction *alternateActionCounterpart;
 @property (strong) NSTextView *textModeEditor;
 
+// returns the frame size for the text editor (when you enter text mode). Allows subclasses to override the size.
+- (NSRect)textEditorFrame;
+
 - (void)clearSearch; // reset everything and be ready for a new search
 - (void)clearTextView; // reset the text view. Not to be confused with clearSearch - clear search is called every time a new object is presented into the SOV, whereas keeping the underlying text is important in these cases. clearTextView should only be used in `deleteBackwards` style situations
 

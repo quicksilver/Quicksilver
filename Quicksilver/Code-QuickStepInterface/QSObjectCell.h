@@ -43,4 +43,8 @@
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity;
 - (void)drawIconForObject:(QSObject *)object withFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView;
+
+// sets the preferred position of the object's image. One of NSCellImagePosition can be used
+- (NSCellImagePosition)preferredImagePosition;
+
 @end

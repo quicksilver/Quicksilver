@@ -568,6 +568,10 @@
 	}
 }
 
+- (NSCellImagePosition)preferredImagePosition {
+	return -1;
+}
+
 - (NSMenu *)menu {
 	if (![[self controlView] isKindOfClass:[QSObjectView class]]) return nil;
 	return [self menuForObject:[self representedObject]];
