@@ -1,3 +1,20 @@
+## Changes - XXX (4039) ##
+
+*Requires macOS 10.14+*
+
+### New ###
+
+* Improved support for custom interfaces. Allow interfaces to override icon position and text editor size.
+
+### Changed ###
+
+* Performance optimizations when browsing files using Quicksilver
+* Add returned objects to the command history
+
+### Fix ###
+
+* Fix a crash that could occur when trying to → into web pages that weren't UTF8
+
 ## Changes - 2.3.0 (4038)  2022-06-18 ##
 
 This release is all about stability. v2.3.0 brings over **50** changes and bug fixes to Quicksilver!
