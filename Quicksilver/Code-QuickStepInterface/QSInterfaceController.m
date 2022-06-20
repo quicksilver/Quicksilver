@@ -596,6 +596,7 @@
 	// remove objects previously selected by the comma trick
 	[self clearObjectView:dSelector];
 	[dSelector setObjectValue:dObject];
+	[dSelector updateHistory];
 	if ([array count] == 1) {
 		[self updateActionsNow];
 		[[self window] makeFirstResponder:aSelector];
@@ -604,6 +605,7 @@
 		[aSelector setObjectValue:aObject];
 		if ([array count] > 2) {
 			[iSelector setObjectValue:[array objectAtIndex:2]];
+			[iSelector updateHistory];
 		} else {
 			[self updateIndirectObjects];
 		}
