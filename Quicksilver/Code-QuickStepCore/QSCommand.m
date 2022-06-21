@@ -600,6 +600,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (NSArray *)types {return [NSArray arrayWithObject:QSCommandType];}
 
 - (NSString *)name {
+	if (name) {
+		return name;
+	}
     QSAction *actionObject = [self aObject];
     QSObject *directObject = [self dObject];
     QSObject *indirectObject = [self iObject];
