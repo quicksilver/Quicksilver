@@ -620,6 +620,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     @synchronized (self) {
         if (!_source) {
             _source = [QSReg sourceNamed:self.info[kItemSource]];
+			if (!_source) {
+				// try see if the souce name can be turned into a class
+				Class sourceClass = NSClassFromString(self.info[kItemSource]);
+				if (sourceClass) {
+					_source = [[sourceClass alloc] init];
+					[[[QSRegistry sharedInstance] objectSources] setObject:_source forKey:self.info[kItemSource]];
+				}
+			}
 #ifdef DEBUG
             if (!_source && VERBOSE)
                 NSLog(@"Source not found: %@ for Entry: %@", self.info[kItemSource], self.identifier);
