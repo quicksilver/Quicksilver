@@ -120,10 +120,6 @@
 	id groupItem = nil;
 	NSDictionary *managers = [[QSTriggerCenter sharedInstance] triggerManagers];
 	for (NSString *key in managers) {
-		if ([key isEqualToString:@"QSGroupTrigger"]) {
-			// TODO: Get Groups working for triggers. See https://github.com/quicksilver/Quicksilver/issues/135
-			continue;
-		}
 		QSTriggerManager *manager = [managers objectForKey:key];
 		NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[manager name]
 													   action:NULL

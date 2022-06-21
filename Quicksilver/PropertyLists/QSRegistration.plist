@@ -523,10 +523,7 @@
 		<string>QSDefaultStringRanker</string>
 	</dict>
 	<key>QSTriggerManagers</key>
-	<dict>
-		<key>QSGroupTrigger</key>
-		<string>QSGroupTriggerManager</string>
-	</dict>
+	<dict/>
 	<key>QSTriggerSets</key>
 	<dict>
 		<key>com.blacktree.Quicksilver</key>
