@@ -611,6 +611,19 @@
 					<key>feature</key>
 					<integer>1</integer>
 				</dict>
+				<dict>
+					<key>name</key>
+					<string>Triggers</string>
+					<key>source</key>
+					<string>QSTriggersObjectSource</string>
+					<key>enabled</key>
+					<false/>
+					<key>ID</key>
+					<string>QSPresetTriggerObjects</string>
+					<key>feature</key>
+					<integer>1</integer>
+				</dict>
+				
 			</array>
 			<key>catalogPath</key>
 			<string>/</string>

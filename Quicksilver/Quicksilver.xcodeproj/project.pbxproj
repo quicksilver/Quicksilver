@@ -363,6 +363,7 @@
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
+		CD3B1BF52861E1F4004862D7 /* QSTriggersObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3B1BEC2861E1F3004862D7 /* QSTriggersObjectSource.m */; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
@@ -1701,6 +1702,8 @@
 		CD2FFC5C16792E0A0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "pt-BR"; path = "pt-BR.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
 		CD3646A416B682FE007439AE /* Button-docs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-docs.png"; sourceTree = "<group>"; };
 		CD3646A516B682FE007439AE /* Button-docs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-docs@2x.png"; sourceTree = "<group>"; };
+		CD3B1BEC2861E1F3004862D7 /* QSTriggersObjectSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTriggersObjectSource.m; sourceTree = "<group>"; };
+		CD3B1BF42861E1F3004862D7 /* QSTriggersObjectSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTriggersObjectSource.h; sourceTree = "<group>"; };
 		CD3C6B2A16D6B31B00AE7BE8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD3C6B2B16D6B31B00AE7BE8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
 		CD3C6B2C16D6B31B00AE7BE8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QSCatalog.strings"; sourceTree = "<group>"; };
@@ -3363,6 +3366,8 @@
 		E18000F107B2B48800010DB0 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				CD3B1BF42861E1F3004862D7 /* QSTriggersObjectSource.h */,
+				CD3B1BEC2861E1F3004862D7 /* QSTriggersObjectSource.m */,
 				E18000F307B2B48800010DB0 /* QSActionProvider_EmbeddedProviders.h */,
 				E18000F407B2B48800010DB0 /* QSActionProvider_EmbeddedProviders.m */,
 				7F9442980803B48A007EDC31 /* QSAllApplicationsObjectSource.h */,
@@ -5298,6 +5303,7 @@
 				E180012E07B2B48900010DB0 /* QSFileSystemObjectSource.m in Sources */,
 				D48F231D1C99CCC4006504A8 /* QSSharedFileListSource.m in Sources */,
 				CD23538728054FBB00DDEA0A /* HTMLElement.m in Sources */,
+				CD3B1BF52861E1F4004862D7 /* QSTriggersObjectSource.m in Sources */,
 				7FBE3D1209586FE60049CC78 /* QSFileTemplateManager.m in Sources */,
 				E180013007B2B48900010DB0 /* QSFSBrowserMediator.m in Sources */,
 				7F9441C60803AB2D007EDC31 /* QSGroupObjectSource.m in Sources */,
