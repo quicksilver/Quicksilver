@@ -584,7 +584,7 @@ NSSize QSMaxIconSize;
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(objectHasChildren:)])
 		return [handler objectHasChildren:self];
-	return NO;
+	return [[self cache] objectForKey:kQSObjectChildren] && [(NSArray *)[[self cache] objectForKey:kQSObjectChildren] count] > 0;
 }
 @end
 
