@@ -321,12 +321,6 @@
 
 - (BOOL)isItemExpanded:(id)item {return YES;}
 
-- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
-	if ([[[item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [(QSObject *)item observedObject] objectForKey:@"type"] isEqualToString:@"category"])
-		return 16;
-	return 32;
-}
-
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView {
 	NSMutableArray *predicates = [NSMutableArray array];
 	if (!ignoreView) {

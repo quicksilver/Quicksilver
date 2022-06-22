@@ -64,14 +64,14 @@
                             <action selector="toggle:" target="168" id="214"/>
                         </connections>
                     </button>
-                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="0.0" verticalLineScroll="18" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43">
+                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="0.0" verticalLineScroll="20" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43">
                         <rect key="frame" x="0.0" y="23" width="418" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="EPe-bY-gf0">
                             <rect key="frame" x="0.0" y="0.0" width="418" height="375"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="16" headerView="509" translatesAutoresizingMaskIntoConstraints="NO" id="45" customClass="QSTableView">
+                                <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="18" headerView="509" translatesAutoresizingMaskIntoConstraints="NO" id="45" customClass="QSTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="418" height="358"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -79,7 +79,7 @@
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" name="separatorColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="enabled" width="16.40625" minWidth="16" maxWidth="17.169921875" id="64">
+                                        <tableColumn identifier="enabled" width="17.169921875" minWidth="16" maxWidth="17.169921875" id="64">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="✓">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -87,20 +87,20 @@
                                             </tableHeaderCell>
                                             <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" allowsMixedState="YES" inset="2" id="65">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="cellTitle"/>
+                                                <font key="font" metaFont="system" size="11"/>
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.enabled" id="258"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="268" minWidth="52.923000335693359" maxWidth="1000" id="44">
+                                        <tableColumn identifier="name" editable="NO" width="52.923000335693359" minWidth="52.923000335693359" maxWidth="1000" id="44">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plugins">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" selectable="YES" editable="YES" alignment="left" id="427" customClass="QSImageAndTextCell">
-                                                <font key="font" metaFont="label"/>
+                                                <font key="font" size="11" name=".AppleSystemUIFont"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -137,7 +137,7 @@
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.version" id="487"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="74" minWidth="72" maxWidth="82" id="297">
+                                        <tableColumn editable="NO" width="72" minWidth="72" maxWidth="82" id="297">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Updated">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -594,14 +594,14 @@
             <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="15" horizontalPageScroll="10" verticalLineScroll="15" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="442">
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="38" horizontalPageScroll="10" verticalLineScroll="38" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="442">
                     <rect key="frame" x="0.0" y="23" width="180" height="233"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ewz-qP-VMQ">
                         <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="13" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="445" id="443" customClass="QSFancyOutlineView">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="36" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="445" id="443" customClass="QSFancyOutlineView">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>

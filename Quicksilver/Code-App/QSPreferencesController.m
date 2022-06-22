@@ -90,6 +90,7 @@ id QSPrefs;
 	[settingsSplitView addSubview:settingsView];
 	[settingsSplitView adjustSubviews];
 	[self setShowSettings:YES];
+	internalPrefsTable.hasSeparators = YES;
 }
 
 - (void)preventEmptySelection {
@@ -146,7 +147,7 @@ id QSPrefs;
 		}
 
 		NSString *imageName = [paneInfo objectForKey:@"icon"];
-		NSImage *image = [[QSResourceManager imageNamed:imageName] copy];
+		NSImage *image = [QSResourceManager imageNamed:imageName];
 		if (image) {
 			[paneInfo setObject:image forKey:@"image"];
 		}
@@ -217,7 +218,7 @@ id QSPrefs;
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         [[self window] setRepresentedFilename:[path stringByStandardizingPath]];
     }
-	[[[self window] standardWindowButton:NSWindowDocumentIconButton] setImage:[image duplicateOfSize:QSSize16]];
+	[[[self window] standardWindowButton:NSWindowDocumentIconButton] setImage:image];
 }
 
 - (void)windowDidLoad {
@@ -283,7 +284,7 @@ id QSPrefs;
 //}
 
 - (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 16;
+	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 18;
 	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
 }
 

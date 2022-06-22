@@ -202,8 +202,8 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <binding destination="-2" name="hidden" keyPath="currentPane.name" id="R4A-PI-wKZ"/>
                                 <binding destination="-2" name="value" keyPath="currentPane.name" id="5dX-9p-Yra"/>
+                                <binding destination="-2" name="hidden" keyPath="currentPane.name" id="R4A-PI-wKZ"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -215,7 +215,7 @@
                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3493" customClass="QSImageView">
                     <rect key="frame" x="8" y="8" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Quicksilver" id="3540"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Quicksilver" id="3540"/>
                     <connections>
                         <binding destination="-2" name="value" keyPath="currentPaneInfo.image" id="3506"/>
                     </connections>

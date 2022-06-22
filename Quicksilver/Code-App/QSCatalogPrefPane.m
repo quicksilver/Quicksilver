@@ -108,7 +108,6 @@ static id _sharedInstance;
 		[item setTarget:self];
 		[item setAction:@selector(addSource:)];
 		icon = [[source iconForEntry:nil] copy];
-		[icon setSize:QSSize16];
 		[item setImage:icon];
 		 if ([theID isEqualToString:@"QSFileSystemObjectSource"]) {
 			[[itemAddButton menu] insertItem:item atIndex:0];
@@ -128,11 +127,8 @@ static id _sharedInstance;
 
 //	[itemTable reloadData];
 	[itemTable setVerticalMotionCanBeginDrag:TRUE];
-	[itemTable setRowHeight:17];
 
 	[itemTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSCodedCatalogEntryPasteboardType, nil]];
-	[[[itemTable tableColumnWithIdentifier: kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
-	[[[itemTable tableColumnWithIdentifier: kItemPath] dataCell] setFont:[NSFont systemFontOfSize:11]];
 
 //	NSButtonCell *buttonCell = [[QSCatalogSwitchButtonCell alloc] init];
 	NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
@@ -146,12 +142,9 @@ static id _sharedInstance;
 
 	[itemContentsTable setTarget:self];
 	[itemContentsTable setDoubleAction:@selector(selectContentsItem:)];
-	[itemContentsTable setRowHeight:34];
 
 	QSObjectCell *objectCell = [[QSObjectCell alloc] init];
 	[[itemContentsTable tableColumnWithIdentifier:kItemName] setDataCell:objectCell];
-	[[[itemContentsTable tableColumnWithIdentifier:kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
-	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setFont:[NSFont labelFontOfSize:9]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setWraps:NO];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChangedNotification object:nil];
