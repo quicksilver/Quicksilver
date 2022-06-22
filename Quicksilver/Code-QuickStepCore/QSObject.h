@@ -68,9 +68,7 @@ typedef struct _QSObjectFlags {
 
 }
 + (void)initialize;
-+ (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
-+ (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)interfaceChanged;
 
 + (id)objectWithName:(NSString *)aName;
