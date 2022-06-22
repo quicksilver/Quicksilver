@@ -29,7 +29,7 @@
 	if (DEBUG_STARTUP)
 		NSLog(@"Loaded %ld implied and %ld defined mnemonics", (long)[objectMnemonics count], (long)[abbrevMnemonics count]);
 #endif
-
+	write_queue = dispatch_queue_create("quicksilver.mnemonics.write", DISPATCH_QUEUE_SERIAL);
 	return self;
 }
 
@@ -48,7 +48,7 @@
 - (void)removeAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key {
 	if (!mnem) return;
 	[[abbrevMnemonics objectForKey:mnem] removeObject:key];
-	[self writeItems:self];
+	[self setWriteTimer];
 }
 
 - (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object {
@@ -106,7 +106,7 @@
 
 	[recentMnemonics setObject:key forKey:mnem];
 
-	[self writeItems:self];
+	[self setWriteTimer];
     return YES;
 }
 
@@ -114,13 +114,13 @@
 	if (!mnem) mnem = @"";
 	if (!key) return;
 	[[objectMnemonics objectForKey:key] removeObjectForKey:mnem];
-	[self writeItems:self];
+	[self setWriteTimer];
 }
 
 - (void)setWriteTimer {
 	if ([writeTimer isValid])
 		[writeTimer invalidate];
-	writeTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
+	writeTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
 }
 
 - (BOOL)checkForValidObject:(QSObject *)object withMnemonic:(NSString *)mnem {
@@ -153,18 +153,20 @@
 		[objectMnemonics setObject:objectEntry forKey:key];
 	}
 	[objectEntry setObject:[NSNumber numberWithInteger:([[objectEntry objectForKey:mnem] integerValue]) +1] forKey:mnem];
-	// [self writeItems:self];
+	
 	[self setWriteTimer];
     return YES;
 }
 
 - (void)writeItems:(id)sender {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *path = [pMnemonicStorage stringByStandardizingPath];
-	if (![manager fileExistsAtPath:[path stringByDeletingLastPathComponent] isDirectory:nil])
-		[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:NO attributes:nil error:nil];
-	//NSLog(@"Mnemonics:%@", mnemonics);
-	[mnemonics writeToFile:path atomically:YES];
+	dispatch_async(write_queue, ^{
+		NSFileManager *manager = [NSFileManager defaultManager];
+		NSString *path = [pMnemonicStorage stringByStandardizingPath];
+		if (![manager fileExistsAtPath:[path stringByDeletingLastPathComponent] isDirectory:nil])
+			[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:NO attributes:nil error:nil];
+		//NSLog(@"Mnemonics:%@", mnemonics);
+		[self->mnemonics writeToFile:path atomically:YES];
+	});
 }
 
 @end

@@ -4,6 +4,7 @@
 
 
 @interface QSMnemonics : NSObject {
+	dispatch_queue_t write_queue;
 	NSMutableDictionary *mnemonics;
 	NSMutableDictionary *abbrevMnemonics;
 	NSMutableDictionary *objectMnemonics;
