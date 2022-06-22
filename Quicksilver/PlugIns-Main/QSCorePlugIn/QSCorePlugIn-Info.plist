@@ -1266,6 +1266,8 @@
 			<string>searchChildren:</string>
 			<key>icon</key>
 			<string>Find</string>
+			<key>runInMainThread</key>
+			<true/>
 		</dict>
 		<key>AppOpenFileAction</key>
 		<dict>
