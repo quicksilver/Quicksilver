@@ -20,7 +20,7 @@ BOOL QSIsUTI(NSString *UTIString) {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		// 'fixed uti types' are typically Quicksilver internally defined strings, that don't have a corresponding reverse dot formatted UTI (like real UTIs). We know these types won't resolve to an actual UTI, so for performance gains, we consider them to already be 'UTIs'. See https://github.com/quicksilver/Quicksilver/issues/2356 for more info
-		QSFixedUTITypes = @[@"ABPeopleUIDsPboardType", @"AppActions", @"AttributedString", @"CalculatorActionProvider", @"ClipboardActions", @"CorePasteboardFlavorType 0x7374796C", @"CorePasteboardFlavorType 0x7573746C", @"CorePasteboardFlavorType 0x75743136", @"FSActions", @"FSDiskActions", @"mkdn", @"NSColorPboardType", @"NSFileContentsPboardType", @"NSFilesPromisePboardType", @"NSFontPboardType", @"NSHTMLPboardType", @"NSPDFPboardType", @"NSRulerPboardType", @"NSTabularTextPboardType", @"NSURLPboardType", @"NSVCardPboardType", @"OakPasteboardOptionsPboardType", @"OnePasswordAction", @"QS1PasswordForm", @"QSABContactActions", @"QSABMimicActionProvider", @"QSAdvancedProcessActionProvider", @"QSAirPortItemType", @"QSAirPortNetworkActionProvider", @"QSAppleMailPlugIn_Action", @"QSAppleScriptActions", @"QSCatalogEntrySource", @"QSChat_SupportType", @"QSCLExecutableProvider", @"QSCompressionActionProvider", @"QSDashDocsetType", @"QSDashPluginActionProvider", @"QSDisplayIDType", @"QSDisplayParametersType", @"QSDisplaysActionProvider", @"QSEmailActions", @"QSFileTag", @"QSFileTagsPlugInAction", @"QSFileTemplateManager", @"QSFormulaType", @"QSGoogleChromeActions", @"QSGoogleChromeCanaryActions", @"QSGoogleChromeProxies", @"QSHFSAttributeActions", @"QSImageManipulationPlugInAction", @"QSiPhotoActionProvider", @"QSiTerm2ActionProvider", @"QSiTunesActionProvider", @"QSKeychainActionProvider", @"QSKeychainItemType", @"QSKeychainType", @"QSLineReferenceActions", @"QSLineReferenceType", @"QSNetworkingActionProvider", @"QSNetworkingType", @"QSNetworkLocationActionProvider", @"QSObjCMessageSource", @"QSObjectActions", @"QSObjectName", @"QSPDQuicksilverPluginActionProvider", @"QSProcessActionProvider", @"QSQRCodeAction", @"QSQSFacetimeActionProvider", @"QSRemoteHostsAction", @"QSRemoteHostsGroupType", @"QSRemoteHostsType", @"QSRemovableVolumesParentType", @"QSSafariActionProvider", @"QSShelfSource", @"QSSpotlightPlugIn_Action", @"QSSpotlightSavedSearchSource", @"QSTextActions", @"QSTextManipulationPlugIn", @"QSTransmitSiteType", @"QSUIAccessPlugIn_Action", @"QSUnreadMailParent", @"QSURLSearchActions", @"QSViscosityAction", @"QSViscosityType", @"QSViscosityVPNAction", @"QSWirelessNetworkType", @"QSYojimboPlugInAction", @"URLActions", @"WindowsType", @"qs.action"];
+		QSFixedUTITypes = @[@"public.utf8-plain-text", @"ABPeopleUIDsPboardType", @"AppActions", @"AttributedString", @"CalculatorActionProvider", @"ClipboardActions", @"CorePasteboardFlavorType 0x7374796C", @"CorePasteboardFlavorType 0x7573746C", @"CorePasteboardFlavorType 0x75743136", @"FSActions", @"FSDiskActions", @"mkdn", @"NSColorPboardType", @"NSFileContentsPboardType", @"NSFilesPromisePboardType", @"NSFontPboardType", @"NSHTMLPboardType", @"NSPDFPboardType", @"NSRulerPboardType", @"NSTabularTextPboardType", @"NSURLPboardType", @"NSVCardPboardType", @"OakPasteboardOptionsPboardType", @"OnePasswordAction", @"QS1PasswordForm", @"QSABContactActions", @"QSABMimicActionProvider", @"QSAdvancedProcessActionProvider", @"QSAirPortItemType", @"QSAirPortNetworkActionProvider", @"QSAppleMailPlugIn_Action", @"QSAppleScriptActions", @"QSCatalogEntrySource", @"QSChat_SupportType", @"QSCLExecutableProvider", @"QSCompressionActionProvider", @"QSDashDocsetType", @"QSDashPluginActionProvider", @"QSDisplayIDType", @"QSDisplayParametersType", @"QSDisplaysActionProvider", @"QSEmailActions", @"QSFileTag", @"QSFileTagsPlugInAction", @"QSFileTemplateManager", @"QSFormulaType", @"QSGoogleChromeActions", @"QSGoogleChromeCanaryActions", @"QSGoogleChromeProxies", @"QSHFSAttributeActions", @"QSImageManipulationPlugInAction", @"QSiPhotoActionProvider", @"QSiTerm2ActionProvider", @"QSiTunesActionProvider", @"QSKeychainActionProvider", @"QSKeychainItemType", @"QSKeychainType", @"QSLineReferenceActions", @"QSLineReferenceType", @"QSNetworkingActionProvider", @"QSNetworkingType", @"QSNetworkLocationActionProvider", @"QSObjCMessageSource", @"QSObjectActions", @"QSObjectName", @"QSPDQuicksilverPluginActionProvider", @"QSProcessActionProvider", @"QSQRCodeAction", @"QSQSFacetimeActionProvider", @"QSRemoteHostsAction", @"QSRemoteHostsGroupType", @"QSRemoteHostsType", @"QSRemovableVolumesParentType", @"QSSafariActionProvider", @"QSShelfSource", @"QSSpotlightPlugIn_Action", @"QSSpotlightSavedSearchSource", @"QSTextActions", @"QSTextManipulationPlugIn", @"QSTransmitSiteType", @"QSUIAccessPlugIn_Action", @"QSUnreadMailParent", @"QSURLSearchActions", @"QSViscosityAction", @"QSViscosityType", @"QSViscosityVPNAction", @"QSWirelessNetworkType", @"QSYojimboPlugInAction", @"URLActions", @"WindowsType", @"qs.action"];
 	});
 	if ([QSFixedUTITypes containsObject:UTIString]) {
 		return YES;
@@ -116,13 +116,20 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 NSString *QSUTIForAnyTypeString(NSString *type) {
+    if ([type isEqualToString:NSFilenamesPboardType]) {
+        return (__bridge NSString *)kUTTypeData; // QSFilePathType
+    }
+    if ([type isEqualToString:NSPasteboardTypeString]) {
+        return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
+    }
+
     if (!type || [type isEqualToString:@"*"] || QSIsUTI(type)) {
         return type;
     }
     
     NSString *uti = nil;
     NSString *cleanType = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'."]];
-    for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
+    for (NSString * UTTagClass in @[(__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString *)kUTTagClassOSType, (__bridge NSString *)kUTTagClassNSPboardType, (__bridge NSString*)kUTTagClassMIMEType]) {
         NSString *utiFromOtherType = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(cleanType), NULL);
         if (![utiFromOtherType hasPrefix:@"dyn."]) {
             // we can assume that this is the correct UTI converted from 'UTTagClass'
@@ -130,12 +137,7 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
             break;
         }
     }
-    if ([cleanType isEqualToString:NSPasteboardTypeString]) {
-        return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
-    }
-    if ([cleanType isEqualToString:NSFilenamesPboardType]) {
-        return (__bridge NSString *)kUTTypeData; // QSFilePathType
-    }
+
     return uti ? uti : type;
 }
 
