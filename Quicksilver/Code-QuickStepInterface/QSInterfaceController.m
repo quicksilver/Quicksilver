@@ -174,16 +174,22 @@
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
             self->savedKeyboard = TISCopyCurrentKeyboardInputSource();
             NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
-            NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
-            CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
-            if (keyboards) {
-                TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
-                TISSelectInputSource(selected);
-                CFRelease(keyboards);
-            } else {
-                // If previously selected keyboard is no longer available, turn off automatic switch
-                [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
-            }
+			if ([forcedKeyboardId isEqualToString:(__bridge NSString *)TISGetInputSourceProperty(self->savedKeyboard, kTISPropertyInputSourceID)]) {
+				// current selected keyboard and QS preferred keyboard are the same
+				CFRelease(self->savedKeyboard);
+				self->savedKeyboard = nil;
+			} else {
+				NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
+				CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
+				if (keyboards) {
+					TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
+					TISSelectInputSource(selected);
+					CFRelease(keyboards);
+				} else {
+					// If previously selected keyboard is no longer available, turn off automatic switch
+					[[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
+				}
+			}
         }
     });
 }
