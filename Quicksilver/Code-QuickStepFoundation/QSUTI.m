@@ -50,7 +50,6 @@ BOOL QSIsUTI(NSString *UTIString) {
         // UTIString contains a . somewhere in the middle. Since UTIs use reverse DNS we can guess it is a UTI
         return YES;
     }
-	NSLog(@"Type: %@", UTIString);
 
     return NO;
 }
@@ -150,9 +149,7 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
             break;
         }
     }
-	if (uti) {
-		NSLog(@"%@ - %@", type, uti);
-	}
+	
     return uti ? uti : type;
 }
 
