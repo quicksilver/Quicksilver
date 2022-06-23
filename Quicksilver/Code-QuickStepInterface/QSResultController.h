@@ -33,7 +33,6 @@
 	NSArray *currentResults;
 	QSSearchObjectView *focus;
 	NSInteger scrollViewTrackingRect;
-    NSUInteger windowHeight;
 
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
@@ -47,7 +46,7 @@
    // NSRange visibleChildRange;
 }
 
-
+@property NSUInteger windowHeight;
 @property (strong) IBOutlet QSTableView *resultTable;
 @property (strong) NSArray *currentResults;
 @property (strong) QSObject *selectedItem;

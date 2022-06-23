@@ -85,7 +85,7 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)windowDidLoad {
 	[(QSWindow *)[self window] setHideOffset:NSMakePoint(32, 0)];
 	[(QSWindow *)[self window] setShowOffset:NSMakePoint(16, 0)];
-    windowHeight = [[self window] frame].size.height;
+    self.windowHeight = [[self window] frame].size.height;
 	[self setupResultTable];
 
 	[splitView setAutosaveName:@"QSResultWindowSplitView"];
@@ -135,6 +135,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	
 	resultTable.hasSeparators = NO;
 	resultChildTable.hasSeparators = NO;
+	shouldSaveWindowSize = YES;
 }
 
 - (void)dealloc {
@@ -345,7 +346,7 @@ NSMutableDictionary *kindDescriptions = nil;
         NSUInteger childResultHeight = (([resultChildTable rowHeight] + [resultChildTable intercellSpacing].height) * [resultChildTable numberOfRows]) + 31;
         newWindowHeight = MAX(newWindowHeight, childResultHeight);
     }
-    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+    windowFrame.size.height =  newWindowHeight > self.windowHeight || [currentResults count] == 0 ? self.windowHeight : newWindowHeight;
     if (windowFrame.size.height != [[self window] frame].size.height) {
         windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
     }
@@ -457,7 +458,18 @@ NSMutableDictionary *kindDescriptions = nil;
     
     // saves size for result window when it is resized
     [[self window] saveFrameUsingName:@"QSResultWindow"];
-    windowHeight = [self window].frame.size.height;
+	QSInterfaceController *ic = [QSReg preferredCommandInterface];
+	CGFloat height = [self window].frame.size.height;
+	NSArray *sovs = [NSArray arrayWithObjects:[ic dSelector], [ic aSelector], [ic iSelector], nil];
+	NSRect newFrame = self.window.frame;
+	for (QSSearchObjectView *v in sovs) {
+		if (v.resultController == self) {
+			continue;
+		}
+		v.resultController.windowHeight = height;
+		NSRect f = v.resultController.window.frame;
+		[v.resultController.window setFrame:NSMakeRect(f.origin.x, f.origin.y, newFrame.size.width, newFrame.size.height) display:NO];
+	}
 }
 
 #pragma mark -
