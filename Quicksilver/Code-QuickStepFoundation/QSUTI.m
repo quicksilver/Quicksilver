@@ -9,6 +9,7 @@
 
 #include "QSUTI.h"
 static NSArray *QSFixedUTITypes = nil;
+static NSArray *QSFixedNonUTITypes = nil;
 /**
  *  Determines if a given string is an existing UTI or not
  *
@@ -20,11 +21,21 @@ BOOL QSIsUTI(NSString *UTIString) {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		// 'fixed uti types' are typically Quicksilver internally defined strings, that don't have a corresponding reverse dot formatted UTI (like real UTIs). We know these types won't resolve to an actual UTI, so for performance gains, we consider them to already be 'UTIs'. See https://github.com/quicksilver/Quicksilver/issues/2356 for more info
-		QSFixedUTITypes = @[@"public.utf8-plain-text", @"ABPeopleUIDsPboardType", @"AppActions", @"AttributedString", @"CalculatorActionProvider", @"ClipboardActions", @"CorePasteboardFlavorType 0x7374796C", @"CorePasteboardFlavorType 0x7573746C", @"CorePasteboardFlavorType 0x75743136", @"FSActions", @"FSDiskActions", @"mkdn", @"NSColorPboardType", @"NSFileContentsPboardType", @"NSFilesPromisePboardType", @"NSFontPboardType", @"NSHTMLPboardType", @"NSPDFPboardType", @"NSRulerPboardType", @"NSTabularTextPboardType", @"NSURLPboardType", @"NSVCardPboardType", @"OakPasteboardOptionsPboardType", @"OnePasswordAction", @"QS1PasswordForm", @"QSABContactActions", @"QSABMimicActionProvider", @"QSAdvancedProcessActionProvider", @"QSAirPortItemType", @"QSAirPortNetworkActionProvider", @"QSAppleMailPlugIn_Action", @"QSAppleScriptActions", @"QSCatalogEntrySource", @"QSChat_SupportType", @"QSCLExecutableProvider", @"QSCompressionActionProvider", @"QSDashDocsetType", @"QSDashPluginActionProvider", @"QSDisplayIDType", @"QSDisplayParametersType", @"QSDisplaysActionProvider", @"QSEmailActions", @"QSFileTag", @"QSFileTagsPlugInAction", @"QSFileTemplateManager", @"QSFormulaType", @"QSGoogleChromeActions", @"QSGoogleChromeCanaryActions", @"QSGoogleChromeProxies", @"QSHFSAttributeActions", @"QSImageManipulationPlugInAction", @"QSiPhotoActionProvider", @"QSiTerm2ActionProvider", @"QSiTunesActionProvider", @"QSKeychainActionProvider", @"QSKeychainItemType", @"QSKeychainType", @"QSLineReferenceActions", @"QSLineReferenceType", @"QSNetworkingActionProvider", @"QSNetworkingType", @"QSNetworkLocationActionProvider", @"QSObjCMessageSource", @"QSObjectActions", @"QSObjectName", @"QSPDQuicksilverPluginActionProvider", @"QSProcessActionProvider", @"QSQRCodeAction", @"QSQSFacetimeActionProvider", @"QSRemoteHostsAction", @"QSRemoteHostsGroupType", @"QSRemoteHostsType", @"QSRemovableVolumesParentType", @"QSSafariActionProvider", @"QSShelfSource", @"QSSpotlightPlugIn_Action", @"QSSpotlightSavedSearchSource", @"QSTextActions", @"QSTextManipulationPlugIn", @"QSTransmitSiteType", @"QSUIAccessPlugIn_Action", @"QSUnreadMailParent", @"QSURLSearchActions", @"QSViscosityAction", @"QSViscosityType", @"QSViscosityVPNAction", @"QSWirelessNetworkType", @"QSYojimboPlugInAction", @"URLActions", @"WindowsType", @"qs.action"];
+		QSFixedUTITypes = @[@"public.utf8-plain-text", @"ABPeopleUIDsPboardType", @"AppActions", @"AttributedString", @"CalculatorActionProvider", @"ClipboardActions", @"CorePasteboardFlavorType 0x7374796C", @"CorePasteboardFlavorType 0x7573746C", @"CorePasteboardFlavorType 0x75743136", @"FSActions", @"FSDiskActions", @"mkdn", @"NSColorPboardType", @"NSFileContentsPboardType", @"NSFilesPromisePboardType", @"NSFontPboardType", @"NSHTMLPboardType", @"NSPDFPboardType", @"NSRulerPboardType", @"NSTabularTextPboardType", @"NSURLPboardType", @"NSVCardPboardType", @"OakPasteboardOptionsPboardType", @"OnePasswordAction", @"QS1PasswordForm", @"QSABContactActions", @"QSABMimicActionProvider", @"QSAdvancedProcessActionProvider", @"QSAirPortItemType", @"QSAirPortNetworkActionProvider", @"QSAppleMailPlugIn_Action", @"QSAppleScriptActions", @"QSCatalogEntrySource", @"QSChat_SupportType", @"QSCLExecutableProvider", @"QSCompressionActionProvider", @"QSDashDocsetType", @"QSDashPluginActionProvider", @"QSDisplayIDType", @"QSDisplayParametersType", @"QSDisplaysActionProvider", @"QSEmailActions", @"QSFileTag", @"QSFileTagsPlugInAction", @"QSFileTemplateManager", @"QSFormulaType", @"QSGoogleChromeActions", @"QSGoogleChromeCanaryActions", @"QSGoogleChromeProxies", @"QSHFSAttributeActions", @"QSImageManipulationPlugInAction", @"QSiPhotoActionProvider", @"QSiTerm2ActionProvider", @"QSiTunesActionProvider", @"QSKeychainActionProvider", @"QSKeychainItemType", @"QSKeychainType", @"QSLineReferenceActions", @"QSLineReferenceType", @"QSNetworkingActionProvider", @"QSNetworkingType", @"QSNetworkLocationActionProvider", @"QSObjCMessageSource", @"QSObjectActions", @"QSObjectName", @"QSPDQuicksilverPluginActionProvider", @"QSProcessActionProvider", @"QSQRCodeAction", @"QSQSFacetimeActionProvider", @"QSRemoteHostsAction", @"QSRemoteHostsGroupType", @"QSRemoteHostsType", @"QSRemovableVolumesParentType", @"QSSafariActionProvider", @"QSShelfSource", @"QSSpotlightPlugIn_Action", @"QSSpotlightSavedSearchSource", @"QSTextActions", @"QSTextManipulationPlugIn", @"QSTransmitSiteType", @"QSUIAccessPlugIn_Action", @"QSUnreadMailParent", @"QSURLSearchActions", @"QSViscosityAction", @"QSViscosityType", @"QSViscosityVPNAction", @"QSWirelessNetworkType", @"QSYojimboPlugInAction", @"URLActions", @"WindowsType", @"qs.action", @"qs.command", @"qs.proxy", @"qs.process", @"QSEmojisPluginType", @"QSTextProxyType"];
+		// NOTE: The compiler gives a warning that these are deprecated, but don't change them, they must be these specific types
+		// e.g. NSStringPboardType != NSPasteboardTypeString
+		QSFixedNonUTITypes = @[NSStringPboardType, NSURLPboardType, NSRTFPboardType];
 	});
 	if ([QSFixedUTITypes containsObject:UTIString]) {
 		return YES;
 	}
+	if ([QSFixedNonUTITypes containsObject:UTIString]) {
+		return NO;
+	}
+	if ([UTIString rangeOfString:@"public."].location == 0) {
+		return YES;
+	}
+ 
 	if (UTTypeIsDeclared((__bridge CFStringRef)UTIString)) {
         // UTIString has a declaration dictionary - it must be a UTI
         return YES;
@@ -39,6 +50,8 @@ BOOL QSIsUTI(NSString *UTIString) {
         // UTIString contains a . somewhere in the middle. Since UTIs use reverse DNS we can guess it is a UTI
         return YES;
     }
+	NSLog(@"Type: %@", UTIString);
+
     return NO;
 }
 
@@ -119,7 +132,7 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
     if ([type isEqualToString:NSFilenamesPboardType]) {
         return (__bridge NSString *)kUTTypeData; // QSFilePathType
     }
-    if ([type isEqualToString:NSPasteboardTypeString]) {
+    if ([type isEqualToString:NSStringPboardType]) {
         return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
     }
 
@@ -137,7 +150,9 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
             break;
         }
     }
-
+	if (uti) {
+		NSLog(@"%@ - %@", type, uti);
+	}
     return uti ? uti : type;
 }
 
