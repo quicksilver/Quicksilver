@@ -172,7 +172,7 @@
         }
         
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
-            savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
+            self->savedKeyboard = TISCopyCurrentKeyboardInputSource();
             NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
             NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
             CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
