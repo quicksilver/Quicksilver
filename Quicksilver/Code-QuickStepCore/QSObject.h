@@ -79,7 +79,7 @@ typedef struct _QSObjectFlags {
 
 
 
-@interface QSObject : QSBasicObject <NSCopying> {
+@interface QSObject : QSBasicObject <NSCopying, NSCoding> {
 	NSString *name;
 	NSString *label;
 	NSString *identifier;

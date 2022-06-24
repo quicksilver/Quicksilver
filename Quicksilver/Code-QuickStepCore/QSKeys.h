@@ -5,6 +5,7 @@
 #define kItemDescription @"description"
 #define kItemChildren @"children"
 #define kItemID @"ID"
+#define kCommand @"command"
 #define kItemEnabled @"enabled"
 #define kItemModificationDate @"modificationDate"
 #define kItemSettings @"settings"
