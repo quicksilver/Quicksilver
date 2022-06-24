@@ -223,7 +223,6 @@ NSSize QSMaxIconSize;
 	QSObject *object = [[QSObject alloc] init];
 	[object setDataDictionary:combinedData];
     [object setObject:objects forCache:kQSObjectComponents];
-	[object setObject:@YES forMeta:kQSIsCombinedObject];
 	if ([combinedData objectForKey:QSFilePathType])
 		// try to guess a name based on the file types
 		[object guessName];
@@ -535,16 +534,19 @@ NSSize QSMaxIconSize;
 }
 
 - (BOOL)isCombinedObject {
-	return [[self objectForMeta:kQSIsCombinedObject] boolValue];
+	return [[self objectForMeta:kQSIsCombinedObject] boolValue] || [self maxCountForCombinedObject] > 1;
 }
 
+- (NSUInteger)maxCountForCombinedObject {
+	NSUInteger count = 1;
+	for(id value in [[self dataDictionary] allValues]) {
+		if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
+	}
+	return count;
+}
 - (NSUInteger)count {
-	if ([self isCombinedObject]) {
-		NSUInteger count = 1;
-		for(id value in [[self dataDictionary] allValues]) {
-			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
-		}
-		return count;
+	if ([self isCombinedObject] || ![self primaryType]) {
+		return [self maxCountForCombinedObject];
 	}
 	id priObj = [self primaryObject];
 	if ([priObj isKindOfClass:[NSArray class]])
