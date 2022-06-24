@@ -53,7 +53,7 @@ typedef struct _QSObjectFlags {
 
 
 
-@interface QSObject : QSBasicObject <NSCopying> {
+@interface QSObject : QSBasicObject <NSCopying, NSCoding> {
 	NSString *name;
 	NSString *label;
 	NSString *identifier;
@@ -132,8 +132,6 @@ typedef struct _QSObjectFlags {
 
 @interface QSObject (Archiving)
 + (id)objectFromFile:(NSString *)path;
-- (id)initWithCoder:(NSCoder *)coder;
-- (void)encodeWithCoder:(NSCoder *)coder;
 - (id)initFromFile:(NSString *)path;
 - (void)writeToFile:(NSString *)path;
 - (void)extractMetadata;
