@@ -10,7 +10,7 @@
 #import "QSCommand.h"
 
 
-@interface QSTrigger : NSObject {
+@interface QSTrigger : NSObject <NSCoding> {
 	NSMutableDictionary *info;
 	QSCommand *command;
 	NSMutableArray *children;

@@ -57,11 +57,23 @@
 	return self;
 }
 
-- (void)dealloc {
-#ifdef DEBUG
-	NSLog(@"dealloc %@", self);
-#endif
+
+#pragma mark NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self == [super init]) {
+        info = [aDecoder decodeObjectForKey:kData];
+        command = [aDecoder decodeObjectForKey:kCommand];
+    }
+    return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.command forKey:kCommand];
+    [aCoder encodeObject:self.info forKey:kData];
+}
+
+#pragma mark Instance Methods
 
 - (NSString *)identifier {
 	return [info objectForKey:kItemID];
