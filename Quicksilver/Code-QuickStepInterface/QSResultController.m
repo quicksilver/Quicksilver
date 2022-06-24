@@ -206,10 +206,13 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)bump:(NSInteger)i {
+	// don't re-save the window size as we're bumping
+	shouldSaveWindowSize = NO;
 	NSRect frame = [[self window] frame];
 	NSRect bumpedFrame = NSOffsetRect(frame, i, 0);
 	[[self window] setFrame:bumpedFrame display:NO animate:YES];
 	[[self window] setFrame:frame display:NO animate:YES];
+	shouldSaveWindowSize = YES;
 }
 
 - (void)loadChildren {

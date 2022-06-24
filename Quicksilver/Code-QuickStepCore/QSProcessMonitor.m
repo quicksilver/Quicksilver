@@ -310,7 +310,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
 
     if (procObject) {
-		BOOL isBackground = [[NDProcess processWithProcessSerialNumber:psn] isBackground];
+		// prefixed with !isReloading: optimisation, since we only use isBackground within !isReloading
+		BOOL isBackground = !isReloading && [[NDProcess processWithProcessSerialNumber:psn] isBackground];
 
 		if (!isReloading) {
 			[self willChangeValueForKey:@"allProcesses"];

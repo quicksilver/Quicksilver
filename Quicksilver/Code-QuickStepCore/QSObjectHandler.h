@@ -24,6 +24,10 @@
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
 
+
+// Allows object handlers to decide how to put certain objects on the pasteboard
+- (void)putObject:(QSObject*)obj onPasteboard:(NSPasteboard *)pboard forType:(NSString *)type;
+
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
 - (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;

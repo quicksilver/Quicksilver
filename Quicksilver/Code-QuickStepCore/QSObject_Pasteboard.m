@@ -250,7 +250,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[types addObject:NSStringPboardType];
 		[self setObject:[self stringValue] forType:NSStringPboardType];
 	}
-	
+
 	// define the types to be included on the pasteboard
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
@@ -301,10 +301,15 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	
 	for (NSString *thisType in includeTypes) {
-		if ([types containsObject:QSUTIForAnyTypeString(thisType)]) {
+		if ([types containsObject:thisType] || [types containsObject:QSUTIForAnyTypeString(thisType)]) {
 			// NSLog(@"includedata, %@", thisType);
 			[self pasteboard:pboard provideDataForType:thisType];
 		}
+	}
+	// check if the primary type handler has its own method to add to the pboad
+	id <QSObjectHandler> handler = [self handlerForType:[self primaryType] selector:@selector(putObject:onPasteboard:forType:)];
+	if (handler) {
+		[handler putObject:self onPasteboard:pboard forType:[self primaryType]];
 	}
 	if ([self identifier]) {
 		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];

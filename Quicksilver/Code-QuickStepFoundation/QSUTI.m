@@ -134,7 +134,9 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
     if ([type isEqualToString:NSStringPboardType]) {
         return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
     }
-
+	if ([type isEqualToString:NSURLPboardType]) {
+		return NSURLPboardType; // technically this should be kUTTypeURL, but it seems we're still using NSURLPboardType as an URL all round atm.
+	}
     if (!type || [type isEqualToString:@"*"] || QSIsUTI(type)) {
         return type;
     }
