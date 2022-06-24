@@ -301,6 +301,30 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return self;
 }
 
+#pragma mark NSCoding
+
+#define kDirectObject @"directObject"
+#define kActionObject @"actionObject"
+#define kIndirectObject @"indirectObject"
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if (self = [super initWithCoder:coder]) {
+        dObject = [coder decodeObjectForKey:kDirectObject];
+        aObject = [coder decodeObjectForKey:kActionObject];
+        iObject = [coder decodeObjectForKey:kIndirectObject];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeObject:dObject forKey:kDirectObject];
+    [coder encodeObject:aObject forKey:kActionObject];
+    [coder encodeObject:iObject forKey:kIndirectObject];
+}
+
+#pragma mark Instance Methods
+
 - (NSMutableDictionary*)commandDict {
     NSMutableDictionary *dict = [self objectForType:QSCommandType];
     if(!dict) [self setObject:(dict = [NSMutableDictionary dictionary]) forType:QSCommandType];
