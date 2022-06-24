@@ -172,7 +172,7 @@
     
 	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSTriggerDragType, nil]];
 	[triggerTable setVerticalMotionCanBeginDrag: TRUE];
-	[triggerTable setOutlineTableColumn:[triggerTable tableColumnWithIdentifier:@"command"]];
+	[triggerTable setOutlineTableColumn:[triggerTable tableColumnWithIdentifier:kCommand]];
 	[[[triggerTable tableColumnWithIdentifier:@"type"] dataCell] setArrowPosition:NSPopUpNoArrow];
 
     [triggerTreeController addObserver:self
@@ -313,7 +313,7 @@
 		[info setObject:[sender representedObject] forKey:@"type"];
 		[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
 		if (command)
-			[info setObject:command forKey:@"command"];
+			[info setObject:command forKey:kCommand];
 		//		[triggerTreeController add:sender];
 	}
 	[info setObject:[NSString uniqueString] forKey:kItemID];
@@ -329,7 +329,7 @@
 	if ([[trigger type] isEqualToString:@"QSGroupTrigger"]) {
 		NSInteger row = [triggerTable selectedRow];
 		//NSLog(@"row %d %@", row, [[triggerArrayController selectedObjects] lastObject]);
-		[triggerTable editColumn:[triggerTable columnWithIdentifier:@"command"]
+		[triggerTable editColumn:[triggerTable columnWithIdentifier:kCommand]
 							 row:row withEvent:[NSApp currentEvent] select:YES];
 	} else if (!mOptionKeyIsDown) {
         [commandEditor setCommand:[selectedTrigger command]];
@@ -510,7 +510,7 @@
 			[manager performSelector:@selector(triggerDoubleClicked:) withObject:theSelectedTrigger];
 		return NO;
 	}
-	if ([[aTableColumn identifier] isEqualToString:@"command"] || [[aTableColumn identifier] isEqualToString:@"icon"]) {
+	if ([[aTableColumn identifier] isEqualToString:kCommand] || [[aTableColumn identifier] isEqualToString:@"icon"]) {
 		if ([theSelectedTrigger usesPresetCommand])
 			return NO;
 		if ([[NSApp currentEvent] type] == NSEventTypeKeyDown) {

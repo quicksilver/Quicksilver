@@ -21,7 +21,7 @@
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
     if ([key isEqualToString:@"name"]) {
-        keyPaths = [keyPaths setByAddingObject:@"command"];
+        keyPaths = [keyPaths setByAddingObject:kCommand];
     } else if ([key isEqualToString:@"imageAndText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromSet:[NSSet setWithObjects:@"name",@"icon",nil]];
     }
@@ -182,7 +182,7 @@
     if (command)
         return command;
     
-	id archivedCommand = [info objectForKey:@"command"];
+	id archivedCommand = [info objectForKey:kCommand];
     if (archivedCommand)
         command = [QSCommand commandWithInfo:archivedCommand];
 	return command;
@@ -205,7 +205,7 @@
 // if the command has a preset (e.g. a built in command/trigger for a plugin: performs a single action),
 // it is a single string as opposed to an NSDict with an 'action' and 'direct object' (or 'indirect object')
 - (BOOL)usesPresetCommand {
-	return ([[info objectForKey:@"command"] isKindOfClass:[NSString class]]);
+	return ([[info objectForKey:kCommand] isKindOfClass:[NSString class]]);
 }
 
 - (NSDictionary *)dictionaryRepresentation {
@@ -217,9 +217,9 @@
         rep = [[self command] objectForType:QSCommandType];
     }
     if (rep)
-        [dict setObject:rep forKey:@"command"];
+        [dict setObject:rep forKey:kCommand];
     else
-        [dict removeObjectForKey:@"command"];
+        [dict removeObjectForKey:kCommand];
 	return dict;
 }
 

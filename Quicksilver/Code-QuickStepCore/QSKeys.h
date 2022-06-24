@@ -2,6 +2,7 @@
 #define kItemPath @"path"
 #define kItemBaseBundle @"baseBundle"
 #define kItemName @"name"
+#define kCommand @"command"
 #define kItemDescription @"description"
 #define kItemChildren @"children"
 #define kItemID @"ID"
