@@ -19,6 +19,7 @@
 - (NSString *)detailsOfObject:(QSObject *)object;
 - (NSString *)identifierForObject:(QSObject *)object;
 - (NSString *)kindOfObject:(QSObject *)object;
+- (void)setQuickIconForCombinedObject:(QSObject *)combinedObject;
 - (void)setQuickIconForObject:(QSObject *)object;
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;

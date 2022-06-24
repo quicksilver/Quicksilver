@@ -920,10 +920,7 @@
 @implementation ClipboardActions
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if ([dObject count] == 1) {
-		return [NSArray arrayWithObjects:kPasteboardPasteAction,kPasteboardPasteActionAsPlainText,nil];	
-	}
-	return nil;
+    return [NSArray arrayWithObjects:kPasteboardPasteAction,kPasteboardPasteActionAsPlainText,nil];
 }
 	 
 - (QSObject *)copyObject:(QSObject *)dObject {

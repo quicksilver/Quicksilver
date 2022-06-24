@@ -17,6 +17,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 			return [pasteboard stringForType:type];
 		}
 	}
+
 	if ([NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
@@ -320,11 +321,16 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
 	if ([type isEqualToString:QSPasteboardObjectAddress]) {
         [self writeToPasteboard:sender data:[NSString stringWithFormat:@"copied object at %p", self] forType:type];
-    } else {
+	} else {
+
+		
 		id theData = nil;
 		id handler = [self handlerForType:type selector:@selector(dataForObject:pasteboardType:)];
 		if (handler)
 			theData = [handler dataForObject:self pasteboardType:type];
+		if ([type isEqualToString:NSStringPboardType] && [self count] > 1) {
+			theData = [self stringValue];
+		}
 		if (!theData)
 			theData = [self objectForType:type];
 		if (theData) {

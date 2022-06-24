@@ -39,6 +39,7 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectChildrenLoadDate @"QSObjectChildrenLoadDate"
 #define kQSContents               @"QSObjectContents"
 #define kQSObjectComponents       @"QSObjectComponents"
+#define kQSIsCombinedObject		  @"QSIsCombinedObject"
 
 typedef struct _QSObjectFlags {
 	unsigned int		multiTyped:1;

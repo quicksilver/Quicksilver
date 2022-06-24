@@ -114,8 +114,10 @@ NSSize QSMaxIconSize;
 		if ([self count] != [anObject count]) {
 			return NO;
 		}
-		NSSet *myObjects = [NSSet setWithArray:[self splitObjects]];
-		NSSet *otherObjects = [NSSet setWithArray:[anObject splitObjects]];
+		
+		NSSet *myObjects = [NSSet setWithArray:[self objectForCache:kQSObjectComponents]];
+		NSSet *otherObjects = [NSSet setWithArray:
+							   [anObject objectForCache:kQSObjectComponents]];
 		if (![myObjects isEqualToSet:otherObjects]) {
 			return NO;
 		}
@@ -221,12 +223,14 @@ NSSize QSMaxIconSize;
 	QSObject *object = [[QSObject alloc] init];
 	[object setDataDictionary:combinedData];
     [object setObject:objects forCache:kQSObjectComponents];
+	[object setObject:@YES forMeta:kQSIsCombinedObject];
 	if ([combinedData objectForKey:QSFilePathType])
 		// try to guess a name based on the file types
 		[object guessName];
 	else
 		// fall back on setting a simple name
 		[object setName:NSLocalizedString(@"Combined Objects", nil)];
+	[object primaryType];
 	return object;
 }
 
@@ -496,6 +500,15 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)guessPrimaryType {
+	NSArray *components = [self objectForCache:kQSObjectComponents];
+	if ([components count]) {
+		// for combined objects, if they all have the same primary type, return that type
+		if ([NSSet setWithArray:[components arrayByEnumeratingArrayUsingBlock:^id(QSObject *obj) {
+			return [obj primaryType];
+		}]].count == 1) {
+			return [components[0] primaryType];
+		}
+	}
 	NSArray *allKeys = [data allKeys];
 	if ([allKeys containsObject:QSFilePathType]) return QSFilePathType;
 	else if ([allKeys containsObject:QSURLType]) return QSURLType;
@@ -521,8 +534,12 @@ NSSize QSMaxIconSize;
 	return decodedTypes;
 }
 
-- (NSUInteger) count {
-	if (![self primaryType]) {
+- (BOOL)isCombinedObject {
+	return [[self objectForMeta:kQSIsCombinedObject] boolValue];
+}
+
+- (NSUInteger)count {
+	if ([self isCombinedObject]) {
 		NSUInteger count = 1;
 		for(id value in [[self dataDictionary] allValues]) {
 			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
@@ -926,17 +943,22 @@ NSSize QSMaxIconSize;
 	if (icon) return icon;
     
 	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
-		[handler setQuickIconForObject:self];
-    
-	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [QSResourceManager imageNamed:@"ContactPhone"]];
-	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactAddress"]];
-    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactEmail"]];
-    
-	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
-		[self setIcon:[QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"]];
+	if ([self count] > 1) {
+		if (handler = [self handlerForSelector:@selector(setQuickIconForCombinedObject:)]) {
+			[handler setQuickIconForCombinedObject:self];
+		}
+	} else {
+		if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
+			[handler setQuickIconForObject:self];
+		
+		else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [QSResourceManager imageNamed:@"ContactPhone"]];
+		else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactAddress"]];
+		else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactEmail"]];
+		
+		else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
+			[self setIcon:[QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"]];
+		}
 	}
-    
     if (!icon) {
         // try and get an image from the QSTypeDefinitions dict
         NSString *namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];

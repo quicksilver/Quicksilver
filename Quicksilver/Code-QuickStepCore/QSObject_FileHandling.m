@@ -204,37 +204,39 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	return nil;
 }
 
-- (void)setQuickIconForObject:(QSObject *)object {
-	NSImage *theImage = nil;
-	NSArray *theFiles = [object arrayForType:QSFilePathType];
-	if (!theFiles) return;
-	if ([theFiles count] == 1) {
-		// it's a single file
-		// use basic file type icon temporarily
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[object singleFilePath]];
+- (void)setQuickIconForCombinedObject:(QSObject *)combinedObject {
 
-	} else {
-		// it's a combined object, containing multiple files
-		NSMutableSet *set = [NSMutableSet set];
-		NSWorkspace *w = [NSWorkspace sharedWorkspace];
-		NSFileManager *manager = [NSFileManager defaultManager];
-		for(NSString *theFile in theFiles) {
-			NSString *type = [manager typeOfFile:theFile];
-			[set addObject:type?type:@"'msng'"];
-		}
-        
-		if ([set containsObject:@"'fold'"]) {
-			[set removeObject:@"'fold'"];
-			[set addObject:@"'fldr'"];
-		}
-        
-		if ([set count] == 1) {
-			theImage = [w iconForFileType:[set anyObject]];
-		} else {
-			theImage = [w iconForFiles:theFiles];
-		}
+	// it's a combined object, containing multiple files
+	NSMutableSet *set = [NSMutableSet set];
+	NSWorkspace *w = [NSWorkspace sharedWorkspace];
+	NSFileManager *manager = [NSFileManager defaultManager];
+	NSArray *theFiles = [combinedObject arrayForType:QSFilePathType];
+	NSImage *theImage = nil;
+	for(NSString *theFile in theFiles) {
+		NSString *type = [manager typeOfFile:theFile];
+		[set addObject:type?type:@"'msng'"];
 	}
-    
+	
+	if ([set containsObject:@"'fold'"]) {
+		[set removeObject:@"'fold'"];
+		[set addObject:@"'fldr'"];
+	}
+	
+	if ([set count] == 1) {
+		theImage = [w iconForFileType:[set anyObject]];
+	} else {
+		theImage = [w iconForFiles:theFiles];
+	}
+	theImage = [self prepareImageforIcon:theImage];
+	[combinedObject setIcon:theImage];
+}
+
+- (void)setQuickIconForObject:(QSObject *)object {
+	NSString *path = [object singleFilePath];
+	if (!path) return;
+	// it's a single file
+	// use basic file type icon temporarily
+	NSImage *theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
 	// set temporary image until preview icon is generated
 	theImage = [self prepareImageforIcon:theImage];
 	[object setIcon:theImage];
