@@ -509,13 +509,7 @@
 			
 			NSRange returnRange = [detailsString rangeOfString:@"\n"];
 			if (returnRange.location != NSNotFound) {
-				NSSize detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-				NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-				
-				CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
-				if (detailHeight<detailsSize.height) {
-					detailsString = [detailsString substringToIndex:returnRange.location];
-				}
+				detailsString = [detailsString substringToIndex:returnRange.location];
 			}
 			[titleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes]];
 
