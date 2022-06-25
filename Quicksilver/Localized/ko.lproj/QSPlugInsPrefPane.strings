@@ -1,4 +1,104 @@
-﻿"Vers." = "버전";
-"Updated" = "업데이트";
-"Reload plugin list" = "추가 기능 목록 다시 불러오기";
+/* File extracted from ./Nibs/QSPlugInsPrefPane.xib by stringstool v1.0*/
+
+/* Preference Pane Name */
 "Plugins" = "추가 기능";
+
+/* Preference Pane Description */
+"Find and install plugins" = "추가 기능 검색 및 설치";
+
+/* 591.title */
+"Categories" = "카테고리";
+
+/* 144.title */
+"Copy Installation URL" = "설치 URL 복사";
+
+/* 98.title */
+"Delete Selected Plugins" = "선택한 추가 기능 삭제";
+
+/* 371.title */
+"Download as File..." = "파일로 저장";
+
+/* 373.title */
+"Install Selected Plugins" = "선택한 추가 기능 설치";
+
+/* 332.title */
+"Install clicked plugins without asking" = "질문 없이 추가 기능 설치";
+
+/* 103.title */
+"Install plugins from web without asking" = "웹을 통해서 질문 없이 추가 기능 설치";
+
+/* 352.title */
+"Install prerequisites without asking" = "질문 없이 필수 구성 요소를 설치합니다.";
+
+/* 608.title */
+"Installed Version" = "설치된 버전";
+
+/* 524.title */
+"Latest Version" = "최신 버전";
+
+/* 83.title */
+"Menu" = "메뉴";
+
+/* 526.placeholderString */
+"N/A" = "없음";
+
+/* 609.ibShadowedIsNilPlaceholder */
+"No Description" = "설명 없음";
+
+/* 610.ibShadowedIsNilPlaceholder */
+"None" = "없음";
+
+/* 111.title */
+"Open Plugin Help" = "추가 기능에 대한 도움말 열기";
+
+/* 603.title */
+"Plug-In Categories" = "추가 기능 카테고리";
+
+/* 582.title */
+"Plug-In Description" = "추가 기능 설명";
+
+/* 499.title */
+"Plug-in Name" = "추가 기능 이름";
+
+/* 500.title */
+"Plug-in Status" = "추가 기능 상태";
+
+/* 281.ibShadowedToolTip */
+"Plugin Documentation" = "추가 기능 문서";
+
+/* 122.ibShadowedToolTip */
+"Plugin Information" = "추가 기능 정보";
+
+/* 44.headerCell.title */
+"Plugins" = "추가 기능";
+
+/* 102.title */
+"Refresh list of plugins" = "추가 기능 목록 새로고침";
+
+/* 489.ibShadowedToolTip */
+"Reload plugin list" = "추가 기능 목록 다시 불러오기";
+
+/* 100.title */
+"Show Plugins Folder" = "추가 기능 폴더 보기";
+
+/* 496.title */
+"Small System Font Text" = "작은 시스템 글꼴 텍스트";
+
+/* 589.title */
+"Status" = "상태";
+
+/* 297.headerCell.title */
+"Updated" = "업데이트";
+
+/* 486.headerCell.title */
+"Vers." = "버전";
+
+/* 5.title */
+"Window" = "창";
+
+/* 503.title */
+"byline" = "작성자";
+
+/* 64.headerCell.title */
+"✓" = "✓";
+
