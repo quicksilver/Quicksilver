@@ -105,7 +105,7 @@
 "457.title" = "Quicksilver가 검색 할 수 있는 어플리케이션, 파일, 폴더 및 아이템은 카탈로그에 정의되어 있습니다. 환경설정의 \"카탈로그\" 패널에서 카탈로그 항목을 추가, 삭제 또는 갱신할 수 있습니다.\n기본적으로 카탈로그는 10분마다 갱신됩니다. 당신이 원한다면 그 주기를 변경할 수 있습니다.";
 
 /* Class = "NSTextFieldCell"; title = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the Command pane in the preferences."; ObjectID = "458"; */
-"458.title" = "Quicksilver는 하나의 키보드의 단축키와 크게 다르지 않습니다. 아래에서 원하는 단축키를 선택하거나, 기본 설정의 \"명령\" 창에서 언제든지 변경하십시오.";
+"458.title" = "Quicksilver는 하나의 키보드의 단축키와 크게 다르지 않습니다. 아래에서 원하는 단축키를 선택하거나, 환경설정의 \"명령\" 창에서 언제든지 변경하십시오.";
 
 /* Class = "NSTextFieldCell"; title = "Rescan Catalog:"; ObjectID = "460"; */
 "460.title" = "카탈로그 다시 읽기";
