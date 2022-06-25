@@ -203,9 +203,9 @@
     <key>QSObjectShowChildrenAction</key>
     <string>내용 보이기</string>
     <key>QSObjectExplodeCombinedAction</key>
-    <string>Explode Selection</string>
+    <string>선택 결과를 표시</string>
     <key>QSObjectLogConsoleAction</key>
-    <string>Log Object to Console</string>
+    <string>개체를 콘솔에 기록합니다.</string>
     <key>QSObjectShowSourceAction</key>
     <string>보관함에서 출처 보기</string>
     <key>QSPutOnShelfAction</key>
