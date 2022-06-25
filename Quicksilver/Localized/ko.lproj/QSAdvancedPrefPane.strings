@@ -25,4 +25,4 @@
 "Suppress HotKeys in Command:title" = "Quicksilver 가 떠 있을 때는 단축 기능 키 잠시 비활성화";
 
 "Double Delete Clears Object:title" = "현재 객체를 비울 때 Delete 키를 두 번 누르기";
-"QSHistoryMaxLength:title" = "Quicksilver 역사의 항목 개수";
+"QSHistoryMaxLength:title" = "Quicksilver 기록의 항목 개수";
