@@ -819,11 +819,7 @@ static QSController *defaultController = nil;
                }
                return NO;
        }else{
-               [accessibilityChecker invalidate];
-               accessibilityChecker = nil;
-               if([accessibilityPermissionWindow isVisible]) {
-                       [accessibilityPermissionWindow close];
-               }
+		   [self closeAccessibilityPrompt:nil];
        }
        return YES;
 }
@@ -838,8 +834,12 @@ static QSController *defaultController = nil;
 }
 
 - (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
-       [accessibilityChecker invalidate];
-       accessibilityChecker = nil;
+	[accessibilityChecker invalidate];
+	accessibilityChecker = nil;
+	if(!notif  && [accessibilityPermissionWindow isVisible]) {
+		[accessibilityPermissionWindow close];
+	}
+	accessibilityPermissionWindow = nil;
 }
 
 -(IBAction)launchPrivacyPreferences:(id)sender {

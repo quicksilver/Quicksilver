@@ -579,7 +579,7 @@ CA
             </view>
             <point key="canvasLocation" x="167" y="-78"/>
         </window>
-        <window title="System Permission Needed" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="FDo-Qk-K96" userLabel="Accessibility Prompt" customClass="NSPanel">
+        <window title="System Permission Needed" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="FDo-Qk-K96" userLabel="Accessibility Prompt" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="441" y="384" width="533" height="543"/>
