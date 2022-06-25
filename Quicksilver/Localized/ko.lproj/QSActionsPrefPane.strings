@@ -1,6 +1,53 @@
-﻿"Box" = "상자";
-"by Type" = "종류";
-"Rank" = "순위";
+/* File extracted from ./Nibs/QSActionsPrefPane.xib by stringstool v1.0*/
+
+/* Preference Pane Name */
 "Actions" = "동작";
+
+/* Preference Pane Description */
+"Modify the list and ordering of actions" = "작업 목록 및 순서 수정";
+
+/* 115.ibShadowedDisplayPattern */
+"%{value1}@ actions" = "%{값1}@ 액션";
+
+/* 32.headerCell.title */
+"Action (↩)" = "실행 (\r)";
+
+/* 141.headerCell.title */
+"Alternate Action (⌘↩)" = "대안 실행 (⌘\r)";
+
+/* 46.title */
+"Box" = "상자";
+
+/* 124.title */
+"Description" = "설명서<br>";
+
+/* 140.title */
+"Enable/disable and rank the actions available for Quicksilver." = "Quicksilver 에서 사용할 수 있는 동작들을 활성화/비활성화 하고 순위를 매기세요.";
+
+/* 33.title */
+"OtherViews" = "기타 보기";
+
+/* 138.title */
+"Quicksilver ranks the enabled actions based on their position in the table below. Drag actions up or down to reorder their ranking. Dragging an action to the top will make it the default action for its type." = "Quicksilver는 아래 표의 위치에 따라 활성화된 기능의 순위를 매깁니다. 동작을 위, 아래로 드래그하여 순위를 재정렬하세요. 동작을 상단으로 드래그하면 그 동작이 해당 유형의 기본 동작이 됩니다.";
+
+/* 89.headerCell.title */
+"Rank" = "순위";
+
+/* 125.title */
+"Small System Font Text" = "작은 시스템 글꼴 텍스트";
+
+/* 31.headerCell.title */
 "Type" = "종료";
+
+/* 5.title */
+"Window" = "창";
+
+/* 35.title */
 "by Plugin" = "추가 기능";
+
+/* 93.title */
+"by Type" = "종류";
+
+/* 17.headerCell.title */
+"✓" = "✓";
+
