@@ -22,7 +22,7 @@ In order to help us solve your problem, please include the following information
 
 ### Contributing to the Code
 
-If you wish to contribute to the Quicksilver project, take a look at the [Developer Wiki page](http://qsapp.com/wiki/Developer_Information). There is also a [Quicksilver Development Forum](https://groups.google.com/forum/?fromgroups#!forum/quicksilver---development) if you are having any issues.
+Before checking out and building Quicksilver, make sure to read through the [Developer Wiki page](http://qsapp.com/wiki/Developer_Information) first. After you've got Quicksilver running locally, why not try going through some of the [existing issues](https://github.com/quicksilver/quicksilver/issues). A good place to start may be issues labelled as [Help Wanted](https://github.com/quicksilver/Quicksilver/labels/Help%20Wanted) or [Visual](https://github.com/quicksilver/Quicksilver/labels/Visual).  If you need help with Quicksilver's codebase, then you can post in the [Quicksilver Development Forum](https://groups.google.com/forum/?fromgroups#!forum/quicksilver---development).
 
 ### Contributing to Localisations/Translations
 
