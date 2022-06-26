@@ -27,3 +27,7 @@ If you wish to contribute to the Quicksilver project, take a look at the [Develo
 ### Contributing to Localisations/Translations
 
 To learn more about translating Quicksilver, see the [Localisation wiki page](http://qsapp.com/wiki/Localization).
+
+### Contributing to Documentation & the Website
+
+The Quicksilver website and documentation is updated by volunteers. If you have writing skills (in any language) or website design skills, then your efforts will help Quicksilver grow. For more information on existing open projects, visit the [Ways to Contribute](https://qsapp.com/volunteer-projects.php) page.
