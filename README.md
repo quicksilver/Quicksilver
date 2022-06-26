@@ -1,6 +1,10 @@
-# About Quicksilver on Github #
+# About Quicksilver #
 
-This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
+Quicksilver is a fast and free macOS productivity application that gives you the power to control your Mac quickly and elegantly. Quicksilver learns your habits, making your everyday chores simple and efficient. Learn more at: https://qsapp.com
+
+# About This Code Repository #
+
+This repository contains the source code for the Quicksilver main app. It is also the place to browse existing issues and open new issues, via the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
 The `main` branch contains the source for the currently released Quicksilver.
 
