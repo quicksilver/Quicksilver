@@ -1833,6 +1833,10 @@
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CD73A5B52869FB1700552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ko; path = ko.lproj/Guide.html; sourceTree = "<group>"; };
+		CD73A5BD2869FB2900552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ResultWindow.strings; sourceTree = "<group>"; };
+		CD73A5BE2869FB3800552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
+		CD73A5BF2869FB4400552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
 		CD7EE3DD2829EA1D0033614B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hans"; path = "zh-Hans.lproj/Guide.html"; sourceTree = "<group>"; };
 		CD7EE3E6282C77A90033614B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD7EE3EE282C780D0033614B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -6213,6 +6217,7 @@
 				CD98DB6E2825F51F00D392F9 /* fr */,
 				CD7EE3DD2829EA1D0033614B /* zh-Hans */,
 				CD7EE3F1282C790F0033614B /* cs */,
+				CD73A5B52869FB1700552A12 /* ko */,
 			);
 			name = Guide.html;
 			sourceTree = "<group>";
@@ -6226,6 +6231,7 @@
 				CD1AAFD12832429A00B34D4A /* zh-Hans */,
 				CDB83E1728353DFC00295CD2 /* es-ES */,
 				CD885025285562F100BDCB00 /* fr */,
+				CD73A5BE2869FB3800552A12 /* ko */,
 			);
 			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
@@ -6238,6 +6244,7 @@
 				CD1AAFD2283242A400B34D4A /* zh-Hans */,
 				CD1AAFD3283242B100B34D4A /* cs */,
 				CDB83E1F28353E0200295CD2 /* es-ES */,
+				CD73A5BF2869FB4400552A12 /* ko */,
 			);
 			name = QuitConfirm.xib;
 			sourceTree = "<group>";
@@ -6251,6 +6258,7 @@
 				CD98DB692825EBF700D392F9 /* fr */,
 				CD7EE3EF282C78E60033614B /* cs */,
 				CD7EE3F0282C78F40033614B /* zh-Hans */,
+				CD73A5BD2869FB2900552A12 /* ko */,
 			);
 			name = ResultWindow.xib;
 			sourceTree = "<group>";
