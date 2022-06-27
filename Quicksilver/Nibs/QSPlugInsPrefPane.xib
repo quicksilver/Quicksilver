@@ -72,7 +72,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="18" headerView="509" translatesAutoresizingMaskIntoConstraints="NO" id="45" customClass="QSTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="418" height="358"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="419" height="358"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -87,13 +87,13 @@
                                             </tableHeaderCell>
                                             <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" allowsMixedState="YES" inset="2" id="65">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system" size="11"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="208" name="value" keyPath="arrangedObjects.enabled" id="258"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="52.923000335693359" minWidth="52.923000335693359" maxWidth="1000" id="44">
+                                        <tableColumn identifier="name" editable="NO" width="269.92300033569336" minWidth="52.923000335693359" maxWidth="1000" id="44">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plugins">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +170,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="509">
-                            <rect key="frame" x="0.0" y="0.0" width="418" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="419" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
