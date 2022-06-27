@@ -4,16 +4,24 @@
 
 ### New ###
 
+* Control your triggers from directly within Quicksilver! Can't remember all your keyboard shortcuts for triggers? Don't worry! Now you can create complex triggers, give them a name and add them to your Quicksilver catalog, for execution right from within Quicksilver.
 * Improved support for custom interfaces. Allow interfaces to override icon position and text editor size.
+* Korean localizations. Translate Quicksilver to your language [here](https://www.transifex.com/quicksilver/quicksilver/)
+* Super-charged 'combined' objects. Allow combined text objects to be pasted to the clipboard, improved icons for combined objects and more.
 
 ### Changed ###
 
 * Performance optimizations when browsing files using Quicksilver
-* Add returned objects to the command history
+* Performance optimizations when Quicksilver is idle in the background
+* Include objects returned to Quicksilver in the object history
+* Preference pane tweaks for improved readability and control
+* Improved handling of the result window size - store across relaunches and keep all 3 result windows the same size.
 
-### Fix ###
+### Fixes ###
 
 * Fix a crash that could occur when trying to → into web pages that weren't UTF8
+* Fix how keyboard shortcuts that include →↓↑← would display in the trigger preferences (#2897)
+* Fix the 'Switch to keyboard layout' option that allows you to specify what keyboard layout to use when Quicksilver is activated.
 
 ## Changes - 2.3.0 (4038)  2022-06-18 ##
 
