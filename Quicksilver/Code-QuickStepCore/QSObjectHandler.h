@@ -24,6 +24,8 @@
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
 
+// by default, if combined objects are converted to a string, they are separated by a new line (\n). However, in some instances you may want to separate combined objects by other values - for example a comma (,) for remote hosts, or nothing at all e.g. for emojis
+- (NSString *)stringSeparatorForObject:(QSObject *)obj type:(NSString *)type;
 
 // Allows object handlers to decide how to put certain objects on the pasteboard
 - (void)putObject:(QSObject*)obj onPasteboard:(NSPasteboard *)pboard forType:(NSString *)type;

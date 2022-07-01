@@ -303,9 +303,14 @@
 		QSObject *obj = [self resolvedObject];
 		// get the string value for each object in the collection
 		/* NOTE: getting the split objects directly from cache may return `nil` in some instances
-				 This avoids an infinite loop as exhibited in #2242, but it may cause unexpected behaviour in certain cases
+				 This avoids an infinite loop as exhibited in #2242
 		 */
-		stringValue = [[[obj objectForCache:kQSObjectComponents] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:@"\n"];
+		id handler = [obj handlerForType:[obj primaryType] selector:@selector(stringSeparatorForObject:type:)];
+		NSString *separator = @"\n";
+		if (handler) {
+			separator = [handler stringSeparatorForObject:obj type:[obj primaryType]];
+		}
+		stringValue = [[[obj objectForCache:kQSObjectComponents] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:separator];
 	}
     if (!stringValue) {
         // Backwards compatibility
