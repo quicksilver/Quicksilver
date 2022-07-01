@@ -49,47 +49,47 @@
 #endif
 
 - (NSPasteboard *)getSelectionFromFrontApp {
-	id __block result = nil;
-	QSGCDMainSync(^{
+	id result = nil;
 	//NSLog(@"GET SEL");
-		id oldServicesProvider = [NSApp servicesProvider];
-		[NSApp setServicesProvider:self];
-		[NSThread detachNewThreadSelector:@selector(invokeService)
-								 toTarget:self withObject:nil];
-		NSRunLoop *loop = [NSRunLoop currentRunLoop];
-		NSDate *date = [NSDate date];
-		while(!self->resultPboard && [date timeIntervalSinceNow] >-2) {
-			[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-			//	NSLog(@"loop");
-		}
-		//	NSLog(@"got %@", resultPboard);
-		[NSApp setServicesProvider:oldServicesProvider];
-		result = self->resultPboard;
-		self->resultPboard = nil;
-	});
+	id oldServicesProvider = [NSApp servicesProvider];
+	[NSApp setServicesProvider:self];
+	[NSThread detachNewThreadSelector:@selector(invokeService)
+							 toTarget:self withObject:nil];
+	NSRunLoop *loop = [NSRunLoop currentRunLoop];
+	NSDate *date = [NSDate date];
+	while(!resultPboard && [date timeIntervalSinceNow] >-2) {
+		[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+		//	NSLog(@"loop");
+	}
+	//	NSLog(@"got %@", resultPboard);
+	[NSApp setServicesProvider:oldServicesProvider];
+	result = resultPboard;
+	resultPboard = nil;
 	return result;
 }
 
 
 - (void)invokeService {
-	@autoreleasepool {
+	QSGCDMainAsync(^{
+		@autoreleasepool {
 #ifdef DEBUG
-		NSLog(@"Frontmost application is active: %@", [[[NSWorkspace sharedWorkspace] frontmostApplication] isActive]? @"YES" : @"NO");
+			NSLog(@"Frontmost application is active: %@", [[[NSWorkspace sharedWorkspace] frontmostApplication] isActive]? @"YES" : @"NO");
 #endif
-		pid_t pid = [[[NSWorkspace sharedWorkspace] frontmostApplication] processIdentifier];
-		
-		
-		CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-		CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
-		CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
-		CGEventPostToPid(pid, keyDown);
-		CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
-		CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
-		CGEventPostToPid(pid, keyUp);
-		CFRelease(keyDown);
-		CFRelease(keyUp);
-		CFRelease(source);
-	}
+			pid_t pid = [[[NSWorkspace sharedWorkspace] frontmostApplication] processIdentifier];
+			
+			
+			CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+			CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
+			CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
+			CGEventPostToPid(pid, keyDown);
+			CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
+			CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
+			CGEventPostToPid(pid, keyUp);
+			CFRelease(keyDown);
+			CFRelease(keyUp);
+			CFRelease(source);
+		}
+	});
 }
 
 @end
