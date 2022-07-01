@@ -2,7 +2,6 @@
 
 #import "QSPreferencePane.h"
 #include <PreferencePanes/PreferencePanes.h>
-#define kQSPreferencesSplitWidth @"QSPreferencesSplitWidth"
 
 @class WebView;
 

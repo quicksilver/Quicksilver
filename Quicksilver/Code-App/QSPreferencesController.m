@@ -55,11 +55,6 @@ id QSPrefs;
 	[[self sharedInstance] showWindow:nil];
 }
 
-- (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
-	CGFloat width = NSWidth([[[[aNotification object] subviews] objectAtIndex:0] frame]);
-	//NSLog(@"width %f", width);
-	[[NSUserDefaults standardUserDefaults] setFloat:width forKey:kQSPreferencesSplitWidth];
-}
 
 - (id)init {
 	self = [super initWithWindowNibName:@"QSPreferences"];
@@ -542,7 +537,6 @@ id QSPrefs;
 }
 
 - (void)matchSplitView:(NSSplitView *)split {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(splitViewDidResizeSubviews:) name:NSSplitViewDidResizeSubviewsNotification object:split];
 
 	NSArray *subviews = [split subviews];
 	NSRect frame0 = [[subviews objectAtIndex:0] frame];
