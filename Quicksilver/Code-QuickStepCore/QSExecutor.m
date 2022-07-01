@@ -141,7 +141,7 @@ QSExecutor *QSExec = nil;
                 type = UTIType;
             }
             
-            [directObjectTypes enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
+            [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
                 // Note: UTTypeConformsTo() first does a direct string comparison, then checks UTI conformance
                 // Many types conform to public.data (what we use as file types) so don't include them here.
                 if (![actionUTI isEqualToString:QSFilePathType] && UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI) ) {
