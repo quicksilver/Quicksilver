@@ -178,6 +178,7 @@
 		4DFE7DD20E082199000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		4DFE7DD40E08219C000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DDA0E0821C0000B9AA3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		60FCBED82844C9770091AB6B /* OSAKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FCBED02844C9770091AB6B /* OSAKit.framework */; };
 		6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9191086EF4D009D5C90 /* Localizable.strings */; };
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
 		6615228414F43355006FDCB4 /* PathWildcardsData in Resources */ = {isa = PBXBuildFile; fileRef = 6615228314F43355006FDCB4 /* PathWildcardsData */; };
@@ -1295,6 +1296,7 @@
 		4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
+		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91D1086EF67009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2534,6 +2536,7 @@
 				E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */,
 				7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */,
 				7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */,
+				60FCBED82844C9770091AB6B /* OSAKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2704,6 +2707,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60FCBED02844C9770091AB6B /* OSAKit.framework */,
 				CD661C5519DBD341000F3695 /* AppKit.framework */,
 				CD61BBB9192B18FA00040609 /* XCTest.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
