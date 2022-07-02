@@ -152,6 +152,21 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 
 - (void)hideOtherApplications:(NSArray *)theApps {
 	NSUInteger count = [theApps count];
+	
+	// single app only (most commont)
+	if (count == 1) {
+		pid_t pid = (pid_t)[self pidForApplication:theApps[0]] ;
+		[[self runningApplications] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSRunningApplication * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			if (obj.processIdentifier == pid) {
+				[obj unhide];
+			} else {
+				[obj hide];
+			}
+		}];
+		return;
+	}
+	
+	// multiple apps
 	pid_t pidsToShow[count];
 	NSUInteger i;
 	for (i = 0; i<count; i++) {
