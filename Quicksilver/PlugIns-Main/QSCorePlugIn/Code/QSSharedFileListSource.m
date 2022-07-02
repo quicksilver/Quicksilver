@@ -55,7 +55,7 @@
 	if ([NSApplication isHighSierra]) {
 		return [sflData[kItems] arrayByEnumeratingArrayUsingBlock:^id(NSDictionary *item) {
 			NSData *bookmarkData = item[@"Bookmark"];
-			NSURL *url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
+			NSURL *url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:nil error:nil];
 			if ([url isFileURL]) {
 				return [QSObject fileObjectWithFileURL:url];
 			}
