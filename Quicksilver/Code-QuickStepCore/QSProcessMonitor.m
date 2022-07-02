@@ -373,7 +373,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	/* TODO: tiennou This doesn't belong here */
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSDictionary *newApp = [workspace activeApplication];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"]) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"] && ![[newApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
 		if (!(GetCurrentKeyModifiers() & shiftKey) ) {
 			//if (VERBOSE) NSLog(@"Hide Other Apps");
 			[workspace hideOtherApplications:[NSArray arrayWithObject:newApp]];
