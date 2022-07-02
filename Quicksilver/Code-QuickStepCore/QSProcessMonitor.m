@@ -31,7 +31,7 @@
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication;
-- (NSMutableDictionary *)processesDict;
+- (NSDictionary *)processesDict;
 @end
 
 NSString *QSProcessMonitorFrontApplicationSwitched = @"QSProcessMonitorFrontApplicationSwitched";
@@ -57,7 +57,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
                                sizeof(psn), NULL,
                                &psn);
     if( result == noErr ) {
-        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
         });
@@ -77,7 +77,7 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
                                &psn);
 
     if( result == noErr ) {
-        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
         });
@@ -97,7 +97,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
                                &psn);
 
     if( result == noErr ) {
-        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
         });
@@ -198,6 +198,10 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
+	NSString *ident = [dict objectForKey:@"NSApplicationBundleIdentifier"];
+	if ([ident isEqualToString:@"com.apple.TextEdit"]) {
+		NSLog(@"");
+	}
     NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
 	NSString *bundlePath = [appPath stringByDeletingLastPathComponent];
 	QSObject *newObject = nil;
@@ -248,14 +252,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber {
-	NSNumber *psnNumber = [NSValue valueWithProcessSerialNumber:processSerialNumber];
-    NSDictionary *dict = [[[self processesDict] objectForKey:psnNumber] objectForType:QSProcessType];
 
-	if (!dict) {
-		dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
-		dict = [dict mutableCopy];
-
-		[dict setValue:[dict objectForKey:@"CFBundleName"]
+	NSMutableDictionary *dict = [(NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask)) mutableCopy];
+	[dict setValue:[dict objectForKey:@"CFBundleName"]
 				forKey:@"NSApplicationName"];
 
 		[dict setValue:[dict objectForKey:@"BundlePath"]
@@ -272,58 +271,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 		[dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
 				forKey:@"NSApplicationProcessSerialNumberLow"];
-	}
+		dict = [dict copy];
 	return dict;
-}
-
-#pragma mark -
-#pragma mark Process array manipulation
-
-- (void)removeProcessWithPSN:(ProcessSerialNumber)psn {
-	NSDictionary *info = [self infoForPSN:psn];
-    QSObject *procObject = [self imbuedFileProcessForDict:info];
-	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
-
-	if (procObject) {
-		if (!isReloading) {
-			/* We're forced to send notifications for everything because we don't know anymore if the application was background or not */
-			[self willChangeValueForKey:@"allProcesses"];
-			[self willChangeValueForKey:@"backgroundProcesses"];
-			[self willChangeValueForKey:@"visibleProcesses"];
-		}
-		[procObject setObject:nil forType:QSProcessType];
-		[[self processesDict] removeObjectForKey:psnValue];
-		if (!isReloading) {
-			[self didChangeValueForKey:@"visibleProcesses"];
-			[self didChangeValueForKey:@"backgroundProcesses"];
-			[self didChangeValueForKey:@"allProcesses"];
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationQuitEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
-		}
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:procObject];
-	}
-}
-
-- (void)addProcessWithPSN:(ProcessSerialNumber)psn {
-
-	NSDictionary *info = [self infoForPSN:psn];
-    QSObject *procObject = [self imbuedFileProcessForDict:info];
-	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
-
-    if (procObject) {
-		// prefixed with !isReloading: optimisation, since we only use isBackground within !isReloading
-		BOOL isBackground = !isReloading && [[NDProcess processWithProcessSerialNumber:psn] isBackground];
-
-		if (!isReloading) {
-			[self willChangeValueForKey:@"allProcesses"];
-			[self willChangeValueForKey: isBackground ? @"backgroundProcesses" : @"visibleProcesses"];
-		}
-		[[self processesDict] setObject:procObject forKey:psnValue];
-		if (!isReloading) {
-			[self didChangeValueForKey:@"allProcesses"];
-			[self didChangeValueForKey:isBackground ? @"backgroundProcesses" : @"visibleProcesses"];
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
-		}
-	}
 }
 
 #pragma mark -
@@ -333,20 +282,19 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	ProcessSerialNumber psn;
 	psn.highLongOfPSN = (UInt32)[theEvent data1];
 	psn.lowLongOfPSN = (UInt32)[theEvent data2];
-
-	NSDictionary *processInfo;
-
+	
     switch ([theEvent subtype]) {
-		case NSProcessDidLaunchSubType:
-			[self addProcessWithPSN:psn];
+		case NSProcessDidLaunchSubType: {
+			[self reloadProcesses];
 			break;
-		case NSProcessDidTerminateSubType:
-			[self removeProcessWithPSN:psn];
+		} case NSProcessDidTerminateSubType: {
+			[self removeProcess:psn];
 			break;
-		case NSFrontProcessSwitched:
-			processInfo = [self infoForPSN:psn];
+		} case NSFrontProcessSwitched: {
+			NSDictionary *processInfo = [self infoForPSN:psn];
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object: processInfo];
 			break;
+		}
 		default:
 	 break;
 	}
@@ -354,26 +302,24 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)appLaunched:(NSNotification *)notif {
-	ProcessSerialNumber psn;
-	if (GetPSNForAppInfo(&psn, [notif userInfo]) != noErr)
-		return;
-
-	[self addProcessWithPSN:psn];
+	[self reloadProcesses];
 }
 
 - (void)appTerminated:(NSNotification *)notif {
 	ProcessSerialNumber psn;
 	if (GetPSNForAppInfo(&psn, [notif userInfo]) != noErr)
 		return;
-
-	[self removeProcessWithPSN:psn];
+	[self removeProcess:psn];
 }
 
 - (void)appChanged:(NSNotification *)aNotification {
 	/* TODO: tiennou This doesn't belong here */
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSDictionary *newApp = [workspace activeApplication];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"] && ![[newApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
+	if ([[newApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"] && [[NSUserDefaults standardUserDefaults] boolForKey:kHideDockIcon]) {
+		return;
+	}
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"]) {
 		if (!(GetCurrentKeyModifiers() & shiftKey) ) {
 			//if (VERBOSE) NSLog(@"Hide Other Apps");
 			[workspace hideOtherApplications:[NSArray arrayWithObject:newApp]];
@@ -388,41 +334,64 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #pragma mark Utilities
 
 - (NSArray *)processesWithHiddenState:(BOOL)hidden {
-	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
-
-	NDProcess *thisProcess;
-	NSValue *thisProcessPSN;
-
-	for (thisProcessPSN in [[[self processesDict] copy] allKeys]) {
-		thisProcess = [NDProcess processWithProcessSerialNumber:[thisProcessPSN processSerialNumberValue]];
+	NSArray *objs = [[self processesDict] allValues];
+	NSIndexSet *i = [objs indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSDictionary *infoDict = [obj objectForType:QSProcessType];
+		NDProcess *thisProcess = [NDProcess processWithProcessID:[[infoDict objectForKey:@"NSApplicationProcessIdentifier"] intValue]];
+		
+		if (!thisProcess) {
+			return NO;
+		}
 		BOOL isBackground = [thisProcess isBackground];
-		if (!hidden && isBackground) continue;
-		else if (hidden && !isBackground) continue;
-		NSDictionary *processDict = [[self infoForPSN:[thisProcessPSN processSerialNumberValue]] copy];
-		QSObject *newObject = [self imbuedFileProcessForDict:processDict];
-		if (newObject)
-			[objects addObject:newObject];
+		if (!hidden && isBackground) {
+			return NO;
+		}
+		if (hidden && !isBackground) {
+			return NO;
+		}
+		return YES;
+	}];
+	return [objs objectsAtIndexes:i];
+}
+
+- (void)removeProcess:(ProcessSerialNumber)psn {
+	QSObject *obj = [self processObjectWithPSN:psn];
+	if (obj) {
+		[obj setObject:nil forType:QSProcessType];
+	} else {
+#ifdef DEBUG
+		NSLog(@"No object found for process %u", (unsigned int)psn.highLongOfPSN);
+#endif
 	}
-	return objects;
+	[self reloadProcesses];
 }
 
 - (void)reloadProcesses {
 	/* Mark us as reloading to prevent -addProcessWithPSN from sending one notification per found process, and handle KVO ourselves. */
-	isReloading = YES;
+	
 	[self willChangeValueForKey:@"visibleProcesses"];
 	[self willChangeValueForKey:@"backgroundProcesses"];
-	[self willChangeValueForKey:@"allProcesses"];
-
-	[processes removeAllObjects];
-	id thisProcess = nil;
-	for (thisProcess in [NDProcess everyProcess]) {
-		[self addProcessWithPSN:[thisProcess processSerialNumber]];
+	[self willChangeValueForKey:@"allProcesses"];	
+	
+	NSDate *date = [NSDate date];
+	NSArray *tempProcesses = [NDProcess everyProcess];
+	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:processes.count];
+	for (NDProcess *thisProcess in tempProcesses) {
+		ProcessSerialNumber psn = [thisProcess processSerialNumber];
+		NSDictionary *info = [self infoForPSN:psn];
+		QSObject *procObject = [self imbuedFileProcessForDict:info];
+		NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
+		
+		if (procObject) {
+			[procs setObject:procObject forKey:psnValue];
+		}
 	}
+	processes = [procs copy];
+	NSLog(@"Reload time: %f ms", [date timeIntervalSinceNow]*-1000);
 
 	[self didChangeValueForKey:@"allProcesses"];
 	[self didChangeValueForKey:@"backgroundProcesses"];
 	[self didChangeValueForKey:@"visibleProcesses"];
-	isReloading = NO;
 }
 
 #pragma mark -
@@ -445,13 +414,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #pragma mark -
 #pragma mark Accessors
 
-- (NSMutableDictionary *)processesDict {
+- (NSDictionary *)processesDict {
 	if (!processes) {
 		processes = [NSMutableDictionary dictionaryWithCapacity:1];
         isReloading = YES;
-        for (id thisProcess in [NDProcess everyProcess]) {
-            [self addProcessWithPSN:[thisProcess processSerialNumber]];
-        }
+		[self reloadProcesses];
         isReloading = NO;
 	}
 	return processes;
@@ -483,7 +450,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication {
 	if (currentApplication != newCurrentApplication) {
-		currentApplication = [newCurrentApplication copy];
+		currentApplication = newCurrentApplication;
 	}
 }
 
@@ -493,7 +460,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication {
 	if (previousApplication != newPreviousApplication) {
-		previousApplication = [newPreviousApplication copy];
+		previousApplication = newPreviousApplication;
 	}
 }
 

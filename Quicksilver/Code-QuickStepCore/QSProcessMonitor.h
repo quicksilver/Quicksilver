@@ -7,7 +7,7 @@
 @class QSObject;
 
 @interface QSProcessMonitor : NSObject <QSProxyObjectProvider> {
-	NSMutableDictionary *processes;
+	NSDictionary *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
     EventHandlerRef changeHandler;
@@ -27,9 +27,8 @@
 - (NSArray *)getVisibleProcesses QS_DEPRECATED_MSG("Use -visibleProcesses");
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
-- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
-
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent;
+- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
 
 - (NSDictionary *)currentApplication;
 - (NSDictionary *)previousApplication;
