@@ -1,7 +1,7 @@
 /* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
 
 /* Preference Pane Name */
-"Handlers" = "Manipuladores";
+"Handlers" = "Ayudante";
 
 /* Preference Pane Description */
 "Choose the helpers for specific tasks" = "Elige a los ayudantes para tareas específicas";
