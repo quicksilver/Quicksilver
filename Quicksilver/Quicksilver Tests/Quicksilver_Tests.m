@@ -18,6 +18,16 @@
 
 @implementation Quicksilver_Tests
 
+
+- (void)testActionsForURLObject {
+    NSString *url = @"https://qsapp.com";
+    QSObject *object = [QSObject objectWithString:url];
+    XCTAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
+    NSArray *actions = [[QSExecutor sharedInstance] rankedActionsForDirectObject:object indirectObject:nil];
+    XCTAssertTrue([actions count] > 0);
+    XCTAssertTrue([[actions[0] identifier] isEqualToString:@"URLOpenAction"]);
+}
+
 /**
  * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'
  */
