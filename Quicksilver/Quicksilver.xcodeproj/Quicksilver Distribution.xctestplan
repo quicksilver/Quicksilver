@@ -1,0 +1,62 @@
+{
+  "configurations" : [
+    {
+      "id" : "E56A6C3A-9C80-47BF-BD69-C1ACAE708306",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "enabled" : false,
+        "key" : "NSDeallocateZombies",
+        "value" : "YES"
+      },
+      {
+        "enabled" : false,
+        "key" : "NSZombieEnabled",
+        "value" : "YES"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Quicksilver.xcodeproj",
+      "identifier" : "8D1107260486CEB800E47090",
+      "name" : "Quicksilver"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Quicksilver.xcodeproj",
+        "identifier" : "666E45ED150225EA0034E60A",
+        "name" : "QSCoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Quicksilver.xcodeproj",
+        "identifier" : "66448D9514F42790000FA2E2",
+        "name" : "QSFoundationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Quicksilver.xcodeproj",
+        "identifier" : "CD61BBB7192B18FA00040609",
+        "name" : "Quicksilver Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Quicksilver.xcodeproj",
+        "identifier" : "CD29AEAA195663770052C893",
+        "name" : "Core Support Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

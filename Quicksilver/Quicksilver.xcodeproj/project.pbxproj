@@ -1835,6 +1835,7 @@
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CD72C74E287732580040B065 /* Quicksilver Distribution.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Quicksilver Distribution.xctestplan"; path = "Quicksilver.xcodeproj/Quicksilver Distribution.xctestplan"; sourceTree = "<group>"; };
 		CD73A5B52869FB1700552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ko; path = ko.lproj/Guide.html; sourceTree = "<group>"; };
 		CD73A5BD2869FB2900552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ResultWindow.strings; sourceTree = "<group>"; };
 		CD73A5BE2869FB3800552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
@@ -2677,6 +2678,7 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
+				CD72C74E287732580040B065 /* Quicksilver Distribution.xctestplan */,
 				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
 				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
 				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
