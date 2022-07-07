@@ -16,7 +16,7 @@
 @interface NSFileManager (Scanning)
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath;
 - (NSString *)resolveAliasAtPathWithUI:(NSString *)aliasFullPath;
-- (NSString *)typeOfFile:(NSString *)path;
+- (NSString *)typeOfFile:(NSString *)path __deprecated_msg("Use a QSObject's 'fileUTI' method instead");
 - (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types;
 - (NSDate *)modifiedDate:(NSString *)path depth:(NSInteger)depth;
 - (NSDate *)pastOnlyModifiedDate:(NSString *)path;

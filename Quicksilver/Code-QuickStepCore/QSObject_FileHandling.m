@@ -209,23 +209,17 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	// it's a combined object, containing multiple files
 	NSMutableSet *set = [NSMutableSet set];
 	NSWorkspace *w = [NSWorkspace sharedWorkspace];
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSArray *theFiles = [combinedObject arrayForType:QSFilePathType];
 	NSImage *theImage = nil;
-	for(NSString *theFile in theFiles) {
-		NSString *type = [manager typeOfFile:theFile];
-		[set addObject:type?type:@"'msng'"];
+	for(QSObject *obj in [combinedObject splitObjects]) {
+		NSString *uti = [obj fileUTI];
+		[set addObject:uti?uti:@"public.item"];
 	}
-	
-	if ([set containsObject:@"'fold'"]) {
-		[set removeObject:@"'fold'"];
-		[set addObject:@"'fldr'"];
-	}
+
 	
 	if ([set count] == 1) {
 		theImage = [w iconForFileType:[set anyObject]];
 	} else {
-		theImage = [w iconForFiles:theFiles];
+		theImage = [w iconForFiles:[combinedObject arrayForType:QSFilePathType]];
 	}
 	theImage = [self prepareImageforIcon:theImage];
 	[combinedObject setIcon:theImage];
@@ -535,7 +529,6 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 
 		} else if ([object isPackage] || ![object isDirectory]) {
-			//NSString *type = [[NSFileManager defaultManager] typeOfFile:path];
 
 			NSString *uti = [object fileUTI];
 
@@ -635,7 +628,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	// initWithArray: deals with file objects that already exist
 	QSObject *newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
 
-	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]]) {
+	if ([newObject isClipping]) {
 		QSGCDMainAsync(^{
 			[newObject addContentsOfClipping:path];
 		});
@@ -785,6 +778,9 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     return NO;
 }
 
+- (BOOL)isFileObject {
+	return [self singleFilePath] != nil;
+}
 
 - (BOOL)isApplication {
 	return [[[self infoRecord] objectForKey:NSURLIsApplicationKey] boolValue] ;
@@ -804,6 +800,13 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
         }
     }
     return resolved;
+}
+- (BOOL)isClipping {
+	if (![self isFileObject]) {
+		// it's not a file object
+		return NO;
+	}
+	return [clippingTypes containsObject:[self fileExtension]] || [clippingTypes containsObject:[self fileUTI]];
 }
 
 - (BOOL)isFolder {
@@ -902,14 +905,6 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	// generally: name = what you see in Terminal, label = what you see in Finder
 	
 	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
-	if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
-		// kMDItemDisplayName works better for Preference Panes
-		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
-		if (mdItem) {
-			newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
-			CFRelease(mdItem);
-		}
-	}
 	if (![newLabel isEqualToString:newName]) {
 		[self setLabel:newLabel];
 	}
@@ -928,32 +923,25 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	return commonPath;
 }
 
-- (NSString *)singleFileType {
-	return [[NSFileManager defaultManager] typeOfFile:[self singleFilePath]];
-}
-
 - (NSString *)filesType {
     BOOL appsOnly = YES;
 	BOOL foldersOnly = YES;
 	BOOL filesOnly = YES;
 	NSString *kind = nil;
-	NSArray *paths = [self arrayForType:QSFilePathType];
-    
-	for (id loopItem in paths) {
-		NSString *thisPath = [loopItem stringByStandardizingPath];
-		NSString *type = [[NSFileManager defaultManager] typeOfFile:thisPath];
-		if ([type isEqualToString:@"'fold'"]) {
+	for (QSObject *obj in [self splitObjects]) {
+		
+		if ([obj isFolder]) {
 			filesOnly = NO;
 			appsOnly = NO;
             // application type (or Finder 'FNDR')
-		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"] || [type isEqualToString:@"'FNDR'"]) {
+		} else if ([obj isApplication]) {
 			foldersOnly = NO;
 			filesOnly = NO;
 		} else {
 			appsOnly = NO;
 			foldersOnly = NO;
             //			if (!kind) {
-			kind = [self kindOfFile:thisPath];
+			kind = [self fileUTI];
             //			} else if (![kind isEqualToString:[self kindOfFile:thisPath]]) {
             //				kind = @"";
             //			}

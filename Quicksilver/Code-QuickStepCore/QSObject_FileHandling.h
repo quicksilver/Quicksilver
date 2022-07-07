@@ -43,6 +43,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
 - (NSString *)filesContainer;
 - (NSString *)filesType;
 - (QSObject *)resolvedAliasObject;
+- (BOOL)isFileObject;
 - (BOOL)isApplication;
 - (BOOL)isExecutable;
 - (BOOL)canBeExecutedByScript;
@@ -52,8 +53,8 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
 - (BOOL)isAlias;
 - (BOOL)isOnLocalVolume;
 - (BOOL)isIcloudFile;
+- (BOOL)isClipping;
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
-- (NSString *)singleFileType;
 @end
 

@@ -130,11 +130,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		}
 		if ([self objectForType:QSTextType])
 			[self sniffString];
-		NSString *clippingPath = [self singleFilePath];
-		if (clippingPath) {
-			NSString *type = [[NSFileManager defaultManager] typeOfFile:clippingPath];
-			if ([clippingTypes containsObject:type])
-				[self addContentsOfClipping:clippingPath];
+
+		if ([self isClipping]) {
+				[self addContentsOfClipping:[self singleFilePath]];
 		}
 
 		if ([self objectForType:kQSObjectPrimaryName])
