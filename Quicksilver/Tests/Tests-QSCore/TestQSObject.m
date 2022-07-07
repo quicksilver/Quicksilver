@@ -65,6 +65,15 @@
     XCTAssertTrue([object containsType:QSSearchURLType] && [[object primaryType] isEqualToString:QSSearchURLType], @"URL '%@' was not recognized as a web search", searchURL);
 }
 
+- (void)testActionsForURLObject {
+    NSString *url = @"https://qsapp.com";
+    QSObject *object = [QSObject objectWithString:url];
+    XCTAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
+    NSArray *actions = [QSExec rankedActionsForDirectObject:object indirectObject:nil];
+    XCTAssertTrue([actions count] > 0);
+    XCTAssertTrue([[actions[0] identifier] isEqualToString:@"URLOpenAction"]);
+}
+
 - (void)testStringSniffing
 {
     NSArray *shouldBeURL = @[
