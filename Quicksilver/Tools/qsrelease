@@ -29,10 +29,11 @@ mkdir -p "${BUILT_PRODUCTS_DIR}"
 LOG=${BUILT_PRODUCTS_DIR}/build.log
 DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
-## Clean and Build
+## Clean, Build then Test
 ## (This could be done with a single command, but if `clean` fails, the
 ## exit status won't be 0. It usually fails because something didn't exist
 ## in the first place. We don't care.)
+## Make sure to build first before testing, so that the tests run correctly. 
 {
   xcodebuild \
     -destination generic/platform=macos \
@@ -40,18 +41,19 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
     -scheme 'Quicksilver Distribution' \
     clean || true
 
+  xcodebuild \
+    -destination generic/platform=macos \
+    -configuration "${CONFIGURATION}" \
+    -scheme 'Quicksilver Distribution' \
+    build
+  
   # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
   xcodebuild \
     -destination "platform=macOS,arch=${CURRENT_ARCH}" \
     -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
     test || true
-
-  xcodebuild \
-    -destination generic/platform=macos \
-    -configuration "${CONFIGURATION}" \
-    -scheme 'Quicksilver Distribution' \
-    build
+  
 } > "${LOG}"
 
 ## Build succeeded
