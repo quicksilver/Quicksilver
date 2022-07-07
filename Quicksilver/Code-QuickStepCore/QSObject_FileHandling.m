@@ -665,7 +665,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	NSMutableIndexSet __block *objsToRemove = nil;
 
-	[pathArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString * loopItem, NSUInteger idx, BOOL * _Nonnull stop) {
+	[pathArray enumerateObjectsUsingBlock:^(NSString * loopItem, NSUInteger idx, BOOL * _Nonnull stop) {
 		QSObject *object = [QSObject fileObjectWithPath:loopItem];
 		if (object) {
 			[fileObjectArray replaceObjectAtIndex:idx withObject:object];
