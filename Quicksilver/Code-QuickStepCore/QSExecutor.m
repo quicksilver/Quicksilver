@@ -133,7 +133,7 @@ QSExecutor *QSExec = nil;
 		if (![type isEqualToString:QSFilePathType]) {
             // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
             NSString *UTIType = QSUTIForAnyTypeString(type);
-            if (UTIType != type) {
+            if (![UTIType isEqualToString:type]) {
                 if ([types containsObject:UTIType]) {
                     // the UTI is already included in the types list, don't include again
                     continue;
