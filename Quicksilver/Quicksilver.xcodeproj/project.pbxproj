@@ -6299,8 +6299,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.BezelInterfacePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6309,8 +6313,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.BezelInterfacePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6319,8 +6327,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSFinderPlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6329,8 +6341,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSFinderPlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6339,8 +6355,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSPrimerInterfacePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6349,8 +6369,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSPrimerInterfacePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6359,8 +6383,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSHotKeyTriggerPlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6369,8 +6397,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSHotKeyTriggerPlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6483,6 +6515,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -6495,6 +6528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSFoundation;
 				PRODUCT_NAME = QSFoundation;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6504,6 +6538,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -6516,6 +6551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSFoundation;
 				PRODUCT_NAME = QSFoundation;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6640,9 +6676,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -6651,9 +6690,12 @@
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -6664,10 +6706,13 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6679,11 +6724,14 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
