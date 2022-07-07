@@ -520,7 +520,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)types {
-	NSMutableArray *array = [[data allKeys] mutableCopy];
+	NSArray *array = [data allKeys];
 
 	return array;
 }
