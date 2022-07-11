@@ -28,6 +28,65 @@
     XCTAssertTrue([[actions[0] identifier] isEqualToString:@"URLOpenAction"]);
 }
 
+
+// test to make sure when file objects are added to the clipboard, a string of their path is also copied
+- (void)testAddingFileObjectToPasteboard {
+    NSString *path = @"/Applications/Safari.app";
+    NSPasteboard *pboard =[NSPasteboard generalPasteboard];
+    QSObject *obj = [QSObject fileObjectWithPath:path];
+    XCTAssertEqualObjects([obj singleFilePath], path);
+    XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
+    XCTAssertTrue([[pboard types] containsObject:QSTextType]);
+    XCTAssertTrue([[pboard types] containsObject:NSFilenamesPboardType]);
+    NSString *pboardString = [pboard stringForType:QSTextType];
+    XCTAssertEqualObjects(path, pboardString);
+    
+    // try this for an imagined type that already has a string type set:
+    obj = [QSObject fileObjectWithPath:path];
+    NSString *textString = @"My Important String";
+    [obj setObject:textString forType:QSTextType];
+    XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
+    XCTAssertTrue([[pboard types] containsObject:QSTextType]);
+    XCTAssertTrue([[pboard types] containsObject:NSFilenamesPboardType]);
+    XCTAssertTrue([[pboard types] containsObject:NSURLPboardType]);
+    pboardString = [pboard stringForType:QSTextType];
+    XCTAssertEqualObjects(textString, pboardString);
+}
+
+#TODO - these tests currently fail
+- (void)testAddingCombinedObjectsToClipboard {
+    return;
+    NSString *str1 = @"/Applications/Safari.app";
+    NSString *str2 = @"/Applications/Mail.app";
+    NSString *str3 = @"/Applications/Maps.app";
+    QSObject *obj1 = [QSObject fileObjectWithPath:str1];
+    QSObject *obj2 = [QSObject fileObjectWithPath:str2];
+    QSObject *obj3 = [QSObject fileObjectWithPath:str3];
+    
+    QSObject *combinedObj = [QSObject objectByMergingObjects:@[obj1, obj2, obj3]];
+    XCTAssertEqual([combinedObj count], 3);
+    NSPasteboard *pboard =[NSPasteboard generalPasteboard];
+    [combinedObj putOnPasteboard:pboard];
+    NSArray *items = pboard.pasteboardItems;
+    XCTAssertEqual([items count], 3);
+    
+    XCTAssertTrue([[items[0] types] containsObject:NSFilenamesPboardType]);
+    XCTAssertTrue([[items[0] types] containsObject:QSTextType]);
+    XCTAssertTrue([[items[0] types] containsObject:NSURLPboardType]);
+    XCTAssertEqualObjects(str1, [items[0] stringForType:QSTextType]);
+
+    
+    XCTAssertTrue([[items[1] types] containsObject:NSFilenamesPboardType]);
+    XCTAssertTrue([[items[1] types] containsObject:QSTextType]);
+    XCTAssertTrue([[items[1] types] containsObject:NSURLPboardType]);
+    XCTAssertEqualObjects(str2, [items[1] stringForType:QSTextType]);
+
+    XCTAssertTrue([[items[2] types] containsObject:NSFilenamesPboardType]);
+    XCTAssertTrue([[items[2] types] containsObject:QSTextType]);
+    XCTAssertTrue([[items[2] types] containsObject:NSURLPboardType]);
+    XCTAssertEqualObjects(str3, [items[2] stringForType:QSTextType]);
+
+}
 /**
  * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'
  */
