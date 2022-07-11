@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <QSCore/QSClangAnalyzer.h>
-#import "QSObject.h"
+#import <QSCore/QSObject.h>
 
 NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
 
@@ -12,7 +12,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier);
 - (NSData *)fileRepresentationForObject:(QSObject *)object;
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
-@interface QSFileSystemObjectHandler : NSObject
+@interface QSFileSystemObjectHandler : NSObject <QSObjectHandler>
 
 // Added by Patrick Robertson 30/06/11 in Pull #388. QSObject_FileHandling.h/.m are a mess and it's unclear as to wether
 // this is required. Any developers working on tidying these files should check the necessity/requirement of this definition

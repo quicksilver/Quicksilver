@@ -4,7 +4,7 @@
 
 #import "QSObject.h"
 
-@interface QSURLObjectHandler : NSObject
+@interface QSURLObjectHandler : NSObject <QSObjectHandler>
 
 /*!
  @buildWebSearchIconForURL
