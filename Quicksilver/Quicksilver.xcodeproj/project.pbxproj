@@ -13,7 +13,6 @@
 			buildPhases = (
 			);
 			dependencies = (
-				7F0399FB080EE5D7001A9FA3 /* PBXTargetDependency */,
 				7F039994080EE21A001A9FA3 /* PBXTargetDependency */,
 				4DAAEB7F0E0BBE1B0088C72D /* PBXTargetDependency */,
 				4D002DC013114A7C009040B7 /* PBXTargetDependency */,
@@ -381,6 +380,7 @@
 		CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */; };
 		CD661C5419DBD2F3000F3695 /* TestNSApplicationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */; };
 		CD661C5619DBD341000F3695 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD661C5519DBD341000F3695 /* AppKit.framework */; };
+		CD72C7502877C0D10040B065 /* TestNDHotkey.m in Sources */ = {isa = PBXBuildFile; fileRef = CD72C74F2877C0D10040B065 /* TestNDHotkey.m */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -925,13 +925,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
-		};
-		7F0399FA080EE5D7001A9FA3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F0399E9080EE58D001A9FA3;
-			remoteInfo = Preflight;
 		};
 		7F20EE2207E9F5FE007A01B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1836,6 +1829,7 @@
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		CD72C74E287732580040B065 /* Quicksilver Distribution.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Quicksilver Distribution.xctestplan"; path = "Quicksilver.xcodeproj/Quicksilver Distribution.xctestplan"; sourceTree = "<group>"; };
+		CD72C74F2877C0D10040B065 /* TestNDHotkey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TestNDHotkey.m; path = "Tests/Tests-QSFoundation/TestNDHotkey.m"; sourceTree = "<group>"; };
 		CD73A5B52869FB1700552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ko; path = ko.lproj/Guide.html; sourceTree = "<group>"; };
 		CD73A5BD2869FB2900552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ResultWindow.strings; sourceTree = "<group>"; };
 		CD73A5BE2869FB3800552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
@@ -2858,6 +2852,7 @@
 				CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */,
 				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
 				4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */,
+				CD72C74F2877C0D10040B065 /* TestNDHotkey.m */,
 			);
 			name = QSFoundationTests;
 			sourceTree = "<group>";
@@ -4541,8 +4536,9 @@
 			);
 			projectRoot = "";
 			targets = (
+				7F0399E9080EE58D001A9FA3 /* Preflight */,
+				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
 				8D1107260486CEB800E47090 /* Quicksilver */,
-				E1A5676506FFDD8700BAD045 /* QSScriptingDictionary */,
 				E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */,
 				E1E5F9B107B1FD100044D6EF /* QuickStep Effects */,
 				E103F15F0647200700447FE0 /* QuickStep Core */,
@@ -4552,9 +4548,8 @@
 				4D002D60131148C2009040B7 /* Finder Plugin */,
 				4D002D87131149A3009040B7 /* Primer Interface */,
 				4D002DAC13114A2E009040B7 /* Keyboard Triggers */,
-				7F0399E9080EE58D001A9FA3 /* Preflight */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
-				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
+				E1A5676506FFDD8700BAD045 /* QSScriptingDictionary */,
 				66448D9514F42790000FA2E2 /* QSFoundationTests */,
 				666E45ED150225EA0034E60A /* QSCoreTests */,
 				CD61BBB7192B18FA00040609 /* Quicksilver Tests */,
@@ -5016,6 +5011,7 @@
 				4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */,
 				CD661C5419DBD2F3000F3695 /* TestNSApplicationMethods.m in Sources */,
 				66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */,
+				CD72C7502877C0D10040B065 /* TestNDHotkey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5423,11 +5419,6 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = 7F039993080EE21A001A9FA3 /* PBXContainerItemProxy */;
-		};
-		7F0399FB080EE5D7001A9FA3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7F0399E9080EE58D001A9FA3 /* Preflight */;
-			targetProxy = 7F0399FA080EE5D7001A9FA3 /* PBXContainerItemProxy */;
 		};
 		7F20EE2307E9F5FE007A01B3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
