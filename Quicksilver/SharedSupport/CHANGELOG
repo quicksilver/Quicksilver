@@ -1,13 +1,15 @@
-## Changes - XXX (4039) ##
+## Changes - 2.4.0 (4039) ##
 
 *Requires macOS 10.14+*
 
 ### New ###
 
-* Control your triggers from directly within Quicksilver! Can't remember all your keyboard shortcuts for triggers? Don't worry! Now you can create complex triggers, give them a name and add them to your Quicksilver catalog, for execution right from within Quicksilver.
-* Improved support for custom interfaces. Allow interfaces to override icon position and text editor size.
-* Korean localizations. Translate Quicksilver to your language [here](https://www.transifex.com/quicksilver/quicksilver/)
+* Execute triggers from the Quicksilver interface! Can't remember the keyboard shortcut for a trigger or have to many triggers? Starting with Quicksilver 2.4.0, you can now give triggers a unique name and add them to your Quicksilver catalog. Run your custom commands right from within Quicksilver!
 * Super-charged 'combined' objects. Allow combined text objects to be pasted to the clipboard, improved icons for combined objects and more.
+* JXA (JavaScript Application Scripting) has made it to Quicksilver! Use JXA to create your own custom actions to execute from within Quicksilver. [Learn more](https://docs.qsapp.com/documentation/applescript_actions)
+* Improved support for custom interfaces. Allow interfaces to override icon position and text editor size.
+* Korean & Spanish localizations. Translate Quicksilver to your language [here](https://www.transifex.com/quicksilver/quicksilver/)
+
 
 ### Changed ###
 
@@ -19,9 +21,18 @@
 
 ### Fixes ###
 
-* Fix a crash that could occur when trying to → into web pages that weren't UTF8
+* Fix crashes that would occur with the 'Running Processes' catalog entry
+* Fix preference pane layout for localized languages (e.g. Spanish) (#2902)
+* Potential crash when saving mnemonics to disk
+* Potential crash when displaying the file conflict panel
+* Potential crash that could occur when trying to → into web pages that weren't UTF8
 * Fix how keyboard shortcuts that include →↓↑← would display in the trigger preferences (#2897)
 * Fix the 'Switch to keyboard layout' option that allows you to specify what keyboard layout to use when Quicksilver is activated.
+
+### Developer ###
+
+* Re-enable unit tests for the project. Developers should add to unit tests for all new PRs.
+* Automatically sign local builds of Quicksilver
 
 ## Changes - 2.3.0 (4038)  2022-06-18 ##
 
