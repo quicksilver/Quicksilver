@@ -373,7 +373,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	[self willChangeValueForKey:@"backgroundProcesses"];
 	[self willChangeValueForKey:@"allProcesses"];	
 	
+#ifdef DEBUG
 	NSDate *date = [NSDate date];
+#endif
 	NSArray *tempProcesses = [NDProcess everyProcess];
 	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:processes.count];
 	for (NDProcess *thisProcess in tempProcesses) {
@@ -387,7 +389,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		}
 	}
 	processes = [procs copy];
+#ifdef DEBUG
 	NSLog(@"Reload time: %f ms", [date timeIntervalSinceNow]*-1000);
+#endif
 
 	[self didChangeValueForKey:@"allProcesses"];
 	[self didChangeValueForKey:@"backgroundProcesses"];
