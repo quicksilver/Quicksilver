@@ -3,227 +3,227 @@
 <plist version="1.0">
   <dict>
     <key>AppActivateAction</key>
-    <string>Activate</string>
+    <string>Ativar</string>
     <key>AppHideAction</key>
-    <string>Hide</string>
+    <string>Ocultar</string>
     <key>AppHideOthersAction</key>
-    <string>Hide Others</string>
+    <string>Ocultar Outros</string>
     <key>AppLaunchAction</key>
-    <string>Launch</string>
+    <string>Abrir</string>
     <key>AppLaunchAgainAction</key>
-    <string>Launch Another Copy</string>
+    <string>Abrir Outra Cópia</string>
     <key>AppOpenFileAction</key>
-    <string>Open File...</string>
+    <string>Abrir arquivo...</string>
     <key>AppQuitOthersAction</key>
-    <string>Quit Others</string>
+    <string>Encerrar. Outros</string>
     <key>AppQuitAction</key>
-    <string>Quit</string>
+    <string>Encerrar</string>
     <key>AppRelaunchAction</key>
-    <string>Relaunch</string>
+    <string>Reabrir</string>
     <key>AppReopenAction</key>
-    <string>Open</string>
+    <string>Abrir</string>
     <key>AppRootLaunchAction</key>
-    <string>Launch as Root</string>
+    <string>Abrir como Root</string>
     <key>AppShowHideAction</key>
-    <string>Toggle Application</string>
+    <string>Ativar Aplicativo</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>Open File...</string>
+    <string>Abrir Arquivo...</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Process Text...</string>
+    <string>Processar Texto...</string>
     <key>AppleScriptRunAction</key>
-    <string>Run</string>
+    <string>Executar</string>
     <key>AppleScriptRunTextAction</key>
-    <string>Run as AppleScript</string>
+    <string>Executar como AppleScript</string>
     <key>ContactEditAction</key>
-    <string>Edit</string>
+    <string>Editar</string>
     <key>ContactEmailAction</key>
-    <string>Email</string>
+    <string>Enviar Email</string>
     <key>ContactIMAction</key>
-    <string>IM Person</string>
+    <string>Enviar IM</string>
     <key>ContactSendItemEmailAction</key>
-    <string>Email Item...</string>
+    <string>Enviar Item por Email...</string>
     <key>ContactSendItemIMAction</key>
-    <string>IM text...</string>
+    <string>Enviar IM de texto...</string>
     <key>ContactSendTextEmailAction</key>
-    <string>Send Text...</string>
+    <string>Enviar Texto...</string>
     <key>ContactShowAction</key>
-    <string>Show</string>
+    <string>Exibir</string>
     <key>DiskEjectAction</key>
-    <string>Eject</string>
+    <string>Ejetar</string>
     <key>DiskForceEjectAction</key>
-    <string>Force Eject</string>
+    <string>Forçar Eje;cão</string>
     <key>FileCompressAction</key>
-    <string>Compress</string>
+    <string>Comprimir</string>
     <key>FileCopyToAction</key>
-    <string>Copy To...</string>
+    <string>Copiar Para...</string>
     <key>FileDecompressAction</key>
-    <string>Decompress</string>
+    <string>Descomprimir</string>
     <key>FileDeleteAction</key>
-    <string>Delete (Erase)</string>
+    <string>Deletar (Apagar)</string>
     <key>FileGetInfoAction</key>
-    <string>Get Info</string>
+    <string>Obter Informações</string>
     <key>FileGetPathAction</key>
-    <string>Get Path</string>
+    <string>Obter Caminho</string>
     <key>FileGetPosixPathAction</key>
-    <string>Get Absolute (POSIX) Path</string>
+    <string>Obter Caminho Absoluto (POSIX)</string>
     <key>FileGetURLAction</key>
-    <string>Get File URL</string>
+    <string>Obter URL do Arquivo</string>
     <key>FileGetHFSPathAction</key>
-    <string>Get File Location</string>
+    <string>Obter Localização do Arquivo</string>
     <key>FileMakeAliasInAction</key>
-    <string>Make Alias In...</string>
+    <string>Criar Atalho Em...</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Make Hard Link In...</string>
+    <string>Criar Hard Link Em...</string>
     <key>FileMakeLinkInAction</key>
-    <string>Make Link In...</string>
+    <string>Criar Link Em...</string>
     <key>FileMoveToAction</key>
-    <string>Move To...</string>
+    <string>Mover Para...</string>
     <key>FileOpenAction</key>
-    <string>Open</string>
+    <string>Abrir</string>
     <key>FileOpenWithAction</key>
-    <string>Open With...</string>
+    <string>Abrir Com...</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Always Open Type With...</string>
+    <string>Sempre Abrir Tipo Com...</string>
     <key>FileRenameAction</key>
-    <string>Rename...</string>
+    <string>Renomear...</string>
     <key>FileRevealAction</key>
-    <string>Reveal</string>
+    <string>Revelar</string>
     <key>FileToTrashAction</key>
-    <string>Move to Trash</string>
+    <string>Mover para Lixo</string>
     <key>ItemSendToContactEmailAction</key>
-    <string>Email To...</string>
+    <string>Enviar Email Para...</string>
     <key>ItemSendToContactIMAction</key>
-    <string>IM To Person...</string>
+    <string>Enviar IM...</string>
     <key>PasteboardCopyAction</key>
-    <string>Copy to Clipboard</string>
+    <string>Copiar para Área de Transferência</string>
     <key>PasteboardPasteAction</key>
-    <string>Paste</string>
+    <string>Colar</string>
     <key>PasteboardPasteActionAsPlainText</key>
-    <string>Paste as Plain Text</string>
+    <string>Colar Como Texto Simples</string>
     <key>ProcessKillAction</key>
-    <string>Force Quit (Kill)</string>
+    <string>Forçar Encerramento (Matar)</string>
     <key>ProcessLowerPriorityAction</key>
-    <string>Lower Priority</string>
+    <string>Diminuir Prioridade</string>
     <key>ProcessRaisePriorityAction</key>
-    <string>Raise Priority</string>
+    <string>Aumentar Prioridade</string>
     <key>ProcessResumeAction</key>
-    <string>Continue Execution (Resume)</string>
+    <string>Continuar Execução (Retomar)</string>
     <key>ProcessSuspendAction</key>
-    <string>Pause Execution (Suspend)</string>
+    <string>Pausar Execução (Suspender)</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Assign Abbreviation...</string>
+    <string>Atribuir Abreviação...</string>
     <key>QSObjectSelectAction</key>
-    <string>Select in Command Window</string>
+    <string>Selecionar na Janela de Comando</string>
     <key>QSAIMSMSAction</key>
-    <string>Send SMS (AIM/iChat)</string>
+    <string>Enviar SMS (AIM/iChat)</string>
     <key>QSAirPortNetworkSelectAction</key>
-    <string>Switch Airport</string>
+    <string>Trocar de Airport</string>
     <key>QSCLExecuteAction</key>
-    <string>Run</string>
+    <string>Executar</string>
     <key>QSCLExecuteTextAction</key>
-    <string>Run Command in Shell</string>
+    <string>Executar Comando no Shell</string>
     <key>QSCLExecuteShellCommandAction</key>
-    <string>Run Command in Shell</string>
+    <string>Executar Comando no Shell</string>
     <key>QSCLExecuteWithArgsAction</key>
-    <string>Run [...]</string>
+    <string>Executar [...]</string>
     <key>QSCLTermExecuteTextAction</key>
-    <string>Run a Text Command in Terminal</string>
+    <string>Executar um Comando de Texto no Terminal</string>
     <key>QSCLTermExecuteShellCommandAction</key>
-    <string>Run a Text Command in Terminal</string>
+    <string>Executar um Comando de Texto no TerminaL</string>
     <key>QSCLTermExecuteWithArgsAction</key>
-    <string>Run in Terminal [...]</string>
+    <string>Executar no Terminal [...]</string>
     <key>QSCLTermShowDirectoryAction</key>
-    <string>Go To Directory in Terminal</string>
+    <string>Vá Para o Diretório no Terminal</string>
     <key>QSCLTermShowManPageAction</key>
-    <string>Show Man Page</string>
+    <string>Exibir Página Man</string>
     <key>QSCatalogAddEntryAction</key>
     <string>Adicionar Ao Catálogo</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Rescan Catalog Entry</string>
+    <string>Reexaminar Entrada de Catálogo</string>
     <key>QSCatalogEntryShowAction</key>
-    <string>Show Entry in Catalog</string>
+    <string>Exibir Entrada no Catálogo</string>
     <key>QSCommandSaveAction</key>
-    <string>Save Command to File...</string>
+    <string>Salvar Comando para Arquivo...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Add Trigger</string>
+    <string>Adicionar Gatilho</string>
     <key>QSCommandExecuteAction</key>
-    <string>Run</string>
+    <string>Executar</string>
     <key>QSCommandExecuteAfterDelayAction</key>
-    <string>Run after Delay...</string>
+    <string>Executar após Atraso...</string>
     <key>QSComposeEmailItemAction</key>
-    <string>Email Item... (Compose)</string>
+    <string>Enviar Item por Email... (Compor)</string>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>Run at Time...</string>
+    <string>Executar na Hora...</string>
     <key>QSComposeEmailItemReverseAction</key>
-    <string>Email To... (Compose)</string>
+    <string>Enviar Email Para... (Compor)</string>
     <key>QSCreateFileAction</key>
     <string>Create File [...]</string>
     <key>QSCreateFileTemplate</key>
-    <string>Make New...</string>
+    <string>Criar Novo...</string>
     <key>QSDialNumberAction</key>
-    <string>Dial</string>
+    <string>Discar</string>
     <key>QSEditAction</key>
-    <string>Edit</string>
+    <string>Editar</string>
     <key>QSEmailAction</key>
-    <string>Email</string>
+    <string>Enviar Email</string>
     <key>QSEmailItemAction</key>
-    <string>Email Item... (Send)</string>
+    <string>Enviar Item por Email Item... (Enviar)</string>
     <key>QSEmailItemReverseAction</key>
-    <string>Email To... (Send)</string>
+    <string>Enviar Email Para... (Enviar)</string>
     <key>QSHFSLockAction</key>
-    <string>Lock</string>
+    <string>Bloquear</string>
     <key>QSHFSMakeInvisibleAction</key>
-    <string>Make Invisible</string>
+    <string>Tornar Invisível</string>
     <key>QSHFSMakeVisibleAction</key>
-    <string>Make Visible</string>
+    <string>Tornar Visível</string>
     <key>QSHFSUnlockAction</key>
-    <string>Unlock</string>
+    <string>Desbloquear</string>
     <key>QSNewFolderAction</key>
-    <string>New Folder...</string>
+    <string>Nova Pasta...</string>
     <key>QSLargeTypeAction</key>
-    <string>Large Type</string>
+    <string>Fonte Grande</string>
     <key>QSLoginItemAddAction</key>
-    <string>Open at Login</string>
+    <string>Abrir no Login</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>Do Not Open at Login</string>
+    <string>Não Abrir no Login</string>
     <key>QSNUTDContactShowAction</key>
-    <string>Show Contact</string>
+    <string>Exibir Contato</string>
     <key>QSNetworkLocationSelectAction</key>
-    <string>Switch to Location</string>
+    <string>Trocar para Localização</string>
     <key>QSObjCSendMessageAction</key>
-    <string>Run</string>
+    <string>Executar</string>
     <key>QSObjectSearchChildrenAction</key>
-    <string>Search Contents</string>
+    <string>Buscar Conteúdos</string>
     <key>QSObjectShowChildMenu</key>
-    <string>Show Contents Menu</string>
+    <string>Exibir Menu de Conteúdos</string>
     <key>QSObjectShowMenu</key>
-    <string>Show Menu</string>
+    <string>Exibir Menu</string>
     <key>QSObjectShowActionMenu</key>
-    <string>Show Action Menu</string>
+    <string>Exibir Menu de Ação</string>
     <key>QSObjectShowChildrenAction</key>
-    <string>Show Contents</string>
+    <string>Exibir Conteúdos</string>
     <key>QSObjectExplodeCombinedAction</key>
-    <string>Explode Selection</string>
+    <string>Explodir Seleção</string>
     <key>QSObjectLogConsoleAction</key>
-    <string>Log Object to Console</string>
+    <string>Registar Objeto para Console</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Show Source in Catalog</string>
+    <string>Exibir Origem no Catálogo</string>
     <key>QSPutOnShelfAction</key>
-    <string>Put on Shelf</string>
+    <string>Colocar na Prateleira</string>
     <key>QSShelfShowAction</key>
-    <string>Show</string>
+    <string>Exibir</string>
     <key>QSShellScriptRunAction</key>
-    <string>Run [...]</string>
+    <string>Executar [...]</string>
     <key>QSTextShowDialogAction</key>
     <string>Display Dialog</string>
     <key>QSTextSpeakAction</key>
-    <string>Speak Text (Say)</string>
+    <string>Falar Texto (Dizer)</string>
     <key>QSTextAppendAction</key>
-    <string>Append Text To...</string>
+    <string>Acrescentar Texto Para...</string>
     <key>QSTextDiffAction</key>
-    <string>Differences From...</string>
+    <string>Diferenças De...</string>
     <key>QSTextPrependAction</key>
-    <string>Prepend Text To...</string>
+    <string>Anexar Texto Para...</string>
     <key>QSTextTypeAction</key>
     <string>Type Text</string>
     <key>QSUserSwitchAction</key>
