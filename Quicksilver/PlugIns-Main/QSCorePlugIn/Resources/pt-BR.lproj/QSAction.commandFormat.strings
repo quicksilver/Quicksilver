@@ -5,7 +5,7 @@
     <key>QSCommandExecuteAtTimeAction</key>
     <string>Executar %@ na Hora</string>
     <key>QSCreateFileAction</key>
-    <string>Criar um novo Arquivo contendo %@ na Pasta %@</string>
+    <string>Criar um novo Arquivo contendo %1$@ na Pasta %2$@</string>
     <key>QSCommandAddTriggerAction</key>
     <string>Adicionar %@ como Gatilho</string>
     <key>QSCommandExecuteAction</key>
