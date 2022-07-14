@@ -33,7 +33,7 @@
     <key>QSiTunesObjectSource</key>
     <string>Biblioteca de Música do iTunes</string>
     <key>QSHistoryObjectSource</key>
-    <string>Object History</string>
+    <string>Histórico do Objeto</string>
     <key>QSInternalObjectSource</key>
     <string>Internal Objects</string>
     <key>QSObjCMessageSource</key>
