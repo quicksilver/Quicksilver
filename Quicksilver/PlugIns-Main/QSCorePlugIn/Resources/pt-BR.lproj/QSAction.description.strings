@@ -11,13 +11,13 @@
     <key>QSTextSpeakAction</key>
     <string>Falar Texto usando o Voiceover</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Criar um Link Direto em uma Pasta</string>
+    <string>Criar um Link Físico em uma Pasta</string>
     <key>QSLoginItemAddAction</key>
     <string>Adicionar a Lista de Itens de Login</string>
     <key>QSObjCSendMessageAction</key>
     <string>Executar uma Mensagem Objective-C</string>
     <key>FileGetHFSPathAction</key>
-    <string>Obter Caminho formatado em Mac HFS</string>
+    <string>Obter Caminho HFS formatado em Mac</string>
     <key>QSObjectShowMenu</key>
     <string>Exibir Menu de Ações disponíveis</string>
     <key>FileDeleteAction</key>
