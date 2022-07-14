@@ -19,7 +19,7 @@
 "According to Schedule" = "De acordo com o Cronograma";
 
 /* 488.ibShadowedToolTip */
-"Add source..." = "Adicionar origem...";
+"Add source..." = "Adicionar fonte...";
 
 /* 527.ibShadowedLabels[2] */
 "Attributes" = "Atributos";
@@ -100,7 +100,7 @@
 "Rescan frequency" = "Frequência do Reexame";
 
 /* 9.ibShadowedToolTip */
-"Rescan source" = "Reexaminar origem";
+"Rescan source" = "Reexaminar fonte";
 
 /* 525.title */
 "Reset" = "Reajustar";
