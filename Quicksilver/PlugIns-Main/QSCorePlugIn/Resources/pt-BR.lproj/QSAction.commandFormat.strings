@@ -105,7 +105,7 @@
     <key>PasteboardPasteAction</key>
     <string>Colar %@ com a aplicação atual</string>
     <key>ProcessKillAction</key>
-    <string>Força %@ para encerrar</string>
+    <string>Forçar %@ a encerrar</string>
     <key>ProcessLowerPriorityAction</key>
     <string>Reduz a prioridade de %@</string>
     <key>ProcessRaisePriorityAction</key>
