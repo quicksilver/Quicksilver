@@ -117,7 +117,7 @@
     <key>QSCatalogAddEntryAction</key>
     <string>Adicionar %@ ao Catálogo</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Fazer nova varredura de %@</string>
+    <string>Reexaminar %@</string>
     <key>QSCatalogEntryShowAction</key>
     <string>Mostrar %@</string>
     <key>QSDialNumberAction</key>
