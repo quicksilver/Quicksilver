@@ -101,7 +101,7 @@
     <key>ItemSendToContactIMAction</key>
     <string>Enviar IM %1$@ para %2$@</string>
     <key>PasteboardCopyAction</key>
-    <string>Copia %@ para a área de transferência</string>
+    <string>Copiar %@ para a área de transferência</string>
     <key>PasteboardPasteAction</key>
     <string>Cola %@ com a aplicação atual</string>
     <key>ProcessKillAction</key>
