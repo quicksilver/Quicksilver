@@ -25,7 +25,7 @@
     <key>QSNetworkLocationObjectSource</key>
     <string>Localizações de Rede</string>
     <key>QSProcessObjectSource</key>
-    <string>Running Processes</string>
+    <string>Processos em Execução</string>
     <key>QSVolumesObjectSource</key>
     <string>Mounted Volumes</string>
     <key>QSiPhotoObjectSource</key>
