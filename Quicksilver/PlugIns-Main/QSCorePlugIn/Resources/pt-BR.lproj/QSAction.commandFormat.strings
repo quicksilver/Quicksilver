@@ -111,7 +111,7 @@
     <key>ProcessRaisePriorityAction</key>
     <string>Aumentar a prioridade de %@</string>
     <key>ProcessResumeAction</key>
-    <string>Retorna %@</string>
+    <string>Retornar %@</string>
     <key>ProcessSuspendAction</key>
     <string>Suspende %@</string>
     <key>QSCatalogAddEntryAction</key>
