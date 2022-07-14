@@ -229,7 +229,7 @@
     <key>QSUserSwitchAction</key>
     <string>Alternar para Usuário</string>
     <key>QSiPhotoAlbumShowAction</key>
-    <string>Show Album</string>
+    <string>Exibir Álbum</string>
     <key>QSiPhotoAlbumSlideShowAction</key>
     <string>Play Slide Show</string>
     <key>QSiTunesAppendItemAction</key>
