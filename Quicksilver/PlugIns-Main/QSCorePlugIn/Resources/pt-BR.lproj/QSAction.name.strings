@@ -239,7 +239,7 @@
     <key>ShellScriptRunAction</key>
     <string>Executar Shell Script</string>
     <key>URLEmailAction</key>
-    <string>Open E-mail URL</string>
+    <string>Abrir URL de E-mail</string>
     <key>URLFindWithAction</key>
     <string>Find on Site...</string>
     <key>URLJSAction</key>
