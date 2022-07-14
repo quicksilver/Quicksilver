@@ -141,7 +141,7 @@
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ do catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
-    <string>Procura Conteúdos de %@</string>
+    <string>Bsucar Conteúdos de %@</string>
     <key>QSObjectSelectAction</key>
     <string>Seleciona %@ na janela de comando</string>
     <key>QSObjectShowActionMenu</key>
