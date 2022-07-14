@@ -97,7 +97,7 @@
     <key>FileToTrashAction</key>
     <string>Mover %@ para a Lixo</string>
     <key>ItemSendToContactEmailAction</key>
-    <string>Enviar email %1$@ para um %@$@</string>
+    <string>Enviar email %1$@ para um %2$@</string>
     <key>ItemSendToContactIMAction</key>
     <string>Enviar IM %1$@ para %2$@</string>
     <key>PasteboardCopyAction</key>
