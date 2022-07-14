@@ -237,7 +237,7 @@
     <key>QSiTunesPlayItemAction</key>
     <string>Tocar</string>
     <key>ShellScriptRunAction</key>
-    <string>Run Shell Script</string>
+    <string>Executar Shell Script</string>
     <key>URLEmailAction</key>
     <string>Open E-mail URL</string>
     <key>URLFindWithAction</key>
