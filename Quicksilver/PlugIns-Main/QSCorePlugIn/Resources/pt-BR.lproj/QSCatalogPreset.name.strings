@@ -219,7 +219,7 @@
     <key>QSPresetSpecial</key>
     <string>Especial</string>
     <key>QSPresetSystemGroup</key>
-    <string>System</string>
+    <string>Sistema</string>
     <key>QSPresetSystemPreferencePanes</key>
     <string>System Preferences (System)</string>
     <key>QSPresetTrash</key>
