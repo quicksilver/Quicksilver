@@ -49,7 +49,7 @@
     <key>AppleScriptOpenFilesAction</key>
     <string>Abrir %1$@ com %2$@</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Processa %@ com %@</string>
+    <string>Processar %1$@ com %2$@</string>
     <key>AppleScriptRunAction</key>
     <string>Executa Script: %@</string>
     <key>AppleScriptRunTextAction</key>
