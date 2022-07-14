@@ -41,7 +41,7 @@
     <key>QSPresetClipboardContents</key>
     <string>Conteúdos da Área de Transferência</string>
     <key>QSPresetCommandHistory</key>
-    <string>Recent Commands</string>
+    <string>Comandos Recentes</string>
     <key>QSPresetConfiguration</key>
     <string>Configuration</string>
     <key>QSPresetContacts</key>
