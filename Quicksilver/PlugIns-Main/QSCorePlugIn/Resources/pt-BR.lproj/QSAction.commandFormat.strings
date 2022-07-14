@@ -7,7 +7,7 @@
     <key>QSCreateFileAction</key>
     <string>Criar um novo Arquivo contendo %@ na Pasta %@</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Adiciona %@ como Gatilho</string>
+    <string>Adicionar %@ como Gatilho</string>
     <key>QSCommandExecuteAction</key>
     <string>Executa %@</string>
     <key>AppShowHideAction</key>
