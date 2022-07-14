@@ -69,7 +69,7 @@
     <key>FileGetHFSPathAction</key>
     <string>Obter caminho HFS de %@</string>
     <key>FileGetInfoAction</key>
-    <string>Pega informação em %@</string>
+    <string>Obter informação em %@</string>
     <key>FileGetPathAction</key>
     <string>Pega caminho posix de %@</string>
     <key>FileGetPosixPathAction</key>
