@@ -189,7 +189,7 @@
     <key>QSNUTDContactShowAction</key>
     <string>Exibir Contato</string>
     <key>QSNetworkLocationSelectAction</key>
-    <string>Trocar para Localização</string>
+    <string>Alternar para Localização</string>
     <key>QSObjCSendMessageAction</key>
     <string>Executar</string>
     <key>QSObjectSearchChildrenAction</key>
