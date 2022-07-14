@@ -44,7 +44,7 @@
 "The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?" = "A versão anterior do Quicksilver era localizado em \"%@\". Você gostaria de mover esta nova versão para aquela localização?";
 
 "This is an old version of Quicksilver" = "Esta é uma versão antiga do Quicksilver";
-"You have previously used a newer version. Perhaps you have duplicate copies?" = "You have previously used a newer version. Perhaps you have duplicate copies?";
+"You have previously used a newer version. Perhaps you have duplicate copies?" = "Você anteriormente usou uma versão mais nova. Talvez você tenha cópias duplicadas?";
 "Reveal this copy" = "Reveal this copy";
 
 "Would you like to install Quicksilver?" = "Would you like to install Quicksilver?";
