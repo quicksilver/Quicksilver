@@ -39,7 +39,7 @@
     <key>QSPresetClassicApplications</key>
     <string>Aplicativos (Mac OS 9)</string>
     <key>QSPresetClipboardContents</key>
-    <string>Clipboard Contents</string>
+    <string>Conteúdos da Área de Transferência</string>
     <key>QSPresetCommandHistory</key>
     <string>Recent Commands</string>
     <key>QSPresetConfiguration</key>
