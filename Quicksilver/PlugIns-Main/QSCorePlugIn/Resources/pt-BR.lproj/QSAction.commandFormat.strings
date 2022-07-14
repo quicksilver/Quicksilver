@@ -25,7 +25,7 @@
     <key>AppActivateAction</key>
     <string>Ativar %@</string>
     <key>AppHideAction</key>
-    <string>Esconde %@</string>
+    <string>Esconder %@</string>
     <key>AppHideOthersAction</key>
     <string>%@ esconde outros</string>
     <key>AppLaunchAction</key>
