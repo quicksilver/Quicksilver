@@ -131,11 +131,11 @@
     <key>QSPresetSystemApplications</key>
     <string>Aplicações de Ssitema</string>
     <key>QSPresetMiscellaneousGroup</key>
-    <string>Miscellaneous</string>
+    <string>Miscelânia</string>
     <key>QSPresetModules</key>
     <string>Plugins</string>
     <key>QSPresetMozillaBookmarks</key>
-    <string>Mozilla Bookmarks</string>
+    <string>Favoritos Mozilla</string>
     <key>QSPresetNNWSubscriptions</key>
     <string>NetNewsWire Subscriptions</string>
     <key>QSPresetNUDCContacts</key>
