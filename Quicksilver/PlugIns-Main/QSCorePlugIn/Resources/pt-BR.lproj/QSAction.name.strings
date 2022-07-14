@@ -241,9 +241,9 @@
     <key>URLEmailAction</key>
     <string>Abrir URL de E-mail</string>
     <key>URLFindWithAction</key>
-    <string>Find on Site...</string>
+    <string>Encontrar no Sie...</string>
     <key>URLJSAction</key>
-    <string>Run Javascript</string>
+    <string>Executar Javascript</string>
     <key>URLOpenAction</key>
     <string>Open URL</string>
     <key>URLOpenActionInBackground</key>
