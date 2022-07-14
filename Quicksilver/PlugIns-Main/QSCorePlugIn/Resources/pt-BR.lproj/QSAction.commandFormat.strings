@@ -71,7 +71,7 @@
     <key>FileGetInfoAction</key>
     <string>Obter informação em %@</string>
     <key>FileGetPathAction</key>
-    <string>Pega caminho posix de %@</string>
+    <string>Obter caminho posix de %@</string>
     <key>FileGetPosixPathAction</key>
     <string>Pega o caminho absoluto de %@</string>
     <key>FileGetURLAction</key>
