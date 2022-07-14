@@ -155,7 +155,7 @@
     <key>QSObjectShowSourceAction</key>
     <string>Exibir origem de %@ no catálogo</string>
     <key>QSPutOnShelfAction</key>
-    <string>Coloca %@ na prateleira</string>
+    <string>Colocar %@ na prateleira</string>
     <key>QSShelfShowAction</key>
     <string>Mostra %@</string>
     <key>QSShellScriptRunAction</key>
