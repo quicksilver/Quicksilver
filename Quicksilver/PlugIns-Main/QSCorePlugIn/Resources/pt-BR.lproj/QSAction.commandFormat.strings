@@ -41,7 +41,7 @@
     <key>AppQuitOthersAction</key>
     <string>%@ encerrar outros</string>
     <key>AppRelaunchAction</key>
-    <string>Reabre %@</string>
+    <string>Reiniciar %@</string>
     <key>AppReopenAction</key>
     <string>Abre %@</string>
     <key>AppRootLaunchAction</key>
