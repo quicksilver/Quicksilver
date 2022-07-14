@@ -9,7 +9,7 @@
     <key>QSCommandAddTriggerAction</key>
     <string>Adicionar %@ como Gatilho</string>
     <key>QSCommandExecuteAction</key>
-    <string>Executa %@</string>
+    <string>Executar %@</string>
     <key>AppShowHideAction</key>
     <string>Muda visualização de %@</string>
     <key>FileAlwaysOpenTypeWithAction</key>
