@@ -61,7 +61,7 @@
     <key>FileCompressAction</key>
     <string>Comprimir %@</string>
     <key>FileCopyToAction</key>
-    <string>Copia %@ para %@</string>
+    <string>Copiar %1$@ para %2$@</string>
     <key>FileDecompressAction</key>
     <string>Descomprime %@</string>
     <key>FileDeleteAction</key>
