@@ -73,7 +73,7 @@
     <key>FileGetPathAction</key>
     <string>Obter caminho posix de %@</string>
     <key>FileGetPosixPathAction</key>
-    <string>Pega o caminho absoluto de %@</string>
+    <string>Obter o caminho absoluto de %@</string>
     <key>FileGetURLAction</key>
     <string>Pega file:// URL de %@</string>
     <key>New item</key>
