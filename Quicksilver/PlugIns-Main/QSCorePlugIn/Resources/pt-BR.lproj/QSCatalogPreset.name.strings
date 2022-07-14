@@ -231,7 +231,7 @@
     <key>QSPresetUserScripts</key>
     <string>Scripts (Usuário)</string>
     <key>QSPresetUserWatsonTools</key>
-    <string>Watson Tools (User)</string>
+    <string>Ferramentas Watson (Usuário)</string>
     <key>QSPresetVolumes</key>
     <string>Disks</string>
     <key>QSPresetWatsonGroup</key>
