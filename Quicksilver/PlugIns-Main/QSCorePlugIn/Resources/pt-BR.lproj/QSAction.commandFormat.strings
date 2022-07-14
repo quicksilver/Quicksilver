@@ -83,7 +83,7 @@
     <key>FileMakeHardLinkInAction</key>
     <string>Criar um link físico para %1$@ em %2$@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Faça link para %1$@ em %2$@</string>
+    <string>Criar link para %1$@ em %2$@</string>
     <key>FileMoveToAction</key>
     <string>Move %1$@ para %2$@</string>
     <key>FileOpenAction</key>
