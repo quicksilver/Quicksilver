@@ -39,7 +39,7 @@
 "338.ibShadowedToolTip" = "Frequência do reexame";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "339"; */
-"339.title" = "Outras visualizações";
+"339.title" = "OutrasVisualizações";
 
 /* Class = "NSMenuItem"; title = "Every hour"; ObjectID = "340"; */
 "340.title" = "A cada hora";
