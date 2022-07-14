@@ -227,7 +227,7 @@
     <key>QSTextTypeAction</key>
     <string>Type Text</string>
     <key>QSUserSwitchAction</key>
-    <string>Switch to User</string>
+    <string>Alternar para Usuário</string>
     <key>QSiPhotoAlbumShowAction</key>
     <string>Show Album</string>
     <key>QSiPhotoAlbumSlideShowAction</key>
