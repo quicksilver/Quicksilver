@@ -67,7 +67,7 @@
     <key>FileDeleteAction</key>
     <string>Deletar %@</string>
     <key>FileGetHFSPathAction</key>
-    <string>Pega caminho HFS de %@</string>
+    <string>Obter caminho HFS de %@</string>
     <key>FileGetInfoAction</key>
     <string>Pega informação em %@</string>
     <key>FileGetPathAction</key>
