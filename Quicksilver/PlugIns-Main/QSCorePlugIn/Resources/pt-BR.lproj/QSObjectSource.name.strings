@@ -35,7 +35,7 @@
     <key>QSHistoryObjectSource</key>
     <string>Histórico do Objeto</string>
     <key>QSInternalObjectSource</key>
-    <string>Internal Objects</string>
+    <string>Objetos Internos</string>
     <key>QSObjCMessageSource</key>
     <string>Objective-C Messages</string>
     <key>QSProxyObjectSource</key>
