@@ -37,7 +37,7 @@
     <key>QSInternalObjectSource</key>
     <string>Objetos Internos</string>
     <key>QSObjCMessageSource</key>
-    <string>Objective-C Messages</string>
+    <string>Mensagens Objective-C</string>
     <key>QSProxyObjectSource</key>
     <string>Proxies</string>
     <key>QSUserDefinedProxySource</key>
