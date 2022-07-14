@@ -125,7 +125,7 @@
     <key>QSEditAction</key>
     <string>Editar %@</string>
     <key>QSLargeTypeAction</key>
-    <string>Exibir &quot;%@&quot; em fonte grande</string>
+    <string>Exibir &quot;%@&quot; em texto grande</string>
     <key>QSLoginItemAddAction</key>
     <string>Adicionar %@ aos itens de login</string>
     <key>QSLoginItemRemoveAction</key>
