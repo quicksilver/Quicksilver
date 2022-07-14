@@ -81,7 +81,7 @@
     <key>QSPresetDeveloperPublicFrameworks</key>
     <string>Frameworks P[ublico</string>
     <key>QSPresetDeveloperScreenSaverDocs</key>
-    <string>ScreenSaver</string>
+    <string>DescansoDeTela</string>
     <key>QSPresetDeveloperWebKitDocs</key>
     <string>WebKit</string>
     <key>QSPresetDevices</key>
