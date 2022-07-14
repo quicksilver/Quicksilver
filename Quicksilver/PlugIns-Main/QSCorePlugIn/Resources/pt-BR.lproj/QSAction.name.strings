@@ -157,7 +157,7 @@
     <key>QSComposeEmailItemReverseAction</key>
     <string>Enviar Email Para... (Compor)</string>
     <key>QSCreateFileAction</key>
-    <string>Create File [...]</string>
+    <string>Criar Arquivo [...]</string>
     <key>QSCreateFileTemplate</key>
     <string>Criar Novo...</string>
     <key>QSDialNumberAction</key>
