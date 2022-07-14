@@ -27,7 +27,7 @@
     <key>QSProcessObjectSource</key>
     <string>Processos em Execução</string>
     <key>QSVolumesObjectSource</key>
-    <string>Mounted Volumes</string>
+    <string>Volumes Montados</string>
     <key>QSiPhotoObjectSource</key>
     <string>iPhoto Library</string>
     <key>QSiTunesObjectSource</key>
