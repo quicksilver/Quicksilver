@@ -31,7 +31,7 @@
 "Quicksilver ranks the enabled actions based on their position in the table below. Drag actions up or down to reorder their ranking. Dragging an action to the top will make it the default action for its type." = "Quicksilver classifica as ações habilitadas com base em sua posição na tabela abaixo. Arraste as ações para cima ou para baixo para reordenar sua classificação. Arrastar uma ação para o topo a tornará a ação padrão para seu tipo.";
 
 /* 89.headerCell.title */
-"Rank" = "Rank";
+"Rank" = "Classificação";
 
 /* 125.title */
 "Small System Font Text" = "Texto Fonte de Sistema Pequena";
