@@ -79,7 +79,7 @@
     <key>New item</key>
     <string></string>
     <key>FileMakeAliasInAction</key>
-    <string>Faça apelido de %1$@ em %2$@</string>
+    <string>Criar apelido de %1$@ em %2$@</string>
     <key>FileMakeHardLinkInAction</key>
     <string>Faça um link manual para %1$@ em %2$@</string>
     <key>FileMakeLinkInAction</key>
