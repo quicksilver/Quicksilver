@@ -114,7 +114,7 @@
 "461.title" = "Atalho";
 
 /* Class = "NSTextFieldCell"; placeholderString = "none"; ObjectID = "462"; */
-"462.placeholderString" = "none";
+"462.placeholderString" = "nenhum";
 
 /* Class = "NSButtonCell"; title = "Edit"; ObjectID = "463"; */
 "463.title" = "Edit";
