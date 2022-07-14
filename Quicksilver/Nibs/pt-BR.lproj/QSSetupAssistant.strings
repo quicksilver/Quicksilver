@@ -36,7 +36,7 @@
 "303.ibShadowedNoSelectionPlaceholder" = " ";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Rescan frequency"; ObjectID = "338"; */
-"338.ibShadowedToolTip" = "Frequência do Reexame";
+"338.ibShadowedToolTip" = "Frequência do reexame";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "339"; */
 "339.title" = "Outras visualizações";
