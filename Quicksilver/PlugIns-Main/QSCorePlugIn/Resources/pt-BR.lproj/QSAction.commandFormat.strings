@@ -185,7 +185,7 @@
     <key>URLOpenWithAction</key>
     <string>Abrir %@ com %@</string>
     <key>URLSearchAction</key>
-    <string>Procura %@</string>
+    <string>Buscar %@</string>
     <key>URLSearchForAction</key>
     <string>Procura por %@ em %@</string>
   </dict>
