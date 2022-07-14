@@ -107,7 +107,7 @@
     <key>ProcessKillAction</key>
     <string>Forçar %@ a encerrar</string>
     <key>ProcessLowerPriorityAction</key>
-    <string>Reduzir a prioridade de %@</string>
+    <string>Reduzir prioridade de %@</string>
     <key>ProcessRaisePriorityAction</key>
     <string>Aumentar a prioridade de %@</string>
     <key>ProcessResumeAction</key>
