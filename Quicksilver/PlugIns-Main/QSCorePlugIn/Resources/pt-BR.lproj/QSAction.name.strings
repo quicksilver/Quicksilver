@@ -233,7 +233,7 @@
     <key>QSiPhotoAlbumSlideShowAction</key>
     <string>Tocar Slideshow</string>
     <key>QSiTunesAppendItemAction</key>
-    <string>Queue</string>
+    <string>Fila</string>
     <key>QSiTunesPlayItemAction</key>
     <string>Play</string>
     <key>ShellScriptRunAction</key>
