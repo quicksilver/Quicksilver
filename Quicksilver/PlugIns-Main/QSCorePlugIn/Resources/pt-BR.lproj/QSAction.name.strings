@@ -235,7 +235,7 @@
     <key>QSiTunesAppendItemAction</key>
     <string>Fila</string>
     <key>QSiTunesPlayItemAction</key>
-    <string>Play</string>
+    <string>Tocar</string>
     <key>ShellScriptRunAction</key>
     <string>Run Shell Script</string>
     <key>URLEmailAction</key>
