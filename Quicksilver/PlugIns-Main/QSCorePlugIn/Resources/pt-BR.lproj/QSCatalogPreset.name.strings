@@ -101,7 +101,7 @@
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Lugares Específicos de Busca do Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
-    <string>Favoritos do Firefox</string>
+    <string>Favoritos Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
     <string>Pastas Recentes (Abrir &amp; Salvar)</string>
     <key>QSPresetHome</key>
