@@ -85,7 +85,7 @@
     <key>QSPresetDeveloperWebKitDocs</key>
     <string>WebKit</string>
     <key>QSPresetDevices</key>
-    <string>Devices</string>
+    <string>Dispositivos</string>
     <key>QSPresetDockApplications</key>
     <string>Dock Applications</string>
     <key>QSPresetDockGroup</key>
