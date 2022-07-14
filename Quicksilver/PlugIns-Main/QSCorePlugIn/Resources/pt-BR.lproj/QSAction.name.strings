@@ -249,7 +249,7 @@
     <key>URLOpenActionInBackground</key>
     <string>Abrir URL em Segundo Plano</string>
     <key>URLOpenWithAction</key>
-    <string>Open URL With...</string>
+    <string>Abrir URL Com...</string>
     <key>URLSearchAction</key>
     <string>Search</string>
     <key>URLSearchForAction</key>
