@@ -91,7 +91,7 @@
     <key>QSPresetDockGroup</key>
     <string>Dock</string>
     <key>QSPresetDockOthers</key>
-    <string>Dock Files &amp; Folders</string>
+    <string>Arquivos &amp; Pastas do Dock</string>
     <key>QSPresetFavorites</key>
     <string>Favorites</string>
     <key>QSPresetFinderGroup</key>
