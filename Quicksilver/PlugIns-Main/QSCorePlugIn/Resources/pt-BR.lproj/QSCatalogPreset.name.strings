@@ -125,9 +125,9 @@
     <key>QSPresetLibraryPreferencePanes</key>
     <string>Preferências do Sistema (Todos Usuários)</string>
     <key>QSPresetLibraryScripts</key>
-    <string>Scripts (All Users)</string>
+    <string>Scripts (Todos Usuários)</string>
     <key>QSPresetMainApplications</key>
-    <string>Applications</string>
+    <string>Aplicativos</string>
     <key>QSPresetSystemApplications</key>
     <string>Aplicações de Ssitema</string>
     <key>QSPresetMiscellaneousGroup</key>
