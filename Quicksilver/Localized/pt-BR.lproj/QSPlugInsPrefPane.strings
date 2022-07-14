@@ -76,7 +76,7 @@
 "Refresh list of plugins" = "Atualizar lista de plugins";
 
 /* 489.ibShadowedToolTip */
-"Reload plugin list" = "Reload plugin list";
+"Reload plugin list" = "Recarregar lista de plugin";
 
 /* 100.title */
 "Show Plugins Folder" = "Exibir Pasta de Plugins";
@@ -88,7 +88,7 @@
 "Status" = "Estado";
 
 /* 297.headerCell.title */
-"Updated" = "Updated";
+"Updated" = "Atualizado";
 
 /* 486.headerCell.title */
 "Vers." = "Vers.";
