@@ -1,0 +1,28 @@
+/* Preference Pane Name */
+"Extras" = "Extras";
+
+/* Preference Pane Description */
+"The Kitchen Sink" = "A Pia da Cozinha";
+
+"QSShowTaskViewerAutomatically:title" = "Exibir o Visualizador de Tarefas automaticamente quando as tarefas forem criadas";
+"Hide Other Apps When Switching:title" = "Ocultar outros aplicativos quando alternando aplicativos (shift impede)";
+
+"Multithreaded Execute:title" = "Executar tarefas e ações em segundo plano";
+
+"QSActionAppReopenBehavior:title" = "Reabrindo o aplicativo atual";
+"QSActionAppReopenBehavior:activates the application" = "ativa o aplicativo";
+"QSActionAppReopenBehavior:shows the front window" = "exibe a janela principal";
+"QSActionAppReopenBehavior:shows all windows" = "exibe todas as janelas";
+
+"QSUpdateReleaseLevel:title" = "Tipo de Atualização do Aplicativo";
+"QSUpdateReleaseLevel:Final Releases" = "Versões Finais";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Versões Prerelease Candidate";
+"QSUpdateReleaseLevel:Developer Previews" = "Versões Preview de Desenvolvedor";
+"QSUpdateWithoutAsking:title" = "Atualizar sem perguntar";
+
+"Shift Actions:title" = "Permitir que chaves maiúsculas selecionem a ação";
+
+"Suppress HotKeys in Command:title" = "Desabilitar Gatilhos de Teclado quando Quicksilver estiver em foco";
+
+"Double Delete Clears Object:title" = "Pressionando tecla Delete limpa toda a sequência de busca";
+"QSHistoryMaxLength:title" = "Número de Itens no histórico do Quicksilver";
