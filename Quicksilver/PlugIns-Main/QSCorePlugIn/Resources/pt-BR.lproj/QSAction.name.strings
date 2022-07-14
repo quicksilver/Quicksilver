@@ -205,7 +205,7 @@
     <key>QSObjectExplodeCombinedAction</key>
     <string>Explodir Seleção</string>
     <key>QSObjectLogConsoleAction</key>
-    <string>Registar Objeto para Console</string>
+    <string>Registar Objeto no Console</string>
     <key>QSObjectShowSourceAction</key>
     <string>Exibir Origem no Catálogo</string>
     <key>QSPutOnShelfAction</key>
