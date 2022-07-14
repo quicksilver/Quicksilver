@@ -157,7 +157,7 @@
     <key>QSPutOnShelfAction</key>
     <string>Colocar %@ na prateleira</string>
     <key>QSShelfShowAction</key>
-    <string>Mostra %@</string>
+    <string>Exibir %@</string>
     <key>QSShellScriptRunAction</key>
     <string>Executa script: %@</string>
     <key>QSSoundPlayAction</key>
