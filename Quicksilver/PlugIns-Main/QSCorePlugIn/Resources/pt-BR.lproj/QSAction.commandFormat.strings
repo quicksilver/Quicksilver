@@ -135,7 +135,7 @@
     <key>QSObjCSendMessageAction</key>
     <string>Executar %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Ajusta etiqueta de %1$@ para %2$@</string>
+    <string>Ajustar etiqueta de %1$@ para %2$@</string>
     <key>QSObjectAssignMnemonic</key>
     <string>Ajusta mnemônica de %1$@ para %2$@</string>
     <key>QSObjectOmitAction</key>
