@@ -7,7 +7,7 @@
     <key>QSAddressBookObjectSource</key>
     <string>Agenda</string>
     <key>QSAirPortNetworkObjectSource</key>
-    <string>AirPort Networks</string>
+    <string>Redes AirPort</string>
     <key>QSAllApplicationsObjectSource</key>
     <string>All Applications</string>
     <key>QSCatalogEntrySource</key>
