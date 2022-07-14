@@ -117,7 +117,7 @@
 "462.placeholderString" = "nenhum";
 
 /* Class = "NSButtonCell"; title = "Edit"; ObjectID = "463"; */
-"463.title" = "Edit";
+"463.title" = "Editar";
 
 /* Class = "NSButtonCell"; title = "Go Back"; ObjectID = "465"; */
 "465.title" = "Voltar";
