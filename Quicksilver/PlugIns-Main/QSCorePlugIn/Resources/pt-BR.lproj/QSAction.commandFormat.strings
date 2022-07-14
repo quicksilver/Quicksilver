@@ -15,7 +15,7 @@
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>Sempre Abrir %@&apos;s Arquivos com %@</string>
     <key>QSCommandSaveAction</key>
-    <string>Grave %@ para Arquivo</string>
+    <string>Salvar %@ para Arquivo</string>
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Cole %@ como Texto sem formatação</string>
     <key>QSCreateFileTemplate</key>
