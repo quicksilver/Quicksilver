@@ -107,9 +107,9 @@
     <key>QSPresetHome</key>
     <string>Início</string>
     <key>QSPresetICabBookmarks</key>
-    <string>iCab Bookmarks</string>
+    <string>Favoritos iCab</string>
     <key>QSPresetInternalMessages</key>
-    <string>Internal Commands</string>
+    <string>Comandos internos</string>
     <key>QSPresetInternalObjects</key>
     <string>Internal Objects</string>
     <key>QSPresetILifeGroup</key>
