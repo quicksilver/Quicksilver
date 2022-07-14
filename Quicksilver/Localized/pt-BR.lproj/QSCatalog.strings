@@ -4,7 +4,7 @@
 "Catalog" = "Catalogo";
 
 /* Preference Pane Description */
-"Modify the list of searchable items" = "Modify the list of searchable items";
+"Modify the list of searchable items" = "Modificar a lista de itens buscáveis";
 
 /* 499.ibShadowedDisplayPattern */
 "%{value1}@ Items" = "%{value1}@ Itens";
