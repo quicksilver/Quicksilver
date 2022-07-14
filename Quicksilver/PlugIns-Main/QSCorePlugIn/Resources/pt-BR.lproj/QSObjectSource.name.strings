@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>QSABMailRecentsObjectSource</key>
-    <string>Mail Previous Recipients</string>
+    <string>Enviar Email a Recipientes Anteriores</string>
     <key>QSAddressBookObjectSource</key>
     <string>Address Book</string>
     <key>QSAirPortNetworkObjectSource</key>
