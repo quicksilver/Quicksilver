@@ -17,7 +17,7 @@
     <key>QSPresetProxies</key>
     <string>Objetos Proxy</string>
     <key>QSPresetAddressBook</key>
-    <string>Address Book Contacts</string>
+    <string>Contatos da Agenda</string>
     <key>QSPresetAddressBookGroup</key>
     <string>Address Book</string>
     <key>QSPresetAddressBookScripts</key>
