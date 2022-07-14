@@ -69,7 +69,7 @@
 "64-bit details" = "Alguns plugins mais antigos não irão carregar. Uma lista de plugins desabilitados está disponível nas Preferências.\n\nSe você não pode absolutamente viver sem um plugin mais antigo. Quicksilver pode rodar em modo 32-bit (Suporte a 32-bit será abandonado em versão futura.)";
 "Network and Removable Disks" = "Rede e Discos Removíveis";
 
-"Type to search" = "Type to search";
+"Type to search" = "Digite para buscar";
 
 "Choose Location..." = "Escolher localização...";
 
