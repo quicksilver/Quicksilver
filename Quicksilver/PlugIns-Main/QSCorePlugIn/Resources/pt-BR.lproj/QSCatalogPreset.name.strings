@@ -239,11 +239,11 @@
     <key>QSPresetWirelessNetworks</key>
     <string>Redes AirPort</string>
     <key>QSPresetiPhotoAlbums</key>
-    <string>iPhoto Albums</string>
+    <string>Álbuns iPhoto</string>
     <key>QSPresetiTunesGroup</key>
     <string>iTunes</string>
     <key>QSPresetiTunesPlaylists</key>
-    <string>iTunes Music</string>
+    <string>Música iTunes</string>
     <key>QSPresetiTunesScripts</key>
     <string>iTunes Scripts</string>
     <key>QSPresetRemovableVolumes</key>
