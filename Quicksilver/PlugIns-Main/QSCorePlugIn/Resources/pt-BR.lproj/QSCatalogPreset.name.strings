@@ -153,7 +153,7 @@
     <key>QSPresetOmniWebGroup</key>
     <string>OmniWeb</string>
     <key>QSPresetOmniWebHistory</key>
-    <string>OmniWeb History</string>
+    <string>Histórico OmniWeb</string>
     <key>QSPresetOmniWebServerBookmarks</key>
     <string>OmniWeb Bookmarks (Server)</string>
     <key>QSPresetOmniWebShortcuts</key>
