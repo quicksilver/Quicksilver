@@ -215,7 +215,7 @@
     <key>QSShellScriptRunAction</key>
     <string>Executar [...]</string>
     <key>QSTextShowDialogAction</key>
-    <string>Display Dialog</string>
+    <string>Exibir Diálogo</string>
     <key>QSTextSpeakAction</key>
     <string>Falar Texto (Dizer)</string>
     <key>QSTextAppendAction</key>
@@ -225,7 +225,7 @@
     <key>QSTextPrependAction</key>
     <string>Anexar Texto Para...</string>
     <key>QSTextTypeAction</key>
-    <string>Type Text</string>
+    <string>Digitar Texto</string>
     <key>QSUserSwitchAction</key>
     <string>Alternar para Usuário</string>
     <key>QSiPhotoAlbumShowAction</key>
