@@ -245,7 +245,7 @@
     <key>QSPresetiTunesPlaylists</key>
     <string>Música iTunes</string>
     <key>QSPresetiTunesScripts</key>
-    <string>iTunes Scripts</string>
+    <string>Scripts iTunes</string>
     <key>QSPresetRemovableVolumes</key>
     <string>Network and Removable Disks</string>
   </dict>
