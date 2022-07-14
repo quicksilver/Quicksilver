@@ -163,7 +163,7 @@
     <key>QSSoundPlayAction</key>
     <string>Tocar %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diferencie %1$@ e %2$@</string>
+    <string>Diferenciar %1$@ e %2$@</string>
     <key>QSTextShowDialogAction</key>
     <string>Exibir diálogo: &quot;#@&quot;</string>
     <key>QSTextSpeakAction</key>
