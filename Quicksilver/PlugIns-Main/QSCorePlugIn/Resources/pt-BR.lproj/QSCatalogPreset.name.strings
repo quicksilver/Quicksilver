@@ -69,11 +69,11 @@
     <key>QSPresetDeveloperFoundationDocumentation</key>
     <string>Documentação Fundação</string>
     <key>QSPresetDeveloperFoundationHeaders</key>
-    <string>Foundation Headers</string>
+    <string>Cabeçalhos Fundação</string>
     <key>QSPresetDeveloperFrameworks</key>
     <string>Frameworks</string>
     <key>QSPresetDeveloperOtherDocs</key>
-    <string>Other Documentation</string>
+    <string>Outra Documentação</string>
     <key>QSPresetDeveloperPreferencePaneDocs</key>
     <string>PreferencePanes</string>
     <key>QSPresetDeveloperPrivateFrameworks</key>
