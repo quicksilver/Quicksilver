@@ -169,7 +169,7 @@
     <key>QSTextSpeakAction</key>
     <string>Dizer &quot;%@&quot;</string>
     <key>QSTextTypeAction</key>
-    <string>Escreva &quot;%@&quot;</string>
+    <string>Escrever &quot;%@&quot;</string>
     <key>ShellScriptRunAction</key>
     <string>Executa Script: %@</string>
     <key>URLEmailAction</key>
