@@ -63,7 +63,7 @@
     <key>QSPresetDeveloperApplications</key>
     <string>Aplicativos (Desenvolvedor)</string>
     <key>QSPresetDeveloperCoreFoundationHeaders</key>
-    <string>CoreFoundation Headers</string>
+    <string>Cabeçalhos CoreFoundation</string>
     <key>QSPresetDeveloperFoundation</key>
     <string>Foundation</string>
     <key>QSPresetDeveloperFoundationDocumentation</key>
