@@ -187,6 +187,6 @@
     <key>URLSearchAction</key>
     <string>Procura por uma URL</string>
     <key>URLSearchForAction</key>
-    <string>Procura por text em uma URL de Consulta</string>
+    <string>Procurar por texto em uma URL de Consulta</string>
   </dict>
 </plist>
