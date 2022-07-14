@@ -133,7 +133,7 @@
     <key>QSNewFolderAction</key>
     <string>Criar uma nova pasta em %1$@ chamada %2$@</string>
     <key>QSObjCSendMessageAction</key>
-    <string>Executa %@</string>
+    <string>Executar %@</string>
     <key>QSObjectAssignLabelAction</key>
     <string>Ajusta etiqueta de %1$@ para %2$@</string>
     <key>QSObjectAssignMnemonic</key>
