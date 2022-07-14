@@ -57,7 +57,7 @@
     <key>DiskEjectAction</key>
     <string>Ejetar %@</string>
     <key>DiskForceEjectAction</key>
-    <string>Força %@ para Ejetar</string>
+    <string>Forçar %@ a Ejetar</string>
     <key>FileCompressAction</key>
     <string>Comprime %@</string>
     <key>FileCopyToAction</key>
