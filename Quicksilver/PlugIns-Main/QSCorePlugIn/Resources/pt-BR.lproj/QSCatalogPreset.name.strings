@@ -193,7 +193,7 @@
     <key>QSPresetFavoriteServers</key>
     <string>Favorite Servers</string>
     <key>QSPresetRendezvous</key>
-    <string>Rendezvous Servers</string>
+    <string>Servidores Rendezvous</string>
     <key>QSPresetRendezvousMachines</key>
     <string>Quicksilver Rendezvous</string>
     <key>QSPresetRoot</key>
