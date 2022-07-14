@@ -93,7 +93,7 @@
     <key>FileRenameAction</key>
     <string>Renomear %1$@ para %2$@</string>
     <key>FileRevealAction</key>
-    <string>Revela %@</string>
+    <string>Revelar %@</string>
     <key>FileToTrashAction</key>
     <string>Move %@ para a lixeira</string>
     <key>ItemSendToContactEmailAction</key>
