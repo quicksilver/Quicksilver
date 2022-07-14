@@ -39,7 +39,7 @@
     <key>PasteboardCopyAction</key>
     <string>Copiar Item para Área de Transferência</string>
     <key>AppHideOthersAction</key>
-    <string>Ocultar todos os outros Aplicativos</string>
+    <string>Esconder todos os outros Aplicativos</string>
     <key>QSTextShowDialogAction</key>
     <string>Mostrar Texto em um Diálogo Pop-up</string>
     <key>QSObjectShowChildrenAction</key>
