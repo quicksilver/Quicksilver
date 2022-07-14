@@ -51,7 +51,7 @@
     <key>AppleScriptProcessTextAction</key>
     <string>Processar %1$@ com %2$@</string>
     <key>AppleScriptRunAction</key>
-    <string>Executa Script: %@</string>
+    <string>Executar Script: %@</string>
     <key>AppleScriptRunTextAction</key>
     <string>Executa &apos;%@&apos;</string>
     <key>DiskEjectAction</key>
