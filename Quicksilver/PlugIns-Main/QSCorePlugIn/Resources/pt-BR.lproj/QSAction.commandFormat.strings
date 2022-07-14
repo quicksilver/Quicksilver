@@ -103,7 +103,7 @@
     <key>PasteboardCopyAction</key>
     <string>Copiar %@ para a área de transferência</string>
     <key>PasteboardPasteAction</key>
-    <string>Cola %@ com a aplicação atual</string>
+    <string>Colar %@ com a aplicação atual</string>
     <key>ProcessKillAction</key>
     <string>Força %@ para encerrar</string>
     <key>ProcessLowerPriorityAction</key>
