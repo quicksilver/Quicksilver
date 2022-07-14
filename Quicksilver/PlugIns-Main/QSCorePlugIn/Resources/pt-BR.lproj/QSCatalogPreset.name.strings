@@ -87,7 +87,7 @@
     <key>QSPresetDevices</key>
     <string>Dispositivos</string>
     <key>QSPresetDockApplications</key>
-    <string>Dock Applications</string>
+    <string>Aplicativos do Dock</string>
     <key>QSPresetDockGroup</key>
     <string>Dock</string>
     <key>QSPresetDockOthers</key>
