@@ -27,7 +27,7 @@
     <key>AppHideAction</key>
     <string>Esconder %@</string>
     <key>AppHideOthersAction</key>
-    <string>%@ esconde outros</string>
+    <string>%@ esconder outros</string>
     <key>AppLaunchAction</key>
     <string>Abre %@</string>
     <key>AppLaunchAgainAction</key>
