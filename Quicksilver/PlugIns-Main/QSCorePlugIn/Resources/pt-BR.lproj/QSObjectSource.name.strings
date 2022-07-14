@@ -31,7 +31,7 @@
     <key>QSiPhotoObjectSource</key>
     <string>Biblioteca do iPhoto</string>
     <key>QSiTunesObjectSource</key>
-    <string>iTunes Music Library</string>
+    <string>Biblioteca de Música do iTunes</string>
     <key>QSHistoryObjectSource</key>
     <string>Object History</string>
     <key>QSInternalObjectSource</key>
