@@ -245,7 +245,7 @@
     <key>URLJSAction</key>
     <string>Executar Javascript</string>
     <key>URLOpenAction</key>
-    <string>Open URL</string>
+    <string>Abrir URL</string>
     <key>URLOpenActionInBackground</key>
     <string>Open URL in Background</string>
     <key>URLOpenWithAction</key>
