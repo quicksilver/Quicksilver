@@ -1,4 +1,4 @@
-﻿// Typical strings
+﻿﻿// Typical strings
 "OK" = "OK";
 "Cancel" = "Cancel";
 "Quit" = "Quit";
@@ -7,6 +7,9 @@
 "General" = "Geral";
 
 // Preference Strings
+/* Default preference pane name */
+"Preferences" = "Preferências";
+
 "QSPlugInsPrefPane" = "Plugins";
 "QSUpdatePrefPane" = "Update";
 "QSHelpersPrefPane" = "Helpers";
@@ -16,6 +19,12 @@
 "QSSilverNotifier" = "Quicksilver (Built-in)";
 "QSNotificationCenterNotifier" = "Notification Center";
 "QSDefaultStringRanker" = "Default (Built-in)";
+
+
+// Preference Pane Information
+/* Guide preference pane name */
+"Guide" = "Guia";
+
 
 // QSController.m Alerts
 "requires" = "requires";
@@ -63,3 +72,107 @@
 "Type to search" = "Type to search";
 
 "Choose Location..." = "Choose Location...";
+
+// ---------------
+
+// ResultWindow
+
+/* No comment provided by engineer. */
+"%d of %d" = "%1$d de %2$d";
+
+/* Search mode shown in top right hand of results view when filtering catalog */
+"Filter Catalog" = "Filtrar Catálogo";
+
+/* Search mode shown in top right hand of results view when filtering just the results */
+"Filter Results" = "Filtrar Resultados";
+
+/* Search mode shown in top right hand of results when snapping to best option */
+"Snap to Best" = "Ajustar para Melhor";
+
+
+// QSPlugin Manager
+/* QSPlugin manager - Plugin install alert - other button */
+"Always Install" = "Sempre instalar";
+
+/* No comment provided by engineer. */
+"Always Install Plugins" = "Sempre Instalar Plugins";
+
+/* Missing dependencies alert - button 3 */
+"Always Install Requirements" = "Sempre Instalar Requisitos";
+
+/* Delete & relaunch alert default button (alternate) */
+"Delete" = "Apagar";
+
+/* Delete & relaunch alert default button */
+"Delete and Relaunch" = "Apagar e Reiniciar";
+
+/* Delete & relaunch alert title */
+"Delete plugins?" = "Apagar plugins?";
+
+/* Missing dependencies alert - button 2 */
+"Disable" = "Desabilitar";
+
+/* No comment provided by engineer. */
+"Do you wish to install the %@?" = "Você gostaria de instalar o %@?";
+
+/* QSPlugin manager - Plugin installed alert - message */
+"Do you wish to move selected items to Quicksilver's plugin folder?" = "Você gostaria de mover os itens selecionados para pasta de plugins do Quicksilver?";
+
+/* No comment provided by engineer. */
+"Download failed" = "Download falhou";
+
+/* Plugin extraction failed - title */
+"Failed to Extract Plugin" = "Falhou ao Extrair Plugin";
+
+/* Missing dependencies alert - button 1
+   QSPlugin manager - Plugin install alert - default button */
+"Install" = "Instalar";
+
+/* QSPlugin manager - Plugin requires relaunch alert - title */
+"Install complete" = "Instalação concluída";
+
+/* QSPlugin manager - Plugin install alert - title */
+"Install plugins?" = "Instalar plugins?";
+
+/* No comment provided by engineer. */
+"Installation complete" = "Instalação completa";
+
+/* No comment provided by engineer. */
+"Installing %ld Plugins" = "Instalando %ld Plugins";
+
+/* No comment provided by engineer. */
+"Installing Plugin" = "Instalando Plugin";
+
+/* QSPlugin manager - Plugin requires relaunch alert - cancel button */
+"Later" = "Mais tarde";
+
+/* No comment provided by engineer. */
+"Plugin download failed" = "Download do plugin falhou";
+
+/* Missing dependencies alert - title */
+"Plugin requirements" = "Requisitos do plugin";
+
+/* QSPlugin manager - Plugin requires relaunch alert - default button */
+"Relaunch" = "Relaunch";
+
+/* QSPlugin manager - Plugin requires relaunch alert - message */
+"Some plugins will not be available until Quicksilver is relaunched." = "Alguns plugins não estarão disponíveis até que o Quicksilver seja reiniciado.";
+
+/* Missing dependencies alert - message (depending plugin names, unmet plugin names) */
+"There are missing dependencies: %@\n\nThe following plugins will not work until those plugins are installed: %@" = "Existem dependências não encontradas: %1$@\n\nOs seguintes plugins não vão funcionar até que eles sejam instalados:%2$@";
+
+/* Plugin extraction failed - message */
+"There was a problem extracting the QSPkg %@.\nThe file is most likely corrupt." = "Ocorreu um problema na extração do QSPkg %@.\nO arquivo parece estar corrompido.";
+
+/* No comment provided by engineer. */
+"Updating plugin info" = "Atualizando informação do plugin";
+
+/* No comment provided by engineer. */
+"Updating Plugin Info" = "Atualizando Informação do Plugin";
+
+/* Delete & relaunch alert message (alternate) */
+"Would you like to delete the selected plugins?" = "Você gostaria de apagar os plugins selecionados?";
+
+/* Delete & relaunch alert message */
+"Would you like to delete the selected plugins? A relaunch will be required" = "Você gostaria de apagar os plugins selecionados? Uma reinicialização será necessária";
+
