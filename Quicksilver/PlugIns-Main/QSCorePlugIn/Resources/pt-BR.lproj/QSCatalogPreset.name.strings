@@ -155,9 +155,9 @@
     <key>QSPresetOmniWebHistory</key>
     <string>Histórico OmniWeb</string>
     <key>QSPresetOmniWebServerBookmarks</key>
-    <string>OmniWeb Bookmarks (Server)</string>
+    <string>Favoritos OmniWeb (Servidor)</string>
     <key>QSPresetOmniWebShortcuts</key>
-    <string>OmniWeb Shortcuts</string>
+    <string>Atalhos OmniWeb</string>
     <key>QSPresetOperaBookmarks</key>
     <string>Opera Bookmarks</string>
     <key>QSPresetPathFinderGroup</key>
