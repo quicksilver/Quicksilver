@@ -13,7 +13,7 @@
 "Copy Installation URL" = "Copiar URL de instalação";
 
 /* 98.title */
-"Delete Selected Plugins" = "Excluir plugins selecionados";
+"Delete Selected Plugins" = "Deletar plugins selecionados";
 
 /* 371.title */
 "Download as File..." = "Baixar como arquivo...";
@@ -22,10 +22,10 @@
 "Install Selected Plugins" = "Instalar plugins selecionados";
 
 /* 332.title */
-"Install clicked plugins without asking" = "Instale plugins clicados sem perguntar";
+"Install clicked plugins without asking" = "Instalar plugins clicados sem perguntar";
 
 /* 103.title */
-"Install plugins from web without asking" = "Instale plugins da web sem perguntar";
+"Install plugins from web without asking" = "Instalar plugins da web sem perguntar";
 
 /* 352.title */
 "Install prerequisites without asking" = "Instale pré-requisitos sem perguntar";
