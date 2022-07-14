@@ -21,9 +21,9 @@
     <key>QSMachineSource</key>
     <string>Máquinas Quicksilver</string>
     <key>QSNUDCSource</key>
-    <string>Now Up-To-Date and Contact</string>
+    <string>Contato e Atualização do Now</string>
     <key>QSNetworkLocationObjectSource</key>
-    <string>Network Locations</string>
+    <string>Localizações de Rede</string>
     <key>QSProcessObjectSource</key>
     <string>Running Processes</string>
     <key>QSVolumesObjectSource</key>
