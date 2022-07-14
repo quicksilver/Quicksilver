@@ -2,8 +2,8 @@
 "OK" = "OK";
 "Cancel" = "Cancelar";
 "Quit" = "Encerrar";
-"Relaunch" = "Relaunch";
-"Ignore" = "Ignore";
+"Relaunch" = "Reiniciar";
+"Ignore" = "Ignorar";
 "General" = "Geral";
 
 // Preference Strings
@@ -153,7 +153,7 @@
 "Plugin requirements" = "Requisitos do plugin";
 
 /* QSPlugin manager - Plugin requires relaunch alert - default button */
-"Relaunch" = "Relaunch";
+"Relaunch" = "Reiniciar";
 
 /* QSPlugin manager - Plugin requires relaunch alert - message */
 "Some plugins will not be available until Quicksilver is relaunched." = "Alguns plugins não estarão disponíveis até que o Quicksilver seja reiniciado.";
