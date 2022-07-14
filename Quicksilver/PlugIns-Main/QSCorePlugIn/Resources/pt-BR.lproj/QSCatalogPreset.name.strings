@@ -11,7 +11,7 @@
     <key>QSPresetDocuments</key>
     <string>Documentos</string>
     <key>QSPresetICloudDocuments</key>
-    <string>iCloud Documents</string>
+    <string>Documentos iCloud</string>
     <key>QSPresetAccounts</key>
     <string>Contas de Usuário</string>
     <key>QSPresetProxies</key>
@@ -191,7 +191,7 @@
     <key>QSPresetRecentServers</key>
     <string>Servidores Recentes</string>
     <key>QSPresetFavoriteServers</key>
-    <string>Favorite Servers</string>
+    <string>Servidores Favoritos</string>
     <key>QSPresetRendezvous</key>
     <string>Servidores Rendezvous</string>
     <key>QSPresetRendezvousMachines</key>
