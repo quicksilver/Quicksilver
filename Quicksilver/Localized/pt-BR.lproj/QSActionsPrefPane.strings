@@ -10,10 +10,10 @@
 "%{value1}@ actions" = "%{value1}@ ações ";
 
 /* 32.headerCell.title */
-"Action (↩)" = "Ação (↩)";
+"Action (↩)" = "Ação (\r)";
 
 /* 141.headerCell.title */
-"Alternate Action (⌘↩)" = "Alternar Ação (⌘↩)";
+"Alternate Action (⌘↩)" = "Alternar Ação (⌘\r)";
 
 /* 46.title */
 "Box" = "Caixa";
