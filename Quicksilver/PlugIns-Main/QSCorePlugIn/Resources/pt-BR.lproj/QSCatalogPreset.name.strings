@@ -201,7 +201,7 @@
     <key>QSPresetRunningProcesses</key>
     <string>Aplicativos &amp; Processos em Execução</string>
     <key>QSPresetSafariBookmarks</key>
-    <string>Safari Bookmarks</string>
+    <string>Favoritos Safari</string>
     <key>QSPresetSafariGroup</key>
     <string>Safari</string>
     <key>QSPresetSafariHistory</key>
