@@ -21,7 +21,7 @@
     <key>QSCreateFileTemplate</key>
     <string>Criar um novo Arquivo Modelo %2$@ na Pasta %1$@</string>
     <key>QSCommandExecuteAfterDelayAction</key>
-    <string>Executa %@ após Atraso</string>
+    <string>Executar %@ após Atraso</string>
     <key>AppActivateAction</key>
     <string>Ativa %@</string>
     <key>AppHideAction</key>
