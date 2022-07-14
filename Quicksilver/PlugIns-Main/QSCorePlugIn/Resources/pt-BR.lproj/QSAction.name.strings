@@ -167,7 +167,7 @@
     <key>QSEmailAction</key>
     <string>Enviar Email</string>
     <key>QSEmailItemAction</key>
-    <string>Enviar Item por Email Item... (Enviar)</string>
+    <string>Enviar Item por Email... (Enviar)</string>
     <key>QSEmailItemReverseAction</key>
     <string>Enviar Email Para... (Enviar)</string>
     <key>QSHFSLockAction</key>
