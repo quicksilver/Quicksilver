@@ -99,7 +99,7 @@
     <key>QSPresetFinderRecentFolders</key>
     <string>Pastas Recentes (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
-    <string>Finder Specific Search Places</string>
+    <string>Lugares Específicos de Busca do Finder</string>
     <key>QSPresetFirefoxBookmarks</key>
     <string>Firefox Bookmarks</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
