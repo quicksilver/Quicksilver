@@ -189,7 +189,7 @@
     <key>QSPresetRecentSelections</key>
     <string>Seleções Recentes</string>
     <key>QSPresetRecentServers</key>
-    <string>Recent Servers</string>
+    <string>Servidores Recentes</string>
     <key>QSPresetFavoriteServers</key>
     <string>Favorite Servers</string>
     <key>QSPresetRendezvous</key>
