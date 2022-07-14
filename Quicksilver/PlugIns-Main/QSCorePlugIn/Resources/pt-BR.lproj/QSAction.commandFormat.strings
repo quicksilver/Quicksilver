@@ -147,7 +147,7 @@
     <key>QSObjectShowActionMenu</key>
     <string>Exibir menu de ações para %@</string>
     <key>QSObjectShowChildMenu</key>
-    <string>Mostra menu de conteúdos para %@</string>
+    <string>Exibir menu de conteúdos para %@</string>
     <key>QSObjectShowChildrenAction</key>
     <string>Mostra conteúdos para %@</string>
     <key>QSObjectShowMenu</key>
