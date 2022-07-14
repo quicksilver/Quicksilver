@@ -9,7 +9,7 @@
     <key>QSAirPortNetworkObjectSource</key>
     <string>Redes AirPort</string>
     <key>QSAllApplicationsObjectSource</key>
-    <string>All Applications</string>
+    <string>Todos Aplicativos</string>
     <key>QSCatalogEntrySource</key>
     <string>Catalog Entries</string>
     <key>QSDefaultsObjectSource</key>
