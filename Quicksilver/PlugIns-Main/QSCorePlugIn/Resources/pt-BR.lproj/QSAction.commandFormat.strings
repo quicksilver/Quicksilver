@@ -145,7 +145,7 @@
     <key>QSObjectSelectAction</key>
     <string>Selecionar %@ na janela de comando</string>
     <key>QSObjectShowActionMenu</key>
-    <string>Mostrar menu de ações para %@</string>
+    <string>Exibir menu de ações para %@</string>
     <key>QSObjectShowChildMenu</key>
     <string>Mostra menu de conteúdos para %@</string>
     <key>QSObjectShowChildrenAction</key>
