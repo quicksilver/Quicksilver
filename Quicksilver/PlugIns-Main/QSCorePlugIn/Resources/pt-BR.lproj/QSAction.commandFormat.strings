@@ -87,7 +87,7 @@
     <key>FileMoveToAction</key>
     <string>Mover %1$@ para %2$@</string>
     <key>FileOpenAction</key>
-    <string>Abre %@</string>
+    <string>Abrir %@</string>
     <key>FileOpenWithAction</key>
     <string>Abre %1$@ com %2$@</string>
     <key>FileRenameAction</key>
