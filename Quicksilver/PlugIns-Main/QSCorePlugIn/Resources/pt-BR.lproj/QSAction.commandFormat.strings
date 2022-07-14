@@ -23,7 +23,7 @@
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Executar %@ após Atraso</string>
     <key>AppActivateAction</key>
-    <string>Ativa %@</string>
+    <string>Ativar %@</string>
     <key>AppHideAction</key>
     <string>Esconde %@</string>
     <key>AppHideOthersAction</key>
