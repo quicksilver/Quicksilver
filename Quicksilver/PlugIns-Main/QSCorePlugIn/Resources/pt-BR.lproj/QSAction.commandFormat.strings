@@ -177,7 +177,7 @@
     <key>URLFindWithAction</key>
     <string>Encontrar %@ com %@</string>
     <key>URLJSAction</key>
-    <string>Executa %@</string>
+    <string>Executar %@</string>
     <key>URLOpenAction</key>
     <string>Abre %@</string>
     <key>URLOpenActionInBackground</key>
