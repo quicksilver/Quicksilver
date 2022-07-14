@@ -65,7 +65,7 @@
     <key>FileDecompressAction</key>
     <string>Descomprimir %@</string>
     <key>FileDeleteAction</key>
-    <string>Apaga %@</string>
+    <string>Deletar %@</string>
     <key>FileGetHFSPathAction</key>
     <string>Pega caminho HFS de %@</string>
     <key>FileGetInfoAction</key>
