@@ -31,7 +31,7 @@
     <key>AppLaunchAction</key>
     <string>Iniciar %@</string>
     <key>AppLaunchAgainAction</key>
-    <string>Abre outra instância de %@</string>
+    <string>Iniciar outra instância de %@</string>
     <key>AppLaunchAsRootAction</key>
     <string>Abre %@ como root</string>
     <key>AppOpenFileAction</key>
