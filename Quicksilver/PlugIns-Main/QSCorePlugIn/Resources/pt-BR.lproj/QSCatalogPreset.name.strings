@@ -227,7 +227,7 @@
     <key>QSPresetUserApplications</key>
     <string>Aplicativos (Usuário)</string>
     <key>QSPresetUserPreferencePanes</key>
-    <string>System Preferences (User)</string>
+    <string>Preferências do Sistema (Usuário)</string>
     <key>QSPresetUserScripts</key>
     <string>Scripts (User)</string>
     <key>QSPresetUserWatsonTools</key>
