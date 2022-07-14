@@ -3,9 +3,9 @@
 <plist version="1.0">
   <dict>
     <key>QSPresetABMailRecents</key>
-    <string>Mail Previous Recipients</string>
+    <string>Enviar Email a Recipientes Anteriores</string>
     <key>QSPresetUserGroup</key>
-    <string>User</string>
+    <string>Usuário</string>
     <key>QSPresetDownloads</key>
     <string>Downloads</string>
     <key>QSPresetDocuments</key>
