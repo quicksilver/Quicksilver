@@ -143,7 +143,7 @@
     <key>QSObjectSearchChildrenAction</key>
     <string>Buscar Conteúdos de %@</string>
     <key>QSObjectSelectAction</key>
-    <string>Seleciona %@ na janela de comando</string>
+    <string>Selecionar %@ na janela de comando</string>
     <key>QSObjectShowActionMenu</key>
     <string>Mostra menu de ações para %@</string>
     <key>QSObjectShowChildMenu</key>
