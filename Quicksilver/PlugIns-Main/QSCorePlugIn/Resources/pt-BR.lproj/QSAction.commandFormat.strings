@@ -35,7 +35,7 @@
     <key>AppLaunchAsRootAction</key>
     <string>Inniciar %@ como root</string>
     <key>AppOpenFileAction</key>
-    <string>Abre %@ com %@</string>
+    <string>Abrir %@ com %@</string>
     <key>AppQuitAction</key>
     <string>Encerra %@</string>
     <key>AppQuitOthersAction</key>
