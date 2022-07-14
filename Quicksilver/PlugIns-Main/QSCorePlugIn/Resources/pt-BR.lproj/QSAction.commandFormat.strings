@@ -95,7 +95,7 @@
     <key>FileRevealAction</key>
     <string>Revelar %@</string>
     <key>FileToTrashAction</key>
-    <string>Move %@ para a lixeira</string>
+    <string>Mover %@ para a Lixo</string>
     <key>ItemSendToContactEmailAction</key>
     <string>Email %@ para um %@</string>
     <key>ItemSendToContactIMAction</key>
