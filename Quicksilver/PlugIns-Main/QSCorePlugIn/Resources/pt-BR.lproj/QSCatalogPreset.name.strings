@@ -97,7 +97,7 @@
     <key>QSPresetFinderGroup</key>
     <string>Finder</string>
     <key>QSPresetFinderRecentFolders</key>
-    <string>Recent Folders (Finder)</string>
+    <string>Pastas Recentes (Finder)</string>
     <key>QSPresetFinderSpecificSearchPlaces</key>
     <string>Finder Specific Search Places</string>
     <key>QSPresetFirefoxBookmarks</key>
