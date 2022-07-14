@@ -66,8 +66,8 @@
 "Show Release Notes" = "Exibir Notas de Versão";
 
 "Quicksilver is now 64-bit" = "Quicksilver é agora 64-bit";
-"64-bit details" = "Some older plugins will not load. A list of disabled plugins is available in the Preferences.\n\nIf you absolutely can't live without an older plugin, Quicksilver can be run in 32-bit mode. (32-bit support will be dropped in a future release.)";
-"Network and Removable Disks" = "Network and Removable Disks";
+"64-bit details" = "Alguns plugins mais antigos não irão carregar. Uma lista de plugins desabilitados está disponível nas Preferências.\n\nSe você não pode absolutamente viver sem um plugin mais antigo. Quicksilver pode rodar em modo 32-bit (Suporte a 32-bit será abandonado em versão futura.)";
+"Network and Removable Disks" = "Rede e Discos Removíveis";
 
 "Type to search" = "Type to search";
 
