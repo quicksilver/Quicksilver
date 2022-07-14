@@ -29,7 +29,7 @@
     <key>QSVolumesObjectSource</key>
     <string>Volumes Montados</string>
     <key>QSiPhotoObjectSource</key>
-    <string>iPhoto Library</string>
+    <string>Biblioteca do iPhoto</string>
     <key>QSiTunesObjectSource</key>
     <string>iTunes Music Library</string>
     <key>QSHistoryObjectSource</key>
