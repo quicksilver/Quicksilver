@@ -209,9 +209,9 @@
     <key>QSPresetScriptsGroup</key>
     <string>Scripts</string>
     <key>QSPresetShelves</key>
-    <string>Shelf &amp; Clipboard</string>
+    <string>Prateleira &amp; Área de Transferência</string>
     <key>QSPresetSidebarItems</key>
-    <string>Finder Sidebar</string>
+    <string>Barra Lateral do Finder</string>
     <key>QSPresetSogudiShortcuts</key>
     <string>Sogudi Shortcuts</string>
     <key>QSPresetSpeakableItems</key>
