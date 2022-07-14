@@ -225,7 +225,7 @@
     <key>QSPresetTrash</key>
     <string>Lixo</string>
     <key>QSPresetUserApplications</key>
-    <string>Applications (User)</string>
+    <string>Aplicativos (Usuário)</string>
     <key>QSPresetUserPreferencePanes</key>
     <string>System Preferences (User)</string>
     <key>QSPresetUserScripts</key>
