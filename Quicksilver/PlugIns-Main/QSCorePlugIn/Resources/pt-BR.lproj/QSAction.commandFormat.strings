@@ -137,7 +137,7 @@
     <key>QSObjectAssignLabelAction</key>
     <string>Ajustar etiqueta de %1$@ para %2$@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Ajusta mnemônica de %1$@ para %2$@</string>
+    <string>Ajustar mnemônica de %1$@ para %2$@</string>
     <key>QSObjectOmitAction</key>
     <string>Omitir %@ do catalogo</string>
     <key>QSObjectSearchChildrenAction</key>
