@@ -19,9 +19,9 @@
     <key>QSPresetAddressBook</key>
     <string>Contatos da Agenda</string>
     <key>QSPresetAddressBookGroup</key>
-    <string>Address Book</string>
+    <string>Agenda</string>
     <key>QSPresetAddressBookScripts</key>
-    <string>Scripts (Address Book)</string>
+    <string>Scripts (Agenda)</string>
     <key>QSPresetAllApplications</key>
     <string>Find All Applications</string>
     <key>QSPresetAllRecentDocuments</key>
