@@ -23,7 +23,7 @@
     <key>QSPresetAddressBookScripts</key>
     <string>Scripts (Agenda)</string>
     <key>QSPresetAllApplications</key>
-    <string>Find All Applications</string>
+    <string>Encontrar Todos Aplicativos</string>
     <key>QSPresetAllRecentDocuments</key>
     <string>All Recent Documents</string>
     <key>QSPresetApplicationSpecificGroup</key>
