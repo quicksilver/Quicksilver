@@ -63,7 +63,7 @@
     <key>FileCopyToAction</key>
     <string>Copiar %1$@ para %2$@</string>
     <key>FileDecompressAction</key>
-    <string>Descomprime %@</string>
+    <string>Descomprimir %@</string>
     <key>FileDeleteAction</key>
     <string>Apaga %@</string>
     <key>FileGetHFSPathAction</key>
