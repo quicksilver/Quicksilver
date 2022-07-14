@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>Executa comando em uma determinada hora</string>
+    <string>Executar Comando em uma determinada hora</string>
     <key>QSTextTypeAction</key>
     <string>Digitar texto em um Aplicativo ativo</string>
     <key>QSCatalogEntryRescanAction</key>
