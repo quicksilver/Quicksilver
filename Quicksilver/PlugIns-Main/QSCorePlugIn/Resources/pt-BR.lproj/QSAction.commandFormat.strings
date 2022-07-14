@@ -29,7 +29,7 @@
     <key>AppHideOthersAction</key>
     <string>%@ esconder outros</string>
     <key>AppLaunchAction</key>
-    <string>Abre %@</string>
+    <string>Iniciar %@</string>
     <key>AppLaunchAgainAction</key>
     <string>Abre outra instância de %@</string>
     <key>AppLaunchAsRootAction</key>
