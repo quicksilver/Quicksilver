@@ -31,7 +31,7 @@
     <key>QSPresetApplications</key>
     <string>Aplicativos</string>
     <key>QSPresetBrowsersGroup</key>
-    <string>Bookmarks</string>
+    <string>Favoritos</string>
     <key>QSPresetBuffers</key>
     <string>Buffer Contents</string>
     <key>QSPresetCaminoBookmarks</key>
