@@ -75,7 +75,7 @@
     <key>QSPresetDeveloperOtherDocs</key>
     <string>Outra Documentação</string>
     <key>QSPresetDeveloperPreferencePaneDocs</key>
-    <string>PreferencePanes</string>
+    <string>PainelDePreferências</string>
     <key>QSPresetDeveloperPrivateFrameworks</key>
     <string>Private Frameworks</string>
     <key>QSPresetDeveloperPublicFrameworks</key>
