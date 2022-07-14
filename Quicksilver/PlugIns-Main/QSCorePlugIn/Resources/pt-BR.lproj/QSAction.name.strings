@@ -251,7 +251,7 @@
     <key>URLOpenWithAction</key>
     <string>Abrir URL Com...</string>
     <key>URLSearchAction</key>
-    <string>Search</string>
+    <string>Buscar</string>
     <key>URLSearchForAction</key>
     <string>Search For...</string>
   </dict>
