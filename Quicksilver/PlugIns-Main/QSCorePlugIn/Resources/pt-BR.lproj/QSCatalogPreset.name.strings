@@ -13,7 +13,7 @@
     <key>QSPresetICloudDocuments</key>
     <string>iCloud Documents</string>
     <key>QSPresetAccounts</key>
-    <string>User Accounts</string>
+    <string>Contas de Usuário</string>
     <key>QSPresetProxies</key>
     <string>Proxy Objects</string>
     <key>QSPresetAddressBook</key>
