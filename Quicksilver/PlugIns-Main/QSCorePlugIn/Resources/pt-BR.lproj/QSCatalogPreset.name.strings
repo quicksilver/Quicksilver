@@ -103,9 +103,9 @@
     <key>QSPresetFirefoxBookmarks</key>
     <string>Favoritos do Firefox</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
-    <string>Recent Folders (Open &amp; Save)</string>
+    <string>Pastas Recentes (Abrir &amp; Salvar)</string>
     <key>QSPresetHome</key>
-    <string>Home</string>
+    <string>Início</string>
     <key>QSPresetICabBookmarks</key>
     <string>iCab Bookmarks</string>
     <key>QSPresetInternalMessages</key>
