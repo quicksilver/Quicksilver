@@ -13,7 +13,7 @@
     <key>AppShowHideAction</key>
     <string>Ativar Visibilidade de %@</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Sempre Abrir %@&apos;s Arquivos com %@</string>
+    <string>Sempre Abrir Arquivos do Tipo %1$@ com %2$@</string>
     <key>QSCommandSaveAction</key>
     <string>Salvar %@ para Arquivo</string>
     <key>PasteboardPasteActionAsPlainText</key>
