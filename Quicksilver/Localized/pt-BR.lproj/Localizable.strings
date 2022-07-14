@@ -53,19 +53,19 @@
 "Choose Location..." = "Escolher localização...";
 
 "Install Here" = "Instalar Aqui";
-"Install Quicksilver" = "Install Quicksilver";
+"Install Quicksilver" = "Instalar Quicksilver";
 
-"An error has occured" = "An error has occured";
-"Quicksilver must be relaunched to regain stability." = "Quicksilver must be relaunched to regain stability.";
+"An error has occured" = "Ocorreu um erro";
+"Quicksilver must be relaunched to regain stability." = "Quicksilver deve ser reiniciado para obter estabilidade novamente.";
 
-"Move and Relaunch" = "Move and Relaunch";
-"Don't Move" = "Don't Move";
+"Move and Relaunch" = "Mover e REiniciar";
+"Don't Move" = "Não Mover";
 
-"Quicksilver has been updated" = "Quicksilver has been updated";
-"You are using a new version of Quicksilver. Would you like to see the Release Notes?" = "You are using a new version of Quicksilver. Would you like to see the Release Notes?";
-"Show Release Notes" = "Show Release Notes";
+"Quicksilver has been updated" = "Quicksilver foi atualizado";
+"You are using a new version of Quicksilver. Would you like to see the Release Notes?" = "Você está usando uma versão nova do Quicksilver. Você gostaria de ver as Notas de Versão?";
+"Show Release Notes" = "Exibir Notas de Versão";
 
-"Quicksilver is now 64-bit" = "Quicksilver is now 64-bit";
+"Quicksilver is now 64-bit" = "Quicksilver é agora 64-bit";
 "64-bit details" = "Some older plugins will not load. A list of disabled plugins is available in the Preferences.\n\nIf you absolutely can't live without an older plugin, Quicksilver can be run in 32-bit mode. (32-bit support will be dropped in a future release.)";
 "Network and Removable Disks" = "Network and Removable Disks";
 
