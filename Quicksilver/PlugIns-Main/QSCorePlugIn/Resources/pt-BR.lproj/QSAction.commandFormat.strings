@@ -115,7 +115,7 @@
     <key>ProcessSuspendAction</key>
     <string>Suspender %@</string>
     <key>QSCatalogAddEntryAction</key>
-    <string>Adicionar  %@ para o Catalógo</string>
+    <string>Adicionar %@ ao Catálogo</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Fazer nova varredura de %@</string>
     <key>QSCatalogEntryShowAction</key>
