@@ -175,7 +175,7 @@
     <key>QSPresetQSCatalogEntries</key>
     <string>Entradas de Catálogo do Quicksilver</string>
     <key>QSPresetQSDefaultLinks</key>
-    <string>Starter URLs</string>
+    <string>URLs Inicializadoras</string>
     <key>QSPresetQSExtraScripts</key>
     <string>Scripts (QS Extras)</string>
     <key>QSPresetQSGroup</key>
