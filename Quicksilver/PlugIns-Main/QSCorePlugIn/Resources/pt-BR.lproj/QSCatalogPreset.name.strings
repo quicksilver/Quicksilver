@@ -221,7 +221,7 @@
     <key>QSPresetSystemGroup</key>
     <string>Sistema</string>
     <key>QSPresetSystemPreferencePanes</key>
-    <string>System Preferences (System)</string>
+    <string>Preferências do Sistema (Sistema)</string>
     <key>QSPresetTrash</key>
     <string>Trash</string>
     <key>QSPresetUserApplications</key>
