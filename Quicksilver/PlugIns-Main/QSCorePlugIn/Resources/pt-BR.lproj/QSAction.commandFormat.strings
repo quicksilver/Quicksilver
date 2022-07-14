@@ -109,7 +109,7 @@
     <key>ProcessLowerPriorityAction</key>
     <string>Reduzir prioridade de %@</string>
     <key>ProcessRaisePriorityAction</key>
-    <string>Aumentar a prioridade de %@</string>
+    <string>Aumentar prioridade de %@</string>
     <key>ProcessResumeAction</key>
     <string>Retornar %@</string>
     <key>ProcessSuspendAction</key>
