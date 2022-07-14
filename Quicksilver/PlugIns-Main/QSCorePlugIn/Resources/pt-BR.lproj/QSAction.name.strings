@@ -19,11 +19,11 @@
     <key>AppQuitAction</key>
     <string>Encerrar</string>
     <key>AppRelaunchAction</key>
-    <string>Reabrir</string>
+    <string>Reiniciar</string>
     <key>AppReopenAction</key>
     <string>Abrir</string>
     <key>AppRootLaunchAction</key>
-    <string>Abrir como Root</string>
+    <string>Iniciar como Root</string>
     <key>AppShowHideAction</key>
     <string>Ativar Aplicativo</string>
     <key>AppleScriptOpenFilesAction</key>
@@ -51,7 +51,7 @@
     <key>DiskEjectAction</key>
     <string>Ejetar</string>
     <key>DiskForceEjectAction</key>
-    <string>Forçar Eje;cão</string>
+    <string>Forçar Ejecão</string>
     <key>FileCompressAction</key>
     <string>Comprimir</string>
     <key>FileCopyToAction</key>
@@ -73,7 +73,7 @@
     <key>FileMakeAliasInAction</key>
     <string>Criar Atalho Em...</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Criar Hard Link Em...</string>
+    <string>Criar Link Direto Em...</string>
     <key>FileMakeLinkInAction</key>
     <string>Criar Link Em...</string>
     <key>FileMoveToAction</key>
@@ -101,9 +101,9 @@
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Colar Como Texto Simples</string>
     <key>ProcessKillAction</key>
-    <string>Forçar Encerramento (Matar)</string>
+    <string>Forçar Encerrar (Matar)</string>
     <key>ProcessLowerPriorityAction</key>
-    <string>Diminuir Prioridade</string>
+    <string>Reduzir Prioridade</string>
     <key>ProcessRaisePriorityAction</key>
     <string>Aumentar Prioridade</string>
     <key>ProcessResumeAction</key>
@@ -133,7 +133,7 @@
     <key>QSCLTermExecuteWithArgsAction</key>
     <string>Executar no Terminal [...]</string>
     <key>QSCLTermShowDirectoryAction</key>
-    <string>Vá Para o Diretório no Terminal</string>
+    <string>Ir Para o Diretório no Terminal</string>
     <key>QSCLTermShowManPageAction</key>
     <string>Exibir Página Man</string>
     <key>QSCatalogAddEntryAction</key>
@@ -145,7 +145,7 @@
     <key>QSCommandSaveAction</key>
     <string>Salvar Comando para Arquivo...</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Adicionar Gatilho</string>
+    <string>Adicionar Gatilho...</string>
     <key>QSCommandExecuteAction</key>
     <string>Executar</string>
     <key>QSCommandExecuteAfterDelayAction</key>
