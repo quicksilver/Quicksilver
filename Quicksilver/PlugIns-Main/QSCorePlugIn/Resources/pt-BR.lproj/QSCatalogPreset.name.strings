@@ -29,7 +29,7 @@
     <key>QSPresetApplicationSpecificGroup</key>
     <string>Ajustes de Aplicativo</string>
     <key>QSPresetApplications</key>
-    <string>Applications</string>
+    <string>ApplicationsAplicativos</string>
     <key>QSPresetBrowsersGroup</key>
     <string>Bookmarks</string>
     <key>QSPresetBuffers</key>
