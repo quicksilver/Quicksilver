@@ -35,9 +35,9 @@
     <key>QSPresetBuffers</key>
     <string>Conteúdos Cache</string>
     <key>QSPresetCaminoBookmarks</key>
-    <string>Camino Bookmarks</string>
+    <string>Favoritos Camino</string>
     <key>QSPresetClassicApplications</key>
-    <string>Applications (Mac OS 9)</string>
+    <string>Aplicativos (Mac OS 9)</string>
     <key>QSPresetClipboardContents</key>
     <string>Clipboard Contents</string>
     <key>QSPresetCommandHistory</key>
