@@ -165,7 +165,7 @@
     <key>QSPresetPathFinderRecentFiles</key>
     <string>Arquivos Recentes Path Finder</string>
     <key>QSPresetPathFinderRecentFolders</key>
-    <string>Path Finder Recent Folders</string>
+    <string>Pastas Recentes Path Finder</string>
     <key>QSPresetPreferencePanes</key>
     <string>Preference Panes</string>
     <key>QSPresetPresetGroup</key>
