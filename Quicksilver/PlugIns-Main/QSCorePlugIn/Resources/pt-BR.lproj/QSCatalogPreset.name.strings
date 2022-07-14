@@ -145,7 +145,7 @@
     <key>QSPresetNetworkLocations</key>
     <string>Localização de Rede</string>
     <key>QSPresetOldCaminoBookmarks</key>
-    <string>Camino Bookmarks (Old)</string>
+    <string>Favoritos Camino (Antigo)</string>
     <key>QSPresetOmniWebBookmarks</key>
     <string>OmniWeb Bookmarks</string>
     <key>QSPresetOmniWebFavorites</key>
