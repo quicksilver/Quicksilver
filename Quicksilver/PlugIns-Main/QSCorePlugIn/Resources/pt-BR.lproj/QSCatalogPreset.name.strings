@@ -173,7 +173,7 @@
     <key>QSPresetPrinters</key>
     <string>Impressoras</string>
     <key>QSPresetQSCatalogEntries</key>
-    <string>Quicksilver Catalog Entries</string>
+    <string>Entradas de Catálogo do Quicksilver</string>
     <key>QSPresetQSDefaultLinks</key>
     <string>Starter URLs</string>
     <key>QSPresetQSExtraScripts</key>
