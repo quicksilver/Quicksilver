@@ -175,7 +175,7 @@
     <key>URLEmailAction</key>
     <string>Enviar E-mail %@</string>
     <key>URLFindWithAction</key>
-    <string>Procura %@ com %@</string>
+    <string>Encontrar %@ com %@</string>
     <key>URLJSAction</key>
     <string>Executa %@</string>
     <key>URLOpenAction</key>
