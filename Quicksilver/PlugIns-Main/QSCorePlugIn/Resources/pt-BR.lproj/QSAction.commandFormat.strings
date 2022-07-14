@@ -187,6 +187,6 @@
     <key>URLSearchAction</key>
     <string>Buscar %@</string>
     <key>URLSearchForAction</key>
-    <string>Procura por %@ em %@</string>
+    <string>Buscar por %@ em %@</string>
   </dict>
 </plist>
