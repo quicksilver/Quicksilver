@@ -43,7 +43,7 @@
     <key>AppRelaunchAction</key>
     <string>Reiniciar %@</string>
     <key>AppReopenAction</key>
-    <string>Abre %@</string>
+    <string>Iniciar %@</string>
     <key>AppRootLaunchAction</key>
     <string>Abre %@ como Root</string>
     <key>AppleScriptOpenFilesAction</key>
