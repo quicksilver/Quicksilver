@@ -167,7 +167,7 @@
     <key>QSTextShowDialogAction</key>
     <string>Exibir diálogo: &quot;#@&quot;</string>
     <key>QSTextSpeakAction</key>
-    <string>Diga &quot;%@&quot;</string>
+    <string>Dizer &quot;%@&quot;</string>
     <key>QSTextTypeAction</key>
     <string>Escreva &quot;%@&quot;</string>
     <key>ShellScriptRunAction</key>
