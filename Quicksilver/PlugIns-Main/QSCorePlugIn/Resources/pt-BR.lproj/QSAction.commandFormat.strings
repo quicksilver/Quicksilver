@@ -17,7 +17,7 @@
     <key>QSCommandSaveAction</key>
     <string>Salvar %@ para Arquivo</string>
     <key>PasteboardPasteActionAsPlainText</key>
-    <string>Cole %@ como Texto sem formatação</string>
+    <string>Colar %@ como Texto Simples</string>
     <key>QSCreateFileTemplate</key>
     <string>Na Pasta %@ Criar um novo Arquivo de Template %@</string>
     <key>QSCommandExecuteAfterDelayAction</key>
