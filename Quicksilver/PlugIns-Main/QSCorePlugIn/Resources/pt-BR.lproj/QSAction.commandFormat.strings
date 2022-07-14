@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>Executa %@ Agora</string>
+    <string>Executar %@ na Hora</string>
     <key>QSCreateFileAction</key>
     <string>Criar um novo Arquivo contendo %@ na Pasta %@</string>
     <key>QSCommandAddTriggerAction</key>
