@@ -19,7 +19,7 @@
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Colar %@ como Texto Simples</string>
     <key>QSCreateFileTemplate</key>
-    <string>Na Pasta %@ Criar um novo Arquivo de Template %@</string>
+    <string>Na Pasta %@ Criar um novo Arquivo Modelo %@</string>
     <key>QSCommandExecuteAfterDelayAction</key>
     <string>Executa %@ após Atraso</string>
     <key>AppActivateAction</key>
