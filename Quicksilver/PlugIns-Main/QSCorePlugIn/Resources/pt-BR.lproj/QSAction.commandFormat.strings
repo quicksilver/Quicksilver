@@ -181,7 +181,7 @@
     <key>URLOpenAction</key>
     <string>Abrir %@</string>
     <key>URLOpenActionInBackground</key>
-    <string>Abrir %@ em plano de fundo</string>
+    <string>Abrir %@ em Segundo Plano</string>
     <key>URLOpenWithAction</key>
     <string>Abre %@ com %@</string>
     <key>URLSearchAction</key>
