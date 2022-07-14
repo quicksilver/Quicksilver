@@ -45,7 +45,7 @@
     <key>AppReopenAction</key>
     <string>Iniciar %@</string>
     <key>AppRootLaunchAction</key>
-    <string>Abre %@ como Root</string>
+    <string>Iniciar %@ como Root</string>
     <key>AppleScriptOpenFilesAction</key>
     <string>Abre %@ com %@</string>
     <key>AppleScriptProcessTextAction</key>
