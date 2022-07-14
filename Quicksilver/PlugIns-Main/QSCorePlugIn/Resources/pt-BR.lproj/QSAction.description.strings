@@ -21,7 +21,7 @@
     <key>QSObjectShowMenu</key>
     <string>Exibir Menu de Ações disponíveis</string>
     <key>FileDeleteAction</key>
-    <string>Apagar Arquivo Definitivamente</string>
+    <string>Deletar Arquivo Permanentemente</string>
     <key>QSCommandAddTriggerAction</key>
     <string>Adicionar Comando como Gatilho</string>
     <key>QSObjectShowChildMenu</key>
@@ -29,9 +29,9 @@
     <key>QSCommandExecuteAction</key>
     <string>Executar um Comando Quicksilver</string>
     <key>AppRelaunchAction</key>
-    <string>Reabrir Aplicativo</string>
+    <string>Reiniciar Aplicativo</string>
     <key>AppShowHideAction</key>
-    <string>Alterar visibilidade do Aplicativo</string>
+    <string>Ativar visibilidade do Aplicativo</string>
     <key>QSLargeTypeAction</key>
     <string>Exibir Texto em Fonte Grande</string>
     <key>AppleScriptRunTextAction</key>
