@@ -129,7 +129,7 @@
     <key>QSLoginItemAddAction</key>
     <string>Adicionar %@ aos itens de login</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>Retira %@ de itens de login</string>
+    <string>Remover %@ de itens de login</string>
     <key>QSNewFolderAction</key>
     <string>Criar uma nova pasta em %1$@ chamada %2$@</string>
     <key>QSObjCSendMessageAction</key>
