@@ -5,7 +5,7 @@
     <key>QSABMailRecentsObjectSource</key>
     <string>Enviar Email a Recipientes Anteriores</string>
     <key>QSAddressBookObjectSource</key>
-    <string>Address Book</string>
+    <string>Agenda</string>
     <key>QSAirPortNetworkObjectSource</key>
     <string>AirPort Networks</string>
     <key>QSAllApplicationsObjectSource</key>
