@@ -11,7 +11,7 @@
     <key>QSTextSpeakAction</key>
     <string>Falar Texto usando o Voiceover</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Criar um Link Físico em uma Pasta</string>
+    <string>Criar um novo Link Físico em uma Pasta</string>
     <key>QSLoginItemAddAction</key>
     <string>Adicionar a Lista de Itens de Login</string>
     <key>QSObjCSendMessageAction</key>
