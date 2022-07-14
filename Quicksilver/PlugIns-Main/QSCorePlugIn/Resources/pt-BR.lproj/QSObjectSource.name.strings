@@ -11,7 +11,7 @@
     <key>QSAllApplicationsObjectSource</key>
     <string>Todos Aplicativos</string>
     <key>QSCatalogEntrySource</key>
-    <string>Catalog Entries</string>
+    <string>Entradas do Catálogo</string>
     <key>QSDefaultsObjectSource</key>
     <string>Defaults Reader</string>
     <key>QSFileSystemObjectSource</key>
