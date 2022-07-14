@@ -151,7 +151,7 @@
     <key>QSObjectShowChildrenAction</key>
     <string>Exibir conteúdos para %@</string>
     <key>QSObjectShowMenu</key>
-    <string>Mostra menu de ações para %@</string>
+    <string>Exibir menu de ações para %@</string>
     <key>QSObjectShowSourceAction</key>
     <string>Novo fonte de %@ no catálogo</string>
     <key>QSPutOnShelfAction</key>
