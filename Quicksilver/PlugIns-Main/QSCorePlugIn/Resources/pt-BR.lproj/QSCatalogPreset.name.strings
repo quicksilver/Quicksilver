@@ -223,7 +223,7 @@
     <key>QSPresetSystemPreferencePanes</key>
     <string>Preferências do Sistema (Sistema)</string>
     <key>QSPresetTrash</key>
-    <string>Trash</string>
+    <string>Lixo</string>
     <key>QSPresetUserApplications</key>
     <string>Applications (User)</string>
     <key>QSPresetUserPreferencePanes</key>
