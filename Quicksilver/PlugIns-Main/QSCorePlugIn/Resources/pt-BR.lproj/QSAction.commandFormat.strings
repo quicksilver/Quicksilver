@@ -37,7 +37,7 @@
     <key>AppOpenFileAction</key>
     <string>Abrir %$1@ com %$2@</string>
     <key>AppQuitAction</key>
-    <string>Encerra %@</string>
+    <string>Encerrar %@</string>
     <key>AppQuitOthersAction</key>
     <string>%@ encerra outros</string>
     <key>AppRelaunchAction</key>
