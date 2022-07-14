@@ -181,7 +181,7 @@
     <key>QSNewFolderAction</key>
     <string>Nova Pasta...</string>
     <key>QSLargeTypeAction</key>
-    <string>Fonte Grande</string>
+    <string>Texto Grande</string>
     <key>QSLoginItemAddAction</key>
     <string>Abrir no Login</string>
     <key>QSLoginItemRemoveAction</key>
