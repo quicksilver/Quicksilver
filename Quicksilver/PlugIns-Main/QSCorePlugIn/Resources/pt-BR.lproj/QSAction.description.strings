@@ -7,7 +7,7 @@
     <key>QSTextTypeAction</key>
     <string>Digitar texto em um Aplicativo ativo</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Reexaminar &amp; Reindexar Entrtada de Catáogo</string>
+    <string>Reexaminar &amp; Reindexar Entrada de Catálogo</string>
     <key>QSTextSpeakAction</key>
     <string>Falar Texto usando o Voiceover</string>
     <key>FileMakeHardLinkInAction</key>
