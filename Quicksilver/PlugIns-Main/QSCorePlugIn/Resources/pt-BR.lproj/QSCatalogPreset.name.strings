@@ -61,7 +61,7 @@
     <key>QSPresetDeveloperAppKitHeaders</key>
     <string>Cabeçalhos AppKit</string>
     <key>QSPresetDeveloperApplications</key>
-    <string>Applications (Developer)</string>
+    <string>Aplicativos (Desenvolvedor)</string>
     <key>QSPresetDeveloperCoreFoundationHeaders</key>
     <string>CoreFoundation Headers</string>
     <key>QSPresetDeveloperFoundation</key>
