@@ -159,7 +159,7 @@
     <key>QSShelfShowAction</key>
     <string>Exibir %@</string>
     <key>QSShellScriptRunAction</key>
-    <string>Executa script: %@</string>
+    <string>Executar script: %@</string>
     <key>QSSoundPlayAction</key>
     <string>Tocar %@</string>
     <key>QSTextDiffAction</key>
