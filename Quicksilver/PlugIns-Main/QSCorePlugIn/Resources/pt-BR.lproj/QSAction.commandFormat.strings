@@ -179,7 +179,7 @@
     <key>URLJSAction</key>
     <string>Executar %@</string>
     <key>URLOpenAction</key>
-    <string>Abre %@</string>
+    <string>Abrir %@</string>
     <key>URLOpenActionInBackground</key>
     <string>Abre %@ em plano de fundo</string>
     <key>URLOpenWithAction</key>
