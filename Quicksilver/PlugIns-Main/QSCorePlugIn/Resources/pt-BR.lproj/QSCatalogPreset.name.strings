@@ -51,7 +51,7 @@
     <key>QSPresetDesktop</key>
     <string>Mesa</string>
     <key>QSPresetDeveloper</key>
-    <string>Developer</string>
+    <string>Desenvolvedor</string>
     <key>QSPresetDeveloperAddressBookDocs</key>
     <string>AddressBook</string>
     <key>QSPresetDeveloperAppKit</key>
