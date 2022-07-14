@@ -81,7 +81,7 @@
     <key>FileMakeAliasInAction</key>
     <string>Criar apelido de %1$@ em %2$@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Faça um link manual para %1$@ em %2$@</string>
+    <string>Criar um link manual para %1$@ em %2$@</string>
     <key>FileMakeLinkInAction</key>
     <string>Faça link para %1$@ em %2$@</string>
     <key>FileMoveToAction</key>
