@@ -113,7 +113,7 @@
     <key>ProcessResumeAction</key>
     <string>Retornar %@</string>
     <key>ProcessSuspendAction</key>
-    <string>Suspende %@</string>
+    <string>Suspender %@</string>
     <key>QSCatalogAddEntryAction</key>
     <string>Adicionar  %@ para o Catalógo</string>
     <key>QSCatalogEntryRescanAction</key>
