@@ -253,6 +253,6 @@
     <key>URLSearchAction</key>
     <string>Buscar</string>
     <key>URLSearchForAction</key>
-    <string>Search For...</string>
+    <string>Buscar Por...</string>
   </dict>
 </plist>
