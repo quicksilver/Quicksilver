@@ -13,7 +13,7 @@
     <key>QSCatalogEntrySource</key>
     <string>Entradas do Catálogo</string>
     <key>QSDefaultsObjectSource</key>
-    <string>Defaults Reader</string>
+    <string>Leitores Padrão</string>
     <key>QSFileSystemObjectSource</key>
     <string>File &amp; Folder Scanner</string>
     <key>QSGroupObjectSource</key>
