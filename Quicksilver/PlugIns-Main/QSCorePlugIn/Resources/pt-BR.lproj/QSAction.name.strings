@@ -231,7 +231,7 @@
     <key>QSiPhotoAlbumShowAction</key>
     <string>Exibir Álbum</string>
     <key>QSiPhotoAlbumSlideShowAction</key>
-    <string>Play Slide Show</string>
+    <string>Tocar Slideshow</string>
     <key>QSiTunesAppendItemAction</key>
     <string>Queue</string>
     <key>QSiTunesPlayItemAction</key>
