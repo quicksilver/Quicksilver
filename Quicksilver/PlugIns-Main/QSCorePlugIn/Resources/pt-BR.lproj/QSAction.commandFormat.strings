@@ -153,7 +153,7 @@
     <key>QSObjectShowMenu</key>
     <string>Exibir menu de ações para %@</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Novo fonte de %@ no catálogo</string>
+    <string>Exibir origem de %@ no catálogo</string>
     <key>QSPutOnShelfAction</key>
     <string>Coloca %@ na prateleira</string>
     <key>QSShelfShowAction</key>
