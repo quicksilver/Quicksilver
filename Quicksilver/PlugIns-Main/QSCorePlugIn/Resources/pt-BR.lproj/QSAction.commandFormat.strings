@@ -91,7 +91,7 @@
     <key>FileOpenWithAction</key>
     <string>Abrir %1$@ com %2$@</string>
     <key>FileRenameAction</key>
-    <string>Renomeia %1$@ para %2$@</string>
+    <string>Renomear %1$@ para %2$@</string>
     <key>FileRevealAction</key>
     <string>Revela %@</string>
     <key>FileToTrashAction</key>
