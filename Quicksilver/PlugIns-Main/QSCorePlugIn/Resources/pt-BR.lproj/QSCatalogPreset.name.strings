@@ -53,7 +53,7 @@
     <key>QSPresetDeveloper</key>
     <string>Desenvolvedor</string>
     <key>QSPresetDeveloperAddressBookDocs</key>
-    <string>AddressBook</string>
+    <string>Agenda</string>
     <key>QSPresetDeveloperAppKit</key>
     <string>AppKit</string>
     <key>QSPresetDeveloperAppKitDocumentation</key>
