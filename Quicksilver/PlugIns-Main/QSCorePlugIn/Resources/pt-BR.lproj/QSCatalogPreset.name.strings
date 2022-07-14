@@ -27,7 +27,7 @@
     <key>QSPresetAllRecentDocuments</key>
     <string>Todos Documentos Recentes</string>
     <key>QSPresetApplicationSpecificGroup</key>
-    <string>Application sets</string>
+    <string>Ajustes de Aplicativo</string>
     <key>QSPresetApplications</key>
     <string>Applications</string>
     <key>QSPresetBrowsersGroup</key>
