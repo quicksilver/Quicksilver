@@ -11,7 +11,7 @@
     <key>QSCommandExecuteAction</key>
     <string>Executar %@</string>
     <key>AppShowHideAction</key>
-    <string>Ativar visualização de %@</string>
+    <string>Ativar Visibilidade de %@</string>
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>Sempre Abrir %@&apos;s Arquivos com %@</string>
     <key>QSCommandSaveAction</key>
