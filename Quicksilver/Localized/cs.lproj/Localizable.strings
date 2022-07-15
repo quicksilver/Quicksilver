@@ -1,4 +1,4 @@
-﻿// Typical strings
+﻿﻿// Typical strings
 "OK" = "Budiž";
 "Cancel" = "Zrušit";
 "Quit" = "Ukončit";
@@ -88,3 +88,91 @@
 
 /* Search mode shown in top right hand of results when snapping to best option */
 "Snap to Best" = "Vybrat nejlepší";
+
+
+// QSPlugin Manager
+/* QSPlugin manager - Plugin install alert - other button */
+"Always Install" = "Vždy instalovat";
+
+/* No comment provided by engineer. */
+"Always Install Plugins" = "Vždy instalovat zásuvné moduly";
+
+/* Missing dependencies alert - button 3 */
+"Always Install Requirements" = "Vždy instalovat vyžadované závislosti";
+
+/* Delete & relaunch alert default button (alternate) */
+"Delete" = "Odstranit";
+
+/* Delete & relaunch alert default button */
+"Delete and Relaunch" = "Odstranit a spustit znovu";
+
+/* Delete & relaunch alert title */
+"Delete plugins?" = "Odstranit zásuvné moduly";
+
+/* Missing dependencies alert - button 2 */
+"Disable" = "Deaktivovat";
+
+/* No comment provided by engineer. */
+"Do you wish to install the %@?" = "Přejete si instalovat %@?";
+
+/* QSPlugin manager - Plugin installed alert - message */
+"Do you wish to move selected items to Quicksilver's plugin folder?" = "Přejete si přesunout vybrané položky do složky zásuvných modulů?";
+
+/* No comment provided by engineer. */
+"Download failed" = "Kopírování selhalo";
+
+/* Plugin extraction failed - title */
+"Failed to Extract Plugin" = "Rozbalování zásuvného modulu selhalo";
+
+/* Missing dependencies alert - button 1
+   QSPlugin manager - Plugin install alert - default button */
+"Install" = "Instalovat";
+
+/* QSPlugin manager - Plugin requires relaunch alert - title */
+"Install complete" = "Instalovat vše";
+
+/* QSPlugin manager - Plugin install alert - title */
+"Install plugins?" = "Instalovat zásuvné moduly?";
+
+/* No comment provided by engineer. */
+"Installation complete" = "Instalace byla dokončena";
+
+/* No comment provided by engineer. */
+"Installing %ld Plugins" = "Instaluje %ld zásuvný modul";
+
+/* No comment provided by engineer. */
+"Installing Plugin" = "Instaluje se zásuvný modul";
+
+/* QSPlugin manager - Plugin requires relaunch alert - cancel button */
+"Later" = "Později";
+
+/* No comment provided by engineer. */
+"Plugin download failed" = "Kopírování zásuvného modulu selhalo";
+
+/* Missing dependencies alert - title */
+"Plugin requirements" = "Vyžadované závislosti zásuvného modulu";
+
+/* QSPlugin manager - Plugin requires relaunch alert - default button */
+"Relaunch" = "Znovu spustit";
+
+/* QSPlugin manager - Plugin requires relaunch alert - message */
+"Some plugins will not be available until Quicksilver is relaunched." = "Některé zásuvné moduly budou dostupné až po opětovém spuštění aplikace Quicksilver.";
+
+/* Missing dependencies alert - message (depending plugin names, unmet plugin names) */
+"There are missing dependencies: %@\n\nThe following plugins will not work until those plugins are installed: %@" = "Chybějící závislosti: %1$@\n\nNásledující zásuvné moduly nebudou pracovat bez těchto závislostí: %2$@";
+
+/* Plugin extraction failed - message */
+"There was a problem extracting the QSPkg %@.\nThe file is most likely corrupt." = "Vyskytly se potíže s rozbalováním QSPkg %@.\nSoubor je pravděpodobně poškozen.";
+
+/* No comment provided by engineer. */
+"Updating plugin info" = "Aktualizují se informace o zásuvných modulech";
+
+/* No comment provided by engineer. */
+"Updating Plugin Info" = "Aktualizují se informace o zásuvných modulech";
+
+/* Delete & relaunch alert message (alternate) */
+"Would you like to delete the selected plugins?" = "Přejete si odstranit vybrané zásuvné moduly?";
+
+/* Delete & relaunch alert message */
+"Would you like to delete the selected plugins? A relaunch will be required" = "Přejete si odstranit vybrané zásuvné moduly?\nOdstranění vyžaduje ukončení opětovné spuštění.";
+
