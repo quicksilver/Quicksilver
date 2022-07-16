@@ -1856,6 +1856,10 @@
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
 		CDA250592882E9AF00033B16 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CDA250622882EA3B00033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
+		CDA250632882EA5900033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
+		CDA250642882EA6700033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/ResultWindow.strings"; sourceTree = "<group>"; };
+		CDA250652882EA6D00033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
 		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
 		CDA3080C2820B71F002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QuitConfirm.xib; sourceTree = "<group>"; };
 		CDA308162820B723002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
@@ -5806,6 +5810,7 @@
 				CD988B7719935C3600938302 /* sv */,
 				CD7EE3E6282C77A90033614B /* pl */,
 				CD7EE3EE282C780D0033614B /* it */,
+				CDA250622882EA3B00033B16 /* pt-BR */,
 			);
 			name = QSAdvancedPrefPane.strings;
 			sourceTree = "<group>";
@@ -6237,6 +6242,7 @@
 				CDB83E1728353DFC00295CD2 /* es-ES */,
 				CD885025285562F100BDCB00 /* fr */,
 				CD73A5BE2869FB3800552A12 /* ko */,
+				CDA250632882EA5900033B16 /* pt-BR */,
 			);
 			name = QSSetupAssistant.xib;
 			sourceTree = "<group>";
@@ -6250,6 +6256,7 @@
 				CD1AAFD3283242B100B34D4A /* cs */,
 				CDB83E1F28353E0200295CD2 /* es-ES */,
 				CD73A5BF2869FB4400552A12 /* ko */,
+				CDA250652882EA6D00033B16 /* pt-BR */,
 			);
 			name = QuitConfirm.xib;
 			sourceTree = "<group>";
@@ -6264,6 +6271,7 @@
 				CD7EE3EF282C78E60033614B /* cs */,
 				CD7EE3F0282C78F40033614B /* zh-Hans */,
 				CD73A5BD2869FB2900552A12 /* ko */,
+				CDA250642882EA6700033B16 /* pt-BR */,
 			);
 			name = ResultWindow.xib;
 			sourceTree = "<group>";
