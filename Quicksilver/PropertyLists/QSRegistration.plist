@@ -238,6 +238,109 @@
 	</dict>
 	<key>QSPreferencePanes</key>
 	<dict>
+		<key>QSMainMenuPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSMainMenuPrefPane</string>
+			<key>description</key>
+			<string>Welcome to Quicksilver</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>name</key>
+			<string>Guide</string>
+			<key>type</key>
+			<string>Toolbar</string>
+		</dict>
+		<key>QSTriggersPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSTriggersPrefPane</string>
+			<key>color</key>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=</data>
+			<key>description</key>
+			<string>Automate actions with keyboard, mouse and other events</string>
+			<key>icon</key>
+			<string>Pref-Triggers</string>
+			<key>name</key>
+			<string>Triggers</string>
+			<key>type</key>
+			<string>Toolbar</string>
+		</dict>
+		<key>QSCatalogPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSCatalogPrefPane</string>
+			<key>color</key>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz8yZ2oBgz8urq8Bhg==</data>
+			<key>description</key>
+			<string>Modify the list of searchable items</string>
+			<key>icon</key>
+			<string>Pref-Catalog</string>
+			<key>name</key>
+			<string>Catalog</string>
+			<key>type</key>
+			<string>Toolbar</string>
+		</dict>
+		<key>QSPlugInsPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSPlugInsPrefPane</string>
+			<key>color</key>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=</data>
+			<key>description</key>
+			<string>Find and install plugins</string>
+			<key>icon</key>
+			<string>Pref-PlugIns</string>
+			<key>name</key>
+			<string>Plugins</string>
+			<key>type</key>
+			<string>Toolbar</string>
+		</dict>
+		<key>QSApplicationPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSApplicationPrefPane</string>
+			<key>description</key>
+			<string>Launch, visibility, and update settings</string>
+			<key>icon</key>
+			<string>SidebarApplicationsFolder</string>
+			<key>name</key>
+			<string>Application</string>
+			<key>priority</key>
+			<integer>10</integer>
+			<key>type</key>
+			<string>Main</string>
+		</dict>
+		<key>QSSearchPrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSSearchPrefPane</string>
+			<key>description</key>
+			<string>Activation and Searching options</string>
+			<key>icon</key>
+			<string>Find</string>
+			<key>name</key>
+			<string>Command</string>
+			<key>type</key>
+			<string>Main</string>
+			<key>priority</key>
+			<integer>7</integer>
+		</dict>
+		<key>QSAppearancePrefPane</key>
+		<dict>
+			<key>class</key>
+			<string>QSAppearancePrefPane</string>
+			<key>description</key>
+			<string>Color and visual settings</string>
+			<key>icon</key>
+			<string>appearanceIcon</string>
+			<key>name</key>
+			<string>Appearance</string>
+			<key>type</key>
+			<string>Main</string>
+			<key>priority</key>
+			<integer>4</integer>
+		</dict>
 		<key>QSActionsPrefPane</key>
 		<dict>
 			<key>class</key>
@@ -266,51 +369,6 @@
 			<key>type</key>
 			<string>Main</string>
 		</dict>
-		<key>QSAppearancePrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSAppearancePrefPane</string>
-			<key>description</key>
-			<string>Color and visual settings</string>
-			<key>icon</key>
-			<string>appearanceIcon</string>
-			<key>name</key>
-			<string>Appearance</string>
-			<key>type</key>
-			<string>Main</string>
-			<key>priority</key>
-			<integer>4</integer>
-		</dict>
-		<key>QSApplicationPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSApplicationPrefPane</string>
-			<key>description</key>
-			<string>Launch, visibility, and update settings</string>
-			<key>icon</key>
-			<string>SidebarApplicationsFolder</string>
-			<key>name</key>
-			<string>Application</string>
-			<key>priority</key>
-			<integer>10</integer>
-			<key>type</key>
-			<string>Main</string>
-		</dict>
-		<key>QSCatalogPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSCatalogPrefPane</string>
-			<key>color</key>
-			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz8yZ2oBgz8urq8Bhg==</data>
-			<key>description</key>
-			<string>Modify the list of searchable items</string>
-			<key>icon</key>
-			<string>Pref-Catalog</string>
-			<key>name</key>
-			<string>Catalog</string>
-			<key>type</key>
-			<string>Toolbar</string>
-		</dict>
 		<key>QSHelpersPrefPane</key>
 		<dict>
 			<key>class</key>
@@ -323,64 +381,6 @@
 			<string>Handlers</string>
 			<key>type</key>
 			<string>Main</string>
-		</dict>
-		<key>QSMainMenuPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSMainMenuPrefPane</string>
-			<key>description</key>
-			<string>Welcome to Quicksilver</string>
-			<key>icon</key>
-			<string>Quicksilver</string>
-			<key>name</key>
-			<string>Guide</string>
-			<key>type</key>
-			<string>Toolbar</string>
-		</dict>
-		<key>QSPlugInsPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSPlugInsPrefPane</string>
-			<key>color</key>
-			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=</data>
-			<key>description</key>
-			<string>Find and install plugins</string>
-			<key>icon</key>
-			<string>Pref-PlugIns</string>
-			<key>name</key>
-			<string>Plugins</string>
-			<key>type</key>
-			<string>Toolbar</string>
-		</dict>
-		<key>QSSearchPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSSearchPrefPane</string>
-			<key>description</key>
-			<string>Activation and Searching options</string>
-			<key>icon</key>
-			<string>Find</string>
-			<key>name</key>
-			<string>Command</string>
-			<key>type</key>
-			<string>Main</string>
-			<key>priority</key>
-			<integer>7</integer>
-		</dict>
-		<key>QSTriggersPrefPane</key>
-		<dict>
-			<key>class</key>
-			<string>QSTriggersPrefPane</string>
-			<key>color</key>
-			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=</data>
-			<key>description</key>
-			<string>Automate actions with keyboard, mouse and other events</string>
-			<key>icon</key>
-			<string>Pref-Triggers</string>
-			<key>name</key>
-			<string>Triggers</string>
-			<key>type</key>
-			<string>Toolbar</string>
 		</dict>
 	</dict>
 	<key>QSProxies</key>
