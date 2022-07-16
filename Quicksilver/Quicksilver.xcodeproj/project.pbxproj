@@ -1855,11 +1855,11 @@
 		CD98DB6E2825F51F00D392F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = fr; path = fr.lproj/Guide.html; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
-		CDA250592882E9AF00033B16 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CDA250622882EA3B00033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CDA250632882EA5900033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
 		CDA250642882EA6700033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/ResultWindow.strings"; sourceTree = "<group>"; };
 		CDA250652882EA6D00033B16 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
+		CDA250682882EAE000033B16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
 		CDA3080C2820B71F002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QuitConfirm.xib; sourceTree = "<group>"; };
 		CDA308162820B723002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
@@ -6227,7 +6227,7 @@
 		CDA2505A2882E9AF00033B16 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CDA250592882E9AF00033B16 /* en */,
+				CDA250682882EAE000033B16 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
