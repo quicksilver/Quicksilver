@@ -1,0 +1,345 @@
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Window";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Window";
+
+/* Class = "NSMenu"; title = "OldMainMenu"; ObjectID = "29"; */
+"29.title" = "OldMainMenu";
+
+/* Class = "NSMenuItem"; title = "Quicksilver"; ObjectID = "56"; */
+"56.title" = "Quicksilver";
+
+/* Class = "NSMenu"; title = "Quıcĸsıɩⅴεʀ"; ObjectID = "57"; */
+"57.title" = "Quıcĸsıɩⅴεʀ";
+
+/* Class = "NSMenuItem"; title = "About Quicksilver"; ObjectID = "58"; */
+"58.title" = "About Quicksilver";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Help";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Hide Quicksilver"; ObjectID = "134"; */
+"134.title" = "Hide Quicksilver";
+
+/* Class = "NSMenuItem"; title = "Quit Quicksilver..."; ObjectID = "136"; */
+"136.title" = "Quit Quicksilver...";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Hide Others";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Show All";
+
+/* Class = "NSMenuItem"; title = "Rescan Catalog"; ObjectID = "825"; */
+"825.title" = "Rescan Catalog";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "1225"; */
+"1225.title" = "Undo";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "1226"; */
+"1226.title" = "Cut";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "1234"; */
+"1234.title" = "Copy";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "1236"; */
+"1236.title" = "Redo";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "1239"; */
+"1239.title" = "Select All";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "1241"; */
+"1241.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "1243"; */
+"1243.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "1337"; */
+"1337.title" = "Minimize";
+
+/* Class = "NSMenuItem"; title = "About Quicksilver"; ObjectID = "1360"; */
+"1360.title" = "About Quicksilver";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "1365"; */
+"1365.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "1403"; */
+"1403.title" = "Close";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "1426"; */
+"1426.title" = "Paste";
+
+/* Class = "NSMenuItem"; title = "Force Rescan"; ObjectID = "1437"; */
+"1437.title" = "Force Rescan";
+
+/* Class = "NSMenuItem"; title = "Justify"; ObjectID = "1566"; */
+"1566.title" = "Justify";
+
+/* Class = "NSMenuItem"; title = "Show Ruler"; ObjectID = "1567"; */
+"1567.title" = "Show Ruler";
+
+/* Class = "NSMenu"; title = "Text"; ObjectID = "1569"; */
+"1569.title" = "Text";
+
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "1570"; */
+"1570.title" = "Text";
+
+/* Class = "NSMenuItem"; title = "Paste Ruler"; ObjectID = "1571"; */
+"1571.title" = "Paste Ruler";
+
+/* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "1572"; */
+"1572.title" = "Align Left";
+
+/* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "1573"; */
+"1573.title" = "Align Right";
+
+/* Class = "NSMenuItem"; title = "Copy Ruler"; ObjectID = "1574"; */
+"1574.title" = "Copy Ruler";
+
+/* Class = "NSMenuItem"; title = "Center"; ObjectID = "1575"; */
+"1575.title" = "Center";
+
+/* Class = "NSMenuItem"; title = "Quicksilver Guide..."; ObjectID = "1592"; */
+"1592.title" = "Quicksilver Guide...";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "1646"; */
+"1646.title" = "Use Default";
+
+/* Class = "NSMenuItem"; title = "Use All"; ObjectID = "1647"; */
+"1647.title" = "Use All";
+
+/* Class = "NSMenuItem"; title = "Raise"; ObjectID = "1648"; */
+"1648.title" = "Raise";
+
+/* Class = "NSMenu"; title = "Font"; ObjectID = "1649"; */
+"1649.title" = "Font";
+
+/* Class = "NSMenuItem"; title = "Use None"; ObjectID = "1650"; */
+"1650.title" = "Use None";
+
+/* Class = "NSMenuItem"; title = "Tighten"; ObjectID = "1651"; */
+"1651.title" = "Tighten";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "1652"; */
+"1652.title" = "Italic";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "1653"; */
+"1653.title" = "Smaller";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "1654"; */
+"1654.title" = "Underline";
+
+/* Class = "NSMenuItem"; title = "Show Fonts"; ObjectID = "1656"; */
+"1656.title" = "Show Fonts";
+
+/* Class = "NSMenuItem"; title = "Font"; ObjectID = "1657"; */
+"1657.title" = "Font";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "1658"; */
+"1658.title" = "Use Default";
+
+/* Class = "NSMenu"; title = "Ligature"; ObjectID = "1659"; */
+"1659.title" = "Ligature";
+
+/* Class = "NSMenuItem"; title = "Lower"; ObjectID = "1660"; */
+"1660.title" = "Lower";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "1661"; */
+"1661.title" = "Bold";
+
+/* Class = "NSMenuItem"; title = "Loosen"; ObjectID = "1662"; */
+"1662.title" = "Loosen";
+
+/* Class = "NSMenuItem"; title = "Use None"; ObjectID = "1663"; */
+"1663.title" = "Use None";
+
+/* Class = "NSMenuItem"; title = "Kern"; ObjectID = "1664"; */
+"1664.title" = "Kern";
+
+/* Class = "NSMenuItem"; title = "Baseline"; ObjectID = "1666"; */
+"1666.title" = "Baseline";
+
+/* Class = "NSMenuItem"; title = "Paste Style"; ObjectID = "1667"; */
+"1667.title" = "Paste Style";
+
+/* Class = "NSMenuItem"; title = "Subscript"; ObjectID = "1668"; */
+"1668.title" = "Subscript";
+
+/* Class = "NSMenuItem"; title = "Copy Style"; ObjectID = "1669"; */
+"1669.title" = "Copy Style";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "1670"; */
+"1670.title" = "Use Default";
+
+/* Class = "NSMenuItem"; title = "Ligature"; ObjectID = "1671"; */
+"1671.title" = "Ligature";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "1672"; */
+"1672.title" = "Bigger";
+
+/* Class = "NSMenuItem"; title = "Show Colors"; ObjectID = "1673"; */
+"1673.title" = "Show Colors";
+
+/* Class = "NSMenuItem"; title = "Superscript"; ObjectID = "1674"; */
+"1674.title" = "Superscript";
+
+/* Class = "NSMenu"; title = "Baseline"; ObjectID = "1675"; */
+"1675.title" = "Baseline";
+
+/* Class = "NSMenu"; title = "Kern"; ObjectID = "1678"; */
+"1678.title" = "Kern";
+
+/* Class = "NSMenuItem"; title = "Scroll to Selection"; ObjectID = "1701"; */
+"1701.title" = "Scroll to Selection";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1702"; */
+"1702.title" = "Find";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "1703"; */
+"1703.title" = "Use Selection for Find";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "1704"; */
+"1704.title" = "Find";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "1705"; */
+"1705.title" = "Find Next";
+
+/* Class = "NSMenuItem"; title = "Find..."; ObjectID = "1706"; */
+"1706.title" = "Find...";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "1707"; */
+"1707.title" = "Find Previous";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "1709"; */
+"1709.title" = "Spelling";
+
+/* Class = "NSMenuItem"; title = "Check Spelling"; ObjectID = "1710"; */
+"1710.title" = "Check Spelling";
+
+/* Class = "NSMenuItem"; title = "Spelling..."; ObjectID = "1711"; */
+"1711.title" = "Spelling...";
+
+/* Class = "NSMenuItem"; title = "Spelling"; ObjectID = "1712"; */
+"1712.title" = "Spelling";
+
+/* Class = "NSMenuItem"; title = "Check Spelling as You Type"; ObjectID = "1713"; */
+"1713.title" = "Check Spelling as You Type";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "1717"; */
+"1717.title" = "Start Speaking";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "1718"; */
+"1718.title" = "Stop Speaking";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "1719"; */
+"1719.title" = "Speech";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "1720"; */
+"1720.title" = "Speech";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "1785"; */
+"1785.title" = "Services";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "1786"; */
+"1786.title" = "Services";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "1812"; */
+"1812.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "1813"; */
+"1813.title" = "Help";
+
+/* Class = "NSMenu"; title = "Plugins"; ObjectID = "1842"; */
+"1842.title" = "Plugins";
+
+/* Class = "NSMenuItem"; title = "Plugins"; ObjectID = "1843"; */
+"1843.title" = "Plugins";
+
+/* Class = "NSMenuItem"; title = "Preferences..."; ObjectID = "1873"; */
+"1873.title" = "Preferences...";
+
+/* Class = "NSMenuItem"; title = "Task Viewer"; ObjectID = "1879"; */
+"1879.title" = "Task Viewer";
+
+/* Class = "NSMenuItem"; title = "Report a Bug..."; ObjectID = "1895"; */
+"1895.title" = "Report a Bug...";
+
+/* Class = "NSMenuItem"; title = "Release Notes..."; ObjectID = "1901"; */
+"1901.title" = "Release Notes...";
+
+/* Class = "NSMenuItem"; title = "Quicksilver Forums..."; ObjectID = "1903"; */
+"1903.title" = "Quicksilver Forums...";
+
+/* Class = "NSMenuItem"; title = "Quicksilver Help..."; ObjectID = "1905"; */
+"1905.title" = "Quicksilver Help...";
+
+/* Class = "NSMenuItem"; title = "Quicksilver Forums..."; ObjectID = "1906"; */
+"1906.title" = "Quicksilver Forums...";
+
+/* Class = "NSMenuItem"; title = "Release Notes..."; ObjectID = "1909"; */
+"1909.title" = "Release Notes...";
+
+/* Class = "NSMenuItem"; title = "Report a Bug..."; ObjectID = "1910"; */
+"1910.title" = "Report a Bug...";
+
+/* Class = "NSMenuItem"; title = "Preferences..."; ObjectID = "1940"; */
+"1940.title" = "Preferences...";
+
+/* Class = "NSMenuItem"; title = "Catalog..."; ObjectID = "1941"; */
+"1941.title" = "Catalog...";
+
+/* Class = "NSMenuItem"; title = "Triggers..."; ObjectID = "1942"; */
+"1942.title" = "Triggers...";
+
+/* Class = "NSMenuItem"; title = "Plugins..."; ObjectID = "1943"; */
+"1943.title" = "Plugins...";
+
+/* Class = "NSMenuItem"; title = "Guide..."; ObjectID = "1944"; */
+"1944.title" = "Guide...";
+
+/* Class = "NSMenuItem"; title = "Guide..."; ObjectID = "1950"; */
+"1950.title" = "Guide...";
+
+/* Class = "NSMenuItem"; title = "Catalog..."; ObjectID = "1951"; */
+"1951.title" = "Catalog...";
+
+/* Class = "NSMenuItem"; title = "Triggers..."; ObjectID = "1952"; */
+"1952.title" = "Triggers...";
+
+/* Class = "NSMenuItem"; title = "Plugins..."; ObjectID = "1953"; */
+"1953.title" = "Plugins...";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "1963"; */
+"1963.title" = "Delete";
+
+/* Class = "NSTextFieldCell"; title = "For security and privacy reasons, macOS requires you to give explicit permission to an application before it can control your computer."; ObjectID = "1TS-br-qqV"; */
+"1TS-br-qqV.title" = "For security and privacy reasons, macOS requires you to give explicit permission to an application before it can control your computer.";
+
+/* Class = "NSWindow"; title = "System Permission Needed"; ObjectID = "FDo-Qk-K96"; */
+"FDo-Qk-K96.title" = "System Permission Needed";
+
+/* Class = "NSTextFieldCell"; title = "Visit System Preferences and enable the Accessibility permission for Quicksilver as shown above."; ObjectID = "Fbf-wh-pJ5"; */
+"Fbf-wh-pJ5.title" = "Visit System Preferences and enable the Accessibility permission for Quicksilver as shown above.";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "HOT-LT-c93"; */
+"HOT-LT-c93.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Quicksilver needs permission to control your Mac in order to work properly."; ObjectID = "Ltj-N2-Hut"; */
+"Ltj-N2-Hut.title" = "Quicksilver needs permission to control your Mac in order to work properly.";
+
+/* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "fWD-oC-mMX"; */
+"fWD-oC-mMX.title" = "Donate...";
+
+/* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "iED-Wu-rsI"; */
+"iED-Wu-rsI.title" = "Donate...";
+
+/* Class = "NSButtonCell"; title = "Open System Preferences..."; ObjectID = "iq5-A9-t0Y"; */
+"iq5-A9-t0Y.title" = "Open System Preferences...";
