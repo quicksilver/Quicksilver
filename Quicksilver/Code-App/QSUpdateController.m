@@ -269,7 +269,7 @@ typedef enum {
 							alert.alertStyle = NSAlertStyleInformational;
 							alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title");
 							alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
-							[alert addButtonWithTitle:NSLocalizedString(@"OK", @"no update alert default button")];
+							[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 							
 							[alert runModal];
 						});
@@ -348,7 +348,7 @@ typedef enum {
 		alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"An error occured while downloading the update: %@", @"QSUpdateController - download failed alert message"), error.localizedDescription];
 		alert.alertStyle = NSAlertStyleInformational;
 		
-		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"QSUpdateController - download failed alert - default button")];
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 		
 		[alert runModal];
 	});
@@ -387,7 +387,7 @@ typedef enum {
 			alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
 			alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], self->availableVersion];
 			[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update available alert default button")];
-			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - update available alert cancel button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - cancel update button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
 			NSModalResponse response = [alert runModal];
 			
@@ -413,7 +413,7 @@ typedef enum {
 			alert.informativeText = NSLocalizedString(@"It was not possible to decompress the downloaded file.", @"QSUpdateController - installation failed alert message");
 			alert.alertStyle = NSAlertStyleWarning;
 			
-			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - installation failed alert - default button")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - cancel update button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Download manually", @"QSUpdateController - installation failed alert - cancel button")];
 			
 			QSAlertResponse response = [alert runAlert];
