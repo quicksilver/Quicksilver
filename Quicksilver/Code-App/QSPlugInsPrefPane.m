@@ -135,7 +135,7 @@
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
 		NSString *htmlString;
-		NSString *defaultTitle = @"Plugin Documentation";
+		NSString *defaultTitle = NSLocalizedString(@"Plugin Documentation", nil);
 		if ([selection count] == 1) {
             [infoButton setEnabled:YES];
             [docsButton setEnabled:YES];
@@ -177,7 +177,7 @@
 }
 #endif
 
-- (NSString *)helpPage {return @"PlugIns Preferences";}
+- (NSString *)helpPage {return NSLocalizedString(@"PlugIns Preferences", nil);}
 
 - (NSInteger) viewMode { return viewMode;  }
 - (void)setViewMode:(NSInteger)newViewMode {
@@ -305,13 +305,28 @@
 
 - (NSMutableArray *)plugInSets {
 	NSMutableArray *setDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", @"Recommended", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", @"Installed", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", @"Disabled", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", @"Not Installed", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", NSLocalizedString(@"Recommended", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", NSLocalizedString(@"Installed", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", NSLocalizedString(@"Disabled", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", NSLocalizedString(@"Not Installed", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	NSArray *categories = [NSArray arrayWithObjects:
+			NSLocalizedString(@"Applications", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Calendar", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Contacts", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Development", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Files", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Images", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Interfaces", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Mail & Chat", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Miscellaneous", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Music", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Quicksilver", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Search", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"System", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Text", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Web", "Plugin category name in the sidebar of the 'Plugins' preference pane"), nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", @"All Plugins", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", NSLocalizedString(@"All Plugins", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
 
 	for(NSString * categoryName in categories)
 		[categoryDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryName, @"category", categoryName, @"text", @"category", @"type", nil]];
