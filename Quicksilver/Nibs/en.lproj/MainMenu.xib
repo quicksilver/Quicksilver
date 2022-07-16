@@ -19,7 +19,7 @@
                 <menuItem title="Quicksilver" id="56">
                     <menu key="submenu" title="Quıcĸsıɩⅴεʀ" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About Quıcĸsıɩⅴεʀ" id="58">
+                            <menuItem title="About Quicksilver" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showAbout:" target="217" id="1334"/>
@@ -484,7 +484,7 @@ CA
         </customObject>
         <menu title="Menu" id="1365" userLabel="Status Menu">
             <items>
-                <menuItem title="About Quıcĸsıɩⅴεʀ" id="1360">
+                <menuItem title="About Quicksilver" id="1360">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showAbout:" target="-1" id="1370"/>

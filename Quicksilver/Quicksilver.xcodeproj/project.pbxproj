@@ -389,6 +389,7 @@
 		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
+		CDA250582882E9AF00033B16 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA2505A2882E9AF00033B16 /* MainMenu.xib */; };
 		CDA307E7282050A2002D4F64 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */; };
 		CDA3080B2820B71F002D4F64 /* QuitConfirm.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA3080D2820B71F002D4F64 /* QuitConfirm.xib */; };
 		CDA308172820BF9C002D4F64 /* ResultWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA308192820BF9C002D4F64 /* ResultWindow.xib */; };
@@ -474,7 +475,6 @@
 		E102F9BD06625D7400843027 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.xib */; };
 		E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.xib */; };
 		E102F9BF06625D7400843027 /* CommandBuilder.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97E06625D7300843027 /* CommandBuilder.xib */; };
-		E102F9C306625D7400843027 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98206625D7300843027 /* MainMenu.xib */; };
 		E102F9C906625D7400843027 /* QSDefaultsObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */; };
 		E102F9CA06625D7400843027 /* QSFileConflictPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98906625D7300843027 /* QSFileConflictPanel.xib */; };
 		E102F9CB06625D7400843027 /* QSFileSystemObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */; };
@@ -1855,6 +1855,7 @@
 		CD98DB6E2825F51F00D392F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = fr; path = fr.lproj/Guide.html; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
+		CDA250592882E9AF00033B16 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CDA307E8282050A2002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QSSetupAssistant.xib; sourceTree = "<group>"; };
 		CDA3080C2820B71F002D4F64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QuitConfirm.xib; sourceTree = "<group>"; };
 		CDA308162820B723002D4F64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QuitConfirm.strings; sourceTree = "<group>"; };
@@ -2153,7 +2154,6 @@
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
 		E102F97E06625D7300843027 /* CommandBuilder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommandBuilder.xib; sourceTree = "<group>"; };
-		E102F98206625D7300843027 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSDefaultsObjectSource.xib; sourceTree = "<group>"; };
 		E102F98906625D7300843027 /* QSFileConflictPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileConflictPanel.xib; sourceTree = "<group>"; };
 		E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileSystemObjectSource.xib; sourceTree = "<group>"; };
@@ -3185,7 +3185,7 @@
 				CDDB44E31518C53300800B66 /* QSCrashReporter.xib */,
 				E102F97C06625D7300843027 /* About.xib */,
 				E102F97E06625D7300843027 /* CommandBuilder.xib */,
-				E102F98206625D7300843027 /* MainMenu.xib */,
+				CDA2505A2882E9AF00033B16 /* MainMenu.xib */,
 				7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.xib */,
 				E14B868F0738158D003C1AED /* QSAdvancedPrefPane.xib */,
 				E14B868E0738158D003C1AED /* QSAppearancePrefPane.xib */,
@@ -4758,7 +4758,7 @@
 				7FC20B5607FB589C00FDD3CA /* QuicksilverHandlers.scriptTerminology in Resources */,
 				E102F9BD06625D7400843027 /* About.xib in Resources */,
 				E102F9BF06625D7400843027 /* CommandBuilder.xib in Resources */,
-				E102F9C306625D7400843027 /* MainMenu.xib in Resources */,
+				CDA250582882E9AF00033B16 /* MainMenu.xib in Resources */,
 				7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.xib in Resources */,
 				E14B86930738158D003C1AED /* QSAdvancedPrefPane.xib in Resources */,
 				E14B86920738158D003C1AED /* QSAppearancePrefPane.xib in Resources */,
@@ -6217,6 +6217,14 @@
 				CD73A5B52869FB1700552A12 /* ko */,
 			);
 			name = Guide.html;
+			sourceTree = "<group>";
+		};
+		CDA2505A2882E9AF00033B16 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDA250592882E9AF00033B16 /* en */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		CDA307E9282050A2002D4F64 /* QSSetupAssistant.xib */ = {
