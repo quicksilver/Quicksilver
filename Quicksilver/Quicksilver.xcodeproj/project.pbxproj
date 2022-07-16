@@ -2025,7 +2025,7 @@
 		CDFAC89B1652E273006A0C5B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CDFAC89C1652E275006A0C5B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
 		CDFAC89D1652E2FF006A0C5B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CDFAC89E1652E386006A0C5B /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CDFAC89E1652E386006A0C5B /* es-ES */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CDFAC89F1652E386006A0C5B /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/About.strings"; sourceTree = "<group>"; };
 		CDFAC8A01652E387006A0C5B /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "es-ES"; path = "es-ES.lproj/QSCatalogPreset.name.strings"; sourceTree = "<group>"; };
 		CDFAC8A11652E387006A0C5B /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "es-ES"; path = "es-ES.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
