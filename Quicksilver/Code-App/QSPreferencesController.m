@@ -147,7 +147,7 @@ id QSPrefs;
 			[paneInfo setObject:image forKey:@"image"];
 		}
 		if ([paneInfo objectForKey:@"name"])
-			[paneInfo setObject:[paneInfo objectForKey:@"name"] forKey:@"text"];
+			[paneInfo setObject:NSLocalizedString([paneInfo objectForKey:@"name"], nil) forKey:@"text"];
 		[paneInfo setObject:paneKey forKey:kItemID];
 		//	NSPreferencePane * obj = [QSReg getClassInstance:paneClass];
 		if (paneInfo) {

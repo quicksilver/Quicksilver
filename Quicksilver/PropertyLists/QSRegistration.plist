@@ -258,7 +258,7 @@
 			<key>class</key>
 			<string>QSAdvancedPrefPane</string>
 			<key>description</key>
-			<string>The Kitchen Sink</string>
+			<string>Extra, advanced settings</string>
 			<key>icon</key>
 			<string>ToolbarCustomizeIcon</string>
 			<key>name</key>
@@ -316,7 +316,7 @@
 			<key>class</key>
 			<string>QSHelpersPrefPane</string>
 			<key>description</key>
-			<string>Choose the helpers for specific tasks</string>
+			<string>Choose the handlers for specific tasks</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
@@ -357,7 +357,7 @@
 			<key>class</key>
 			<string>QSSearchPrefPane</string>
 			<key>description</key>
-			<string>Activation and Matching options</string>
+			<string>Activation and Searching options</string>
 			<key>icon</key>
 			<string>Find</string>
 			<key>name</key>
