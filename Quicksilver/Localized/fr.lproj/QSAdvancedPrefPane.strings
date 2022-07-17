@@ -1,3 +1,9 @@
+/* Preference Pane Name */
+"Extras" = "Extras";
+
+/* Preference Pane Description */
+"The Kitchen Sink" = "Tout le reste";
+
 "QSShowTaskViewerAutomatically:title" = "Affiche la fenêtre des tâches automatiquement à leur création";
 "Hide Other Apps When Switching:title" = "Masque les autres applications en basculant de l’une à l’autre (bloqué par Maj.)";
 
