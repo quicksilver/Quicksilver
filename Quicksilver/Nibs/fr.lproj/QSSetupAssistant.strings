@@ -51,7 +51,7 @@
 "342.title" = "Tous les jours";
 
 /* Class = "NSMenuItem"; title = "Manually (⌘R)"; ObjectID = "343"; */
-"343.title" = "Manually (⌘R)";
+"343.title" = "Manuellement (⌘R)";
 
 /* Class = "NSMenuItem"; title = "Every half hour"; ObjectID = "345"; */
 "345.title" = "Toutes les demi-heures";
@@ -102,7 +102,7 @@
 "456.title" = "Activation";
 
 /* Class = "NSTextFieldCell"; title = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the Catalog pane in the preferences. By default, the catalog is refreshed every 10 minutes. You can  alter the frequency below."; ObjectID = "457"; */
-"457.title" = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences.\nBy default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.";
+"457.title" = "Les applications, fichiers, dossiers et éléments que Quicksilver peut trouver sont définis dans le catalogue. Vous pouvez ajouter, enlever ou mettre à jour les éléments dans le catalogue depuis le panneau « Catalogue » des préférences.\nPar défaut, le catalogue se met à jour toutes les 10 minutes. Vous pouvez en changer la fréquence ci-dessous.";
 
 /* Class = "NSTextFieldCell"; title = "Quicksilver is never further away than a single keyboard shortcut. Select your preferred shortcut below, or change it at any time in the Command pane in the preferences."; ObjectID = "458"; */
 "458.title" = "Quicksilver n'est jamais plus loin qu'un simple raccourci-clavier. Sélectionnez votre raccourci ci-dessous ou changez-le à tout moment dans le panneau « Commande » des préférences.";
