@@ -2,10 +2,10 @@
 
 
 /* Preference Pane Name */
-"Appearance" = "Appearance";
+"Appearance" = "Aspect";
 
 /* Preference Pane Description */
-"Color and visual settings" = "Color and visual settings";
+"Color and visual settings" = "Couleur et réglages visuels";
 
 /* 12.title */
 "<< do not localize >>" = "<< do not localize >>";
