@@ -1,5 +1,11 @@
 /* File extracted from ./Nibs/QSHelpersPrefPane.xib by stringstool v1.0*/
 
+/* Preference Pane Name */
+"Handlers" = "Gestionnaire";
+
+/* Preference Pane Description */
+"Choose the helpers for specific tasks" = "Choisir les gestionnaires pour des tâches spécifiques";
+
 /* 169.headerCell.title */
 "Helper" = "Assistant";
 
