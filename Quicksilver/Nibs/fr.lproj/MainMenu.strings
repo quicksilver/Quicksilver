@@ -111,7 +111,7 @@
 "1592.title" = "Guide de Quicksilver…";
 
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "1646"; */
-"1646.title" = "Utiliser les valeurs par d´faut";
+"1646.title" = "Utiliser les valeurs par défaut";
 
 /* Class = "NSMenuItem"; title = "Use All"; ObjectID = "1647"; */
 "1647.title" = "Tout utiliser";
@@ -144,7 +144,7 @@
 "1657.title" = "Police";
 
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "1658"; */
-"1658.title" = "Utiliser les valeurs par dé´faut";
+"1658.title" = "Utiliser les valeurs par défaut";
 
 /* Class = "NSMenu"; title = "Ligature"; ObjectID = "1659"; */
 "1659.title" = "Ligature";
