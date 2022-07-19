@@ -42,6 +42,19 @@ jobs:
         with:
           name: DMG_INGREDIENTS
           path: /tmp/QS/build/Release/dmg_ingredients.tar.gz
+      - name: Test Run for ChangesBare Updater
+        env:
+          SERVER: ${{ secrets.SERVER }}
+          PORT: ${{ secrets.PORT }}
+          SSH_KEY: ${{secrets.SSH_KEY}}
+        run: |
+          echo "this will get removed soon"
+          echo "${SSH_KEY}" > /tmp/key
+          chmod 0600 /tmp/key
+          ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
+            -o StrictHostKeyChecking=no \
+            "${GITHUB_REPOSITORY}" \
+            <Quicksilver/Resources/pyproject.toml
 
   sign:
     needs: build
