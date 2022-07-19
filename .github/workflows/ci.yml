@@ -120,3 +120,16 @@ jobs:
           files: |
             /tmp/QS/build/Release/Quicksilver*.dmg
             /tmp/QS/build/Release/checksum.txt
+      - name: Update ChangesBare.html
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          SERVER: ${{ secrets.SERVER }}
+          PORT: ${{ secrets.PORT }}
+          SSH_KEY: ${{secrets.SSH_KEY}}
+        run: |
+          echo "${SSH_KEY}" > /tmp/key
+          chmod 0600 /tmp/key
+          ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
+            -o StrictHostKeyChecking=no \
+            "${GITHUB_REPOSITORY}" \
+            <Quicksilver/SharedSupport/ChangesBare.html
