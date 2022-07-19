@@ -17,17 +17,6 @@ jobs:
     env:
       QS_BUILD_ONLY: 1
     steps:
-      - name: Test Run for ChangesBare Updater
-        env:
-          SERVER: ${{ secrets.SERVER }}
-          PORT: ${{ secrets.PORT }}
-          SSH_KEY: ${{secrets.SSH_KEY}}
-        run: |
-          echo "${SSH_KEY}" > /tmp/key
-          chmod 0600 /tmp/key
-          echo "this will get removed soon" | ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
-            -o StrictHostKeyChecking=no \
-            "${GITHUB_REPOSITORY}"
       - uses: actions/checkout@v2
         with:
           submodules: recursive
