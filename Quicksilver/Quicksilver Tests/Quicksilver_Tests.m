@@ -53,7 +53,7 @@
     XCTAssertEqualObjects(textString, pboardString);
 }
 
-// TODO - these tests currently fail
+#TODO - these tests currently fail
 - (void)testAddingCombinedObjectsToClipboard {
     return;
     NSString *str1 = @"/Applications/Safari.app";
