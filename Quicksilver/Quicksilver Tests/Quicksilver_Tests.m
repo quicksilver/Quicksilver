@@ -28,6 +28,24 @@
     XCTAssertTrue([[actions[0] identifier] isEqualToString:@"URLOpenAction"]);
 }
 
+// Attempted check for #2913. The real issue is with QSLibrarion's objectDictionary temporarily being wiped during `reloadSets`. There should be a check to make sure that doesn't happen
+- (void)testRightArrowIntoSynonym {
+    // code copied from QSUserDefinedProxySource
+    NSString *provider = @"QSUserDefinedProxySource";
+    NSDictionary *proxyDetails = [NSDictionary dictionaryWithObject:provider forKey:@"providerClass"];
+    QSProxyObject *proxy = [QSProxyObject proxyWithDictionary:proxyDetails];
+    // assign values to the proxy object
+    NSString *targetID = [@"~/Downloads" stringByExpandingTildeInPath];
+    NSString *name = @"dls";
+    [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
+    [proxy setName:name];
+    [proxy setObject:targetID forMeta:@"target"];
+    
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+    [[i dSelector] selectObjectValue:proxy];
+    [[i dSelector] moveRight:self];
+    XCTAssertTrue([[i dSelector] objectValue] != proxy);
+}
 
 // test to make sure when file objects are added to the clipboard, a string of their path is also copied
 - (void)testAddingFileObjectToPasteboard {

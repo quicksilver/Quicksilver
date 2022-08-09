@@ -313,23 +313,26 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)reloadSets:(NSNotification *)notif {
-    [self.objectDictionary removeAllObjects];
-	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
+	QSThreadSafeMutableDictionary *newDict = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:self.objectDictionary.count];
+	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);dls
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
         for (QSObject *obj in [entry contents]) {
-            if ([obj identifier]) {
-                [self setIdentifier:[obj identifier] forObject:obj];
+			NSString *identifier = [obj identifier];
+            if (identifier) {
+                [newDict setObject:obj forKey:identifier];
             } else {
-                NSString *ident = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
 				if ([[obj primaryType] isEqualToString:QSTextType]) {
 					// don't add identifiers to string objects
 					// it ends up replacing the string value
-					ident = [obj objectForType:QSTextType];
+					identifier = [obj objectForType:QSTextType];
+				} else {
+					identifier = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
 				}
-                [obj setIdentifier:ident];
+                [obj setIdentifier:identifier];
             }
         }
     }
+	self.objectDictionary = newDict;
 	if ([notif object]) {
 		[self recalculateTypeArraysForItem:[notif object]];
     }
