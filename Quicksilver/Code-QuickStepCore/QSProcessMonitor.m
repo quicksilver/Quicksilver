@@ -199,20 +199,12 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
 	NSString *ident = [dict objectForKey:@"NSApplicationBundleIdentifier"];
-	if ([ident isEqualToString:@"com.apple.TextEdit"]) {
-		NSLog(@"");
-	}
     NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
-	NSString *bundlePath = [appPath stringByDeletingLastPathComponent];
+	NSBundle *bundle = [NSBundle bundleWithIdentifier:ident];
 	QSObject *newObject = nil;
-	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"]) {
-		bundlePath = [bundlePath stringByDeletingLastPathComponent];
-		// ***warning  * check that this is the executable specified by the info.plist
-		if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"]) {
-			bundlePath = [bundlePath stringByDeletingLastPathComponent];
-			newObject = [QSObject fileObjectWithPath:bundlePath];
-			//	NSLog(@"%@ %@", bundlePath, newObject);
-		}
+	if (bundle && [appPath isEqualToString:[bundle executablePath]]) {
+		newObject = [QSObject fileObjectWithPath:[bundle bundlePath]];
+		//	NSLog(@"%@ %@", bundlePath, newObject);
 	}
 
 	if (!newObject) {
@@ -222,6 +214,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
             // the process isn't an app
             newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
         }
+		[newObject setLabel:[dict objectForKey:@"CFBundleName"]];
     }
 
 	[newObject setObject:dict forType:QSProcessType];
