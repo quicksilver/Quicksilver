@@ -6736,6 +6736,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -6760,6 +6761,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 			};
 			name = Release;
 		};
