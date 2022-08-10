@@ -34,18 +34,20 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 ## exit status won't be 0. It usually fails because something didn't exist
 ## in the first place. We don't care.)
 {
-  xcodebuild \
-    -destination generic/platform=macos \
-    -configuration "${CONFIGURATION}" \
-    -scheme 'Quicksilver Distribution' \
-    clean || true
+  # `xcodebuild clean` sometimes refuses to remove the build directory and
+  # fails with error:
+  #     Could not delete `/tmp/QS/build` because it was not created by the
+  #     build system.
+  rm -rf /tmp/QS/build
+
+  xcodebuild -scheme 'Quicksilver Distribution' clean
 
   # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
   xcodebuild \
     -destination "platform=macOS,arch=${CURRENT_ARCH}" \
     -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
-    test || true
+    test
 
   xcodebuild \
     -destination generic/platform=macos \
