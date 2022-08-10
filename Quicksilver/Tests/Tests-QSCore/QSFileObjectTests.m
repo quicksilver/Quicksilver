@@ -51,7 +51,7 @@
 
 - (void)testFileUTI
 {
-    QSObject *object = [QSObject fileObjectWithPath:@"/usr/bin/smtpd.py"];
+    QSObject *object = [QSObject fileObjectWithPath:@"../../Tools/python-support/typing_extensions.py"];
     NSString *type = [object fileUTI];
     XCTAssertEqualObjects(type, @"public.python-script", @"");
     object = [QSObject fileObjectWithPath:@"/usr/bin/yes"];
