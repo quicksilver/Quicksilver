@@ -32,6 +32,7 @@
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication;
 - (NSDictionary *)processesDict;
+- (NSDictionary *)addProcessToProcessesDict:(ProcessSerialNumber)psn;
 @end
 
 NSString *QSProcessMonitorFrontApplicationSwitched = @"QSProcessMonitorFrontApplicationSwitched";
@@ -77,7 +78,8 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
                                &psn);
 
     if( result == noErr ) {
-		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
+		NSDictionary *dict = [(__bridge QSProcessMonitor*)userData addProcessToProcessesDict:psn];
+
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
         });
@@ -359,6 +361,20 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	[self reloadProcesses];
 }
 
+- (NSDictionary *)addProcessToProcessesDict:(ProcessSerialNumber)psn {
+	NSDictionary *info = [self infoForPSN:psn];
+	QSObject *procObject = [self imbuedFileProcessForDict:info];
+	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
+
+	if (procObject) {
+		NSMutableDictionary *newProcesses = [processes mutableCopy];
+		[newProcesses setObject:procObject forKey:psnValue];
+		processes = [NSDictionary dictionaryWithDictionary:newProcesses];
+	}
+
+	return info;
+}
+
 - (void)reloadProcesses {
 	/* Mark us as reloading to prevent -addProcessWithPSN from sending one notification per found process, and handle KVO ourselves. */
 	
@@ -370,7 +386,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSDate *date = [NSDate date];
 #endif
 	NSArray *tempProcesses = [NDProcess everyProcess];
-	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:processes.count];
+	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:tempProcesses.count];
 	for (NDProcess *thisProcess in tempProcesses) {
 		ProcessSerialNumber psn = [thisProcess processSerialNumber];
 		NSDictionary *info = [self infoForPSN:psn];
