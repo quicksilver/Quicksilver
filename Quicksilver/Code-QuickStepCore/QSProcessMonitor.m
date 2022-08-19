@@ -27,7 +27,13 @@
 
 @end
 
+@interface QSProcessMonitor () {
+	dispatch_queue_t process_reload_queue;
+}
+@end
+
 @interface QSProcessMonitor (QSInternal)
+
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication;
@@ -58,9 +64,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
                                &psn);
     if( result == noErr ) {
 		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
-        QSGCDMainAsync(^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
-        });
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -78,9 +82,7 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
 
     if( result == noErr ) {
 		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
-        QSGCDMainAsync(^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
-        });
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -98,9 +100,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
     if( result == noErr ) {
 		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
-        QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
-        });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -148,6 +148,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (id)init {
 	if (self = [super init]) {
+		process_reload_queue = dispatch_queue_create("process_reload", DISPATCH_QUEUE_SERIAL);
 		isReloading = NO;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appTerminated:) name:QSProcessMonitorApplicationTerminated object: nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLaunched:) name:QSProcessMonitorApplicationLaunched object: nil];
@@ -360,11 +361,19 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)reloadProcesses {
+	QSGCDQueueAsync(process_reload_queue, ^{
+		[self _reloadProcesses];
+	});
+}
+
+- (void)_reloadProcesses {
 	/* Mark us as reloading to prevent -addProcessWithPSN from sending one notification per found process, and handle KVO ourselves. */
+	QSGCDMainSync(^{
+		[self willChangeValueForKey:@"visibleProcesses"];
+		[self willChangeValueForKey:@"backgroundProcesses"];
+		[self willChangeValueForKey:@"allProcesses"];
+	});
 	
-	[self willChangeValueForKey:@"visibleProcesses"];
-	[self willChangeValueForKey:@"backgroundProcesses"];
-	[self willChangeValueForKey:@"allProcesses"];	
 	
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
@@ -385,10 +394,12 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #ifdef DEBUG
 	NSLog(@"Reload time: %f ms", [date timeIntervalSinceNow]*-1000);
 #endif
-
-	[self didChangeValueForKey:@"allProcesses"];
-	[self didChangeValueForKey:@"backgroundProcesses"];
-	[self didChangeValueForKey:@"visibleProcesses"];
+	
+	QSGCDMainSync(^{
+		[self didChangeValueForKey:@"allProcesses"];
+		[self didChangeValueForKey:@"backgroundProcesses"];
+		[self didChangeValueForKey:@"visibleProcesses"];
+	});
 }
 
 #pragma mark -
