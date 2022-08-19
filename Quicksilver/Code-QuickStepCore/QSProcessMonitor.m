@@ -424,7 +424,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (NSDictionary *)processesDict {
 	if (!processes) {
-		processes = [NSMutableDictionary dictionaryWithCapacity:1];
+		processes = nil;
         isReloading = YES;
 		[self reloadProcesses];
         isReloading = NO;
