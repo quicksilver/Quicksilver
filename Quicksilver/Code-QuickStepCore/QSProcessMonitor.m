@@ -32,7 +32,10 @@
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication;
 - (NSDictionary *)processesDict;
-- (NSDictionary *)addProcessToProcessesDict:(ProcessSerialNumber)psn;
+
+- (void)appChanged:(ProcessSerialNumber)psn;
+- (void)appLaunched:(ProcessSerialNumber)psn;
+- (void)appTerminated:(ProcessSerialNumber)psn;
 @end
 
 NSString *QSProcessMonitorFrontApplicationSwitched = @"QSProcessMonitorFrontApplicationSwitched";
@@ -58,14 +61,13 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
                                sizeof(psn), NULL,
                                &psn);
     if( result == noErr ) {
-		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
-        QSGCDMainAsync(^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
+        QSGCDMainSync(^{
+            [(__bridge QSProcessMonitor*)userData appChanged:psn];
         });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
-	return CallNextEventHandler(nextHandler, theEvent);
+    return CallNextEventHandler(nextHandler, theEvent);
 }
 
 OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
@@ -78,10 +80,8 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
                                &psn);
 
     if( result == noErr ) {
-		NSDictionary *dict = [(__bridge QSProcessMonitor*)userData addProcessToProcessesDict:psn];
-
-        QSGCDMainAsync(^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
+        QSGCDMainSync(^{
+            [(__bridge QSProcessMonitor*)userData appLaunched:psn];
         });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
@@ -99,9 +99,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
                                &psn);
 
     if( result == noErr ) {
-		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
-        QSGCDMainAsync(^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
+        QSGCDMainSync(^{
+            [(__bridge QSProcessMonitor*)userData appTerminated:psn];
         });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
@@ -151,9 +150,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (id)init {
 	if (self = [super init]) {
 		isReloading = NO;
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appTerminated:) name:QSProcessMonitorApplicationTerminated object: nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLaunched:) name:QSProcessMonitorApplicationLaunched object: nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSProcessMonitorFrontApplicationSwitched object: nil];
 
 		EventTypeSpec eventType;
 		EventHandlerUPP handlerFunction;
@@ -280,14 +276,13 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	
     switch ([theEvent subtype]) {
 		case NSProcessDidLaunchSubType: {
-			[self reloadProcesses];
+			[self appLaunched:psn];
 			break;
 		} case NSProcessDidTerminateSubType: {
-			[self removeProcess:psn];
+			[self appTerminated:psn];
 			break;
 		} case NSFrontProcessSwitched: {
-			NSDictionary *processInfo = [self infoForPSN:psn];
-			[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object: processInfo];
+			[self appChanged:psn];
 			break;
 		}
 		default:
@@ -296,18 +291,33 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	return YES;
 }
 
-- (void)appLaunched:(NSNotification *)notif {
+- (void)appLaunched:(ProcessSerialNumber)psn {
 	[self reloadProcesses];
+
+	NSDictionary *dict = [[self processObjectWithPSN:psn] objectForType:QSProcessType];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:self userInfo:dict];
 }
 
-- (void)appTerminated:(NSNotification *)notif {
-	ProcessSerialNumber psn;
-	if (GetPSNForAppInfo(&psn, [notif userInfo]) != noErr)
-		return;
-	[self removeProcess:psn];
+- (void)appTerminated:(ProcessSerialNumber)psn {
+	QSObject *processObject = [self processObjectWithPSN:psn];
+
+	if (processObject) {
+		NSDictionary *dict = [processObject objectForType:QSProcessType];
+
+		[self reloadProcesses];
+
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:self userInfo:dict];
+	} else {
+#ifdef DEBUG
+		NSLog(@"No object found for process %u", (unsigned int)psn.highLongOfPSN);
+#endif
+	}
 }
 
-- (void)appChanged:(NSNotification *)aNotification {
+- (void)appChanged:(ProcessSerialNumber)psn {
+	NSDictionary *dict = [[self processObjectWithPSN:psn] objectForType:QSProcessType];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:self userInfo:dict];
+
 	/* TODO: tiennou This doesn't belong here */
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSDictionary *newApp = [workspace activeApplication];
@@ -347,32 +357,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		return YES;
 	}];
 	return [objs objectsAtIndexes:i];
-}
-
-- (void)removeProcess:(ProcessSerialNumber)psn {
-	QSObject *obj = [self processObjectWithPSN:psn];
-	if (obj) {
-		[obj setObject:nil forType:QSProcessType];
-	} else {
-#ifdef DEBUG
-		NSLog(@"No object found for process %u", (unsigned int)psn.highLongOfPSN);
-#endif
-	}
-	[self reloadProcesses];
-}
-
-- (NSDictionary *)addProcessToProcessesDict:(ProcessSerialNumber)psn {
-	NSDictionary *info = [self infoForPSN:psn];
-	QSObject *procObject = [self imbuedFileProcessForDict:info];
-	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
-
-	if (procObject) {
-		NSMutableDictionary *newProcesses = [processes mutableCopy];
-		[newProcesses setObject:procObject forKey:psnValue];
-		processes = [NSDictionary dictionaryWithDictionary:newProcesses];
-	}
-
-	return info;
 }
 
 - (void)reloadProcesses {
