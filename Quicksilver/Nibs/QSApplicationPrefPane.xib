@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,12 +18,12 @@
         <window title="&lt;&lt; do not localize &gt;&gt;" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="Application">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="86" y="325" width="384" height="309"/>
+            <rect key="contentRect" x="86" y="325" width="611" height="309"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="384" height="5"/>
             <value key="maxSize" type="size" width="385" height="384"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="384" height="309"/>
+                <rect key="frame" x="0.0" y="0.0" width="611" height="309"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button toolTip="Show icon in menu bar" translatesAutoresizingMaskIntoConstraints="NO" id="100">
@@ -74,24 +74,8 @@
                             <binding destination="-2" name="value" keyPath="dockIconIsHidden" id="364"/>
                         </connections>
                     </button>
-                    <button toolTip="Check for update immediately" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="161">
-                        <rect key="frame" x="276" y="134" width="86" height="27"/>
-                        <buttonCell key="cell" type="push" title="Check Now" alternateTitle="Cancel" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="330">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="checkNow:" target="-2" id="198"/>
-                            <binding destination="-2" name="enabled" keyPath="self.updateController.isCheckingForUpdates" id="8Ec-i7-WvL">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
-                            <outlet property="nextKeyView" destination="163" id="179"/>
-                        </connections>
-                    </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="163">
-                        <rect key="frame" x="11" y="78" width="131" height="14"/>
+                        <rect key="frame" x="11" y="79" width="131" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="ebY-CA-7fU"/>
                         </constraints>
@@ -105,7 +89,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="164">
-                        <rect key="frame" x="148" y="75" width="200" height="17"/>
+                        <rect key="frame" x="148" y="76" width="200" height="17"/>
                         <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" alignment="left" title="Never" id="332">
                             <dateFormatter key="formatter" dateStyle="medium" timeStyle="short" id="167"/>
                             <font key="font" metaFont="label"/>
@@ -120,12 +104,9 @@
                             </binding>
                         </connections>
                     </textField>
-                    <button toolTip="Enable update checking" translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                        <rect key="frame" x="17" y="140" width="163" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="158" id="yM2-aJ-I21"/>
-                        </constraints>
-                        <buttonCell key="cell" type="check" title="Check for updates:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="333">
+                    <button toolTip="Enable update checking" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="166">
+                        <rect key="frame" x="17" y="141" width="122" height="18"/>
+                        <buttonCell key="cell" type="check" title="Check for updates:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" scrollable="YES" lineBreakMode="clipping" state="on" inset="2" id="333">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -134,41 +115,18 @@
                             <outlet property="nextKeyView" destination="169" id="177"/>
                         </connections>
                     </button>
-                    <popUpButton toolTip="Update frequency" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="169">
-                        <rect key="frame" x="174" y="137" width="102" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="96" id="2yN-kL-Zo2"/>
-                        </constraints>
-                        <popUpButtonCell key="cell" type="push" title="On Launch" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="168" id="334">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
-                            <menu key="menu" title="OtherViews" id="165">
-                                <items>
-                                    <menuItem title="On Launch" state="on" id="168"/>
-                                    <menuItem title="Daily" tag="1" id="170"/>
-                                    <menuItem title="Weekly" tag="7" id="171"/>
-                                    <menuItem title="Monthly" tag="30" id="172"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                        <connections>
-                            <binding destination="122" name="selectedTag" keyPath="values.Check for Update Frequency" id="209"/>
-                            <binding destination="122" name="enabled" keyPath="values.Check for Updates" id="359"/>
-                            <outlet property="nextKeyView" destination="161" id="178"/>
-                        </connections>
-                    </popUpButton>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="225">
-                        <rect key="frame" x="20" y="189" width="334" height="5"/>
+                        <rect key="frame" x="20" y="190" width="561" height="5"/>
                     </box>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="280">
-                        <rect key="frame" x="24" y="200" width="18" height="16"/>
+                        <rect key="frame" x="24" y="201" width="18" height="15"/>
                         <buttonCell key="cell" type="square" title="⌽" bezelStyle="shadowlessSquare" alignment="center" enabled="NO" inset="2" id="336">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="281">
-                        <rect key="frame" x="40" y="199" width="316" height="18"/>
+                        <rect key="frame" x="40" y="199" width="543" height="18"/>
                         <buttonCell key="cell" type="check" title="Include access to all menu items from menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="337">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -179,7 +137,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="291">
-                        <rect key="frame" x="28" y="94" width="114" height="17"/>
+                        <rect key="frame" x="28" y="95" width="114" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="110" id="gFK-lG-1HK"/>
                         </constraints>
@@ -190,7 +148,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                        <rect key="frame" x="148" y="98" width="200" height="13"/>
+                        <rect key="frame" x="148" y="99" width="200" height="13"/>
                         <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" alignment="left" title="BXX" id="339">
                             <font key="font" metaFont="label"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -201,7 +159,7 @@
                         </connections>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
-                        <rect key="frame" x="40" y="117" width="295" height="18"/>
+                        <rect key="frame" x="40" y="118" width="522" height="18"/>
                         <buttonCell key="cell" type="check" title="Download updates in the background" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="340">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -211,7 +169,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="306">
-                        <rect key="frame" x="218" y="13" width="133" height="28"/>
+                        <rect key="frame" x="218" y="14" width="133" height="28"/>
                         <buttonCell key="cell" type="push" title="Uninstall Quicksilver" alternateTitle="Cancel" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="342">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -221,10 +179,10 @@
                         </connections>
                     </button>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="308">
-                        <rect key="frame" x="23" y="68" width="334" height="5"/>
+                        <rect key="frame" x="23" y="69" width="558" height="5"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="310">
-                        <rect key="frame" x="98" y="13" width="122" height="28"/>
+                        <rect key="frame" x="98" y="14" width="122" height="28"/>
                         <buttonCell key="cell" type="push" title="Reset Preferences" alternateTitle="Cancel" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="343">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -234,7 +192,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="314">
-                        <rect key="frame" x="19" y="13" width="81" height="28"/>
+                        <rect key="frame" x="19" y="14" width="81" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="9Sj-ca-Z7H"/>
                         </constraints>
@@ -257,8 +215,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="367">
-                        <rect key="frame" x="17" y="166" width="183" height="17"/>
+                    <textField verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="367">
+                        <rect key="frame" x="17" y="168" width="183" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Updates" id="368">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -266,7 +224,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="369">
-                        <rect key="frame" x="17" y="45" width="173" height="17"/>
+                        <rect key="frame" x="17" y="46" width="173" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="169" id="SzG-Gx-F1E"/>
                         </constraints>
@@ -276,9 +234,51 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" id="aH8-5M-BvS">
-                        <rect key="frame" x="361" y="142" width="16" height="12"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button toolTip="Check for update immediately" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="161">
+                        <rect key="frame" x="237" y="135" width="86" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="6RK-ap-rfP"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Check Now" alternateTitle="Cancel" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="330">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="checkNow:" target="-2" id="198"/>
+                            <binding destination="-2" name="enabled" keyPath="self.updateController.isCheckingForUpdates" id="8Ec-i7-WvL">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                            <outlet property="nextKeyView" destination="163" id="179"/>
+                        </connections>
+                    </button>
+                    <popUpButton toolTip="Update frequency" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="169">
+                        <rect key="frame" x="144" y="138" width="93" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="87" id="Fk4-98-8Sj"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="Xci-jj-lLd"/>
+                        </constraints>
+                        <popUpButtonCell key="cell" type="push" title="On Launch" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="168" id="334">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <menu key="menu" title="OtherViews" id="165">
+                                <items>
+                                    <menuItem title="On Launch" state="on" id="168"/>
+                                    <menuItem title="Daily" tag="1" id="170"/>
+                                    <menuItem title="Weekly" tag="7" id="171"/>
+                                    <menuItem title="Monthly" tag="30" id="172"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <binding destination="122" name="selectedTag" keyPath="values.Check for Update Frequency" id="209"/>
+                            <binding destination="122" name="enabled" keyPath="values.Check for Updates" id="359"/>
+                            <outlet property="nextKeyView" destination="161" id="178"/>
+                        </connections>
+                    </popUpButton>
+                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="aH8-5M-BvS">
+                        <rect key="frame" x="322" y="141" width="16" height="16"/>
                         <connections>
                             <binding destination="-2" name="animate" keyPath="self.updateController.isCheckingForUpdates" id="9a4-dx-Ha3"/>
                             <binding destination="-2" name="hidden" keyPath="self.updateController.isCheckingForUpdates" id="qZw-mz-OYx">
@@ -304,18 +304,20 @@
                     <constraint firstItem="291" firstAttribute="top" secondItem="299" secondAttribute="bottom" constant="9" id="Fd2-wA-7iw"/>
                     <constraint firstItem="161" firstAttribute="leading" secondItem="169" secondAttribute="trailing" constant="8" symbolic="YES" id="GE8-3Z-UEP"/>
                     <constraint firstItem="280" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="24" id="Ga0-VU-fEW"/>
-                    <constraint firstItem="166" firstAttribute="baseline" secondItem="169" secondAttribute="firstBaseline" id="ISs-d6-24u"/>
                     <constraint firstItem="365" firstAttribute="top" secondItem="6" secondAttribute="top" constant="6" id="JSj-nA-hc9"/>
                     <constraint firstItem="306" firstAttribute="leading" secondItem="310" secondAttribute="trailing" constant="8" symbolic="YES" id="K3h-Zz-hF2"/>
                     <constraint firstItem="292" firstAttribute="leading" secondItem="164" secondAttribute="leading" id="KxK-6s-apw"/>
                     <constraint firstItem="100" firstAttribute="leading" secondItem="225" secondAttribute="leading" id="LKA-fP-ifZ"/>
+                    <constraint firstItem="166" firstAttribute="top" secondItem="367" secondAttribute="bottom" constant="12" id="Lpl-2N-hj7"/>
                     <constraint firstItem="161" firstAttribute="centerY" secondItem="aH8-5M-BvS" secondAttribute="centerY" constant="-1" id="Mc5-BR-ox5"/>
                     <constraint firstItem="308" firstAttribute="top" secondItem="163" secondAttribute="bottom" constant="7" id="Mnn-Cn-E8a"/>
                     <constraint firstItem="292" firstAttribute="leading" secondItem="291" secondAttribute="trailing" constant="10" id="N0z-XS-Kqa"/>
                     <constraint firstItem="104" firstAttribute="centerY" secondItem="109" secondAttribute="centerY" id="N8f-XU-UHk"/>
                     <constraint firstItem="281" firstAttribute="leading" secondItem="280" secondAttribute="trailing" constant="1" id="O5s-r5-3oo"/>
                     <constraint firstItem="109" firstAttribute="top" secondItem="107" secondAttribute="bottom" constant="9" id="OMy-Pn-2mx"/>
+                    <constraint firstItem="308" firstAttribute="trailing" secondItem="225" secondAttribute="trailing" id="OgK-wM-FGI"/>
                     <constraint firstItem="163" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="13" id="Pur-Gm-1MO"/>
+                    <constraint firstItem="169" firstAttribute="leading" secondItem="166" secondAttribute="trailing" constant="10" id="U3w-nS-ZQT"/>
                     <constraint firstItem="308" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="23" id="VFA-LA-yfg"/>
                     <constraint firstItem="107" firstAttribute="top" secondItem="365" secondAttribute="bottom" constant="9" id="VFo-6r-urr"/>
                     <constraint firstItem="310" firstAttribute="leading" secondItem="314" secondAttribute="trailing" constant="8" symbolic="YES" id="Wq5-ws-JTt"/>
@@ -323,25 +325,22 @@
                     <constraint firstItem="280" firstAttribute="top" secondItem="100" secondAttribute="bottom" constant="7" id="bPU-wp-h8x"/>
                     <constraint firstItem="104" firstAttribute="top" secondItem="6" secondAttribute="top" constant="51" id="bic-Bq-SpT"/>
                     <constraint firstItem="292" firstAttribute="baseline" secondItem="291" secondAttribute="firstBaseline" id="bt5-vY-IG2"/>
-                    <constraint firstItem="161" firstAttribute="trailing" secondItem="308" secondAttribute="trailing" id="byB-vN-NCo"/>
-                    <constraint firstItem="166" firstAttribute="baseline" secondItem="169" secondAttribute="baseline" id="c3w-y1-ZDJ"/>
                     <constraint firstItem="104" firstAttribute="firstBaseline" secondItem="109" secondAttribute="firstBaseline" id="dAm-e9-u8S"/>
                     <constraint firstItem="109" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="dQl-Ax-GrB"/>
                     <constraint firstItem="100" firstAttribute="top" secondItem="109" secondAttribute="bottom" constant="9" id="dg2-hB-lVS"/>
                     <constraint firstItem="161" firstAttribute="top" secondItem="225" secondAttribute="bottom" constant="33" id="f3Z-kJ-tBh"/>
-                    <constraint firstItem="169" firstAttribute="baseline" secondItem="161" secondAttribute="firstBaseline" id="fY7-SK-g9i"/>
                     <constraint firstItem="281" firstAttribute="leading" secondItem="299" secondAttribute="leading" id="fvX-xm-hZA"/>
                     <constraint firstItem="281" firstAttribute="baseline" secondItem="280" secondAttribute="firstBaseline" id="gQI-vB-3IQ"/>
                     <constraint firstItem="365" firstAttribute="leading" secondItem="367" secondAttribute="leading" id="heW-GX-k1o"/>
                     <constraint firstItem="225" firstAttribute="top" secondItem="280" secondAttribute="bottom" constant="8" symbolic="YES" id="hnU-s4-dDO"/>
                     <constraint firstItem="292" firstAttribute="trailing" secondItem="164" secondAttribute="trailing" id="hog-Tc-MrD"/>
-                    <constraint firstItem="225" firstAttribute="leading" secondItem="166" secondAttribute="leading" id="i4d-11-9wv"/>
+                    <constraint firstItem="166" firstAttribute="leading" secondItem="225" secondAttribute="leading" id="kbI-zX-CyD"/>
                     <constraint firstItem="164" firstAttribute="trailing" secondItem="306" secondAttribute="trailing" id="lSQ-EC-bxi"/>
                     <constraint firstItem="314" firstAttribute="top" secondItem="369" secondAttribute="bottom" constant="7" id="lwo-4r-GAC"/>
                     <constraint firstItem="369" firstAttribute="top" secondItem="308" secondAttribute="bottom" constant="8" symbolic="YES" id="oLT-9c-jVY"/>
                     <constraint firstItem="109" firstAttribute="leading" secondItem="104" secondAttribute="trailing" constant="1" id="puv-ZI-Skp"/>
                     <constraint firstItem="104" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="1" id="qea-eF-2ON"/>
-                    <constraint firstItem="169" firstAttribute="top" secondItem="367" secondAttribute="bottom" constant="8" symbolic="YES" id="roA-oe-hMp"/>
+                    <constraint firstItem="169" firstAttribute="top" secondItem="367" secondAttribute="bottom" constant="9" id="roA-oe-hMp"/>
                     <constraint firstAttribute="trailing" secondItem="299" secondAttribute="trailing" constant="51" id="s2p-I9-mFH"/>
                     <constraint firstItem="163" firstAttribute="top" secondItem="291" secondAttribute="bottom" constant="2" id="t98-hc-1fq"/>
                     <constraint firstItem="367" firstAttribute="leading" secondItem="369" secondAttribute="leading" id="tD0-nQ-cUH"/>
@@ -356,7 +355,7 @@
                     <constraint firstItem="299" firstAttribute="top" secondItem="161" secondAttribute="bottom" constant="8" id="zcJ-1h-o0G"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="139" y="148"/>
+            <point key="canvasLocation" x="383.5" y="147.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="122" userLabel="Shared Defaults"/>
     </objects>
