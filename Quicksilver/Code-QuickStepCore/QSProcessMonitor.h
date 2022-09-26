@@ -8,6 +8,8 @@
 
 @interface QSProcessMonitor : NSObject <QSProxyObjectProvider> {
 	NSDictionary *processes;
+	// a snapshot of processes dict, useful for keeping track of quit applications (for events etc.)
+	NSDictionary *processesSnapshot;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
     EventHandlerRef changeHandler;
@@ -29,6 +31,7 @@
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent;
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
+- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn fromSnapshot:(BOOL)snapshot;
 
 - (NSDictionary *)currentApplication;
 - (NSDictionary *)previousApplication;

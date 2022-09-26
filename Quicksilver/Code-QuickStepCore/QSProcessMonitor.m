@@ -77,7 +77,7 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
                                &psn);
 
     if( result == noErr ) {
-		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
+		NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
         });
@@ -97,7 +97,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
                                &psn);
 
     if( result == noErr ) {
-		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn] objectForType:QSProcessType];
+		NSDictionary *dict = [[(__bridge QSProcessMonitor*)userData processObjectWithPSN:psn fromSnapshot:YES] objectForType:QSProcessType];
         QSGCDMainAsync(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
         });
@@ -195,6 +195,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	currentApplication = nil;
 	previousApplication = nil;
 	processes = nil;
+	processesSnapshot = nil;
 }
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
@@ -222,19 +223,23 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn {
-	QSObject *thisProcess;
-	ProcessSerialNumber thisPSN;
-	Boolean match;
-	NSValue *thisProcessPSN;
-
-	for (thisProcessPSN in [self processesDict]) {
-		thisProcess = [[self processesDict] objectForKey:thisProcessPSN];
+	return [self processObjectWithPSN:psn fromSnapshot:NO];
+}
+- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn fromSnapshot:(BOOL)snapshot {
+	NSDictionary *dict = (snapshot ? processesSnapshot : [self processesDict]);
+	__block QSObject *matchedProcess = nil;
+	[dict enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull key, QSObject *thisProcess, BOOL * _Nonnull stop) {
 		NSDictionary *info = [thisProcess objectForType:QSProcessType];
+		Boolean match;
+		ProcessSerialNumber thisPSN;
 		GetPSNForAppInfo(&thisPSN, info);
 		SameProcess(&psn, &thisPSN, &match);
-		if (match) return thisProcess;
-	}
-	return nil;
+		if (match) {
+			*stop = YES;
+			matchedProcess = thisProcess;
+		}
+	}];
+	return matchedProcess ? matchedProcess : nil;
 }
 
 - (QSObject *)processObjectWithDict:(NSDictionary *)dict {
@@ -295,7 +300,12 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)appLaunched:(NSNotification *)notif {
+	// This notif is used for the Events plugin 'Application Launched' event trigger
 	[self reloadProcesses];
+	if ([notif userInfo]) {
+		QSObject *procObject = [self imbuedFileProcessForDict:[notif userInfo]];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
+	}
 }
 
 - (void)appTerminated:(NSNotification *)notif {
@@ -348,8 +358,10 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)removeProcess:(ProcessSerialNumber)psn {
-	QSObject *obj = [self processObjectWithPSN:psn];
+	QSObject *obj = [self processObjectWithPSN:psn fromSnapshot:YES];
 	if (obj) {
+		// This notif is used for the Events plugin 'Application Quit' event trigger
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationQuitEvent" userInfo:[NSDictionary dictionaryWithObject:obj forKey:@"object"]];
 		[obj setObject:nil forType:QSProcessType];
 	} else {
 #ifdef DEBUG
@@ -366,6 +378,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	[self willChangeValueForKey:@"backgroundProcesses"];
 	[self willChangeValueForKey:@"allProcesses"];	
 	
+	if (processes != nil) {
+		processesSnapshot = [processes copy];
+	}
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 #endif
