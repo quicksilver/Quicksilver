@@ -17,7 +17,7 @@ jobs:
     env:
       QS_BUILD_ONLY: 1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Build debug version
@@ -71,7 +71,7 @@ jobs:
           QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' \
             /tmp/qs_build_settings)
           echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Run Tools/qssign
