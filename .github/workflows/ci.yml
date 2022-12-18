@@ -113,6 +113,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: /tmp/QS/build/Release/checksum.txt
+      - name: Download debug artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Quicksilver-debug.zip
+          path: /tmp/Quicksilver-debug.zip
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -120,6 +125,7 @@ jobs:
           files: |
             /tmp/QS/build/Release/Quicksilver*.dmg
             /tmp/QS/build/Release/checksum.txt
+            /tmp/Quicksilver-debug.zip
       - name: Update ChangesBare.html
         if: startsWith(github.ref, 'refs/tags/')
         env:
