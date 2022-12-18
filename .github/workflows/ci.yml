@@ -133,3 +133,4 @@ jobs:
             -o StrictHostKeyChecking=no \
             "${GITHUB_REPOSITORY}" \
             <Quicksilver/SharedSupport/ChangesBare.html
+          rm /tmp/key
