@@ -45,9 +45,9 @@
     <key>QSObjectShowChildrenAction</key>
     <string>Open Contents of Item in Quicksilver</string>
     <key>QSObjectExplodeCombinedAction</key>
-    <string>Show selected items in the results list</string>
+    <string>Geselecteerde items in de resultatenlijst weergeven</string>
     <key>QSObjectLogConsoleAction</key>
-    <string>Log details of this object to the Console</string>
+    <string>Log details van dit object naar de console</string>
     <key>QSShellScriptRunAction</key>
     <string>Run a Shell Script</string>
     <key>QSObjectSelectAction</key>
