@@ -1,0 +1,28 @@
+/* Preference Pane Name */
+"Extras" = "Extras";
+
+/* Preference Pane Description */
+"The Kitchen Sink" = "De keukentafel";
+
+"QSShowTaskViewerAutomatically:title" = "Toon de taak viewer automatisch wanneer taken worden aangemaakt";
+"Hide Other Apps When Switching:title" = "Verberg andere applicaties bij het omschakelen van applicaties (Shift voorkomt dit)";
+
+"Multithreaded Execute:title" = "Voer taken en acties uit op de achtergrond";
+
+"QSActionAppReopenBehavior:title" = "Heropenen van de huidige applicatie";
+"QSActionAppReopenBehavior:activates the application" = "Activeert de applicatie";
+"QSActionAppReopenBehavior:shows the front window" = "toont het voorste venster";
+"QSActionAppReopenBehavior:shows all windows" = "toont alle vensters";
+
+"QSUpdateReleaseLevel:title" = "Applicatie update type";
+"QSUpdateReleaseLevel:Final Releases" = "Laatse release";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Prerelease candidaten";
+"QSUpdateReleaseLevel:Developer Previews" = "Ontwikkelaars previews";
+"QSUpdateWithoutAsking:title" = "Updaten zonder te vragen";
+
+"Shift Actions:title" = "Sta hoofdlettertoetsen toe om de actie te selecteren";
+
+"Suppress HotKeys in Command:title" = "Uitschakelen van toetsenbord triggers wanneer de focus op Quicksilver is gericht ";
+
+"Double Delete Clears Object:title" = "Als u op de Delete-toets drukt, wordt de hele zoekreeks gewist";
+"QSHistoryMaxLength:title" = "Aantal items in de geschiedenis van Quicksilver";
