@@ -129,7 +129,7 @@
     <key>QSPresetMainApplications</key>
     <string>Applications</string>
     <key>QSPresetSystemApplications</key>
-    <string>System Applications</string>
+    <string>Systeemtoepassingen</string>
     <key>QSPresetMiscellaneousGroup</key>
     <string>Miscellaneous</string>
     <key>QSPresetModules</key>
