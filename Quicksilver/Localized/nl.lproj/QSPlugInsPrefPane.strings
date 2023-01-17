@@ -1,4 +1,104 @@
-﻿"Vers." = "Vers.";
-"Updated" = "Bijgewerkt";
-"Reload plugin list" = "Herlaad plug-in lijst";
+/* File extracted from ./Nibs/QSPlugInsPrefPane.xib by stringstool v1.0*/
+
+/* Preference Pane Name */
 "Plugins" = "Plug-ins";
+
+/* Preference Pane Description */
+"Find and install plugins" = "Plug-ins zoeken en installeren";
+
+/* 591.title */
+"Categories" = "Categorieën";
+
+/* 144.title */
+"Copy Installation URL" = "Installatie-URL kopiëren";
+
+/* 98.title */
+"Delete Selected Plugins" = "Geselecteerde plug-ins verwijderen";
+
+/* 371.title */
+"Download as File..." = "Downloaden als bestand...";
+
+/* 373.title */
+"Install Selected Plugins" = "Geselecteerde plug-ins installeren";
+
+/* 332.title */
+"Install clicked plugins without asking" = "Installeer aangeklikte plug-ins zonder te vragen";
+
+/* 103.title */
+"Install plugins from web without asking" = "Installeer plug-ins van het web zonder te vragen";
+
+/* 352.title */
+"Install prerequisites without asking" = "Vereisten installeren zonder te vragen";
+
+/* 608.title */
+"Installed Version" = "Geïnstalleerde versie";
+
+/* 524.title */
+"Latest Version" = "Laatste versie";
+
+/* 83.title */
+"Menu" = "Menu";
+
+/* 526.placeholderString */
+"N/A" = "NVT";
+
+/* 609.ibShadowedIsNilPlaceholder */
+"No Description" = "Geen beschrijving";
+
+/* 610.ibShadowedIsNilPlaceholder */
+"None" = "Geen";
+
+/* 111.title */
+"Open Plugin Help" = "Help voor plug-ins openen";
+
+/* 603.title */
+"Plug-In Categories" = "Plug-in categorieën";
+
+/* 582.title */
+"Plug-In Description" = "Beschrijving van plug-in";
+
+/* 499.title */
+"Plug-in Name" = "Naam plug-in";
+
+/* 500.title */
+"Plug-in Status" = "Plug-in Status";
+
+/* 281.ibShadowedToolTip */
+"Plugin Documentation" = "Plug-in Documentatie";
+
+/* 122.ibShadowedToolTip */
+"Plugin Information" = "Plug-in Informatie";
+
+/* 44.headerCell.title */
+"Plugins" = "Plug-ins";
+
+/* 102.title */
+"Refresh list of plugins" = "Lijst met plug-ins vernieuwen";
+
+/* 489.ibShadowedToolTip */
+"Reload plugin list" = "Herlaad plug-in lijst";
+
+/* 100.title */
+"Show Plugins Folder" = "Map Plug-ins weergeven";
+
+/* 496.title */
+"Small System Font Text" = "Kleine systeemlettertype tekst";
+
+/* 589.title */
+"Status" = "Status";
+
+/* 297.headerCell.title */
+"Updated" = "Bijgewerkt";
+
+/* 486.headerCell.title */
+"Vers." = "Vers.";
+
+/* 5.title */
+"Window" = "Venster";
+
+/* 503.title */
+"byline" = "aantekening";
+
+/* 64.headerCell.title */
+"✓" = "✓";
+
