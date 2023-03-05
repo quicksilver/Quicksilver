@@ -899,17 +899,14 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	// generally: name = what you see in Terminal, label = what you see in Finder
 	
 	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
-
-	NSArray* types = @[@"com.apple.systempreference.prefpane", @"com.apple.application-bundle"];
-	for (NSString* type in types) {
-		if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (__bridge CFStringRef _Nonnull)(type))) {
-			// get the CFBundleName for preference panes
-			newLabel = [[NSBundle bundleWithPath:path] localizedInfoDictionary][@"CFBundleName"];
-		}
+	if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
+		// get the CFBundleName for preference panes
+		newLabel = [[NSBundle bundleWithPath:path] localizedInfoDictionary][@"CFBundleName"];
 	}
 	if (![newLabel isEqualToString:newName]) {
 		[self setLabel:newLabel];
 	}
+
 }
 
 - (NSString *)filesContainer {
