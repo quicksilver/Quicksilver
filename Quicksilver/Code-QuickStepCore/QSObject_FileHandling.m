@@ -897,8 +897,12 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	[self setName:newName];
 	
 	// generally: name = what you see in Terminal, label = what you see in Finder
-	
 	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+	if ([[newLabel pathExtension] isEqualToString:@"app"]) {
+		// most apps just remove the extension
+		newLabel = [newLabel stringByDeletingPathExtension];
+	}
+
 	if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
 		// get the CFBundleName for preference panes
 		newLabel = [[NSBundle bundleWithPath:path] localizedInfoDictionary][@"CFBundleName"];

@@ -39,7 +39,8 @@
     // label is localized, so this test might only work for a specific locale
     path = @"/Applications/Safari.app";
     object = [QSObject fileObjectWithPath:path];
-    XCTAssertEqualObjects([object name], @"Safari.app");
+    XCTAssertEqualObjects([object name], @"Safari.app", @"");
+    XCTAssertEqualObjects([object label], @"Safari", @"");
     
     path = @"/System/Library/PreferencePanes/Accounts.prefPane";
     object = [QSObject fileObjectWithPath:path];
