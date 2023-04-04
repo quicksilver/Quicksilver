@@ -29,7 +29,7 @@
 
 - (void)testDirectoryScanning {
     // Create temp directory
-    NSString *tmpDir = @"/tmp/qs_tests/files";
+    NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"/qs_tests"];
     NSFileManager *f = [NSFileManager defaultManager];
     [f createDirectoryAtPath:tmpDir withIntermediateDirectories:YES attributes:nil error:nil];
     NSString *safariPath = @"/Applications/Safari.app";

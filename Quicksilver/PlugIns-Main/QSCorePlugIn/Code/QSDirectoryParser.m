@@ -71,21 +71,37 @@
             // Do nothing. Still add the file to the catalog, just we will know little about it.
             // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
+
         NSURL *targetURL = nil;
         if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
             targetURL = [theURL URLByReallyResolvingSymlinksInPath];
         } else if ([resources[NSURLIsAliasFileKey] boolValue]) {
+            // If theURL is an alias, resolve it as well as any underlying symlink
+            // NB: resources[NSURLIsAliasFileKey] AND resources[NSURLIsSymbolicLinkKey]
+            // are BOTH true for symlinks (only the former for aliases, or even aliases
+            // to symlinks)
             BOOL stale = NO;
             targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
                                                    options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
                                        bookmarkDataIsStale:&stale
                                                      error:&err];
+
             if (!targetURL) {
                 NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
             }
+
+            // Check if the result of resolving the alias is now a symlink
+            NSNumber *result = nil;
+            [targetURL getResourceValue:&result forKey:NSURLIsAliasFileKey error:&err];
+            if (err)
+                NSLog(@"err determining symlink status for %@: %@", targetURL, err);
+
+            if ([result boolValue])
+                targetURL = [targetURL URLByReallyResolvingSymlinksInPath];
         } else {
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
+
         if (targetURL) {
             /* This was a symlink or an alias, grab the correct information */
             aliasSource = [NDAlias aliasWithContentsOfFile:file];
