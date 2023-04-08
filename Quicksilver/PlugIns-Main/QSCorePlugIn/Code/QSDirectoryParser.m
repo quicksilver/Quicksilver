@@ -73,31 +73,31 @@
         }
 
         NSURL *targetURL = nil;
-        if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
-            targetURL = [theURL URLByReallyResolvingSymlinksInPath];
-        } else if ([resources[NSURLIsAliasFileKey] boolValue]) {
-            // If theURL is an alias, resolve it as well as any underlying symlink
-            // NB: resources[NSURLIsAliasFileKey] AND resources[NSURLIsSymbolicLinkKey]
-            // are BOTH true for symlinks (only the former for aliases, or even aliases
-            // to symlinks)
-            BOOL stale = NO;
-            targetURL = [NSURL URLByResolvingBookmarkAtURL:theURL
-                                                   options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
-                                       bookmarkDataIsStale:&stale
-                                                     error:&err];
 
-            if (!targetURL) {
-                NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
+        if ([resources[NSURLIsAliasFileKey] boolValue]) {
+            NSDictionary *newResources = [resources copy];
+            targetURL = theURL;
+
+            while ([newResources[NSURLIsAliasFileKey] boolValue]) {
+                // NB: `NSURLIsAliasFileKey` AND `NSURLIsSymbolicLinkKey`
+                // are BOTH true for symlinks (only the former for aliases,
+                // or even aliases to symlinks)
+
+                if ([newResources[NSURLIsSymbolicLinkKey] boolValue]) {
+                    targetURL = [targetURL URLByReallyResolvingSymlinksInPath];
+                } else {
+                    BOOL stale = NO;
+                    targetURL = [NSURL URLByResolvingBookmarkAtURL:targetURL
+                                                           options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
+                                               bookmarkDataIsStale:&stale
+                                                             error:&err];
+
+                    if (!targetURL) {
+                        NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
+                    }
+                }
+                newResources = [targetURL resourceValuesForKeys:properties error:&err];
             }
-
-            // Check if the result of resolving the alias is now a symlink
-            NSNumber *result = nil;
-            [targetURL getResourceValue:&result forKey:NSURLIsAliasFileKey error:&err];
-            if (err)
-                NSLog(@"err determining symlink status for %@: %@", targetURL, err);
-
-            if ([result boolValue])
-                targetURL = [targetURL URLByReallyResolvingSymlinksInPath];
         } else {
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
