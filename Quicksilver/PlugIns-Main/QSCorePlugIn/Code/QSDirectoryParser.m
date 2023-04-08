@@ -74,9 +74,10 @@
 
         NSURL *targetURL = nil;
 
+
         if ([resources[NSURLIsAliasFileKey] boolValue]) {
             NSDictionary *newResources = [resources copy];
-            targetURL = theURL;
+            targetURL = [theURL copy];
 
             while ([newResources[NSURLIsAliasFileKey] boolValue]) {
                 // NB: `NSURLIsAliasFileKey` AND `NSURLIsSymbolicLinkKey`
@@ -84,7 +85,10 @@
                 // or even aliases to symlinks)
 
                 if ([newResources[NSURLIsSymbolicLinkKey] boolValue]) {
+                    NSURL *oldTarget = [targetURL copy];
                     targetURL = [targetURL URLByReallyResolvingSymlinksInPath];
+                    if ([targetURL isEqual:oldTarget])
+                        break;
                 } else {
                     BOOL stale = NO;
                     targetURL = [NSURL URLByResolvingBookmarkAtURL:targetURL
