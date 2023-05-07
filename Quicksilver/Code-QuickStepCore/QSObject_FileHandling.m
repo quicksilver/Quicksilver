@@ -700,6 +700,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
+			[[self dataDictionary] setObject:path forKey:QSTextType];
 			if ([[QSReg tableNamed:@"QSFileObjectCreationHandlers"] count]) {
 				// only get the file UTI if there's actually any QSFileObjectCreationHandlers to check
 				NSString *uti = [self fileUTI];
