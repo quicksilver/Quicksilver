@@ -51,8 +51,11 @@
 
 - (void)testFileUTI
 {
-    QSObject *object = [QSObject fileObjectWithPath:@"../../Tools/python-support/typing_extensions.py"];
+    NSString *fakePythonScriptPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"/qs_test_script.py"];
+    [[NSFileManager defaultManager] createFileAtPath:fakePythonScriptPath contents:nil attributes:nil];
+    QSObject *object = [QSObject fileObjectWithPath:fakePythonScriptPath];
     NSString *type = [object fileUTI];
+
     XCTAssertEqualObjects(type, @"public.python-script", @"");
     object = [QSObject fileObjectWithPath:@"/usr/bin/yes"];
     XCTAssertTrue(UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], (__bridge CFStringRef)@"public.executable"), @"/usr/bin/yes does not conform to public.executable");
