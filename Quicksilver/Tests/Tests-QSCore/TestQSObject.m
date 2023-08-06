@@ -226,17 +226,6 @@
     XCTAssertEqualObjects(originalStrings, stringValues, @"");
 }
 
-- (void)testCacheExpiration
-{
-    // requires #1218
-//    NSString *cacheKey = @"temporaryData";
-//    NSString *data = @"string";
-//    QSObject *object = [QSObject makeObjectWithIdentifier:@"QSUnitTest:tempCache"];
-//    [object setObject:data forCache:cacheKey forTimeInterval:0.5];
-//    STAssertEqualObjects(data, [object objectForCache:cacheKey], nil);
-//    sleep(1);
-//    STAssertNil([object objectForCache:cacheKey], nil);
-}
 
 - (void)testEquality
 {

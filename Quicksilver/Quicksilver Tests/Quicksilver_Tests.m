@@ -72,48 +72,9 @@
     XCTAssertEqualObjects(textString, pboardString);
 }
 
-// TODO - these tests currently fail
-- (void)testAddingCombinedObjectsToClipboard {
-    return;
-    // create three temporary files in a subfolder of the temp folder, created with a random string
-    NSString *tempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir withIntermediateDirectories:YES attributes:nil error:nil];
-    NSString *str1 = [tempDir stringByAppendingPathComponent:@"test1.txt"];
-    NSString *str2 = [tempDir stringByAppendingPathComponent:@"test2.txt"];
-    NSString *str3 = [tempDir stringByAppendingPathComponent:@"test3.txt"];
-    // create the 3 files
-    [@"" writeToFile:str1 atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    [@"" writeToFile:str2 atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    [@"" writeToFile:str3 atomically:YES encoding:NSUTF8StringEncoding error:nil];
-
-    QSObject *obj1 = [QSObject fileObjectWithPath:str1];
-    QSObject *obj2 = [QSObject fileObjectWithPath:str2];
-    QSObject *obj3 = [QSObject fileObjectWithPath:str3];
-    
-    QSObject *combinedObj = [QSObject objectByMergingObjects:@[obj1, obj2, obj3]];
-    XCTAssertEqual([combinedObj count], 3);
-    NSPasteboard *pboard =[NSPasteboard generalPasteboard];
-    [combinedObj putOnPasteboard:pboard];
-    NSArray *items = pboard.pasteboardItems;
-    XCTAssertEqual([items count], 3);
-    
-    XCTAssertTrue([[items[0] types] containsObject:NSFilenamesPboardType]);
-    XCTAssertTrue([[items[0] types] containsObject:QSTextType]);
-    XCTAssertTrue([[items[0] types] containsObject:NSURLPboardType]);
-    XCTAssertEqualObjects(str1, [items[0] stringForType:QSTextType]);
-
-    
-    XCTAssertTrue([[items[1] types] containsObject:NSFilenamesPboardType]);
-    XCTAssertTrue([[items[1] types] containsObject:QSTextType]);
-    XCTAssertTrue([[items[1] types] containsObject:NSURLPboardType]);
-    XCTAssertEqualObjects(str2, [items[1] stringForType:QSTextType]);
-
-    XCTAssertTrue([[items[2] types] containsObject:NSFilenamesPboardType]);
-    XCTAssertTrue([[items[2] types] containsObject:QSTextType]);
-    XCTAssertTrue([[items[2] types] containsObject:NSURLPboardType]);
-    XCTAssertEqualObjects(str3, [items[2] stringForType:QSTextType]);
-
-}
+/**
+ * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'
+ */
 
 /**
  *  This is a test for bug #670, #203

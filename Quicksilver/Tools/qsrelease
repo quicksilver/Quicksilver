@@ -42,12 +42,7 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
   xcodebuild -scheme 'Quicksilver Distribution' clean
 
-  # TODO: https://github.com/quicksilver/Quicksilver/issues/2583
-  xcodebuild \
-    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-    -configuration "${CONFIGURATION}" \
-    -scheme 'Quicksilver Distribution' \
-    test || true
+  "${TOOLSDIR}"/qstest
 
   xcodebuild \
     -destination generic/platform=macos \

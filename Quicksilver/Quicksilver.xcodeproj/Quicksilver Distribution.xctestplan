@@ -30,6 +30,7 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Quicksilver.xcodeproj",
         "identifier" : "666E45ED150225EA0034E60A",
@@ -37,6 +38,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Quicksilver.xcodeproj",
         "identifier" : "66448D9514F42790000FA2E2",
@@ -44,6 +46,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Quicksilver.xcodeproj",
         "identifier" : "CD61BBB7192B18FA00040609",
@@ -51,6 +54,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Quicksilver.xcodeproj",
         "identifier" : "CD29AEAA195663770052C893",

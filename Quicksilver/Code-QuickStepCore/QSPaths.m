@@ -11,6 +11,13 @@
 
 NSString *QSGetApplicationSupportFolder() {
 	static NSString *QSApplicationSupportPath = nil;
+
+	// https://github.com/quicksilver/Quicksilver/issues/2953
+	#ifdef TESTING
+		NSLog(@"Override QSApplicationSupportPath for testing");
+		QSApplicationSupportPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSTest_Application_Support"];
+	#endif
+
 	if (!QSApplicationSupportPath) {
 		NSString *path = [[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath];
 		if (!path) {

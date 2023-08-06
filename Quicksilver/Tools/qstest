@@ -1,6 +1,35 @@
 #!/usr/bin/env sh
+# USAGE: qstest scheme [...]
+# EXAMPLE: qstest "QuickStep Core" "QuickStep Foundation" "Core Support"
 
-xcodebuild test -scheme "QuickStep Core"
-xcodebuild test -scheme "QuickStep Foundation"
-xcodebuild test -scheme "Core Support"
-xcodebuild test -scheme "Quicksilver"
+set -euf
+
+CURRENT_ARCH=$(uname -m)
+readonly CURRENT_ARCH
+
+TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
+readonly TOOLSDIR
+
+main() {
+  if test -z "${1:-}"; then
+    set -- "QuickStep Core" "QuickStep Foundation" "Core Support" "Quicksilver"
+  fi
+
+  cd "${TOOLSDIR}/.."
+
+  for scheme; do
+    retval=0
+    xcodebuild test \
+      -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
+      -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+      -configuration Debug \
+      -scheme "${scheme}" \
+      GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
+
+    if [ "$retval" -ne 0 ]; then
+      printf 'Testing scheme %s failed with return value %s\n' "${scheme}" "${retval}"
+    fi
+  done
+}
+
+main "$@"
