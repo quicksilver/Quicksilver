@@ -740,6 +740,7 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 	if( GetNextProcess ( &currentProcessSerialNumber ) == noErr && !(currentProcessSerialNumber.highLongOfPSN == kNoProcess && currentProcessSerialNumber.lowLongOfPSN == 0) )
 	{
 		theNextNDProcess = [NDProcess processWithProcessSerialNumber:currentProcessSerialNumber];
+        NSLog(@"New: %@", [theNextNDProcess name]);
 	}
 
 	return theNextNDProcess;
