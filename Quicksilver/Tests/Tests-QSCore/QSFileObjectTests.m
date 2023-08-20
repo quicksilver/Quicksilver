@@ -51,8 +51,11 @@
 
 - (void)testFileUTI
 {
-    QSObject *object = [QSObject fileObjectWithPath:@"/usr/bin/smtpd.py"];
+    NSString *fakePythonScriptPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"/qs_test_script.py"];
+    [[NSFileManager defaultManager] createFileAtPath:fakePythonScriptPath contents:nil attributes:nil];
+    QSObject *object = [QSObject fileObjectWithPath:fakePythonScriptPath];
     NSString *type = [object fileUTI];
+
     XCTAssertEqualObjects(type, @"public.python-script", @"");
     object = [QSObject fileObjectWithPath:@"/usr/bin/yes"];
     XCTAssertTrue(UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], (__bridge CFStringRef)@"public.executable"), @"/usr/bin/yes does not conform to public.executable");
@@ -71,7 +74,13 @@
 
 - (void)testFileObject
 {
-    NSString *path = @"/Applications/TextEdit.app";
+    NSString *path;
+    if (@available(macOS 12, *)) {
+        path = @"/System/Applications/TextEdit.app";
+    } else {
+        path = @"/Applications/TextEdit.app";
+    }
+
     QSObject *object = [QSObject fileObjectWithPath:path];
     XCTAssertEqualObjects([object objectForType:QSFilePathType], path, @"");
     XCTAssertEqualObjects([object singleFilePath], path, @"");

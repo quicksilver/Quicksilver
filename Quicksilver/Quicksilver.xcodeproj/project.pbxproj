@@ -954,34 +954,6 @@
 			remoteGlobalIDString = 2CD2426D1FCC09CA00479FDE;
 			remoteInfo = "FMDB watchOS";
 		};
-		CD34CCD7192B97BB00AC63A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
-			remoteInfo = "Core Support";
-		};
-		CD34CCD9192B97BC00AC63A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D002D011311465B009040B7;
-			remoteInfo = "Bezel Interface";
-		};
-		CD34CCDB192B97BF00AC63A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D002D60131148C2009040B7;
-			remoteInfo = "Finder Plugin";
-		};
-		CD34CCDD192B97C000AC63A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D002DAC13114A2E009040B7;
-			remoteInfo = "HotKey Triggers";
-		};
 		CD61BBC4192B18FA00040609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -4359,11 +4331,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CD34CCDE192B97C000AC63A6 /* PBXTargetDependency */,
 				CD61BBC5192B18FA00040609 /* PBXTargetDependency */,
-				CD34CCD8192B97BB00AC63A6 /* PBXTargetDependency */,
-				CD34CCDA192B97BC00AC63A6 /* PBXTargetDependency */,
-				CD34CCDC192B97BF00AC63A6 /* PBXTargetDependency */,
 			);
 			name = "Quicksilver Tests";
 			productName = "Quicksilver Tests";
@@ -5439,26 +5407,6 @@
 			isa = PBXTargetDependency;
 			target = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
 			targetProxy = 7FAF850E092EC7C700DD5295 /* PBXContainerItemProxy */;
-		};
-		CD34CCD8192B97BB00AC63A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
-			targetProxy = CD34CCD7192B97BB00AC63A6 /* PBXContainerItemProxy */;
-		};
-		CD34CCDA192B97BC00AC63A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D002D011311465B009040B7 /* Bezel Interface */;
-			targetProxy = CD34CCD9192B97BC00AC63A6 /* PBXContainerItemProxy */;
-		};
-		CD34CCDC192B97BF00AC63A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D002D60131148C2009040B7 /* Finder Plugin */;
-			targetProxy = CD34CCDB192B97BF00AC63A6 /* PBXContainerItemProxy */;
-		};
-		CD34CCDE192B97C000AC63A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D002DAC13114A2E009040B7 /* Keyboard Triggers */;
-			targetProxy = CD34CCDD192B97C000AC63A6 /* PBXContainerItemProxy */;
 		};
 		CD61BBC5192B18FA00040609 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6788,6 +6736,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -6812,6 +6761,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 			};
 			name = Release;
 		};

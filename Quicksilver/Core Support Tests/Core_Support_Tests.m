@@ -29,28 +29,43 @@
 
 - (void)testDirectoryScanning {
     // Create temp directory
-    NSString *tmpDir = @"/tmp/qs_tests/files";
+    NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"/qs_tests"];
     NSFileManager *f = [NSFileManager defaultManager];
     [f createDirectoryAtPath:tmpDir withIntermediateDirectories:YES attributes:nil error:nil];
     NSString *safariPath = @"/Applications/Safari.app";
+
     // Symlink
     NSError *e;
-    [f createSymbolicLinkAtPath:[tmpDir stringByAppendingPathComponent:@"Safari.app"] withDestinationPath:safariPath error:&e];
+    NSString *symlinkPath = [tmpDir stringByAppendingPathComponent:@"Safari.app"];
+    [f createSymbolicLinkAtPath:symlinkPath withDestinationPath:safariPath error:&e];
+
+    // Recursive symlink
+    NSString *badSymlinkPath = [tmpDir stringByAppendingPathComponent:@"Safari_recursive.app"];
+    [f createSymbolicLinkAtPath:badSymlinkPath withDestinationPath:badSymlinkPath error:&e];
+
     // Alias
     NSData *bookmarkData = [[NSURL fileURLWithPath:safariPath] bookmarkDataWithOptions: NSURLBookmarkCreationSuitableForBookmarkFile includingResourceValuesForKeys:nil relativeToURL:nil error:nil];
-    [NSURL writeBookmarkData:bookmarkData toURL:[NSURL fileURLWithPath:[tmpDir stringByAppendingPathComponent:@"Safari_alias.app"]] options:NSURLBookmarkCreationSuitableForBookmarkFile error:nil];
-    
+    NSString *aliasPath = [tmpDir stringByAppendingPathComponent:@"Safari_alias.app"];
+    [NSURL writeBookmarkData:bookmarkData toURL:[NSURL fileURLWithPath:aliasPath] options:NSURLBookmarkCreationSuitableForBookmarkFile error:nil];
+
+    // Symlink to alias
+    [f createSymbolicLinkAtPath:[tmpDir stringByAppendingPathComponent:@"Safari.app_alias_symlink"] withDestinationPath:aliasPath error:&e];
+
+    // Alias to symlink
+    NSData *bookmarkData2 = [[NSURL fileURLWithPath:symlinkPath] bookmarkDataWithOptions: NSURLBookmarkCreationSuitableForBookmarkFile includingResourceValuesForKeys:nil relativeToURL:nil error:nil];
+    [NSURL writeBookmarkData:bookmarkData2 toURL:[NSURL fileURLWithPath:[tmpDir stringByAppendingPathComponent:@"Safari.app_symlink_alias"]] options:NSURLBookmarkCreationSuitableForBookmarkFile error:nil];
+
     QSDirectoryParser *parser = [QSDirectoryParser new];
     NSArray *res = [parser objectsFromPath:tmpDir depth:1 types:nil excludeTypes:nil descend:NO];
-    XCTAssertEqual([res count], (NSUInteger)2, @"Number of files scanned is incorrect");
+    XCTAssertEqual([res count], 5, @"Number of files scanned is incorrect");
     
     res = [parser objectsFromPath:tmpDir depth:1 types:@[(__bridge NSString*)kUTTypeApplication] excludeTypes:nil descend:NO];
     
-    XCTAssertEqual([res count], (NSUInteger)2, @"Number of application files scanned is incorrect");
+    XCTAssertEqual([res count], 4, @"Number of application files scanned is incorrect");
     
     res = [parser objectsFromPath:tmpDir depth:1 types:nil excludeTypes:@[(__bridge NSString*)kUTTypeApplication] descend:NO];
     
-    XCTAssertEqual([res count], (NSUInteger)0, @"Number of non-application files scanned is incorrect");
+    XCTAssertEqual([res count], 1, @"Number of non-application files scanned is incorrect");
     
     
     [f removeItemAtPath:tmpDir error:nil];
