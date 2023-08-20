@@ -120,8 +120,6 @@
 		4D66BC441487024500351C42 /* NDScriptData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3A1487024500351C42 /* NDScriptData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBEE1486FFEF00351C42 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBEF1486FFEF00351C42 /* NDProcess.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-deprecated-declarations"; }; };
 		4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -592,8 +590,6 @@
 		E1E5FA6A07B204580044D6EF /* QSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5A07B204580044D6EF /* QSWindow.m */; };
 		E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */; };
-		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated-declarations"; }; };
 		E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */; };
 		E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1195,8 +1191,6 @@
 		4D62E3291476A6BF00362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D62E32B1476A6C600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D66BBD91486FCDE00351C42 /* CPSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSPrivate.h; sourceTree = "<group>"; };
-		4D66BBEE1486FFEF00351C42 /* NDProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProcess.h; sourceTree = "<group>"; };
-		4D66BBEF1486FFEF00351C42 /* NDProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProcess.m; sourceTree = "<group>"; };
 		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
@@ -2298,8 +2292,6 @@
 		E1E5FA5A07B204580044D6EF /* QSWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWindow.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+QSMods.h"; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+QSMods.m"; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDProcess+QSMods.h"; sourceTree = "<group>"; usesTabs = 1; };
-		E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDProcess+QSMods.m"; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleEventDescriptor_QSMods.h; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSAppleEventDescriptor_QSMods.m; sourceTree = "<group>"; usesTabs = 1; };
 		E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleScript_BLTRExtensions.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3563,8 +3555,6 @@
 				E1E5FB7A07B20DD10044D6EF /* QSSense.m */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
-				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
-				E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */,
 				E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */,
 				E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */,
 				E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */,
@@ -3891,8 +3881,6 @@
 				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
 				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
 				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
-				4D66BBEE1486FFEF00351C42 /* NDProcess.h */,
-				4D66BBEF1486FFEF00351C42 /* NDProcess.m */,
 				4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */,
 				4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */,
 				4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */,
@@ -4065,7 +4053,6 @@
 			files = (
 				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
-				E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */,
 				E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */,
 				E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */,
 				E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */,
@@ -4114,7 +4101,6 @@
 				4D6E8EC41EA93D61003CD3CE /* FMDatabaseAdditions.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
 				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
-				4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */,
 				D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
@@ -5203,7 +5189,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */,
-				E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */,
 				E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */,
 				E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */,
 				E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */,
@@ -5245,7 +5230,6 @@
 				7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */,
 				7F943F6608033961007EDC31 /* QSUTI.m in Sources */,
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
-				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
 				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
 				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
 				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
