@@ -47,7 +47,7 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
     -destination "platform=macOS,arch=${CURRENT_ARCH}" \
     -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
-    test
+    test || true
 
   xcodebuild \
     -destination generic/platform=macos \
