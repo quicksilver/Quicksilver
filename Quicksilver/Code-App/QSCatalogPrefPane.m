@@ -108,6 +108,7 @@ static id _sharedInstance;
 		[item setTarget:self];
 		[item setAction:@selector(addSource:)];
 		icon = [[source iconForEntry:nil] copy];
+		[icon setSize:QSSize16];
 		[item setImage:icon];
 		 if ([theID isEqualToString:@"QSFileSystemObjectSource"]) {
 			[[itemAddButton menu] insertItem:item atIndex:0];
