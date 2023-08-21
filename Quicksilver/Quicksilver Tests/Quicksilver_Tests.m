@@ -54,9 +54,10 @@
     QSObject *obj = [QSObject fileObjectWithPath:path];
     XCTAssertEqualObjects([obj singleFilePath], path);
     XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
-    XCTAssertTrue([[pboard types] containsObject:QSTextType]);
     XCTAssertTrue([[pboard types] containsObject:NSFilenamesPboardType]);
-    NSString *pboardString = [pboard stringForType:QSTextType];
+    NSArray *a = [pboard propertyListForType:NSFilenamesPboardType];
+    XCTAssertEqual([a count], 1);
+    NSString *pboardString = [a objectAtIndex:0];
     XCTAssertEqualObjects(path, pboardString);
     
     // try this for an imagined type that already has a string type set:
@@ -74,9 +75,17 @@
 // TODO - these tests currently fail
 - (void)testAddingCombinedObjectsToClipboard {
     return;
-    NSString *str1 = @"/Applications/Safari.app";
-    NSString *str2 = @"/Applications/Mail.app";
-    NSString *str3 = @"/Applications/Maps.app";
+    // create three temporary files in a subfolder of the temp folder, created with a random string
+    NSString *tempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *str1 = [tempDir stringByAppendingPathComponent:@"test1.txt"];
+    NSString *str2 = [tempDir stringByAppendingPathComponent:@"test2.txt"];
+    NSString *str3 = [tempDir stringByAppendingPathComponent:@"test3.txt"];
+    // create the 3 files
+    [@"" writeToFile:str1 atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [@"" writeToFile:str2 atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [@"" writeToFile:str3 atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
     QSObject *obj1 = [QSObject fileObjectWithPath:str1];
     QSObject *obj2 = [QSObject fileObjectWithPath:str2];
     QSObject *obj3 = [QSObject fileObjectWithPath:str3];
@@ -105,9 +114,6 @@
     XCTAssertEqualObjects(str3, [items[2] stringForType:QSTextType]);
 
 }
-/**
- * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'
- */
 
 /**
  *  This is a test for bug #670, #203
