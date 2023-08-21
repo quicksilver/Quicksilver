@@ -100,14 +100,14 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </tableHeaderView>
                                         </scrollView>
-                                        <scrollView fixedFrame="YES" horizontalLineScroll="18" horizontalPageScroll="0.0" verticalLineScroll="18" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
+                                        <scrollView fixedFrame="YES" horizontalLineScroll="18" horizontalPageScroll="0.0" verticalLineScroll="18" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="19">
                                             <rect key="frame" x="109" y="0.0" width="278" height="268"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="WYR-wj-QZd">
                                                 <rect key="frame" x="1" y="1" width="276" height="266"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="16" headerView="134" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                                                    <tableView focusRingType="none" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" rowHeight="16" headerView="134" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                                                         <rect key="frame" x="0.0" y="0.0" width="276" height="249"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -146,6 +146,7 @@
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 <connections>
                                                                     <binding destination="43" name="value" keyPath="arrangedObjects.userRank" id="107"/>
                                                                 </connections>
