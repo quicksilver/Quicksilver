@@ -18,7 +18,6 @@
 	BOOL isReloading;
 }
 + (id)sharedInstance;
-+ (NSArray *)processes; /* NDProcesses */
 
 - (NSArray *)allProcesses; /* QSObjects */
 - (NSArray *)visibleProcesses; /* QSObjects */
