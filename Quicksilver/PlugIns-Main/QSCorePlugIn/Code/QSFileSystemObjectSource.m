@@ -332,9 +332,9 @@
 	NSArray *paths = self.fullWatchPaths;
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
 	for (NSString *path in paths) {
-	[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
+	[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE | NOTE_RENAME];
 #ifdef DEBUG
-	if (VERBOSE) NSLog(@"Watching Path %@", path);
+	 NSLog(@"Watching Path %@", path);
 #endif
 	[wsNotif addObserver:self selector:@selector(invalidateIndex:) name:nil object:path];
 	}
@@ -342,9 +342,12 @@
 	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPath:p];
 #ifdef DEBIG
-		if (VERBOSE) NSLog(@"Watching Path %@", p);
+		NSLog(@"Watching Path %@", p);
 #endif
 		[wsNotif addObserver:self selector:@selector(invalidateIndex:) name:VDKQueueWriteNotification object:p];
+        [wsNotif addObserver:self selector:@selector(invalidateIndex:) name:VDKQueueDeleteNotification object:p];
+        [wsNotif addObserver:self selector:@selector(invalidateIndex:) name:VDKQueueRenameNotification object:p];
+
 	}
 }
 
@@ -361,6 +364,9 @@
 	for (NSString *p in self.sourceSettings[kQSWatchPaths]) {
 		[[QSVoyeur sharedInstance] removePath:p];
 		[wsNotif removeObserver:self name:VDKQueueWriteNotification object:p];
+        [wsNotif removeObserver:self name:VDKQueueDeleteNotification object:p];
+        [wsNotif removeObserver:self name:VDKQueueRenameNotification object:p];
+
 	}
 }
 
@@ -383,8 +389,10 @@
 	if (depth == 1) {
 		return @[itemPath];
 	}
+    NSArray *files = @[itemPath];
     QSDirectoryParser *parser = [QSDirectoryParser new];
-	NSArray *files = [[parser objectsFromPath:itemPath depth:depth types:@[@"public.folder"] excludeTypes:nil descend:NO] arrayByPerformingSelector:@selector(singleFilePath)];
+    NSArray *descendentFiles = [parser objectsFromPath:itemPath depth:depth types:@[@"public.folder"] excludeTypes:nil descend:NO];
+    files = [files arrayByAddingObjectsFromArray:[descendentFiles arrayByPerformingSelector:@selector(singleFilePath)]];
 	return files;
 }
 
