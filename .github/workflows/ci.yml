@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Quicksilver-debug.zip
-          path: /tmp/QS/build/Debug/Quicksilver.zip
+          path: /tmp/QS/build/Debug/Quicksilver.app
       - name: Prepare DMG_INGREDIENTS artifact
         working-directory: /tmp/QS/build/Release/
         run: |
