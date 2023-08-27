@@ -23,14 +23,14 @@ jobs:
       - name: Build debug version
         working-directory: Quicksilver
         run: ./Tools/qsrelease Debug
-      - name: Build release version
-        working-directory: Quicksilver
-        run: ./Tools/qsrelease
       - name: Upload debug version
         uses: actions/upload-artifact@v2
         with:
           name: Quicksilver-debug.zip
-          path: /tmp/QS/build/Debug/Quicksilver*.dmg
+          path: /tmp/QS/build/Debug/Quicksilver.app
+      - name: Build release version
+        working-directory: Quicksilver
+        run: ./Tools/qsrelease
       - name: Prepare DMG_INGREDIENTS artifact
         working-directory: /tmp/QS/build/Release/
         run: |
