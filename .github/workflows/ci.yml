@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Quicksilver-debug.zip
-          path: /tmp/QS/build/Debug/Quicksilver.app
+          path: /tmp/QS/build/Debug/Quicksilver*.dmg
       - name: Build release version
         working-directory: Quicksilver
         run: ./Tools/qsrelease
