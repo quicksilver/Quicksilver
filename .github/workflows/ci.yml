@@ -17,17 +17,17 @@ jobs:
     env:
       QS_BUILD_ONLY: 1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Build debug version
         working-directory: Quicksilver
         run: ./Tools/qsrelease Debug
       - name: Upload debug version
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: Quicksilver-debug.zip
-          path: /tmp/QS/build/Debug/Quicksilver*.dmg
+          name: Quicksilver-debug
+          path: /tmp/QS/build/Debug/Quicksilver.zip
       - name: Build release version
         working-directory: Quicksilver
         run: ./Tools/qsrelease
@@ -38,7 +38,7 @@ jobs:
           cp /tmp/Quicksilver.entitlements ./dmg/
           tar -czvf ./dmg_ingredients.tar.gz ./dmg
       - name: Upload components for sign action
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: DMG_INGREDIENTS
           path: /tmp/QS/build/Release/dmg_ingredients.tar.gz
@@ -58,7 +58,7 @@ jobs:
       KEYCHAIN_PROFILE: "Quicksilver Notarization"
     steps:
       - name: Download dmg folder artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: DMG_INGREDIENTS
           path: /tmp/QS/build/Release/
@@ -71,7 +71,7 @@ jobs:
           QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' \
             /tmp/qs_build_settings)
           echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Run Tools/qssign
@@ -104,19 +104,19 @@ jobs:
           cd /tmp/QS/build/Release/
           shasum --algorithm 256 Quicksilver*.dmg > checksum.txt
       - name: Upload Quicksilver.dmg
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "Quicksilver_${{ env.QS_INFO_VERSION }}.dmg"
           path: /tmp/QS/build/Release/Quicksilver*.dmg
       - name: Upload checksum
         if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: /tmp/QS/build/Release/checksum.txt
       - name: Download debug artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: Quicksilver-debug.zip
+          name: Quicksilver-debug
           path: /tmp/Quicksilver-debug.zip
       - name: Release
         uses: softprops/action-gh-release@v1
