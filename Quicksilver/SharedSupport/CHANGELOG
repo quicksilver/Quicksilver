@@ -1,3 +1,20 @@
+## Changes - 2.4.1. (4040)##
+
+*Requires macOS 10.14+*
+
+### New ###
+
+* Shortcuts.app Plugin to view and run Shortcuts from within Quicksilver
+* Better support for managing running applications and processes from within Quicksilver (#2919)
+* New translations for Dutch, Japanese, French, Portuguese (Brazil), Spanish, 
+
+### Fixed ###
+
+* Incorrect icon sizes in Trigger preference panel (#2940)
+* Some icons display incorrectly on macOS 12+
+* Occasional inconsistent behavior when → into synonyms (#2913)
+* Set the correct name for non-bundle processes
+
 ## Changes - 2.4.0 (4039) ##
 
 *Requires macOS 10.14+*
