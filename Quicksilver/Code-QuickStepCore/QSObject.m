@@ -110,6 +110,10 @@ NSSize QSMaxIconSize;
 	if ((identifier || otherIdentifier) && [identifier isEqualToString:otherIdentifier]) {
 		return YES;
 	}
+	if ((identifier && otherIdentifier) && ![identifier isEqualToString:otherIdentifier]) {
+		return NO;
+	}
+
 	if ([self count] > 1) {
 		if ([self count] != [anObject count]) {
 			return NO;
@@ -125,6 +129,11 @@ NSSize QSMaxIconSize;
 		if (![data isEqualToDictionary:anObject->data]) {
 			return NO;
 		}
+	}
+	// test the meta dictionary for QSObjectName, QSObjectLabel - if they're not equal then return no
+	if ([meta objectForKey:kQSObjectAlternateName] != [anObject->meta objectForKey:kQSObjectAlternateName] ||
+		[meta objectForKey:kQSObjectPrimaryName] != [anObject->meta objectForKey:kQSObjectPrimaryName] ) {
+		return NO;
 	}
 	return YES;
 }

@@ -31,6 +31,43 @@
     XCTAssertEqualObjects([object objectForType:QSTextType], exampleString, @"QSTextType mismatch");
 }
 
+- (void)testObjectEquality {
+    QSObject *a = [QSObject objectWithName:@"a"];
+    XCTAssertTrue([a isEqual:a]);
+    XCTAssertFalse([a isEqual:@"a"]);
+    QSObject *b = [QSObject objectWithName:@"a"];
+    XCTAssertTrue([a isEqual:b]);
+    [b setName:@"b"];
+    XCTAssertFalse([a isEqual:b]);
+    [b setIdentifier:@"a"];
+    XCTAssertFalse([a isEqual:b]);
+    [b setName:@"a"];
+    XCTAssertTrue([a isEqual:b]);
+    [a setIdentifier:@"a"];
+    XCTAssertTrue([a isEqual:b]);
+    
+    // two file objects that have different names (e.g. one is localised and the other isn't, but the file path is the same)
+    // should be equal always since the path is equal
+    QSObject *file1 = [QSObject fileObjectWithPath:@"/Applications/Utilities/Activity Monitor.app"];
+    QSObject *file2 = [QSObject fileObjectWithPath:@"/Applications/Utilities/Activity Monitor.app"];
+    XCTAssertTrue([file1 isEqual:file2]);
+    [file2 setName:@"Activity Monitor"];
+    XCTAssertTrue([file1 isEqual:file2]);
+    [file2 setName:@"Monitor"];
+    XCTAssertTrue([file1 isEqual:file2]);
+    // changing the details also should not affect
+    [file2 setObject:@"Monitor" forMeta:kQSObjectDetails];
+    XCTAssertTrue([file1 isEqual:file2]);
+
+    // test objects of different type are not the same
+    XCTAssertFalse([a isEqual:file1]);
+    // test objects of different type but with the same name are not the same
+    [file1 setName:@"a"];
+    XCTAssertFalse([a isEqual:file1]);
+    
+
+}
+
 - (void)testMultilineStringObject {
 
 	NSString *multiline = @"line1\nline2";
