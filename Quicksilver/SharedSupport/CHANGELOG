@@ -15,6 +15,7 @@
 * Some icons display incorrectly on macOS 12+
 * Occasional inconsistent behavior when → into synonyms (#2913)
 * Set the correct name for non-bundle processes
+* The incorrect object could be selected in the 3rd pane if more than one object with the same name existed.
 
 ## Changes - 2.4.0 (4039) ##
 
