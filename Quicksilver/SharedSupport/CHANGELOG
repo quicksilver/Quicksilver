@@ -6,7 +6,8 @@
 
 * Shortcuts.app Plugin to view and run Shortcuts from within Quicksilver
 * Better support for managing running applications and processes from within Quicksilver (#2919)
-* New translations for Dutch, Japanese, French, Portuguese (Brazil), Spanish, 
+* New translations for Dutch, Japanese, French, Portuguese (Brazil), Spanish
+* Improvements to the Calendar & Reminders plugin - allow setting the default calendar for events & reminders from the preferences.
 
 ### Fixed ###
 
