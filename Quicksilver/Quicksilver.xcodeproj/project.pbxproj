@@ -538,7 +538,6 @@
 		E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
 		E180016907B2B92200010DB0 /* QSFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E180016A07B2B92200010DB0 /* QSEffects.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		E180021807B2BBB900010DB0 /* AppKitPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001C307B2BBB800010DB0 /* AppKitPrivate.h */; };
 		E180021D07B2BBB900010DB0 /* QSApp.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001C807B2BBB800010DB0 /* QSApp.h */; };
 		E180021E07B2BBB900010DB0 /* QSApp.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001C907B2BBB800010DB0 /* QSApp.m */; };
 		E180022507B2BBB900010DB0 /* QSCatalogPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001D007B2BBB800010DB0 /* QSCatalogPrefPane.h */; };
@@ -2208,7 +2207,6 @@
 		E180011707B2B48900010DB0 /* QSWebSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSWebSource.h; sourceTree = "<group>"; };
 		E180011807B2B48900010DB0 /* QSWebSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWebSource.m; sourceTree = "<group>"; };
 		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 30; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
-		E18001C307B2BBB800010DB0 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001C507B2BBB800010DB0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001C807B2BBB800010DB0 /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001C907B2BBB800010DB0 /* QSApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSApp.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -3395,7 +3393,6 @@
 		E18001C207B2BBB800010DB0 /* Code-App */ = {
 			isa = PBXGroup;
 			children = (
-				E18001C307B2BBB800010DB0 /* AppKitPrivate.h */,
 				E18001C507B2BBB800010DB0 /* main.m */,
 				7F8C658108116FD10051113C /* QSAboutWindowController.h */,
 				7F8C658208116FD10051113C /* QSAboutWindowController.m */,
@@ -3868,7 +3865,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1E3CB970653BE040026BAF2 /* NSButton-NTExtensions.h in Headers */,
-				E180021807B2BBB900010DB0 /* AppKitPrivate.h in Headers */,
 				E180021D07B2BBB900010DB0 /* QSApp.h in Headers */,
 				E180022507B2BBB900010DB0 /* QSCatalogPrefPane.h in Headers */,
 				E180022907B2BBB900010DB0 /* QSController.h in Headers */,
