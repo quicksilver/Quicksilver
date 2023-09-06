@@ -29,19 +29,18 @@ mkdir -p "${BUILT_PRODUCTS_DIR}"
 LOG=${BUILT_PRODUCTS_DIR}/build.log
 DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
-## Clean and Build
-## (This could be done with a single command, but if `clean` fails, the
-## exit status won't be 0. It usually fails because something didn't exist
-## in the first place. We don't care.)
-{
-  # `xcodebuild clean` sometimes refuses to remove the build directory and
-  # fails with error:
-  #     Could not delete `/tmp/QS/build` because it was not created by the
-  #     build system.
+# `xcodebuild clean` sometimes refuses to remove the build directory and
+# fails with error:
+#     Could not delete `/tmp/QS/build` because it was not created by the
+#     build system.
+xcodebuild -scheme 'Quicksilver Distribution' clean ||
   rm -rf /tmp/QS/build
 
-  xcodebuild -scheme 'Quicksilver Distribution' clean
+# Make sure `LOG` and its parents exist
+mkdir -p "$(dirname "${LOG}")"
+touch "${LOG}"
 
+{
   "${TOOLSDIR}"/qstest
 
   xcodebuild \
@@ -49,7 +48,7 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
     -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \
     build
-} > "${LOG}"
+} | tee "${LOG}"
 
 ## Build succeeded
 cd "${BUILT_PRODUCTS_DIR}"
