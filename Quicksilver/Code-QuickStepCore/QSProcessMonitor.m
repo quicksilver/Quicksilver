@@ -191,10 +191,16 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn {
 	return [self processObjectWithPSN:psn fromSnapshot:NO];
 }
+
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn fromSnapshot:(BOOL)snapshot {
 	NSDictionary *dict = (snapshot ? processesSnapshot : [self processesDict]);
-	__block QSObject *matchedProcess = nil;
-	[dict enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull key, QSObject *thisProcess, BOOL * _Nonnull stop) {
+	pid_t pid;
+	GetProcessPID(&psn, &pid);
+	__block QSObject *matchedProcess = [dict objectForKey:[NSNumber numberWithInt:pid]];
+	if (matchedProcess) {
+		return matchedProcess;
+	}
+	[dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, QSObject *thisProcess, BOOL * _Nonnull stop) {
 		NSDictionary *info = [thisProcess objectForType:QSProcessType];
 		Boolean match;
 		ProcessSerialNumber thisPSN;
@@ -205,7 +211,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 			matchedProcess = thisProcess;
 		}
 	}];
-	return matchedProcess ? matchedProcess : nil;
+	return matchedProcess;
 }
 
 - (QSObject *)processObjectWithDict:(NSDictionary *)dict {
