@@ -22,11 +22,9 @@ jobs:
           submodules: recursive
       - name: Build debug version
         working-directory: Quicksilver
-        run: ./Tools/qsrelease Debug
-      - name: Rename debug version
         run: |
-          cd /tmp/QS/build/Debug
-          mv Quicksilver.zip Quicksilver-debug.zip
+          ./Tools/qsrelease Debug
+          mv /tmp/QS/build/Debug/Quicksilver{,-debug}.zip
       - name: Upload debug version
         uses: actions/upload-artifact@v3
         with:
@@ -34,12 +32,17 @@ jobs:
           path: /tmp/QS/build/Debug/Quicksilver-debug.zip
       - name: Build release version
         working-directory: Quicksilver
-        run: ./Tools/qsrelease
+        run: |
+          ./Tools/qsrelease
+          cp ./SharedSupport/ChangesBare.html /tmp
       - name: Prepare DMG_INGREDIENTS artifact
         working-directory: /tmp/QS/build/Release/
         run: |
-          cp /tmp/qs_build_settings ./dmg/
-          cp /tmp/Quicksilver.entitlements ./dmg/
+          cp \
+            /tmp/qs_build_settings \
+            /tmp/Quicksilver.entitlements \
+            /tmp/ChangesBare.html \
+            ./dmg/
           tar -czvf ./dmg_ingredients.tar.gz ./dmg
       - name: Upload components for sign action
         uses: actions/upload-artifact@v3
@@ -107,13 +110,6 @@ jobs:
         with:
           name: Quicksilver-debug
           path: /tmp
-      - name: Debug QS debug upload
-        run: |
-          set -x
-          ls -l /tmp
-          ls -l /tmp/*
-          ls -l /private/tmp
-          ls -l /private/tmp/*
       - name: Create checksum
         # if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -147,9 +143,6 @@ jobs:
           PORT: ${{ secrets.PORT }}
           SSH_KEY: ${{secrets.SSH_KEY}}
         run: |
-          set -x
-          ls -l Quicksilver/SharedSupport
-
           # Create ssh keyfile with locked down permissions and ensure its removal
           # Unfortunately process substitution won't work because ssh closes
           # all fd > 2
@@ -161,5 +154,5 @@ jobs:
           ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
             -o StrictHostKeyChecking=no \
             "${GITHUB_REPOSITORY}" \
-            <Quicksilver/SharedSupport/ChangesBare.html
+            </tmp/ChangesBare.html
           rm /tmp/key
