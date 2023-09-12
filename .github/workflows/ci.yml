@@ -73,8 +73,11 @@ jobs:
         working-directory: /tmp/QS/build/Release/
         run: |
           tar -xzvf ./dmg_ingredients.tar.gz
-          mv ./dmg/qs_build_settings /tmp/
-          mv ./dmg/Quicksilver.entitlements /tmp/
+          mv \
+            ./dmg/qs_build_settings \
+            ./dmg/Quicksilver.entitlements \
+            ./dmg/ChangesBare.html \
+            /tmp/
           QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' \
             /tmp/qs_build_settings)
           echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
@@ -143,6 +146,11 @@ jobs:
           PORT: ${{ secrets.PORT }}
           SSH_KEY: ${{secrets.SSH_KEY}}
         run: |
+          set -x
+          ls -l /tmp
+
+          cat /tmp/ChangesBare.html
+          exit 1
           # Create ssh keyfile with locked down permissions and ensure its removal
           # Unfortunately process substitution won't work because ssh closes
           # all fd > 2
