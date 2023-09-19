@@ -5,8 +5,6 @@ set -x
 
 TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
 
-CURRENT_ARCH=$(uname -m)
-
 CONFIGURATION=${1-Release}
 
 ## Cache settings to save time
@@ -26,6 +24,13 @@ BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTING
 
 ## Create the directory (for logging purposes)
 mkdir -p "${BUILT_PRODUCTS_DIR}"
+
+# Tell xcode it's okay to clean these directories
+build_parent=$(dirname "${BUILT_PRODUCTS_DIR}")
+for build_dir in "${build_parent}" "${build_parent}/Debug" "${build_parent}/Release"; do
+  test -e "${build_dir}" && xattr -w com.apple.xcode.CreatedByBuildSystem true "${build_dir}"
+done
+
 LOG=${BUILT_PRODUCTS_DIR}/build.log
 DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
@@ -33,8 +38,7 @@ DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 # fails with error:
 #     Could not delete `/tmp/QS/build` because it was not created by the
 #     build system.
-xcodebuild -scheme 'Quicksilver Distribution' clean ||
-  rm -rf /tmp/QS/build
+xcodebuild -scheme 'Quicksilver Distribution' clean
 
 # Make sure `LOG` and its parents exist
 mkdir -p "$(dirname "${LOG}")"
