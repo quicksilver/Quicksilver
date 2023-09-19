@@ -239,8 +239,8 @@
 	// unequal objects
 	XCTAssertNotEqual(one, two);
 	// same data
-	QSObject *data1 = [QSObject objectWithName:@"Data 1"];
-	QSObject *data2 = [QSObject objectWithName:@"Data 2"];
+	QSObject *data1 = [QSObject objectWithName:@"Data Name"];
+	QSObject *data2 = [QSObject objectWithName:@"Data Name"];
 	[data1 setObject:@"string data" forType:QSTextType];
 	[data2 setObject:@"string data" forType:QSTextType];
 	[data1 setPrimaryType:QSTextType];
