@@ -28,6 +28,28 @@
     XCTAssertTrue([[actions[0] identifier] isEqualToString:@"URLOpenAction"]);
 }
 
+- (void)testActionsForApplicationObject {
+    // Applications should be recognized as file paths and have a default action
+    // of "Open"
+    NSString *app = @"/System/Applications/Calendar.app";
+    QSObject *object = [QSObject objectWithString:app];
+    XCTAssertTrue([object containsType:QSFilePathType] && [[object primaryType] isEqualToString:QSFilePathType], @"'%@' was not recognized as a file path", app);
+    NSArray *actions = [[QSExecutor sharedInstance] rankedActionsForDirectObject:object indirectObject:nil];
+    XCTAssertTrue([actions count] > 0);
+    XCTAssertTrue([[actions[0] identifier] isEqualToString:@"FileOpenAction"]);
+}
+
+- (void)testActionsForTextObject {
+    // Text objects should be recognized as file paths and have a default action
+    // of "Open"
+    NSString *text = @"this is a test string";
+    QSObject *object = [QSObject objectWithString:text];
+    XCTAssertTrue([object containsType:QSTextType] && [[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as text", text);
+    NSArray *actions = [[QSExecutor sharedInstance] rankedActionsForDirectObject:object indirectObject:nil];
+    XCTAssertTrue([actions count] > 0);
+    XCTAssertTrue([[actions[0] identifier] isEqualToString:@"QSLargeTypeAction"]);
+}
+
 // Attempted check for #2913. The real issue is with QSLibrarion's objectDictionary temporarily being wiped during `reloadSets`. There should be a check to make sure that doesn't happen
 - (void)testRightArrowIntoSynonym {
     // code copied from QSUserDefinedProxySource
