@@ -18,17 +18,12 @@ main() {
   cd "${TOOLSDIR}/.."
 
   for scheme; do
-    retval=0
     xcodebuild test \
       -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
       -destination "platform=macOS,arch=${CURRENT_ARCH}" \
       -configuration Debug \
       -scheme "${scheme}" \
-      GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
-
-    if [ "$retval" -ne 0 ]; then
-      printf 'Testing scheme %s failed with return value %s\n' "${scheme}" "${retval}"
-    fi
+      GCC_PREPROCESSOR_DEFINITIONS="TESTING"
   done
 }
 
