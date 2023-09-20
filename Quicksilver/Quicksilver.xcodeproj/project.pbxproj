@@ -28,6 +28,7 @@
 			buildConfigurationList = 7F6B3E45085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Preflight" */;
 			buildPhases = (
 				4D8A0B3410AB23B6006AF163 /* CopyFiles */,
+				600950E82ABB938B00F67DEB /* ShellScript */,
 				D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */,
 				7FA4EF1E0913AE44007DB407 /* Release Notes */,
 			);
@@ -4855,6 +4856,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		600950E82ABB938B00F67DEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${QS_BUILD_ROOT}/Configuration/Quicksilver.pch",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Intentionally blank -- only purpose is to tell XCode about the existence of\n# `Configuration/Quicksilver.pch`, copied in the step above, for automatic\n# dependency resolution. Without this (or something like it), one gets a race\n# condition with a lot of `/tmp/QS/Configuration/Quicksilver.pch: file not found`\n# type errors the first time XCode builds, which mysteriously resolve upon a\n# second build.\n#\n# Confirmed working alternatives to this hack:\n#   - remove the `Copy Files` step above and use `cp -r` here instead\n#   - Add a second (redundant) `Copy Files` step that explicitly (re-)copies `Quicksilver.pch`\n";
+		};
 		66CAE628153EF9AE0021BC65 /* Adjust Version-String */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
