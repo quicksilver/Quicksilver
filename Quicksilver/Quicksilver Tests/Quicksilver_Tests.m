@@ -35,8 +35,8 @@
     NSDictionary *proxyDetails = [NSDictionary dictionaryWithObject:provider forKey:@"providerClass"];
     QSProxyObject *proxy = [QSProxyObject proxyWithDictionary:proxyDetails];
     // assign values to the proxy object
-    NSString *targetID = [@"~/Downloads" stringByExpandingTildeInPath];
-    NSString *name = @"dls";
+    NSString *targetID = @"/Applications";
+    NSString *name = @"apps";
     [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
     [proxy setName:name];
     [proxy setObject:targetID forMeta:@"target"];

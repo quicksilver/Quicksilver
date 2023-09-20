@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -1256,6 +1256,7 @@
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6008C51E2AAF433900512CB2 /* QSPathsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSPathsTests.m; sourceTree = "<group>"; };
+		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3334,6 +3335,7 @@
 				7F840FC7096C3356006E6F0E /* Resources */,
 				E18000F107B2B48800010DB0 /* Code */,
 				E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */,
+				600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */,
 			);
 			path = QSCorePlugIn;
 			sourceTree = "<group>";
@@ -6494,7 +6496,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info-Testing.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

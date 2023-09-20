@@ -17,6 +17,10 @@
         "value" : "YES"
       },
       {
+        "key" : "QSDisableExternalPlugIns",
+        "value" : "YES"
+      },
+      {
         "enabled" : false,
         "key" : "NSZombieEnabled",
         "value" : "YES"
