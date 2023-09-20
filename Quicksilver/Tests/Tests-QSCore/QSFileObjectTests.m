@@ -74,12 +74,7 @@
 
 - (void)testFileObject
 {
-    NSString *path;
-    if (@available(macOS 12, *)) {
-        path = @"/System/Applications/TextEdit.app";
-    } else {
-        path = @"/Applications/TextEdit.app";
-    }
+    NSString *path = @"/tmp/QS/build/Testing/Quicksilver.app";
 
     QSObject *object = [QSObject fileObjectWithPath:path];
     XCTAssertEqualObjects([object objectForType:QSFilePathType], path, @"");
