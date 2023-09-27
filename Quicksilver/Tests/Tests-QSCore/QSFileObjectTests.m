@@ -81,6 +81,8 @@
         path = @"/Applications/TextEdit.app";
     }
 
+    NSLog(@"Testing on path: %@", path);
+
     QSObject *object = [QSObject fileObjectWithPath:path];
     XCTAssertEqualObjects([object objectForType:QSFilePathType], path, @"");
     XCTAssertEqualObjects([object singleFilePath], path, @"");
