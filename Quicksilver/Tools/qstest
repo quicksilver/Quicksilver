@@ -4,6 +4,11 @@
 
 set -euf
 
+log() {
+  scriptname=$(basename "$0")
+  printf '%s: %s\n' "${scriptname}" "$*" > /dev/stderr
+}
+
 CURRENT_ARCH=$(uname -m)
 readonly CURRENT_ARCH
 
@@ -17,13 +22,22 @@ main() {
 
   cd "${TOOLSDIR}/.."
 
+  retval=0
   for scheme; do
+    log "beginning tests for scheme: ${scheme}"
     xcodebuild test \
       -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
       -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-      -configuration Debug \
+      -configuration Testing \
       -scheme "${scheme}" \
-      GCC_PREPROCESSOR_DEFINITIONS="TESTING"
+      GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
+
+    if [ "${retval}" -ne 0 ]; then
+      log "testing ${scheme} failed with exit code ${retval}\n"
+      return "${retval}"
+    fi
+
+    log "testing succeeded for scheme: ${scheme}"
   done
 }
 
