@@ -33,7 +33,7 @@ main() {
       GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
 
     if [ "${retval}" -ne 0 ]; then
-      log "testing ${scheme} failed with exit code ${retval}\n"
+      log "testing ${scheme} failed with exit code ${retval}"
       return "${retval}"
     fi
 
