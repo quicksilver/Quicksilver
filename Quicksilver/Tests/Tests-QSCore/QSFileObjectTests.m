@@ -80,7 +80,7 @@
     } else {
         path = @"/Applications/TextEdit.app";
     }
-
+    path = @"/System/Applications/TextEdit.app";
     NSLog(@"Testing on path: %@", path);
 
     QSObject *object = [QSObject fileObjectWithPath:path];
