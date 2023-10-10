@@ -845,13 +845,6 @@
 			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
 			remoteInfo = "Core Support";
 		};
-		4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
 		4DFD65B91EA93336003CD3CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
@@ -900,6 +893,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 83C73F0A1C326ADA00FFC730;
 			remoteInfo = "FMDB MacOS";
+		};
+		60BA56BC2AD5F93400989FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
+			remoteInfo = "Core Support";
 		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4318,6 +4318,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				60BA56BD2AD5F93400989FAA /* PBXTargetDependency */,
 				CD61BBC5192B18FA00040609 /* PBXTargetDependency */,
 			);
 			name = "Quicksilver Tests";
@@ -4416,7 +4417,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */,
 			);
 			name = "Core Support";
 			productName = QSAirPortPlugIn;
@@ -5359,15 +5359,15 @@
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
 			targetProxy = 4DAAEB7E0E0BBE1B0088C72D /* PBXContainerItemProxy */;
 		};
-		4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
-		};
 		4DFD65C71EA93366003CD3CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "FMDB MacOS";
 			targetProxy = 4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */;
+		};
+		60BA56BD2AD5F93400989FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
+			targetProxy = 60BA56BC2AD5F93400989FAA /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
