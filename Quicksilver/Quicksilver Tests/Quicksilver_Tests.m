@@ -83,6 +83,10 @@
 {
     
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+
+    // Test is sure to fail if we can't get the interface controller
+    XCTAssertNotNil(i);
+
     // Assumes the current interface can collect
     QSCollectingSearchObjectView *dSelector = (QSCollectingSearchObjectView *)[i dSelector];
     
