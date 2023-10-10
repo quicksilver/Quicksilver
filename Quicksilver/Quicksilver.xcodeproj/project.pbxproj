@@ -761,34 +761,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4D002D0713114662009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002D8D131149A8009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002DA013114A10009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002DB213114A33009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
 		4D002DB913114A7C009040B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -894,7 +866,14 @@
 			remoteGlobalIDString = 83C73F0A1C326ADA00FFC730;
 			remoteInfo = "FMDB MacOS";
 		};
-		60BA56BC2AD5F93400989FAA /* PBXContainerItemProxy */ = {
+		60BA56E42AD5FF6700989FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D002D011311465B009040B7;
+			remoteInfo = "Bezel Interface";
+		};
+		60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -4144,7 +4123,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002D0813114662009040B7 /* PBXTargetDependency */,
 			);
 			name = "Bezel Interface";
 			productName = "Bezel Interface";
@@ -4162,7 +4140,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002DA113114A10009040B7 /* PBXTargetDependency */,
 			);
 			name = "Finder Plugin";
 			productName = "Finder Module";
@@ -4180,7 +4157,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002D8E131149A8009040B7 /* PBXTargetDependency */,
 			);
 			name = "Primer Interface";
 			productName = "Primer Interface";
@@ -4198,7 +4174,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002DB313114A33009040B7 /* PBXTargetDependency */,
 			);
 			name = "Keyboard Triggers";
 			productName = "HotKey Triggers";
@@ -4318,7 +4293,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				60BA56BD2AD5F93400989FAA /* PBXTargetDependency */,
+				60BA56E52AD5FF6700989FAA /* PBXTargetDependency */,
+				60BA56E72AD5FF6700989FAA /* PBXTargetDependency */,
 				CD61BBC5192B18FA00040609 /* PBXTargetDependency */,
 			);
 			name = "Quicksilver Tests";
@@ -5299,26 +5275,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4D002D0813114662009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002D0713114662009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002D8E131149A8009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002D8D131149A8009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002DA113114A10009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002DA013114A10009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002DB313114A33009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002DB213114A33009040B7 /* PBXContainerItemProxy */;
-		};
 		4D002DBA13114A7C009040B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4D002DAC13114A2E009040B7 /* Keyboard Triggers */;
@@ -5364,10 +5320,15 @@
 			name = "FMDB MacOS";
 			targetProxy = 4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */;
 		};
-		60BA56BD2AD5F93400989FAA /* PBXTargetDependency */ = {
+		60BA56E52AD5FF6700989FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D002D011311465B009040B7 /* Bezel Interface */;
+			targetProxy = 60BA56E42AD5FF6700989FAA /* PBXContainerItemProxy */;
+		};
+		60BA56E72AD5FF6700989FAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
-			targetProxy = 60BA56BC2AD5F93400989FAA /* PBXContainerItemProxy */;
+			targetProxy = 60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
