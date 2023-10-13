@@ -22,6 +22,20 @@ main() {
 
   cd "${TOOLSDIR}/.."
 
+  xcodebuild build \
+    -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
+    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+    -configuration Testing \
+    -scheme Quicksilver \
+    GCC_PREPROCESSOR_DEFINITIONS="TESTING"
+
+  # Having a `Testing` config built but not yet run can be nice for selecting a
+  # target for `Instruments.app`
+  if [ -n "${QS_BUILD_ONLY=}" ]; then
+    echo "Skipping tests"
+    return 0
+  fi
+
   retval=0
   for scheme; do
     log "beginning tests for scheme: ${scheme}"
