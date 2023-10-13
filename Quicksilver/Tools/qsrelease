@@ -3,6 +3,8 @@
 set -euf
 set -x
 
+xcodebuild -version
+
 TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
 
 CONFIGURATION=${1-Release}
