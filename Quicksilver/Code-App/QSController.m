@@ -804,6 +804,10 @@ static QSController *defaultController = nil;
 # pragma mark - Accessibility Permissions
 
 -(BOOL)checkForAccessibilityPermission {
+		#ifdef TESTING
+			return YES;
+		#endif
+
        // Prompt for accessibility permissions on macOS Mojave and later.
        if (!accessibilityChecker) {
                accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
