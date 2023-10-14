@@ -17,8 +17,8 @@ jobs:
     steps:
       - name: Set xcode version
         run: |
-          sudo xcode-select -switch /Applications/Xcode_15.0.app
-          sudo xcode-select -s /Library/Developer/CommandLineTools
+          sudo xcode-select --switch /Applications/Xcode_15.0.app
+          sudo xcode-select --switch /Applications/Xcode_15.0.app/Contents/Developer
       - uses: actions/checkout@v3
         with:
           submodules: recursive
