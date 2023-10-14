@@ -708,8 +708,13 @@ static QSController *defaultController = nil;
 		default: // QSApplicationNormalLaunch:
 			break;
 	}
+
+	// Don't block the interface with the setup assistant if running a test build
+#ifndef TESTING
 	if (![defaults boolForKey:kSetupAssistantCompleted] || lastVersion <= [@"3694" hexIntValue] || ![defaults boolForKey:@"QSAgreementAccepted"])
 		runningSetupAssistant = YES;
+#endif
+
 #ifndef DEBUG
 	[NSApp updateLaunchStatusInfo];
 #endif
