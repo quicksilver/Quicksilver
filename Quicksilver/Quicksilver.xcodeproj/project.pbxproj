@@ -866,19 +866,19 @@
 			remoteGlobalIDString = 83C73F0A1C326ADA00FFC730;
 			remoteInfo = "FMDB MacOS";
 		};
-		60BA56E42AD5FF6700989FAA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D002D011311465B009040B7;
-			remoteInfo = "Bezel Interface";
-		};
 		60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
 			remoteInfo = "Core Support";
+		};
+		60BA57022ADB338400989FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D002D87131149A3009040B7;
+			remoteInfo = "Primer Interface";
 		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4293,7 +4293,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				60BA56E52AD5FF6700989FAA /* PBXTargetDependency */,
+				60BA57032ADB338400989FAA /* PBXTargetDependency */,
 				60BA56E72AD5FF6700989FAA /* PBXTargetDependency */,
 				CD61BBC5192B18FA00040609 /* PBXTargetDependency */,
 			);
@@ -5320,15 +5320,15 @@
 			name = "FMDB MacOS";
 			targetProxy = 4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */;
 		};
-		60BA56E52AD5FF6700989FAA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D002D011311465B009040B7 /* Bezel Interface */;
-			targetProxy = 60BA56E42AD5FF6700989FAA /* PBXContainerItemProxy */;
-		};
 		60BA56E72AD5FF6700989FAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
 			targetProxy = 60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */;
+		};
+		60BA57032ADB338400989FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D002D87131149A3009040B7 /* Primer Interface */;
+			targetProxy = 60BA57022ADB338400989FAA /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
