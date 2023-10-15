@@ -48,7 +48,7 @@
 	<key>QSChatMediators</key>
 	<string>com.apple.iChat</string>
 	<key>QSCommandInterfaceControllers</key>
-	<string>QSPrimerInterfaceController</string>
+	<string>QSBezelInterfaceController</string>
 	<key>QSFSBrowserMediators</key>
 	<string>com.apple.finder</string>
 	<key>QSLoadImagePreviews</key>
