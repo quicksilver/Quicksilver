@@ -144,7 +144,7 @@
  */
 - (void)testThirdPaneClosingBehaviour {
 	QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
-	[i activate:nil];
+
 	NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
 	[[i dSelector] keyDown:typeAEvent];
 	
