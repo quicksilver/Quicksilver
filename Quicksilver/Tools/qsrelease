@@ -67,7 +67,7 @@ cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store ./.DS_Store
 ln -sf /Applications .
 cp "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns ./.VolumeIcon.icns
 
-if [ -n "${QS_BUILD_ONLY=}" ]; then
+if [ -n "${QS_DONT_SIGN=}" ] || [ -n "${QS_BUILD_ONLY=}" ]; then
   cd ..
 
   echo "Skipping codesigning and using an ad-hoc signature for local testing instead"
