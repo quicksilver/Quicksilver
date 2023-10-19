@@ -315,23 +315,6 @@
 			<array>
 				<dict>
 					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderDepth</key>
-						<integer>1</integer>
-						<key>watchTarget</key>
-						<true/>
-						<key>path</key>
-						<string>~</string>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetHome</string>
-				</dict>
-				<dict>
-					<key>source</key>
 					<string>QSICloudDocumentSource</string>
 					<key>requiresPath</key>
 					<string>~/Library/Mobile Documents</string>
