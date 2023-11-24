@@ -2,7 +2,7 @@
   "configurations" : [
     {
       "id" : "E56A6C3A-9C80-47BF-BD69-C1ACAE708306",
-      "name" : "Configuration 1",
+      "name" : "QS Test config",
       "options" : {
 
       }
@@ -17,6 +17,10 @@
         "value" : "YES"
       },
       {
+        "key" : "QSDisableExternalPlugIns",
+        "value" : "YES"
+      },
+      {
         "enabled" : false,
         "key" : "NSZombieEnabled",
         "value" : "YES"
@@ -26,7 +30,8 @@
       "containerPath" : "container:Quicksilver.xcodeproj",
       "identifier" : "8D1107260486CEB800E47090",
       "name" : "Quicksilver"
-    }
+    },
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {

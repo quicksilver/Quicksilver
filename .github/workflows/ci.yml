@@ -13,9 +13,9 @@ on:
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      QS_BUILD_ONLY: 1
+      QS_DONT_SIGN: 1
     steps:
       - uses: actions/checkout@v3
         with:

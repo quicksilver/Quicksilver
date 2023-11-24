@@ -35,8 +35,8 @@
     NSDictionary *proxyDetails = [NSDictionary dictionaryWithObject:provider forKey:@"providerClass"];
     QSProxyObject *proxy = [QSProxyObject proxyWithDictionary:proxyDetails];
     // assign values to the proxy object
-    NSString *targetID = [@"~/Downloads" stringByExpandingTildeInPath];
-    NSString *name = @"dls";
+    NSString *targetID = @"/Applications";
+    NSString *name = @"apps";
     [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
     [proxy setName:name];
     [proxy setObject:targetID forMeta:@"target"];
@@ -83,6 +83,10 @@
 {
     
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+
+    // Test is sure to fail if we can't get the interface controller
+    XCTAssertNotNil(i);
+
     // Assumes the current interface can collect
     QSCollectingSearchObjectView *dSelector = (QSCollectingSearchObjectView *)[i dSelector];
     
@@ -114,7 +118,7 @@
 - (void)testClearingSearchStringOnTrigger {
 
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
-    NSEvent *typeAEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
+    NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
     // Simulate typing 'a' into the dSelector
     [[i dSelector] keyDown:typeAEvent];
     
@@ -140,8 +144,8 @@
  */
 - (void)testThirdPaneClosingBehaviour {
 	QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
-	[i activate:nil];
-	NSEvent *typeAEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
+
+	NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
 	[[i dSelector] keyDown:typeAEvent];
 	
 	// dSelector is populated with an object
@@ -157,14 +161,14 @@
 	// the iSelector should be closed
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
 	
-	NSEvent *searchForActionEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"open with" charactersIgnoringModifiers:@"open with" isARepeat:NO keyCode:0];
+	NSEvent *searchForActionEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"open with" charactersIgnoringModifiers:@"open with" isARepeat:NO keyCode:0];
 	[[i aSelector] keyDown:searchForActionEvent];
 	XCTAssertFalse([[i iSelector] isHidden]);
 	// iSelector should now be visible
 	XCTAssertTrue([self isViewVisible:[i iSelector] forController:i]);
 	
 	// Clear the first pane (use ⌃U is easiest)
-	NSEvent *clearEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:NSEventModifierFlagControl timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
+	NSEvent *clearEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:NSEventModifierFlagControl timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
 	[[i dSelector] keyDown:clearEvent];
 
 

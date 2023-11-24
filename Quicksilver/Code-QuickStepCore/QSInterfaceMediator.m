@@ -11,7 +11,7 @@
 @implementation QSRegistry (QSCommandInterface)
 - (NSString *)preferredCommandInterfaceID {
 	NSString *key = [[NSUserDefaults standardUserDefaults] stringForKey:kQSCommandInterfaceControllers];
-	if (![[self tableNamed:kQSCommandInterfaceControllers] objectForKey:key]) key = @"QSPrimerInterfaceController";
+	if (![[self tableNamed:kQSCommandInterfaceControllers] objectForKey:key]) key = @"QSBezelInterfaceController";
 	return key;
 }
 
@@ -23,7 +23,7 @@
 			[prefInstances setObject:mediator forKey:kQSCommandInterfaceControllers];
         } else {
             QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSNotification", QSNotifierType, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, NSLocalizedString(@"Interface Changed", nil), QSNotifierTitle, NSLocalizedString(@"Interface could not be loaded. Switching to Bezel",nil),  QSNotifierText, nil]);
-            mediator = [self instanceForKey:@"QSPrimerInterfaceController" inTable:kQSCommandInterfaceControllers];
+            mediator = [self instanceForKey:@"QSBezelnterfaceController" inTable:kQSCommandInterfaceControllers];
             [prefInstances setObject:mediator forKey:kQSCommandInterfaceControllers];
         }
 	}

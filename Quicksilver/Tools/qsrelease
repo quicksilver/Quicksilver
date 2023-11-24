@@ -3,6 +3,8 @@
 set -euf
 set -x
 
+xcodebuild -version
+
 TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
 
 CONFIGURATION=${1-Release}
@@ -31,17 +33,11 @@ for build_dir in "${build_parent}" "${build_parent}/Debug" "${build_parent}/Rele
   test -e "${build_dir}" && xattr -w com.apple.xcode.CreatedByBuildSystem true "${build_dir}"
 done
 
-LOG=${BUILT_PRODUCTS_DIR}/build.log
-DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
-
-# `xcodebuild clean` sometimes refuses to remove the build directory and
-# fails with error:
-#     Could not delete `/tmp/QS/build` because it was not created by the
-#     build system.
 xcodebuild -scheme 'Quicksilver Distribution' clean
 
 # Make sure `LOG` and its parents exist
-mkdir -p "$(dirname "${LOG}")"
+mkdir -p "${BUILT_PRODUCTS_DIR}"
+LOG=${BUILT_PRODUCTS_DIR}/build.log
 touch "${LOG}"
 
 {
@@ -61,6 +57,7 @@ cd "${BUILT_PRODUCTS_DIR}"
 chmod 644 Quicksilver.app/Contents/Info.plist
 
 ## Prepare the DMG directory
+DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 mkdir -p "${DMG_TEMP}"
 
 cd "${DMG_TEMP}"
@@ -70,7 +67,7 @@ cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store ./.DS_Store
 ln -sf /Applications .
 cp "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns ./.VolumeIcon.icns
 
-if [ -n "${QS_BUILD_ONLY=}" ]; then
+if [ -n "${QS_DONT_SIGN=}" ] || [ -n "${QS_BUILD_ONLY=}" ]; then
   cd ..
 
   echo "Skipping codesigning and using an ad-hoc signature for local testing instead"

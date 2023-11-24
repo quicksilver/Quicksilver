@@ -4,6 +4,11 @@
 
 set -euf
 
+log() {
+  scriptname=$(basename "$0")
+  printf '%s: %s\n' "${scriptname}" "$*" > /dev/stderr
+}
+
 CURRENT_ARCH=$(uname -m)
 readonly CURRENT_ARCH
 
@@ -17,18 +22,36 @@ main() {
 
   cd "${TOOLSDIR}/.."
 
+  xcodebuild build \
+    -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
+    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
+    -configuration Testing \
+    -scheme Quicksilver \
+    GCC_PREPROCESSOR_DEFINITIONS="TESTING"
+
+  # Having a `Testing` config built but not yet run can be nice for selecting a
+  # target for `Instruments.app`
+  if [ -n "${QS_BUILD_ONLY=}" ]; then
+    echo "Skipping tests"
+    return 0
+  fi
+
+  retval=0
   for scheme; do
-    retval=0
+    log "beginning tests for scheme: ${scheme}"
     xcodebuild test \
       -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
       -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-      -configuration Debug \
+      -configuration Testing \
       -scheme "${scheme}" \
       GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
 
-    if [ "$retval" -ne 0 ]; then
-      printf 'Testing scheme %s failed with return value %s\n' "${scheme}" "${retval}"
+    if [ "${retval}" -ne 0 ]; then
+      log "testing ${scheme} failed with exit code ${retval}"
+      return "${retval}"
     fi
+
+    log "testing succeeded for scheme: ${scheme}"
   done
 }
 

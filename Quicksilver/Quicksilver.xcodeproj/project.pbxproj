@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -28,8 +28,8 @@
 			buildConfigurationList = 7F6B3E45085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Preflight" */;
 			buildPhases = (
 				4D8A0B3410AB23B6006AF163 /* CopyFiles */,
+				600950E82ABB938B00F67DEB /* ShellScript */,
 				D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */,
-				7F0399E8080EE58D001A9FA3 /* Remove PlugIns */,
 				7FA4EF1E0913AE44007DB407 /* Release Notes */,
 			);
 			dependencies = (
@@ -761,34 +761,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4D002D0713114662009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002D8D131149A8009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002DA013114A10009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		4D002DB213114A33009040B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
 		4D002DB913114A7C009040B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -845,13 +817,6 @@
 			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
 			remoteInfo = "Core Support";
 		};
-		4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
 		4DFD65B91EA93336003CD3CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DFD65B01EA93335003CD3CE /* fmdb.xcodeproj */;
@@ -900,6 +865,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 83C73F0A1C326ADA00FFC730;
 			remoteInfo = "FMDB MacOS";
+		};
+		60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
+			remoteInfo = "Core Support";
+		};
+		60BA57332ADCD8DC00989FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D002D011311465B009040B7;
+			remoteInfo = "Bezel Interface";
 		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1256,6 +1235,7 @@
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6008C51E2AAF433900512CB2 /* QSPathsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSPathsTests.m; sourceTree = "<group>"; };
+		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1795,7 +1775,7 @@
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		CD72C74E287732580040B065 /* Quicksilver Distribution.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Quicksilver Distribution.xctestplan"; path = "Quicksilver.xcodeproj/Quicksilver Distribution.xctestplan"; sourceTree = "<group>"; };
+		CD72C74E287732580040B065 /* Quicksilver.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Quicksilver.xctestplan; path = Quicksilver.xcodeproj/Quicksilver.xctestplan; sourceTree = "<group>"; };
 		CD72C74F2877C0D10040B065 /* TestNDHotkey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TestNDHotkey.m; path = "Tests/Tests-QSFoundation/TestNDHotkey.m"; sourceTree = "<group>"; };
 		CD73A5B52869FB1700552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ko; path = ko.lproj/Guide.html; sourceTree = "<group>"; };
 		CD73A5BD2869FB2900552A12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ResultWindow.strings; sourceTree = "<group>"; };
@@ -2641,7 +2621,7 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
-				CD72C74E287732580040B065 /* Quicksilver Distribution.xctestplan */,
+				CD72C74E287732580040B065 /* Quicksilver.xctestplan */,
 				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
 				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
 				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
@@ -3334,6 +3314,7 @@
 				7F840FC7096C3356006E6F0E /* Resources */,
 				E18000F107B2B48800010DB0 /* Code */,
 				E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */,
+				600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */,
 			);
 			path = QSCorePlugIn;
 			sourceTree = "<group>";
@@ -4142,7 +4123,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002D0813114662009040B7 /* PBXTargetDependency */,
 			);
 			name = "Bezel Interface";
 			productName = "Bezel Interface";
@@ -4160,7 +4140,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002DA113114A10009040B7 /* PBXTargetDependency */,
 			);
 			name = "Finder Plugin";
 			productName = "Finder Module";
@@ -4178,7 +4157,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002D8E131149A8009040B7 /* PBXTargetDependency */,
 			);
 			name = "Primer Interface";
 			productName = "Primer Interface";
@@ -4196,7 +4174,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4D002DB313114A33009040B7 /* PBXTargetDependency */,
 			);
 			name = "Keyboard Triggers";
 			productName = "HotKey Triggers";
@@ -4316,6 +4293,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				60BA57342ADCD8DC00989FAA /* PBXTargetDependency */,
+				60BA56E72AD5FF6700989FAA /* PBXTargetDependency */,
 				CD61BBC5192B18FA00040609 /* PBXTargetDependency */,
 			);
 			name = "Quicksilver Tests";
@@ -4414,7 +4393,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */,
 			);
 			name = "Core Support";
 			productName = QSAirPortPlugIn;
@@ -4854,6 +4832,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		600950E82ABB938B00F67DEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${QS_BUILD_ROOT}/Configuration/Quicksilver.pch",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Intentionally blank -- only purpose is to tell XCode about the existence of\n# `Configuration/Quicksilver.pch`, copied in the step above, for automatic\n# dependency resolution. Without this (or something like it), one gets a race\n# condition with a lot of `/tmp/QS/Configuration/Quicksilver.pch: file not found`\n# type errors the first time XCode builds, which mysteriously resolve upon a\n# second build.\n#\n# Confirmed working alternatives to this hack:\n#   - remove the `Copy Files` step above and use `cp -r` here instead\n#   - Add a second (redundant) `Copy Files` step that explicitly (re-)copies `Quicksilver.pch`\n";
+		};
 		66CAE628153EF9AE0021BC65 /* Adjust Version-String */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4867,20 +4863,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Script to append development information to the QS version string\n\n# Created by Henning Jungkurth on Apr 18 2012\n# Modifications by Nathan Henrie on 20220405\n\nset -euf\n\nCURRENT_TAG=$(git describe --exact-match --tags 2> /dev/null || true)\nCURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)\nHEAD=$(git rev-parse --short HEAD)\n\n# Default: `2.0.2:main-a83756f6:Debug`\nNEW_VERSION_STRING=${QS_INFO_VERSION}:${CURRENT_BRANCH:-\"detached HEAD\"}-${HEAD}:${CONFIGURATION}\n\n# If on a tag, make pretty: `v2.0.2:Debug` or `v2.0.2`\nif [ -n \"${CURRENT_TAG}\" ]; then\n  if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    NEW_VERSION_STRING=${QS_INFO_VERSION}\n  else\n    NEW_VERSION_STRING=${QS_INFO_VERSION}:${CONFIGURATION}\n  fi\nfi\n\nif [ -n \"${NEW_VERSION_STRING}\" ]; then\n  defaults write \"$QS_APP_CONTENTS_FOLDER/Info\" CFBundleShortVersionString \"\\\"${NEW_VERSION_STRING}\\\"\"\nfi\n";
-		};
-		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Remove PlugIns";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#rm -rf \"$BUILT_PRODUCTS_DIR/Quicksilver.app/Contents/PlugIns\"";
 		};
 		7FA4EF1E0913AE44007DB407 /* Release Notes */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5293,26 +5275,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4D002D0813114662009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002D0713114662009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002D8E131149A8009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002D8D131149A8009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002DA113114A10009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002DA013114A10009040B7 /* PBXContainerItemProxy */;
-		};
-		4D002DB313114A33009040B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4D002DB213114A33009040B7 /* PBXContainerItemProxy */;
-		};
 		4D002DBA13114A7C009040B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4D002DAC13114A2E009040B7 /* Keyboard Triggers */;
@@ -5353,15 +5315,20 @@
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
 			targetProxy = 4DAAEB7E0E0BBE1B0088C72D /* PBXContainerItemProxy */;
 		};
-		4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
-		};
 		4DFD65C71EA93366003CD3CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "FMDB MacOS";
 			targetProxy = 4DFD65C61EA93366003CD3CE /* PBXContainerItemProxy */;
+		};
+		60BA56E72AD5FF6700989FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
+			targetProxy = 60BA56E62AD5FF6700989FAA /* PBXContainerItemProxy */;
+		};
+		60BA57342ADCD8DC00989FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D002D011311465B009040B7 /* Bezel Interface */;
+			targetProxy = 60BA57332ADCD8DC00989FAA /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6242,6 +6209,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6256,6 +6224,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6270,6 +6239,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6284,6 +6254,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6298,6 +6269,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6312,6 +6284,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6326,6 +6299,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6340,6 +6314,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6490,11 +6465,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info-Testing.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver.QSCorePlugIn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -6504,6 +6480,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6518,6 +6495,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6532,6 +6510,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6546,6 +6525,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6978,6 +6958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -6992,6 +6973,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;

@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Quicksilver.xcodeproj/Quicksilver Distribution.xctestplan"
+            reference = "container:Quicksilver.xcodeproj/Quicksilver.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

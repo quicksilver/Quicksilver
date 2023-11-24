@@ -1,10 +1,12 @@
+[![build](https://github.com/quicksilver/Quicksilver/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/quicksilver/Quicksilver/actions/workflows/ci.yml)
+
 # About Quicksilver #
 
 Quicksilver is a fast and free macOS productivity application that gives you the power to control your Mac quickly and elegantly. Quicksilver learns your habits, making your everyday chores simple and efficient. Learn more at: https://qsapp.com
 
 # About This Code Repository #
 
-This repository contains the source code for the Quicksilver main app. It is also the place to browse existing issues and open new issues, via the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
+This repository contains the source code for the Quicksilver main app. It is also the place to browse existing issues and open new issues, via the [issue tracker](https://github.com/quicksilver/Quicksilver/issues).
 
 The `main` branch contains the source for the currently released Quicksilver.
 
@@ -16,7 +18,7 @@ Visit [QSApp.com](http://qsapp.com/download.php), and download the right version
 
 ## Before Trying the Source Code ##
 
-Before building and testing Quicksilver, **ALWAYS BACKUP** your user data!  
+Before building and testing Quicksilver, **ALWAYS BACKUP** your user data!
 This is easily done by backing up the following:
 
   * `~/Library/Application Support/Quicksilver`
@@ -50,9 +52,9 @@ By downloading and/or using this software you agree to the following terms of us
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this software except in compliance with the License.
     You may obtain a copy of the License at
-    
+
       http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

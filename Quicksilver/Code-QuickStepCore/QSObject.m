@@ -131,8 +131,8 @@ NSSize QSMaxIconSize;
 		}
 	}
 	// test the meta dictionary for QSObjectName, QSObjectLabel - if they're not equal then return no
-	if ([meta objectForKey:kQSObjectAlternateName] != [anObject->meta objectForKey:kQSObjectAlternateName] ||
-		[meta objectForKey:kQSObjectPrimaryName] != [anObject->meta objectForKey:kQSObjectPrimaryName] ) {
+	if ([[meta objectForKey:kQSObjectAlternateName] isNotEqualTo:[anObject->meta objectForKey:kQSObjectAlternateName]] ||
+		 [[meta objectForKey:kQSObjectPrimaryName] isNotEqualTo:[anObject->meta objectForKey:kQSObjectPrimaryName]] ) {
 		return NO;
 	}
 	return YES;

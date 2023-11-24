@@ -708,8 +708,13 @@ static QSController *defaultController = nil;
 		default: // QSApplicationNormalLaunch:
 			break;
 	}
+
+	// Don't block the interface with the setup assistant if running a test build
+#ifndef TESTING
 	if (![defaults boolForKey:kSetupAssistantCompleted] || lastVersion <= [@"3694" hexIntValue] || ![defaults boolForKey:@"QSAgreementAccepted"])
 		runningSetupAssistant = YES;
+#endif
+
 #ifndef DEBUG
 	[NSApp updateLaunchStatusInfo];
 #endif
@@ -804,6 +809,10 @@ static QSController *defaultController = nil;
 # pragma mark - Accessibility Permissions
 
 -(BOOL)checkForAccessibilityPermission {
+		#ifdef TESTING
+			return YES;
+		#endif
+
        // Prompt for accessibility permissions on macOS Mojave and later.
        if (!accessibilityChecker) {
                accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
