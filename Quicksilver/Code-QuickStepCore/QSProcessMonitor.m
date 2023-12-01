@@ -117,7 +117,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (id)init {
 	if (self = [super init]) {
 		isReloading = NO;
-		proc_thread = dispatch_queue_create("proc", DISPATCH_QUEUE_SERIAL);
+		proc_thread = dispatch_queue_create("quicksilver.qsprocessmonitor.update", DISPATCH_QUEUE_SERIAL);
 
 		EventTypeSpec eventType;
 		EventHandlerUPP handlerFunction;
@@ -273,20 +273,22 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	psn.highLongOfPSN = (UInt32)[theEvent data1];
 	psn.lowLongOfPSN = (UInt32)[theEvent data2];
 
-    switch ([theEvent subtype]) {
-		case NSProcessDidLaunchSubType: {
-			[self appLaunched:psn];
-			break;
-		} case NSProcessDidTerminateSubType: {
-			[self appTerminated:psn];
-			break;
-		} case NSFrontProcessSwitched: {
-			[self appChanged:psn];
-			break;
+	QSGCDQueueAsync(proc_thread, ^{
+		switch ([theEvent subtype]) {
+			case NSProcessDidLaunchSubType: {
+				[self appLaunched:psn];
+				break;
+			} case NSProcessDidTerminateSubType: {
+				[self appTerminated:psn];
+				break;
+			} case NSFrontProcessSwitched: {
+				[self appChanged:psn];
+				break;
+			}
+			default:
+				break;
 		}
-		default:
-	 break;
-	}
+	});
 	return YES;
 }
 
