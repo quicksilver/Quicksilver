@@ -181,7 +181,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
             // the process isn't an app
             newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
         }
-		[newObject setLabel:[dict objectForKey:@"CFBundleName"]];
     }
 
 	[newObject setObject:dict forType:QSProcessType];
