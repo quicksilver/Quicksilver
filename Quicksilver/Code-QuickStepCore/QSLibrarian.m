@@ -513,7 +513,7 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
+	QSThreadSafeMutableDictionary *dict = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:1];
 	NSMutableArray *typeEntry;
 	for(QSObject *object in array) {
 		NSDictionary *data = [[object dataDictionary] copy];

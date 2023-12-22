@@ -385,7 +385,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #endif
 	
 	NSArray *tempProcesses = [[NSWorkspace sharedWorkspace] runningApplications];
-	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:tempProcesses.count];
+	QSThreadSafeMutableDictionary *procs = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:tempProcesses.count];
 	for (NSRunningApplication *app in tempProcesses) {
 		NSDictionary *info = [self infoForApp:app];
 		QSObject *procObject = [self imbuedFileProcessForDict:info];
