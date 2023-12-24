@@ -11,8 +11,6 @@
 #import "QSBackgroundView.h"
 #import "QSWindow.h"
 #import "NSColor_QSModifications.h"
-#import "QSCGSTransition.h"
-
 #import "QSWindowAnimation.h"
 
 #import <QSFoundation/QSFoundation.h>
@@ -36,16 +34,11 @@
 - (void)hideWindow:(NSWindow *)window early:(BOOL)early {
 
 	if (early) {
-		//[window setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExtraExtraEffect", @"transformFn", @"show", @"type", nil]];
 		[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.25", @"duration", @"QSPurgeEffect", @"transformFn", @"visible", @"type", nil]];
 		[(QSWindow *)window reallyOrderOut:self];
-
-		//[[QSWindowAnimation helper] flipHide:window];
 	} else {
 		[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.25", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
-
 		[(QSWindow *)window reallyOrderOut:self];
-
 	}
 	[window close];
 }
