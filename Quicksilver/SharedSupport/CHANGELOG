@@ -1,4 +1,11 @@
-## Changes - 2.4.1. (4040)##
+## Changes - 2.4.2 (4041) ##
+
+### Fixed ###
+
+* Force-disable superfluous visual effects on startup if running MacOS 14
+* Fix a few (of the many) crashes related to `QSProcessMonitor`
+
+## Changes - 2.4.1 (4040) ##
 
 *Requires macOS 10.14+*
 
