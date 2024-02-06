@@ -5,13 +5,6 @@
 - (BOOL)shouldSendEvent:(NSEvent *)theEvent;
 @end
 
-@interface NSWindow (Effects)
-- (void)pulse:(id)sender;
-- (void)flare:(id)sender;
-- (void)shrink:(id)sender;
-- (void)fold:(id)sender;
-@end
-
 #define kQSWindowHideEffect @"hideEffect"
 #define kQSWindowShowEffect @"showEffect"
 
