@@ -147,15 +147,10 @@
 	}
 
 	[self setThisTitle:titleString];
-	//
-	//[window pulse:self];
 
 	curTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(hideNotification:) userInfo:window repeats:NO];
 
 	[[NSRunLoop currentRunLoop] addTimer:curTimer forMode:NSModalPanelRunLoopMode];
-	//		[attributes objectForKey:QSNotifierTitle] , GROWL_NOTIFICATION_TITLE,
-	//		[attributes objectForKey:QSNotifierText] , GROWL_NOTIFICATION_DESCRIPTION,
-	//		[[attributes objectForKey:QSNotifierIcon] TIFFRepresentation] , GROWL_NOTIFICATION_ICON,
 }
 - (void)hideNotification:(NSTimer *)timer {
 	NSWindow *window = [timer userInfo];
