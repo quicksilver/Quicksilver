@@ -32,13 +32,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		setenv("QSDebugCatalog", "1", YES);
 	}
 #endif
-	// #TODO @n8henrie: Hopefully temporary workaround for Sonoma
-	// https://github.com/quicksilver/Quicksilver/issues/2962
-	if (@available(macOS 14, *)) {
-		NSLog(@"Force-disabling superfluous effects at startup");
-		[[NSUserDefaults standardUserDefaults] setBool:false forKey:kUseEffects];
-	}
-
 }
 
 + (void)initialize {

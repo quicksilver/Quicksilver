@@ -7,7 +7,6 @@
 //
 
 #import "QSHotKeyEvent.h"
-#import "CGSPrivate.h"
 
 /*
  * cocoaModifierFlagsToCarbonModifierFlags()
@@ -36,14 +35,6 @@ static NSMutableDictionary *hotKeyDictionary;
 @implementation QSHotKeyEvent
 + (void)initialize {
 	hotKeyDictionary = [[NSMutableDictionary alloc] init];
-}
-+ (void)disableGlobalHotKeys {
-	CGSConnection conn = _CGSDefaultConnection();
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-}
-+ (void)enableGlobalHotKeys {
-	CGSConnection conn = _CGSDefaultConnection();
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 }
 
 - (NSString *)identifier {

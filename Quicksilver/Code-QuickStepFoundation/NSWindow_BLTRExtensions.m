@@ -1,6 +1,5 @@
 #import "NSWindow_BLTRExtensions.h"
 #import "NSGeometry_BLTRExtensions.h"
-#import "CGSPrivate.h"
 
 @implementation NSWindow (Fade)
 - (id)windowPropertyForKey:(NSString *)key { return nil; }

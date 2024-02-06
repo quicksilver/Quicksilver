@@ -41,8 +41,6 @@
 #define KeySpace	0x31
 #define KeyTabs		0x30
 
-#import "CGSPrivate.h"
-
 @implementation QSInterfaceController
 
 + (void)initialize {
@@ -166,10 +164,10 @@
     QSGCDMainAsync(^{
         [[self window] makeKeyAndOrderFront:sender];
         // Switch the keyboard/hotkey on the main thread.
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-            CGSConnection conn = _CGSDefaultConnection();
-            CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-        }
+          if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
+//            CGSConnection conn = _CGSDefaultConnection();
+//            CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
+          }
         
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
             self->savedKeyboard = TISCopyCurrentKeyboardInputSource();
@@ -196,8 +194,8 @@
 
 - (void)willHideMainWindow:(id)sender {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-		CGSConnection conn = _CGSDefaultConnection();
-		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
+//		CGSConnection conn = _CGSDefaultConnection();
+//		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	}
 	if ([[self window] isVisible] && ![[self window] attachedSheet]) {
 		[[self window] makeFirstResponder:nil];

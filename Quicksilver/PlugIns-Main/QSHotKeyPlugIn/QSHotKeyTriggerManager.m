@@ -110,7 +110,6 @@
             [trigger execute];
             triggerExecuted = YES;
         }
-        [window flare:self];
         [window reallyOrderOut:self];
         [window close];
     }
