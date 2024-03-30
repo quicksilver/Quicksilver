@@ -474,7 +474,7 @@ static QSController *defaultController = nil;
 
 - (void)hideSplash:sender {
     if (splashWindow) {
-        [splashWindow flare:self];
+//        [splashWindow flare:self];
         [splashWindow close];
         splashWindow = nil;
     }

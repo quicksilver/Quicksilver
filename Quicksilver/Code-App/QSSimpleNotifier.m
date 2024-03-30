@@ -11,8 +11,6 @@
 #import "QSBackgroundView.h"
 #import "QSWindow.h"
 #import "NSColor_QSModifications.h"
-#import "QSCGSTransition.h"
-
 #import "QSWindowAnimation.h"
 
 #import <QSFoundation/QSFoundation.h>
@@ -36,16 +34,11 @@
 - (void)hideWindow:(NSWindow *)window early:(BOOL)early {
 
 	if (early) {
-		//[window setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExtraExtraEffect", @"transformFn", @"show", @"type", nil]];
 		[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.25", @"duration", @"QSPurgeEffect", @"transformFn", @"visible", @"type", nil]];
 		[(QSWindow *)window reallyOrderOut:self];
-
-		//[[QSWindowAnimation helper] flipHide:window];
 	} else {
 		[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.25", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
-
 		[(QSWindow *)window reallyOrderOut:self];
-
 	}
 	[window close];
 }
@@ -154,15 +147,10 @@
 	}
 
 	[self setThisTitle:titleString];
-	//
-	//[window pulse:self];
 
 	curTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(hideNotification:) userInfo:window repeats:NO];
 
 	[[NSRunLoop currentRunLoop] addTimer:curTimer forMode:NSModalPanelRunLoopMode];
-	//		[attributes objectForKey:QSNotifierTitle] , GROWL_NOTIFICATION_TITLE,
-	//		[attributes objectForKey:QSNotifierText] , GROWL_NOTIFICATION_DESCRIPTION,
-	//		[[attributes objectForKey:QSNotifierIcon] TIFFRepresentation] , GROWL_NOTIFICATION_ICON,
 }
 - (void)hideNotification:(NSTimer *)timer {
 	NSWindow *window = [timer userInfo];

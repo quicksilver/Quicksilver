@@ -83,7 +83,6 @@
 		4D62E31C1476919300362E9A /* QSTriggersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3161476919300362E9A /* QSTriggersPrefPane.strings */; };
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
-		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -154,7 +153,6 @@
 		4DC493E40E8D15CB000EEF1C /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */; };
 		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
-		4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F250EBDDBA9005A15AE /* QSDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -237,8 +235,6 @@
 		7F840FF0096C3356006E6F0E /* QSAction.commandFormat.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FD2096C3356006E6F0E /* QSAction.commandFormat.strings */; };
 		7F841767096CB23B006E6F0E /* GettingSupport.html in Resources */ = {isa = PBXBuildFile; fileRef = 7F841766096CB23B006E6F0E /* GettingSupport.html */; };
 		7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F841BB5096CCCBF006E6F0E /* Rocket.png */; };
-		7F86016408FA092500622BEF /* QSCGSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15A6AC08F9CAB20058D25E /* QSCGSTransition.m */; };
-		7F86016508FA092600622BEF /* QSCGSTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F15A6AB08F9CAB10058D25E /* QSCGSTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8C658308116FD10051113C /* QSAboutWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F8C658108116FD10051113C /* QSAboutWindowController.h */; };
 		7F8C658408116FD10051113C /* QSAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C658208116FD10051113C /* QSAboutWindowController.m */; };
 		7F8C65A50811728E0051113C /* Credits.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7F8C659E081171DB0051113C /* Credits.html */; };
@@ -1141,7 +1137,6 @@
 		4D62E327147694E000362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/QSAction.description.plist; sourceTree = "<group>"; };
 		4D62E3291476A6BF00362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D62E32B1476A6C600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4D66BBD91486FCDE00351C42 /* CPSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSPrivate.h; sourceTree = "<group>"; };
 		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
@@ -1276,8 +1271,6 @@
 		7F0BDE4207FC962E002CBDDF /* Get Quicksilver Selection.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Get Quicksilver Selection.action"; path = "Scripting/Automator/Get Quicksilver Selection.action"; sourceTree = SOURCE_ROOT; };
 		7F0BDE5007FC962E002CBDDF /* Send to Quicksilver.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Send to Quicksilver.action"; path = "Scripting/Automator/Send to Quicksilver.action"; sourceTree = SOURCE_ROOT; };
 		7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSimpleNotifier.xib; sourceTree = "<group>"; };
-		7F15A6AB08F9CAB10058D25E /* QSCGSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCGSTransition.h; sourceTree = "<group>"; usesTabs = 1; };
-		7F15A6AC08F9CAB20058D25E /* QSCGSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCGSTransition.m; sourceTree = "<group>"; usesTabs = 1; };
 		7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSObject_AEConversion.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSObject_AEConversion.m; sourceTree = "<group>"; usesTabs = 1; };
 		7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWindowAnimation.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -2148,7 +2141,6 @@
 		E1087B40069BD5D300971A69 /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactEmail.icns; sourceTree = "<group>"; };
 		E1087B41069BD5D300971A69 /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
 		E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSKindDescriptions.plist; sourceTree = "<group>"; };
-		E12444CB07297FF300043A01 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		E1264FAC072FE76C00206035 /* QSPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSPreferences.xib; sourceTree = "<group>"; };
 		E129F348071DD65A001E1D5A /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
 		E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSDockingWindow.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3294,8 +3286,6 @@
 				CDC10E6D16221459005FA734 /* Sparkle */,
 				D413172B15DEE5D90021479B /* LaunchAtLoginController */,
 				CDE1E65F158A4CFD00355A9F /* VDKQueue */,
-				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
-				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
 				E1E3CB8F0653BE030026BAF2 /* NSButton-NTExtensions.h */,
 				E1E3CB900653BE030026BAF2 /* NSButton-NTExtensions.m */,
@@ -3469,8 +3459,6 @@
 		E1E5FA4A07B204580044D6EF /* Code-QuickStepEffects */ = {
 			isa = PBXGroup;
 			children = (
-				7F15A6AB08F9CAB10058D25E /* QSCGSTransition.h */,
-				7F15A6AC08F9CAB20058D25E /* QSCGSTransition.m */,
 				E131FA4B07B44C0900D0E4AC /* QSEffects.h */,
 				E1E5FA4D07B204580044D6EF /* QSEmbeddedEffects.h */,
 				E1E5FA4E07B204580044D6EF /* QSEmbeddedEffects.m */,
@@ -4003,7 +3991,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
 				E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */,
 				E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */,
@@ -4052,7 +4039,6 @@
 				7F943F6508033961007EDC31 /* QSUTI.h in Headers */,
 				4D6E8EC41EA93D61003CD3CE /* FMDatabaseAdditions.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
-				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
 				D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
@@ -4098,7 +4084,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F86016508FA092600622BEF /* QSCGSTransition.h in Headers */,
 				E131FA4C07B44C0900D0E4AC /* QSEffects.h in Headers */,
 				E1E5FA5D07B204580044D6EF /* QSEmbeddedEffects.h in Headers */,
 				E1E5FA5F07B204580044D6EF /* QSFadingView.h in Headers */,

@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <QSFoundation/CGSPrivate.h>
+
 
 #define kQSGSTransformF @"transformFn"
 #define kQSGSBrightF @"brightnessFn"
@@ -24,12 +24,8 @@
 @interface QSWindowAnimation : NSAnimation {
 	@public
 	NSWindow *_window;
-	CGSWindow wid;
-	CGSConnection cgs;
 
 	void (*effectFt) (QSWindowAnimation *);
-
-	CGPointWarp *(*warpFt) (QSWindowAnimation *, CGFloat, uint32_t *, uint32_t *);
 
 	CGAffineTransform (*transformFt) (QSWindowAnimation *, CGFloat);
 	struct CGAffineTransform _transformA;

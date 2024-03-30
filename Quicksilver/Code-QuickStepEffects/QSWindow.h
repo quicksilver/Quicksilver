@@ -1,16 +1,8 @@
 #import <Foundation/Foundation.h>
-#import <QSFoundation/CGSPrivate.h>
 
 @protocol QSWindowDelegate
 - (void)firstResponderChanged:(NSResponder *)aResponder;
 - (BOOL)shouldSendEvent:(NSEvent *)theEvent;
-@end
-
-@interface NSWindow (Effects)
-- (void)pulse:(id)sender;
-- (void)flare:(id)sender;
-- (void)shrink:(id)sender;
-- (void)fold:(id)sender;
 @end
 
 #define kQSWindowHideEffect @"hideEffect"
@@ -78,8 +70,4 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_6
 <NSDraggingDestination>
 #endif
-@end
-
-@interface NSWindow (CGSTransitionRedraw)
-- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(CGFloat)duration;
 @end

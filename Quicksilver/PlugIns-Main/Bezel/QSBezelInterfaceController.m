@@ -80,7 +80,6 @@
 
 - (void)showMainWindow:(id)sender {
 	[[self window] setFrame:[self rectForState:[self expanded]]  display:YES];
-	if ([[self window] isVisible]) [[self window] pulse:self];
 	[super showMainWindow:sender];
 //    Does this need to be here?
 	[[[self window] contentView] setNeedsDisplay:YES];

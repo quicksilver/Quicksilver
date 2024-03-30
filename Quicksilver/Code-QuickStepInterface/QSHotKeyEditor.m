@@ -40,16 +40,6 @@
 		_sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
-- (void)_disableHotKeyOperationMode {
-	CGSConnection conn = _CGSDefaultConnection();
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-	[(QSApp *)NSApp setGlobalKeyEquivalentTarget:self];
-}
-- (void)_restoreHotKeyOperationMode {
-	CGSConnection conn = _CGSDefaultConnection();
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
-	[(QSApp *)NSApp setGlobalKeyEquivalentTarget:nil];
-}
 - (void)_windowDidBecomeKeyNotification:(id)fp8 { [self _disableHotKeyOperationMode];  }
 - (void)_windowDidResignKeyNotification:(id)fp8 { [self _restoreHotKeyOperationMode];  }
 - (id)init {
@@ -243,8 +233,6 @@
 	[[self window] display];
 	NSEvent *theEvent;
 
-	CGSConnection conn = _CGSDefaultConnection();
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	BOOL collectEvents = YES;
 	while(collectEvents) {
 		theEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyDown | NSEventMaskFlagsChanged | NSEventMaskLeftMouseDown | NSEventMaskAppKitDefined | NSEventMaskSystemDefined untilDate:[NSDate dateWithTimeIntervalSinceNow:10.0] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -288,7 +276,6 @@
 		}
 	}
 	[timer invalidate];
-	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	[self updateStringForHotKey];
 	[self setBackgroundColor:[NSColor textBackgroundColor]];
 	[setButton setState:NSControlStateValueOff];

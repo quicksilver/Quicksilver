@@ -16,11 +16,8 @@
 
 - (id)init {
 	if (self = [super init]) {
-		cgs = _CGSDefaultConnection();
 		[self setDuration:0.3333f];
-		alphaFt = QSStandardAlphaBlending;
 		transformFt = NULL;
-		warpFt = NULL;
 		brightFt = NULL;
 		effectFt = NULL;
 		restoreTransform = YES;
@@ -31,7 +28,6 @@
 - (id)initWithWindow:(NSWindow *)window {
 	if (self = [self init]) {
 		[self setWindow:window];
-		CGSGetWindowTransform(cgs, wid, &_transformA);
 	}
 	return self;
 }
@@ -50,8 +46,6 @@
 		transformFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSBrightF])
 		brightFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
-	if (value = [attr objectForKey:kQSGSWarpF])
-		warpFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSAlphaF])
 		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSDuration])
@@ -95,35 +89,10 @@
 
 		if (progress >= 0.99f )
 			newTransform = _transformA;
-		CGSSetWindowTransform(cgs, wid, newTransform);
-
-//		if ([childWindows count]) {
-//			CGSSetWindowTransform(cgs, [[childWindows lastObject] windowNumber] , newTransform);
-//		}
 	}
-	if (warpFt) {
-		uint32_t w, h;
-		CGPointWarp *mesh = (*warpFt)(self, _percent, &w, &h);
-        CGSSetWindowWarp(cgs, wid, w, h, mesh);
-		free(mesh);
-	}
-	if (alphaFt) {
-		CGFloat alpha = (*alphaFt) (self, progress);
 
-	//	NSLog(@"step a %f", alpha);
-	//	alpha = progress;
-		CGSSetWindowAlpha(cgs, wid, alpha);
-
-		if ([childWindows count]) {
-			CGSSetWindowAlpha(cgs, (int)[[childWindows lastObject] windowNumber] , alpha);
-		}
-		if (progress == 1.0f)
-			[_window setAlphaValue:alpha];
-
-	}
 	if (brightFt) {
 		CGFloat brightness = (*brightFt) (self, _percent);
-		CGSSetWindowListBrightness(cgs, &wid, (float *)&brightness, 1);
 	}
 	if (progress == 1.0f)
 	[self finishAnimation];
@@ -140,7 +109,6 @@
 - (void)setWindow:(NSWindow *)aWindow {
 	if(_window != aWindow){
 		_window = aWindow;
-		wid = (int)[aWindow windowNumber];
 	}
 }
 
@@ -157,7 +125,7 @@
 
 - (void)startAnimation {
 //	CGSConnection cgs = _CGSDefaultConnection();
-	CGSGetWindowTransform(cgs, wid, &_transformA);
+//	CGSGetWindowTransform(cgs, wid, &_transformA);
 
 	//CGSTransformLog(_transformA);
 	[super startAnimation];
@@ -167,14 +135,14 @@
 	if (restoreTransform) {
 		//	CGSTransformLog(_transformA);
 		//[_window reallyOrderOut:nil];
-		CGSSetWindowTransform(cgs, wid, _transformA);
+//		CGSSetWindowTransform(cgs, wid, _transformA);
 		//CGSSetWindowAlpha(cgs, wid, 1.0);
 		//sleep(1);
 		//	[_window setAlphaValue:0.9f];
 		//	[_window setAlphaValue:1.0f];
 
 	}
-	CGSSetWindowListBrightness(cgs, &wid, (float *)&_brightA, 1);
+//	CGSSetWindowListBrightness(cgs, &wid, (float *)&_brightA, 1);
 
 }
 

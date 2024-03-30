@@ -58,16 +58,10 @@
 @implementation NSApplication (Focus)
 
 - (BOOL)stealKeyFocus {
-	CPSProcessSerNum psn;
-	if ((CPSGetCurrentProcess(&psn) == noErr) && (CPSStealKeyFocus(&psn) == noErr))
-		return YES;
 	return NO;
 }
 
 - (BOOL)releaseKeyFocus {
-	CPSProcessSerNum psn;
-	if ((CPSGetCurrentProcess(&psn) == noErr) && (CPSReleaseKeyFocus(&psn) == noErr))
-		return YES;
 	return NO;
 }
 
