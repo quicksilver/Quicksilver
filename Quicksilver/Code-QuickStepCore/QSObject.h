@@ -2,6 +2,7 @@
 
 #import <QSCore/QSBasicObject.h>
 #import <QSCore/QSObjectHandler.h>
+#import "QSThreadSafeMutableDictionary.h"
 
 @class QSObject, QSBasicObject;
 
