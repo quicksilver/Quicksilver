@@ -5199,7 +5199,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F86016408FA092500622BEF /* QSCGSTransition.m in Sources */,
 				E1E5FA5E07B204580044D6EF /* QSEmbeddedEffects.m in Sources */,
 				E1E5FA6007B204580044D6EF /* QSFadingView.m in Sources */,
 				E1E5FA6407B204580044D6EF /* QSShading.m in Sources */,
