@@ -25,8 +25,8 @@
 - (NSArray *)backgroundProcesses; /* QSObjects */
 
 /* Deprecated, equivalent to the above without KVO */
-- (NSArray *)getAllProcesses QS_DEPRECATED_MSG("Use -allProcesses");
-- (NSArray *)getVisibleProcesses QS_DEPRECATED_MSG("Use -visibleProcesses");
+- (NSArray *)getAllProcesses __attribute__((deprecated("Use -allProcesses")));
+- (NSArray *)getVisibleProcesses __attribute__((deprecated("Use -visibleProcesses")));
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent;

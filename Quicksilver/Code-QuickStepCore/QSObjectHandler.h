@@ -38,7 +38,7 @@
 
 - (NSAppleEventDescriptor *)AEDescriptorForObject:(QSObject *)object;
 
-- (QSObject *)initFileObject:(QSObject *)object ofType:(NSString *)type QS_DEPRECATED NS_RETURNS_NOT_RETAINED;
+- (QSObject *)initFileObject:(QSObject *)object ofType:(NSString *)type __attribute__((deprecated)) NS_RETURNS_NOT_RETAINED;
 @end
 
 

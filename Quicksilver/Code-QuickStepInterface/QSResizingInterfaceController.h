@@ -7,7 +7,7 @@
 	BOOL expanded;
 }
 - (void)firstResponderChanged:(NSResponder *)aResponder;
-- (void)resetAdjustTimer QS_DEPRECATED_MSG("Use -adjustWindow:");
+- (void)resetAdjustTimer __attribute__((deprecated("Use -adjustWindow:")));
 - (void)expandWindow:(id)sender;
 - (void)contractWindow:(id)sender;
 

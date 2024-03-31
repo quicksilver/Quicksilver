@@ -25,7 +25,7 @@
 - (void)reopenApplication:(NSDictionary *)theApp;
 - (void)quitApplication:(NSDictionary *)theApp;
 - (void)quitOtherApplications:(NSArray *)theApps;
-- (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident QS_DEPRECATED;
+- (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident __attribute__((deprecated));
 - (NSString *)commentForFile:(NSString *)path;
 - (BOOL)setComment:(NSString*)comment forFile:(NSString *)path;
 - (BOOL)openFileInBackground:(NSString *)fullPath;

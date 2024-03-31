@@ -17,6 +17,6 @@ Code; \
 _Pragma("clang diagnostic pop") \
 } while (0)
 
-#define QS_DEPRECATED __attribute__((deprecated))
-#define QS_DEPRECATED_MSG(s) __attribute__((deprecated(s)))
+//#define QS_DEPRECATED __attribute__((deprecated))
+//#define QS_DEPRECATED_MSG(s) __attribute__((deprecated(s)))
 
