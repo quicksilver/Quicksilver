@@ -6,6 +6,8 @@
 
 #import "NSEvent+BLTRExtensions.h"
 
+#import "QSCore/QSCore-Swift.h"
+
 @implementation NSValue (ProcessSerialNumberExtension)
 
 + (id)valueWithProcessSerialNumber:(ProcessSerialNumber)psn {
@@ -115,6 +117,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (id)init {
+	QSProcessMonitorSwift *qspms = [[QSProcessMonitorSwift alloc] init];
+
 	if (self = [super init]) {
 		isReloading = NO;
 		proc_thread = dispatch_queue_create("quicksilver.qsprocessmonitor.update", DISPATCH_QUEUE_SERIAL);

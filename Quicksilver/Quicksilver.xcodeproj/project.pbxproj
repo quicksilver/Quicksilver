@@ -174,7 +174,7 @@
 		4DFE7DD40E08219C000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DDA0E0821C0000B9AA3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		6008C51F2AAF433900512CB2 /* QSPathsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6008C51E2AAF433900512CB2 /* QSPathsTests.m */; };
-		608BB1732BB8E557005D6E75 /* QSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608BB1722BB8E557005D6E75 /* QSCore.swift */; };
+		608CDD872BBF128000E1F1DB /* QSProcessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608CDD862BBF128000E1F1DB /* QSProcessMonitor.swift */; };
 		60FCBED82844C9770091AB6B /* OSAKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FCBED02844C9770091AB6B /* OSAKit.framework */; };
 		6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9191086EF4D009D5C90 /* Localizable.strings */; };
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
@@ -1232,7 +1232,7 @@
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6008C51E2AAF433900512CB2 /* QSPathsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSPathsTests.m; sourceTree = "<group>"; };
 		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
-		608BB1722BB8E557005D6E75 /* QSCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCore.swift; sourceTree = "<group>"; };
+		608CDD862BBF128000E1F1DB /* QSProcessMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSProcessMonitor.swift; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3575,7 +3575,6 @@
 		E1E5FB6407B20DD10044D6EF /* Code-QuickStepCore */ = {
 			isa = PBXGroup;
 			children = (
-				608BB1722BB8E557005D6E75 /* QSCore.swift */,
 				CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */,
 				CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */,
 				E1E5FB6507B20DD10044D6EF /* NSString_Purification.h */,
@@ -3670,6 +3669,7 @@
 				4DD89F210EBDDBA9005A15AE /* QSPreferenceKeys.h */,
 				E1E5FBB107B20DD20044D6EF /* QSProcessMonitor.h */,
 				E1E5FBB207B20DD20044D6EF /* QSProcessMonitor.m */,
+				608CDD862BBF128000E1F1DB /* QSProcessMonitor.swift */,
 				E1E5FBB307B20DD20044D6EF /* QSProcessSource.h */,
 				E1E5FBB407B20DD20044D6EF /* QSProcessSource.m */,
 				E1E5FBB707B20DD20044D6EF /* QSProxyObject.h */,
@@ -5059,6 +5059,7 @@
 				E1E5FC1B07B20DD20044D6EF /* QSObjectSource.m in Sources */,
 				E1E5FC1D07B20DD20044D6EF /* QSParser.m in Sources */,
 				9294A4E70D0FA219000EAE2E /* QSPaths.m in Sources */,
+				608CDD872BBF128000E1F1DB /* QSProcessMonitor.swift in Sources */,
 				7F0AB6CF07C4045700DF7D52 /* QSPlugIn.m in Sources */,
 				7F0AB6D107C4045700DF7D52 /* QSPlugInManager.m in Sources */,
 				E1E5FC1F07B20DD20044D6EF /* QSProcessMonitor.m in Sources */,
@@ -5075,7 +5076,6 @@
 				7FF791CC0865BB4D001A0F63 /* QSTrigger.m in Sources */,
 				7FF791C50865BB3C001A0F63 /* QSTriggerCenter.m in Sources */,
 				7FF792DD0865C013001A0F63 /* QSTriggerManager.m in Sources */,
-				608BB1732BB8E557005D6E75 /* QSCore.swift in Sources */,
 				E1E5FC3807B20DD20044D6EF /* QSTypes.m in Sources */,
 				7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */,
 				E1E5FC3A07B20DD20044D6EF /* QSVoyeur.m in Sources */,
