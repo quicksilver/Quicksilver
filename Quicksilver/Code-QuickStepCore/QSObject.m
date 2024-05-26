@@ -53,7 +53,7 @@ NSSize QSMaxIconSize;
 - (id)init {
 	if (self = [super init]) {
 
-		data = [NSMutableDictionary dictionaryWithCapacity:0];
+		data = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		meta = [NSMutableDictionary dictionaryWithCapacity:0];
 		cache = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
