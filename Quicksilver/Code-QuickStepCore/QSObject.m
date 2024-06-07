@@ -54,7 +54,7 @@ NSSize QSMaxIconSize;
 	if (self = [super init]) {
 
 		data = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
-		meta = [NSMutableDictionary dictionaryWithCapacity:0];
+		meta = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		cache = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
