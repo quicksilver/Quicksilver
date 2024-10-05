@@ -1,3 +1,12 @@
+## Changes - 2.4.3 (4042) ##
+
+### Changed ###
+
+* Remove use of multiple private API that could no longer be maintained
+  * Unfortunately this breaks Quicksilver's "pretty" animations for now
+* Fix a few more `QSProcessMonitor` crashes by using the threadsafe dict in more places
+* Simplify locks in `QSThreadSafeMutableDictionary` by switching to `@synchronized`
+
 ## Changes - 2.4.2 (4041) ##
 
 ### Fixed ###
