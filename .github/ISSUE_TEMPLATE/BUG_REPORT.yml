@@ -43,20 +43,11 @@ body:
       description: Describe what you expected to happen instead.
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: macos-version
     attributes:
       label: MacOS Version
-      description: |
-        Select the macOS version you are using
-        _Describe in the "Additional info" section if you chose "Other"._
-      options:
-        - macOS 13
-        - macOS 12
-        - macOS 11
-        - macOS 10.15
-        - macOS 10.14
-        - Other
+      description: Type the macOS version you are using, e.g. `macOS 15`
   - type: input
     id: qs-version
     attributes:
