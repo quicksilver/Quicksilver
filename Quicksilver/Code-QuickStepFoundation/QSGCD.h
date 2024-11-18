@@ -66,7 +66,7 @@ inline void QSGCDDelayed(NSTimeInterval delay, void (^block)(void))
 
 // Remove those when the plugins are call-free
 // Don't forget to remove definitions in .m file
-void runOnMainQueueSync(void (^block)(void)) QS_DEPRECATED_MSG("Use QSGCDMainSync");
-void runOnQueueSync(dispatch_queue_t queue, void (^block)(void)) QS_DEPRECATED_MSG("Use QSGCDQueueSync");
+void runOnMainQueueSync(void (^block)(void)) __attribute__((deprecated("Use QSGCDMainSync")));
+void runOnQueueSync(dispatch_queue_t queue, void (^block)(void)) __attribute__((deprecated("Use QSGCDQueueSync")));
 
 #endif // __QSGCD__
