@@ -730,7 +730,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	id value;
 	id handler;
 
-	foreachkey(key, handlerClass, [QSReg tableNamed:kQSPlugInInfoHandlers]) {
+	id handlerClass = nil;
+	NSString *key = nil;
+	NSEnumerator *kEnum = [[QSReg tableNamed:kQSPlugInInfoHandlers] keyEnumerator];
+	while((key = [kEnum nextObject]) && (handlerClass = [[QSReg tableNamed:kQSPlugInInfoHandlers] objectForKey:key]) ) {
 		value = [bundle dictionaryForFileOrPlistKey:key];
 		if (!value) continue;
 		//NSLog(@"----> Registering %@ for %@", key, [self name]);

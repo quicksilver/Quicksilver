@@ -466,7 +466,10 @@
 			break;
 		}
 		case 1: {
-			foreachkey(pluginId, plugin, [[QSPlugInManager sharedInstance] loadedPlugIns]) {
+			id plugin = nil;
+			NSString *pluginId = nil;
+			NSEnumerator *kEnum = [[[QSPlugInManager sharedInstance] loadedPlugIns] keyEnumerator];
+			while((pluginId = [kEnum nextObject]) && (plugin = [[[QSPlugInManager sharedInstance] loadedPlugIns] objectForKey:pluginId]) ) {
 				NSString *name = [plugin shortName];
 				if (!name) name = [plugin identifier];
 				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];

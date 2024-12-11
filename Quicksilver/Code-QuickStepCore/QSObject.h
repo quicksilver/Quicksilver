@@ -7,8 +7,6 @@
 
 extern NSSize QSMaxIconSize;
 
-#define itemForKey(k) [data objectForKey:k]
-
 // meta dictionary keys
 #define kQSObjectPrimaryName      @"QSObjectName"
 #define kQSObjectAlternateName    @"QSObjectLabel"

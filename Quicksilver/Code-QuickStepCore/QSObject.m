@@ -396,14 +396,14 @@ NSSize QSMaxIconSize;
         [self setObject:details forMeta:kQSObjectDetails];
     } else if ([self stringValue]) {
         details = [self stringValue];
-    } else if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]]) {
-        details = itemForKey([self primaryType]);
+    } else if ([[data objectForKey:[self primaryType]] isKindOfClass:[NSString class]]) {
+        details = [data objectForKey:[self primaryType]];
     }
     
 	return details;
 }
 
-- (id)primaryObject {return itemForKey([self primaryType]);}
+- (id)primaryObject {return [data objectForKey:[self primaryType]];}
 	//- (id)objectForKey:(id)aKey {return [data objectForKey:aKey];}
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 

@@ -86,7 +86,7 @@ static QSController *defaultController = nil;
 	[QSVoyeur sharedInstance];
 
 #ifdef DEBUG
-	if (defaultBool(@"verbose") )
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"verbose"])
 		setenv("verbose", "1", YES);
 #endif
 		

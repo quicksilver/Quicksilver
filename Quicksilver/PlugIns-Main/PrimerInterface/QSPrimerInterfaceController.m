@@ -78,7 +78,7 @@
 	frame = constrainRectToRect(frame, [[[self window] screen] frame]);
 	[[self window] setFrame:frame display:YES];
 
-	if (defaultBool(@"QSAlwaysCenterInterface") ) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSAlwaysCenterInterface"] ) {
 		NSRect frame = [[self window] frame];
 		frame = centerRectInRect(frame, [[[self window] screen] frame]);
 		[[self window] setFrame:frame display:YES];
