@@ -6340,6 +6340,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = TESTING;
 				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Testing;
 		};
@@ -7055,6 +7056,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -7079,6 +7081,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
