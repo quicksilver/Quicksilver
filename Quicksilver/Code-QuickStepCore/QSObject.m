@@ -3,6 +3,8 @@
 #import "QSDebug.h"
 #import "QSObjectHandler.h"
 
+#import <QSCore/QSCore-Swift.h>
+
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
 
@@ -13,6 +15,9 @@ NSSize QSMaxIconSize;
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
+		QSSwiftObj *swiftobj = [[QSSwiftObj alloc] init];
+		[swiftobj sayHello];
+
 		QSMaxIconSize = QSSizeMax;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];

@@ -6,3 +6,10 @@
 //
 
  import Foundation
+
+public class QSSwiftObj: NSObject {
+    @objc public func sayHello() {
+        print("Hello from Swift")
+    }
+}
+
