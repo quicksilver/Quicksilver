@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-latest
     env:
       QS_DONT_SIGN: 1
     steps:
@@ -52,7 +52,7 @@ jobs:
 
   sign:
     needs: build
-    runs-on: macos-12
+    runs-on: macos-latest
     if: startsWith(github.ref, 'refs/tags/v')
     env:
       MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
