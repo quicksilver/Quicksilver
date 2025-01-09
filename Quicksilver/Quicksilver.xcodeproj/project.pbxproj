@@ -6434,6 +6434,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Testing;
 		};
@@ -6842,6 +6843,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -6858,6 +6860,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
