@@ -125,11 +125,11 @@
 	if (!urlString) return NO;
     
 	// For search URLs
-	if([object containsType:QSSearchURLType]) {
-        [self buildWebSearchIconForObject:object];
-		return YES;
-	}
-	
+//	if([object containsType:QSSearchURLType]) {
+//        [self buildWebSearchIconForObject:object];
+//		return YES;
+//	}
+//
 	// For images that are links on web pages
 	NSString *imageURL = [object objectForMeta:kQSObjectIconName];
 	if (imageURL) {	
@@ -140,7 +140,15 @@
 			return YES;
 		}
 	}
-    [object setRetainsIcon:YES];
+	
+	[object setRetainsIcon:YES];
+	NSImage *favIcon = nil;
+	favIcon = [self getFavIcon:[object objectForType:QSURLType]];
+	if(favIcon) {
+		[object setIcon:favIcon];
+		return YES;
+	}
+	
 	return NO;
 }
 
