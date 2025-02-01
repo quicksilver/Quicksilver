@@ -83,10 +83,7 @@
 
 - (void)orderOut:(id)sender {
 	[NSApp preventWindowOrdering];
-	if ([self isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self hideThreaded:sender];
-	} else
-		[super orderOut:sender];
+	[super orderOut:sender];
 }
 
 - (void)reallyOrderFront:(id)sender {
@@ -98,26 +95,13 @@
 }
 
 - (void)orderFront:(id)sender {
-	if ([self isVisible] || fastShow || ![[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self setAlphaValue:1.0];
-		[super orderFront:sender];
-	} else {
-		[self setAlphaValue:0.0];
-		[super orderFront:sender];
-		[super display];
-		[self showThreaded:self];
-	}
+	[self setAlphaValue:1.0];
+	[super orderFront:sender];
 }
 
 - (void)makeKeyAndOrderFront:(id)sender {
-	if ([self isVisible] || fastShow || ![[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self setAlphaValue:1.0];
-		[super makeKeyAndOrderFront:sender];
-	} else {
-		[self setAlphaValue:0.0];
-		[super makeKeyAndOrderFront:sender];
-		[self showThreaded:self];
-	}
+	[self setAlphaValue:1.0];
+	[super makeKeyAndOrderFront:sender];
 }
 
 - (void)finishShow:(id)sender {

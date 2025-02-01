@@ -71,8 +71,6 @@
 	<real>0.05</real>
 	<key>Show Release Notes on Upgrade</key>
 	<true/>
-	<key>Use Effects</key>
-	<true/>
 	<key>QSFilePreviewTypes</key>
 	<array>
 		<string>public.item</string>

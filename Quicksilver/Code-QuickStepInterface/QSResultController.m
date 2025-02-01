@@ -384,13 +384,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
-        NSRect windowFrame = [self windowFrame];
-        shouldSaveWindowSize = NO;
-        [[self window] setFrame:windowFrame display:YES animate:YES];
-        shouldSaveWindowSize = YES;
-    }
-    
     /* Restart the icon loading for the children view */
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
         [self setResultChildIconLoader:nil];

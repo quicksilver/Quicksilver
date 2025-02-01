@@ -902,11 +902,6 @@ static QSController *defaultController = nil;
     }
 }
 
-- (void)setupSplash {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self showSplash:nil];
-	}
-}
 - (void)startQuicksilver:(id)sender {
 	[self checkForFirstRun];
 	[self checkForCrash];
@@ -1055,9 +1050,6 @@ static QSController *defaultController = nil;
         [self delayedStartup];
     });
 	[self startDropletConnection];
-	if (!runningSetupAssistant) {
-		[self setupSplash];
-	}
 }
 
 - (id)activationHotKey { return nil;  }
