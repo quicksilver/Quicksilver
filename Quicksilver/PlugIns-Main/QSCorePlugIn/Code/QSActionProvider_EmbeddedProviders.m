@@ -800,11 +800,19 @@
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
                     [newPaths addObject:destinationFile];
                 } else {
-                    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The following error occured while trying to move \"%1$@\" to \"%2$@\"\n\n%3$@", nil), thisFile, destination, [err localizedDescription]];
-                    [NSAlert runAlertWithTitle:NSLocalizedString(@"Move error", nil)
-                                                               message:message
-                                                               buttons:@[NSLocalizedString(@"OK", nil)]
-                                                                 style:NSWarningAlertStyle];
+                    // check if destination is the /Applications folder, if so - make sure we have the right permsissions
+                    NSString *message = nil;
+                    if ([destination isEqualToString:@"/Applications"]) {
+                        message = [NSString stringWithFormat:NSLocalizedString(@"Could not copy to Applications folder. Make sure the \"App Managemnent\" permission is enabled for Quicksilver in System Preferences\n\n%@\n\n%@", nil), [err localizedDescription]];
+					} else {
+                    	message = [NSString stringWithFormat:NSLocalizedString(@"The following error occured while trying to move \"%1$@\" to \"%2$@\"\n\n%3$@", nil), thisFile, destination, [err localizedDescription]];
+					}
+                    QSGCDMainSync(^{
+                        [NSAlert runAlertWithTitle:NSLocalizedString(@"Move error", nil)
+                                                                   message:message
+                                                                   buttons:@[NSLocalizedString(@"OK", nil)]
+                                                                     style:NSWarningAlertStyle];
+                    });
                 }
             }
             [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
