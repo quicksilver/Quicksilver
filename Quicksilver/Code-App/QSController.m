@@ -252,7 +252,9 @@ static QSController *defaultController = nil;
 #endif
 
 - (IBAction)showGuide:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSMainMenuPrefPane"];  }
-- (IBAction)showSettings:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];  }
+- (IBAction)showSettings:(id)sender {
+	[QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];
+}
 - (IBAction)showCatalog:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSCatalogPrefPane"];  }
 - (IBAction)showPlugins:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSPlugInsPrefPane"];  }
 - (IBAction)showTriggers:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSTriggersPrefPane"];  }
