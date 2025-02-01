@@ -56,13 +56,16 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)writeToPasteboard:(NSPasteboard *)pasteboard data:(id)pbData forType:(NSString *)type {
+	if (![type isEqualToString:@"public.file-url"]) {
+		return;
+	}
 	if ([NSURLPboardType isEqualToString:type]) {
 		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
 		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
     } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
         [pasteboard setString:pbData[0] forType:type];
-	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeData]){
+	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeItem]){
         [pasteboard setData:[NSPropertyListSerialization dataWithPropertyList:pbData format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil] forType:NSFilenamesPboardType];
     } else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
         if (![pbData isKindOfClass:[NSArray class]]) {
@@ -251,22 +254,19 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 
 	// define the types to be included on the pasteboard
 	if (!includeTypes) {
-		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
-            // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
-			includeTypes = @[(__bridge NSString *)kUTTypeData];
-            [types addObject:(__bridge NSString *)kUTTypeData];
-		//			[pboard declareTypes:includeTypes owner:self];
-        } else if ([types containsObject:NSURLPboardType]) {
+		if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html
 			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType,nil];
 		} else if ([types containsObject:NSColorPboardType]) {
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
         }
 	}
-    if ([self validPaths]) {
-        // this is a file - add file URL data
-        includeTypes = [includeTypes arrayByAddingObject:(__bridge NSString*)kUTTypeFileURL];
-        [types addObjectsFromArray:includeTypes];
+	if ([self validPaths]) {
+        // this is a file - only declare public.file-url
+		includeTypes = @[(__bridge NSString *)kUTTypeFileURL] ;
+		types = [NSMutableArray arrayWithObject:kUTTypeFileURL];
+		// remove the data type
+		[types removeObject:@"public.data"];
         NSArray *fileURLs = [[self validPaths] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *path) {
             return [[NSURL fileURLWithPath:path] absoluteString];
         }];

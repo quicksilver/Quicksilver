@@ -391,7 +391,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
-	if (![iObject arrayForType:QSFilePathType])
+	if (iObject && ![iObject arrayForType:QSFilePathType])
 		return NSDragOperationNone;
 	if ([dObject fileCount] > 1)
 		return NSDragOperationGeneric;
