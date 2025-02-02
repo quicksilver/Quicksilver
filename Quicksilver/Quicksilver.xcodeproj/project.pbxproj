@@ -1783,8 +1783,8 @@
 		CD7EE3FD282DCA450033614B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLListItem.h; sourceTree = "<group>"; };
 		CD885025285562F100BDCB00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
-		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTreeController+BLTRExtensions.h"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
-		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSTreeController+BLTRExtensions.m"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
+		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
+		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -2614,8 +2614,7 @@
 			isa = PBXGroup;
 			children = (
 				CD72C74E287732580040B065 /* Quicksilver.xctestplan */,
-				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
-				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
 				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
@@ -2630,7 +2629,6 @@
 				7F515D3307B533D2003EA91C /* Localized */,
 				E102F97B06625D7300843027 /* Nibs */,
 				E1BF1D450657F6620074A05A /* PlugIns-Main */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
 				E103EB8706471D5900447FE0 /* PropertyLists */,
 				7F9703DB09AFEF8900E9EA77 /* QSDroplet */,
 				E103EC5006471DBE00447FE0 /* Resources */,
@@ -3566,6 +3564,8 @@
 				7F943F6408033961007EDC31 /* QSUTI.m */,
 				CD02BB4116A2BA5700DAFE50 /* QSGCD.h */,
 				CD02BB4216A2BA5700DAFE50 /* QSGCD.m */,
+				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
+				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
 			);
 			path = "Code-QuickStepFoundation";
 			sourceTree = "<group>";

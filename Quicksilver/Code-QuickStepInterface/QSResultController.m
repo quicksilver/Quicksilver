@@ -680,7 +680,7 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard {
-	[[[self currentResults] objectAtIndex:[[rows objectAtIndex:0] integerValue]]putOnPasteboard:pboard includeDataForTypes:nil];
+	[[[self currentResults] objectAtIndex:[[rows objectAtIndex:0] integerValue]] putOnPasteboard:pboard];
 	return YES;
 }
 
