@@ -101,20 +101,28 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		return [self identifier];
 	}
 	
-	if ([type isEqualToString:NSPasteboardTypeHTML]) {
-		return [NSString dataForObject:self forType:NSPasteboardTypeHTML];
-	}
-	if ([type isEqualToString:NSPasteboardTypeRTF]) {
-		return [NSString dataForObject:self forType:NSPasteboardTypeRTF];
-	}
 	if ([type isEqualToString:NSPasteboardTypeURL]) {
 		return [pbData hasPrefix:@"mailto:"] ? [pbData substringFromIndex:7] : pbData;
 	}
+	
+	
 	if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
 		if (![pbData isKindOfClass:[NSArray class]]) {
 			return @[pbData];
 		}
 	}
+	
+	if ([type isEqualToString:NSPasteboardTypeHTML]) {
+		if (!pbData) {
+			return [self objectForType:NSPasteboardTypeHTML];
+		}
+	}
+	if ([type isEqualToString:NSPasteboardTypeRTF]) {
+		if (!pbData) {
+			return [self objectForType:NSPasteboardTypeRTF];
+		}
+	}
+
 	return pbData;
 }
 
