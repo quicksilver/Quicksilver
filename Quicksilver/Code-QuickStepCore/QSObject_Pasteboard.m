@@ -12,7 +12,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-	if ([NSPasteboardTypeString isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
+	// NOTE: The NSStringPboardType is required here, since for some stupid reason NSPasteboardTypeString != NSStringPboardType
+	if ([NSPasteboardTypeString isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqual:NSStringPboardType]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
