@@ -3,8 +3,8 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
 
-NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
-NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
+NSString *QSPasteboardObjectIdentifier = @"com.blacktree.quicksilver.object.id";
+NSString *QSPasteboardObjectAddress = @"com.blacktree.quicksilver.object.address";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
@@ -12,19 +12,19 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-	if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
+	if ([NSPasteboardTypeString isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
 	}
-
-	if ([NSURLPboardType isEqualToString:type]) {
+	
+	if ([NSPasteboardTypeURL isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
-	if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
+	if ([NSPasteboardTypeFileURL isEqualToString:type]) {
         return [NSURL URLFromPasteboard:pasteboard];
     }
-	if ([NSColorPboardType isEqualToString:type]) {
+	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
 //	fallback - return it as data
@@ -54,19 +54,19 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 - (NSArray<NSString *> *) writableTypesForPasteboard:(NSPasteboard *) pasteboard {
 	NSMutableArray *types = [[NSMutableArray alloc] init];
 	if ([self validPaths]) {
-		[types addObject:kUTTypeFileURL];
+		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSPasteboardTypeString]];
 	} else {
-		
+	
 		[types addObjectsFromArray:[[self dataDictionary] allKeys]];
 		if ([types containsObject:QSProxyType]) {
 			[types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
 		}
 		
 		if ([types count] == 0) {
-			[types addObject:NSStringPboardType];
+			[types addObject:NSPasteboardTypeString];
 		}
-		if ([types containsObject:NSURLPboardType]) {
-			[types addObjectsFromArray:@[NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType]];
+		if ([types containsObject:NSPasteboardTypeURL]) {
+			[types addObjectsFromArray:@[NSPasteboardTypeURL,NSPasteboardTypeHTML,NSPasteboardTypeRTF,NSPasteboardTypeString]];
 		}
 	}
 	[types addObjectsFromArray:@[QSPasteboardObjectIdentifier, QSPasteboardObjectAddress]];
@@ -101,13 +101,13 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		return [self identifier];
 	}
 	
-	if ([type isEqualToString:NSHTMLPboardType]) {
-		return [NSString dataForObject:self forType:NSHTMLPboardType];
+	if ([type isEqualToString:NSPasteboardTypeHTML]) {
+		return [NSString dataForObject:self forType:NSPasteboardTypeHTML];
 	}
-	if ([type isEqualToString:NSRTFPboardType]) {
-		return [NSString dataForObject:self forType:NSRTFPboardType];
+	if ([type isEqualToString:NSPasteboardTypeRTF]) {
+		return [NSString dataForObject:self forType:NSPasteboardTypeRTF];
 	}
-	if ([type isEqualToString:NSURLPboardType]) {
+	if ([type isEqualToString:NSPasteboardTypeURL]) {
 		return [pbData hasPrefix:@"mailto:"] ? [pbData substringFromIndex:7] : pbData;
 	}
 	if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
@@ -160,7 +160,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[self setObject:[NSDate date] forMeta:kQSObjectCreationDate];
 
 		id value;
-		if (value = [self objectForType:NSRTFPboardType]) {
+		if (value = [self objectForType:NSPasteboardTypeRTF]) {
 			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
 			[self setObject:[value string] forType:QSTextType];
 		}
@@ -209,7 +209,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         NSString *textString = itemForKey(QSTextType);
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-            textString = itemForKey(NSURLPboardType);
+            textString = itemForKey(NSPasteboardTypeURL);
         }
         textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		
@@ -217,27 +217,27 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         static NSArray *keys = nil;
         if (!keys) {
             // Use an array for the keys since the order is important
-            keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil];
+			keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF,QSTextType,nil];
 
         }
         if (!namesAndKeys) {
             namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
+									  NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPasteboardTypePDF,
                                       NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
                                       NSPasteboardTypePNG,
                                       NSLocalizedString(@"RTF Text", @"Name of a RTF text object"),
                                       NSPasteboardTypeRTF,
                                       NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
-                                      NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
-                                      NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSTIFFPboardType,
-                                      NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSColorPboardType,
-                                      NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
-                                      NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSFontPboardType,
-                                      NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSHTMLPboardType,
-                                      NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSRulerPboardType,
-                                      NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSTabularTextPboardType,
-                                      NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       NSVCardPboardType,
-                                      NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
+									  NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           @"com.adobe.encapsulated-postscript",
+									  NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSPasteboardTypeTIFF,
+									  NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSPasteboardTypeColor,
+									  NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
+						  			  NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSPasteboardTypeFont,
+									  NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSPasteboardTypeHTML,
+									  NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSPasteboardTypeRuler,
+									  NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSPasteboardTypeTabularText,
+									  NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       (__bridge NSString *)kUTTypeVCard,
+									  NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               (__bridge NSString *)kPasteboardTypeFileURLPromise,
                                       nil];
         }
 
