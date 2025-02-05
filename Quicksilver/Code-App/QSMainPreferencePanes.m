@@ -226,15 +226,6 @@
 }
 
 - (IBAction)resetColors:(id)sender {
-#if 0
-	NSArray *colorDefaults = [NSArray arrayWithObjects:kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	for(NSString * key in colorDefaults) {
-		[defaults willChangeValueForKey:key];
-		[defaults removeObjectForKey:key];
-		[defaults didChangeValueForKey:key];
-	}
-#endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *colourDefaults = [NSArray arrayWithObjects: kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
     @synchronized(defaults) {

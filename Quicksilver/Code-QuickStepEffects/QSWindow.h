@@ -12,6 +12,12 @@
 #define kQSWindowFadeEffect @"fadeEffect"
 #define kQSWindowCancelEffect @"cancelEffect"
 
+@interface NSWindow (Effects)
+
+- (void)pulse:(id)sender;
+
+@end
+
 @interface QSWindow : NSPanel {
 	NSRect trueRect;
 	BOOL resizing;
@@ -61,6 +67,7 @@
 - (void)reallyOrderOut:(id)sender;
 - (void)hideWithEffect:(id)hideEffect;
 - (void)performEffect:(NSDictionary *)effect;
+- (void)performEffect:(NSDictionary *)effect completionHandler:(void (^)(void))completionHandler;
 - (void)finishHide:(id)sender;
 
 - (void)setWindowProperty:(id)prop forKey:(NSString *)key;

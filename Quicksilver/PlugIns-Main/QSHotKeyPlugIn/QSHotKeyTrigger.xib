@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSHotKeyTriggerManager">
@@ -16,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="365"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button verticalHuggingPriority="750" id="189">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="189">
                     <rect key="frame" x="183" y="323" width="29" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="smallSquare" title="Edit" bezelStyle="smallSquare" alignment="center" controlSize="mini" borderStyle="border" inset="2" id="207">
@@ -27,12 +29,12 @@
                         <action selector="set:" target="188" id="191"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="188" customClass="QSHotKeyField">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="188" customClass="QSHotKeyField">
                     <rect key="frame" x="105" y="324" width="76" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="206">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -40,7 +42,7 @@
                         <outlet property="setButton" destination="189" id="190"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="179">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="179">
                     <rect key="frame" x="17" y="174" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Display:" id="205">
@@ -49,7 +51,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button toolTip="Show window while delaying" id="158">
+                <button toolTip="Show window while delaying" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="158">
                     <rect key="frame" x="102" y="172" width="96" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Window" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="204">
@@ -60,7 +62,7 @@
                         <binding destination="126" name="value" keyPath="selection.showWindow" id="160"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="117">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117">
                     <rect key="frame" x="17" y="210" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Delay:" id="203">
@@ -69,7 +71,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="116">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="116">
                     <rect key="frame" x="17" y="284" width="62" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Activate:" id="202">
@@ -78,7 +80,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="Repeatedly trigger while hotkey is held" verticalHuggingPriority="750" id="98">
+                <textField toolTip="Repeatedly trigger while hotkey is held" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98">
                     <rect key="frame" x="214" y="262" width="45" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="1.0 s" drawsBackground="YES" id="201">
@@ -90,7 +92,7 @@
                             <decimal key="maximum" value="NaN"/>
                         </numberFormatter>
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -98,7 +100,7 @@
                         <outlet property="nextKeyView" destination="96" id="171"/>
                     </connections>
                 </textField>
-                <button toolTip="Repeatedly trigger while hotkey is held" id="97">
+                <button toolTip="Repeatedly trigger while hotkey is held" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="97">
                     <rect key="frame" x="117" y="262" width="91" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Repeat every" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="200">
@@ -110,7 +112,7 @@
                         <outlet property="nextKeyView" destination="98" id="183"/>
                     </connections>
                 </button>
-                <button toolTip="Trigger when hotkey is released" id="96">
+                <button toolTip="Trigger when hotkey is released" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="96">
                     <rect key="frame" x="102" y="242" width="82" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="On Release" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="199">
@@ -122,7 +124,7 @@
                         <outlet property="nextKeyView" destination="92" id="184"/>
                     </connections>
                 </button>
-                <button toolTip="Trigger when key is pressed" id="95">
+                <button toolTip="Trigger when key is pressed" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95">
                     <rect key="frame" x="102" y="282" width="69" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="On Press" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="198">
@@ -134,7 +136,7 @@
                         <outlet property="nextKeyView" destination="97" id="172"/>
                     </connections>
                 </button>
-                <textField toolTip="Delays activation of the trigger until key is held for at least this long" verticalHuggingPriority="750" id="93">
+                <textField toolTip="Delays activation of the trigger until key is held for at least this long" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="174" y="207" width="45" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="1.0 s" drawsBackground="YES" id="197">
@@ -146,7 +148,7 @@
                             <decimal key="maximum" value="NaN"/>
                         </numberFormatter>
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -154,7 +156,7 @@
                         <outlet property="nextKeyView" destination="158" id="186"/>
                     </connections>
                 </textField>
-                <button toolTip="Delays activation of the trigger until key is held for at least this long" id="92">
+                <button toolTip="Delays activation of the trigger until key is held for at least this long" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92">
                     <rect key="frame" x="102" y="207" width="66" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Hold for" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="196">
@@ -166,7 +168,7 @@
                         <outlet property="nextKeyView" destination="93" id="185"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="84">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                     <rect key="frame" x="17" y="327" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Shortcut:" id="195">
@@ -176,6 +178,7 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <point key="canvasLocation" x="86" y="-93"/>
         </customView>
         <objectController id="126" userLabel="trigger">
             <declaredKeys>

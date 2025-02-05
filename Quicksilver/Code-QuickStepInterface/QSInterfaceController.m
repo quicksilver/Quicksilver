@@ -168,7 +168,6 @@
 //            CGSConnection conn = _CGSDefaultConnection();
 //            CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
           }
-        
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
             self->savedKeyboard = TISCopyCurrentKeyboardInputSource();
             NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];

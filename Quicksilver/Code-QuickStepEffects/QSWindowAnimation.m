@@ -20,7 +20,6 @@
 		transformFt = NULL;
 		brightFt = NULL;
 		effectFt = NULL;
-		restoreTransform = YES;
 	}
 	return self;
 }
@@ -61,7 +60,6 @@
 		} else if ([value isEqualToString:@"visible"]) {
 			_alphaA = 1.0;
 			_alphaB = 1.0;
-			restoreTransform = NO;
 		}
 	}
 	if (value = [attr objectForKey:kQSGSBrightA])
@@ -74,29 +72,6 @@
 		_alphaB = [value doubleValue];
 }
 
-- (void)setCurrentProgress:(NSAnimationProgress)progress {
-	NSArray *childWindows = [_window childWindows];
-//	NSLog(@"step %f", progress);
-	CGFloat _percent = progress;
-	 [super setCurrentProgress:progress];
-//- (void)_doAnimationStep {
-	if (effectFt) { 
-		(*effectFt) (self);
-	}
-	if (transformFt) {
-		CGAffineTransform newTransform = (*transformFt) (self, (CGFloat)_percent);
-
-
-		if (progress >= 0.99f )
-			newTransform = _transformA;
-	}
-
-	if (brightFt) {
-		CGFloat brightness = (*brightFt) (self, _percent);
-	}
-	if (progress == 1.0f)
-	[self finishAnimation];
-}
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"Window:%@\rAlpha:%f %f\rBright:%f %f\rTime ?\rTransform %p %p",
@@ -124,26 +99,8 @@
 
 
 - (void)startAnimation {
-//	CGSConnection cgs = _CGSDefaultConnection();
-//	CGSGetWindowTransform(cgs, wid, &_transformA);
-
-	//CGSTransformLog(_transformA);
+	
 	[super startAnimation];
-}
-
-- (void)finishAnimation {
-	if (restoreTransform) {
-		//	CGSTransformLog(_transformA);
-		//[_window reallyOrderOut:nil];
-//		CGSSetWindowTransform(cgs, wid, _transformA);
-		//CGSSetWindowAlpha(cgs, wid, 1.0);
-		//sleep(1);
-		//	[_window setAlphaValue:0.9f];
-		//	[_window setAlphaValue:1.0f];
-
-	}
-//	CGSSetWindowListBrightness(cgs, &wid, (float *)&_brightA, 1);
-
 }
 
 
