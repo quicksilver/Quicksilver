@@ -114,7 +114,6 @@
                         if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
                             break;
                         }
-                        NSLog(@"Execute");
                         [trigger execute];
                         triggerExecuted = YES;
                     }
