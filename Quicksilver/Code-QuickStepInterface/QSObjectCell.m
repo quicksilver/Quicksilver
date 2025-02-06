@@ -282,7 +282,7 @@
 		//[roundRect stroke];
 
 	}
-	[self drawInteriorWithFrame:[self drawingRectForBounds:cellFrame] inView:controlView];
+	[self drawInteriorWithFrame:NSIntegralRect([self drawingRectForBounds:cellFrame]) inView:controlView];
 }
 
 - (NSImage *)image {
@@ -386,7 +386,7 @@
 
 	//  NSView *controlView = [self controlView];
 	BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
-	NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]) );
+	NSColor *mainColor = (textColor ? textColor: (useAlternateColor ? [NSColor alternateSelectedControlTextColor] : [NSColor controlTextColor]));
 	NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
 	
 	if(!nameFont)
@@ -455,8 +455,17 @@
 	NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
 	NSRect textDrawRect = [self titleRectForBounds:cellFrame];
 	
-	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
-	[titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+	NSMutableAttributedString *titleString;
+	if ([drawObject objectForType:NSPasteboardTypeRTF]) {
+		NSData *rtfData = [drawObject objectForType:NSPasteboardTypeRTF];
+		titleString = [[NSMutableAttributedString alloc] initWithRTF:rtfData documentAttributes:nil];
+	} else if ([drawObject objectForType:NSPasteboardTypeHTML]) {
+		NSData *htmlData = [drawObject objectForType:NSPasteboardTypeHTML];
+		titleString = [[NSMutableAttributedString alloc] initWithData:htmlData options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+	} else {
+		titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
+		[titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+	}
 	
 	
 	if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
@@ -523,6 +532,7 @@
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
+	[drawObject loadIcon];
 	NSImage *icon = [drawObject icon];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
