@@ -187,7 +187,12 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 			return [resolvedURL path];
 		}
 		// Temporary QS file
-		if ([path hasPrefix:NSTemporaryDirectory()]) {
+		__block BOOL hasTemporaryPrefix = NO;
+		QSGCDMainSync(^{
+			hasTemporaryPrefix = [path hasPrefix:@"/private/var/folders/"];
+		});
+		
+		if (hasTemporaryPrefix) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
 		}
 		// iCloud File
@@ -243,9 +248,16 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSFileManager *manager = [NSFileManager defaultManager];
     
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
-	if (![manager fileExistsAtPath:path]) {
+	__block BOOL exists = YES;
+	QSGCDMainSync(^{
+		if (![manager fileExistsAtPath:path]) {
+			exists = NO;
+		}
+	});
+	if (!exists) {
 		return NO;
 	}
+
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
