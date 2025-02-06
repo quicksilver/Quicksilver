@@ -19,7 +19,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		}
 	}
 	
-	if ([NSPasteboardTypeURL isEqualToString:type]) {
+	if ([NSPasteboardTypeURL isEqualToString:type] || [NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
 	if ([NSPasteboardTypeFileURL isEqualToString:type]) {
@@ -28,6 +28,10 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
+	if ([NSFilenamesPboardType isEqualToString:type] || [QSFilePathType isEqualToString:type]) {
+		return [pasteboard propertyListForType:type];
+	}
+		
 //	fallback - return it as data
 	return [pasteboard dataForType:type];
 }
@@ -226,7 +230,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         static NSArray *keys = nil;
         if (!keys) {
             // Use an array for the keys since the order is important
-			keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF,QSTextType,nil];
+			keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF, NSURLPboardType, QSTextType,nil];
 
         }
         if (!namesAndKeys) {
