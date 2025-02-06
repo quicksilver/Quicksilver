@@ -1110,6 +1110,8 @@
 			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
+            <key>runInMainThread</key>
+            <true/>
 		</dict>
 		<key>QSObjectShowChildMenu</key>
 		<dict>
