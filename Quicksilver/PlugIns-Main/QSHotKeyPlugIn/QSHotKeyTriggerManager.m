@@ -81,10 +81,8 @@
             
             if ([[trigger objectForKey:@"delay"] boolValue]) {
                 NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
-                NSLog(@"current date: %@", [NSDate date]);
-                NSLog(@"delayDate: %@", delayDate);
                 //            wait until 'delayDate' and see if the 'hotKeyPressed' is now set to NO
-                upEvent = [self nextHotKeyUpEventUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
                 if (upEvent || !self->hotKeyPressed) {
                     if (window) {
                         QSGCDMainSync(^{
@@ -144,11 +142,12 @@
 
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
     __block NSEvent *upEvent = nil;
+    // this is such a hack. Does it work properly?
     while ([[NSDate date] isLessThan:date] && hotKeyPressed) {
         QSGCDMainSync(^{
-            upEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] inMode:NSDefaultRunLoopMode dequeue:YES];
+            upEvent = [NSApp nextEventMatchingMask:NSEventMaskKeyUp untilDate:[NSDate dateWithTimeIntervalSinceNow:0.08] inMode:NSDefaultRunLoopMode dequeue:YES];
         });
-        [NSThread sleepForTimeInterval:0.1];
+        CFRunLoopRun();
         if (upEvent) {
             break;
         }
