@@ -272,6 +272,17 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	return YES;
 }
 
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)pbTypes includeDataForTypes:(NSArray *)includeTypes {
+	NSLog(@"WARNING: This method is deprecated, ignoring the declareTypes and includeTypes parameters");
+	return [self putOnPasteboard:pboard];
+}
+
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
+	NSLog(@"WARNING: This method is deprecated, ignoring the includeTypes parameter");
+	return [self putOnPasteboard:pboard];
+}
+
+
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
 	[pboard clearContents];
 	[pboard writeObjects:[self splitObjects]];

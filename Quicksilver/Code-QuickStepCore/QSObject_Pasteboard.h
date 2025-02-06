@@ -16,6 +16,8 @@ extern NSString *QSPasteboardObjectAddress;
 - (id)initWithClipping:(NSString *)clippingFile;
 - (void)guessName;
 - (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard;
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes; __deprecated;
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes; __deprecated;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
 - (NSData *)dataForType:(NSString *)dataType;
 - (void)addContentsOfClipping:(NSString *)path;
