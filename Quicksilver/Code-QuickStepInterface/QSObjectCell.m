@@ -456,10 +456,10 @@
 	NSRect textDrawRect = [self titleRectForBounds:cellFrame];
 	
 	NSMutableAttributedString *titleString;
-	if ([drawObject objectForType:NSPasteboardTypeRTF]) {
+	if (!abbreviationString && [drawObject objectForType:NSPasteboardTypeRTF]) {
 		NSData *rtfData = [drawObject objectForType:NSPasteboardTypeRTF];
 		titleString = [[NSMutableAttributedString alloc] initWithRTF:rtfData documentAttributes:nil];
-	} else if ([drawObject objectForType:NSPasteboardTypeHTML]) {
+	} else if (!abbreviationString && [drawObject objectForType:NSPasteboardTypeHTML]) {
 		NSData *htmlData = [drawObject objectForType:NSPasteboardTypeHTML];
 		titleString = [[NSMutableAttributedString alloc] initWithData:htmlData options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
 	} else {
