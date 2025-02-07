@@ -134,13 +134,14 @@ static QSController *defaultController = nil;
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
 		statusItem = nil;
 	}
-    if (![mode boolValue]) {
+	if (![mode boolValue]) {
         return;
     }
-    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:29.0f];
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:18.0f];
     NSImage *statusImage = [NSImage imageNamed:@"QuicksilverMenu"];
     [statusImage setTemplate:YES];
-	[statusItem setImage:statusImage];
+	statusItem.button.image = statusImage;
+	statusItem.button.alternateTitle = @"QS";
 	[statusItem setMenu:[self statusMenuWithQuit]];
 	[statusItem setHighlightMode:YES];
 }
