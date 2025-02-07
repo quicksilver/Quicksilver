@@ -150,7 +150,7 @@
 	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSShrinkEffect"]) {
 		finalRect = NSInsetRect(originalFrame, originalFrame.size.width * 0.01, originalFrame.size.height * 0.01);
 	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSFlareEffect"]) {
-		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.4, -originalFrame.size.height * 1.4);
+		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.2, -originalFrame.size.height * 1.2);
 	}
 	// if zero rect, just run the complection handler - don't know what this effect is
 	if (NSEqualRects(finalRect, NSZeroRect)) {
