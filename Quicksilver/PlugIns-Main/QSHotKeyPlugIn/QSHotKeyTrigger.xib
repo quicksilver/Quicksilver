@@ -52,9 +52,9 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Show window while delaying" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="158">
-                    <rect key="frame" x="102" y="172" width="96" height="18"/>
+                    <rect key="frame" x="102" y="172" width="183" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show Window" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="204">
+                    <buttonCell key="cell" type="check" title="Show Popup When Run" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="204">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
