@@ -90,7 +90,6 @@
     [webSearchImage setName:@"Web Search Icon"];
 
     [object setIcon:webSearchImage];
-    [object setRetainsIcon:YES];
 }
 
 #pragma mark image handling
@@ -140,7 +139,6 @@
 			return YES;
 		}
 	}
-    [object setRetainsIcon:YES];
 	return NO;
 }
 

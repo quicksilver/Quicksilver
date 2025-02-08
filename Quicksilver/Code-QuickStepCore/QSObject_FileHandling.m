@@ -299,8 +299,6 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
         theImage = [self prepareImageforIcon:theImage];
         [object setIcon:theImage];
         return YES;
-    } else {
-        [object setRetainsIcon:YES];
     }
     return NO;
 }
@@ -910,7 +908,9 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	[self setName:newName];
 	
 	// generally: name = what you see in Terminal, label = what you see in Finder
-	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+	
+	NSString *newLabel = nil;
+	[[NSURL fileURLWithPath:path] getResourceValue:&newLabel forKey:NSURLLocalizedNameKey error:nil];
 	if ([[newLabel pathExtension] isEqualToString:@"app"]) {
 		// most apps just remove the extension
 		newLabel = [newLabel stringByDeletingPathExtension];

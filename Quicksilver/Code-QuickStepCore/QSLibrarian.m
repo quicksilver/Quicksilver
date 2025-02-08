@@ -64,11 +64,10 @@ static CGFloat searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
-        _objectDictionary = [[QSThreadSafeMutableDictionary alloc] init];
+		_objectDictionary = [[NSMutableDictionary alloc] init];
 
 		//Initialize Variables
 		appSearchArrays = nil;
-		typeArrays = [NSMutableDictionary dictionaryWithCapacity:1];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
         
 		omittedIDs = nil;
@@ -463,24 +462,11 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry {
-
-	//NSDate *date = [NSDate date];
-
-	NSString *currentItemID = [entry identifier];
-	NSDictionary *typeDictionary = [self typeArraysFromArray:[entry enabledContents]];
-
-	NSArray *typeKeys = [typeDictionary allKeys];
-	for (NSString *key in typeKeys) {
-		NSMutableDictionary *typeEntry = [typeArrays objectForKey:key];
-		if (!typeEntry) {
-			typeEntry = [NSMutableDictionary dictionaryWithCapacity:1];
-			[typeArrays setObject:typeEntry forKey:key];
-		}
-		[typeEntry setObject:[typeDictionary objectForKey:key] forKey:currentItemID];
-	}
-	//NSLog(@"%@", typeArrays);
-	// if (DEBUG) NSLog(@"Rebuilt Type Array for %@ in %dms", currentItemID, (int) (-[date timeIntervalSinceNow] *1000));
-
+	// this method takes the newly scanned catalog entry (entry), gets its new contents
+	// and then sorts them into 'types' which are stored in QSLibrarian's 'typeArrays'.
+	// QSLibrarian uses these to easily get objects by type
+	// WARNING: Testing removing all of this
+	return;
 }
 
 - (QSObject *)objectWithIdentifier:(NSString *)ident
@@ -503,14 +489,21 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSArray *)arrayForType:(NSString *)string {
-	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
-
-	for(NSArray *typeEntry in [[typeArrays objectForKey:string] allValues]) {
-		[typeSet addObjectsFromArray:typeEntry];
-	}
+	
+	NSArray *allObjects = [self.objectDictionary allValues];
+	NSIndexSet *ind = [allObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		// if it's a proxy object, check if its types include the string
+		if ([obj isProxyObject]) {
+			if ([[(QSProxyObject *)obj proxyTypes] containsObject:string]) {
+				return YES;
+			}
+			return NO;
+		}
+		return ([obj objectForType:string] != nil);
+	}];
 
 	// NSLog(@"found %d objects for type %@\r%@", [typeSet count] , string, [typeArrays objectForKey:string]);
-	return [typeSet allObjects];
+	return [allObjects objectsAtIndexes:ind];
 }
 
 - (NSArray *)scoredArrayForType:(NSString *)string
@@ -574,7 +567,9 @@ static CGFloat searchSpeed = 0.0;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
 				self.scanTask.progress = (CGFloat)i / c;
-                [[children objectAtIndex:i] scanForced:force];
+				NSLog(@"%f", self.scanTask.progress);
+				QSCatalogEntry *e = [children objectAtIndex:i];
+                [e scanForced:force];
             }
 
 			self.scanTask.progress = 1.0;
@@ -743,13 +738,6 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)setCatalogArrays:(NSMutableDictionary *)newCatalogArrays {
 	catalogArrays = newCatalogArrays;
-}
-
-
-- (NSMutableDictionary *)typeArrays { return typeArrays;  }
-
-- (void)setTypeArrays:(NSMutableDictionary *)newTypeArrays {
-	typeArrays = newTypeArrays;
 }
 
 - (NSMutableDictionary *)shelfArrays { return shelfArrays;  }

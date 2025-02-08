@@ -44,7 +44,6 @@
     id dObject = [(QSCommand*)object dObject];
 	[dObject loadIcon];
 	[object setIcon:[dObject icon]];
-    [object setRetainsIcon:YES];
 	return YES;
 }
 

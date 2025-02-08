@@ -834,11 +834,6 @@ NSSize QSMaxIconSize;
     }
 }
 
-- (BOOL)retainsIcon { return flags.retainsIcon;  }
-- (void)setRetainsIcon:(BOOL)flag {
-	flags.retainsIcon = (flag>0);
-}
-
 - (BOOL)childrenLoaded { return flags.childrenLoaded;  }
 - (void)setChildrenLoaded:(BOOL)flag {
 	flags.childrenLoaded = flag;
@@ -942,7 +937,6 @@ NSSize QSMaxIconSize;
 
 - (BOOL)unloadIcon {
 	if (![self iconLoaded]) return NO;
-	if ([self retainsIcon]) return NO;
     
 	[self setIcon:nil];
 	[self setIconLoaded:NO];

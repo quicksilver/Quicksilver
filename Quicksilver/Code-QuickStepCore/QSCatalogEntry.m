@@ -267,34 +267,38 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (BOOL)isEnabled {
-    @synchronized (self) {
-        if (self.isPreset) {
-            /* Check our enabled state, defaulting to YES if not defined yet. */
-            NSNumber *value = [[QSLibrarian sharedInstance] presetIsEnabled:self];
-            return (value != nil ? value.boolValue : YES);
-        }
+	if (self.isPreset) {
+		/* Check our enabled state, defaulting to YES if not defined yet. */
+		NSNumber *value = [[QSLibrarian sharedInstance] presetIsEnabled:self];
+		return (value != nil ? value.boolValue : YES);
+	}
 
-        NSNumber *value = self.info[kItemEnabled];
-        return (value != nil ? value.boolValue : YES);
-    }
+	NSNumber *value = self.info[kItemEnabled];
+	return (value != nil ? value.boolValue : YES);
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    @synchronized (self) {
-        if (self.isPreset) {
-            [[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
-        } else {
-            self.info[kItemEnabled] = @(enabled);
-            if (enabled && self.contents.count == 0) {
-                [self scanForced:YES];
-            }
-        }
-    }
+	if (self.isPreset) {
+		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
+	} else {
+		self.info[kItemEnabled] = @(enabled);
+		if (enabled && self.contents.count == 0) {
+			[self scanForced:YES];
+		}
+	}
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:self];
 	if (enabled && [self.source respondsToSelector:@selector(enableEntry:)]) {
 		[self.source enableEntry:self];
     } else if (!enabled && [self.source respondsToSelector:@selector(disableEntry:)]) {
 		[self.source disableEntry:self];
+	}
+	if (!enabled && [self.contents count]) {
+		// remove self from all the object's meta keys
+		[self.contents enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *item, NSUInteger idx, BOOL * _Nonnull stop) {
+			if ([item objectForMeta:@"catalogSource"] == self) {
+				[item setObject:nil forMeta:@"catalogSource"];
+			}
+		}];
 	}
 }
 
@@ -643,10 +647,10 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     @autoreleasepool {
         @try {
             itemContents = [self.source objectsForEntry:self];
-			[itemContents enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *item, NSUInteger idx, BOOL * _Nonnull stop) {
+			for (QSObject *item in itemContents) {
 				// set the source in the meta
-				[item setObject:self forMeta:@"source"];
-			}];
+				[item setObject:self forMeta:@"catalogSource"];
+			};
         }
         @catch (NSException *exception) {
             NSLog(@"An error occurred while scanning \"%@\": %@", self.name, exception);
@@ -724,35 +728,29 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 }
 
 - (NSArray *)contents {
-    @synchronized (self) {
-        return [self contentsScanIfNeeded:NO];
-    }
+	return [self contentsScanIfNeeded:NO];
 }
 
 - (void)setContents:(NSArray *)newContents {
-    @synchronized (self) {
-        _contents = [newContents copy];
-    }
+	_contents = [newContents copy];
 }
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
-    @synchronized (self) {
-        if (!self.isEnabled) return nil;
+	if (!self.isEnabled) return nil;
 
-        if (self.isGroup) {
-            NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
+	if (self.isGroup) {
+		NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
-            for (QSCatalogEntry *child in self.children) {
-                [childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
-            }
-            return [childObjects allObjects];
-        }
+		for (QSCatalogEntry *child in self.children) {
+			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
+		}
+		return [childObjects allObjects];
+	}
 
-        if (!_contents && canScan)
-            return [self scanAndCache];
+	if (!_contents && canScan)
+		return [self scanAndCache];
 
-        return _contents;
-    }
+	return _contents;
 }
 
 - (NSArray *)enabledContents

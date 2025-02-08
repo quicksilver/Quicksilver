@@ -85,7 +85,6 @@ static NSImage *prefsCatalogImage = nil;
 
 - (BOOL)loadIconForObject:(QSObject *)object {
 	[object setIcon:[[[QSLibrarian sharedInstance] entryForID:[object objectForType:QSCatalogEntryPboardType]] icon]];
-    [object setRetainsIcon:YES];
 	return YES;
 }
 

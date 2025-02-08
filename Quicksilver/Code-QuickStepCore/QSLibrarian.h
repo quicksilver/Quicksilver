@@ -25,7 +25,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 	QSTaskController *activityController;
 
 	NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
-	NSMutableDictionary *typeArrays; // Type arrays (Type / Entry)
 
 	NSArray *defaultSearchArrays; // (Entry)
 	NSMutableDictionary *appSearchArrays; //Default Arrays for a given application (AppName / Entry)
@@ -45,7 +44,7 @@ extern QSLibrarian *QSLib; // Shared Instance
     BOOL catalogLoaded;
 }
 
-@property (retain) QSThreadSafeMutableDictionary *objectDictionary;
+@property (retain) NSMutableDictionary *objectDictionary;
 @property (retain) QSObject *pasteboardObject;
 @property (retain, readonly) QSTask *scanTask;
 
@@ -109,8 +108,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)setAppSearchArrays:(NSMutableDictionary *)newAppSearchArrays ;
 - (NSMutableDictionary *)catalogArrays ;
 - (void)setCatalogArrays:(NSMutableDictionary *)newCatalogArrays ;
-- (NSMutableDictionary *)typeArrays ;
-- (void)setTypeArrays:(NSMutableDictionary *)newTypeArrays ;
 - (NSMutableDictionary *)shelfArrays ;
 - (void)setShelfArrays:(NSMutableDictionary *)newShelfArrays ;
 - (NSNumber *)presetIsEnabled:(QSCatalogEntry *)preset;
