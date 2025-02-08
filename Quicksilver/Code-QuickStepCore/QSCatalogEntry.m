@@ -643,6 +643,10 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
     @autoreleasepool {
         @try {
             itemContents = [self.source objectsForEntry:self];
+			[itemContents enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *item, NSUInteger idx, BOOL * _Nonnull stop) {
+				// set the source in the meta
+				[item setObject:self forMeta:@"source"];
+			}];
         }
         @catch (NSException *exception) {
             NSLog(@"An error occurred while scanning \"%@\": %@", self.name, exception);
