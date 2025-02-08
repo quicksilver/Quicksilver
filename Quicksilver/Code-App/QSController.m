@@ -1096,26 +1096,6 @@ static QSController *defaultController = nil;
 		[modActivation enable];
 	}
     
-	id oldModifiers = [defaults objectForKey:kHotKeyModifiers];
-	id oldKeyCode = [defaults objectForKey:kHotKeyCode];
-    
-	//Update hotkey prefs
-    
-	if (oldModifiers && oldKeyCode) {
-		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
-		if (modifiers < (1 << (rightControlKeyBit+1) )) {
-			NSLog(@"updating shortcut %ld", (long)modifiers);
-			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
-			[defaults synchronize];
-		}
-        
-		NSLog(@"Updating Activation Key");
-		[defaults removeObjectForKey:kHotKeyModifiers];
-		[defaults removeObjectForKey:kHotKeyCode];
-		[defaults setObject:[NSDictionary dictionaryWithObjectsAndKeys:oldModifiers, @"modifiers", oldKeyCode, @"keyCode", nil] forKey:@"QSActivationHotKey"];
-		[defaults synchronize];
-	}
-    
 	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
 
     // make sure we're visible on the first activation
