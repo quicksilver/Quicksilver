@@ -360,15 +360,22 @@ static CGFloat searchSpeed = 0.0;
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
     NSIndexSet *matchedIndexes = [entries indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSCatalogEntry *entry, NSUInteger idx, BOOL *stop) {
-        return [entry.contents containsObject:object];
+        BOOL match = [entry.contents containsObject:object];
+		if (match) {
+			if (![entry.identifier isEqualToString:@"QSPresetObjectHistory"]) {
+				// we only want the first entry (one) so once we have it, stop the enumeration
+				*stop = YES;
+			}
+		}
+		return match;
     }];
     if ([matchedIndexes count]) {
-        NSArray *matchedCatalogEntries = [entries objectsAtIndexes:matchedIndexes];
-        for (QSCatalogEntry *matchedEntry in matchedCatalogEntries) {
-            if (![[matchedEntry identifier] isEqualToString:@"QSPresetObjectHistory"] || matchedEntry == [matchedCatalogEntries lastObject]) {
-                return matchedEntry;
-            }
-        }
+		NSArray *matchedCatalogEntries = [entries objectsAtIndexes:matchedIndexes];
+		for (QSCatalogEntry *matchedEntry in matchedCatalogEntries) {
+			if (![[matchedEntry identifier] isEqualToString:@"QSPresetObjectHistory"] || matchedEntry == [matchedCatalogEntries lastObject]) {
+				return matchedEntry;
+			}
+		}
     }
 	return nil;
 }
