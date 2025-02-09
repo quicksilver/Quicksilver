@@ -3,6 +3,8 @@
 #import "QSDebug.h"
 #import "QSObjectHandler.h"
 
+// Currently unused import, intentionally left here to ensure swift continues to compile
+// while pending more work.
 #import <QSCore/QSCore-Swift.h>
 
 static NSMutableSet *iconLoadedSet;
