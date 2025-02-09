@@ -415,6 +415,7 @@
 		CDD30970160B860A00CD34EC /* countBadge4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096C160B860A00CD34EC /* countBadge4.tiff */; };
 		CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096D160B860A00CD34EC /* countBadge5.tiff */; };
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDD4D7C02D590CBC0030A4DA /* ChildArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */; };
 		CDD6F3FA17EB4DED00ACE129 /* QSIntValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */; };
 		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
@@ -1854,6 +1855,7 @@
 		CDD3096B160B860A00CD34EC /* countBadge3.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge3.tiff; sourceTree = "<group>"; };
 		CDD3096C160B860A00CD34EC /* countBadge4.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge4.tiff; sourceTree = "<group>"; };
 		CDD3096D160B860A00CD34EC /* countBadge5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge5.tiff; sourceTree = "<group>"; };
+		CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChildArrow@2x.png"; sourceTree = "<group>"; };
 		CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSIntValueTransformer.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSIntValueTransformer.m; sourceTree = "<group>"; usesTabs = 1; };
 		CDDB44E31518C53300800B66 /* QSCrashReporter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSCrashReporter.xib; sourceTree = "<group>"; };
@@ -3251,6 +3253,7 @@
 				E177C419067D09F700182A11 /* ScriptIcon.png */,
 				E1790F6F067AE13700E763E4 /* QSPkg.icns */,
 				E103EC8C06471DBF00447FE0 /* ChildArrow.png */,
+				CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */,
 				E1087B3F069BD5D300971A69 /* ContactAddress.icns */,
 				E1087B40069BD5D300971A69 /* ContactEmail.icns */,
 				E1087B41069BD5D300971A69 /* ContactPhone.icns */,
@@ -4619,6 +4622,7 @@
 				E103ED3606471DBF00447FE0 /* Catalog.icns in Resources */,
 				E1C9DFB5070A37F1001BB625 /* CatalogGroup.icns in Resources */,
 				E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */,
+				CDD4D7C02D590CBC0030A4DA /* ChildArrow@2x.png in Resources */,
 				E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */,
 				E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */,
 				E103ED2506471DBF00447FE0 /* defaultAction.icns in Resources */,
