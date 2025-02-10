@@ -12,7 +12,6 @@
 	IBOutlet NSTextField *	selectionView;
 	IBOutlet NSSplitView *	splitView;
 	IBOutlet QSTableView *	resultTable;
-	IBOutlet QSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
 	QSIconLoader *resultChildIconLoader;
 	IBOutlet NSTextField *	resultCountField;

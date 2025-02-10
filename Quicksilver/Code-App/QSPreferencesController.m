@@ -102,7 +102,7 @@ id QSPrefs;
 - (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier {
     QSGCDMainSync(^{
         [NSApp activateIgnoringOtherApps:YES];
-        [self showWindow:nil];
+		[[self window] makeKeyAndOrderFront:nil];
         [self selectPaneWithIdentifier:identifier];
     });
 //	int index = [[modules valueForKey:kItemID] indexOfObject:identifier];

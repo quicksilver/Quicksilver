@@ -82,6 +82,7 @@
 		[item setLabel:@"URL"];
 		[item setPaletteLabel:[item label]];
 		[item setView:textField];
+		
 		[item setMinSize:NSMakeSize(128, 24)];
 		[item setMaxSize:NSMakeSize(9999, 32)];
 		[textField setTarget:[[self window] contentView]];

@@ -332,9 +332,6 @@ static CGFloat searchSpeed = 0.0;
         }
     }
 	self.objectDictionary = newDict;
-	if ([notif object]) {
-		[self recalculateTypeArraysForItem:[notif object]];
-    }
 }
 
 - (void)updateScanTask:(NSNotification *)notif {
@@ -462,10 +459,13 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry {
-	// this method takes the newly scanned catalog entry (entry), gets its new contents
-	// and then sorts them into 'types' which are stored in QSLibrarian's 'typeArrays'.
-	// QSLibrarian uses these to easily get objects by type
-	// WARNING: Testing removing all of this
+	// this method **previously** took the newly scanned catalog entry, got its new contents
+	// and then sorted them into 'types' which are stored in QSLibrarian's 'typeArrays'.
+	// QSLibrarian used to use these to easily get objects by type.
+	// Upon further inspection, the only place this was ever used was for getting the valid objects for a certain
+	// type for the 3rd pane (e.g. when you do something like "file" ... open with ... [populate list of app types])
+	// Now, we calculate this on the fly using concurrent enumeration, instead of using locks and constantly recalculating it
+	// WARNING: Testing removing all this code and calculating on the fly
 	return;
 }
 
@@ -513,7 +513,7 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array {
-	QSThreadSafeMutableDictionary *dict = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:1];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:1];
 	NSMutableArray *typeEntry;
 	for(QSObject *object in array) {
 		NSDictionary *data = [[object dataDictionary] copy];
@@ -567,7 +567,6 @@ static CGFloat searchSpeed = 0.0;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
 				self.scanTask.progress = (CGFloat)i / c;
-				NSLog(@"%f", self.scanTask.progress);
 				QSCatalogEntry *e = [children objectAtIndex:i];
                 [e scanForced:force];
             }

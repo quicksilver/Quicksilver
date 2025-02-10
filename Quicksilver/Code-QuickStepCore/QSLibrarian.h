@@ -69,7 +69,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)loadShelfArrays;
 - (BOOL)loadCatalogArrays;
 //- (BOOL)loadIndexesForEntries:(NSArray *)theEntries;
-- (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry;
+- (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry __deprecated;
 - (QSObject *)objectWithIdentifier:(NSString *)ident;
 - (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj;
 - (void)removeObjectWithIdentifier:(NSString *)ident;

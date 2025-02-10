@@ -543,13 +543,24 @@ NSSize QSMaxIconSize;
 }
 
 - (BOOL)isCombinedObject {
-	return [[self objectForMeta:kQSIsCombinedObject] boolValue] || [self maxCountForCombinedObject] > 1;
+	if ([[self objectForMeta:kQSIsCombinedObject] boolValue]) {
+		return YES;
+	}
+	// check the data dicts for any multiple value fields - don't use the `maxCountForCombinedObjects` method as we want to stop as soon as we have any array > 1
+	for (id value in [[self dataDictionary] allValues]) {
+		if ([value isKindOfClass:[NSArray class]] && [(NSArray *)value count] > 1) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 - (NSUInteger)maxCountForCombinedObject {
 	NSUInteger count = 1;
 	for(id value in [[self dataDictionary] allValues]) {
-		if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
+		if ([value isKindOfClass:[NSArray class]]) {
+			count = MAX([(NSArray *)value count] , count);
+		}
 	}
 	return count;
 }

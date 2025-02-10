@@ -565,7 +565,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
         [self setContents:dictionaryArray];
         [NSNotificationCenter.defaultCenter postNotificationName:QSCatalogEntryIndexedNotification object:self];
-        [QSLibrarian.sharedInstance recalculateTypeArraysForItem:self];
 	}
 	return YES;
 }

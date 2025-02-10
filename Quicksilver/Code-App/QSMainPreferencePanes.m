@@ -86,19 +86,6 @@
 	[self setModifier:[defaults integerForKey:@"QSModifierActivationKey"] count:[defaults integerForKey:@"QSModifierActivationCount"]];
 }
 
-- (BOOL)showChildrenInSplitView {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"];
-}
-
-- (void)setShowChildrenInSplitView:(BOOL)flag {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	[defaults setBool:flag forKey:@"QSResultsShowChildren"];
-
-	[defaults synchronize];
-	[NSApp requestRelaunch:nil];
-}
-
 - (void)updateKeyboardPopUp {
     [keyboardPopUp removeAllItems];
 
