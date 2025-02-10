@@ -20,6 +20,8 @@
 	NSTextView *fieldEditor;
 }
 
+@property BOOL showsRichText;
+
 - (BOOL)hasBadge;
 
 - (BOOL)showDetails;

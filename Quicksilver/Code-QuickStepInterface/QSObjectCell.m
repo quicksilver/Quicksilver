@@ -43,7 +43,7 @@
 	if (self = [super initTextCell:aString]) {
         [self setTitle:@""];
         [self setTransparent:YES];
-        
+		self.showsRichText = NO;
 		[self setImagePosition:NSImageLeft];
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
@@ -456,12 +456,9 @@
 	NSRect textDrawRect = [self titleRectForBounds:cellFrame];
 	
 	NSMutableAttributedString *titleString;
-	if (!abbreviationString && [drawObject objectForType:NSPasteboardTypeRTF]) {
+	if (self.showsRichText && [drawObject objectForType:NSPasteboardTypeRTF]) {
 		NSData *rtfData = [drawObject objectForType:NSPasteboardTypeRTF];
 		titleString = [[NSMutableAttributedString alloc] initWithRTF:rtfData documentAttributes:nil];
-	} else if (!abbreviationString && [drawObject objectForType:NSPasteboardTypeHTML]) {
-		NSData *htmlData = [drawObject objectForType:NSPasteboardTypeHTML];
-		titleString = [[NSMutableAttributedString alloc] initWithData:htmlData options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
 	} else {
 		titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
 		[titleString setAttributes:showRankedStringOnly ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
