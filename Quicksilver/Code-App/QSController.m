@@ -49,8 +49,9 @@ static QSController *defaultController = nil;
 	if (![NSApplication isMavericks]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
 
-		NSString *minimumVersionString = @"macOS 10.14+";
-		NSString *oldVersionsString = @"10.14";
+		NSDictionary *infoDict = [appBundle infoDictionary];
+		NSString *minVer = infoDict[@"LSMinimumSystemVersion"];
+		NSString *minimumVersionString = [NSString stringWithFormat:@"macOS %@+", minVer];
 
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = [NSString stringWithFormat:
@@ -60,9 +61,8 @@ static QSController *defaultController = nil;
 			minimumVersionString
 		];
 		alert.informativeText = [NSString stringWithFormat:
-			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the https://qsapp.com/download.php", @"macOS version required alert message"),
-			minimumVersionString,
-			oldVersionsString];
+			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older Quicksilver versions are available from https://qsapp.com/download.php", @"macOS version required alert message"),
+			minimumVersionString];
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 
 		[alert runModal];
