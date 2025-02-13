@@ -466,19 +466,18 @@
 			break;
 		}
 		case 1: {
-			id plugin = nil;
-			NSString *pluginId = nil;
-			NSEnumerator *kEnum = [[[QSPlugInManager sharedInstance] loadedPlugIns] keyEnumerator];
-			while((pluginId = [kEnum nextObject]) && (plugin = [[[QSPlugInManager sharedInstance] loadedPlugIns] objectForKey:pluginId]) ) {
+			[[[QSPlugInManager sharedInstance] loadedPlugIns] enumerateKeysAndObjectsUsingBlock:^(NSString *pluginId, id plugin, BOOL * _Nonnull stop) {
 				NSString *name = [plugin shortName];
-				if (!name) name = [plugin identifier];
+				if (!name) {
+					name = [plugin identifier];
+				}
 				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];
 				if ([actionsArray count]) {
 					name = [name stringByAppendingFormat:@" - %lu", (unsigned long)[actionsArray count]];
 					[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                      [plugin identifier] , @"group", name, @"name", [plugin icon] , @"icon", nil]];
+									  [plugin identifier] , @"group", name, @"name", [plugin icon] , @"icon", nil]];
 				}
-			}
+			}];
 			NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:kQSAllActionsCategory, @"group", @"All Plugins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0];
