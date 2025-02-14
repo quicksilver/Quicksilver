@@ -426,7 +426,9 @@
 	NSArray *defaultAppURLs = [[dObject splitObjects] arrayByEnumeratingArrayUsingBlock:^id(QSObject *obj) {
 		if (![preferredAppObjects containsObject:obj]) {
             NSString *path = [obj singleFilePath];
-            if (path) return [NSURL fileURLWithPath:path];
+			if (path) {
+				return [NSURL fileURLWithPath:path];
+			}
 		}
 		return nil;
 	}];
