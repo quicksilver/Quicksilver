@@ -397,6 +397,8 @@
 		CDA5253916AED88E00D2017F /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA5253A16AED89100D2017F /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
+		CDAFA5332D5F4BB9009B182F /* PermissionsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */; };
+		CDAFA5342D5F4BD7009B182F /* PermissionsKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDB3CCEB16FD5B0700DF06BF /* QSUserDefinedProxySource.h in Headers */ = {isa = PBXBuildFile; fileRef = D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -423,7 +425,6 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */ = {isa = PBXBuildFile; fileRef = CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -1032,6 +1033,17 @@
 				7F0BDE7E07FC967F002CBDDF /* Send to Quicksilver.action in Copy Automator Actions */,
 			);
 			name = "Copy Automator Actions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD52C4312D5E70D6005B0FA1 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CDAFA5342D5F4BD7009B182F /* PermissionsKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E103F595064768A300447FE0 /* Embed Frameworks */ = {
@@ -1812,6 +1824,7 @@
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
 		CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+DisableSubviews.m"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.m"; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
+		CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PermissionsKit.framework; sourceTree = "<group>"; };
 		CDB83E1728353DFC00295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
 		CDB83E1F28353E0200295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
 		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
@@ -1934,7 +1947,6 @@
 		CDEA588616C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CDEA588716C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDEA588816C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
-		CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AccessibilityPermission.gif; sourceTree = "<group>"; };
 		CDFAC87C1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CDFAC87D1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CDFAC87E1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
@@ -2465,6 +2477,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAFA5332D5F4BB9009B182F /* PermissionsKit.framework in Frameworks */,
 				E180016707B2B91800010DB0 /* QSFoundation.framework in Frameworks */,
 				E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -3201,7 +3214,6 @@
 			children = (
 				CD0A436D281B6BA2008D008A /* KeyboardTrigger.icns */,
 				CD0A436E281B6BA3008D008A /* MouseTrigger.icns */,
-				CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */,
 				D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */,
 				D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */,
 				D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */,
@@ -3295,6 +3307,7 @@
 				E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */,
 				E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */,
 				E1F1D63306BD97B2004E3DC3 /* NDClasses */,
+				CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */,
 			);
 			path = "Code-External";
 			sourceTree = "<group>";
@@ -4230,6 +4243,7 @@
 				E1C3BE5106EA0AC500B848D6 /* Copy Plists */,
 				7F0BDE6D07FC9653002CBDDF /* Copy Automator Actions */,
 				8D11072C0486CEB800E47090 /* Sources */,
+				CD52C4312D5E70D6005B0FA1 /* Copy Frameworks */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				E103F595064768A300447FE0 /* Embed Frameworks */,
 				E1D4E804064DF34A0083ECD3 /* Copy SharedSupport */,
@@ -4655,7 +4669,6 @@
 				7FDBC3120A0153CA00E496FF /* Button-Info.png in Resources */,
 				7FDBC3130A0153CA00E496FF /* Button-Remove.png in Resources */,
 				7FC6AD770A0996E200D5B2C3 /* Button-Rescan.png in Resources */,
-				CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */,
 				E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */,
 				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
 				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
@@ -6319,6 +6332,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -6370,7 +6384,15 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6982,7 +7004,15 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7001,7 +7031,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7035,6 +7073,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -7061,6 +7100,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;

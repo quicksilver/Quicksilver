@@ -42,7 +42,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="d4C-7A-hPz">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="402"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" autosaveName="QSTriggersOutlineView" rowHeight="18" headerView="839" autoresizesOutlineColumn="YES" outlineTableColumn="484" id="482" customClass="QSOutlineView">
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="385"/>
@@ -319,7 +319,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="piu-HJ-XoR">
                                             <rect key="frame" x="1" y="1" width="240" height="257"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="546">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="257"/>

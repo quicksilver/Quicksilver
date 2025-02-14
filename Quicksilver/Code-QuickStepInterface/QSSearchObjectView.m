@@ -913,10 +913,14 @@ NSMutableDictionary *bindingsDict = nil;
 		[searchTimer invalidate];
 		[self performSearch:nil];
 	} else {
-		if (![searchTimer isValid]) {
-			searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+		if (searchDelay > 0) {
+			if (![searchTimer isValid]) {
+				searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+			}
+			[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+		} else {
+			[self performSearch:nil];
 		}
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	}
 	
 	if (validSearch) {

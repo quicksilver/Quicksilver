@@ -17,6 +17,12 @@
     NSString *crashReportPath;
 	QSApplicationLaunchStatusFlags launchStatus;
 	IBOutlet NSWindow *accessibilityPermissionWindow;
+	IBOutlet NSButton *accessibilityButton;
+	IBOutlet NSButton *fullDiskButton;
+	IBOutlet NSButton *contactsButton;
+	IBOutlet NSButton *calendarsButton;
+	IBOutlet NSButton *closeAccessibilityWindowButton;
+	
 	NSTimer *accessibilityChecker;
 }
 
