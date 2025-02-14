@@ -783,9 +783,7 @@ static QSController *defaultController = nil;
 
 - (IBAction)showReleaseNotes:(id)sender {
     
-    NSURL *appURL = nil;
-    CFURLRef *appURLRefPointer = (void *)&appURL;
-    LSGetApplicationForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, appURLRefPointer);
+	NSURL *appURL = (__bridge NSURL*)LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, nil);
     [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] sharedSupportPath] stringByAppendingPathComponent:@"Changes.html"] withApplication:[appURL path]];
 }
 

@@ -17,7 +17,7 @@ extern NSString *QSPasteboardConcealedType;
 
 #define QSPasteboardConcealedTypes @[QSPasteboardConcealedType, @"com.agilebits.onepassword"]
 
-void QSForcePaste();
+void QSForcePaste(void);
 
 @interface NSPasteboard (Clippings)
 + (NSPasteboard *)pasteboardByFilteringClipping:(NSString *)pacg;

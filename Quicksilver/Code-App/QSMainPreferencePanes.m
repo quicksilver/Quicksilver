@@ -336,7 +336,12 @@
 }
 
 - (IBAction)resetQS:(id)sender {
-	if (!NSRunAlertPanel(@"Reset Quicksilver", @"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"Cancel", @"Reset and Relaunch", nil) ) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:NSLocalizedString(@"Reset Quicksilver", @"Reset Quicksilver")];
+	[alert setInformativeText:NSLocalizedString(@"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Reset and Relaunch", @"")];
+	if ([alert runModal] == NSAlertSecondButtonReturn) {
 		[self deleteSupportFiles];
 		[NSApp relaunch:self];
 	}
@@ -346,7 +351,12 @@
 	[(QSController *)[NSApp delegate] runSetupAssistant:nil];
 }
 - (IBAction)uninstallQS:(id)sender {
-	if (!NSRunAlertPanel(@"Uninstall Quicksilver", @"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"Cancel", @"Uninstall", nil) ) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:NSLocalizedString(@"Uninstall Quicksilver", @"Uninstall Quicksilver")];
+	[alert setInformativeText:NSLocalizedString(@"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Uninstall", @"")];
+	if ([alert runModal] == NSAlertSecondButtonReturn) {
 		[self deleteSupportFiles];
 		[self deleteApplication];
 		[NSApp terminate:self];

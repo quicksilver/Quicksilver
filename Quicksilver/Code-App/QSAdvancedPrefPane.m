@@ -80,7 +80,7 @@
         NSString *title = NSLocalizedStringFromTable(titleKey, NSStringFromClass([self class]), nil);
         [cell setStringValue:title];
         [cell setFont:[NSFont systemFontOfSize:11]];
-        [cell setControlSize:NSSmallControlSize];
+		[cell setControlSize:NSControlSizeSmall];
     } else if ([[aTableColumn identifier] isEqualToString:@"value"]) {
         NSString *type = [thisInfo objectForKey:@"type"];
         
@@ -113,7 +113,7 @@
             cell = [[NSTextFieldCell alloc] init];
             [(NSTextFieldCell *)cell setPlaceholderString:@"text"];
         }
-        [cell setControlSize:NSSmallControlSize];
+		[cell setControlSize:NSControlSizeSmall];
         [cell setFont:[NSFont systemFontOfSize:11]];
         [cell setEditable:YES];
     } else {

@@ -169,7 +169,7 @@
                     <rect key="frame" x="42" y="8" width="214" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3499">
+                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3499">
                             <rect key="frame" x="2" y="2" width="200" height="14"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Name" id="3542">
@@ -182,7 +182,7 @@
                                 <binding destination="-2" name="value" keyPath="currentPane.description" id="ds8-vX-t6P"/>
                             </connections>
                         </textField>
-                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3494">
+                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3494">
                             <rect key="frame" x="2" y="16" width="200" height="14"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Name" id="3541">

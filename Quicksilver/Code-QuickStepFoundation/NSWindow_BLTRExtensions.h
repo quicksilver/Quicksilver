@@ -5,7 +5,7 @@
 - (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds completionHandler:(nullable void (^)(void))completionHandler;
 - (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds;
 - (void)reallyCenter;
-- (id)windowPropertyForKey:(NSString *)key;
+- (id _Nullable )windowPropertyForKey:(NSString *_Nullable)key;
 @end
 
 @interface NSWindow (Resize)
