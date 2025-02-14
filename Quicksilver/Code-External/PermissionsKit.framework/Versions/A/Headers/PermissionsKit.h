@@ -6,7 +6,7 @@
 //  Copyright © 2018 MacPaw. All rights reserved.
 //
 
-@import Cocoa;
+#import <Cocoa/Cocoa.h>
 
 FOUNDATION_EXPORT double PermissionsKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char PermissionsKitVersionString[];

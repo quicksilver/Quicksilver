@@ -6,7 +6,7 @@
 //  Copyright © 2018 MacPaw. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #import <PermissionsKit/MPPermissionType.h>
 #import <PermissionsKit/MPAuthorizationStatus.h>
