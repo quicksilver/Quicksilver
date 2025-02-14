@@ -83,16 +83,16 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="fZf-Wq-jEj">
                         <rect key="frame" x="0.0" y="0.0" width="201" height="256"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" id="3418" customClass="QSFancyTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="211" height="256"/>
+                                <rect key="frame" x="0.0" y="0.0" width="201" height="256"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="0.0" height="2"/>
                                 <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" red="0.94758063999999997" green="0.94758063999999997" blue="0.94758063999999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableColumns>
-                                    <tableColumn identifier="name" editable="NO" width="179" minWidth="150" maxWidth="1000" id="3420">
+                                    <tableColumn identifier="name" editable="NO" width="150" minWidth="150" maxWidth="1000" id="3420">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Module">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
