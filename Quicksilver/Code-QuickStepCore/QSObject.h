@@ -2,12 +2,11 @@
 
 #import <QSCore/QSBasicObject.h>
 #import <QSCore/QSObjectHandler.h>
+#import "QSThreadSafeMutableDictionary.h"
 
 @class QSObject, QSBasicObject;
 
 extern NSSize QSMaxIconSize;
-
-#define itemForKey(k) [data objectForKey:k]
 
 // meta dictionary keys
 #define kQSObjectPrimaryName      @"QSObjectName"
@@ -73,7 +72,7 @@ typedef struct _QSObjectFlags {
 + (void)interfaceChanged;
 
 + (id)objectWithName:(NSString *)aName;
-+ (id)objectWithIdentifier:(NSString *)anIdentifier QS_DEPRECATED;
++ (id)objectWithIdentifier:(NSString *)anIdentifier __attribute__((deprecated));
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 + (id)objectByMergingObjects:(NSArray *)objects;
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
@@ -119,7 +118,7 @@ typedef struct _QSObjectFlags {
 - (BOOL)unloadIcon;
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newIcon;
-- (void)updateIcon:(NSImage *)newIcon QS_DEPRECATED_MSG("Use -setIcon:");
+- (void)updateIcon:(NSImage *)newIcon __attribute__((deprecated("Use -setIcon:")));
 @end
 
 @interface QSObject (Hierarchy)

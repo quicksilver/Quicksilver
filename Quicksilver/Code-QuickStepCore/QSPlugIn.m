@@ -727,17 +727,16 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	BOOL loadNow = ![QSReg handleRegistration:bundle];
 
-	id value;
-	id handler;
-
-	foreachkey(key, handlerClass, [QSReg tableNamed:kQSPlugInInfoHandlers]) {
-		value = [bundle dictionaryForFileOrPlistKey:key];
-		if (!value) continue;
+	[[QSReg tableNamed:kQSPlugInInfoHandlers] enumerateKeysAndObjectsUsingBlock:^(NSString *key, id handlerClass, BOOL * _Nonnull stop) {
+		id value = [bundle dictionaryForFileOrPlistKey:key];
+		if (!value) {
+			return;
+		}
 		//NSLog(@"----> Registering %@ for %@", key, [self name]);
-		handler = [QSReg getClassInstance:handlerClass];
+		id handler = [QSReg getClassInstance:handlerClass];
 		if ([handler respondsToSelector:@selector(handleInfo:ofType:fromBundle:)])
 			[handler handleInfo:value ofType:key fromBundle:[self bundle]];
-	}
+	}];
 
 	loadNow |= [[bundle objectForInfoDictionaryKey:@"QSLoadImmediately"] boolValue];
 

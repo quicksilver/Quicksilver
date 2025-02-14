@@ -96,17 +96,21 @@
 
 - (void)reloadHelpersList:(id)sender {
 	NSMutableArray *helpers = [NSMutableArray array];
-	foreachkey(key, header, [QSReg tableNamed:@"QSRegistryHeaders"]) {
+
+	[[QSReg tableNamed:@"QSRegistryHeaders"] enumerateKeysAndObjectsUsingBlock:^(NSString *key, id header, BOOL * _Nonnull stop) {
 		if ([[header objectForKey:@"type"] isEqual:@"mediator"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:header forKey:INFO];
 			NSMenu *menu = [self menuForTable:key includeDefault:[[header objectForKey:@"allowDefault"] boolValue]];
-			if (!menu) continue;
-			if (menu)
+			if (menu) {
 				[dict setObject:menu forKey:MENU];
+			} else {
+				return;
+			}
 			[dict setObject:key forKey:IDENT];
 			[helpers addObject:dict];
 		}
-	}
+	}];
+
 	[self setHelperInfo:helpers];
 	[helperTable reloadData];
 }
