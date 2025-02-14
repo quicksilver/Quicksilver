@@ -22,7 +22,7 @@ GCC_ENABLE_OBJC_EXCEPTIONS = YES
 
 GCC_FAST_OBJC_DISPATCH = YES
 
-WARNING_CFLAGS = -Wall -Wno-parentheses -Wunused-function -Wextra -Wno-unused-parameter 
+WARNING_CFLAGS = -Wno-parentheses -Wunused-function -Wno-unused-parameter 
 
 QS_APP_CONTENTS_FOLDER = $(CONFIGURATION_BUILD_DIR)/Quicksilver.app/Contents
 QS_BUILD_ROOT = /tmp/QS
