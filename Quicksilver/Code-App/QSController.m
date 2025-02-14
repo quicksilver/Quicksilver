@@ -818,7 +818,8 @@ static QSController *defaultController = nil;
 
 -(void)checkForAccessibilityPermission {
 #ifdef TESTING
-	return YES;
+	[self applicationReallyDidFinishLaunching];
+	return;
 #endif
 
 	MPAuthorizationStatus fullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess];
