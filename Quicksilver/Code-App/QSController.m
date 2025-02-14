@@ -837,13 +837,18 @@ static QSController *defaultController = nil;
 	// Prompt for accessibility permissions on macOS Mojave and later.
 	BOOL hasAccessibility = [self hasAccessibilityPermission];
 	BOOL hasFullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess] == MPAuthorizationStatusAuthorized;
+	BOOL hasContacts = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] == MPAuthorizationStatusAuthorized;
+	BOOL hasCalendars = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] == MPAuthorizationStatusAuthorized;
+	BOOL hasReminders = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeReminders] == MPAuthorizationStatusAuthorized;
 	[accessibilityButton setEnabled:!hasAccessibility];
 	[fullDiskButton setEnabled:!hasFullDisk];
-	[calendarsButton setEnabled:[MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] != MPAuthorizationStatusAuthorized];
-	[contactsButton setEnabled:[MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] != MPAuthorizationStatusAuthorized];
+	[calendarsButton setEnabled:!hasCalendars];
+	[contactsButton setEnabled:!hasContacts || !hasReminders];
 	[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
 	
-	if (!accessibilityChecker) {
+	if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
+		[accessibilityPermissionWindow close];
+	} else if (!accessibilityChecker) {
 		accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
 			[self checkAccessibilityPermissions];
 		}];
