@@ -567,9 +567,9 @@ CA
             <point key="canvasLocation" x="-57" y="348"/>
         </menu>
         <customObject id="1493" userLabel="Font Manager" customClass="NSFontManager"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="none" frameAutosaveName="" id="HOT-LT-c93">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="none" frameAutosaveName="" id="HOT-LT-c93" customClass="QSWindow">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="109" y="131" width="228" height="204"/>
+            <rect key="contentRect" x="739" y="446" width="228" height="204"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <view key="contentView" id="hdA-U7-sNe">
                 <rect key="frame" x="0.0" y="0.0" width="228" height="204"/>
@@ -577,8 +577,8 @@ CA
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZfN-kS-iaa">
                         <rect key="frame" x="0.0" y="-12" width="228" height="228"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="QSLigature" id="rkz-MX-taP"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="QSLigature" id="rkz-MX-taP"/>
                     </imageView>
                 </subviews>
             </view>

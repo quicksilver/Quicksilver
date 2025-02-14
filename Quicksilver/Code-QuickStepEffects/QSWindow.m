@@ -136,12 +136,14 @@
 		duration = [[effect objectForKey:@"duration"] doubleValue];
 	}
 	double finalAlpha;
-	if ([[effect objectForKey:@"type"] isEqualToString:@"show"]) {
-		[self setAlphaValue:0];
-		finalAlpha = 1.0;
-	} else if ([[effect objectForKey:@"type"] isEqualToString:@"hide"]) {
-		[self setAlphaValue:1];
-		finalAlpha = 0.0;
+
+	// default is easeInOut
+	CAMediaTimingFunction *timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	
+	if ([[effect objectForKey:@"timingFunction"] isEqualToString:@"easeOut"]) {
+		timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+	} else if ([[effect objectForKey:@"timingFunction"] isEqualToString:@"easeIn"]) {
+		timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	}
 	
 	NSRect finalRect = NSZeroRect;
@@ -151,7 +153,10 @@
 		finalRect = NSInsetRect(originalFrame, originalFrame.size.width * 0.01, originalFrame.size.height * 0.01);
 	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSFlareEffect"]) {
 		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.2, -originalFrame.size.height * 1.2);
+	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSExtraExtraEffect"]) {
+		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.4, -originalFrame.size.height * 1.4);
 	}
+	
 	// if zero rect, just run the complection handler - don't know what this effect is
 	if (NSEqualRects(finalRect, NSZeroRect)) {
 		if (completionHandler) {
@@ -160,10 +165,18 @@
 		return;
 	}
 	
+	if ([[effect objectForKey:@"type"] isEqualToString:@"show"]) {
+		[self setAlphaValue:0];
+		finalAlpha = 1.0;
+	} else if ([[effect objectForKey:@"type"] isEqualToString:@"hide"]) {
+		[self setAlphaValue:1];
+		finalAlpha = 0.0;
+	}
+	
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
 		[context setDuration:duration];
-		[context setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-		[[self animator] setFrame:NSIntegralRect(finalRect) display:YES]; 
+		[context setTimingFunction:timing];
+		[[self animator] setFrame:NSIntegralRect(finalRect) display:YES];
 		[[self animator] setAlphaValue:finalAlpha];
 	} completionHandler:^{
 		if (completionHandler) {

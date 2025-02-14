@@ -444,8 +444,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-
-	[splashWindow setReleasedWhenClosed:NO];
+	[splashWindow setReleasedWhenClosed:YES];
 	[splashWindow setBackgroundColor:[NSColor clearColor]];
 	[splashWindow setLevel:NSFloatingWindowLevel];
     [splashWindow reallyCenter];
@@ -455,20 +454,19 @@ static QSController *defaultController = nil;
     if ([NSApp wasLaunchedAtLogin]) {
         [splashWindow setLevel:NSNormalWindowLevel-1];
 		[splashWindow orderFront:self];
-		QSWindowAnimation *animation = [QSWindowAnimation effectWithWindow:splashWindow attributes:@{kQSGSDuration: @0.33, kQSGSAlphaA: @0, kQSGSAlphaB: @0.25}];
-		[animation setDelegate:weakSelf];
-		[animation setAnimationBlockingMode:NSAnimationBlocking];
-		[animation startAnimation];
-		
-    } else {
+		[splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.1] , @"duration", nil] completionHandler:^() {
+		}];
+	} else {
 		[splashWindow orderFront:self];
-        QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
-		[animation setDelegate:weakSelf];
-        [animation setTransformFt:QSExtraExtraEffect];
-        [animation setDuration:1.0];
-        [animation setAnimationBlockingMode:NSAnimationBlocking];
-        [animation startAnimation];
-		
+		[splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.1] , @"duration", nil] completionHandler:^() {
+			QSGCDMainDelayed(0.15, ^{
+				[self->splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExtraExtraEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.08] , @"duration", nil] completionHandler:^() {
+					[self->splashWindow orderOut:nil];
+					self->splashWindow = nil;
+				}];
+			});
+
+		}];
     }
 }
 - (void)animationDidEnd:(NSAnimation *)animation {
@@ -961,7 +959,8 @@ static QSController *defaultController = nil;
 - (void)startQuicksilver {
 	[self checkForFirstRun];
 	[self checkForCrash];
-
+	
+	[self showSplash:nil];
 #ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Instantiate Classes");
