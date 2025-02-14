@@ -504,23 +504,15 @@
             <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="756" customClass="QSSplitHandleView">
-                    <rect key="frame" x="158" y="0.0" width="22" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                </customView>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="755">
-                    <rect key="frame" x="0.0" y="0.0" width="180" height="23"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                </customView>
                 <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="38" horizontalPageScroll="10" verticalLineScroll="38" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="730">
-                    <rect key="frame" x="0.0" y="23" width="180" height="233"/>
+                    <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="2q3-MA-dsf">
-                        <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
+                        <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="36" id="731" customClass="QSTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="180" height="233"/>
+                                <rect key="frame" x="0.0" y="0.0" width="180" height="256"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
