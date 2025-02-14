@@ -212,7 +212,7 @@ id QSPrefs;
 	//	 [toolbar performSelector:@selector(setSelectedItemIdentifier:) withObject:[[toolbarTabView selectedTabViewItem] identifier]];
 
 	[win setToolbar:toolbar];
-	if (defaultBool(@"QSSkipGuide") ) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSkipGuide"] ) {
 		[self selectPaneWithIdentifier:@"QSSettingsPanePlaceholder"];
 	} else {
 		[toolbar setSelectedItemIdentifier:@"QSMainMenuPrefPane"];

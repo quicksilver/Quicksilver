@@ -174,6 +174,7 @@
 		4DFE7DD40E08219C000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DDA0E0821C0000B9AA3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		6008C51F2AAF433900512CB2 /* QSPathsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6008C51E2AAF433900512CB2 /* QSPathsTests.m */; };
+		604EAB052CDE5B1E005B3451 /* QSSwiftObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604EAB042CDE5B1E005B3451 /* QSSwiftObj.swift */; };
 		60FCBED82844C9770091AB6B /* OSAKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FCBED02844C9770091AB6B /* OSAKit.framework */; };
 		6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9191086EF4D009D5C90 /* Localizable.strings */; };
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
@@ -1244,6 +1245,7 @@
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6008C51E2AAF433900512CB2 /* QSPathsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSPathsTests.m; sourceTree = "<group>"; };
 		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
+		604EAB042CDE5B1E005B3451 /* QSSwiftObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSwiftObj.swift; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3648,6 +3650,7 @@
 				E1E5FB9407B20DD20044D6EF /* QSObjCMessageSource.m */,
 				E1E5FB9507B20DD20044D6EF /* QSObject.h */,
 				E1E5FB9607B20DD20044D6EF /* QSObject.m */,
+				604EAB042CDE5B1E005B3451 /* QSSwiftObj.swift */,
 				7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */,
 				7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */,
 				E1E5FB9707B20DD20044D6EF /* QSObject_Drag.h */,
@@ -4416,6 +4419,9 @@
 					CD61BBB7192B18FA00040609 = {
 						TestTargetID = 8D1107260486CEB800E47090;
 					};
+					E103F15F0647200700447FE0 = {
+						LastSwiftMigration = 1610;
+					};
 				};
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
@@ -5089,6 +5095,7 @@
 				E1E5FC3807B20DD20044D6EF /* QSTypes.m in Sources */,
 				7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */,
 				E1E5FC3A07B20DD20044D6EF /* QSVoyeur.m in Sources */,
+				604EAB052CDE5B1E005B3451 /* QSSwiftObj.swift in Sources */,
 				D493990E1350078E00B908C6 /* QSDownloads.m in Sources */,
 				CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */,
 				D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */,
@@ -6349,6 +6356,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = TESTING;
 				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Testing;
 		};
@@ -6450,6 +6458,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Testing;
 		};
@@ -6649,7 +6658,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Quicksilver Tests/Quicksilver Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -6859,6 +6867,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -6875,6 +6884,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.QSCore;
 				PRODUCT_NAME = QSCore;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -7087,6 +7097,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -7110,6 +7121,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -7253,7 +7265,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Quicksilver Tests/Quicksilver Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -7294,7 +7305,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Quicksilver Tests/Quicksilver Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qsapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";

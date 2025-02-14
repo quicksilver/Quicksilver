@@ -793,7 +793,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 
 // Backward-compatibility
-- (BOOL)deletable QS_DEPRECATED { return self.canBeDeleted; }
+- (BOOL)deletable __attribute__((deprecated)) { return self.canBeDeleted; }
 
 @end
 

@@ -37,5 +37,5 @@
 @end
 
 @interface QSCatalogEntry (OldStyleSourceSupport)
-- (id)objectForKey:(NSString *)key QS_DEPRECATED_MSG("Sources now get QSCatalogEntry objects. Please use those");
+- (id)objectForKey:(NSString *)key __attribute__((deprecated("Sources now get QSCatalogEntry objects. Please use those")));
 @end

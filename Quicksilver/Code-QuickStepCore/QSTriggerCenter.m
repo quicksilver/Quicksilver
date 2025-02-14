@@ -131,7 +131,10 @@
 
 - (NSArray *)triggersWithParentID:(NSString *)ident {
 	NSMutableArray *array = [NSMutableArray array];
-	foreachkey(key, trigger, triggersDict) {
+	id trigger = nil;
+	NSString *key = nil;
+	NSEnumerator *kEnum = [triggersDict keyEnumerator];
+	while((key = [kEnum nextObject]) && (trigger = [triggersDict objectForKey:key]) ) {
 		if ([[trigger parentID] isEqualToString:ident])
 			[array addObject:trigger];
 	}

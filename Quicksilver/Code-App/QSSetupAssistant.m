@@ -136,7 +136,7 @@
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-	if (!defaultBool(@"QSAgreementAccepted") ) {
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSAgreementAccepted"] ) {
         QSAlertResponse response = [NSAlert runAlertWithTitle:NSLocalizedString(@"Cancel Setup", @"Setup assistant - Cancel alert title")
                                                      message:NSLocalizedString(@"Would you like to stop setup and quit Quicksilver?", @"Setup assistant - Cancel alert message")
                                                      buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]

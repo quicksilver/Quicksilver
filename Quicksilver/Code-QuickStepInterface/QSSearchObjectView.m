@@ -1491,7 +1491,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
 	if ([[self partialString] length] > 0 || matchedString) {
-		if (defaultBool(kDoubleDeleteClearsObject)) {
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:kDoubleDeleteClearsObject]) {
 			// option to have delete clear the entire search string
 			[self clearSearch];
 			[self clearTextView];

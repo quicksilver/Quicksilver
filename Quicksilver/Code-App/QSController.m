@@ -51,8 +51,9 @@ static QSController *defaultController = nil;
 	if (![NSApplication isMavericks]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
 
-		NSString *minimumVersionString = @"macOS 10.9+";
-		NSString *oldVersionsString = @"10.3–10.8";
+		NSDictionary *infoDict = [appBundle infoDictionary];
+		NSString *minVer = infoDict[@"LSMinimumSystemVersion"];
+		NSString *minimumVersionString = [NSString stringWithFormat:@"macOS %@+", minVer];
 
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = [NSString stringWithFormat:
@@ -62,9 +63,8 @@ static QSController *defaultController = nil;
 			minimumVersionString
 		];
 		alert.informativeText = [NSString stringWithFormat:
-			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", @"macOS version required alert message"),
-			minimumVersionString,
-			oldVersionsString];
+			NSLocalizedString(@"Recent versions of Quicksilver require %@. Older Quicksilver versions are available from https://qsapp.com/download.php", @"macOS version required alert message"),
+			minimumVersionString];
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 
 		[alert runModal];
@@ -88,7 +88,7 @@ static QSController *defaultController = nil;
 	[QSVoyeur sharedInstance];
 
 #ifdef DEBUG
-	if (defaultBool(@"verbose") )
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"verbose"])
 		setenv("verbose", "1", YES);
 #endif
 		

@@ -45,10 +45,10 @@
  @result YES if window is hidden into the screen edge, otherwise NO
 */
 - (BOOL)isDocked;
-- (BOOL)canFade QS_DEPRECATED_MSG("Use -isDockedInstead");
+- (BOOL)canFade __attribute__((deprecated("Use -isDockedInstead")));
 
-- (NSString *)autosaveName QS_DEPRECATED_MSG("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName");
-- (void)setAutosaveName:(NSString *)newAutosaveName QS_DEPRECATED_MSG("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName");;
+- (NSString *)autosaveName __attribute__((deprecated("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName")));
+- (void)setAutosaveName:(NSString *)newAutosaveName __attribute__((deprecated("Use -NSWindow frameAutosaveName or -NSWindowController windowFrameAutosaveName")));;
 - (void)resignKeyWindowNow;
 - (IBAction)orderFrontHidden:(id)sender;
 - (void)saveFrame;
