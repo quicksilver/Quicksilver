@@ -425,7 +425,8 @@
 	// Second, deal with opening any other files with their default app
 	NSArray *defaultAppURLs = [[dObject splitObjects] arrayByEnumeratingArrayUsingBlock:^id(QSObject *obj) {
 		if (![preferredAppObjects containsObject:obj]) {
-			return [NSURL fileURLWithPath:[obj singleFilePath]];
+            NSString *path = [obj singleFilePath];
+            if (path) return [NSURL fileURLWithPath:path];
 		}
 		return nil;
 	}];
