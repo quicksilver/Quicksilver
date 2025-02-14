@@ -830,7 +830,7 @@ static QSController *defaultController = nil;
 			return;
 		}
 	}
-	[self applicationReallyDidFinishLaunching:nil];
+	[self applicationReallyDidFinishLaunching];
 }
 
 - (void)checkAccessibilityPermissions {
@@ -847,25 +847,28 @@ static QSController *defaultController = nil;
 		accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
 			[self checkAccessibilityPermissions];
 		}];
-		[accessibilityChecker fire];
+		[[NSRunLoop currentRunLoop] addTimer:accessibilityChecker forMode:NSModalPanelRunLoopMode];
 	}
 }
 
 -(IBAction)showAccessibilityPrompt:(id)sender {
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
 	[closeAccessibilityWindowButton setEnabled:NO];
-    [accessibilityPermissionWindow center];
+
     [accessibilityPermissionWindow setIsVisible:YES];
-    [accessibilityPermissionWindow makeKeyAndOrderFront:sender];
 	[self checkAccessibilityPermissions];
+	[NSApp runModalForWindow:accessibilityPermissionWindow];
 
 }
 
 - (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
-	[accessibilityChecker invalidate];
-	accessibilityChecker = nil;
-	accessibilityPermissionWindow =  nil;
-	[self applicationReallyDidFinishLaunching:nil];
+	[NSApp stopModal];
+	QSGCDMainAsync(^{
+		[self->accessibilityChecker invalidate];
+		self->accessibilityChecker = nil;
+		self->accessibilityPermissionWindow =  nil;
+		[self applicationReallyDidFinishLaunching];
+	});
 }
 
 -(IBAction)launchPrivacyPreferences:(id)sender {
@@ -877,28 +880,29 @@ static QSController *defaultController = nil;
 		}];
 	} else if (sender == contactsButton) {
 		[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeContacts withCompletion:^(MPAuthorizationStatus status) {
-			return;
 		}];
 	} else if (sender == calendarsButton) {
 		[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeCalendar withCompletion:^(MPAuthorizationStatus status) {
-			return;
+			[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeReminders withCompletion:^(MPAuthorizationStatus status) {
+			}];
 		}];
+
 	} else {
 		[accessibilityPermissionWindow close];
 	}
 }
 
-- (void)applicationReallyDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationReallyDidFinishLaunching {
 #ifdef DEBUG
 	NSDate *start;
 	if (VERBOSE) {
 		start = [NSDate date];
 	}
 #endif
-	[self startQuicksilver:aNotification];
+	[self startQuicksilver];
 #ifdef DEBUG
 	if (VERBOSE) {
-		NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
+		NSLog(@"-[QSController startQuicksilver] took %lfs", -1*([start timeIntervalSinceNow]));
 	}
 #endif
 	[NSApp disableRelaunchOnLogin];
@@ -924,7 +928,9 @@ static QSController *defaultController = nil;
 	[NSApp unhideWithoutActivation];
 	
 	if (!runningSetupAssistant) {
-		[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
+		if (![[QSDonationController sharedInstance] checkDonationStatus:launchStatus]) {
+			[self activateInterface:self];
+		}
 	}
 	
 	[QSApp setCompletedLaunch:YES];
@@ -947,7 +953,7 @@ static QSController *defaultController = nil;
 	}
 }
 
-- (void)startQuicksilver:(id)sender {
+- (void)startQuicksilver {
 	[self checkForFirstRun];
 	[self checkForCrash];
 
@@ -1147,9 +1153,6 @@ static QSController *defaultController = nil;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
-	if (accessibilityPermissionWindow) {
-		return NO;
-	}
 	[self activateInterface:theApplication];
 	return YES;
 }
