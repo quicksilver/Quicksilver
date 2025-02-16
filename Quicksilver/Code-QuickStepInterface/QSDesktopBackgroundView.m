@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
-        backgroundColor=nil;
+        backgroundColor = nil;
     }
     return self;
 }
@@ -63,7 +63,6 @@
 		screen = [NSScreen mainScreen];
 	}
 	
-	
 	NSURL *backgroundURL = [screen wallpaperURL];
 	
     // create a dict of id: key, background: backgroundURL
@@ -73,14 +72,15 @@
                                             key, @"screenID", nil];
 	
 	[self updateWithDictionary:dict];
-	
 }
 
 - (NSInteger)screenNumber { return screenNumber; }
 
 - (void)setScreenNumber:(NSInteger)newScreenNumber{
-	screenNumber = newScreenNumber;
-	[self updateDisplay];
+	if (screenNumber != newScreenNumber) {
+		screenNumber = newScreenNumber;
+		[self updateDisplay];
+	}
 }
 
 
