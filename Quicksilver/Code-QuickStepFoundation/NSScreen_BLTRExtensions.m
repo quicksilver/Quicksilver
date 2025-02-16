@@ -38,6 +38,10 @@
 }
 
 - (NSString *)deviceName {
+	if ([NSApplication isCatalina]) {
+		// macOS 10.15+ available
+		return [self localizedName];
+	}
     io_connect_t displayPort;
     NSString *localName = nil;
     
