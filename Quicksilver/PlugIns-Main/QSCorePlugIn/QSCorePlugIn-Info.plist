@@ -62,6 +62,35 @@
 							<string>com.apple.application</string>
 						</array>
 						<key>folderDepth</key>
+						<integer>1</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>kind</key>
+						<string>Folder</string>
+						<key>path</key>
+						<string>/System/Cryptexes/App/System/Applications/</string>
+						<key>skipItem</key>
+						<integer>1</integer>
+						<key>type</key>
+						<string></string>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetCryptexApplications</string>
+					<key>name</key>
+					<string>Additional Applications</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>com.apple.application</string>
+						</array>
+						<key>folderDepth</key>
 						<integer>3</integer>
 						<key>scanContents</key>
 						<integer>1</integer>
