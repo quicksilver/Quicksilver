@@ -10,7 +10,7 @@
 
 #define MIN_ABBR_OPTIMIZE 0
 #define IGNORED_SCORE 0.9
-#define SKIPPED_SCORE 0.15
+#define SKIPPED_SCORE 0.2
 
 
 
@@ -33,7 +33,14 @@ CGFloat QSScoreForAbbreviationOrTransliteration(CFStringRef str, CFStringRef abb
 		if (mutableString) {
 			CFRelease(mutableString);
 		}
+		// log the string and score
+		if (score > 0) {
+			NSLog(@"%@ -> %@ = %f", str, abbr, score);
+		}
 		return score;
+	}
+	if (score > 0) {
+		NSLog(@"%@ -> %@ = %f", str, abbr, score);
 	}
 	return score;
 }
@@ -88,12 +95,13 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 		remainingScore = QSScoreForAbbreviationWithRanges(str, abbr, mask, remainingStrRange, CFRangeMake(abbrRange.location + i, abbrRange.length - i));
 
 		if (remainingScore) {
-			score = remainingStrRange.location-strRange.location;
+			score = (remainingStrRange.location - strRange.location);
 			// ignore skipped characters if is first letter of a word
 			if (matchedRange.location > strRange.location) {
 				// if some letters were skipped
 				UniChar previousChar = CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location - 1);
 				UniChar character = CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location);
+
 				if (CFCharacterSetIsCharacterMember(wordSeparator, previousChar)) {
 					// We're on the first letter of a word
 					for (j = matchedRange.location - 2; j >= strRange.location; j--) {
@@ -110,7 +118,8 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 							score -= SKIPPED_SCORE;
 					}
 				} else {
-					score -= (matchedRange.location-strRange.location) / 2.0;
+					// reduce the score by the distance / 1.5: a larger penalty for skipping characters in the middle of a word
+					score -= (matchedRange.location-strRange.location)/1.4;
 				}
 			}
 			score += remainingScore * remainingStrRange.length;
