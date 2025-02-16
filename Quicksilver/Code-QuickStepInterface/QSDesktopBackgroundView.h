@@ -36,5 +36,4 @@ typedef NS_ENUM(NSUInteger, QSBackgroundType) {
 - (QSBackgroundType)backgroundType;
 - (void)setBackgroundType:(QSBackgroundType)newBackgroundType;
 
-
 @end

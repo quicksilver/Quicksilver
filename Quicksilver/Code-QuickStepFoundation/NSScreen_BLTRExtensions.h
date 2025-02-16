@@ -13,4 +13,6 @@
 - (NSInteger) screenNumber;
 - (NSString *)deviceName;
 - (BOOL)usesOpenGLAcceleration;
+- (NSURL*)wallpaperURL;
+
 @end

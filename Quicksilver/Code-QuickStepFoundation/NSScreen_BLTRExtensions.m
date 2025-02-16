@@ -28,6 +28,7 @@
 }
 
 - (NSInteger)screenNumber {
+	// gets the screen number for a given NSScreen
     NSDictionary* screenDictionary = [self deviceDescription];
     NSNumber* screenID = [screenDictionary objectForKey:@"NSScreenNumber"];
     return [screenID integerValue];
@@ -63,5 +64,11 @@
 		if (!localName) localName = [NSString stringWithFormat:@"Unknown Display (%x:%x)", vendor, model];
 	}
 	return localName;
+}
+
+
+- (NSURL*)wallpaperURL {
+	return [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:self];
+
 }
 @end
