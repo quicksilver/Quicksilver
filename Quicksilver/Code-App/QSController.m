@@ -957,8 +957,9 @@ static QSController *defaultController = nil;
 
 - (void)startQuicksilver {
 	[self checkForFirstRun];
+#ifndef TESTING
 	[self checkForCrash];
-	
+#endif
 	[self showSplash:nil];
 #ifdef DEBUG
 	if (DEBUG_STARTUP)

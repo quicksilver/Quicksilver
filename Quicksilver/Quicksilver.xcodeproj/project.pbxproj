@@ -381,6 +381,9 @@
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502928559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */; };
+		CD943C3F2D63329300DB5C9A /* QSLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD943C3E2D63329300DB5C9A /* QSLibTests.m */; };
+		CD943C442D63372F00DB5C9A /* Core Support.qsplugin in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */; };
+		CD943C452D63643700DB5C9A /* QSCatalogEntryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
@@ -1800,6 +1803,8 @@
 		CD885025285562F100BDCB00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
 		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
+		CD943C3E2D63329300DB5C9A /* QSLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSLibTests.m; sourceTree = "<group>"; };
+		CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSCatalogEntryTests.m; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -2820,6 +2825,7 @@
 				D42A065716E1381F00BFD9C8 /* TestQSObject.m */,
 				CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */,
 				6008C51E2AAF433900512CB2 /* QSPathsTests.m */,
+				CD943C3E2D63329300DB5C9A /* QSLibTests.m */,
 			);
 			name = QSCoreTests;
 			path = "Tests/Tests-QSCore";
@@ -2972,6 +2978,7 @@
 		CD61BBBB192B18FA00040609 /* Quicksilver Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */,
 				CD61BBC1192B18FA00040609 /* Quicksilver_Tests.m */,
 				CD61BBBC192B18FA00040609 /* Supporting Files */,
 			);
@@ -4775,6 +4782,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD943C442D63372F00DB5C9A /* Core Support.qsplugin in Resources */,
 				CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4969,6 +4977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6008C51F2AAF433900512CB2 /* QSPathsTests.m in Sources */,
+				CD943C3F2D63329300DB5C9A /* QSLibTests.m in Sources */,
 				CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */,
 				D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */,
 			);
@@ -5031,6 +5040,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD943C452D63643700DB5C9A /* QSCatalogEntryTests.m in Sources */,
 				CD61BBC2192B18FA00040609 /* Quicksilver_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

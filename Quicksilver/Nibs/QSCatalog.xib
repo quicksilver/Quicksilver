@@ -347,7 +347,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="name" editable="NO" width="219.1181640625" minWidth="8" maxWidth="1000" id="347">
+                                                        <tableColumn identifier="name" editable="NO" width="190.1181640625" minWidth="8" maxWidth="1000" id="347">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Scanned Objects">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>

@@ -547,18 +547,23 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)saveShelf:(NSString *)key {
+	NSString *path = [pShelfLocation stringByStandardizingPath];
+	path = [[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"];
+	NSArray *dictionaryArray = [shelfArrays objectForKey:key];
+	[self saveObjects:dictionaryArray toPath:path];
+}
+
+- (void)saveObjects:(NSArray *)objects toPath:(NSString*)path {
+	objects = [objects arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+
 	QSGCDAsync(^{
-		NSString *path = [pShelfLocation stringByStandardizingPath];
-		path = [[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"];
-		NSArray *dictionaryArray = [[self->shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
 		NSError *err = nil;
-		[dictionaryArray writeToURL:[NSURL fileURLWithPath:path] error:&err];
+		[objects writeToURL:[NSURL fileURLWithPath:path] error:&err];
 		if (err) {
 			NSLog(@"Error writing shelf to disk: %@", err);
 		}
 	});
 }
-
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
     dispatch_async(scanning_queue, ^{

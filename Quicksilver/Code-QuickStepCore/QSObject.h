@@ -22,7 +22,6 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectParentID         @"QSObjectParentID"
 #define kQSObjectDetails          @"QSObjectDetails"
 #define kQSObjectKind             @"QSObjectKind"
-#define kQSObjectSource           @"QSObjectSource"
 #define kQSObjectCreationDate     @"QSObjectCreationDate"
 #define kQSStringEncoding         @"QSStringEncoding"
 // #define METAKEYS [NSArray arrayWithObjects:

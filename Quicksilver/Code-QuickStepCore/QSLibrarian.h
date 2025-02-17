@@ -80,6 +80,8 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)loadMissingIndexes;
 - (void)savePasteboardHistory;
 - (void)saveShelf:(NSString *)key;
+- (void)saveObjects:(NSArray *)objects toPath:(NSString*)key;
+
 - (void)scanCatalogIgnoringIndexes:(BOOL)force;
 - (void)startThreadedScan;
 - (void)startThreadedAndForcedScan;
