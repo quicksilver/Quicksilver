@@ -295,8 +295,8 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	if (!enabled && [self.contents count]) {
 		// remove self from all the object's meta keys
 		[self.contents enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *item, NSUInteger idx, BOOL * _Nonnull stop) {
-			if ([item objectForMeta:@"catalogSource"] == self) {
-				[item setObject:nil forMeta:@"catalogSource"];
+			if ([item objectForMeta:kCatalogSource] == self) {
+				[item setObject:nil forMeta:kCatalogSource];
 			}
 		}];
 	}
@@ -648,7 +648,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             itemContents = [self.source objectsForEntry:self];
 			for (QSObject *item in itemContents) {
 				// set the source in the meta
-				[item setObject:self forMeta:@"catalogSource"];
+				[item setObject:self forMeta:kCatalogSource];
 			};
         }
         @catch (NSException *exception) {

@@ -41,7 +41,7 @@
 
 		[newActions addObject:kQSObjectShowChildrenAction];
 	}
-    if ([dObject objectForMeta:@"catalogSource"] || [[QSLibrarian sharedInstance] firstEntryContainingObject:dObject])
+	if ([dObject objectForMeta:QSCatalogStructureChanged] || [[QSLibrarian sharedInstance] firstEntryContainingObject:dObject])
     {
             [newActions addObject:kQSObjectShowSourceAction];
     }

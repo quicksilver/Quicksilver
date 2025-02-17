@@ -549,8 +549,13 @@ static CGFloat searchSpeed = 0.0;
 - (void)saveShelf:(NSString *)key {
 	QSGCDAsync(^{
 		NSString *path = [pShelfLocation stringByStandardizingPath];
+		path = [[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"];
 		NSArray *dictionaryArray = [[self->shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-		[dictionaryArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"] atomically:YES];
+		NSError *err = nil;
+		[dictionaryArray writeToURL:[NSURL fileURLWithPath:path] error:&err];
+		if (err) {
+			NSLog(@"Error writing shelf to disk: %@", err);
+		}
 	});
 }
 

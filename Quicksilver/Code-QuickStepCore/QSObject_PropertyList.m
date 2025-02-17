@@ -108,9 +108,14 @@
 
 - (NSDictionary *)dictionaryRepresentation {
     // copies of data and meta are made to avoid them being mutated down the line
+	
+	NSMutableDictionary *metaCopy = [meta mutableCopy];
+	// remove any invalid keys from 'meta', such as the catalog source key
+	[metaCopy removeObjectForKey:kCatalogSource];
+
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [data copy], kData,
-            [meta copy], kMeta,
+			[metaCopy copy], kMeta,
             NSStringFromClass([self class]), kQSObjectClass,
             nil];
 }

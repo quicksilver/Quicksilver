@@ -29,7 +29,7 @@ extern NSSize QSMaxIconSize;
 
 #define kMeta                     @"properties"
 #define kData                     @"data"
-
+#define kCatalogSource            @"catalogSource"
 
 // cache dictionary keys
 #define kQSObjectIcon             @"QSObjectIcon"
