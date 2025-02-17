@@ -36,6 +36,8 @@ main() {
     return 0
   fi
 
+  echo "RUNNING UNIT TESTS..."
+  
   retval=0
   for scheme; do
     log "beginning tests for scheme: ${scheme}"

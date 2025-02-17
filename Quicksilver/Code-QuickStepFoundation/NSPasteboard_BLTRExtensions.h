@@ -17,7 +17,7 @@ extern NSString *QSPasteboardConcealedType;
 
 #define QSPasteboardConcealedTypes @[QSPasteboardConcealedType, @"com.agilebits.onepassword"]
 
-void QSForcePaste();
+void QSForcePaste(void);
 
 @interface NSPasteboard (Clippings)
 + (NSPasteboard *)pasteboardByFilteringClipping:(NSString *)pacg;
@@ -32,7 +32,7 @@ void QSForcePaste();
 #define standardPasteboardTypes [NSArray arrayWithObjects:@"Apple URL pasteboard type", NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]
 
 #define clippingTypes [NSSet setWithObjects:@"textClipping", @"pictClipping", @"webloc", @"com.apple.finder.textclipping", @"com.apple.finder.pictclipping", @"com.apple.internet-location", @"com.apple.web-internet-location", nil]
-#define PLISTTYPES [NSArray arrayWithObjects:NSFilenamesPboardType, @"ABPeopleUIDsPboardType", @"WebURLsWithTitlesPboardType", @"AddressesPboardType", nil]
+#define PLISTTYPES [NSArray arrayWithObjects:NSPasteboardTypeFileURL, @"ABPeopleUIDsPboardType", @"WebURLsWithTitlesPboardType", @"AddressesPboardType", nil]
 #define TEXTTYPES [NSSet setWithObjects:@"QSObjectID", NSStringPboardType, @"NeXT plain ascii pasteboard type", NSTabularTextPboardType, NSHTMLPboardType, nil]
 #define SYLETYPES [NSSet setWithObjects:NSStringPboardType, @"NeXT Rich Text Format v1.0 pasteboard type", @"NeXT Rich Text Format v1.0 pasteboard type", nil]
 #define URLTYPES [NSSet setWithObjects:NSURLPboardType, nil]

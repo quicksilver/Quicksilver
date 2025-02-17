@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "QSCatalogEntry.h"
-#import "QSThreadSafeMutableDictionary.h"
+#import <QSFoundation/QSThreadSafeMutableDictionary.h>`
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
@@ -26,7 +26,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 	QSTaskController *activityController;
 
 	NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
-	NSMutableDictionary *typeArrays; // Type arrays (Type / Entry)
 
 	NSArray *defaultSearchArrays; // (Entry)
 	NSMutableDictionary *appSearchArrays; //Default Arrays for a given application (AppName / Entry)
@@ -46,7 +45,7 @@ extern QSLibrarian *QSLib; // Shared Instance
     BOOL catalogLoaded;
 }
 
-@property (retain) QSThreadSafeMutableDictionary *objectDictionary;
+@property (retain) NSMutableDictionary *objectDictionary;
 @property (retain) QSObject *pasteboardObject;
 @property (retain, readonly) QSTask *scanTask;
 
@@ -71,7 +70,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)loadShelfArrays;
 - (BOOL)loadCatalogArrays;
 //- (BOOL)loadIndexesForEntries:(NSArray *)theEntries;
-- (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry;
+- (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry __deprecated;
 - (QSObject *)objectWithIdentifier:(NSString *)ident;
 - (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj;
 - (void)removeObjectWithIdentifier:(NSString *)ident;
@@ -81,6 +80,8 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)loadMissingIndexes;
 - (void)savePasteboardHistory;
 - (void)saveShelf:(NSString *)key;
+- (void)saveObjects:(NSArray *)objects toPath:(NSString*)key;
+
 - (void)scanCatalogIgnoringIndexes:(BOOL)force;
 - (void)startThreadedScan;
 - (void)startThreadedAndForcedScan;
@@ -110,8 +111,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)setAppSearchArrays:(NSMutableDictionary *)newAppSearchArrays ;
 - (NSMutableDictionary *)catalogArrays ;
 - (void)setCatalogArrays:(NSMutableDictionary *)newCatalogArrays ;
-- (NSMutableDictionary *)typeArrays ;
-- (void)setTypeArrays:(NSMutableDictionary *)newTypeArrays ;
 - (NSMutableDictionary *)shelfArrays ;
 - (void)setShelfArrays:(NSMutableDictionary *)newShelfArrays ;
 - (NSNumber *)presetIsEnabled:(QSCatalogEntry *)preset;

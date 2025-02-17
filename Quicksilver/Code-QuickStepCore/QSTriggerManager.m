@@ -30,14 +30,13 @@
 }
 - (QSTrigger *)settingsSelection {return currentTrigger;}
 - (void)populateInfoFields {};
-
-- (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
+- (QSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
 	NSImage *splashImage = [[trigger command] icon];
 	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 	[splashImage setSize:QSSize128];
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = NSMakeRect(0, 0, 178, 188);
-	NSWindow *splashWindow = [[NSClassFromString(@"QSWindow") alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	QSWindow *splashWindow = [[NSClassFromString(@"QSWindow") alloc] initWithContentRect:windowRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
 	[splashWindow setIgnoresMouseEvents:YES];
 	NSRect centeredRect = NSOffsetRect(windowRect, NSMidX(screenRect) -NSMidX(windowRect), NSMidY(screenRect)-NSMidY(windowRect)); //-NSHeight(screenRect)/4);
 	if (quadrant)
@@ -56,9 +55,13 @@
 	[splashWindow setSticky:YES];
 	[splashWindow setReleasedWhenClosed:NO];
 	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)];
+	[imageView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
 	[imageView setImage:splashImage];
 	[imageView setImageFrameStyle:NSImageFrameNone];
-	[imageView setImageScaling:NSImageScaleNone];
+	[imageView setImageScaling:NSImageScaleProportionallyUpOrDown];
+	[imageView setImageAlignment:NSImageAlignCenter];
+	[imageView setTranslatesAutoresizingMaskIntoConstraints:YES];
+	[imageView setWantsLayer:YES];
 	[[splashWindow contentView] addSubview:imageView];
 	// fheckl 2011-02-05
 	// Xcode Analysis: Potential leak

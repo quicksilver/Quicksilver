@@ -14,7 +14,7 @@
 - (id)initWithFrame:(NSRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		[self bindColors];
-		[self setColor:[NSColor colorWithDeviceWhite:0 alpha:0.64]];
+		[self setColor:[[NSUserDefaults standardUserDefaults] colorForKey:@"QSAppearance1T"]];
 		[self setRadius:NSHeight(frame) /8];
 		[self setGlassStyle:QSGlossFlat];
 	}

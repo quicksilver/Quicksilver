@@ -62,6 +62,11 @@
 - (id)manager {
 	return [QSPlugInManager sharedInstance];
 }
+
+- (void)deepObjectCount {
+	
+}
+
 - (void)awakeFromNib {
 
 	NSSortDescriptor* aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];

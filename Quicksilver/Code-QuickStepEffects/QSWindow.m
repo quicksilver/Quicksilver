@@ -11,6 +11,25 @@
 @end
 
 
+@implementation NSWindow (Effects)
+
+- (void)pulse:(id)sender {
+	NSRect originalFrame = [self frame];
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		// use the following transform to transform the size of the window:
+		[context setDuration:0.1];
+		// set the frame to be 1% bigger than it is now
+		[[self animator] setFrame:NSInsetRect(originalFrame, -originalFrame.size.width * 0.01, -originalFrame.size.height * 0.01) display:YES];
+		} completionHandler:^{
+			[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+			[context setDuration:0.1];
+				[[self animator] setFrame:originalFrame display:YES];
+			}];
+	}];
+}
+
+@end
+
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
@@ -83,10 +102,7 @@
 
 - (void)orderOut:(id)sender {
 	[NSApp preventWindowOrdering];
-	if ([self isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self hideThreaded:sender];
-	} else
-		[super orderOut:sender];
+	[super orderOut:sender];
 }
 
 - (void)reallyOrderFront:(id)sender {
@@ -98,26 +114,13 @@
 }
 
 - (void)orderFront:(id)sender {
-	if ([self isVisible] || fastShow || ![[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self setAlphaValue:1.0];
-		[super orderFront:sender];
-	} else {
-		[self setAlphaValue:0.0];
-		[super orderFront:sender];
-		[super display];
-		[self showThreaded:self];
-	}
+	[self setAlphaValue:1.0];
+	[super orderFront:sender];
 }
 
 - (void)makeKeyAndOrderFront:(id)sender {
-	if ([self isVisible] || fastShow || ![[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self setAlphaValue:1.0];
-		[super makeKeyAndOrderFront:sender];
-	} else {
-		[self setAlphaValue:0.0];
-		[super makeKeyAndOrderFront:sender];
-		[self showThreaded:self];
-	}
+	[self setAlphaValue:1.0];
+	[super makeKeyAndOrderFront:sender];
 }
 
 - (void)finishShow:(id)sender {
@@ -126,8 +129,77 @@
 		[self performSelector:@selector(_unhideAllDrawers)];
 }
 
+- (void)performEffect:(NSDictionary *)effect completionHandler:(void (^)(void))completionHandler {
+	NSRect originalFrame = [self frame];
+	double duration = 0.3333f;
+	if ([effect objectForKey:@"duration"]) {
+		duration = [[effect objectForKey:@"duration"] doubleValue];
+	}
+	double finalAlpha;
+
+	// default is easeInOut
+	CAMediaTimingFunction *timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	
+	if ([[effect objectForKey:@"timingFunction"] isEqualToString:@"easeOut"]) {
+		timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+	} else if ([[effect objectForKey:@"timingFunction"] isEqualToString:@"easeIn"]) {
+		timing = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	}
+	
+	NSRect finalRect = NSZeroRect;
+	if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSGrowEffect"]) {
+		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 0.01, -originalFrame.size.height * 0.01);
+	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSShrinkEffect"]) {
+		finalRect = NSInsetRect(originalFrame, originalFrame.size.width * 0.01, originalFrame.size.height * 0.01);
+	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSFlareEffect"]) {
+		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.2, -originalFrame.size.height * 1.2);
+	} else if ([[effect objectForKey:@"transformFn"] isEqualToString:@"QSExtraExtraEffect"]) {
+		finalRect = NSInsetRect(originalFrame, -originalFrame.size.width * 1.4, -originalFrame.size.height * 1.4);
+	}
+	
+	// if zero rect, just run the complection handler - don't know what this effect is
+	if (NSEqualRects(finalRect, NSZeroRect)) {
+		if (completionHandler) {
+			completionHandler();
+		}
+		return;
+	}
+	
+	if ([[effect objectForKey:@"type"] isEqualToString:@"show"]) {
+		[self setAlphaValue:0];
+		finalAlpha = 1.0;
+	} else if ([[effect objectForKey:@"type"] isEqualToString:@"hide"]) {
+		[self setAlphaValue:1];
+		finalAlpha = 0.0;
+	}
+	
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		[context setDuration:duration];
+		[context setTimingFunction:timing];
+		[[self animator] setFrame:NSIntegralRect(finalRect) display:YES];
+		[[self animator] setAlphaValue:finalAlpha];
+	} completionHandler:^{
+		if (completionHandler) {
+			completionHandler();
+		}
+	}];
+}
+
 - (void)performEffect:(NSDictionary *)effect {
-	[[QSWindowAnimation effectWithWindow:self attributes:effect] startAnimation];
+	[self performEffect:effect completionHandler:nil];
+
+	// effect is a dict with objects and keys like:
+	// @"0.125", @"duration", @"QSGrowEffect", @"transformFn", @"show", @"type"
+
+	
+//	if (value = [effect objectForKey:kQSGSTransformF])
+//		transformFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
+//	if (value = [effect objectForKey:kQSGSBrightF])
+//		brightFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
+//	if (value = [effect objectForKey:kQSGSAlphaF])
+//		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
+//	if (value = [effect objectForKey:kQSGSDuration])
+//		duration = [value doubleValue];
 }
 
 - (void)showWithEffect:(id)showEffect {
@@ -138,6 +210,7 @@
 	if (!showEffect) {
 		showEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.2] , @"duration", nil];
 	}
+
 	if (showEffect) {
 		//[self disableScreenUpdatesUntilFlush];
 		id hl = [QSWindowAnimation effectWithWindow:self attributes:showEffect];

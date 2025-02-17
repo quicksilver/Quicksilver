@@ -1,4 +1,3 @@
-
 // SLKeyPopUpButton.m
 // Searchling
 //
@@ -101,8 +100,16 @@
 //				NSSize dragOffset = NSMakeSize(0.0, 0.0); // Just use NSZeroSize: Ankur, 21 Dec
 				if (!([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption) ) {
 					NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSPasteboardNameDrag];
-					[[self objectValue] putOnPasteboard:pboard includeDataForTypes:nil];
-					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:NSZeroSize event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand)];
+					NSArray *splitObjects = [[self objectValue] splitObjects];
+					NSMutableArray *draggingItems = [NSMutableArray array];
+					[[self objectValue] putOnPasteboard:pboard];
+					for (QSObject *object in splitObjects) {
+						NSDraggingItem *draggingItem = [[NSDraggingItem alloc] initWithPasteboardWriter:object];
+						[draggingItem setDraggingFrame:NSMakeRect(0, 0, dragImage.size.width, dragImage.size.height) contents:[dragImage imageWithAlphaComponent:0.5]];
+						[draggingItems addObject:draggingItem];
+					}
+					
+					[self beginDraggingSessionWithItems:draggingItems event:theEvent source:self];
 				} else {
 					NSPoint dragPosition;
 					NSRect imageLocation;
@@ -139,21 +146,16 @@
 - (void)paste:(id)sender { [self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]]; }
 
 - (void)cut:(id)sender {
-	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard] includeDataForTypes:nil];
+	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard]];
 	[self setObjectValue:nil];
 }
 
 - (void)copy:(id)sender {
-	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard] includeDataForTypes:nil];
+	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard]];
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard {
 	[self setObjectValue:[QSObject objectWithPasteboard:pboard]];
-	return YES;
-}
-
-- (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard types:(NSArray *)types {
-	[[self objectValue] putOnPasteboard:pboard includeDataForTypes:types];
 	return YES;
 }
 

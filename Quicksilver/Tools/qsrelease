@@ -44,6 +44,7 @@ touch "${LOG}"
   "${TOOLSDIR}"/qstest
 
   xcodebuild \
+    WARNING_CFLAGS="-w" \
     -destination generic/platform=macos \
     -configuration "${CONFIGURATION}" \
     -scheme 'Quicksilver Distribution' \

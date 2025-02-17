@@ -86,19 +86,6 @@
 	[self setModifier:[defaults integerForKey:@"QSModifierActivationKey"] count:[defaults integerForKey:@"QSModifierActivationCount"]];
 }
 
-- (BOOL)showChildrenInSplitView {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"];
-}
-
-- (void)setShowChildrenInSplitView:(BOOL)flag {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	[defaults setBool:flag forKey:@"QSResultsShowChildren"];
-
-	[defaults synchronize];
-	[NSApp requestRelaunch:nil];
-}
-
 - (void)updateKeyboardPopUp {
     [keyboardPopUp removeAllItems];
 
@@ -226,15 +213,6 @@
 }
 
 - (IBAction)resetColors:(id)sender {
-#if 0
-	NSArray *colorDefaults = [NSArray arrayWithObjects:kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	for(NSString * key in colorDefaults) {
-		[defaults willChangeValueForKey:key];
-		[defaults removeObjectForKey:key];
-		[defaults didChangeValueForKey:key];
-	}
-#endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *colourDefaults = [NSArray arrayWithObjects: kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
     @synchronized(defaults) {
@@ -358,7 +336,12 @@
 }
 
 - (IBAction)resetQS:(id)sender {
-	if (!NSRunAlertPanel(@"Reset Quicksilver", @"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"Cancel", @"Reset and Relaunch", nil) ) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:NSLocalizedString(@"Reset Quicksilver", @"Reset Quicksilver")];
+	[alert setInformativeText:NSLocalizedString(@"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Reset and Relaunch", @"")];
+	if ([alert runModal] == NSAlertSecondButtonReturn) {
 		[self deleteSupportFiles];
 		[NSApp relaunch:self];
 	}
@@ -368,7 +351,12 @@
 	[(QSController *)[NSApp delegate] runSetupAssistant:nil];
 }
 - (IBAction)uninstallQS:(id)sender {
-	if (!NSRunAlertPanel(@"Uninstall Quicksilver", @"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"Cancel", @"Uninstall", nil) ) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:NSLocalizedString(@"Uninstall Quicksilver", @"Uninstall Quicksilver")];
+	[alert setInformativeText:NSLocalizedString(@"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Uninstall", @"")];
+	if ([alert runModal] == NSAlertSecondButtonReturn) {
 		[self deleteSupportFiles];
 		[self deleteApplication];
 		[NSApp terminate:self];

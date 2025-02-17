@@ -341,5 +341,5 @@
 /* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "iED-Wu-rsI"; */
 "iED-Wu-rsI.title" = "Donate...";
 
-/* Class = "NSButtonCell"; title = "Open System Preferences..."; ObjectID = "iq5-A9-t0Y"; */
-"iq5-A9-t0Y.title" = "Open System Preferences...";
+/* Class = "NSButtonCell"; title = "Enable Accessibility Access"; ObjectID = "iq5-A9-t0Y"; */
+"iq5-A9-t0Y.title" = "Enable Accessibility Access";

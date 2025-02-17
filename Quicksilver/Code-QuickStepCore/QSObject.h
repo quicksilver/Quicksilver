@@ -2,7 +2,7 @@
 
 #import <QSCore/QSBasicObject.h>
 #import <QSCore/QSObjectHandler.h>
-#import "QSThreadSafeMutableDictionary.h"
+#import <QSFoundation/QSThreadSafeMutableDictionary.h>
 
 @class QSObject, QSBasicObject;
 
@@ -22,14 +22,13 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectParentID         @"QSObjectParentID"
 #define kQSObjectDetails          @"QSObjectDetails"
 #define kQSObjectKind             @"QSObjectKind"
-#define kQSObjectSource           @"QSObjectSource"
 #define kQSObjectCreationDate     @"QSObjectCreationDate"
 #define kQSStringEncoding         @"QSStringEncoding"
 // #define METAKEYS [NSArray arrayWithObjects:
 
 #define kMeta                     @"properties"
 #define kData                     @"data"
-
+#define kCatalogSource            @"catalogSource"
 
 // cache dictionary keys
 #define kQSObjectIcon             @"QSObjectIcon"
@@ -47,7 +46,6 @@ typedef struct _QSObjectFlags {
 	unsigned int		contentsLoaded:1;
 	unsigned int		noIdentifier:1;
 	unsigned int		isProxy:1;
-	unsigned int		retainsIcon:1;
 	//  NSCellType		  type:2;
 } QSObjectFlags;
 
@@ -158,8 +156,6 @@ typedef struct _QSObjectFlags {
 
 - (BOOL)iconLoaded;
 - (void)setIconLoaded:(BOOL)flag;
-- (BOOL)retainsIcon;
-- (void)setRetainsIcon:(BOOL)flag;
 - (BOOL)childrenLoaded;
 - (void)setChildrenLoaded:(BOOL)flag;
 - (BOOL)contentsLoaded;

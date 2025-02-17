@@ -55,8 +55,8 @@
 		[self performSelector:@selector(invokeService) onThread:[NSThread mainThread] withObject:nil waitUntilDone:NO];
 		NSRunLoop *loop = [NSRunLoop currentRunLoop];
 		NSDate *date = [NSDate date];
-		while(!self->resultPboard && [date timeIntervalSinceNow] >-2) {
-			[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+		while(!self->resultPboard && [date timeIntervalSinceNow] >-1) {
+			[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
 			//	NSLog(@"loop");
 		}
 		//	NSLog(@"got %@", resultPboard);

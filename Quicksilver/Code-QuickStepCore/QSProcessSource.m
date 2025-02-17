@@ -78,46 +78,49 @@
 }
 
 - (QSObject *)switchToApplication:(QSObject *)dObject {
-	NSArray *array = [dObject arrayForType:QSProcessType];
-	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	QSGCDMainAsync(^{
+		NSArray *array = [dObject arrayForType:QSProcessType];
+		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 
-	if (!array) {
-		array = [dObject arrayForType:QSFilePathType];
+		if (!array) {
+			array = [dObject arrayForType:QSFilePathType];
 
-		for(NSString * app in array) {
-			[workspace openFile:app];
+			for(NSString * app in array) {
+				[workspace openFile:app];
+			}
+			return;
 		}
-		return nil;
-	}
 
-	if ([[NSApp currentEvent] type] == NSEventTypeKeyDown && [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
-		[workspace hideOtherApplications:array];
+		if ([[NSApp currentEvent] type] == NSEventTypeKeyDown && [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
+			[workspace hideOtherApplications:array];
 
-	NSDictionary *procDict;
+		NSDictionary *procDict;
 
-	for(procDict in array) {
+		for(procDict in array) {
 
-		if (!procDict ) {
-			[workspace launchApplication:[procDict objectForKey:@"NSApplicationPath"]];
-			continue;
+			if (!procDict ) {
+				[workspace launchApplication:[procDict objectForKey:@"NSApplicationPath"]];
+				continue;
+			}
+			BOOL frontmost = [workspace applicationIsFrontmost:procDict];
+			NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSActionAppReopenBehavior"];
+			if (frontmost) behavior = 2;
+
+			switch (behavior) {
+				case 0:
+					[workspace reopenApplication:procDict];
+					break;
+				case 1:
+					[workspace activateApplication:procDict];
+					break;
+				case 2:
+					[workspace switchToApplication:procDict frontWindowOnly:NO];
+					break;
+			}
 		}
-		BOOL frontmost = [workspace applicationIsFrontmost:procDict];
-		NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSActionAppReopenBehavior"];
-		if (frontmost) behavior = 2;
 
-		switch (behavior) {
-			case 0:
-				[workspace reopenApplication:procDict];
-				break;
-			case 1:
-				[workspace activateApplication:procDict];
-				break;
-			case 2:
-				[workspace switchToApplication:procDict frontWindowOnly:NO];
-				break;
-		}
-	}
-
+		return;
+	});
 	return nil;
 }
 

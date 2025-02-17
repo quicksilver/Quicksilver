@@ -60,8 +60,6 @@
 
 @interface QSBasicObject (QSPasteboard)
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes;
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
 @end
 
 @interface QSBasicObject (QSRanking)

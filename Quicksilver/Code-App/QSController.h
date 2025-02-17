@@ -8,7 +8,7 @@
 @interface QSController : NSWindowController <QSDropletHandling, QSProxyObjectProvider, NSAnimationDelegate> {
 	QSInterfaceController *interfaceController;
 	NSWindowController *aboutWindowController, *quitWindowController;
-	IBOutlet NSWindow *splashWindow;
+	IBOutlet QSWindow *splashWindow;
 	NSStatusItem *statusItem;
 	IBOutlet NSMenu *statusMenu;
 	NSConnection *controllerConnection, *dropletConnection;
@@ -17,6 +17,12 @@
     NSString *crashReportPath;
 	QSApplicationLaunchStatusFlags launchStatus;
 	IBOutlet NSWindow *accessibilityPermissionWindow;
+	IBOutlet NSButton *accessibilityButton;
+	IBOutlet NSButton *fullDiskButton;
+	IBOutlet NSButton *contactsButton;
+	IBOutlet NSButton *calendarsButton;
+	IBOutlet NSButton *closeAccessibilityWindowButton;
+	
 	NSTimer *accessibilityChecker;
 }
 

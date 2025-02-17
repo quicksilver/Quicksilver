@@ -5,7 +5,7 @@
 
 @class WebView;
 
-@interface QSPreferencesController : NSWindowController <NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
+@interface QSPreferencesController : NSWindowController <NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate, NSTableViewDelegate>
 {
 	IBOutlet NSTextField *descView;
 	IBOutlet NSTableView *externalPrefsTable;

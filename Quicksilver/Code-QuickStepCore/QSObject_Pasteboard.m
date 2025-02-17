@@ -3,8 +3,8 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
 
-NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
-NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
+NSString *QSPasteboardObjectIdentifier = @"com.blacktree.quicksilver.object.id";
+NSString *QSPasteboardObjectAddress = @"com.blacktree.quicksilver.object.address";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
@@ -12,21 +12,26 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-	if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
+	// NOTE: The NSStringPboardType is required here, since for some stupid reason NSPasteboardTypeString != NSStringPboardType
+	if ([NSPasteboardTypeString isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqual:NSStringPboardType]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
 	}
-
-	if ([NSURLPboardType isEqualToString:type]) {
+	
+	if ([NSPasteboardTypeURL isEqualToString:type] || [NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
-	if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
+	if ([NSPasteboardTypeFileURL isEqualToString:type]) {
         return [NSURL URLFromPasteboard:pasteboard];
     }
-	if ([NSColorPboardType isEqualToString:type]) {
+	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
+	if ([NSFilenamesPboardType isEqualToString:type] || [QSFilePathType isEqualToString:type]) {
+		return [pasteboard propertyListForType:type];
+	}
+		
 //	fallback - return it as data
 	return [pasteboard dataForType:type];
 }
@@ -44,51 +49,95 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 
 	if ([[pasteboard types] containsObject:QSPasteboardObjectIdentifier])
 		theObject = [QSLib objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
-
-	if (!theObject && [[pasteboard types] containsObject:QSPasteboardObjectAddress]) {
-        theObject = QSLib.pasteboardObject;
-	}
     
     if (theObject) {
         return theObject;
     }
-	return [[QSObject alloc] initWithPasteboard:pasteboard];
+    return [[QSObject alloc] initWithPasteboard:pasteboard];
 }
 
-- (void)writeToPasteboard:(NSPasteboard *)pasteboard data:(id)pbData forType:(NSString *)type {
-	if ([NSURLPboardType isEqualToString:type]) {
-		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
-		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
-		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
-    } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
-        [pasteboard setString:pbData[0] forType:type];
-	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeData]){
-        [pasteboard setData:[NSPropertyListSerialization dataWithPropertyList:pbData format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil] forType:NSFilenamesPboardType];
-    } else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
-        if (![pbData isKindOfClass:[NSArray class]]) {
-            pbData = @[pbData];
-        }
-		[pasteboard setPropertyList:pbData forType:type];
-	} else if ([pbData isKindOfClass:[NSString class]]) {
-		[pasteboard setString:pbData forType:type];
-	} else if ([NSColorPboardType isEqualToString:type]) {
-		[pbData writeToPasteboard:pasteboard];
-	} else if ([NSFileContentsPboardType isEqualToString:type]) {
-        
-    } else {
-		[pasteboard setData:pbData forType:type];
-    }
-
+- (NSArray<NSString *> *) writableTypesForPasteboard:(NSPasteboard *) pasteboard {
+	NSMutableArray *types = [[NSMutableArray alloc] init];
+	if ([self validPaths]) {
+		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSPasteboardTypeString]];
+	} else {
+	
+		[types addObjectsFromArray:[[self dataDictionary] allKeys]];
+		if ([types containsObject:QSProxyType]) {
+			[types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+		}
+		
+		if ([types count] == 0) {
+			[types addObject:NSPasteboardTypeString];
+		}
+		if ([types containsObject:NSPasteboardTypeURL]) {
+			[types addObjectsFromArray:@[NSPasteboardTypeURL,NSPasteboardTypeHTML,NSPasteboardTypeRTF,NSPasteboardTypeString]];
+		}
+	}
+	[types addObjectsFromArray:@[QSPasteboardObjectIdentifier, QSPasteboardObjectAddress]];
+	return types;
 }
+
+- (NSPasteboardWritingOptions) writingOptionsForType:(NSPasteboardType) type
+										  pasteboard:(NSPasteboard *) pasteboard {
+	return NSPasteboardWritingPromised;
+}
+
+- (id) pasteboardPropertyListForType:(NSPasteboardType) type {
+	if ([type isEqualToString:QSPasteboardObjectAddress]) {
+		QSLib.pasteboardObject = self;
+		return [NSString stringWithFormat:@"copied object at %p", self];
+	}
+	
+	
+	id pbData = nil;
+	id handler = [self handlerForType:type selector:@selector(dataForObject:pasteboardType:)];
+	if (handler) {
+		pbData = [handler dataForObject:self pasteboardType:type];
+	} else {
+		pbData = [self objectForType:type];
+	}
+	
+	if ([type isEqualToString:@"public.file-url"]) {
+		return [[NSURL fileURLWithPath:[self validPaths][0]] pasteboardPropertyListForType:type];
+	}
+	
+	if ([type isEqualToString:QSPasteboardObjectIdentifier]) {
+		return [self identifier];
+	}
+	
+	if ([type isEqualToString:NSPasteboardTypeURL]) {
+		return [pbData hasPrefix:@"mailto:"] ? [pbData substringFromIndex:7] : pbData;
+	}
+	
+	
+	if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
+		if (![pbData isKindOfClass:[NSArray class]]) {
+			return @[pbData];
+		}
+	}
+	
+	if ([type isEqualToString:NSPasteboardTypeHTML]) {
+		if (!pbData) {
+			return [self objectForType:NSPasteboardTypeHTML];
+		}
+	}
+	if ([type isEqualToString:NSPasteboardTypeRTF]) {
+		if (!pbData) {
+			return [self objectForType:NSPasteboardTypeRTF];
+		}
+	}
+
+	return pbData;
+}
+
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
-	return [self initWithPasteboard:pasteboard types:nil];
+    return [self initWithPasteboard:pasteboard types:nil];
 }
 
 - (void)addContentsOfClipping:(NSString *)path {
-	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
-	[self addContentsOfPasteboard:pasteboard types:nil];
-	[pasteboard releaseGlobally];
+    NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
 }
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
@@ -124,7 +173,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[self setObject:[NSDate date] forMeta:kQSObjectCreationDate];
 
 		id value;
-		if (value = [self objectForType:NSRTFPboardType]) {
+		if (value = [self objectForType:NSPasteboardTypeRTF]) {
 			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
 			[self setObject:[value string] forType:QSTextType];
 		}
@@ -173,40 +222,40 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		NSString *textString = [data objectForKey:QSTextType];
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-			textString = [data objectForKey:NSURLPboardType];
+			textString = [data objectForKey:NSPasteboardTypeURL];
         }
         textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
+		
 		static NSDictionary *namesAndKeys = nil;
         static NSArray *keys = nil;
         if (!keys) {
             // Use an array for the keys since the order is important
-            keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil];
+			keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF, NSURLPboardType, QSTextType,nil];
 
         }
         if (!namesAndKeys) {
             namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
+									  NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPasteboardTypePDF,
                                       NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
                                       NSPasteboardTypePNG,
                                       NSLocalizedString(@"RTF Text", @"Name of a RTF text object"),
                                       NSPasteboardTypeRTF,
                                       NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
-                                      NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
-                                      NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSTIFFPboardType,
-                                      NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSColorPboardType,
-                                      NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
-                                      NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSFontPboardType,
-                                      NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSHTMLPboardType,
-                                      NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSRulerPboardType,
-                                      NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSTabularTextPboardType,
-                                      NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       NSVCardPboardType,
-                                      NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
+									  NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           @"com.adobe.encapsulated-postscript",
+									  NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSPasteboardTypeTIFF,
+									  NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSPasteboardTypeColor,
+									  NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
+						  			  NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSPasteboardTypeFont,
+									  NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSPasteboardTypeHTML,
+									  NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSPasteboardTypeRuler,
+									  NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSPasteboardTypeTabularText,
+									  NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       (__bridge NSString *)kUTTypeVCard,
+									  NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               (__bridge NSString *)kPasteboardTypeFileURLPromise,
                                       nil];
         }
 
         for (NSString *key in keys) {
-			if ([data objectForKey:key] ) {
+			if ([data objectForKey:key]) {
                 if ([key isEqualToString:QSTextType]) {
                     [self setDetails:nil];
                 } else {
@@ -221,125 +270,27 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard {
-	NSArray *types = [NSArray arrayWithObject:NSStringPboardType];
-	[pboard declareTypes:types owner:nil];
-	NSString *string = [self stringValue];
-	[pboard setString:string forType:NSStringPboardType];
+	QSObject *plainTextObject = [QSObject objectWithString:[self stringValue]];
+	[pboard clearContents];
+	[pboard writeObjects:@[plainTextObject]];
 	return YES;
 }
 
-// Declares the types that should be put on the pasteboard
-// NOTE: This method will become obsolete once we move to the new 10.6+ style pasteboard reading/writing. Do NOT spend a long time tweaking it ;-) (@pjrobertson)
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)pbTypes includeDataForTypes:(NSArray *)includeTypes {
-    NSMutableArray *types = nil;
-	if (!pbTypes) {
-		// get the different pboard types from the object's data dictionary -- they're all stored here
-		types = [[[self dataDictionary] allKeys] mutableCopy];
-		if ([types containsObject:QSProxyType])
-			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
-	}
-	else {
-		NSMutableSet *typeSet = [NSMutableSet setWithArray:pbTypes];
-		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
-		types = [[typeSet allObjects] mutableCopy];
-	}
-	// If there are no types for the object, we need to set one (using stringValue)
-	if (![types count]) {
-		[types addObject:NSStringPboardType];
-		[self setObject:[self stringValue] forType:NSStringPboardType];
-	}
-
-	// define the types to be included on the pasteboard
-	if (!includeTypes) {
-		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
-            // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
-			includeTypes = @[(__bridge NSString *)kUTTypeData];
-            [types addObject:(__bridge NSString *)kUTTypeData];
-		//			[pboard declareTypes:includeTypes owner:self];
-        } else if ([types containsObject:NSURLPboardType]) {
-			// for urls, define plain text, rtf and html
-			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType,nil];
-		} else if ([types containsObject:NSColorPboardType]) {
-			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
-        }
-	}
-    if ([self validPaths]) {
-        // this is a file - add file URL data
-        includeTypes = [includeTypes arrayByAddingObject:(__bridge NSString*)kUTTypeFileURL];
-        [types addObjectsFromArray:includeTypes];
-        NSArray *fileURLs = [[self validPaths] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *path) {
-            return [[NSURL fileURLWithPath:path] absoluteString];
-        }];
-        [self setObject:fileURLs forType:@"public.file-url"];
-    }
-	// last case: no other useful types: return a basic string
-	if (!includeTypes) {
-		includeTypes = @[NSStringPboardType, QSTextType];
-	}
-
-	[pboard declareTypes:types owner:self];
-	/*
-	 // ***warning  ** Should add additional information for file items	 if ([paths count] == 1) {
-	 [[self data] setObject:[[NSURL fileURLWithPath:[paths lastObject]]absoluteString] forKey:NSURLPboardType];
-	 [[self data] setObject:[paths lastObject] forKey:NSStringPboardType];
-	 }
-	 */
-	//  NSLog(@"declareTypes: %@", [types componentsJoinedByString:@", "]);
-	
-	// For URLs, create the RTF and HTML data to be stored in the clipboard
-	if ([types containsObject:NSURLPboardType]) {
-		// add the RTF and HTML types to the list of types
-		[types addObjectsFromArray:@[NSHTMLPboardType,NSRTFPboardType]];
-		// Create the HTML and RTF data
-		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
-		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
-		// Add the HTML and RTF data to the object's data dictionary
-		[self setObject:htmlData forType:NSHTMLPboardType];
-		[self setObject:rtfData forType:NSRTFPboardType];
-	}
-	
-	for (NSString *thisType in includeTypes) {
-		if ([types containsObject:thisType] || [types containsObject:QSUTIForAnyTypeString(thisType)]) {
-			// NSLog(@"includedata, %@", thisType);
-			[self pasteboard:pboard provideDataForType:thisType];
-		}
-	}
-	// check if the primary type handler has its own method to add to the pboad
-	id <QSObjectHandler> handler = [self handlerForType:[self primaryType] selector:@selector(putObject:onPasteboard:forType:)];
-	if (handler) {
-		[handler putObject:self onPasteboard:pboard forType:[self primaryType]];
-	}
-	if ([self identifier]) {
-		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];
-        [self writeToPasteboard:pboard data:[self identifier] forType:QSPasteboardObjectIdentifier];
-	}
-	
-	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
-    QSLib.pasteboardObject = self;
-	//  NSLog(@"types %@", [pboard types]);
-	return YES;
+	NSLog(@"WARNING: This method is deprecated, ignoring the declareTypes and includeTypes parameters");
+	return [self putOnPasteboard:pboard];
 }
 
-- (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
-	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
-	if ([type isEqualToString:QSPasteboardObjectAddress]) {
-        [self writeToPasteboard:sender data:[NSString stringWithFormat:@"copied object at %p", self] forType:type];
-	} else {
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
+	NSLog(@"WARNING: This method is deprecated, ignoring the includeTypes parameter");
+	return [self putOnPasteboard:pboard];
+}
 
-		
-		id theData = nil;
-		id handler = [self handlerForType:type selector:@selector(dataForObject:pasteboardType:)];
-		if (handler)
-			theData = [handler dataForObject:self pasteboardType:type];
-		if ([type isEqualToString:NSStringPboardType] && [self count] > 1) {
-			theData = [self stringValue];
-		}
-		if (!theData)
-			theData = [self objectForType:type];
-		if (theData) {
-            [self writeToPasteboard:sender data:theData forType:type];
-        }
-	}
+
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
+	[pboard clearContents];
+	[pboard writeObjects:[self splitObjects]];
+	return YES;
 }
 
 - (NSData *)dataForType:(NSString *)dataType {

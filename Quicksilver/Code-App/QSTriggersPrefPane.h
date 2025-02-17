@@ -15,7 +15,7 @@
     IBOutlet NSButton *infoButton;
 	IBOutlet NSButton *removeButton;
 	IBOutlet NSOutlineView * triggerTable;
-
+	
 	IBOutlet NSTableView * triggerSetsTable;
 	
 	// 'edit' button in the drawer's 'command' tab 

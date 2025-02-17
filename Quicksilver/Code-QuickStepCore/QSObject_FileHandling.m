@@ -28,6 +28,13 @@ NSString *identifierForPaths(NSArray *paths) {
 	if ([paths count] == 1) return [paths lastObject];
 	return [paths componentsJoinedByString:@" "];
 }
+NSString *QSGetRecentDocumentsPathForBundle(NSString *bundleIdentifier) {
+	if ([NSApplication isSonoma]) {
+		return [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl3"];
+	}
+	// macOS <15
+	return [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl2"];
+}
 
 NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil) {
@@ -36,69 +43,18 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 
     NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
 	NSURL *url;
-	if ([NSApplication isHighSierra]) {
-		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl2"];
-		NSString *sflStandardized = [sflPath stringByStandardizingPath];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
-			NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
-			for (NSDictionary *item in sflData[@"items"]) {
-				NSData *bookmarkData = item[@"Bookmark"];
-				url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
-				if (url && [url isFileURL]) {
-					[documentsArray addObject:[url path]];
-				}
+	
+	NSString *sflPath = QSGetRecentDocumentsPathForBundle(bundleIdentifier);
+	NSString *sflStandardized = [sflPath stringByStandardizingPath];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
+		NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
+		for (NSDictionary *item in sflData[@"items"]) {
+			NSData *bookmarkData = item[@"Bookmark"];
+			url = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
+			if (url && [url isFileURL]) {
+				[documentsArray addObject:[url path]];
 			}
 		}
-		return documentsArray;
-	}
-	else if ([NSApplication isElCapitan]) {
-		NSString *sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
-		NSString *sflStandardized = [sflPath stringByStandardizingPath];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:sflStandardized isDirectory:nil]) {
-			NSDictionary *sflData = [NSKeyedUnarchiver unarchiveObjectWithFile:sflStandardized];
-			for (SFLListItem *item in sflData[@"items"]) {
-				// item's class is SFLListItem
-				url = [item URL];
-				if (url && [url isFileURL]) {
-					[documentsArray addObject:item];
-				}
-			}
-			[documentsArray sortUsingComparator:^NSComparisonResult(SFLListItem *item1, SFLListItem *item2) {
-				return item1.order > item2.order;
-			}];
-			
-			return [documentsArray arrayByEnumeratingArrayUsingBlock:^id(SFLListItem *item) {
-				return [[item URL] path];
-			}];
-		}
-		return documentsArray;
-	}
-    // drop10.10: recent documents before El Capitan
-	// make sure latest changes are available
-	CFPreferencesSynchronize((__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
-							 kCFPreferencesCurrentUser,
-							 kCFPreferencesAnyHost);
-	NSDictionary *recentDocuments106 = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
-																		  (__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
-																		  kCFPreferencesCurrentUser,
-																		  kCFPreferencesAnyHost));
-	NSArray *recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
-
-	NSData *bookmarkData;
-	NSError *err;
-	for(NSDictionary *documentStorage in recentDocuments) {
-		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
-		err = nil;
-		url = [NSURL URLByResolvingBookmarkData:bookmarkData
-										options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI
-								  relativeToURL:nil
-							bookmarkDataIsStale:NO
-										  error:&err];
-		if (url == nil || err != nil) {
-			// couldn't resolve bookmark, so skip
-			continue;
-		}
-		[documentsArray addObject:[url path]];
 	}
 	return documentsArray;
 }
@@ -187,7 +143,12 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 			return [resolvedURL path];
 		}
 		// Temporary QS file
-		if ([path hasPrefix:NSTemporaryDirectory()]) {
+		__block BOOL hasTemporaryPrefix = NO;
+		QSGCDMainSync(^{
+			hasTemporaryPrefix = [path hasPrefix:@"/private/var/folders/"];
+		});
+		
+		if (hasTemporaryPrefix) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
 		}
 		// iCloud File
@@ -243,9 +204,16 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSFileManager *manager = [NSFileManager defaultManager];
     
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
-	if (![manager fileExistsAtPath:path]) {
+	__block BOOL exists = YES;
+	QSGCDMainSync(^{
+		if (![manager fileExistsAtPath:path]) {
+			exists = NO;
+		}
+	});
+	if (!exists) {
 		return NO;
 	}
+
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
@@ -287,8 +255,6 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
         theImage = [self prepareImageforIcon:theImage];
         [object setIcon:theImage];
         return YES;
-    } else {
-        [object setRetainsIcon:YES];
     }
     return NO;
 }
@@ -325,28 +291,10 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
             }
             // Does the app have valid recent documents
             if (bundleIdentifier) {
-                if ([NSApplication isElCapitan]) {
-					NSString *sflPath;
-					if ([NSApplication isHighSierra]) {
-						sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl2"];
-					} else {
-						sflPath = [NSString stringWithFormat:pSharedFileListPathTemplate, bundleIdentifier, @"sfl"];
-					}
-                    if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
-                        return YES;
-                    }
-                }
-                // drop10.10: recent documents before El Capitan
-                NSDictionary *recentDocuments = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
-                                                                                       (__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
-                                                                                       kCFPreferencesCurrentUser,
-                                                                                       kCFPreferencesAnyHost));
-                if (recentDocuments) {
-                    NSArray *recentDocumentsArray = [recentDocuments objectForKey:@"CustomListItems"];
-                    if (recentDocumentsArray && [recentDocumentsArray count]) {
-                        return YES;
-                    }
-                }
+				NSString *sflPath = QSGetRecentDocumentsPathForBundle(bundleIdentifier);
+				if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
+					return YES;
+				}
             }
 		}
 
@@ -391,10 +339,10 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
-	if (![iObject arrayForType:QSFilePathType])
+	if (iObject && ![iObject arrayForType:QSFilePathType])
 		return NSDragOperationNone;
 	if ([dObject fileCount] > 1)
-		return NSDragOperationGeneric;
+		return NSDragOperationNone;
 	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	if ([dObject isApplication])
 		return NSDragOperationPrivate;
@@ -898,7 +846,9 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	[self setName:newName];
 	
 	// generally: name = what you see in Terminal, label = what you see in Finder
-	NSString *newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+	
+	NSString *newLabel = nil;
+	[[NSURL fileURLWithPath:path] getResourceValue:&newLabel forKey:NSURLLocalizedNameKey error:nil];
 	if ([[newLabel pathExtension] isEqualToString:@"app"]) {
 		// most apps just remove the extension
 		newLabel = [newLabel stringByDeletingPathExtension];

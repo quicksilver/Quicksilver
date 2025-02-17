@@ -7,7 +7,7 @@
  *
  */
 
-BOOL QSGetLocalizationStatus();
+BOOL QSGetLocalizationStatus(void);
 
 extern NSMutableDictionary *localizationBundles;
 @interface NSBundle (QSDistributedLocalization)

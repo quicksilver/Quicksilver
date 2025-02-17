@@ -48,4 +48,4 @@ NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL create);
  *
  *  @return NSString giving the of the path to the Quicksilver Application Support directory
  */
-NSString *QSGetApplicationSupportFolder();
+NSString *QSGetApplicationSupportFolder(void);

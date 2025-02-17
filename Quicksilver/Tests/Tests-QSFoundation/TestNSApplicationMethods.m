@@ -34,4 +34,13 @@
     XCTAssertTrue([NSApplication isMountainLion], @"Current operating system is not seen as Mountain Lion or newer");
 }
 
+- (void)testNSScreenAdditions {
+	NSURL *u = [[NSScreen mainScreen] wallpaperURL];
+	XCTAssertNotNil(u);
+	
+	NSString *name = [[NSScreen mainScreen] deviceName];
+	XCTAssertNotNil(name);
+	
+}
+
 @end

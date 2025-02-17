@@ -90,13 +90,6 @@
 
 @implementation QSBasicObject (QSPasteboard)
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:nil];
-}
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:includeTypes];
-}
-
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
 	return NO;
 }
 @end

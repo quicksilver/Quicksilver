@@ -28,6 +28,7 @@
 }
 
 - (NSInteger)screenNumber {
+	// gets the screen number for a given NSScreen
     NSDictionary* screenDictionary = [self deviceDescription];
     NSNumber* screenID = [screenDictionary objectForKey:@"NSScreenNumber"];
     return [screenID integerValue];
@@ -38,6 +39,10 @@
 }
 
 - (NSString *)deviceName {
+	if ([NSApplication isCatalina]) {
+		// macOS 10.15+ available
+		return [self localizedName];
+	}
     io_connect_t displayPort;
     NSString *localName = nil;
     
@@ -59,5 +64,11 @@
 		if (!localName) localName = [NSString stringWithFormat:@"Unknown Display (%x:%x)", vendor, model];
 	}
 	return localName;
+}
+
+
+- (NSURL*)wallpaperURL {
+	return [[NSWorkspace sharedWorkspace] desktopImageURLForScreen:self];
+
 }
 @end

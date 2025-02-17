@@ -219,6 +219,14 @@
 }
 
 + (BOOL)isBigSur {
-	return [NSApplication macOSXMajorVersion] > 10;
+	return [NSApplication macOSXMajorVersion] >= 11;
+}
+
++ (BOOL)isSonoma {
+	return [NSApplication macOSXMajorVersion] >= 14;
+}
+
++ (BOOL)isSequoia {
+	return [NSApplication macOSXMajorVersion] >= 14;
 }
 @end

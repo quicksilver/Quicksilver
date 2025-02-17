@@ -102,18 +102,9 @@ id QSPrefs;
 - (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier {
     QSGCDMainSync(^{
         [NSApp activateIgnoringOtherApps:YES];
-        [self showWindow:nil];
+		[[self window] makeKeyAndOrderFront:nil];
         [self selectPaneWithIdentifier:identifier];
     });
-//	int index = [[modules valueForKey:kItemID] indexOfObject:identifier];
-//	if (index == NSNotFound) {
-//		NSLog(@"%@ not found", identifier);
-//	} else {
-//		[moduleController setSelectionIndex:index];
-//		return [self currentPane];
-//	}
-	//	[internalPrefsTable selectRow:index byExtendingSelection:NO];
-	//[win makeKeyAndOrderFront:win];
 	return nil;
 }
 
@@ -124,20 +115,11 @@ id QSPrefs;
 }
 
 - (void)loadPlugInInfo:(NSNotification *)notif {
-	//	NSString *currentPaneID = nil;
-	//	if ([modules count] && [internalPrefsTable selectedRow] >= 0)
-	//		currentPaneID = [[modules objectAtIndex:[internalPrefsTable selectedRow]]objectForKey:kItemID];
-
-	//	NSArray *loadedPanes = [modules valueForKey:kItemID];
-//	[QSReg printRegistry:nil];
 	NSDictionary *plugInPanes = [QSReg tableNamed:kQSPreferencePanes];
-//	NSLog(@"plug %@", plugInPanes);
 	for(NSString *paneKey in plugInPanes) {
 		if ([self paneForIdentifier:paneKey]) continue;
-		//if ([loadedPanes containsObject:paneKey]) continue;
 		NSMutableDictionary *paneInfo = [[plugInPanes objectForKey:paneKey] mutableCopy];
 		if ([paneInfo isKindOfClass:[NSString class]]) {
-			//NSLog(@"Not Loading Old-Style Prefs: %@", paneInfo);
 			continue;
 		}
 
@@ -168,19 +150,6 @@ id QSPrefs;
 	[sidebarModules addObjectsFromArray:plugInModules];
 	id mSidebarModules = [sidebarModules mutableCopy];
 	[self setModules:mSidebarModules];
-	//	int index = [[modules valueForKey:kItemID] indexOfObject:currentPaneID];
-	//	if (index != NSNotFound) [internalPrefsTable selectRow:index byExtendingSelection:NO];
-	//
-	//	[internalPrefsTable reloadData];
-	//	[self selectModule:self];
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectModule:) name:NSTableViewSelectionDidChangeNotification object:internalPrefsTable];
-	//	NSCell *imageAndTextCell;
-	//	[internalPrefsTable setRowHeight:17];
-	//	imageAndTextCell = [[[QSImageAndTextCell alloc] init] autorelease];
-	//	[[internalPrefsTable tableColumnWithIdentifier: kItemName] setDataCell:imageAndTextCell];
-	//	[[[internalPrefsTable tableColumnWithIdentifier: kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
-	//
-	//[self mainViewDidLoad];
 
 }
 - (BOOL)windowShouldClose:(id)sender {
@@ -258,28 +227,8 @@ id QSPrefs;
 	relaunchRequested = flag;
 }
 
-//Outline Methods
-
-//- (int) numberOfRowsInTableView:(NSTableView *)tableView {
-//	if (tableView == internalPrefsTable) {
-//		return [modules count];
-//	}
-//	return 0;
-//}
-//
-//- (id)tableView:(NSTableView *)aTableView
-//objectValueForTableColumn:(NSTableColumn *)aTableColumn
-//			row:(int) rowIndex
-// {
-//	if (aTableView == internalPrefsTable) {
-//		return [[modules objectAtIndex:rowIndex] objectForKey:kItemName];
-//
-//	}
-//	return nil;
-//}
-
 - (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 18;
+	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 24;
 	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
 }
 
@@ -297,19 +246,6 @@ id QSPrefs;
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	return NO;
 }
-
-//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-//	//  NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-//	//  NSFileManager *manager = [NSFileManager defaultManager];
-//	if (aTableView == internalPrefsTable) {
-//		NSImage *icon = [[modules objectAtIndex:rowIndex] objectForKey:kItemIcon];
-//		[icon createRepresentationOfSize:NSMakeSize(16, 16)];
-//		[icon setSize:NSMakeSize(16, 16)];
-//		[(QSImageAndTextCell*)aCell setImage:icon];
-//		return;
-//	}
-//}
-//
 
 - (NSView *)viewForModule:(QSPreferencePane *)module {
 	NSView *view = [module mainView];

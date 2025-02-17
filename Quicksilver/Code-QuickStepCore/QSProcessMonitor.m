@@ -118,46 +118,46 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	if (self = [super init]) {
 		isReloading = NO;
 		proc_thread = dispatch_queue_create("quicksilver.qsprocessmonitor.update", DISPATCH_QUEUE_SERIAL);
-
+		
 		EventTypeSpec eventType;
 		EventHandlerUPP handlerFunction;
 		OSStatus err;
-
+		
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppFrontSwitched;
 		handlerFunction = NewEventHandlerUPP(appChanged);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &changeHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Change registration err %ld", (long)err);
-
+		
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppLaunched;
 		handlerFunction = NewEventHandlerUPP(appLaunched);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &launchHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Launch registration err %ld", (long)err);
-
+		
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppTerminated;
 		handlerFunction = NewEventHandlerUPP(appTerminated);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &terminateHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Terminate registration err %ld", (long)err);
-    }
+	}
 	return self;
 }
 
 - (void)dealloc {
-    OSStatus err;
+	OSStatus err;
 	err = RemoveEventHandler(changeHandler);
-    if(err)
-        NSLog(@"error %ld removing change handler", (long)err);
-    err = RemoveEventHandler(launchHandler);
-    if(err)
-        NSLog(@"error %ld removing launch handler", (long)err);
-    err = RemoveEventHandler(terminateHandler);
-    if(err)
-        NSLog(@"error %ld removing terminate handler", (long)err);
+	if(err)
+		NSLog(@"error %ld removing change handler", (long)err);
+	err = RemoveEventHandler(launchHandler);
+	if(err)
+		NSLog(@"error %ld removing launch handler", (long)err);
+	err = RemoveEventHandler(terminateHandler);
+	if(err)
+		NSLog(@"error %ld removing terminate handler", (long)err);
 	currentApplication = nil;
 	previousApplication = nil;
 	processes = nil;
@@ -166,23 +166,23 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
 	NSString *ident = [dict objectForKey:@"NSApplicationBundleIdentifier"];
-    NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
+	NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:ident];
 	QSObject *newObject = nil;
 	if (bundle && [appPath isEqualToString:[bundle executablePath]]) {
 		newObject = [QSObject fileObjectWithPath:[bundle bundlePath]];
 		//	NSLog(@"%@ %@", bundlePath, newObject);
 	}
-
+	
 	if (!newObject) {
-        if (appPath) {
-            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
-        } else {
-            // the process isn't an app
-            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
-        }
-    }
-
+		if (appPath) {
+			newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+		} else {
+			// the process isn't an app
+			newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
+		}
+	}
+	
 	[newObject setObject:dict forType:QSProcessType];
 	return newObject;
 }
@@ -221,46 +221,46 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (NSDictionary *)infoForApp:(NSRunningApplication *)app {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	
-	[dict setValue:[app localizedName] forKey:@"NSApplicationName"];
-	[dict setValue:[[app bundleURL] path] forKey:@"NSApplicationPath"];
-	[dict setValue:app.bundleIdentifier forKey:@"NSApplicationBundleIdentifier"];
-	[dict setValue:[NSNumber numberWithInt:[app processIdentifier]] forKey:@"NSApplicationProcessIdentifier"];
-	[dict setValue:[NSNumber numberWithBool:(app.activationPolicy == NSApplicationActivationPolicyProhibited)] forKey:@"LSBackgroundOnly"];
-	[dict setValue:[NSNumber numberWithBool:(app.activationPolicy == NSApplicationActivationPolicyAccessory)] forKey:@"LSUIElement"];
 	ProcessSerialNumber psn;
 	GetProcessForPID(app.processIdentifier, &psn);
-	[dict setValue:[NSNumber numberWithLong:psn.highLongOfPSN]
-			forKey:@"NSApplicationProcessSerialNumberHigh"];
-
-	[dict setValue:[NSNumber numberWithLong:psn.lowLongOfPSN]
-			forKey:@"NSApplicationProcessSerialNumberLow"];
-	dict = [dict copy];
+	
+	
+	NSDictionary *dict = [[NSDictionary dictionaryWithObjectsAndKeys:
+						  [app localizedName], @"NSApplicationName",
+						  [[app bundleURL] path], @"NSApplicationPath",
+						  app.bundleIdentifier, @"NSApplicationBundleIdentifier",
+						  [NSNumber numberWithInt:[app processIdentifier]], @"NSApplicationProcessIdentifier",
+						  [NSNumber numberWithBool:(app.activationPolicy == NSApplicationActivationPolicyProhibited)], @"LSBackgroundOnly",
+						  [NSNumber numberWithBool:(app.activationPolicy == NSApplicationActivationPolicyAccessory)], @"LSUIElement",
+						  [NSNumber numberWithLong:psn.highLongOfPSN], @"NSApplicationProcessSerialNumberHigh",
+						  [NSNumber numberWithLong:psn.lowLongOfPSN], @"NSApplicationProcessSerialNumberLow",
+						  nil] mutableCopy];
+	
 	return dict;
 }
 
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber {
-
+	
 	NSMutableDictionary *dict = [(NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask)) mutableCopy];
 	[dict setValue:[dict objectForKey:@"CFBundleName"]
-				forKey:@"NSApplicationName"];
-
-		[dict setValue:[dict objectForKey:@"BundlePath"]
-				forKey:@"NSApplicationPath"];
-
-		[dict setValue:[dict objectForKey:@"CFBundleIdentifier"]
-				forKey:@"NSApplicationBundleIdentifier"];
-
-		[dict setValue:[dict objectForKey:@"pid"]
-				forKey:@"NSApplicationProcessIdentifier"];
-
-		[dict setValue:[NSNumber numberWithLong:processSerialNumber.highLongOfPSN]
-				forKey:@"NSApplicationProcessSerialNumberHigh"];
-
-		[dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
-				forKey:@"NSApplicationProcessSerialNumberLow"];
-		dict = [dict copy];
+			forKey:@"NSApplicationName"];
+	
+	[dict setValue:[dict objectForKey:@"BundlePath"]
+			forKey:@"NSApplicationPath"];
+	
+	[dict setValue:[dict objectForKey:@"CFBundleIdentifier"]
+			forKey:@"NSApplicationBundleIdentifier"];
+	
+	[dict setValue:[dict objectForKey:@"pid"]
+			forKey:@"NSApplicationProcessIdentifier"];
+	
+	[dict setValue:[NSNumber numberWithLong:processSerialNumber.highLongOfPSN]
+			forKey:@"NSApplicationProcessSerialNumberHigh"];
+	
+	[dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
+			forKey:@"NSApplicationProcessSerialNumberLow"];
+	dict = [dict copy];
 	return dict;
 }
 
@@ -271,7 +271,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	ProcessSerialNumber psn;
 	psn.highLongOfPSN = (UInt32)[theEvent data1];
 	psn.lowLongOfPSN = (UInt32)[theEvent data2];
-
+	
 	QSGCDQueueAsync(proc_thread, ^{
 		switch ([theEvent subtype]) {
 			case NSProcessDidLaunchSubType: {
@@ -293,12 +293,15 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)appLaunched:(ProcessSerialNumber)psn {
 	NSDictionary *dict = [self infoForPSN:psn];
-
-	// This notif is used for the Events plugin 'Application Launched' event trigger
-	[self reloadProcesses];
+	
+	// if we're including background processes (i.e. all processes) OR if it's a foreground process, reload
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowBackgroundProcesses"] || ![[dict objectForKey:@"LSBackgroundOnly"] boolValue]) {
+		[self reloadProcesses];
+	}
 	if (dict) {
 		QSObject *procObject = [self imbuedFileProcessForDict:dict];
 		QSGCDMainAsync(^{
+			// This notif is used for the Events plugin 'Application Launched' event trigger
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:self userInfo:dict];
 		});
@@ -340,7 +343,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 				[workspace hideOtherApplications:[NSArray arrayWithObject:newApp]];
 			}
 		}
-
+		
 		[self setPreviousApplication:currentApplication];
 		[self setCurrentApplication:newApp];
 	});
@@ -371,6 +374,12 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)reloadProcesses {
+	QSGCDQueueAsync(proc_thread, ^{
+		[self _reloadProcesses];
+	});
+}
+
+- (void)_reloadProcesses {
 	/* Mark us as reloading to prevent -addProcessWithPSN from sending one notification per found process, and handle KVO ourselves. */
 	
 	[self willChangeValueForKey:@"visibleProcesses"];
@@ -385,7 +394,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #endif
 	
 	NSArray *tempProcesses = [[NSWorkspace sharedWorkspace] runningApplications];
-	QSThreadSafeMutableDictionary *procs = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:tempProcesses.count];
+	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:tempProcesses.count];
 	for (NSRunningApplication *app in tempProcesses) {
 		NSDictionary *info = [self infoForApp:app];
 		QSObject *procObject = [self imbuedFileProcessForDict:info];

@@ -28,7 +28,6 @@
 	[roundRect fill];
 	[image unlockFocus];
 	[object setIcon:image];
-    [object setRetainsIcon:YES];
 	return YES;
 }
 - (NSString *)identifierForObject:(QSObject *)object {return nil;}
