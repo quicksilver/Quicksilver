@@ -33,15 +33,9 @@ CGFloat QSScoreForAbbreviationOrTransliteration(CFStringRef str, CFStringRef abb
 		if (mutableString) {
 			CFRelease(mutableString);
 		}
-		// log the string and score
-		if (score > 0) {
-			NSLog(@"%@ -> %@ = %f", str, abbr, score);
-		}
 		return score;
 	}
-	if (score > 0) {
-		NSLog(@"%@ -> %@ = %f", str, abbr, score);
-	}
+
 	return score;
 }
 
