@@ -667,10 +667,13 @@ static CGFloat searchSpeed = 0.0;
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
     BOOL includeOmitted = NO;
-    if (!set) {
-        set = [self.objectDictionary allValues];
+	
+	// if we are searching within 'set' (i.e. we have drilled down or we have search results),
+	// then include any items that have been 'omitted' from the global catalog.
+    if (set) {
+		includeOmitted = YES;
     } else {
-        includeOmitted = YES;
+		set = [self.objectDictionary allValues];
     }
     
     if (!searchString) searchString = @"";
