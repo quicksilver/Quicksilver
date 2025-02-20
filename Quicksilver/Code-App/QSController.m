@@ -831,67 +831,68 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkAccessibilityPermissions {
-	// Prompt for accessibility permissions on macOS Mojave and later.
-	BOOL hasAccessibility = [self hasAccessibilityPermission];
-	BOOL hasFullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess] == MPAuthorizationStatusAuthorized;
-	BOOL hasContacts = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] == MPAuthorizationStatusAuthorized;
-	BOOL hasCalendars = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] == MPAuthorizationStatusAuthorized;
-	BOOL hasReminders = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeReminders] == MPAuthorizationStatusAuthorized;
-	[accessibilityButton setEnabled:!hasAccessibility];
-	[fullDiskButton setEnabled:!hasFullDisk];
-	[calendarsButton setEnabled:!hasCalendars];
-	[contactsButton setEnabled:!hasContacts || !hasReminders];
-	[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
-	
-	if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
-		[accessibilityPermissionWindow close];
-	} else if (!accessibilityChecker) {
-		accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-			[self checkAccessibilityPermissions];
-		}];
-		[[NSRunLoop currentRunLoop] addTimer:accessibilityChecker forMode:NSModalPanelRunLoopMode];
-	}
+		// Prompt for accessibility permissions on macOS Mojave and later.
+		BOOL hasAccessibility = [self hasAccessibilityPermission];
+		BOOL hasFullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess] == MPAuthorizationStatusAuthorized;
+		BOOL hasContacts = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] == MPAuthorizationStatusAuthorized;
+		BOOL hasCalendars = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] == MPAuthorizationStatusAuthorized;
+		BOOL hasReminders = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeReminders] == MPAuthorizationStatusAuthorized;
+		[accessibilityButton setEnabled:!hasAccessibility];
+		[fullDiskButton setEnabled:!hasFullDisk];
+		[contactsButton setEnabled:!hasContacts];
+		[calendarsButton setEnabled:!hasCalendars || !hasReminders];
+
+		[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
+		
+		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
+				[accessibilityPermissionWindow close];
+		} else if (!accessibilityChecker) {
+				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+						[self checkAccessibilityPermissions];
+				}];
+				[[NSRunLoop currentRunLoop] addTimer:accessibilityChecker forMode:NSModalPanelRunLoopMode];
+		}
 }
 
 -(IBAction)showAccessibilityPrompt:(id)sender {
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
-	[closeAccessibilityWindowButton setEnabled:NO];
-
-    [accessibilityPermissionWindow setIsVisible:YES];
-	[self checkAccessibilityPermissions];
-	[NSApp runModalForWindow:accessibilityPermissionWindow];
-
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
+		[closeAccessibilityWindowButton setEnabled:NO];
+		
+		[accessibilityPermissionWindow setIsVisible:YES];
+		[self checkAccessibilityPermissions];
+		[NSApp runModalForWindow:accessibilityPermissionWindow];
+		
 }
 
 - (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
-	[NSApp stopModal];
-	QSGCDMainAsync(^{
-		[self->accessibilityChecker invalidate];
-		self->accessibilityChecker = nil;
-		self->accessibilityPermissionWindow =  nil;
-		[self applicationReallyDidFinishLaunching];
-	});
+		[NSApp stopModal];
+		QSGCDMainAsync(^{
+				[self->accessibilityChecker invalidate];
+				self->accessibilityChecker = nil;
+				self->accessibilityPermissionWindow =  nil;
+				[self applicationReallyDidFinishLaunching];
+		});
 }
 
 -(IBAction)launchPrivacyPreferences:(id)sender {
-	if (sender == accessibilityButton) {
-		NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
-	} else if (sender == fullDiskButton){
-		[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeFullDiskAccess withCompletion:^(MPAuthorizationStatus status) {
-		}];
-	} else if (sender == contactsButton) {
-		[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeContacts withCompletion:^(MPAuthorizationStatus status) {
-		}];
-	} else if (sender == calendarsButton) {
-		[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeCalendar withCompletion:^(MPAuthorizationStatus status) {
-			[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeReminders withCompletion:^(MPAuthorizationStatus status) {
-			}];
-		}];
-
-	} else {
-		[accessibilityPermissionWindow close];
-	}
+		if (sender == accessibilityButton) {
+				NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+		} else if (sender == fullDiskButton){
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeFullDiskAccess withCompletion:^(MPAuthorizationStatus status) {
+				}];
+		} else if (sender == contactsButton) {
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeContacts withCompletion:^(MPAuthorizationStatus status) {
+				}];
+		} else if (sender == calendarsButton) {
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeCalendar withCompletion:^(MPAuthorizationStatus status) {
+						[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeReminders withCompletion:^(MPAuthorizationStatus status) {
+						}];
+				}];
+				
+		} else {
+				[accessibilityPermissionWindow close];
+		}
 }
 
 - (void)applicationReallyDidFinishLaunching {
