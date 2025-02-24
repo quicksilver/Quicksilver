@@ -455,6 +455,8 @@ static QSController *defaultController = nil;
         [splashWindow setLevel:NSNormalWindowLevel-1];
 		[splashWindow orderFront:self];
 		[splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.1] , @"duration", nil] completionHandler:^() {
+				[self->splashWindow orderOut:nil];
+				self->splashWindow = nil;
 		}];
 	} else {
 		[splashWindow orderFront:self];
@@ -469,6 +471,7 @@ static QSController *defaultController = nil;
 		}];
     }
 }
+
 - (void)animationDidEnd:(NSAnimation *)animation {
 	QSGCDMainDelayed(0.05, ^{
 		[self hideSplash:animation];
