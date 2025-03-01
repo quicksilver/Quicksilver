@@ -861,10 +861,12 @@ NSMutableDictionary *bindingsDict = nil;
 			if (resultBehavior == 0)
 				[self showResultView:self];
 			else if (resultBehavior == 1) {
+				float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
+				resetDelay = resetDelay ? resetDelay : 0.5; // default to 0.5s for the reset if the reset delay isn't enabled (why on earth is this set to user the reset delay val anyway?)
 				if ([resultTimer isValid]) {
-					[resultTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]]];
+					[resultTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 				} else {
-					resultTimer = [NSTimer scheduledTimerWithTimeInterval:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay] target:self selector:@selector(showResultView:) userInfo:nil repeats:NO];
+					resultTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(showResultView:) userInfo:nil repeats:NO];
 				}
 			}
 		}
@@ -911,10 +913,14 @@ NSMutableDictionary *bindingsDict = nil;
 		[searchTimer invalidate];
 		[self performSearch:nil];
 	} else {
-		if (![searchTimer isValid]) {
-			searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+		if (searchDelay > 0) {
+			if (![searchTimer isValid]) {
+				searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
+			}
+			[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+		} else {
+			[self performSearch:nil];
 		}
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	}
 	
 	if (validSearch) {

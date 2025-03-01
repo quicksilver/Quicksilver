@@ -168,7 +168,6 @@
 //            CGSConnection conn = _CGSDefaultConnection();
 //            CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
           }
-        
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
             self->savedKeyboard = TISCopyCurrentKeyboardInputSource();
             NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
@@ -215,16 +214,13 @@
 - (void)hideMainWindowWithEffect:(id)effect {
 	[self willHideMainWindow:nil];
 	[self setHiding:YES];
-	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
-		[(QSWindow *)[self window] hideWithEffect:effect];
+
+	if ([self isKindOfClass:[QSCommandBuilder class]]) {
+		[self hideWindows:nil];
+	}
 	else {
-        if ([self isKindOfClass:[QSCommandBuilder class]]) {
-            [self hideWindows:nil];
-        }
-        else {
-            [[self window] orderOut:nil];
-        }
-    }
+		[[self window] orderOut:nil];
+	}
 	[self setHiding:NO];
 	[dSelector clearSearch];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];

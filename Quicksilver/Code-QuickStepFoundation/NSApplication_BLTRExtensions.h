@@ -59,14 +59,14 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
 /**
  Returns the version as provided by [NSProcessInfo processInfo]
  @returns NSOperatingSystemVersion macOS version as a struct
-*/
+ */
 + (NSOperatingSystemVersion)macOSXSystemVersion;
 /**
  Returns the major release of Mac OS X, for example 10.7
  */
 + (NSString *)macOSXReleaseVersion;
 /**
-  Returns the full Mac OS X version of the current system as a string
+ Returns the full Mac OS X version of the current system as a string
  
  @returns an NSString of the user's current Mac OS X version, for example 10.6.7
  */
@@ -76,7 +76,7 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  DEPRECATED METHOD
  This should be removed (along with all corresponding isLeopard code) when we've got over the Lion upgrade hurdle
  Checks, if system is at least Mac OS X 10.5 (Leopard)
-  
+ 
  @returns YES, if 10.5+. NO otherwise
  */
 + (BOOL)isLeopard;
@@ -146,15 +146,29 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
 
 /**
  Checks, if system is at least macOS 10.15 (Catalina)
-
+ 
  @returns YES, if 10.15+. NO otherwise
  */
 + (BOOL)isCatalina;
 
 /**
  Checks, if system is at least macOS 11 (Big Sur)
-
+ 
  @returns YES, if 11+. NO otherwise
  */
 + (BOOL)isBigSur;
+
+/**
+ Checks, if system is at least macOS 14 (Sonoma))
+
+ @returns YES, if 14+. NO otherwise
+ */
++ (BOOL)isSonoma;
+
+/**
+ Checks, if system is at least macOS 15 (Sequoia))
+
+ @returns YES, if 15+. NO otherwise
+ */
++ (BOOL)isSequoia;
 @end

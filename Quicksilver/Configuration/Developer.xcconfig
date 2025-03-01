@@ -1,10 +1,10 @@
 // This file contains developer-specific information. You can provide temporary overrides to build settings here.
 
 // The bundle version displayed in the Finder's Get Info dialog and About Box
-QS_INFO_VERSION = 2.4.3
+QS_INFO_VERSION = 2.5.0
 
 // The current development version shown in About Box
-QS_BUNDLE_VERSION = 4042
+QS_BUNDLE_VERSION = 4043
 
 // A build of Quicksilver that breaks backwards compatibility for plugins. Setting a value here will mean that all future plugins built with `bltrversion` will have a minimum QS version requirement of this value
 QS_BACKWARDS_COMPATIBILITY_BREAK = 4001

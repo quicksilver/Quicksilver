@@ -169,19 +169,19 @@
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [(QSCatalogEntry *)[notif object] name]]];
 }
 
-- (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0]; }
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	[sheet close];
-	[[self plugInManager] cancelPlugInInstall];
-	[[self recommendedPlugIns] setValue:[NSNumber numberWithBool:NO] forKey:@"shouldInstall"];
-	[self nextSection:nil];
-}
+- (IBAction)cancelPlugInInstall:(id)sender { [[self window] endSheet:pluginStatusPanel returnCode:0]; }
+
 - (IBAction)nextSection:(id)sender {
 	if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"plugins"]) {
 		NSArray *plugins = [[self recommendedPlugIns] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"shouldInstall == YES"]];
 		if ([plugins count]) {
 			[[self plugInManager] installPlugInsForIdentifiers:[plugins valueForKey:@"identifier"]];
-			[NSApp beginSheet:pluginStatusPanel modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+			[[self window] beginSheet:pluginStatusPanel completionHandler:^(NSModalResponse returnCode) {
+				[self->pluginStatusPanel close];
+				[[self plugInManager] cancelPlugInInstall];
+				[[self recommendedPlugIns] setValue:[NSNumber numberWithBool:NO] forKey:@"shouldInstall"];
+				[self nextSection:nil];
+			}];
 			return;
 		}
 	}

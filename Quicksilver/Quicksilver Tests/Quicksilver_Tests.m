@@ -47,6 +47,28 @@
     XCTAssertTrue([[i dSelector] objectValue] != proxy);
 }
 
+- (void)testCreateObjectFromRTFClipboard {
+    // create an rtf string in the clipboard
+    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+    
+    NSAttributedString *rtfString = [[NSAttributedString alloc] initWithRTF:[@"{\\rtf1\\ansi\\ansicpg1252\\cocoartf1187\\cocoasubrtf340\n{\\fonttbl\\f0\\fnil\\fcharset0 Monaco;}\n{\\colortbl;\\red255\\green0\\blue0;}\n\\margl1440\\margr1440\\vieww10800\\viewh8400\\viewkind0\n\\pard\\tx720\\tx1440\\tx2160\\tx2880\\tx3600\\tx4320\\tx5040\\tx5760\\tx6480\\tx7200\\tx7920\\tx8640\\ql\\qnatural\\pardirnatural\n\n\\f0\\fs24 \\cf1 hello}" dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
+    [pboard clearContents];
+    [pboard writeObjects:@[rtfString]];
+    
+    // create a QSObject from the clipboard
+    QSObject *obj = [QSObject objectWithPasteboard:pboard];
+    XCTAssertTrue([obj containsType:NSPasteboardTypeRTF] && [[obj primaryType] isEqualToString:NSPasteboardTypeRTF]);
+    
+    // now write this object to the pasteboard
+    [pboard clearContents];
+    XCTAssertTrue([obj putOnPasteboard:pboard]);
+    
+    // read the object back from the pasteboard
+    QSObject *obj2 = [QSObject objectWithPasteboard:pboard];
+    XCTAssertTrue([obj2 containsType:NSPasteboardTypeRTF] && [[obj2 primaryType] isEqualToString:NSPasteboardTypeRTF]);
+    
+}
+
 // test to make sure when file objects are added to the clipboard, a string of their path is also copied
 - (void)testAddingFileObjectToPasteboard {
     NSString *path = @"/Applications/Safari.app";

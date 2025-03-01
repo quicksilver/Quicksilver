@@ -25,14 +25,28 @@
 	mnemonics = [[NSMutableDictionary alloc] initWithContentsOfFile:[pMnemonicStorage stringByStandardizingPath]];
 	[mnemonics removeObjectsForKeys:[NSArray arrayWithObjects:@"defined", nil]];
 
-	if (!mnemonics)
+	if (!mnemonics) {
 		mnemonics = [[NSMutableDictionary alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"DefaultMnemonics" ofType:@"plist"]];
-	if (!mnemonics)
+	}
+
+	if (!mnemonics) {
 		mnemonics = [[NSMutableDictionary alloc] initWithCapacity:1];
-	if (!(objectMnemonics = [mnemonics objectForKey:@"implied"]) )
-		[mnemonics setObject:(objectMnemonics = [NSMutableDictionary dictionaryWithCapacity:1]) forKey:@"implied"];
-	if (!(abbrevMnemonics = [mnemonics objectForKey:@"abbreviation"]) )
-		[mnemonics setObject:(abbrevMnemonics = [NSMutableDictionary dictionaryWithCapacity:1]) forKey:@"abbreviation"];
+	}
+	
+	// 'implied' mnemonics are stored all the time, for any object
+	// these are stored as {object: {mnemonic: count}}
+	// 
+	if (!(objectMnemonics = [mnemonics objectForKey:@"implied"]) ) {
+		objectMnemonics = [NSMutableDictionary dictionaryWithCapacity:1];
+		[mnemonics setObject:objectMnemonics forKey:@"implied"];
+	}
+	
+	// 'abbreviation' mnemonics are only stored when the user explicitly assigns them
+	// these are stored as: {mnemonic: [object1, object2, ...]} - the ranking of the objects is important
+	if (!(abbrevMnemonics = [mnemonics objectForKey:@"abbreviation"]) ) {
+		abbrevMnemonics = [NSMutableDictionary dictionaryWithCapacity:1];
+		[mnemonics setObject:abbrevMnemonics forKey:@"abbreviation"];
+	}
 
 #ifdef DEBUG
 	if (DEBUG_STARTUP)

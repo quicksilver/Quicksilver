@@ -381,6 +381,9 @@
 		CD803A381C5C3D2D00CF90F3 /* SFLListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502828559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD88502928559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */; };
+		CD943C3F2D63329300DB5C9A /* QSLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD943C3E2D63329300DB5C9A /* QSLibTests.m */; };
+		CD943C442D63372F00DB5C9A /* Core Support.qsplugin in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */; };
+		CD943C452D63643700DB5C9A /* QSCatalogEntryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */; };
 		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD98DB6F2825F8EB00D392F9 /* Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = CD98DB6C2825F4E800D392F9 /* Guide.html */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
@@ -398,6 +401,8 @@
 		CDA5253916AED88E00D2017F /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA5253A16AED89100D2017F /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
+		CDAFA5332D5F4BB9009B182F /* PermissionsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */; };
+		CDAFA5342D5F4BD7009B182F /* PermissionsKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDB3CCEB16FD5B0700DF06BF /* QSUserDefinedProxySource.h in Headers */ = {isa = PBXBuildFile; fileRef = D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -416,6 +421,7 @@
 		CDD30970160B860A00CD34EC /* countBadge4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096C160B860A00CD34EC /* countBadge4.tiff */; };
 		CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096D160B860A00CD34EC /* countBadge5.tiff */; };
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDD4D7C02D590CBC0030A4DA /* ChildArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */; };
 		CDD6F3FA17EB4DED00ACE129 /* QSIntValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */; };
 		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
@@ -423,7 +429,6 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */ = {isa = PBXBuildFile; fileRef = CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -1032,6 +1037,17 @@
 				7F0BDE7E07FC967F002CBDDF /* Send to Quicksilver.action in Copy Automator Actions */,
 			);
 			name = "Copy Automator Actions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD52C4312D5E70D6005B0FA1 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CDAFA5342D5F4BD7009B182F /* PermissionsKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E103F595064768A300447FE0 /* Embed Frameworks */ = {
@@ -1785,8 +1801,10 @@
 		CD7EE3FD282DCA450033614B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
 		CD803A361C5C3D2D00CF90F3 /* SFLListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLListItem.h; sourceTree = "<group>"; };
 		CD885025285562F100BDCB00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSetupAssistant.strings; sourceTree = "<group>"; };
-		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTreeController+BLTRExtensions.h"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
-		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSTreeController+BLTRExtensions.m"; path = "Code-QuickStepFoundation/NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
+		CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTreeController+BLTRExtensions.h"; sourceTree = "<group>"; };
+		CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTreeController+BLTRExtensions.m"; sourceTree = "<group>"; };
+		CD943C3E2D63329300DB5C9A /* QSLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSLibTests.m; sourceTree = "<group>"; };
+		CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSCatalogEntryTests.m; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -1813,6 +1831,7 @@
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
 		CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+DisableSubviews.m"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.m"; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
+		CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PermissionsKit.framework; sourceTree = "<group>"; };
 		CDB83E1728353DFC00295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSSetupAssistant.strings"; sourceTree = "<group>"; };
 		CDB83E1F28353E0200295CD2 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QuitConfirm.strings"; sourceTree = "<group>"; };
 		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
@@ -1856,6 +1875,7 @@
 		CDD3096B160B860A00CD34EC /* countBadge3.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge3.tiff; sourceTree = "<group>"; };
 		CDD3096C160B860A00CD34EC /* countBadge4.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge4.tiff; sourceTree = "<group>"; };
 		CDD3096D160B860A00CD34EC /* countBadge5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = countBadge5.tiff; sourceTree = "<group>"; };
+		CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChildArrow@2x.png"; sourceTree = "<group>"; };
 		CDD6F3F817EB4DED00ACE129 /* QSIntValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSIntValueTransformer.h; sourceTree = "<group>"; usesTabs = 1; };
 		CDD6F3F917EB4DED00ACE129 /* QSIntValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSIntValueTransformer.m; sourceTree = "<group>"; usesTabs = 1; };
 		CDDB44E31518C53300800B66 /* QSCrashReporter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSCrashReporter.xib; sourceTree = "<group>"; };
@@ -1934,7 +1954,6 @@
 		CDEA588616C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CDEA588716C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDEA588816C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
-		CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AccessibilityPermission.gif; sourceTree = "<group>"; };
 		CDFAC87C1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CDFAC87D1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CDFAC87E1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
@@ -2465,6 +2484,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAFA5332D5F4BB9009B182F /* PermissionsKit.framework in Frameworks */,
 				E180016707B2B91800010DB0 /* QSFoundation.framework in Frameworks */,
 				E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -2616,8 +2636,7 @@
 			isa = PBXGroup;
 			children = (
 				CD72C74E287732580040B065 /* Quicksilver.xctestplan */,
-				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
-				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
 				CD4C8FBA27DD6DDE00F5FFE4 /* Quicksilver.entitlements */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
@@ -2632,7 +2651,6 @@
 				7F515D3307B533D2003EA91C /* Localized */,
 				E102F97B06625D7300843027 /* Nibs */,
 				E1BF1D450657F6620074A05A /* PlugIns-Main */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
 				E103EB8706471D5900447FE0 /* PropertyLists */,
 				7F9703DB09AFEF8900E9EA77 /* QSDroplet */,
 				E103EC5006471DBE00447FE0 /* Resources */,
@@ -2807,6 +2825,7 @@
 				D42A065716E1381F00BFD9C8 /* TestQSObject.m */,
 				CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */,
 				6008C51E2AAF433900512CB2 /* QSPathsTests.m */,
+				CD943C3E2D63329300DB5C9A /* QSLibTests.m */,
 			);
 			name = QSCoreTests;
 			path = "Tests/Tests-QSCore";
@@ -2959,6 +2978,7 @@
 		CD61BBBB192B18FA00040609 /* Quicksilver Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CD943C412D6332F600DB5C9A /* QSCatalogEntryTests.m */,
 				CD61BBC1192B18FA00040609 /* Quicksilver_Tests.m */,
 				CD61BBBC192B18FA00040609 /* Supporting Files */,
 			);
@@ -3203,7 +3223,6 @@
 			children = (
 				CD0A436D281B6BA2008D008A /* KeyboardTrigger.icns */,
 				CD0A436E281B6BA3008D008A /* MouseTrigger.icns */,
-				CDF7661C280E45DA0008BCD6 /* AccessibilityPermission.gif */,
 				D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */,
 				D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */,
 				D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */,
@@ -3255,6 +3274,7 @@
 				E177C419067D09F700182A11 /* ScriptIcon.png */,
 				E1790F6F067AE13700E763E4 /* QSPkg.icns */,
 				E103EC8C06471DBF00447FE0 /* ChildArrow.png */,
+				CDD4D7BF2D590CBB0030A4DA /* ChildArrow@2x.png */,
 				E1087B3F069BD5D300971A69 /* ContactAddress.icns */,
 				E1087B40069BD5D300971A69 /* ContactEmail.icns */,
 				E1087B41069BD5D300971A69 /* ContactPhone.icns */,
@@ -3296,6 +3316,7 @@
 				E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */,
 				E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */,
 				E1F1D63306BD97B2004E3DC3 /* NDClasses */,
+				CDAFA5322D5F4BB9009B182F /* PermissionsKit.framework */,
 			);
 			path = "Code-External";
 			sourceTree = "<group>";
@@ -3568,6 +3589,8 @@
 				7F943F6408033961007EDC31 /* QSUTI.m */,
 				CD02BB4116A2BA5700DAFE50 /* QSGCD.h */,
 				CD02BB4216A2BA5700DAFE50 /* QSGCD.m */,
+				CD88502628559C9C00BDCB00 /* NSTreeController+BLTRExtensions.h */,
+				CD88502728559C9C00BDCB00 /* NSTreeController+BLTRExtensions.m */,
 			);
 			path = "Code-QuickStepFoundation";
 			sourceTree = "<group>";
@@ -4230,6 +4253,7 @@
 				E1C3BE5106EA0AC500B848D6 /* Copy Plists */,
 				7F0BDE6D07FC9653002CBDDF /* Copy Automator Actions */,
 				8D11072C0486CEB800E47090 /* Sources */,
+				CD52C4312D5E70D6005B0FA1 /* Copy Frameworks */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				E103F595064768A300447FE0 /* Embed Frameworks */,
 				E1D4E804064DF34A0083ECD3 /* Copy SharedSupport */,
@@ -4408,7 +4432,7 @@
 				};
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -4625,6 +4649,7 @@
 				E103ED3606471DBF00447FE0 /* Catalog.icns in Resources */,
 				E1C9DFB5070A37F1001BB625 /* CatalogGroup.icns in Resources */,
 				E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */,
+				CDD4D7C02D590CBC0030A4DA /* ChildArrow@2x.png in Resources */,
 				E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */,
 				E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */,
 				E103ED2506471DBF00447FE0 /* defaultAction.icns in Resources */,
@@ -4657,7 +4682,6 @@
 				7FDBC3120A0153CA00E496FF /* Button-Info.png in Resources */,
 				7FDBC3130A0153CA00E496FF /* Button-Remove.png in Resources */,
 				7FC6AD770A0996E200D5B2C3 /* Button-Rescan.png in Resources */,
-				CDF76624280E45DB0008BCD6 /* AccessibilityPermission.gif in Resources */,
 				E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */,
 				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
 				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
@@ -4758,6 +4782,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD943C442D63372F00DB5C9A /* Core Support.qsplugin in Resources */,
 				CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4952,6 +4977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6008C51F2AAF433900512CB2 /* QSPathsTests.m in Sources */,
+				CD943C3F2D63329300DB5C9A /* QSLibTests.m in Sources */,
 				CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */,
 				D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */,
 			);
@@ -5014,6 +5040,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD943C452D63643700DB5C9A /* QSCatalogEntryTests.m in Sources */,
 				CD61BBC2192B18FA00040609 /* Quicksilver_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6329,7 +6356,6 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -6374,7 +6400,15 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6986,9 +7020,18 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7004,10 +7047,19 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Quicksilver.entitlements;
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Code-External",
+				);
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"\"@executable_path/../Frameworks\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacktree.Quicksilver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7048,7 +7100,6 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -7075,7 +7126,6 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

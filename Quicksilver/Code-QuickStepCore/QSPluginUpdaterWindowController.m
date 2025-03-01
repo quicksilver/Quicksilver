@@ -13,7 +13,7 @@
 
 
 // The height of a cell when it's closed
-#define kExpandHeight 52.0
+#define kExpandHeight 54.0
 // used to pad out the web view a little bit
 #define kPaddingHeight 15
 
@@ -47,7 +47,7 @@
     // Values for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
         // 111 is the 'extra' height of the window
-        aHeight = [pluginsArray count]*kExpandHeight+111;
+        aHeight = [pluginsArray count]*kExpandHeight+115;
     } else {
         originy -= aHeight;
         aHeight = frame.size.height + aHeight;

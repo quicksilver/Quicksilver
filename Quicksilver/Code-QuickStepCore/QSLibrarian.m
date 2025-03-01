@@ -64,11 +64,10 @@ static CGFloat searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
-        _objectDictionary = [[QSThreadSafeMutableDictionary alloc] init];
+		_objectDictionary = [[NSMutableDictionary alloc] init];
 
 		//Initialize Variables
 		appSearchArrays = nil;
-		typeArrays = [NSMutableDictionary dictionaryWithCapacity:1];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
         
 		omittedIDs = nil;
@@ -333,9 +332,6 @@ static CGFloat searchSpeed = 0.0;
         }
     }
 	self.objectDictionary = newDict;
-	if ([notif object]) {
-		[self recalculateTypeArraysForItem:[notif object]];
-    }
 }
 
 - (void)updateScanTask:(NSNotification *)notif {
@@ -360,15 +356,22 @@ static CGFloat searchSpeed = 0.0;
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
     NSIndexSet *matchedIndexes = [entries indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSCatalogEntry *entry, NSUInteger idx, BOOL *stop) {
-        return [entry.contents containsObject:object];
+        BOOL match = [entry.contents containsObject:object];
+		if (match) {
+			if (![entry.identifier isEqualToString:@"QSPresetObjectHistory"]) {
+				// we only want the first entry (one) so once we have it, stop the enumeration
+				*stop = YES;
+			}
+		}
+		return match;
     }];
     if ([matchedIndexes count]) {
-        NSArray *matchedCatalogEntries = [entries objectsAtIndexes:matchedIndexes];
-        for (QSCatalogEntry *matchedEntry in matchedCatalogEntries) {
-            if (![[matchedEntry identifier] isEqualToString:@"QSPresetObjectHistory"] || matchedEntry == [matchedCatalogEntries lastObject]) {
-                return matchedEntry;
-            }
-        }
+		NSArray *matchedCatalogEntries = [entries objectsAtIndexes:matchedIndexes];
+		for (QSCatalogEntry *matchedEntry in matchedCatalogEntries) {
+			if (![[matchedEntry identifier] isEqualToString:@"QSPresetObjectHistory"] || matchedEntry == [matchedCatalogEntries lastObject]) {
+				return matchedEntry;
+			}
+		}
     }
 	return nil;
 }
@@ -456,24 +459,14 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry {
-
-	//NSDate *date = [NSDate date];
-
-	NSString *currentItemID = [entry identifier];
-	NSDictionary *typeDictionary = [self typeArraysFromArray:[entry enabledContents]];
-
-	NSArray *typeKeys = [typeDictionary allKeys];
-	for (NSString *key in typeKeys) {
-		NSMutableDictionary *typeEntry = [typeArrays objectForKey:key];
-		if (!typeEntry) {
-			typeEntry = [NSMutableDictionary dictionaryWithCapacity:1];
-			[typeArrays setObject:typeEntry forKey:key];
-		}
-		[typeEntry setObject:[typeDictionary objectForKey:key] forKey:currentItemID];
-	}
-	//NSLog(@"%@", typeArrays);
-	// if (DEBUG) NSLog(@"Rebuilt Type Array for %@ in %dms", currentItemID, (int) (-[date timeIntervalSinceNow] *1000));
-
+	// this method **previously** took the newly scanned catalog entry, got its new contents
+	// and then sorted them into 'types' which are stored in QSLibrarian's 'typeArrays'.
+	// QSLibrarian used to use these to easily get objects by type.
+	// Upon further inspection, the only place this was ever used was for getting the valid objects for a certain
+	// type for the 3rd pane (e.g. when you do something like "file" ... open with ... [populate list of app types])
+	// Now, we calculate this on the fly using concurrent enumeration, instead of using locks and constantly recalculating it
+	// WARNING: Testing removing all this code and calculating on the fly
+	return;
 }
 
 - (QSObject *)objectWithIdentifier:(NSString *)ident
@@ -496,14 +489,21 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSArray *)arrayForType:(NSString *)string {
-	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
-
-	for(NSArray *typeEntry in [[typeArrays objectForKey:string] allValues]) {
-		[typeSet addObjectsFromArray:typeEntry];
-	}
+	
+	NSArray *allObjects = [self.objectDictionary allValues];
+	NSIndexSet *ind = [allObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		// if it's a proxy object, check if its types include the string
+		if ([obj isProxyObject]) {
+			if ([[(QSProxyObject *)obj proxyTypes] containsObject:string]) {
+				return YES;
+			}
+			return NO;
+		}
+		return ([obj objectForType:string] != nil);
+	}];
 
 	// NSLog(@"found %d objects for type %@\r%@", [typeSet count] , string, [typeArrays objectForKey:string]);
-	return [typeSet allObjects];
+	return [allObjects objectsAtIndexes:ind];
 }
 
 - (NSArray *)scoredArrayForType:(NSString *)string
@@ -513,7 +513,7 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array {
-	QSThreadSafeMutableDictionary *dict = [[QSThreadSafeMutableDictionary alloc] initWithCapacity:1];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:1];
 	NSMutableArray *typeEntry;
 	for(QSObject *object in array) {
 		NSDictionary *data = [[object dataDictionary] copy];
@@ -548,10 +548,22 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)saveShelf:(NSString *)key {
 	NSString *path = [pShelfLocation stringByStandardizingPath];
-	NSArray *dictionaryArray = [[shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-	[dictionaryArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"] atomically:YES];
+	path = [[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"];
+	NSArray *dictionaryArray = [shelfArrays objectForKey:key];
+	[self saveObjects:dictionaryArray toPath:path];
 }
 
+- (void)saveObjects:(NSArray *)objects toPath:(NSString*)path {
+	objects = [objects arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+
+	QSGCDAsync(^{
+		NSError *err = nil;
+		[objects writeToURL:[NSURL fileURLWithPath:path] error:&err];
+		if (err) {
+			NSLog(@"Error writing shelf to disk: %@", err);
+		}
+	});
+}
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
     dispatch_async(scanning_queue, ^{
@@ -565,7 +577,8 @@ static CGFloat searchSpeed = 0.0;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
 				self.scanTask.progress = (CGFloat)i / c;
-                [[children objectAtIndex:i] scanForced:force];
+				QSCatalogEntry *e = [children objectAtIndex:i];
+                [e scanForced:force];
             }
 
 			self.scanTask.progress = 1.0;
@@ -654,10 +667,13 @@ static CGFloat searchSpeed = 0.0;
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
     BOOL includeOmitted = NO;
-    if (!set) {
-        set = [self.objectDictionary allValues];
+	
+	// if we are searching within 'set' (i.e. we have drilled down or we have search results),
+	// then include any items that have been 'omitted' from the global catalog.
+    if (set) {
+		includeOmitted = YES;
     } else {
-        includeOmitted = YES;
+		set = [self.objectDictionary allValues];
     }
     
     if (!searchString) searchString = @"";
@@ -734,13 +750,6 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)setCatalogArrays:(NSMutableDictionary *)newCatalogArrays {
 	catalogArrays = newCatalogArrays;
-}
-
-
-- (NSMutableDictionary *)typeArrays { return typeArrays;  }
-
-- (void)setTypeArrays:(NSMutableDictionary *)newTypeArrays {
-	typeArrays = newTypeArrays;
 }
 
 - (NSMutableDictionary *)shelfArrays { return shelfArrays;  }

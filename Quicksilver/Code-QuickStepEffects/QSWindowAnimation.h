@@ -40,7 +40,7 @@
 	CGFloat _brightB;
 
 	NSString *animType;
-	BOOL restoreTransform;
+
 }
 - (void)setAttributes:(NSDictionary *)value;
 
@@ -52,7 +52,6 @@
 - (void)setTransformFt:(void *)aTransformFt;
 //- (void)animate:(id)sender;
 //- (void)_transformWindow:(NSWindow *)window toTransformation:(CGAffineTransform)end  alpha:(float)alpha;
-- (void)finishAnimation;
 @end
 
 @interface QSWindowAnimation (DefaultEffects)

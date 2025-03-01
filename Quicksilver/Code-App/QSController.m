@@ -17,6 +17,8 @@
 
 #import "QSIntValueTransformer.h"
 
+#import <PermissionsKit/PermissionsKit.h>
+
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
@@ -134,13 +136,14 @@ static QSController *defaultController = nil;
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
 		statusItem = nil;
 	}
-    if (![mode boolValue]) {
+	if (![mode boolValue]) {
         return;
     }
-    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:29.0f];
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:18.0f];
     NSImage *statusImage = [NSImage imageNamed:@"QuicksilverMenu"];
     [statusImage setTemplate:YES];
-	[statusItem setImage:statusImage];
+	statusItem.button.image = statusImage;
+	statusItem.button.alternateTitle = @"QS";
 	[statusItem setMenu:[self statusMenuWithQuit]];
 	[statusItem setHighlightMode:YES];
 }
@@ -252,7 +255,9 @@ static QSController *defaultController = nil;
 #endif
 
 - (IBAction)showGuide:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSMainMenuPrefPane"];  }
-- (IBAction)showSettings:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];  }
+- (IBAction)showSettings:(id)sender {
+	[QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];
+}
 - (IBAction)showCatalog:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSCatalogPrefPane"];  }
 - (IBAction)showPlugins:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSPlugInsPrefPane"];  }
 - (IBAction)showTriggers:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSTriggersPrefPane"];  }
@@ -439,8 +444,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-
-	[splashWindow setReleasedWhenClosed:NO];
+	[splashWindow setReleasedWhenClosed:YES];
 	[splashWindow setBackgroundColor:[NSColor clearColor]];
 	[splashWindow setLevel:NSFloatingWindowLevel];
     [splashWindow reallyCenter];
@@ -450,22 +454,24 @@ static QSController *defaultController = nil;
     if ([NSApp wasLaunchedAtLogin]) {
         [splashWindow setLevel:NSNormalWindowLevel-1];
 		[splashWindow orderFront:self];
-		QSWindowAnimation *animation = [QSWindowAnimation effectWithWindow:splashWindow attributes:@{kQSGSDuration: @0.33, kQSGSAlphaA: @0, kQSGSAlphaB: @0.25}];
-		[animation setDelegate:weakSelf];
-		[animation setAnimationBlockingMode:NSAnimationBlocking];
-		[animation startAnimation];
-		
-    } else {
+		[splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.1] , @"duration", nil] completionHandler:^() {
+				[self->splashWindow orderOut:nil];
+				self->splashWindow = nil;
+		}];
+	} else {
 		[splashWindow orderFront:self];
-        QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
-		[animation setDelegate:weakSelf];
-        [animation setTransformFt:QSExtraExtraEffect];
-        [animation setDuration:1.0];
-        [animation setAnimationBlockingMode:NSAnimationBlocking];
-        [animation startAnimation];
-		
+		[splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.1] , @"duration", nil] completionHandler:^() {
+			QSGCDMainDelayed(0.15, ^{
+				[self->splashWindow performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExtraExtraEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.08] , @"duration", nil] completionHandler:^() {
+					[self->splashWindow orderOut:nil];
+					self->splashWindow = nil;
+				}];
+			});
+
+		}];
     }
 }
+
 - (void)animationDidEnd:(NSAnimation *)animation {
 	QSGCDMainDelayed(0.05, ^{
 		[self hideSplash:animation];
@@ -780,9 +786,7 @@ static QSController *defaultController = nil;
 
 - (IBAction)showReleaseNotes:(id)sender {
     
-    NSURL *appURL = nil;
-    CFURLRef *appURLRefPointer = (void *)&appURL;
-    LSGetApplicationForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, appURLRefPointer);
+	NSURL *appURL = (__bridge NSURL*)LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, nil);
     [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] sharedSupportPath] stringByAppendingPathComponent:@"Changes.html"] withApplication:[appURL path]];
 }
 
@@ -808,109 +812,159 @@ static QSController *defaultController = nil;
 
 # pragma mark - Accessibility Permissions
 
--(BOOL)checkForAccessibilityPermission {
-		#ifdef TESTING
-			return YES;
-		#endif
+- (BOOL)hasAccessibilityPermission {
+	NSDictionary *options = @{(id)CFBridgingRelease(kAXTrustedCheckOptionPrompt): @NO};
+	return AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+}
 
-       // Prompt for accessibility permissions on macOS Mojave and later.
-       if (!accessibilityChecker) {
-               accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                       [self checkForAccessibilityPermission];
-               }];
-               [accessibilityChecker fire];
-       }
-       NSDictionary *options = @{(id)CFBridgingRelease(kAXTrustedCheckOptionPrompt): @NO};
-       BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
-       if(!accessibilityEnabled) {
-               if (![accessibilityPermissionWindow isVisible]) {
-                       [self showAccessibilityPrompt:nil];
-               }
-               return NO;
-       }else{
-		   [self closeAccessibilityPrompt:nil];
-       }
-       return YES;
+-(void)checkForAccessibilityPermission {
+#ifdef TESTING
+	[self applicationReallyDidFinishLaunching];
+	return;
+#endif
+
+	MPAuthorizationStatus fullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess];
+	if(![self hasAccessibilityPermission] || fullDisk != MPAuthorizationStatusAuthorized) {
+		if (![accessibilityPermissionWindow isVisible]) {
+			[self showAccessibilityPrompt:nil];
+			return;
+		}
+	}
+	[self applicationReallyDidFinishLaunching];
+}
+
+- (void)checkAccessibilityPermissions {
+		// Prompt for accessibility permissions on macOS Mojave and later.
+		BOOL hasAccessibility = [self hasAccessibilityPermission];
+		BOOL hasFullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess] == MPAuthorizationStatusAuthorized;
+		BOOL hasContacts = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] == MPAuthorizationStatusAuthorized;
+		BOOL hasCalendars = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] == MPAuthorizationStatusAuthorized;
+		BOOL hasReminders = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeReminders] == MPAuthorizationStatusAuthorized;
+		[accessibilityButton setEnabled:!hasAccessibility];
+		[fullDiskButton setEnabled:!hasFullDisk];
+		[contactsButton setEnabled:!hasContacts];
+		[calendarsButton setEnabled:!hasCalendars || !hasReminders];
+
+		[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
+		
+		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
+				[accessibilityPermissionWindow close];
+		} else if (!accessibilityChecker) {
+				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+						[self checkAccessibilityPermissions];
+				}];
+				[[NSRunLoop currentRunLoop] addTimer:accessibilityChecker forMode:NSModalPanelRunLoopMode];
+		}
 }
 
 -(IBAction)showAccessibilityPrompt:(id)sender {
-       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
-    [NSApp activateIgnoringOtherApps:YES];
-    [accessibilityPermissionWindow center];
-    [accessibilityPermissionWindow setIsVisible:YES];
-    [accessibilityPermissionWindow makeKeyAndOrderFront:sender];
-       
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
+		[closeAccessibilityWindowButton setEnabled:NO];
+		
+		[accessibilityPermissionWindow setIsVisible:YES];
+		[self checkAccessibilityPermissions];
+		[NSApp runModalForWindow:accessibilityPermissionWindow];
+		
 }
 
 - (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
-	[accessibilityChecker invalidate];
-	accessibilityChecker = nil;
-	if(!notif  && [accessibilityPermissionWindow isVisible]) {
-		[accessibilityPermissionWindow close];
-	}
-	accessibilityPermissionWindow = nil;
+		[NSApp stopModal];
+		QSGCDMainAsync(^{
+				[self->accessibilityChecker invalidate];
+				self->accessibilityChecker = nil;
+				self->accessibilityPermissionWindow =  nil;
+				[self applicationReallyDidFinishLaunching];
+		});
 }
 
 -(IBAction)launchPrivacyPreferences:(id)sender {
-    NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+		if (sender == accessibilityButton) {
+				NSString *urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+		} else if (sender == fullDiskButton){
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeFullDiskAccess withCompletion:^(MPAuthorizationStatus status) {
+				}];
+		} else if (sender == contactsButton) {
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeContacts withCompletion:^(MPAuthorizationStatus status) {
+				}];
+		} else if (sender == calendarsButton) {
+				[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeCalendar withCompletion:^(MPAuthorizationStatus status) {
+						[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeReminders withCompletion:^(MPAuthorizationStatus status) {
+						}];
+				}];
+				
+		} else {
+				[accessibilityPermissionWindow close];
+		}
 }
 
-@end
+- (void)applicationReallyDidFinishLaunching {
+#ifdef DEBUG
+	NSDate *start;
+	if (VERBOSE) {
+		start = [NSDate date];
+	}
+#endif
+	[self startQuicksilver];
+#ifdef DEBUG
+	if (VERBOSE) {
+		NSLog(@"-[QSController startQuicksilver] took %lfs", -1*([start timeIntervalSinceNow]));
+	}
+#endif
+	[NSApp disableRelaunchOnLogin];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+	[QSObject interfaceChanged];
+	
+	// Setup Activation Hotkey
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
+		QSModifierKeyEvent *modActivation = [[QSModifierKeyEvent alloc] init];
+		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
+		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
+		[modActivation setTarget:self];
+		[modActivation setIdentifier:@"QSModKeyActivation"];
+		[modActivation setAction:@selector(activateInterface:)];
+		[modActivation enable];
+	}
+	
+	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
 
-@implementation QSController (Application)
+	// make sure we're visible on the first activation
+	[NSApp unhideWithoutActivation];
+	
+	if (!runningSetupAssistant) {
+		if (![[QSDonationController sharedInstance] checkDonationStatus:launchStatus]) {
+			[self activateInterface:self];
+		}
+	}
+	
+	[QSApp setCompletedLaunch:YES];
 
-//- (void)applicationDidResignActive:(NSNotification *)aNotification {}
-
-- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
-	return YES;
 }
 
-- (void)writeLeaksToFileAtPath:(NSString*)path {
-    NSFileHandle * output = [NSFileHandle fileHandleForWritingAtPath:path];
-    if(output == nil)
-        output = [NSFileHandle fileHandleWithStandardError];
-    NSTask * leaksTask = [NSTask taskWithLaunchPath:@"/usr/bin/leaks"
-                                          arguments:[NSArray arrayWithObjects:
-                                                     [NSString stringWithFormat:@"%u", getpid()],
-                                                     nil]];
-    [leaksTask setStandardOutput:output];
-    [leaksTask setStandardError:output];
-    NSLog( @"Writing leaks to %@", ( path != nil ? path : @"stderr" ) );
-    [leaksTask launch];
-    [leaksTask waitUntilExit];
-}
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-//    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
-}
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
 	
 	[self startMenuExtraConnection];
 
-    QSGetLocalizationStatus();
+	QSGetLocalizationStatus();
 
-    // Honor dock preference (if statement true if icon is NOT set to hide)
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults boolForKey:kHideDockIcon]) {
-        if (![defaults objectForKey:@"QSShowMenuIcon"])
-            [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-        [self showDockIcon];
-    }
-}
-
-- (void)setupSplash {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
-		[self showSplash:nil];
+	// Honor dock preference (if statement true if icon is NOT set to hide)
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if (![defaults boolForKey:kHideDockIcon]) {
+		if (![defaults objectForKey:@"QSShowMenuIcon"])
+			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+		[self showDockIcon];
 	}
 }
-- (void)startQuicksilver:(id)sender {
-	[self checkForFirstRun];
-	[self checkForCrash];
 
+- (void)startQuicksilver {
+	[self checkForFirstRun];
+#ifndef TESTING
+	[self checkForCrash];
+#endif
+	[self showSplash:nil];
 #ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Instantiate Classes");
@@ -981,7 +1035,7 @@ static QSController *defaultController = nil;
 	[NSApp setServicesProvider:self];
 
 	// Setup Activation Hotkey
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	quitWindowController = nil;
 
@@ -1010,7 +1064,7 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Will Finish Launching");
 
-    [self activateDebugMenu];
+	[self activateDebugMenu];
 #endif
 
 	if (runningSetupAssistant) {
@@ -1020,8 +1074,8 @@ static QSController *defaultController = nil;
 	char *visiblePref = getenv("QSVisiblePrefPane");
 	if (visiblePref) {
 		[QSPreferencesController showPaneWithIdentifier:[NSString stringWithUTF8String:visiblePref]];
-        unsetenv("QSVisiblePrefPane");
-    }
+		unsetenv("QSVisiblePrefPane");
+	}
 
 	[QSResourceManager sharedInstance];
 	[[QSTriggerCenter sharedInstance] activateTriggers];
@@ -1051,13 +1105,42 @@ static QSController *defaultController = nil;
 
 	[nc postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedEvent" userInfo:nil];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [self delayedStartup];
-    });
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+		[self delayedStartup];
+	});
 	[self startDropletConnection];
-	if (!runningSetupAssistant) {
-		[self setupSplash];
-	}
+}
+
+
+@end
+
+@implementation QSController (Application)
+
+//- (void)applicationDidResignActive:(NSNotification *)aNotification {}
+
+- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
+	return YES;
+}
+
+- (void)writeLeaksToFileAtPath:(NSString*)path {
+    NSFileHandle * output = [NSFileHandle fileHandleForWritingAtPath:path];
+    if(output == nil)
+        output = [NSFileHandle fileHandleWithStandardError];
+    NSTask * leaksTask = [NSTask taskWithLaunchPath:@"/usr/bin/leaks"
+                                          arguments:[NSArray arrayWithObjects:
+                                                     [NSString stringWithFormat:@"%u", getpid()],
+                                                     nil]];
+    [leaksTask setStandardOutput:output];
+    [leaksTask setStandardError:output];
+    NSLog( @"Writing leaks to %@", ( path != nil ? path : @"stderr" ) );
+    [leaksTask launch];
+    [leaksTask waitUntilExit];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+//    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
 - (id)activationHotKey { return nil;  }
@@ -1072,69 +1155,9 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-#ifdef DEBUG
-    NSDate *start;
-    if (VERBOSE) {
-        start = [NSDate date];
-    }
-#endif
-	[self startQuicksilver:aNotification];
-#ifdef DEBUG
-    if (VERBOSE) {
-        NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
-    }
-#endif
-    [NSApp disableRelaunchOnLogin];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
-    [QSObject interfaceChanged];
-    
-    // Setup Activation Hotkey
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
-		QSModifierKeyEvent *modActivation = [[QSModifierKeyEvent alloc] init];
-		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
-		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
-		[modActivation setTarget:self];
-		[modActivation setIdentifier:@"QSModKeyActivation"];
-		[modActivation setAction:@selector(activateInterface:)];
-		[modActivation enable];
-	}
-    
-	id oldModifiers = [defaults objectForKey:kHotKeyModifiers];
-	id oldKeyCode = [defaults objectForKey:kHotKeyCode];
-    
-	//Update hotkey prefs
-    
-	if (oldModifiers && oldKeyCode) {
-		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
-		if (modifiers < (1 << (rightControlKeyBit+1) )) {
-			NSLog(@"updating shortcut %ld", (long)modifiers);
-			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
-			[defaults synchronize];
-		}
-        
-		NSLog(@"Updating Activation Key");
-		[defaults removeObjectForKey:kHotKeyModifiers];
-		[defaults removeObjectForKey:kHotKeyCode];
-		[defaults setObject:[NSDictionary dictionaryWithObjectsAndKeys:oldModifiers, @"modifiers", oldKeyCode, @"keyCode", nil] forKey:@"QSActivationHotKey"];
-		[defaults synchronize];
-	}
-    
-	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
-
-    // make sure we're visible on the first activation
-    [NSApp unhideWithoutActivation];
-	
-	if (!runningSetupAssistant) {
-		[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
-	}
-	
 	// check for accessibility access
 	accessibilityChecker = nil;
 	[self checkForAccessibilityPermission];
-
-	[QSApp setCompletedLaunch:YES];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {

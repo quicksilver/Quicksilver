@@ -13,8 +13,6 @@
 @interface QSSearchPrefPane : QSPreferencePane {
     IBOutlet NSPopUpButton *keyboardPopUp;
 }
-- (BOOL)showChildrenInSplitView;
-- (void)setShowChildrenInSplitView:(BOOL)flag;
 - (void)updateKeyboardPopUp;
 @end
 

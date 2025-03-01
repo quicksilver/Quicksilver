@@ -90,7 +90,6 @@
     [webSearchImage setName:@"Web Search Icon"];
 
     [object setIcon:webSearchImage];
-    [object setRetainsIcon:YES];
 }
 
 #pragma mark image handling
@@ -140,7 +139,6 @@
 			return YES;
 		}
 	}
-    [object setRetainsIcon:YES];
 	return NO;
 }
 
@@ -160,6 +158,12 @@
 					 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil];
 	}
 	NSString *urlString = [object objectForType:QSURLType];
+	
+	// for qss-/qssp- prefixed URLs, and urls with *** in then, don't say they have children. They're placeholder URLs with no value in searching
+	if ([urlString rangeOfString:@"qss-"].location == 0 || [urlString rangeOfString:@"qssp-"].location == 0 || [urlString rangeOfString:@"***"].location != NSNotFound) {
+		return NO;
+	}
+	
 	// Check the extension of the URL. We're looking for a tld, .php, .html or .htm (set in QSCorePlugin-Info.plist)
 	NSString *URLExtension = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
 	// Check if the URL is a tld

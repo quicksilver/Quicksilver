@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSAdvancedPrefPane">
@@ -21,33 +21,31 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="&lt;&lt; do not localize &gt;&gt;" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="PrefPane">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="&lt;&lt; do not localize &gt;&gt;" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="PrefPane">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="225" y="174" width="434" height="389"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <value key="minSize" type="size" width="384" height="5"/>
             <value key="maxSize" type="size" width="434" height="389"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="434" height="389"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box title="Box" titlePosition="noTitle" id="293">
+                    <box fixedFrame="YES" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="293">
                         <rect key="frame" x="8" y="296" width="419" height="85"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="D75-X5-JZR">
-                            <rect key="frame" x="2" y="2" width="415" height="81"/>
+                            <rect key="frame" x="4" y="5" width="411" height="77"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <customView hidden="YES" id="177">
+                    <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="177">
                         <rect key="frame" x="432" y="218" width="398" height="183"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button toolTip="Uses the front app's selection rather than pulling current selection from the Finder" id="157">
+                            <button toolTip="Uses the front app's selection rather than pulling current selection from the Finder" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="157">
                                 <rect key="frame" x="17" y="38" width="311" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Pull selection from front application instead of Finder" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="314">
@@ -58,7 +56,7 @@
                                     <binding destination="144" name="value" keyPath="values.QSUseGlobalSelectionForGrab" id="159"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" toolTip="Ignore Keyboard Triggers when command is active" id="139">
+                            <button hidden="YES" toolTip="Ignore Keyboard Triggers when command is active" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="139">
                                 <rect key="frame" x="17" y="18" width="292" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Suppress Keyboard Triggers while command window is open" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="313">
@@ -69,7 +67,7 @@
                                     <binding destination="144" name="value" keyPath="values.Suppress HotKeys in Command" id="150"/>
                                 </connections>
                             </button>
-                            <button toolTip="Holding shift causes the action to change" id="138">
+                            <button toolTip="Holding shift causes the action to change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="138">
                                 <rect key="frame" x="17" y="98" width="300" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Capitalized keys modify action in command window" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="312">
@@ -80,7 +78,7 @@
                                     <binding destination="144" name="value" keyPath="values.Shift Actions" id="149"/>
                                 </connections>
                             </button>
-                            <popUpButton toolTip="Reopening behavior" verticalHuggingPriority="750" id="112">
+                            <popUpButton toolTip="Reopening behavior" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="112">
                                 <rect key="frame" x="165" y="142" width="149" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="shows front window" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="106" id="311">
@@ -98,7 +96,7 @@
                                     <binding destination="144" name="selectedTag" keyPath="values.QSActionAppReopenBehavior" id="145"/>
                                 </connections>
                             </popUpButton>
-                            <textField verticalHuggingPriority="750" id="110">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                 <rect key="frame" x="22" y="147" width="141" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Reopening an application" id="310">
@@ -107,7 +105,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button toolTip="Create new threads for tasks" id="107">
+                            <button toolTip="Create new threads for tasks" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="107">
                                 <rect key="frame" x="17" y="58" width="218" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Run tasks in background" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="309">
@@ -118,7 +116,7 @@
                                     <binding destination="144" name="value" keyPath="values.Multithreaded Execute" id="152"/>
                                 </connections>
                             </button>
-                            <button toolTip="Tell other apps to hide whenever the front app changes" id="101">
+                            <button toolTip="Tell other apps to hide whenever the front app changes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
                                 <rect key="frame" x="17" y="78" width="316" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Hide other applications when switching (shift prevents)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="308">
@@ -129,7 +127,7 @@
                                     <binding destination="144" name="value" keyPath="values.Hide Other Apps When Switching" id="151"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" id="99">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                 <rect key="frame" x="40" y="127" width="341" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Reopening the current application shows all windows" id="307">
@@ -140,15 +138,15 @@
                             </textField>
                         </subviews>
                     </customView>
-                    <box hidden="YES" title="Box" titlePosition="noTitle" id="186">
+                    <box hidden="YES" fixedFrame="YES" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="186">
                         <rect key="frame" x="8" y="7" width="419" height="99"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView" id="Pf0-rK-qFr">
-                            <rect key="frame" x="2" y="2" width="415" height="95"/>
+                            <rect key="frame" x="4" y="5" width="411" height="91"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" tag="1" id="208">
-                                    <rect key="frame" x="13" y="77" width="149" height="14"/>
+                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="208">
+                                    <rect key="frame" x="13" y="73" width="149" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" tag="1" title="pretext" id="315">
                                         <font key="font" metaFont="smallSystem"/>
@@ -156,16 +154,16 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
+                                        <binding destination="257" name="value" keyPath="selection.pretext" id="260"/>
                                         <binding destination="257" name="hidden" keyPath="selection.pretext" id="263">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSIsNil</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="257" name="value" keyPath="selection.pretext" id="260"/>
                                         <outlet property="nextKeyView" destination="215" id="251"/>
                                     </connections>
                                 </textField>
-                                <textField verticalHuggingPriority="750" tag="6" id="209">
+                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="209">
                                     <rect key="frame" x="13" y="11" width="149" height="17"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" tag="6" title="posttext" id="316">
@@ -174,16 +172,16 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
+                                        <binding destination="257" name="value" keyPath="selection.posttext" id="261"/>
                                         <binding destination="257" name="hidden" keyPath="selection.posttext" id="264">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSIsNil</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="257" name="value" keyPath="selection.posttext" id="261"/>
                                         <outlet property="nextKeyView" destination="221" id="256"/>
                                     </connections>
                                 </textField>
-                                <popUpButton verticalHuggingPriority="750" tag="3" id="210">
+                                <popUpButton tag="3" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="210">
                                     <rect key="frame" x="13" y="57" width="127" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="212" id="317">
@@ -202,7 +200,7 @@
                                         <outlet property="nextKeyView" destination="216" id="253"/>
                                     </connections>
                                 </popUpButton>
-                                <slider verticalHuggingPriority="750" tag="2" id="215">
+                                <slider verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="215">
                                     <rect key="frame" x="16" y="70" width="121" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <sliderCell key="cell" controlSize="small" alignment="left" tag="2" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="318">
@@ -213,7 +211,7 @@
                                         <outlet property="nextKeyView" destination="210" id="252"/>
                                     </connections>
                                 </slider>
-                                <button tag="4" id="216">
+                                <button tag="4" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="216">
                                     <rect key="frame" x="13" y="46" width="388" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <buttonCell key="cell" type="check" title="Enable" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" tag="4" inset="2" id="319">
@@ -226,12 +224,12 @@
                                         <outlet property="nextKeyView" destination="217" id="254"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" tag="5" id="217">
+                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="217">
                                     <rect key="frame" x="16" y="26" width="121" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" tag="5" drawsBackground="YES" id="320">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
@@ -239,7 +237,7 @@
                                         <outlet property="nextKeyView" destination="209" id="255"/>
                                     </connections>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="221">
+                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="221">
                                     <rect key="frame" x="13" y="-6" width="127" height="26"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="321">
@@ -250,23 +248,21 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
+                                        <binding destination="257" name="value" keyPath="selection.subtext" id="284"/>
                                         <binding destination="257" name="hidden" keyPath="selection.subtext" id="297">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSIsNil</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="257" name="value" keyPath="selection.subtext" id="284"/>
                                     </connections>
                                 </textField>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="nextKeyView" destination="208" id="295"/>
                         </connections>
                     </box>
-                    <searchField wantsLayer="YES" verticalHuggingPriority="750" id="190">
+                    <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="190">
                         <rect key="frame" x="159" y="350" width="255" height="19"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="search" bezelStyle="round" id="322">
@@ -283,7 +279,7 @@
                             </binding>
                         </connections>
                     </searchField>
-                    <popUpButton verticalHuggingPriority="750" id="288">
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="288">
                         <rect key="frame" x="19" y="348" width="130" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="All" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="290" id="323">
@@ -298,24 +294,23 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="162">
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="162">
                         <rect key="frame" x="11" y="11" width="413" height="331"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" id="JXu-Uv-Fhx">
+                        <clipView key="contentView" drawsBackground="NO" id="JXu-Uv-Fhx">
                             <rect key="frame" x="1" y="1" width="411" height="329"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="16" id="163">
-                                    <rect key="frame" x="0.0" y="0.0" width="412" height="329"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="421" height="329"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" white="0.80000000999999998" alpha="0.25" colorSpace="calibratedWhite"/>
                                     <tableColumns>
-                                        <tableColumn identifier="title" editable="NO" width="249.59912109375" minWidth="34.59912109375" maxWidth="1000" id="178">
+                                        <tableColumn identifier="title" editable="NO" width="249.5" minWidth="34.59912109375" maxWidth="1000" id="178">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
@@ -328,12 +323,11 @@
                                         </tableColumn>
                                         <tableColumn identifier="value" width="156" minWidth="48" maxWidth="1000" id="271" customClass="QSDelegatingTableColumn">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Value">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" selectable="YES" editable="YES" alignment="right" id="298">
-                                                <font key="font" metaFont="titleBar" size="12"/>
+                                                <font key="font" metaFont="titleBar" size="12" textStyle="headline"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -346,13 +340,13 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="backgroundColor"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="325">
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="325">
                             <rect key="frame" x="-100" y="-100" width="177" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="324">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="324">
                             <rect key="frame" x="-30" y="1" width="15" height="326"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -362,6 +356,7 @@
             <connections>
                 <outlet property="initialFirstResponder" destination="190" id="305"/>
             </connections>
+            <point key="canvasLocation" x="92" y="-102"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="144" userLabel="Shared Defaults"/>
         <customObject id="153" userLabel="Shared App" customClass="NSApplication"/>

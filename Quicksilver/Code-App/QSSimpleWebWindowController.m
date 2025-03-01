@@ -17,7 +17,7 @@
 
 - (id)initWithWindow:(id)window {
 	NSRect windowRect = NSMakeRect(100, 100, 300, 300);
-	window = [[QSWindow alloc] initWithContentRect:windowRect styleMask:NSTitledWindowMask | NSUtilityWindowMask | NSNonactivatingPanelMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+	window = [[QSWindow alloc] initWithContentRect:windowRect styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskUtilityWindow | NSWindowStyleMaskNonactivatingPanel | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable | NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer:NO];
 	[window setBackgroundColor: [NSColor colorWithDeviceWhite:1.0 alpha:0.9]];
 	[window setOpaque:NO];
 	[window setAlphaValue:1.0];
@@ -82,6 +82,7 @@
 		[item setLabel:@"URL"];
 		[item setPaletteLabel:[item label]];
 		[item setView:textField];
+		
 		[item setMinSize:NSMakeSize(128, 24)];
 		[item setMaxSize:NSMakeSize(9999, 32)];
 		[textField setTarget:[[self window] contentView]];
