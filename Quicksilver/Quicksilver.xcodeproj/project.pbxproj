@@ -358,7 +358,6 @@
 		CD34CCDF192BA28400AC63A6 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
-		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3B1BF52861E1F4004862D7 /* QSTriggersObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3B1BEC2861E1F3004862D7 /* QSTriggersObjectSource.m */; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1009,8 +1008,8 @@
 		4D8A0B3410AB23B6006AF163 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = $QS_BUILD_ROOT;
-			dstSubfolderSpec = 0;
+			dstPath = ..;
+			dstSubfolderSpec = 16;
 			files = (
 				4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */,
 			);
@@ -4101,7 +4100,6 @@
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
 				CDA5253916AED88E00D2017F /* QSGCD.h in Headers */,
-				CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */,
 				CDD6F3FA17EB4DED00ACE129 /* QSIntValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6363,7 +6361,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = TESTING;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_VERSION = 5.0;
@@ -7107,7 +7104,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -7132,7 +7128,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Configuration/Quicksilver.pch";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
