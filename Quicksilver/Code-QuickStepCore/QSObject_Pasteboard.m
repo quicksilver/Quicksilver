@@ -59,7 +59,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 - (NSArray<NSString *> *) writableTypesForPasteboard:(NSPasteboard *) pasteboard {
 	NSMutableArray *types = [[NSMutableArray alloc] init];
 	if ([self validPaths]) {
-		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSPasteboardTypeString]];
+		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSFilenamesPboardType]];
 	} else {
 	
 		[types addObjectsFromArray:[[self dataDictionary] allKeys]];
@@ -137,7 +137,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)addContentsOfClipping:(NSString *)path {
-    NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
+    [NSPasteboard pasteboardByFilteringClipping:path];
 }
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
