@@ -371,8 +371,11 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *titleString = [object stringValue];
 	
 	// Dict containing the attributed string's attributes (most notably, a link)
-	NSDictionary *attStringAttributes = [NSDictionary dictionaryWithObject:[NSURL URLWithString:[linkString URLEncoding]]
-																	forKey:NSLinkAttributeName];
+		NSDictionary *attStringAttributes = nil;
+		if (linkString && [linkString length]) {
+				attStringAttributes = [NSDictionary dictionaryWithObject:[NSURL URLWithString:[linkString URLEncoding]]
+																													forKey:NSLinkAttributeName];
+		}
 	
 	// create the attributed string
 	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];

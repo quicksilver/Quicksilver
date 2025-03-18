@@ -3,8 +3,8 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
 
-NSString *QSPasteboardObjectIdentifier = @"com.blacktree.quicksilver.object.id";
-NSString *QSPasteboardObjectAddress = @"com.blacktree.quicksilver.object.address";
+NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
+NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
@@ -12,14 +12,14 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-	// NOTE: The NSStringPboardType is required here, since for some stupid reason NSPasteboardTypeString != NSStringPboardType
-	if ([NSPasteboardTypeString isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqual:NSStringPboardType]) {
+    // NOTE: NSStringPboardType is required here, since stupidly NSPasteboardTypeString != NSStringPboardType
+    if ([NSPasteboardTypeString isEqualToString:type] || [NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqual:NSPasteboardTypeString]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
 	}
 	
-	if ([NSPasteboardTypeURL isEqualToString:type] || [NSURLPboardType isEqualToString:type]) {
+		if ([NSPasteboardTypeURL isEqualToString:type] || [NSPasteboardTypeURL isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
 	if ([NSPasteboardTypeFileURL isEqualToString:type]) {
@@ -28,7 +28,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
-	if ([NSFilenamesPboardType isEqualToString:type] || [QSFilePathType isEqualToString:type]) {
+	if ([NSPasteboardTypeFileURL isEqualToString:type] || [QSFilePathType isEqualToString:type]) {
 		return [pasteboard propertyListForType:type];
 	}
 		
@@ -118,14 +118,14 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	
 	if ([type isEqualToString:NSPasteboardTypeHTML]) {
-		if (!pbData) {
-			return [self objectForType:NSPasteboardTypeHTML];
-		}
+			if (!pbData) {
+					return [self objectForType:type] ? [self objectForType:type] : [NSString dataForObject:self forType:NSPasteboardTypeHTML];
+			}
 	}
 	if ([type isEqualToString:NSPasteboardTypeRTF]) {
-		if (!pbData) {
-			return [self objectForType:NSPasteboardTypeRTF];
-		}
+			if (!pbData) {
+					return [self objectForType:type] ? [self objectForType:type] : [NSString dataForObject:self forType:NSPasteboardTypeRTF];
+			}
 	}
 
 	return pbData;
@@ -230,7 +230,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         static NSArray *keys = nil;
         if (!keys) {
             // Use an array for the keys since the order is important
-			keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF, NSURLPboardType, QSTextType,nil];
+						keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF, NSPasteboardTypeURL, QSTextType,nil];
 
         }
         if (!namesAndKeys) {
