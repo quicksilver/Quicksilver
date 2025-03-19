@@ -8,27 +8,30 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
+		// NOTE: ***The deprecated types are still needed for backwards compatibility - do not remove **
+
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-    // NOTE: NSStringPboardType is required here, since stupidly NSPasteboardTypeString != NSStringPboardType
-    if ([NSPasteboardTypeString isEqualToString:type] || [NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqual:NSPasteboardTypeString]) {
+		if ([NSPasteboardTypeString isEqualToString:type] || [NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqualToString:(__bridge NSString *)kUTTypeUTF8PlainText]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
 	}
 	
-		if ([NSPasteboardTypeURL isEqualToString:type] || [NSPasteboardTypeURL isEqualToString:type]) {
+		if ([NSPasteboardTypeURL isEqualToString:type] || [NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
     }
-	if ([NSPasteboardTypeFileURL isEqualToString:type]) {
+	if ([NSPasteboardTypeFileURL isEqualToString:type] || [(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
         return [NSURL URLFromPasteboard:pasteboard];
     }
 	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
-	if ([NSPasteboardTypeFileURL isEqualToString:type] || [QSFilePathType isEqualToString:type]) {
+	if ([NSPasteboardTypeFileURL isEqualToString:type] || [QSFilePathType isEqualToString:type] || [NSFilenamesPboardType isEqualToString:type]) {
 		return [pasteboard propertyListForType:type];
 	}
 		
