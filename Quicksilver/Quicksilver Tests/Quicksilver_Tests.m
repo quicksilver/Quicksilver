@@ -71,28 +71,49 @@
 
 // test to make sure when file objects are added to the clipboard, a string of their path is also copied
 - (void)testAddingFileObjectToPasteboard {
-    NSString *path = @"/Applications/Safari.app";
+    NSString *path = @"/usr/bin/cd";
     NSPasteboard *pboard =[NSPasteboard generalPasteboard];
     QSObject *obj = [QSObject fileObjectWithPath:path];
     XCTAssertEqualObjects([obj singleFilePath], path);
     XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
-    XCTAssertTrue([[pboard types] containsObject:NSFilenamesPboardType]);
-    NSArray *a = [pboard propertyListForType:NSFilenamesPboardType];
-    XCTAssertEqual([a count], 1);
-    NSString *pboardString = [a objectAtIndex:0];
-    XCTAssertEqualObjects(path, pboardString);
+    XCTAssertTrue([[pboard types] containsObject:NSPasteboardTypeFileURL]);
+    NSArray *a = [pboard propertyListForType:NSPasteboardTypeFileURL];
+    XCTAssertEqualObjects(a, @"file:///usr/bin/cd");
     
     // try this for an imagined type that already has a string type set:
     obj = [QSObject fileObjectWithPath:path];
     NSString *textString = @"My Important String";
     [obj setObject:textString forType:QSTextType];
     XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
-    XCTAssertTrue([[pboard types] containsObject:QSTextType]);
-    XCTAssertTrue([[pboard types] containsObject:NSFilenamesPboardType]);
-    XCTAssertTrue([[pboard types] containsObject:NSURLPboardType]);
-    pboardString = [pboard stringForType:QSTextType];
+//    As of QS 2.5.0, we don't write 'QSTextType' to the pasteboard for file paths
+//    This is the preferred method, and is what Finder does (e.g. when dragging files)
+//    XCTAssertTrue([[pboard types] containsObject:QSTextType]);
+    XCTAssertTrue([[pboard types] containsObject:NSPasteboardTypeFileURL]);
+    XCTAssertFalse([[pboard types] containsObject:NSPasteboardTypeURL]);
+    NSString *pboardString = [pboard stringForType:QSTextType];
     XCTAssertEqualObjects(textString, pboardString);
 }
+
+- (void)testAddingFileObjectToPasteboardWithMultiplePaths {
+    NSArray *filePathArray = @[@"/usr/bin/cd", @"/usr/bin/curl"];
+    NSArray *fileArray = @[@"file:///usr/bin/cd", @"file:///usr/bin/curl"];
+
+    QSObject *obj = [QSObject fileObjectWithArray:filePathArray];
+    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+    XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
+    XCTAssertTrue([[pboard types] containsObject:NSPasteboardTypeFileURL]);
+    XCTAssertEqual([[pboard pasteboardItems] count], 2);
+    NSArray *a = [[pboard pasteboardItems] arrayByEnumeratingArrayUsingBlock:^id(NSPasteboardItem *pbitem) {
+        return [pbitem propertyListForType:NSPasteboardTypeFileURL];
+    }];
+    XCTAssertEqualObjects(a, fileArray);
+    
+    // now try re-creating the object from the pasteboard
+    QSObject *newObj = [QSObject objectWithPasteboard:pboard];
+    XCTAssertTrue([newObj containsType:QSFilePathType]);
+    XCTAssertEqualObjects([newObj arrayForType:QSFilePathType], filePathArray);
+}
+    
 
 /**
  * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'

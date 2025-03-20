@@ -10,13 +10,22 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
+/*
+ ***** A NOTE ON TYPES ****
+QSTextType == NSPasteboardTypeString == public.utf8-plain-text == kUTTypeUTF8PlainText
+QSTextType != NSStringPboardType == "NSStringPboardType"
+QSTextType != kUTTypeText == "public.text"
+ 
+*/
+
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
-		// NOTE: ***The deprecated types are still needed for backwards compatibility - do not remove **
+		// NOTE: ***The deprecated types are still needed for backwards compatibility - do not remove ***
 
 	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
 	}
-		if ([NSPasteboardTypeString isEqualToString:type] || [NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"] || [type isEqualToString:(__bridge NSString *)kUTTypeUTF8PlainText]) {
+
+		if ([QSTextType isEqualToString:type] || [NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
 		if ([pasteboard stringForType:type]) {
 			return [pasteboard stringForType:type];
 		}
@@ -63,18 +72,22 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	NSMutableArray *types = [[NSMutableArray alloc] init];
 	if ([self validPaths]) {
 		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSFilenamesPboardType]];
+			if ([self objectForType:QSTextType]) {
+					// only explicitly add QSTextType if the object has this set (e.g. it's a different string to the filename
+					[types addObject:QSTextType];
+			}
 	} else {
 	
 		[types addObjectsFromArray:[[self dataDictionary] allKeys]];
 		if ([types containsObject:QSProxyType]) {
 			[types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
 		}
-		
+
 		if ([types count] == 0) {
-			[types addObject:NSPasteboardTypeString];
+				[types addObject:QSTextType];
 		}
 		if ([types containsObject:NSPasteboardTypeURL]) {
-			[types addObjectsFromArray:@[NSPasteboardTypeURL,NSPasteboardTypeHTML,NSPasteboardTypeRTF,NSPasteboardTypeString]];
+			[types addObjectsFromArray:@[NSPasteboardTypeURL,NSPasteboardTypeHTML,NSPasteboardTypeRTF,QSTextType]];
 		}
 	}
 	[types addObjectsFromArray:@[QSPasteboardObjectIdentifier, QSPasteboardObjectAddress]];
@@ -102,7 +115,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	
 	if ([type isEqualToString:@"public.file-url"]) {
-		return [[NSURL fileURLWithPath:[self validPaths][0]] pasteboardPropertyListForType:type];
+			
+			return [[NSURL fileURLWithPath:[self validSingleFilePath]] pasteboardPropertyListForType:type];
 	}
 	
 	if ([type isEqualToString:QSPasteboardObjectIdentifier]) {
