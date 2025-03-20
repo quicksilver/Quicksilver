@@ -336,6 +336,10 @@ NSSize QSMaxIconSize;
 	id __block handler = [[QSReg objectHandlers] objectForKey:type];
     if (!handler) {
         [[QSReg objectHandlers] enumerateKeysAndObjectsUsingBlock:^(NSString *handlerType, id anyHandler, BOOL *stop) {
+            if ([handlerType isEqualToString:QSFilePathType] && ![self objectForType:QSFilePathType]) {
+                // if we don't have a file path, don't use the file handler
+                return;
+            }
             if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)handlerType) ||
                 (UTTypeConformsTo((__bridge CFStringRef)handlerType, kUTTypeText) && UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText))) {
                 handler = anyHandler;

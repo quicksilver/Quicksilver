@@ -198,22 +198,23 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
-	NSImage *theImage = nil;
+    NSImage *theImage = nil;
     NSImage *previewImage = nil;
-	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
-	NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *path = [[object arrayForType:QSFilePathType] lastObject];
     
-	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
-	__block BOOL exists = YES;
-	QSGCDMainSync(^{
-		if (![manager fileExistsAtPath:path]) {
-			exists = NO;
-		}
-	});
-	if (!exists) {
-		return NO;
-	}
-
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    // the object isn't a file/doesn't exist, so return. shouldn't actually happen
+    __block BOOL exists = YES;
+    QSGCDMainSync(^{
+        if (![manager fileExistsAtPath:path]) {
+            exists = NO;
+        }
+    });
+    if (!exists) {
+        return NO;
+    }
+    
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon

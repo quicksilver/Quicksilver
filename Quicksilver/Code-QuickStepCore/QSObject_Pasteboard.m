@@ -171,57 +171,59 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
-	if (self = [self init]) {
-
-		NSString *source = nil;
+    if (self = [self init]) {
+        
+        NSString *source = nil;
         NSString *sourceApp = nil;
         NSRunningApplication *currApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
-		if (pasteboard == [NSPasteboard generalPasteboard]) {
-			source = [currApp bundleIdentifier];
-            sourceApp = [currApp localizedName];
+        if (pasteboard == [NSPasteboard generalPasteboard]) {
+            source = [currApp localizedName];
+            sourceApp = [currApp bundleIdentifier];
         } else {
             source =  @"Clipboard";
             sourceApp = source;
         }
         [data removeAllObjects];
-		[self addContentsOfPasteboard:pasteboard types:types];
-
-		[self setObject:source forMeta:kQSObjectSource];
-		[self setObject:[NSDate date] forMeta:kQSObjectCreationDate];
-
-		id value;
-		if (value = [self objectForType:NSPasteboardTypeRTF]) {
-			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
-			[self setObject:[value string] forType:QSTextType];
-		}
-		if ([self objectForType:QSTextType])
-			[self sniffString];
-
-		if ([self isClipping]) {
-				[self addContentsOfClipping:[self singleFilePath]];
-		}
-
-		if ([self objectForType:kQSObjectPrimaryName])
-			[self setName:[self objectForType:kQSObjectPrimaryName]];
-		else {
-			[self guessName];
-		}
+        [self addContentsOfPasteboard:pasteboard types:types];
+        
+        [self setObject:source forMeta:kQSObjectSource];
+        [self setObject:[NSDate date] forMeta:kQSObjectCreationDate];
+        
+        id value;
+        if (value = [self objectForType:NSPasteboardTypeRTF]) {
+            value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
+            [self setObject:[value string] forType:QSTextType];
+        }
+        if ([self objectForType:QSTextType])
+            [self sniffString];
+        
+        if ([self isClipping]) {
+            [self addContentsOfClipping:[self singleFilePath]];
+        }
+        
+        if ([self objectForType:kQSObjectPrimaryName])
+            [self setName:[self objectForType:kQSObjectPrimaryName]];
+        else {
+            [self guessName];
+        }
         if (![self name]) {
             if ([self objectForType:QSTextType]) {
                 [self setName:[self objectForType:QSTextType]];
             } else {
                 [self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
             }
-            [self setDetails:[NSString stringWithFormat:NSLocalizedString(@"Unknown type from %@",@"Details of unknown clipboard objects. Of the form 'Unknown type from Application'. E.g. 'Unknown type from Microsoft Word'"),sourceApp]];
-
+            [self setDetails:[NSString stringWithFormat:NSLocalizedString(@"Unknown type from %@",@"Details of unknown clipboard objects. Of the form 'Unknown type from Application'. E.g. 'Unknown type from Microsoft Word'"), source]];
+            
         }
-		[self loadIcon];
-	}
-	return self;
+        [self loadIcon];
+    }
+    return self;
 }
+
 + (id)objectWithClipping:(NSString *)clippingFile {
 	return [[QSObject alloc] initWithClipping:clippingFile];
 }
+
 - (id)initWithClipping:(NSString *)clippingFile {
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:clippingFile];
 	if (self = [self initWithPasteboard:pasteboard]) {
@@ -232,58 +234,59 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)guessName {
-	if ([data objectForKey:QSFilePathType]) {
-		[self setPrimaryType:QSFilePathType];
-		[self getNameFromFiles];
-	} else {
-		NSString *textString = [data objectForKey:QSTextType];
+    if ([data objectForKey:QSFilePathType]) {
+        [self setPrimaryType:QSFilePathType];
+        [self getNameFromFiles];
+    } else {
+        NSString *textString = [data objectForKey:QSTextType];
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-			textString = [data objectForKey:NSPasteboardTypeURL];
+            textString = [data objectForKey:NSPasteboardTypeURL];
         }
         textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		
-		static NSDictionary *namesAndKeys = nil;
-        static NSArray *keys = nil;
-        if (!keys) {
-            // Use an array for the keys since the order is important
-						keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],@"com.adobe.encapsulated-postscript",NSPasteboardTypeTIFF,NSPasteboardTypeColor,NSFileContentsPboardType,NSPasteboardTypeFont,NSPasteboardTypeRTF,NSPasteboardTypeHTML,NSPasteboardTypeRuler,NSPasteboardTypeTabularText,kUTTypeVCard,kPasteboardTypeFileURLPromise,NSPasteboardTypePDF, NSPasteboardTypeURL, QSTextType,nil];
-
-        }
+        
+        static NSArray *namesAndKeys = nil;
+        
         if (!namesAndKeys) {
-            namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-									  NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPasteboardTypePDF,
-                                      NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
-                                      NSPasteboardTypePNG,
-                                      NSLocalizedString(@"RTF Text", @"Name of a RTF text object"),
-                                      NSPasteboardTypeRTF,
-                                      NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
-									  NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           @"com.adobe.encapsulated-postscript",
-									  NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSPasteboardTypeTIFF,
-									  NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSPasteboardTypeColor,
-									  NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
-						  			  NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSPasteboardTypeFont,
-									  NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSPasteboardTypeHTML,
-									  NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSPasteboardTypeRuler,
-									  NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSPasteboardTypeTabularText,
-									  NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       (__bridge NSString *)kUTTypeVCard,
-									  NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               (__bridge NSString *)kPasteboardTypeFileURLPromise,
-                                      nil];
+            namesAndKeys = @[
+                @[NSLocalizedString(@"Finder Icon", @"Name of icon file object"), [@"'icns'" encodedPasteboardType]],
+                @[NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"), @"com.adobe.encapsulated-postscript"],
+                @[NSLocalizedString(@"PNG Image", @"Name of a PNG image object"), NSPasteboardTypePNG],
+                @[NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"), NSPasteboardTypeTIFF],
+                @[NSLocalizedString(@"Color Data", @"Name of Color data object"), NSPasteboardTypeColor],
+                @[NSLocalizedString(@"File Contents", @"Name of File contents object"), NSFileContentsPboardType],
+                @[NSLocalizedString(@"Font Information", @"Name of Font information object"), NSPasteboardTypeFont],
+                @[NSLocalizedString(@"RTF Text", @"Name of a RTF text object"), NSPasteboardTypeRTF],
+                @[NSLocalizedString(@"HTML Data", @"Name of HTML data object"), NSPasteboardTypeHTML],
+                @[NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"), NSPasteboardTypeRuler],
+                @[NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),NSPasteboardTypeTabularText],
+                @[NSLocalizedString(@"VCard Data", @"Name of VCard data object"), (__bridge NSString *)kUTTypeVCard],
+                @[NSLocalizedString(@"Promised Files", @"Name of Promised files object"), (__bridge NSString *)kPasteboardTypeFileURLPromise],
+                @[NSLocalizedString(@"PDF Image", @"Name of PDF image "), NSPasteboardTypePDF],
+                @[NSLocalizedString(@"URL", @"Name of URL object"), NSPasteboardTypeURL],
+            ];
         }
-
-        for (NSString *key in keys) {
-			if ([data objectForKey:key]) {
+        
+        for (NSArray *nameAndKey in namesAndKeys) {
+            NSString *key = nameAndKey[1];
+            if ([data objectForKey:key]) {
+                [self setPrimaryType:key];
                 if ([key isEqualToString:QSTextType]) {
                     [self setDetails:nil];
+                    [self setName:textString];
                 } else {
-                    [self setDetails:[namesAndKeys objectForKey:key]];
+                    if ([textString length]) {
+                        [self setName: textString];
+                        [self setDetails:nameAndKey[0]];
+                    } else {
+                        [self setName:nameAndKey[0]];
+                        [self setDetails:[NSString stringWithFormat:NSLocalizedString(@"Copied from %@", @"saying where the object was copied from. E.g. 'Copied from Safari'"), [self objectForMeta:kQSObjectSource]]];
+                    }
                 }
-                [self setPrimaryType:key];
-                [self setName:textString];
                 break;
             }
-		}
-	}
+        }
+    }
 }
 
 - (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard {

@@ -295,7 +295,8 @@
 }
 
 - (NSString *)stringValue {
-    id stringValue = [self objectForType:QSTextType];
+    // use the existing QSTextType value (if it's not empty) 
+    id stringValue = [[self objectForType:QSTextType] length] ? [self objectForType:QSTextType] : nil;
     if ([stringValue isKindOfClass:[NSData class]]) {
         stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
     }
@@ -312,13 +313,12 @@
 		}
 		stringValue = [[[obj objectForCache:kQSObjectComponents] arrayByPerformingSelector:@selector(stringValue)] componentsJoinedByString:separator];
 	}
-    if (!stringValue) {
-        // Backwards compatibility
-        stringValue = [self objectForType:NSStringPboardType];
-    }
     if (!stringValue && [self containsType:QSURLType]) {
         stringValue = [self objectForType:QSURLType];
     }
+		if (!stringValue && [self singleFilePath]) {
+				stringValue = [self singleFilePath];
+		}
     if (!stringValue) {
         stringValue = [self displayName];
     }
