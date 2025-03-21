@@ -483,6 +483,7 @@ CA
                 <outlet property="closeAccessibilityWindowButton" destination="by2-ng-P5y" id="0lI-jX-OU9"/>
                 <outlet property="contactsButton" destination="Bxt-TJ-FwF" id="3wy-mN-WcW"/>
                 <outlet property="fullDiskButton" destination="H5N-nA-i3b" id="rLP-9m-zAh"/>
+                <outlet property="screenshotButton" destination="pff-Jj-Hpw" id="X1Y-Mh-fX5"/>
                 <outlet property="splashWindow" destination="HOT-LT-c93" id="UVJ-Mf-tGY"/>
                 <outlet property="statusMenu" destination="1365" id="1961"/>
             </connections>
@@ -586,16 +587,17 @@ CA
         </window>
         <window title="System Permission Needed" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="FDo-Qk-K96" userLabel="Accessibility Prompt" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES" managed="YES" participatesInCycle="YES" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="441" y="384" width="533" height="543"/>
+            <rect key="contentRect" x="441" y="384" width="569" height="616"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="PMj-P4-w2l">
-                <rect key="frame" x="0.0" y="0.0" width="533" height="543"/>
+                <rect key="frame" x="0.0" y="0.0" width="569" height="616"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-fa-0Xg">
-                        <rect key="frame" x="18" y="489" width="497" height="34"/>
+                        <rect key="frame" x="39" y="562" width="501" height="34"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Quicksilver needs permission to control your Mac in order to work properly." id="Ltj-N2-Hut">
                             <font key="font" metaFont="systemBold"/>
@@ -604,7 +606,7 @@ CA
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBi-d0-rZP">
-                        <rect key="frame" x="18" y="445" width="497" height="40"/>
+                        <rect key="frame" x="39" y="518" width="501" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="1TS-br-qqV">
                             <font key="font" metaFont="system"/>
@@ -614,7 +616,7 @@ CA
                         </textFieldCell>
                     </textField>
                     <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgb-vG-JYp">
-                        <rect key="frame" x="136" y="379" width="260" height="32"/>
+                        <rect key="frame" x="162" y="452" width="260" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Enable Accessibility Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iq5-A9-t0Y">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -628,11 +630,11 @@ DQ
                         </connections>
                     </button>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ymE-nm-luu">
-                        <rect key="frame" x="20" y="421" width="493" height="5"/>
+                        <rect key="frame" x="41" y="494" width="493" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FLZ-y8-DYP">
-                        <rect key="frame" x="40" y="389" width="84" height="16"/>
+                        <rect key="frame" x="67" y="462" width="84" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Accessibility:" id="uaV-yf-Qlx">
                             <font key="font" metaFont="system"/>
@@ -641,7 +643,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aye-l7-6fR">
-                        <rect key="frame" x="141" y="350" width="374" height="28"/>
+                        <rect key="frame" x="167" y="423" width="374" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" title="Accessibility permission are required for Quicksilver to control your Mac." id="JPP-tg-kPP">
                             <font key="font" metaFont="smallSystem"/>
@@ -650,7 +652,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5N-nA-i3b">
-                        <rect key="frame" x="136" y="294" width="260" height="32"/>
+                        <rect key="frame" x="162" y="367" width="260" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Enable Full Disk Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ltr-M0-b6f">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -664,7 +666,7 @@ DQ
                         </connections>
                     </button>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="exQ-aU-jNQ">
-                        <rect key="frame" x="18" y="303" width="106" height="16"/>
+                        <rect key="frame" x="45" y="376" width="106" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Full Disk Access:" id="dyL-wq-9VD">
                             <font key="font" metaFont="system"/>
@@ -673,17 +675,17 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q7g-Et-FYZ">
-                        <rect key="frame" x="141" y="251" width="374" height="42"/>
+                        <rect key="frame" x="167" y="337" width="374" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" id="2lg-3g-pIK">
                             <font key="font" metaFont="smallSystem"/>
-                            <string key="title">Full Disk Access is required so that Quicksilver can scan and access files on your disk, and perform tasks like showing you recently opened files.</string>
+                            <string key="title">Full Disk Access is required for Quicksilver to scan and access files on your disk, and perform tasks like showing you recently opened files.</string>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-TJ-FwF">
-                        <rect key="frame" x="136" y="197" width="260" height="32"/>
+                        <rect key="frame" x="162" y="284" width="260" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Enable Contacts Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ch5-XR-anY">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -697,17 +699,17 @@ DQ
                         </connections>
                     </button>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-lW-JSH">
-                        <rect key="frame" x="141" y="153" width="374" height="42"/>
+                        <rect key="frame" x="167" y="247" width="374" height="35"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" id="33I-E8-FgJ">
                             <font key="font" metaFont="smallSystem"/>
-                            <string key="title">Contacts access is only required if you wish to search for your contacts from within Quicksilver (requires the 'Contacts' plugin)</string>
+                            <string key="title">Contacts access is only required if you wish to search for your contacts from within Quicksilver (requires the 'Contacts' plugin).</string>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-GJ-G8X">
-                        <rect key="frame" x="61" y="206" width="63" height="16"/>
+                        <rect key="frame" x="88" y="293" width="63" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Contacts:" id="Z4N-bp-c3F">
                             <font key="font" metaFont="system"/>
@@ -716,7 +718,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lps-lf-hX3">
-                        <rect key="frame" x="136" y="101" width="260" height="32"/>
+                        <rect key="frame" x="162" y="196" width="260" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Enable Calendars Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bbC-WS-c4L">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -730,7 +732,7 @@ DQ
                         </connections>
                     </button>
                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H85-yY-LPo">
-                        <rect key="frame" x="141" y="59" width="374" height="42"/>
+                        <rect key="frame" x="167" y="154" width="374" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" id="Uj2-0W-nHY">
                             <font key="font" metaFont="smallSystem"/>
@@ -740,7 +742,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxT-Ow-hGA">
-                        <rect key="frame" x="55" y="110" width="69" height="16"/>
+                        <rect key="frame" x="82" y="205" width="69" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Calendars:" id="ewp-Ug-yyh">
                             <font key="font" metaFont="system"/>
@@ -748,8 +750,40 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pff-Jj-Hpw">
+                        <rect key="frame" x="162" y="100" width="260" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Open Screen Recording Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gac-oC-Ek0">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="launchPrivacyPreferences:" target="217" id="aD9-E4-L7n"/>
+                        </connections>
+                    </button>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-0O-WFe">
+                        <rect key="frame" x="167" y="65" width="374" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" selectable="YES" title="Screen Recording is only required if you wish to capture screenshots using the 'Screen Capture Plugin'" id="KHV-tg-ZlD">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Zz-DZ-7Gt">
+                        <rect key="frame" x="39" y="109" width="112" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Screen Recording" id="fXM-da-x5g">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="by2-ng-P5y">
-                        <rect key="frame" x="399" y="13" width="121" height="32"/>
+                        <rect key="frame" x="425" y="13" width="121" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Close Window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFF-wc-5S8">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -761,7 +795,7 @@ DQ
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-529.5" y="416.5"/>
+            <point key="canvasLocation" x="-558.5" y="453"/>
         </window>
     </objects>
     <resources>

@@ -14,7 +14,6 @@
 #import "QSScreenshots.h"
 #import "QSDonationController.h"
 
-
 #import "QSIntValueTransformer.h"
 
 #import <PermissionsKit/PermissionsKit.h>
@@ -27,6 +26,7 @@
 @end
 
 static QSController *defaultController = nil;
+
 
 @implementation QSController
 
@@ -834,23 +834,36 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkAccessibilityPermissions {
+		[accessibilityPermissionWindow setLevel:NSNormalWindowLevel];
+
 		// Prompt for accessibility permissions on macOS Mojave and later.
 		BOOL hasAccessibility = [self hasAccessibilityPermission];
 		BOOL hasFullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess] == MPAuthorizationStatusAuthorized;
 		BOOL hasContacts = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeContacts] == MPAuthorizationStatusAuthorized;
 		BOOL hasCalendars = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeCalendar] == MPAuthorizationStatusAuthorized;
 		BOOL hasReminders = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeReminders] == MPAuthorizationStatusAuthorized;
+		
+		BOOL hasScreenshot;
+		if (hasScreenshotPermissionOnStartup) {
+				hasScreenshot = YES;
+		} else {
+				// only call this if the user has actually clicked the screenshot button
+				// this is a kind of hack, since the API for detecting if screenshot permission is enabled is buggy
+				hasScreenshot = hasClickedScreenshotButton;
+		}
+		
 		[accessibilityButton setEnabled:!hasAccessibility];
 		[fullDiskButton setEnabled:!hasFullDisk];
 		[contactsButton setEnabled:!hasContacts];
 		[calendarsButton setEnabled:!hasCalendars || !hasReminders];
+		[screenshotButton setEnabled:!hasScreenshot];
 
 		[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
 		
 		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
 				[accessibilityPermissionWindow close];
 		} else if (!accessibilityChecker) {
-				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
 						[self checkAccessibilityPermissions];
 				}];
 				[[NSRunLoop currentRunLoop] addTimer:accessibilityChecker forMode:NSModalPanelRunLoopMode];
@@ -860,11 +873,16 @@ static QSController *defaultController = nil;
 -(IBAction)showAccessibilityPrompt:(id)sender {
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeAccessibilityPrompt:) name:NSWindowWillCloseNotification object:accessibilityPermissionWindow];
 		[closeAccessibilityWindowButton setEnabled:NO];
-		
 		[accessibilityPermissionWindow setIsVisible:YES];
+		hasClickedScreenshotButton = NO;
+		if (@available(macOS 10.15, *)) {
+				hasScreenshotPermissionOnStartup = CGPreflightScreenCaptureAccess();
+		} else {
+				// below 10.15, no need to give permissions
+				hasScreenshotPermissionOnStartup = YES;
+		}
 		[self checkAccessibilityPermissions];
 		[NSApp runModalForWindow:accessibilityPermissionWindow];
-		
 }
 
 - (IBAction)closeAccessibilityPrompt:(NSNotification *)notif {
@@ -892,7 +910,11 @@ static QSController *defaultController = nil;
 						[MPPermissionsKit requestAuthorizationForPermissionType:MPPermissionTypeReminders withCompletion:^(MPAuthorizationStatus status) {
 						}];
 				}];
-				
+		} else if (sender == screenshotButton) {
+				hasClickedScreenshotButton = YES;
+				if (@available(macOS 10.15, *)) {
+						CGRequestScreenCaptureAccess();
+				}
 		} else {
 				[accessibilityPermissionWindow close];
 		}

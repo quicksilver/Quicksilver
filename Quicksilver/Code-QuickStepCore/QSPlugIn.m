@@ -721,7 +721,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #endif
 	
 	[QSReg registerBundle:bundle];
-
+		NSLog(@"%@", [self name]);
+		if ([[self name] isEqualToString:@"Screen Capture Plugin - Private"]) {
+				NSLog(@"A");
+		}
 	if ([[bundle objectForInfoDictionaryKey:@"NSAppleScriptEnabled"] boolValue])
 		[[NSScriptSuiteRegistry sharedScriptSuiteRegistry] loadSuitesFromBundle:bundle];
 
@@ -748,7 +751,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #ifdef DEBUG
 			if (DEBUG_PLUGINS) NSLog(@"Forcing Load of Class %@", currPrincipalClass);
 #endif
-
 			if ([currPrincipalClass respondsToSelector:@selector(loadPlugIn)])
 				[currPrincipalClass loadPlugIn];
 		}

@@ -14,8 +14,47 @@
 #include <IOKit/graphics/IOGraphicsTypes.h>
 #include <ApplicationServices/ApplicationServices.h>
 #include <objc/objc-runtime.h>
+#import <CoreGraphics/CGDisplayStream.h>
 
 @implementation NSScreen (BLTRExtensions)
+
++ (BOOL)screenRecordingPermissionAllowed {
+		if ([[NSScreen mainScreen] hasScreenRecordingPermission]) {
+				return YES;
+		}
+		// maybe the main screen can't produce a CGDisplayStream, but another screen can
+		// a positive on any screen must mean that the permission is granted; we try on the other screens
+		for (NSScreen *screen in [NSScreen screens]) {
+				if ([screen screenNumber] == [[NSScreen mainScreen] screenNumber]) {
+						continue;
+				}
+				if ([screen hasScreenRecordingPermission]) {
+						return YES;
+				}
+		}
+		return NO;
+}
+
+- (BOOL)hasScreenRecordingPermission {
+		CGDirectDisplayID displayId = (CGDirectDisplayID)[self screenNumber];
+		
+		CGDisplayStreamRef ref = CGDisplayStreamCreateWithDispatchQueue(
+																									 displayId,
+																									 1,
+																									 1,
+																										kCVPixelFormatType_32BGRA,
+																									 nil,
+																									 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+																										^(CGDisplayStreamFrameStatus status, uint64_t displayTime, IOSurfaceRef frameSurface, CGDisplayStreamUpdateRef updateRef) {
+																												NSLog(@"Next Frame"); // This line is never called.
+																										});
+
+		BOOL hasPermission = (ref != nil);
+		if (ref != nil) {
+				CFRelease(ref);
+		}
+		return hasPermission;
+}
 
 + (NSScreen *)screenWithNumber:(NSInteger)number {
 	for(NSScreen *screen in [self screens]) {

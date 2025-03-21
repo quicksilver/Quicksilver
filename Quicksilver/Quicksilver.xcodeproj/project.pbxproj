@@ -361,6 +361,7 @@
 		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3B1BF52861E1F4004862D7 /* QSTriggersObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3B1BEC2861E1F3004862D7 /* QSTriggersObjectSource.m */; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD47C34E2D8D6E6700BDF493 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD47C34D2D8D6E6700BDF493 /* CoreGraphics.framework */; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
@@ -1703,6 +1704,7 @@
 		CD3C6B5916D6B32800AE7BE8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "zh-Hant"; path = "zh-Hant.lproj/QSObjectSource.name.strings"; sourceTree = "<group>"; };
 		CD3C6B5A16D6B32800AE7BE8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "zh-Hant"; path = "zh-Hant.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
 		CD3C6B5B16D6B32800AE7BE8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
+		CD47C34D2D8D6E6700BDF493 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD4B1B7617C258AF00F2C5A7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD4B1B7717C258AF00F2C5A7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CD4B1B7817C258B000F2C5A7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/QSCatalog.strings; sourceTree = "<group>"; };
@@ -2207,7 +2209,7 @@
 		E18001C907B2BBB800010DB0 /* QSApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSApp.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001D007B2BBB800010DB0 /* QSCatalogPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCatalogPrefPane.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001D107B2BBB800010DB0 /* QSCatalogPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCatalogPrefPane.m; sourceTree = "<group>"; usesTabs = 1; };
-		E18001D407B2BBB800010DB0 /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; usesTabs = 1; };
+		E18001D407B2BBB800010DB0 /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; usesTabs = 0; };
 		E18001D507B2BBB800010DB0 /* QSController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSController.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001DA07B2BBB800010DB0 /* QSGetURLScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSGetURLScriptCommand.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001DB07B2BBB800010DB0 /* QSGetURLScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSGetURLScriptCommand.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -2547,6 +2549,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD47C34E2D8D6E6700BDF493 /* CoreGraphics.framework in Frameworks */,
 				4DFD65C51EA9334B003CD3CE /* FMDB.framework in Frameworks */,
 				E1E5FAE307B207180044D6EF /* IOKit.framework in Frameworks */,
 				E1E5FAE407B207450044D6EF /* Carbon.framework in Frameworks */,
@@ -2664,6 +2667,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD47C34D2D8D6E6700BDF493 /* CoreGraphics.framework */,
 				60FCBED02844C9770091AB6B /* OSAKit.framework */,
 				CD661C5519DBD341000F3695 /* AppKit.framework */,
 				CD61BBB9192B18FA00040609 /* XCTest.framework */,

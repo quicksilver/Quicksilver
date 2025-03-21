@@ -21,7 +21,11 @@
 	IBOutlet NSButton *fullDiskButton;
 	IBOutlet NSButton *contactsButton;
 	IBOutlet NSButton *calendarsButton;
+  IBOutlet NSButton *screenshotButton;
 	IBOutlet NSButton *closeAccessibilityWindowButton;
+    BOOL hasClickedScreenshotButton;
+    BOOL hasScreenshotPermissionOnStartup;
+
 	
 	NSTimer *accessibilityChecker;
 }

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSScreen (BLTRExtensions)
++ (BOOL)screenRecordingPermissionAllowed;
 + (NSScreen *)screenWithNumber:(NSInteger)number;
 - (NSInteger) screenNumber;
 - (NSString *)deviceName;
