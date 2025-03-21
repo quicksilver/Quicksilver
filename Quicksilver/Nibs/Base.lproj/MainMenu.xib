@@ -589,25 +589,18 @@ CA
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES" managed="YES" participatesInCycle="YES" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="441" y="384" width="569" height="616"/>
+            <rect key="contentRect" x="441" y="384" width="569" height="585"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="PMj-P4-w2l">
-                <rect key="frame" x="0.0" y="0.0" width="569" height="616"/>
+                <rect key="frame" x="0.0" y="0.0" width="569" height="583"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-fa-0Xg">
-                        <rect key="frame" x="39" y="562" width="501" height="34"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Quicksilver needs permission to control your Mac in order to work properly." id="Ltj-N2-Hut">
-                            <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBi-d0-rZP">
-                        <rect key="frame" x="39" y="518" width="501" height="40"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YBi-d0-rZP">
+                        <rect key="frame" x="39" y="490" width="501" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="i6V-rb-RgL"/>
+                        </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="1TS-br-qqV">
                             <font key="font" metaFont="system"/>
                             <string key="title">For security and privacy reasons, macOS requires you to give explicit permission to an application before it can control your computer.</string>
@@ -615,9 +608,8 @@ CA
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgb-vG-JYp">
-                        <rect key="frame" x="162" y="452" width="260" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hgb-vG-JYp">
+                        <rect key="frame" x="162" y="426" width="260" height="32"/>
                         <buttonCell key="cell" type="push" title="Enable Accessibility Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iq5-A9-t0Y">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -625,35 +617,34 @@ CA
 DQ
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="246" id="v4A-Vo-4uI"/>
+                        </constraints>
                         <connections>
                             <action selector="launchPrivacyPreferences:" target="217" id="JJh-as-cWh"/>
                         </connections>
                     </button>
-                    <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ymE-nm-luu">
-                        <rect key="frame" x="41" y="494" width="493" height="5"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ymE-nm-luu">
+                        <rect key="frame" x="41" y="469" width="493" height="5"/>
                     </box>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FLZ-y8-DYP">
-                        <rect key="frame" x="67" y="462" width="84" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FLZ-y8-DYP">
+                        <rect key="frame" x="67" y="435" width="84" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Accessibility:" id="uaV-yf-Qlx">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aye-l7-6fR">
-                        <rect key="frame" x="167" y="423" width="374" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Aye-l7-6fR">
+                        <rect key="frame" x="167" y="395" width="374" height="28"/>
                         <textFieldCell key="cell" selectable="YES" title="Accessibility permission are required for Quicksilver to control your Mac." id="JPP-tg-kPP">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5N-nA-i3b">
-                        <rect key="frame" x="162" y="367" width="260" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H5N-nA-i3b">
+                        <rect key="frame" x="162" y="348" width="260" height="32"/>
                         <buttonCell key="cell" type="push" title="Enable Full Disk Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ltr-M0-b6f">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -665,18 +656,16 @@ DQ
                             <action selector="launchPrivacyPreferences:" target="217" id="APe-FE-PWR"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="exQ-aU-jNQ">
-                        <rect key="frame" x="45" y="376" width="106" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="exQ-aU-jNQ">
+                        <rect key="frame" x="45" y="357" width="106" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Full Disk Access:" id="dyL-wq-9VD">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q7g-Et-FYZ">
-                        <rect key="frame" x="167" y="337" width="374" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Q7g-Et-FYZ">
+                        <rect key="frame" x="167" y="317" width="374" height="28"/>
                         <textFieldCell key="cell" selectable="YES" id="2lg-3g-pIK">
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">Full Disk Access is required for Quicksilver to scan and access files on your disk, and perform tasks like showing you recently opened files.</string>
@@ -684,9 +673,8 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-TJ-FwF">
-                        <rect key="frame" x="162" y="284" width="260" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-TJ-FwF">
+                        <rect key="frame" x="162" y="270" width="260" height="32"/>
                         <buttonCell key="cell" type="push" title="Enable Contacts Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ch5-XR-anY">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -698,9 +686,8 @@ DQ
                             <action selector="launchPrivacyPreferences:" target="217" id="Dvz-nj-r4m"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-lW-JSH">
-                        <rect key="frame" x="167" y="247" width="374" height="35"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-lW-JSH">
+                        <rect key="frame" x="167" y="239" width="374" height="28"/>
                         <textFieldCell key="cell" selectable="YES" id="33I-E8-FgJ">
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">Contacts access is only required if you wish to search for your contacts from within Quicksilver (requires the 'Contacts' plugin).</string>
@@ -708,18 +695,16 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-GJ-G8X">
-                        <rect key="frame" x="88" y="293" width="63" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-GJ-G8X">
+                        <rect key="frame" x="88" y="279" width="63" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Contacts:" id="Z4N-bp-c3F">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lps-lf-hX3">
-                        <rect key="frame" x="162" y="196" width="260" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lps-lf-hX3">
+                        <rect key="frame" x="162" y="192" width="260" height="32"/>
                         <buttonCell key="cell" type="push" title="Enable Calendars Access" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bbC-WS-c4L">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -727,13 +712,15 @@ DQ
 DQ
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="246" id="DJw-Db-pLa"/>
+                        </constraints>
                         <connections>
                             <action selector="launchPrivacyPreferences:" target="217" id="GV4-uk-O4u"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H85-yY-LPo">
-                        <rect key="frame" x="167" y="154" width="374" height="42"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="H85-yY-LPo">
+                        <rect key="frame" x="167" y="147" width="374" height="42"/>
                         <textFieldCell key="cell" selectable="YES" id="Uj2-0W-nHY">
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">Calendar access is only required if you wish to view/edit/add events to your calendar from within Quicksilver (requires the 'Calendar &amp; Reminders' plugin)</string>
@@ -741,18 +728,16 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxT-Ow-hGA">
-                        <rect key="frame" x="82" y="205" width="69" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nxT-Ow-hGA">
+                        <rect key="frame" x="82" y="201" width="69" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Calendars:" id="ewp-Ug-yyh">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pff-Jj-Hpw">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pff-Jj-Hpw">
                         <rect key="frame" x="162" y="100" width="260" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Open Screen Recording Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gac-oC-Ek0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -764,27 +749,24 @@ DQ
                             <action selector="launchPrivacyPreferences:" target="217" id="aD9-E4-L7n"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-0O-WFe">
-                        <rect key="frame" x="167" y="65" width="374" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="749" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-0O-WFe">
+                        <rect key="frame" x="167" y="65" width="374" height="32"/>
                         <textFieldCell key="cell" selectable="YES" title="Screen Recording is only required if you wish to capture screenshots using the 'Screen Capture Plugin'" id="KHV-tg-ZlD">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Zz-DZ-7Gt">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Zz-DZ-7Gt">
                         <rect key="frame" x="39" y="109" width="112" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Screen Recording" id="fXM-da-x5g">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="by2-ng-P5y">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="by2-ng-P5y">
                         <rect key="frame" x="425" y="13" width="121" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Close Window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFF-wc-5S8">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -793,9 +775,80 @@ DQ
                             <action selector="launchPrivacyPreferences:" target="217" id="8aK-qv-opT"/>
                         </connections>
                     </button>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-fa-0Xg">
+                        <rect key="frame" x="39" y="549" width="501" height="16"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Quicksilver needs permission to control your Mac in order to work properly." id="Ltj-N2-Hut">
+                            <font key="font" metaFont="systemBold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="Hgb-vG-JYp" firstAttribute="top" secondItem="ymE-nm-luu" secondAttribute="bottom" constant="18" id="0oY-hv-E4u"/>
+                    <constraint firstItem="Lps-lf-hX3" firstAttribute="trailing" secondItem="pff-Jj-Hpw" secondAttribute="trailing" id="3ST-bN-Jgz"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="leading" secondItem="YBi-d0-rZP" secondAttribute="leading" id="5U0-0t-vQs"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="H85-yY-LPo" secondAttribute="leading" id="5wP-KB-iHa"/>
+                    <constraint firstItem="by2-ng-P5y" firstAttribute="top" secondItem="a0b-0O-WFe" secondAttribute="bottom" constant="25" id="6lc-rp-5rv"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="trailing" secondItem="Q7g-Et-FYZ" secondAttribute="trailing" id="6nU-CH-khr"/>
+                    <constraint firstItem="YBi-d0-rZP" firstAttribute="top" secondItem="Rch-fa-0Xg" secondAttribute="bottom" constant="19" id="9wD-Bq-an4"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="leading" secondItem="Rch-fa-0Xg" secondAttribute="leading" id="BzB-hb-mtR"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="trailing" secondItem="by2-ng-P5y" secondAttribute="trailing" id="D5f-jt-kCf"/>
+                    <constraint firstItem="Bxt-TJ-FwF" firstAttribute="centerY" secondItem="DxV-GJ-G8X" secondAttribute="centerY" id="FIr-Yz-3GF"/>
+                    <constraint firstItem="FLZ-y8-DYP" firstAttribute="leading" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="69" id="G93-bV-5Ly"/>
+                    <constraint firstItem="H5N-nA-i3b" firstAttribute="top" secondItem="Aye-l7-6fR" secondAttribute="bottom" constant="20" id="HSM-vN-UzE"/>
+                    <constraint firstItem="Bxt-TJ-FwF" firstAttribute="leading" secondItem="DxV-GJ-G8X" secondAttribute="trailing" constant="20" id="HXm-1a-NpT"/>
+                    <constraint firstItem="nxT-Ow-hGA" firstAttribute="centerY" secondItem="Lps-lf-hX3" secondAttribute="centerY" id="I0c-8N-grh"/>
+                    <constraint firstItem="YBi-d0-rZP" firstAttribute="top" secondItem="PMj-P4-w2l" secondAttribute="top" constant="53" id="JzU-Xf-cSh"/>
+                    <constraint firstItem="Aye-l7-6fR" firstAttribute="top" secondItem="Hgb-vG-JYp" secondAttribute="bottom" constant="10" id="M4s-gZ-xVS"/>
+                    <constraint firstItem="H85-yY-LPo" firstAttribute="top" secondItem="Lps-lf-hX3" secondAttribute="bottom" constant="10" id="Mtw-bP-mzL"/>
+                    <constraint firstItem="Bxt-TJ-FwF" firstAttribute="top" secondItem="Q7g-Et-FYZ" secondAttribute="bottom" constant="20" id="NDa-SR-2FP"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="Bxt-TJ-FwF" secondAttribute="leading" id="Oxv-Rv-2xu"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="top" secondItem="pff-Jj-Hpw" secondAttribute="bottom" constant="10" id="PW9-Fc-vYg"/>
+                    <constraint firstItem="DxV-GJ-G8X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="20" symbolic="YES" id="PvV-6M-jcV"/>
+                    <constraint firstItem="Lps-lf-hX3" firstAttribute="centerY" secondItem="nxT-Ow-hGA" secondAttribute="centerY" id="Qs8-lf-LhC"/>
+                    <constraint firstAttribute="bottom" secondItem="5Zz-DZ-7Gt" secondAttribute="bottom" constant="109" id="Rib-Nw-s0O"/>
+                    <constraint firstItem="exQ-aU-jNQ" firstAttribute="centerY" secondItem="H5N-nA-i3b" secondAttribute="centerY" id="T3Y-p4-G06"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="leading" secondItem="ymE-nm-luu" secondAttribute="leading" id="U8h-ue-uaD"/>
+                    <constraint firstItem="DxV-GJ-G8X" firstAttribute="centerY" secondItem="Bxt-TJ-FwF" secondAttribute="centerY" id="Uh7-q3-aBm"/>
+                    <constraint firstItem="FLZ-y8-DYP" firstAttribute="centerY" secondItem="Hgb-vG-JYp" secondAttribute="centerY" id="WF0-Hm-0OY"/>
+                    <constraint firstItem="rZ2-lW-JSH" firstAttribute="top" secondItem="Bxt-TJ-FwF" secondAttribute="bottom" constant="10" id="WZh-Cm-8DB"/>
+                    <constraint firstItem="pff-Jj-Hpw" firstAttribute="leading" secondItem="5Zz-DZ-7Gt" secondAttribute="trailing" constant="20" id="YzO-I3-MZt"/>
+                    <constraint firstItem="Lps-lf-hX3" firstAttribute="trailing" secondItem="H5N-nA-i3b" secondAttribute="trailing" id="Zej-5a-gHZ"/>
+                    <constraint firstItem="Lps-lf-hX3" firstAttribute="trailing" secondItem="Bxt-TJ-FwF" secondAttribute="trailing" id="Zwu-2Q-cUc"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="trailing" secondItem="Aye-l7-6fR" secondAttribute="trailing" id="aVb-D1-TZD"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="centerY" secondItem="pff-Jj-Hpw" secondAttribute="centerY" id="b1R-It-IcS"/>
+                    <constraint firstAttribute="bottom" secondItem="by2-ng-P5y" secondAttribute="bottom" constant="20" id="cBg-7o-o0m"/>
+                    <constraint firstItem="exQ-aU-jNQ" firstAttribute="leading" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="47" id="d2s-k7-0Po"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="Aye-l7-6fR" secondAttribute="leading" id="dJK-aI-zjK"/>
+                    <constraint firstItem="by2-ng-P5y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="20" symbolic="YES" id="evI-Nn-zpp"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="Q7g-Et-FYZ" secondAttribute="leading" id="fDU-sy-Kw8"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FLZ-y8-DYP" secondAttribute="trailing" id="fPB-co-6Iw"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="Lps-lf-hX3" secondAttribute="leading" id="fav-k7-IsM"/>
+                    <constraint firstItem="YBi-d0-rZP" firstAttribute="trailing" secondItem="Rch-fa-0Xg" secondAttribute="trailing" id="gMO-Kr-XR3"/>
+                    <constraint firstItem="pff-Jj-Hpw" firstAttribute="top" secondItem="H85-yY-LPo" secondAttribute="bottom" constant="20" id="gUC-Aw-5Bq"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nxT-Ow-hGA" secondAttribute="trailing" id="goT-FY-Brj"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="leading" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="41" id="hAi-vM-oPZ"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="Hgb-vG-JYp" secondAttribute="leading" id="hQX-DI-5DU"/>
+                    <constraint firstAttribute="trailing" secondItem="a0b-0O-WFe" secondAttribute="trailing" constant="30" id="iMv-Bd-fwE"/>
+                    <constraint firstItem="nxT-Ow-hGA" firstAttribute="leading" secondItem="PMj-P4-w2l" secondAttribute="leading" constant="84" id="if6-TP-GIg"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="trailing" secondItem="H85-yY-LPo" secondAttribute="trailing" id="l0v-I7-yhs"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="pff-Jj-Hpw" secondAttribute="leading" id="l9w-g8-Pfk"/>
+                    <constraint firstAttribute="trailing" secondItem="YBi-d0-rZP" secondAttribute="trailing" constant="31" id="nOI-ci-iHN"/>
+                    <constraint firstItem="H5N-nA-i3b" firstAttribute="leading" secondItem="exQ-aU-jNQ" secondAttribute="trailing" constant="20" id="oO0-lR-c9F"/>
+                    <constraint firstItem="5Zz-DZ-7Gt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="exQ-aU-jNQ" secondAttribute="trailing" id="onK-z0-S9B"/>
+                    <constraint firstItem="exQ-aU-jNQ" firstAttribute="centerY" secondItem="H5N-nA-i3b" secondAttribute="centerY" id="owd-wt-1Sb"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hgb-vG-JYp" secondAttribute="trailing" constant="20" symbolic="YES" id="pAl-m1-mYd"/>
+                    <constraint firstItem="ymE-nm-luu" firstAttribute="top" secondItem="YBi-d0-rZP" secondAttribute="bottom" constant="18" id="qYk-4k-skd"/>
+                    <constraint firstItem="Q7g-Et-FYZ" firstAttribute="top" secondItem="H5N-nA-i3b" secondAttribute="bottom" constant="10" id="u4g-f5-0H3"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="leading" secondItem="rZ2-lW-JSH" secondAttribute="leading" id="xdY-42-t9N"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="H5N-nA-i3b" secondAttribute="trailing" constant="20" symbolic="YES" id="z8k-zC-LQr"/>
+                    <constraint firstAttribute="trailing" secondItem="ymE-nm-luu" secondAttribute="trailing" constant="35" id="zDt-Mo-Qqa"/>
+                    <constraint firstItem="a0b-0O-WFe" firstAttribute="trailing" secondItem="rZ2-lW-JSH" secondAttribute="trailing" id="zvg-bo-dip"/>
+                    <constraint firstItem="Lps-lf-hX3" firstAttribute="top" secondItem="rZ2-lW-JSH" secondAttribute="bottom" constant="20" id="zz3-Y3-TWW"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="-558.5" y="453"/>
+            <point key="canvasLocation" x="-558.5" y="436.5"/>
         </window>
     </objects>
     <resources>
