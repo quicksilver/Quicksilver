@@ -860,7 +860,7 @@ static QSController *defaultController = nil;
 
 		[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
 		
-		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders) {
+		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders && hasClickedScreenshotButton) {
 				[accessibilityPermissionWindow close];
 		} else if (!accessibilityChecker) {
 				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
