@@ -72,7 +72,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	NSMutableArray *types = [[NSMutableArray alloc] init];
 	if ([self validPaths]) {
 		[types addObjectsFromArray:@[NSPasteboardTypeFileURL, NSFilenamesPboardType]];
-			if ([self objectForType:QSTextType]) {
+            if ([self objectForType:QSTextType] && ![[self objectForType:QSTextType] isEqualToString:[self singleFilePath]]) {
 					// only explicitly add QSTextType if the object has this set (e.g. it's a different string to the filename
 					[types addObject:QSTextType];
 			}

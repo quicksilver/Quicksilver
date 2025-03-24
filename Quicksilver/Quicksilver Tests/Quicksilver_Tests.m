@@ -77,6 +77,9 @@
     XCTAssertEqualObjects([obj singleFilePath], path);
     XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
     XCTAssertTrue([[pboard types] containsObject:NSPasteboardTypeFileURL]);
+    
+    // for file objects, we don't write the QSTextType to the pasteboard - that messes with drag/drop in some applications
+    XCTAssertFalse([[pboard types] containsObject:QSTextType]);
     NSArray *a = [pboard propertyListForType:NSPasteboardTypeFileURL];
     XCTAssertEqualObjects(a, @"file:///usr/bin/cd");
     
