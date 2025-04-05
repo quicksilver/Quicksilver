@@ -875,7 +875,7 @@ static QSController *defaultController = nil;
 		[closeAccessibilityWindowButton setEnabled:NO];
 		[accessibilityPermissionWindow setIsVisible:YES];
 		hasClickedScreenshotButton = NO;
-		if (@available(macOS 10.15, *)) {
+		if ([NSApplication isBigSur]) {
 				hasScreenshotPermissionOnStartup = CGPreflightScreenCaptureAccess();
 		} else {
 				// below 10.15, no need to give permissions
@@ -912,7 +912,7 @@ static QSController *defaultController = nil;
 				}];
 		} else if (sender == screenshotButton) {
 				hasClickedScreenshotButton = YES;
-				if (@available(macOS 10.15, *)) {
+				if ([NSApplication isBigSur]) {
 						CGRequestScreenCaptureAccess();
 				}
 		} else {
