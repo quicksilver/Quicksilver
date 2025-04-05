@@ -956,9 +956,7 @@ static QSController *defaultController = nil;
 	[NSApp unhideWithoutActivation];
 	
 	if (!runningSetupAssistant) {
-		if (![[QSDonationController sharedInstance] checkDonationStatus:launchStatus]) {
-			[self activateInterface:self];
-		}
+			[[QSDonationController sharedInstance] checkDonationStatus:launchStatus];
 	}
 	
 	[QSApp setCompletedLaunch:YES];
