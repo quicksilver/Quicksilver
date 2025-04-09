@@ -23,6 +23,7 @@ jobs:
       - name: Build debug version
         working-directory: Quicksilver
         run: |
+          ./Tools/codesign/setup_local.sh
           ./Tools/qsrelease Debug
           mv /tmp/QS/build/Debug/Quicksilver{,-debug}.zip
       - name: Upload debug version
