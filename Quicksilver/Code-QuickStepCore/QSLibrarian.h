@@ -75,7 +75,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj;
 - (void)removeObjectWithIdentifier:(NSString *)ident;
 - (NSArray *)arrayForType:(NSString *)string;
-- (NSArray *)scoredArrayForType:(NSString *)string;
+- (NSArray *)scoredArrayForType:(NSString *)type;
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array;
 - (void)loadMissingIndexes;
 - (void)savePasteboardHistory;

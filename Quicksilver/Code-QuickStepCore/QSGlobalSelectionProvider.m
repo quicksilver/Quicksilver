@@ -48,8 +48,8 @@
 
 - (NSPasteboard *)getSelectionFromFrontApp {
 	id __block result = nil;
-	
-	//NSLog(@"GET SEL");
+	QSGCDMainSync(^{
+		//NSLog(@"GET SEL");
 		id oldServicesProvider = [NSApp servicesProvider];
 		[NSApp setServicesProvider:self];
 		[self performSelector:@selector(invokeService) onThread:[NSThread mainThread] withObject:nil waitUntilDone:NO];
@@ -63,7 +63,7 @@
 		[NSApp setServicesProvider:oldServicesProvider];
 		result = self->resultPboard;
 		self->resultPboard = nil;
-	
+	});
 	return result;
 }
 

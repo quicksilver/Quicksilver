@@ -488,18 +488,19 @@ static CGFloat searchSpeed = 0.0;
     }
 }
 
-- (NSArray *)arrayForType:(NSString *)string {
+- (NSArray *)arrayForType:(NSString *)type {
 	
+		type = QSUTIForAnyTypeString(type);
 	NSArray *allObjects = [self.objectDictionary allValues];
 	NSIndexSet *ind = [allObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		// if it's a proxy object, check if its types include the string
 		if ([obj isProxyObject]) {
-			if ([[(QSProxyObject *)obj proxyTypes] containsObject:string]) {
+			if ([[(QSProxyObject *)obj proxyTypes] containsObject:type]) {
 				return YES;
 			}
 			return NO;
 		}
-		return ([obj objectForType:string] != nil);
+			return [[obj types] indexOfObject:type] != NSNotFound;
 	}];
 
 	// NSLog(@"found %d objects for type %@\r%@", [typeSet count] , string, [typeArrays objectForKey:string]);

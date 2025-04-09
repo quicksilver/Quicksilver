@@ -416,7 +416,6 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-    aKey = QSUTIForAnyTypeString(aKey);
     return [data objectForKey:aKey];
 #if 0
 	if (flags.multiTyped)
@@ -428,11 +427,11 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForType:(id)aKey {
+    aKey = QSUTIForAnyTypeString(aKey);
 	id object = [self _safeObjectForType:aKey];
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([(NSArray *) object count] == 1) return [object lastObject];
 	} else {
-		aKey = QSUTIForAnyTypeString(aKey);
         if ([aKey isEqualToString:QSTextType] && [object isKindOfClass:[NSData class]]) {
             object = [[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding];
         }
@@ -443,6 +442,7 @@ NSSize QSMaxIconSize;
     return nil;
 }
 - (NSArray *)arrayForType:(id)aKey {
+  aKey = QSUTIForAnyTypeString(aKey);
 	id object = [self _safeObjectForType:aKey];
 	if (!object) return nil;
 	if ([object isKindOfClass:[NSArray class]]) return object;
