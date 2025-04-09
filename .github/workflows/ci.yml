@@ -3,8 +3,8 @@ name: build
 
 on:
   push:
-    branches-ignore:
-      - 'translations_**'
+    branches:
+      - 'main'
     tags:
       - 'v*'
   pull_request:
