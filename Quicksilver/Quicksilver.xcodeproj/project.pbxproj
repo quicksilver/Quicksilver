@@ -14,6 +14,7 @@
 			);
 			dependencies = (
 				7F039994080EE21A001A9FA3 /* PBXTargetDependency */,
+				CDEFE3D52DA68854008E25A3 /* PBXTargetDependency */,
 				4DAAEB7F0E0BBE1B0088C72D /* PBXTargetDependency */,
 				4D002DC013114A7C009040B7 /* PBXTargetDependency */,
 				4D002DBE13114A7C009040B7 /* PBXTargetDependency */,
@@ -430,6 +431,10 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDEFE3CD2DA68829008E25A3 /* MiniInterface.nib in Resources */ = {isa = PBXBuildFile; fileRef = CDEFE3C92DA68829008E25A3 /* MiniInterface.nib */; };
+		CDEFE3CF2DA68829008E25A3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDEFE3C62DA68829008E25A3 /* Info.plist */; };
+		CDEFE3D02DA68829008E25A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CDEFE3C82DA68829008E25A3 /* Localizable.strings */; };
+		CDEFE3D12DA68829008E25A3 /* QSMiniInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEFE3CB2DA68829008E25A3 /* QSMiniInterfaceController.m */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -952,6 +957,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = D8FBCF4D123CF87800084E89;
 			remoteInfo = NDHotKeyEvent;
+		};
+		CDEFE3D42DA68854008E25A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDEFE3BF2DA687EA008E25A3;
+			remoteInfo = "Mini Interface";
 		};
 		E179ACF206482A0300083F3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1956,6 +1968,12 @@
 		CDEA588616C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CDEA588716C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDEA588816C557CD00B3897A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
+		CDEFE3C02DA687EA008E25A3 /* Mini Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDEFE3C62DA68829008E25A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDEFE3C72DA68829008E25A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CDEFE3C92DA68829008E25A3 /* MiniInterface.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MiniInterface.nib; sourceTree = "<group>"; };
+		CDEFE3CA2DA68829008E25A3 /* QSMiniInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSMiniInterfaceController.h; sourceTree = "<group>"; };
+		CDEFE3CB2DA68829008E25A3 /* QSMiniInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSMiniInterfaceController.m; sourceTree = "<group>"; };
 		CDFAC87C1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CDFAC87D1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CDFAC87E1652E220006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
@@ -2522,6 +2540,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDEFE3BD2DA687EA008E25A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E103F15E0647200700447FE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2627,6 +2652,7 @@
 				4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */,
 				4D002D88131149A3009040B7 /* Primer Interface.qsplugin */,
 				4D002DAD13114A2E009040B7 /* Keyboard Triggers.qsplugin */,
+				CDEFE3C02DA687EA008E25A3 /* Mini Interface.qsplugin */,
 				66448D9614F42790000FA2E2 /* QSFoundationTests.xctest */,
 				666E45EE150225EA0034E60A /* QSCoreTests.xctest */,
 				CD61BBB8192B18FA00040609 /* Quicksilver Tests.xctest */,
@@ -3138,6 +3164,18 @@
 			name = VDKQueue;
 			sourceTree = "<group>";
 		};
+		CDEFE3CC2DA68829008E25A3 /* Mini Interface */ = {
+			isa = PBXGroup;
+			children = (
+				CDEFE3C62DA68829008E25A3 /* Info.plist */,
+				CDEFE3C82DA68829008E25A3 /* Localizable.strings */,
+				CDEFE3C92DA68829008E25A3 /* MiniInterface.nib */,
+				CDEFE3CA2DA68829008E25A3 /* QSMiniInterfaceController.h */,
+				CDEFE3CB2DA68829008E25A3 /* QSMiniInterfaceController.m */,
+			);
+			path = "Mini Interface";
+			sourceTree = "<group>";
+		};
 		D413172B15DEE5D90021479B /* LaunchAtLoginController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3464,6 +3502,7 @@
 		E1BF1D450657F6620074A05A /* PlugIns-Main */ = {
 			isa = PBXGroup;
 			children = (
+				CDEFE3CC2DA68829008E25A3 /* Mini Interface */,
 				4D002C88131145DC009040B7 /* Bezel */,
 				4D002CA91311460B009040B7 /* Finder */,
 				4D002CD113114628009040B7 /* PrimerInterface */,
@@ -4318,6 +4357,25 @@
 			productReference = CD61BBB8192B18FA00040609 /* Quicksilver Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		CDEFE3BF2DA687EA008E25A3 /* Mini Interface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDEFE3C12DA687EA008E25A3 /* Build configuration list for PBXNativeTarget "Mini Interface" */;
+			buildPhases = (
+				CDEFE3BC2DA687EA008E25A3 /* Sources */,
+				CDEFE3BD2DA687EA008E25A3 /* Frameworks */,
+				CDEFE3BE2DA687EA008E25A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mini Interface";
+			packageProductDependencies = (
+			);
+			productName = "Mini Interface";
+			productReference = CDEFE3C02DA687EA008E25A3 /* Mini Interface.qsplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		E103F15F0647200700447FE0 /* QuickStep Core */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F6B3E4F085CE68E000735A8 /* Build configuration list for PBXNativeTarget "QuickStep Core" */;
@@ -4430,6 +4488,9 @@
 					CD61BBB7192B18FA00040609 = {
 						TestTargetID = 8D1107260486CEB800E47090;
 					};
+					CDEFE3BF2DA687EA008E25A3 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					E103F15F0647200700447FE0 = {
 						LastSwiftMigration = 1610;
 					};
@@ -4504,6 +4565,7 @@
 				4D002D60131148C2009040B7 /* Finder Plugin */,
 				4D002D87131149A3009040B7 /* Primer Interface */,
 				4D002DAC13114A2E009040B7 /* Keyboard Triggers */,
+				CDEFE3BF2DA687EA008E25A3 /* Mini Interface */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
 				E1A5676506FFDD8700BAD045 /* QSScriptingDictionary */,
 				66448D9514F42790000FA2E2 /* QSFoundationTests */,
@@ -4799,6 +4861,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDEFE3BE2DA687EA008E25A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDEFE3CD2DA68829008E25A3 /* MiniInterface.nib in Resources */,
+				CDEFE3CF2DA68829008E25A3 /* Info.plist in Resources */,
+				CDEFE3D02DA68829008E25A3 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E103F15C0647200700447FE0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5046,6 +5118,14 @@
 			files = (
 				CD943C452D63643700DB5C9A /* QSCatalogEntryTests.m in Sources */,
 				CD61BBC2192B18FA00040609 /* Quicksilver_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDEFE3BC2DA687EA008E25A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDEFE3D12DA68829008E25A3 /* QSMiniInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5391,6 +5471,11 @@
 			isa = PBXTargetDependency;
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
 			targetProxy = CDBA07DC27BCA5FD00D11AF1 /* PBXContainerItemProxy */;
+		};
+		CDEFE3D52DA68854008E25A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDEFE3BF2DA687EA008E25A3 /* Mini Interface */;
+			targetProxy = CDEFE3D42DA68854008E25A3 /* PBXContainerItemProxy */;
 		};
 		E179ACF306482A0300083F3E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6222,6 +6307,14 @@
 				CDC89A4327AB69C000727225 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		CDEFE3C82DA68829008E25A3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDEFE3C72DA68829008E25A3 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -7328,6 +7421,149 @@
 			};
 			name = Release;
 		};
+		CDEFE3C22DA687EA008E25A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlugIns-Main/Mini Interface/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qsapp.QSMiniInterfacePlugin;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		CDEFE3C32DA687EA008E25A3 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlugIns-Main/Mini Interface/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qsapp.QSMiniInterfacePlugin;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Testing;
+		};
+		CDEFE3C42DA687EA008E25A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlugIns-Main/Mini Interface/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qsapp.QSMiniInterfacePlugin;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -7517,6 +7753,16 @@
 				CD61BBC7192B18FA00040609 /* Debug */,
 				60C80C6E2A992D4700743E5E /* Testing */,
 				CD61BBC8192B18FA00040609 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CDEFE3C12DA687EA008E25A3 /* Build configuration list for PBXNativeTarget "Mini Interface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDEFE3C22DA687EA008E25A3 /* Debug */,
+				CDEFE3C32DA687EA008E25A3 /* Testing */,
+				CDEFE3C42DA687EA008E25A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
