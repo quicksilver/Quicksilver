@@ -328,7 +328,14 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 						return [handler objectHasValidChildren:object];
 					return NO;
 				}
-			}
+      } else {
+          // Check for recent documents
+          NSString *sflPath = QSGetRecentDocumentsPathForBundle(bundleIdentifier);
+          if ([[NSFileManager defaultManager] fileExistsAtPath:[sflPath stringByStandardizingPath] isDirectory:nil]) {
+              // reload recent documents every time
+              return NO;
+          }
+      }
 			return YES;
 		}
 
