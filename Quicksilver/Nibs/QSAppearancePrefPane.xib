@@ -26,18 +26,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="384" height="484"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="100">
                         <rect key="frame" x="17" y="436" width="132" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="sqh-cM-tOx"/>
+                        </constraints>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Select Interface:" id="195">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="Interface type" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="105">
+                    <popUpButton toolTip="Interface type" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="105">
                         <rect key="frame" x="148" y="431" width="110" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Window" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="115" id="198">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -48,55 +49,65 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="102" id="qNd-Ul-lig"/>
+                        </constraints>
                         <connections>
                             <action selector="setCommandInterface:" target="-2" id="171"/>
                         </connections>
                     </popUpButton>
-                    <button toolTip="Click to customise the interface" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="188">
-                        <rect key="frame" x="253" y="428" width="95" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <button toolTip="Click to customise the interface" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="188">
+                        <rect key="frame" x="253" y="428" width="95" height="27"/>
                         <buttonCell key="cell" type="push" title="Customize" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="209">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="83" id="itA-5b-dHN"/>
+                        </constraints>
                         <connections>
                             <action selector="customize:" target="-2" id="189"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="211">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="211">
                         <rect key="frame" x="17" y="463" width="136" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="132" id="wZQ-TG-XsV"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Interface" id="212">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                        <rect key="frame" x="194" y="314" width="164" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="101">
+                        <rect key="frame" x="193" y="314" width="165" height="18"/>
                         <buttonCell key="cell" type="check" title="Bezels are glass" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="196">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="ya0-Y8-Oyf"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSBezelIsGlass" id="152"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
-                        <rect key="frame" x="194" y="294" width="164" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                        <rect key="frame" x="193" y="294" width="165" height="18"/>
                         <buttonCell key="cell" type="check" title="Bezels have shadows" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="197">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="DWt-7L-eHy"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSBezelHasShadow" id="153"/>
                         </connections>
                     </button>
-                    <colorWell toolTip="Background color for the selected pane in the main window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="106">
-                        <rect key="frame" x="135" y="311" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Background color for the selected pane in the main window" translatesAutoresizingMaskIntoConstraints="NO" id="106">
+                        <rect key="frame" x="134" y="311" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1A" id="154">
@@ -106,14 +117,12 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <imageView toolTip="Background" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                        <rect key="frame" x="112" y="338" width="24" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <imageView toolTip="Background" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                        <rect key="frame" x="111" y="338" width="24" height="27"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceBack" id="199"/>
                     </imageView>
-                    <colorWell toolTip="Text color of the result window header/footer text" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="108">
-                        <rect key="frame" x="158" y="288" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Text color of the result window header/footer text" translatesAutoresizingMaskIntoConstraints="NO" id="108">
+                        <rect key="frame" x="157" y="288" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance2T" id="IBR-rL-rZK">
@@ -123,9 +132,11 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <colorWell toolTip="Text color in the main window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="109">
-                        <rect key="frame" x="158" y="311" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Text color in the main window" translatesAutoresizingMaskIntoConstraints="NO" id="109">
+                        <rect key="frame" x="157" y="311" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="d7Q-Tz-td4"/>
+                        </constraints>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1T" id="157">
@@ -135,36 +146,37 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="112" userLabel="Horizontal Line above Colors">
-                        <rect key="frame" x="20" y="417" width="324" height="4"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="112" userLabel="Horizontal Line above Colors">
+                        <rect key="frame" x="20" y="417" width="294" height="4"/>
+                        <constraints>
+                            <constraint firstAttribute="height" id="vre-7r-QDA"/>
+                        </constraints>
                     </box>
-                    <imageView toolTip="Text" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                        <rect key="frame" x="158" y="338" width="24" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <imageView toolTip="Text" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                        <rect key="frame" x="157" y="338" width="24" height="27"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceText" id="200"/>
                     </imageView>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="114">
-                        <rect key="frame" x="18" y="288" width="88" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                        <rect key="frame" x="18" y="288" width="87" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="ySm-zu-jyo"/>
+                        </constraints>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Result Headers:" id="201">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="116">
-                        <rect key="frame" x="18" y="265" width="88" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="116">
+                        <rect key="frame" x="18" y="265" width="87" height="18"/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Result Lists:" id="202">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <colorWell toolTip="Color of the results list selected row" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117">
-                        <rect key="frame" x="135" y="265" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Color of the results list selected row" translatesAutoresizingMaskIntoConstraints="NO" id="117">
+                        <rect key="frame" x="134" y="265" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3A" id="161">
@@ -174,9 +186,8 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <colorWell toolTip="Text color in the results list rows" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="118">
-                        <rect key="frame" x="158" y="265" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Text color in the results list rows" translatesAutoresizingMaskIntoConstraints="NO" id="118">
+                        <rect key="frame" x="157" y="265" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3T" id="163">
@@ -186,14 +197,15 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <imageView toolTip="Selection &amp; Accents" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="119">
-                        <rect key="frame" x="135" y="338" width="24" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <imageView toolTip="Selection &amp; Accents" translatesAutoresizingMaskIntoConstraints="NO" id="119">
+                        <rect key="frame" x="134" y="338" width="24" height="27"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppearanceSelection" id="203"/>
                     </imageView>
-                    <colorWell toolTip="Background color of the main window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="121">
-                        <rect key="frame" x="112" y="311" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Background color of the main window" translatesAutoresizingMaskIntoConstraints="NO" id="121">
+                        <rect key="frame" x="111" y="311" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="R1P-qJ-McR"/>
+                        </constraints>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance1B" id="137">
@@ -203,9 +215,8 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <colorWell toolTip="Background color of the results list" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="122">
-                        <rect key="frame" x="112" y="265" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Background color of the results list" translatesAutoresizingMaskIntoConstraints="NO" id="122">
+                        <rect key="frame" x="111" y="265" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance3B" id="144">
@@ -215,9 +226,8 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <colorWell toolTip="Header and footer background color in the result list" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="123">
-                        <rect key="frame" x="112" y="288" width="24" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <colorWell toolTip="Header and footer background color in the result list" translatesAutoresizingMaskIntoConstraints="NO" id="123">
+                        <rect key="frame" x="111" y="288" width="24" height="24"/>
                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.QSAppearance2B" id="140">
@@ -227,122 +237,245 @@
                             </binding>
                         </connections>
                     </colorWell>
-                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="124">
-                        <rect key="frame" x="18" y="311" width="88" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="124">
+                        <rect key="frame" x="18" y="311" width="87" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="34q-xE-dqT"/>
+                        </constraints>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Main Window:" id="204">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="125">
-                        <rect key="frame" x="111" y="241" width="72" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="125">
+                        <rect key="frame" x="112" y="241" width="70" height="16"/>
                         <buttonCell key="cell" type="push" title="Defaults" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" inset="2" id="205">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="miniSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="feb-RU-Ogf"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="66" id="rYc-ZY-UKa"/>
+                        </constraints>
                         <connections>
                             <action selector="resetColors:" target="-2" id="169"/>
                         </connections>
                     </button>
-                    <textField toolTip="Unused" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="127">
-                        <rect key="frame" x="139" y="292" width="16" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField toolTip="Unused" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="127">
+                        <rect key="frame" x="138" y="292" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="Wxw-qV-Zj2"/>
+                            <constraint firstAttribute="height" constant="16" id="jKO-Y3-Lkh"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="206">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Preview the colour changes in the interface" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="190">
-                        <rect key="frame" x="254" y="341" width="95" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button toolTip="Preview the colour changes in the interface" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="190">
+                        <rect key="frame" x="253" y="341" width="95" height="28"/>
                         <buttonCell key="cell" type="push" title="Preview" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="210">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="83" id="29h-77-zpu"/>
+                        </constraints>
                         <connections>
                             <action selector="preview:" target="-2" id="191"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="215">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="215">
                         <rect key="frame" x="18" y="394" width="113" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="ga4-Ma-rn4"/>
+                            <constraint firstAttribute="width" constant="109" id="iEW-Th-cJL"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Colors" id="216">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217">
-                        <rect key="frame" x="18" y="377" width="329" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="217">
+                        <rect key="frame" x="18" y="377" width="341" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Use the palette below to alter the colors of the interface" id="218">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4sn-lu-cqm" userLabel="Horizontal Line above Text">
-                        <rect key="frame" x="21" y="224" width="324" height="4"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    </box>
-                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-2w-qmg" userLabel="Text">
-                        <rect key="frame" x="19" y="201" width="113" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-2w-qmg" userLabel="Text">
+                        <rect key="frame" x="17" y="201" width="113" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="109" id="FZI-tT-m19"/>
+                            <constraint firstAttribute="height" constant="17" id="L61-b0-8qD"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text" id="bxO-4R-uyu">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Underline the searched for characters in an item’s name" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-e1-t7W">
+                    <button toolTip="Underline the searched for characters in an item’s name" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-e1-t7W">
                         <rect key="frame" x="18" y="176" width="340" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Underline Matched Text" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="RuL-qQ-Adf">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="RwP-Yw-yRv"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.Text Matched Underline" id="G3G-tr-xOF"/>
                         </connections>
                     </button>
-                    <button toolTip="Add a glow to the searched for characters in an item’s name" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3x8-3C-Qos">
+                    <button toolTip="Add a glow to the searched for characters in an item’s name" translatesAutoresizingMaskIntoConstraints="NO" id="3x8-3C-Qos">
                         <rect key="frame" x="18" y="156" width="340" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Add Glow to Matched Text" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Z2c-mk-eka">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="y3i-Re-HaF"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.Text Matched Glow" id="FnN-ge-6B9"/>
                         </connections>
                     </button>
-                    <button toolTip="When the search matches an item’s label, keep the name visible" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xq1-Sv-bTE">
+                    <button toolTip="When the search matches an item’s label, keep the name visible" translatesAutoresizingMaskIntoConstraints="NO" id="Xq1-Sv-bTE">
                         <rect key="frame" x="18" y="136" width="340" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Always Show Name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="tWF-dQ-7J6">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="Ieu-tq-8YI"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.Text Matched Always Show Name" id="GiC-f2-LxN"/>
                         </connections>
                     </button>
-                    <button toolTip="When the item’s name can’t fit, try squeezing letters together before truncating" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QE0-Cl-LSL">
+                    <button toolTip="When the item’s name can’t fit, try squeezing letters together before truncating" translatesAutoresizingMaskIntoConstraints="NO" id="QE0-Cl-LSL">
                         <rect key="frame" x="18" y="116" width="340" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Compress Long Names" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="4UN-QX-5xq">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="wSQ-xf-ghx"/>
+                        </constraints>
                         <connections>
                             <binding destination="132" name="value" keyPath="values.Text Allow Tightening" id="PuA-29-Czv"/>
                         </connections>
                     </button>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4sn-lu-cqm" userLabel="Horizontal Line above Text">
+                        <rect key="frame" x="19" y="224" width="339" height="4"/>
+                        <constraints>
+                            <constraint firstAttribute="height" id="Ryb-NN-n8i"/>
+                        </constraints>
+                    </box>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="119" firstAttribute="top" secondItem="113" secondAttribute="top" id="0Bs-TD-xlB"/>
+                    <constraint firstItem="121" firstAttribute="firstBaseline" secondItem="106" secondAttribute="firstBaseline" id="0aO-Wh-UF9"/>
+                    <constraint firstItem="107" firstAttribute="centerX" secondItem="121" secondAttribute="centerX" id="0td-MS-Iur"/>
+                    <constraint firstItem="124" firstAttribute="top" secondItem="217" secondAttribute="bottom" constant="48" id="2Jl-sf-u5G"/>
+                    <constraint firstItem="121" firstAttribute="baseline" secondItem="106" secondAttribute="baseline" id="3by-Jn-sdO"/>
+                    <constraint firstItem="107" firstAttribute="top" secondItem="217" secondAttribute="bottom" constant="12" id="3yg-VM-K57"/>
+                    <constraint firstItem="124" firstAttribute="trailing" secondItem="114" secondAttribute="trailing" id="4hU-eD-n4D"/>
+                    <constraint firstItem="106" firstAttribute="baseline" secondItem="109" secondAttribute="baseline" id="4s0-Oe-VAm"/>
+                    <constraint firstItem="101" firstAttribute="leading" secondItem="109" secondAttribute="trailing" constant="16" id="5L6-gI-HGx"/>
+                    <constraint firstItem="106" firstAttribute="leading" secondItem="121" secondAttribute="trailing" constant="5" id="5sv-0E-9Qk"/>
+                    <constraint firstItem="217" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="6gv-zN-LQ0"/>
+                    <constraint firstItem="Xq1-Sv-bTE" firstAttribute="leading" secondItem="QE0-Cl-LSL" secondAttribute="leading" id="6oa-ud-Go6"/>
+                    <constraint firstItem="119" firstAttribute="centerX" secondItem="106" secondAttribute="centerX" id="7cA-qz-t1i"/>
+                    <constraint firstItem="123" firstAttribute="centerY" secondItem="127" secondAttribute="centerY" id="8Ec-SA-Rnv"/>
+                    <constraint firstItem="122" firstAttribute="top" secondItem="123" secondAttribute="bottom" constant="3" id="8Yk-6p-tAI"/>
+                    <constraint firstItem="QE0-Cl-LSL" firstAttribute="top" secondItem="Xq1-Sv-bTE" secondAttribute="bottom" constant="2" id="BE4-Gw-RrR"/>
+                    <constraint firstItem="100" firstAttribute="leading" secondItem="211" secondAttribute="leading" id="C02-H9-gTE"/>
+                    <constraint firstItem="188" firstAttribute="leading" secondItem="105" secondAttribute="trailing" constant="5" id="C66-j1-ZMw"/>
+                    <constraint firstItem="123" firstAttribute="firstBaseline" secondItem="108" secondAttribute="firstBaseline" id="Csm-3a-ZNc"/>
+                    <constraint firstItem="217" firstAttribute="centerX" secondItem="4sn-lu-cqm" secondAttribute="centerX" id="DB5-Pm-7bN"/>
+                    <constraint firstItem="125" firstAttribute="leading" secondItem="122" secondAttribute="leading" id="DiK-eF-BqZ"/>
+                    <constraint firstItem="123" firstAttribute="leading" secondItem="122" secondAttribute="leading" id="DyU-u9-u4l"/>
+                    <constraint firstItem="114" firstAttribute="top" secondItem="124" secondAttribute="bottom" constant="5" id="GDq-0v-FbX"/>
+                    <constraint firstItem="112" firstAttribute="top" secondItem="105" secondAttribute="bottom" constant="16" id="GfS-xN-a20"/>
+                    <constraint firstItem="106" firstAttribute="centerX" secondItem="127" secondAttribute="centerX" id="I1o-WP-bke"/>
+                    <constraint firstItem="103" firstAttribute="trailing" secondItem="dSq-e1-t7W" secondAttribute="trailing" id="IL2-aB-w5T"/>
+                    <constraint firstItem="114" firstAttribute="leading" secondItem="116" secondAttribute="leading" id="Iz6-SP-dpo"/>
+                    <constraint firstItem="121" firstAttribute="leading" secondItem="124" secondAttribute="trailing" constant="11" id="Izn-9B-8aW"/>
+                    <constraint firstItem="106" firstAttribute="leading" secondItem="117" secondAttribute="leading" id="JVS-4s-15q"/>
+                    <constraint firstItem="109" firstAttribute="leading" secondItem="106" secondAttribute="trailing" constant="5" id="Jh4-CD-Z8i"/>
+                    <constraint firstItem="Xq1-Sv-bTE" firstAttribute="trailing" secondItem="QE0-Cl-LSL" secondAttribute="trailing" id="JmL-t2-qy7"/>
+                    <constraint firstItem="107" firstAttribute="top" secondItem="119" secondAttribute="top" id="L0X-Gb-bQU"/>
+                    <constraint firstAttribute="trailing" secondItem="4sn-lu-cqm" secondAttribute="trailing" constant="26" id="M80-sm-bI4"/>
+                    <constraint firstItem="4sn-lu-cqm" firstAttribute="top" secondItem="103" secondAttribute="bottom" constant="69" id="MKk-zb-OYr"/>
+                    <constraint firstItem="106" firstAttribute="firstBaseline" secondItem="109" secondAttribute="firstBaseline" id="OC6-jy-TRq"/>
+                    <constraint firstItem="dSq-e1-t7W" firstAttribute="top" secondItem="0CU-2w-qmg" secondAttribute="bottom" constant="6" id="Ovg-Md-uV7"/>
+                    <constraint firstItem="107" firstAttribute="baseline" secondItem="119" secondAttribute="baseline" id="PPP-cO-Sy2"/>
+                    <constraint firstItem="121" firstAttribute="top" secondItem="107" secondAttribute="bottom" constant="5" id="PQs-ro-IZ1"/>
+                    <constraint firstItem="123" firstAttribute="trailing" secondItem="122" secondAttribute="trailing" id="PV3-bO-xLC"/>
+                    <constraint firstItem="113" firstAttribute="centerX" secondItem="109" secondAttribute="centerX" id="PXn-Pj-vqN"/>
+                    <constraint firstItem="127" firstAttribute="leading" secondItem="123" secondAttribute="trailing" constant="6" id="Q1y-1R-RJn"/>
+                    <constraint firstItem="119" firstAttribute="baseline" secondItem="113" secondAttribute="baseline" id="S6o-Gp-oQ2"/>
+                    <constraint firstItem="100" firstAttribute="top" secondItem="211" secondAttribute="bottom" constant="13" id="SS4-zb-2wh"/>
+                    <constraint firstItem="108" firstAttribute="leading" secondItem="118" secondAttribute="leading" id="TOE-w9-DvR"/>
+                    <constraint firstItem="103" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="4" id="UK7-D2-esK"/>
+                    <constraint firstItem="121" firstAttribute="leading" secondItem="123" secondAttribute="leading" id="UY2-10-J40"/>
+                    <constraint firstItem="105" firstAttribute="leading" secondItem="100" secondAttribute="trailing" constant="5" id="Wih-cS-6Gk"/>
+                    <constraint firstItem="125" firstAttribute="top" secondItem="122" secondAttribute="bottom" constant="11" id="XIo-4f-bjV"/>
+                    <constraint firstItem="116" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="5" id="Y9M-qG-yjI"/>
+                    <constraint firstItem="211" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="19" id="YRy-B4-ie0"/>
+                    <constraint firstItem="Xq1-Sv-bTE" firstAttribute="top" secondItem="3x8-3C-Qos" secondAttribute="bottom" constant="2" id="Z3j-I6-qp4"/>
+                    <constraint firstItem="101" firstAttribute="trailing" secondItem="103" secondAttribute="trailing" id="ZQf-zT-ZMN"/>
+                    <constraint firstItem="108" firstAttribute="trailing" secondItem="118" secondAttribute="trailing" id="cqJ-5U-dEN"/>
+                    <constraint firstItem="101" firstAttribute="baseline" secondItem="124" secondAttribute="firstBaseline" id="dcp-rV-oe7"/>
+                    <constraint firstAttribute="trailing" secondItem="101" secondAttribute="trailing" constant="26" id="dqL-S6-o0P"/>
+                    <constraint firstItem="100" firstAttribute="baseline" secondItem="105" secondAttribute="baseline" id="e24-Qb-o43"/>
+                    <constraint firstItem="117" firstAttribute="baseline" secondItem="118" secondAttribute="baseline" id="eNd-o4-ggc"/>
+                    <constraint firstItem="101" firstAttribute="leading" secondItem="103" secondAttribute="leading" id="eYj-Yj-opU"/>
+                    <constraint firstItem="123" firstAttribute="top" secondItem="121" secondAttribute="bottom" constant="3" id="euP-dR-vdF"/>
+                    <constraint firstItem="0CU-2w-qmg" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="gYD-ZY-jHX"/>
+                    <constraint firstItem="113" firstAttribute="top" secondItem="190" secondAttribute="top" id="hKA-oo-Zz9"/>
+                    <constraint firstItem="217" firstAttribute="top" secondItem="215" secondAttribute="bottom" constant="3" id="hPP-Pw-8xu"/>
+                    <constraint firstAttribute="trailing" secondItem="112" secondAttribute="trailing" priority="10" constant="70" id="jU7-Ve-Zgj"/>
+                    <constraint firstItem="109" firstAttribute="leading" secondItem="108" secondAttribute="leading" id="lEx-FK-yVW"/>
+                    <constraint firstItem="3x8-3C-Qos" firstAttribute="top" secondItem="dSq-e1-t7W" secondAttribute="bottom" constant="2" id="lKQ-K6-xq6"/>
+                    <constraint firstItem="124" firstAttribute="leading" secondItem="114" secondAttribute="leading" id="m8p-f1-oTI"/>
+                    <constraint firstItem="211" firstAttribute="top" secondItem="6" secondAttribute="top" constant="4" id="mYa-yO-7Rk"/>
+                    <constraint firstItem="109" firstAttribute="centerY" secondItem="101" secondAttribute="centerY" id="nRX-XT-xnU"/>
+                    <constraint firstItem="122" firstAttribute="baseline" secondItem="117" secondAttribute="baseline" id="oCR-w5-vwd"/>
+                    <constraint firstItem="109" firstAttribute="trailing" secondItem="108" secondAttribute="trailing" id="oY4-lk-Z2Q"/>
+                    <constraint firstItem="127" firstAttribute="baseline" secondItem="108" secondAttribute="baseline" id="oat-Re-9ZO"/>
+                    <constraint firstItem="dSq-e1-t7W" firstAttribute="trailing" secondItem="3x8-3C-Qos" secondAttribute="trailing" id="ojf-F4-khN"/>
+                    <constraint firstItem="3x8-3C-Qos" firstAttribute="trailing" secondItem="Xq1-Sv-bTE" secondAttribute="trailing" id="ozA-at-H3H"/>
+                    <constraint firstItem="217" firstAttribute="leading" secondItem="124" secondAttribute="leading" id="p3k-7T-rrE"/>
+                    <constraint firstItem="0CU-2w-qmg" firstAttribute="leading" secondItem="4sn-lu-cqm" secondAttribute="leading" id="pYN-OG-rjq"/>
+                    <constraint firstItem="dSq-e1-t7W" firstAttribute="leading" secondItem="3x8-3C-Qos" secondAttribute="leading" id="q8E-fg-ECm"/>
+                    <constraint firstItem="121" firstAttribute="trailing" secondItem="123" secondAttribute="trailing" id="qY1-Xq-C2H"/>
+                    <constraint firstItem="101" firstAttribute="top" secondItem="190" secondAttribute="bottom" constant="17" id="r0L-HO-TjE"/>
+                    <constraint firstItem="4sn-lu-cqm" firstAttribute="top" secondItem="116" secondAttribute="bottom" constant="39" id="rNJ-Ba-bpX"/>
+                    <constraint firstItem="100" firstAttribute="leading" secondItem="dSq-e1-t7W" secondAttribute="leading" id="rQC-jT-eza"/>
+                    <constraint firstItem="3x8-3C-Qos" firstAttribute="leading" secondItem="Xq1-Sv-bTE" secondAttribute="leading" id="rQO-Mt-jWe"/>
+                    <constraint firstItem="0CU-2w-qmg" firstAttribute="top" secondItem="4sn-lu-cqm" secondAttribute="bottom" constant="8" symbolic="YES" id="tKi-Lw-7Tk"/>
+                    <constraint firstItem="106" firstAttribute="trailing" secondItem="117" secondAttribute="trailing" id="tcM-jm-gT2"/>
+                    <constraint firstItem="122" firstAttribute="firstBaseline" secondItem="117" secondAttribute="firstBaseline" id="uUW-ci-F3J"/>
+                    <constraint firstItem="190" firstAttribute="leading" secondItem="113" secondAttribute="trailing" constant="78" id="v1z-ZG-NYh"/>
+                    <constraint firstItem="117" firstAttribute="firstBaseline" secondItem="118" secondAttribute="firstBaseline" id="v6c-Bg-vDl"/>
+                    <constraint firstItem="108" firstAttribute="baseline" secondItem="103" secondAttribute="baseline" id="w64-kr-A1R"/>
+                    <constraint firstItem="215" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="wDN-Zv-YYG"/>
+                    <constraint firstItem="100" firstAttribute="top" secondItem="6" secondAttribute="top" constant="34" id="wbn-Kn-rW5"/>
+                    <constraint firstItem="4sn-lu-cqm" firstAttribute="top" secondItem="125" secondAttribute="bottom" constant="17" id="wkm-Sk-kif"/>
+                    <constraint firstItem="114" firstAttribute="trailing" secondItem="116" secondAttribute="trailing" id="wuM-ls-kvH"/>
+                    <constraint firstItem="215" firstAttribute="top" secondItem="112" secondAttribute="bottom" constant="8" symbolic="YES" id="wup-lb-oAD"/>
+                    <constraint firstItem="112" firstAttribute="leading" secondItem="215" secondAttribute="leading" id="xRX-2W-eJQ"/>
+                    <constraint firstItem="215" firstAttribute="leading" secondItem="217" secondAttribute="leading" id="yu6-fJ-LeA"/>
+                    <constraint firstItem="123" firstAttribute="baseline" secondItem="127" secondAttribute="baseline" id="zDs-I7-kJ0"/>
+                    <constraint firstItem="105" firstAttribute="baseline" secondItem="188" secondAttribute="baseline" id="zbQ-bS-kEq"/>
+                </constraints>
             </view>
             <point key="canvasLocation" x="273" y="239"/>
         </window>
