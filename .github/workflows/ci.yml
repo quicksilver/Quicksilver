@@ -34,14 +34,12 @@ jobs:
         working-directory: Quicksilver
         run: |
           ./Tools/qsrelease
-          cp ./SharedSupport/ChangesBare.html /tmp
       - name: Prepare DMG_INGREDIENTS artifact
         working-directory: /tmp/QS/build/Release/
         run: |
           cp \
             /tmp/qs_build_settings \
             /tmp/Quicksilver.entitlements \
-            /tmp/ChangesBare.html \
             ./dmg/
           tar -czvf ./dmg_ingredients.tar.gz ./dmg
       - name: Upload components for sign action
@@ -77,7 +75,6 @@ jobs:
           mv \
             ./dmg/qs_build_settings \
             ./dmg/Quicksilver.entitlements \
-            ./dmg/ChangesBare.html \
             /tmp/
           QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' \
             /tmp/qs_build_settings)
@@ -137,22 +134,3 @@ jobs:
             /tmp/QS/build/Release/Quicksilver*.dmg
             /tmp/QS/build/Release/checksum.txt
             /tmp/Quicksilver-debug.zip
-      - name: Update ChangesBare.html
-        env:
-          SERVER: ${{ secrets.SERVER }}
-          PORT: ${{ secrets.PORT }}
-          SSH_KEY: ${{secrets.SSH_KEY}}
-        run: |
-          # Create ssh keyfile with locked down permissions and ensure its removal
-          # Unfortunately process substitution won't work because ssh closes
-          # all fd > 2
-          touch /tmp/key
-          chmod 0600 /tmp/key
-          trap 'rm -f /tmp/key' EXIT
-          echo "${SSH_KEY}" > /tmp/key
-
-          ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
-            -o StrictHostKeyChecking=no \
-            "${GITHUB_REPOSITORY}" \
-            </tmp/ChangesBare.html
-          rm /tmp/key
