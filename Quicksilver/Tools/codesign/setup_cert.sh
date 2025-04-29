@@ -10,12 +10,12 @@ if [[ ! -d "Tools" ]]; then
   cd "Quicksilver"
 fi
 
-./Tools/codesign/generate_selfsigned_certificate.sh "$certificateFile" "$certificatePassword"
+./Tools/codesign/generate_selfsigned_certificate.sh "${certificateFile}" "${certificatePassword}"
 
 # check if running in CI and use import_certificate_into_new_keychain.sh
-if [[ "$CI" == "true" ]]; then
-  ./Tools/codesign/import_certificate_into_new_keychain.sh "$certificateFile" "$certificatePassword"
+if [[ "${CI:-}" == "true" ]]; then
+  ./Tools/codesign/import_certificate_into_new_keychain.sh "${certificateFile}" "${certificatePassword}"
 else
   # Otherwise, use import_certificate_into_main_keychain.sh
-  ./Tools/codesign/import_certificate_into_main_keychain.sh "$certificateFile" "$certificatePassword"
+  ./Tools/codesign/import_certificate_into_main_keychain.sh "${certificateFile}" "${certificatePassword}"
 fi
