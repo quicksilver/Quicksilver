@@ -55,7 +55,7 @@ codesign --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" "${QS
 codesign --verify --deep --strict --verbose=1 "${QS_VERSIONED_DMG}"
 
 # Replace unsigned version of the app with the signed version; BSD cp won't overwrite
-rm -rf "${BUILT_PRODUCTS_DIR}/Quicksilver.app"
+rm -rf -- "${BUILT_PRODUCTS_DIR}/Quicksilver.app"
 cp -a \
   "${DMG_TEMP}"/Quicksilver.app \
   "${DMG_TEMP}"/Quicksilver.app/Contents/Info.plist \

@@ -61,7 +61,7 @@ if [ -e "${QS_APPSUPPORT_PATH}" ]; then
 			mv "${QS_APPSUPPORT_PATH}" "${QS_APPSUPPORT_PATH}-${BACKUP_SUFFIX}"
 		else
 			echo "Removing \"${QS_APPSUPPORT_PATH}\"..."
-			rm -R "${QS_APPSUPPORT_PATH}"
+			rm -R -- "${QS_APPSUPPORT_PATH}"
 		fi
 	else
 		echo "Unexpected file type at path \"${QS_APPSUPPORT_PATH}\", cancelling"
@@ -76,7 +76,7 @@ if [ -e "${QS_PREFERENCE_FILE}.plist" ]; then
 			mv "${QS_PREFERENCE_FILE}.plist" "${QS_PREFERENCE_FILE}.plist-${BACKUP_SUFFIX}"
 		else
 			echo "Removing \"${QS_PREFERENCE_FILE}\"..."
-			rm "${QS_PREFERENCE_FILE}.plist"
+			rm -- "${QS_PREFERENCE_FILE}.plist"
 		fi
 	else
 		echo "Unexpected file type at path \"${QS_PREFERENCE_FILE}.plist\", cancelling"
@@ -87,7 +87,7 @@ fi
 if [ -e "${QS_CACHES_PATH}" ]; then
 	if [ -d "${QS_CACHES_PATH}" ]; then
 		echo "Removing \"${QS_CACHES_PATH}\"..."
-		rm -R "${QS_CACHES_PATH}"
+		rm -R -- "${QS_CACHES_PATH}"
 	else
 		echo "Unexpected file type at path \"${QS_CACHES_PATH}.plist\", cancelling"
 		exit 1
