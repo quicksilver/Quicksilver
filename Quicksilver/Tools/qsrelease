@@ -83,4 +83,4 @@ fi
 "${TOOLSDIR}"/qssign
 
 # Clean up settings if all went well
-rm -f "${SETTINGS}"
+rm -f -- "${SETTINGS}"
