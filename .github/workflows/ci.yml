@@ -3,8 +3,8 @@ name: build
 
 on:
   push:
-    branches-ignore:
-      - 'translations_**'
+    branches:
+      - 'main'
     tags:
       - 'v*'
   pull_request:
@@ -23,6 +23,7 @@ jobs:
       - name: Build debug version
         working-directory: Quicksilver
         run: |
+          ./Tools/codesign/setup_cert.sh
           ./Tools/qsrelease Debug
           mv /tmp/QS/build/Debug/Quicksilver{,-debug}.zip
       - name: Upload debug version

@@ -23,3 +23,7 @@ Quicksilver/Code-External/VDKQueue
 Quicksilver/Code-External/DisableSubviews
 Quicksilver/Code-External/NDHotKeyEvent
 .idea/
+codesign.conf
+codesign.crt
+codesign.key
+codesign.p12
