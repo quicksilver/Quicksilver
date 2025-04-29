@@ -92,8 +92,8 @@ jobs:
           # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
           KEYCHAIN_PATH=${RUNNER_TEMP}/app-signing.keychain-db
           CERTIFICATE_PATH=${RUNNER_TEMP}/build_certificate.p12
-          echo -n "${MACOS_CERTIFICATE}" | base64 --decode \
-            --output "${CERTIFICATE_PATH}"
+          base64 --decode --output "${CERTIFICATE_PATH}" <<<"${MACOS_CERTIFICATE}"
+          trap "rm -rf -- '${RUNNER_TEMP}'" EXIT
 
           security create-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
           security default-keychain -s "${KEYCHAIN_PATH}"
@@ -104,6 +104,7 @@ jobs:
           security import "${CERTIFICATE_PATH}" \
             -P "${MACOS_CERTIFICATE_PASSWORD}" \
             -A -t cert -f pkcs12 -k "${KEYCHAIN_PATH}"
+          rm -- "${CERTIFICATE_PATH}"
           xcrun notarytool store-credentials "${KEYCHAIN_PROFILE}" \
             --apple-id "${NOTARIZING_ID}" \
             --team-id "${SIGNING_IDENTITY}" \
@@ -147,13 +148,14 @@ jobs:
           # Create ssh keyfile with locked down permissions and ensure its removal
           # Unfortunately process substitution won't work because ssh closes
           # all fd > 2
-          touch /tmp/key
-          chmod 0600 /tmp/key
-          trap 'rm -f /tmp/key' EXIT
-          echo "${SSH_KEY}" > /tmp/key
+          (
+            umask 077
+            echo "${SSH_KEY}" > /tmp/key
+          )
+          trap 'rm -f -- /tmp/key' EXIT
 
           ssh -T "${SERVER}" -p "${PORT}" -i /tmp/key \
             -o StrictHostKeyChecking=no \
             "${GITHUB_REPOSITORY}" \
             </tmp/ChangesBare.html
-          rm /tmp/key
+          rm -- /tmp/key
