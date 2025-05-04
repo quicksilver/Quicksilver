@@ -30,7 +30,6 @@
 				4D8A0B3410AB23B6006AF163 /* CopyFiles */,
 				600950E82ABB938B00F67DEB /* ShellScript */,
 				D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */,
-				7FA4EF1E0913AE44007DB407 /* Release Notes */,
 			);
 			dependencies = (
 			);
@@ -259,7 +258,6 @@
 		7F9BDB3009F86D25004F6E7A /* QSHandledSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */; };
 		7F9BDBD609F9C40D004F6E7A /* QSSplitHandleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9BDBD709F9C40D004F6E7A /* QSSplitHandleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */; };
-		7FA4EF270913AF3B007DB407 /* Changes.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7FA4EF240913AF27007DB407 /* Changes.html */; };
 		7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */; };
 		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB37EB3080997EF00A2B2B4 /* QSURLDownloadWrapper.m */; };
@@ -1083,7 +1081,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 12;
 			files = (
-				7FA4EF270913AF3B007DB407 /* Changes.html in Copy SharedSupport */,
 				7F8C65A50811728E0051113C /* Credits.html in Copy SharedSupport */,
 			);
 			name = "Copy SharedSupport";
@@ -1386,7 +1383,6 @@
 		7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHandledSplitView.m; sourceTree = "<group>"; usesTabs = 1; };
 		7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSplitHandleView.h; sourceTree = "<group>"; usesTabs = 1; };
 		7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSplitHandleView.m; sourceTree = "<group>"; usesTabs = 1; };
-		7FA4EF240913AF27007DB407 /* Changes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Changes.html; sourceTree = "<group>"; };
 		7FADDCDF08B4D805004559C1 /* QSHistoryObjectSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHistoryObjectSource.h; sourceTree = "<group>"; };
 		7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHistoryObjectSource.m; sourceTree = "<group>"; };
 		7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSURLDownloadWrapper.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -2113,7 +2109,6 @@
 		D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle/SUStandardVersionComparator.h; sourceTree = "<group>"; };
 		D4BDCC1D19E7F8F50080710C /* SUExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle/SUExport.h; sourceTree = "<group>"; };
 		D4BDCC1E19E7F8F50080710C /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
-		D4DCF31F14D07F47006672AB /* ChangesBare.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
 		D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMetadataQuery+Synchronous.h"; sourceTree = "<group>"; usesTabs = 1; };
 		D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMetadataQuery+Synchronous.m"; sourceTree = "<group>"; usesTabs = 1; };
 		D4FED80D1683B82400593628 /* QSUserDefinedProxyTargetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxyTargetPicker.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -3477,8 +3472,6 @@
 			isa = PBXGroup;
 			children = (
 				7F8C659E081171DB0051113C /* Credits.html */,
-				7FA4EF240913AF27007DB407 /* Changes.html */,
-				D4DCF31F14D07F47006672AB /* ChangesBare.html */,
 			);
 			path = SharedSupport;
 			sourceTree = "<group>";
@@ -4883,20 +4876,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Script to append development information to the QS version string\n\n# Created by Henning Jungkurth on Apr 18 2012\n# Modifications by Nathan Henrie on 20220405\n\nset -euf\n\nCURRENT_TAG=$(git describe --exact-match --tags 2> /dev/null || true)\nCURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)\nHEAD=$(git rev-parse --short HEAD)\n\n# Default: `2.0.2:main-a83756f6:Debug`\nNEW_VERSION_STRING=${QS_INFO_VERSION}:${CURRENT_BRANCH:-\"detached HEAD\"}-${HEAD}:${CONFIGURATION}\n\n# If on a tag, make pretty: `v2.0.2:Debug` or `v2.0.2`\nif [ -n \"${CURRENT_TAG}\" ]; then\n  if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    NEW_VERSION_STRING=${QS_INFO_VERSION}\n  else\n    NEW_VERSION_STRING=${QS_INFO_VERSION}:${CONFIGURATION}\n  fi\nfi\n\nif [ -n \"${NEW_VERSION_STRING}\" ]; then\n  defaults write \"$QS_APP_CONTENTS_FOLDER/Info\" CFBundleShortVersionString \"\\\"${NEW_VERSION_STRING}\\\"\"\nfi\n";
-		};
-		7FA4EF1E0913AE44007DB407 /* Release Notes */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Release Notes";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/usr/bin/env python3";
-			shellScript = "#!/usr/bin/env python3\n\nimport os\nimport sys\nimport re\nimport platform\nfrom pathlib import Path\n\nsrcroot = Path(os.getenv('SRCROOT'))\nif srcroot is None:\n    sys.exit(78) # configuration error\n\n## location for input and output files\nsupp_dir = srcroot / \"SharedSupport\"\n\n## fake the deployment target to make distutils happy\nos.environ['MACOSX_DEPLOYMENT_TARGET'] = '.'.join(platform.mac_ver()[0].split('.')[0:2])\n\n## import Markdown support\nsys.path.append(str(srcroot / \"Tools\" / \"python-support\"))\nimport markdown\n\n## get the original text\ntext = (supp_dir / \"CHANGELOG\").read_text()\n\n## make issue numbers link to GitHub\ntext = re.sub(r'#(\\d+)', r'[#\\g<1>](https://github.com/quicksilver/Quicksilver/issues/\\g<1>)', text)\n\n## convert to HTML\n## https://stackoverflow.com/a/59055691/1588795\nmd = markdown.Markdown(extensions = [\n    \"markdown.extensions.abbr\",\n    \"markdown.extensions.attr_list\",\n    \"markdown.extensions.def_list\",\n    \"markdown.extensions.fenced_code\",\n    \"markdown.extensions.footnotes\",\n    \"markdown.extensions.tables\",\n    \"markdown.extensions.md_in_html\",\n], output_format = 'html')\nhtml = md.convert(text)\n\n## read in Quicksilver's stylesheet\nstyle = (srcroot / \"Resources\" / \"QSStyle.css\").read_text()\n\n## write the result\n(supp_dir / \"Changes.html\").write_text(\n    f\"\"\"\n<!DOCTYPE html>\n<html>\n    <head>\n        <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n        <link rel=\"stylesheet\" href=\"../Resources/QSStyle.css\" type=\"text/css\" charset=\"utf-8\">\n    </head>\n    <body id=\"qsrn\">\n        <div id=\"content\">\n            {html}\n        </div>\n    </body>\n</html>\n    \"\"\".strip()\n)\n(supp_dir /  \"ChangesBare.html\").write_text(html)\n";
 		};
 		D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */ = {
 			isa = PBXShellScriptBuildPhase;

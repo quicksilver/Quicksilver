@@ -44,6 +44,7 @@ typedef enum {
 @interface QSUpdateController () <QSURLDownloadDelegate> {
 	NSTimer *updateTimer;
 	NSString *availableVersion;
+	NSString *availableVersionDisplay;
 }
 @property (retain) QSURLDownload *appDownload;
 @property (retain) QSTask *downloadTask;
@@ -104,6 +105,14 @@ typedef enum {
 #endif
 }
 
+- (NSString *)currentVersionString {
+	return [NSString stringWithFormat:NSLocalizedString(@"%@, build %@", @"no update version number string"), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+}
+
+- (NSString *)newVersionString {
+	return [NSString stringWithFormat:NSLocalizedString(@"%@, build %@", @"no update version number string"), self->availableVersionDisplay, self->availableVersion];
+}
+
 - (NSURL *)buildUpdateCheckURL {
 	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
 	if (!checkURL)
@@ -123,7 +132,7 @@ typedef enum {
 			break;
 	}
 
-	checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@", versionType, thisVersionString];
+	checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@&json=1", versionType, thisVersionString];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Update Check URL: %@", checkURL);
 #endif
@@ -146,9 +155,25 @@ typedef enum {
 	NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:theRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 		QSGCDMainAsync(^{
 			[task stop];
-			
-			NSString *checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-			
+
+			// convert the response data from json to a dict.
+			if (error || !data) {
+				NSLog(@"Error: %@", error);
+				block(kQSUpdateCheckError);
+				return;
+			}
+			NSError *jsonError = nil;
+			// format, see https://github.com/quicksilver/QSApp.com/blob/main/qs0/plugins/check.php#L70
+			// latestDisplay -> displayVersion (STRING)
+			// latest -> latestVersion (HEX)
+			// current -> currentVersion (HEX)
+			NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+			if (jsonError) {
+				NSLog(@"JSON Error: %@", jsonError);
+				block(kQSUpdateCheckError);
+				return;
+			}
+			NSString *checkVersionString = json[@"latest"];
 			[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
 			if (![checkVersionString length] || [checkVersionString length] > 10) {
 				NSString *preview = [checkVersionString substringToIndex:([checkVersionString length] < 10 ? [checkVersionString length] : 9)];
@@ -162,6 +187,7 @@ typedef enum {
 			 * so force happens only if there's a valid response from the server
 			 */
 			self->availableVersion = checkVersionString;
+			self->availableVersionDisplay = json[@"latestDisplay"];
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, User-initiated: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (userInitiated ? @"YES" : @"NO"));
@@ -224,7 +250,7 @@ typedef enum {
 			/* Disable automatically checking for updates in the background for DEBUG builds
 			 * You can still check for updates by clicking the "Check Now" button */
 			if (!userInitiated) {
-				NSLog(@"Update availableself-> (%@) but disabled in DEBUG", self->availableVersion);
+				NSLog(@"Update available (%@ build %@) but disabled in DEBUG", [self currentVersionString], [self newVersionString]);
 				[self setIsCheckingForUpdates:NO];
 				return;
 			}
@@ -236,7 +262,7 @@ typedef enum {
 					NSAlert *alert = [[NSAlert alloc] init];
 					alert.alertStyle = NSAlertStyleInformational;
 					alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
-					alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], self->availableVersion];
+					alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [self currentVersionString], [self newVersionString]];
 					[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
 					[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 					[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
@@ -266,9 +292,10 @@ typedef enum {
 						QSGCDMainAsync(^{
 							NSAlert *alert = [[NSAlert alloc] init];
 							
+							NSString *versionNumber = [NSString stringWithFormat:NSLocalizedString(@"%@, build %@", @"no update version number string"), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
 							alert.alertStyle = NSAlertStyleInformational;
 							alert.messageText = NSLocalizedString(@"You're up-to-date!", @"QSUpdateController - no update alert title");
-							alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+							alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"You already have the latest version of Quicksilver (%@) and all installed plugins", @"no update alert message"), versionNumber];
 							[alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
 							
 							[alert runModal];
@@ -385,7 +412,7 @@ typedef enum {
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.alertStyle = NSAlertStyleInformational;
 			alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
-			alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey], self->availableVersion];
+			alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [self currentVersionString], [self newVersionString]];
 			[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update available alert default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - cancel update button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
