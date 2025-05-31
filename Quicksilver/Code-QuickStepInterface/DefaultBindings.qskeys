@@ -54,19 +54,19 @@
 		<string>explodeCombinedObject</string>
 		<key>⌃⌘D</key>
 		<string>defineMnemonic:</string>
-		<key>⌃⌥⌘D</key>
+		<key>⌘⌥⌃D</key>
 		<string>removeMnemonic:</string>
 		<key>⌥,</key>
 		<string>uncollectLast:</string>
 		<key>⌥/</key>
 		<string>selectRoot:</string>
-		<key>⌥⌘G</key>
+		<key>⌘⌥G</key>
 		<string>dropSelection:</string>
-		<key>⌥⌘V</key>
+		<key>⌘⌥V</key>
 		<string>dropClipboard:</string>
         <key>⌘Y</key>
         <string>togglePreviewPanel:</string>
-        <key>⌥⌘Y</key>
+        <key>⌘⌥Y</key>
         <string>togglePreviewPanelFullScreen:</string>
 	</dict>
 </dict>
