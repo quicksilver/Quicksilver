@@ -415,7 +415,7 @@ static QSController *defaultController = nil;
 		NSBeep();
 		[NSApp activateIgnoringOtherApps:YES];
 		[modal makeKeyAndOrderFront:self];
-	} else {
+	} else if (![sender isEqualTo:[NSApplication sharedApplication]]) {
 		QSInterfaceController *iController = [self interfaceController];
 		if (!iController)
 			NSBeep();
