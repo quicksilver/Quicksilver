@@ -130,7 +130,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if ([object isAlias]) { // isAlias returns YES for symlink or alias
+		if ([object isAlias] && ![object isUbiquitousItem]) { // isAlias returns YES for symlink or alias
 			// Symlink file
 			if (QSTypeConformsTo([object fileUTI], (NSString *)kUTTypeSymLink)) {
 				return [[path stringByResolvingSymlinksInPath] stringByAbbreviatingWithTildeInPath];
@@ -151,10 +151,22 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		if (hasTemporaryPrefix) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
 		}
-		// iCloud File
-		if ([object isIcloudFile]) {
-			return @"iCloud";
+		// check if it's a Dropbox file
+		if ([[object singleFilePath] containsString:@"CloudStorage/Dropbox/"]) {
+				return @"Dropbox";
 		}
+		if ([[object singleFilePath] containsString:@"CloudStorage/GoogleDrive-"]) {
+				return @"Google Drive";
+		}
+		// iCloud File
+		if ([[object singleFilePath] containsString:@"com~apple~CloudDocs"]) {
+				return @"iCloud";
+		}
+		
+		if ([object isUbiquitousItem]) {
+				return [NSString stringWithFormat:@"%@ (%@)", [path stringByAbbreviatingWithTildeInPath], NSLocalizedString(@"Cloud File", @"Label for files which are stored remotely")];
+		}
+
 		// normal file
 		return [path stringByAbbreviatingWithTildeInPath];
 		
@@ -708,8 +720,10 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 - (BOOL)isExecutable {
     return [[[self infoRecord] objectForKey:NSURLIsExecutableKey] boolValue];
 }
-
 - (BOOL)isIcloudFile {
+	return [self isUbiquitousItem];
+}
+- (BOOL)isUbiquitousItem {
 	return [[[self infoRecord] objectForKey:NSURLIsUbiquitousItemKey] boolValue];
 }
 
