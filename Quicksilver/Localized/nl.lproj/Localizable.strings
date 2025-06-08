@@ -1,4 +1,4 @@
-﻿// Typical strings
+// Typical strings
 "OK" = "OK";
 "Cancel" = "Annuleren";
 "Quit" = "Quit";
@@ -163,9 +163,6 @@
 
 /* Plugin extraction failed - message */
 "There was a problem extracting the QSPkg %@.\nThe file is most likely corrupt." = "Er is een probleem opgetreden bij het extraheren van de QSPkg %@.\nHet bestand is hoogstwaarschijnlijk beschadigd.";
-
-/* No comment provided by engineer. */
-"Updating plugin info" = "Informatie over plug-ins bijwerken";
 
 /* No comment provided by engineer. */
 "Updating Plugin Info" = "Plugin-informatie bijwerken";
