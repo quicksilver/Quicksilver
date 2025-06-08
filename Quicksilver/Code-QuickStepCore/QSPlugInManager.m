@@ -230,7 +230,7 @@
 				}
 				return;
 			}
-			self.downloadTask.status = NSLocalizedString(@"Updating plugin info", @"");
+			self.downloadTask.status = NSLocalizedString(@"Updating Plugin info", @"");
 			NSError *error = nil;
 			NSDictionary *prop = nil;
 			prop = [NSPropertyListSerialization propertyListWithData:data

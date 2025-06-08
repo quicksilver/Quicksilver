@@ -1,4 +1,4 @@
-﻿﻿// Typical strings
+﻿// Typical strings
 "OK" = "Budiž";
 "Cancel" = "Zrušit";
 "Quit" = "Ukončit";
@@ -163,9 +163,6 @@
 
 /* Plugin extraction failed - message */
 "There was a problem extracting the QSPkg %@.\nThe file is most likely corrupt." = "Vyskytly se potíže s rozbalováním QSPkg %@.\nSoubor je pravděpodobně poškozen.";
-
-/* No comment provided by engineer. */
-"Updating plugin info" = "Aktualizují se informace o zásuvných modulech";
 
 /* No comment provided by engineer. */
 "Updating Plugin Info" = "Aktualizují se informace o zásuvných modulech";
