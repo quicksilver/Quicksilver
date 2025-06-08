@@ -1,6 +1,11 @@
 git:
   filters:
     - filter_type: file
+      source_file: Quicksilver/Quicksilver/Nibs/en.lproj/MainMenu.xcstrings
+      source_language: en_US
+      file_format: XCSTRINGS
+
+    - filter_type: file
       translation_files_expression: 'Quicksilver/PlugIns-Main/Bezel/<lang>.lproj/Localizable.strings'
       source_file: Quicksilver/PlugIns-Main/Bezel/en.lproj/Localizable.strings
       source_language: en_US
