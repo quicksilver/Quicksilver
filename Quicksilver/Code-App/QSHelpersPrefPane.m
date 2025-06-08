@@ -123,7 +123,7 @@
 	if ([[aTableColumn identifier] isEqual:@"helper"]) {
 		return nil;
 	} else {
-		return [[[helperInfo objectAtIndex:rowIndex] objectForKey:INFO] objectForKey:NAME];
+		return NSLocalizedString([[[helperInfo objectAtIndex:rowIndex] objectForKey:INFO] objectForKey:NAME], nil);
 	}
 }
 
