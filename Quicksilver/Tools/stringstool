@@ -176,17 +176,18 @@ def parse_strings(file)
 
   File.open(file, "r:UTF-16:UTF-8") do |f|
     f.each_line do |line|
-      clean_line = line.strip
+      line = line.strip # Remove trailing whitespace
 
       # Match comment - some comments start with // then have /*
-      if clean_line.start_with?("//") || clean_line.start_with?("# ") || (clean_line.start_with?("/*") && clean_line.end_with?("*/")) || clean_line.start_with?("/*") || clean_line.end_with?("*/")
+      if line.start_with?("//") || line.start_with?("# ") || line.start_with?("/*") || line.end_with?("*/")
         if comment
           comment += "\n" + line # Append to existing comment
         else
           comment = line
         end
-      elsif match = clean_line.match(/^"(.+?)"\s*=\s*"(.+?)";/)
+      elsif match = line.match(/^"(.+?)"\s*=\s*"(.+?)";/)
         key, value = match.captures
+        comment = comment ? comment.strip : nil # Clean up comment
         if comment
           store_key = "#{key}-#{comment}" # Append comment to key
         else
@@ -209,7 +210,6 @@ def merge_strings(new_file, existing_file)
   new_entries = parse_strings(new_file)
   existing_entries = parse_strings(existing_file)
 
-
   # go through the new entries and see if they exist in the existing entries - do not use a set to preserve order
   new_entries.each do |key, entry|
     if existing_entries.key?(key)
@@ -229,7 +229,7 @@ def merge_strings(new_file, existing_file)
     line = []
     line << entry[:comment] if entry[:comment]
     line << %Q("#{entry[:key]}" = "#{entry[:value]}";)
-    merged_content << line.join("")
+    merged_content << line.join("\n")
   end
   merged_content.join("\n\n")
 end
