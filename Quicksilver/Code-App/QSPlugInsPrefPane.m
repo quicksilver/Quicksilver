@@ -310,26 +310,26 @@
 
 - (NSMutableArray *)plugInSets {
 	NSMutableArray *setDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", NSLocalizedString(@"Recommended", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", NSLocalizedString(@"Installed", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", NSLocalizedString(@"Disabled", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", NSLocalizedString(@"Not Installed", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", NSLocalizedString(@"Recommended", "Recommended: Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", NSLocalizedString(@"Installed", "Installed: Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", NSLocalizedString(@"Disabled", "Disabled: Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", NSLocalizedString(@"Not Installed", "Not Installed: Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:
-			NSLocalizedString(@"Applications", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Calendar", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Contacts", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Development", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Files", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Images", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Interfaces", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Mail & Chat", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Miscellaneous", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Music", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Quicksilver", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Search", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"System", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Text", "Plugin category name in the sidebar of the 'Plugins' preference pane"),
-			NSLocalizedString(@"Web", "Plugin category name in the sidebar of the 'Plugins' preference pane"), nil];
+			NSLocalizedString(@"Applications", "Applications: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Calendar", "Calendar: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Contacts", "Contacts: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Development", "Development: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Files", "Files: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Images", "Images: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Interfaces", "Interfaces: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Mail & Chat", "Mail & Chat: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Miscellaneous", "Misc: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Music", "Music: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Quicksilver", "Quicksilver: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Search", "Search: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"System", "System: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Text", "Text: Plugin category name in the sidebar of the 'Plugins' preference pane"),
+			NSLocalizedString(@"Web", "Web: Plugin category name in the sidebar of the 'Plugins' preference pane"), nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", NSLocalizedString(@"All Plugins", "Plugin category name in the sidebar of the 'Plugins' preference pane"), @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
 
