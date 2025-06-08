@@ -3,7 +3,7 @@
 
 ## stringstool is a command-line tool built to help localization management by :
 #  - extracting strings from IB files to .strings files
-#  - allowing strings file to be merged (TODO)
+#  - allowing strings file to be merged
 
 ## TODO
 # wrap everything in a localization.sh file
@@ -14,6 +14,7 @@ VERSION = 1.0
 begin
 require 'trollop'
 require 'plist'
+require 'set'
 rescue LoadError
   puts "Missing required gems, please run 'gem install trollop plist' first"
 end
@@ -96,9 +97,147 @@ def extract_strings_from_ib(ib_file, output_dir, options = {})
   return true
 end
 
+def extract_strings_from_mfiles(m_files, output_dir)
+# use genstrings to extract strings to a temporary file, then use merge_strings to merge them into the output directory
+  return false if m_files.empty?
+  
+  begin
+    # Create the output directory if it doesn't exist
+    FileUtils.mkdir_p output_dir unless Dir.exists? output_dir
+
+    temp_dir = Dir.mktmpdir
+    # create en.lproj directory if it doesn't exist
+    FileUtils.mkdir_p(File.join(temp_dir, 'en.lproj')) unless Dir.exists?(File.join(temp_dir, 'en.lproj'))
+
+    begin
+      puts "Extracting strings from .m files..."
+      Kernel.system("genstrings -o #{temp_dir}/en.lproj #{m_files.join(' ')}")
+      if $? != 0
+        puts "Extraction failed, error #{$?}"
+        return false
+      end
+    ensure
+      # do any cleanup
+    end
+
+    # output file is temp_dir/en.lproj/Localizable.strings
+    temp_file = File.join(temp_dir, 'en.lproj', 'Localizable.strings')
+
+    # Now parse back that file line by line and extract info from it
+    puts "Reformatting..."
+    strings_data = []
+    File.open(temp_file, "r:UTF-16:UTF-8") do |file|
+      file.each_line do |line|
+        if match = line.match(/"(.*)" = "(.*)";/)
+          data, comment = match[1], match[2]
+          strings_data << {:data => data, :comment => comment }
+        end
+      end
+    end
+
+    # Sort strings by data
+    strings_data.sort! {|a, b| a[:data] <=> b[:data] }
+
+    puts "Creating strings file in #{output_dir}..."
+
+    # Now write that data with the correct format at the output path
+    output_file_name = "Localizable.strings"
+    output_file = File.join(output_dir, output_file_name)
+
+    # use merge_strings to merge the strings into the output file
+    if File.exist?(output_file)
+      merged_content = merge_strings(temp_file, output_file)
+      File.open(output_file, "w:UTF-16") do |file|
+        file.write "/* Merged strings from .m files by stringstool v#{VERSION} */\n\n"
+        file.write merged_content
+      end
+    else
+      File.open(output_file, "w") do |file|
+        file.write "/* File extracted from .m files by stringstool v#{VERSION}*/\n\n"
+        strings_data.each do |item|
+          file.write "/* %s */\n\"%s\" = \"%s\";\n\n" % [item[:comment], item[:data], item[:data]]
+        end
+      end
+    end
+  ensure
+    # delete temp directory
+    # FileUtils.remove_entry(temp_dir) if Dir.exist?(temp_dir)
+  end
+
+  puts "Extracted strings to #{output_file}"
+  return true
+end
+
+# Parse .strings file into hash and preserve comments
+def parse_strings(file)
+  strings = {}
+  comment = nil
+  puts "Parsing strings file: #{file}"
+
+  File.open(file, "r:UTF-16:UTF-8") do |f|
+    f.each_line do |line|
+      line = line.strip
+
+      # Match comment - some comments start with // then have /*
+      if line.start_with?("//")
+        if comment
+          comment += "\n" + line # Append to existing comment
+        else
+          comment = line
+        end
+      elsif line.start_with?("/*") && line.end_with?("*/")
+        if comment
+          comment += "\n" + line # Append to existing comment
+        else
+          comment = line
+        end
+      elsif match = line.match(/^"(.+?)"\s*=\s*"(.+?)";/)
+        key, value = match.captures
+        strings[key] = { value: value, comment: comment }
+        comment = nil
+      elsif comment
+        # if we have an existing comment, add whatever is here to the end of it
+        comment += "\n" + line
+      end
+    end
+  end
+
+  strings
+end
+
+# Merge: keep existing translations, add new ones
+def merge_strings(new_file, existing_file)
+  new_entries = parse_strings(new_file)
+  existing_entries = parse_strings(existing_file)
+
+
+  # go through the new entries and see if they exist in the existing entries - do not use a set to preserve order
+  new_entries.each do |key, entry|
+    if existing_entries.key?(key)
+      existing_entry = existing_entries[key]
+      # If the key exists in both, use the new value (matching the comment as well)
+      existing_entry[:value] = new_entries[key][:value]
+      existing_entry[:comment] = new_entries[key][:comment] || entry[:comment]
+    else
+      # If the key does not exist in existing, add it
+      existing_entries[key] = entry
+    end
+  end
+
+  merged_content = []
+  # Now create the merged content, preserving comments and order
+  existing_entries.map do |key, entry|
+    line = []
+    line << entry[:comment] if entry[:comment]
+    line << %Q("#{key}" = "#{entry[:value]}";)
+    merged_content << line.join("\n")
+  end
+  merged_content.join("\n\n")
+end
+
 # Main script
 
-SUB_COMMANDS = ['extract-interface-builder']
+SUB_COMMANDS = ['extract-interface-builder', 'extract-mfiles', 'merge-strings']
 $global_opts = Trollop::options do
   version "stringstool v#{VERSION}"
 
@@ -115,6 +254,11 @@ stringstool:
       Extracts localizable strings from an Interface Builder file
         --ignored-strings, -i : A comma-separated list of regular expressions which will be ignored.
 
+    extract-mfiles
+      Extracts localizable strings from .m files
+
+    merge-strings
+      Merges two .strings files into one, keeping the translations from the existing file.
   Options:
 END
 
@@ -133,6 +277,29 @@ when "extract-interface-builder" then
     extract_strings_from_ib file, $global_opts[:output_directory], :ignored_strings => opts[:ignored_strings]
   end
   puts "Extraction complete, #{ib_files.count} files processed."
+when "extract-mfiles"
+  m_files = ARGV
+  if m_files.empty?
+    Trollop::die "extract-mfiles command requires at least one .m file to extract strings from."
+  end
+  success = extract_strings_from_mfiles(m_files, $global_opts[:output_directory])
+  if success
+    puts "Extraction complete, #{m_files.count} files processed."
+  else
+    puts "Extraction failed."
+  end
+
+when "merge-strings"
+  Trollop::die "merge-strings command requires two files to merge." if ARGV.count < 2
+  new_file = ARGV.shift
+  existing_file = ARGV.shift
+  output_file = $global_opts[:output_directory] || "merged.strings"
+  merged_content = merge_strings(new_file, existing_file)
+  File.open(output_file, "w") do |file|
+    file.write "/* Merged strings from #{new_file} and #{existing_file} by stringstool v#{VERSION} */\n\n"
+    file.write merged_content
+  end
+  puts "Merged strings from #{new_file} and #{existing_file} into #{output_file}"
 else
   Trollop::die "Unknown subcommand \"#{cmd}\""
 end
