@@ -108,6 +108,9 @@
                             </menuItem>
                         </items>
                     </menu>
+                    <attributedString key="userComments">
+                        <fragment content="DO NOT TRANSLATE"/>
+                    </attributedString>
                 </menuItem>
                 <menuItem title="Plugins" tag="128" id="1843">
                     <menu key="submenu" title="Plugins" id="1842"/>

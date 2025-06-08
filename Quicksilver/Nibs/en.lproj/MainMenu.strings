@@ -14,7 +14,7 @@
 /* Class = "NSMenuItem"; title = "Quicksilver"; ObjectID = "56"; */
 "56.title" = "Quicksilver";
 
-/* Class = "NSMenu"; title = "Quıcĸsıɩⅴεʀ"; ObjectID = "57"; */
+/* Class = "NSMenu"; title = "Quıcĸsıɩⅴεʀ"; DO NOT TRANSLATE ObjectID = "57"; */
 "57.title" = "Quıcĸsıɩⅴεʀ";
 
 /* Class = "NSMenuItem"; title = "About Quicksilver"; ObjectID = "58"; */
@@ -323,23 +323,65 @@
 /* Class = "NSTextFieldCell"; title = "For security and privacy reasons, macOS requires you to give explicit permission to an application before it can control your computer."; ObjectID = "1TS-br-qqV"; */
 "1TS-br-qqV.title" = "For security and privacy reasons, macOS requires you to give explicit permission to an application before it can control your computer.";
 
+/* Class = "NSTextFieldCell"; title = "Full Disk Access is required for Quicksilver to scan and access files on your disk, and perform tasks like showing you recently opened files."; ObjectID = "2lg-3g-pIK"; */
+"2lg-3g-pIK.title" = "Full Disk Access is required for Quicksilver to scan and access files on your disk, and perform tasks like showing you recently opened files.";
+
+/* Class = "NSTextFieldCell"; title = "Contacts access is only required if you wish to search for your contacts from within Quicksilver (requires the 'Contacts' plugin)."; ObjectID = "33I-E8-FgJ"; */
+"33I-E8-FgJ.title" = "Contacts access is only required if you wish to search for your contacts from within Quicksilver (requires the 'Contacts' plugin).";
+
 /* Class = "NSWindow"; title = "System Permission Needed"; ObjectID = "FDo-Qk-K96"; */
 "FDo-Qk-K96.title" = "System Permission Needed";
 
-/* Class = "NSTextFieldCell"; title = "Visit System Preferences and enable the Accessibility permission for Quicksilver as shown above."; ObjectID = "Fbf-wh-pJ5"; */
-"Fbf-wh-pJ5.title" = "Visit System Preferences and enable the Accessibility permission for Quicksilver as shown above.";
+/* Class = "NSButtonCell"; title = "Open Screen Recording Settings..."; ObjectID = "Gac-oC-Ek0"; */
+"Gac-oC-Ek0.title" = "Open Screen Recording Settings...";
 
 /* Class = "NSWindow"; title = "Window"; ObjectID = "HOT-LT-c93"; */
 "HOT-LT-c93.title" = "Window";
 
+/* Class = "NSTextFieldCell"; title = "Accessibility permission are required for Quicksilver to control your Mac."; ObjectID = "JPP-tg-kPP"; */
+"JPP-tg-kPP.title" = "Accessibility permission are required for Quicksilver to control your Mac.";
+
+/* Class = "NSTextFieldCell"; title = "Screen Recording is only required if you wish to capture screenshots using the 'Screen Capture Plugin'"; ObjectID = "KHV-tg-ZlD"; */
+"KHV-tg-ZlD.title" = "Screen Recording is only required if you wish to capture screenshots using the 'Screen Capture Plugin'";
+
 /* Class = "NSTextFieldCell"; title = "Quicksilver needs permission to control your Mac in order to work properly."; ObjectID = "Ltj-N2-Hut"; */
 "Ltj-N2-Hut.title" = "Quicksilver needs permission to control your Mac in order to work properly.";
 
+/* Class = "NSTextFieldCell"; title = "Calendar access is only required if you wish to view/edit/add events to your calendar from within Quicksilver (requires the 'Calendar & Reminders' plugin)"; ObjectID = "Uj2-0W-nHY"; */
+"Uj2-0W-nHY.title" = "Calendar access is only required if you wish to view/edit/add events to your calendar from within Quicksilver (requires the 'Calendar & Reminders' plugin)";
+
+/* Class = "NSButtonCell"; title = "Close Window"; ObjectID = "WFF-wc-5S8"; */
+"WFF-wc-5S8.title" = "Close Window";
+
+/* Class = "NSTextFieldCell"; title = "Contacts:"; ObjectID = "Z4N-bp-c3F"; */
+"Z4N-bp-c3F.title" = "Contacts:";
+
+/* Class = "NSButtonCell"; title = "Enable Calendars Access"; ObjectID = "bbC-WS-c4L"; */
+"bbC-WS-c4L.title" = "Enable Calendars Access";
+
+/* Class = "NSButtonCell"; title = "Enable Contacts Access"; ObjectID = "ch5-XR-anY"; */
+"ch5-XR-anY.title" = "Enable Contacts Access";
+
+/* Class = "NSTextFieldCell"; title = "Full Disk Access:"; ObjectID = "dyL-wq-9VD"; */
+"dyL-wq-9VD.title" = "Full Disk Access:";
+
+/* Class = "NSTextFieldCell"; title = "Calendars:"; ObjectID = "ewp-Ug-yyh"; */
+"ewp-Ug-yyh.title" = "Calendars:";
+
 /* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "fWD-oC-mMX"; */
 "fWD-oC-mMX.title" = "Donate...";
+
+/* Class = "NSTextFieldCell"; title = "Screen Recording"; ObjectID = "fXM-da-x5g"; */
+"fXM-da-x5g.title" = "Screen Recording";
 
 /* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "iED-Wu-rsI"; */
 "iED-Wu-rsI.title" = "Donate...";
 
 /* Class = "NSButtonCell"; title = "Enable Accessibility Access"; ObjectID = "iq5-A9-t0Y"; */
 "iq5-A9-t0Y.title" = "Enable Accessibility Access";
+
+/* Class = "NSButtonCell"; title = "Enable Full Disk Access"; ObjectID = "ltr-M0-b6f"; */
+"ltr-M0-b6f.title" = "Enable Full Disk Access";
+
+/* Class = "NSTextFieldCell"; title = "Accessibility:"; ObjectID = "uaV-yf-Qlx"; */
+"uaV-yf-Qlx.title" = "Accessibility:";
