@@ -262,7 +262,10 @@ typedef enum {
 					NSAlert *alert = [[NSAlert alloc] init];
 					alert.alertStyle = NSAlertStyleInformational;
 					alert.messageText = NSLocalizedString(@"New Version of Quicksilver Available", @"QSUpdateController - update available alert title");
-					alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [self currentVersionString], [self newVersionString]];
+					alert.informativeText = [NSString stringWithFormat:
+																	 @"%@\n\n%@",
+																	 NSLocalizedString(@"A new version of Quicksilver is available, would you like to update now?", @"QSUpdateController - update available alert message"),
+																	 [NSString stringWithFormat:NSLocalizedString(@"(Update from %@ → %@)", @"Update string from version to version"), [self currentVersionString], [self newVersionString]]];
 					[alert addButtonWithTitle:NSLocalizedString(@"Install Update", @"QSUpdateController - update available alert default button")];
 					[alert addButtonWithTitle:NSLocalizedString(@"Later", @"QSUpdateController - update available alert cancel button")];
 					[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
@@ -412,7 +415,9 @@ typedef enum {
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.alertStyle = NSAlertStyleInformational;
 			alert.messageText = NSLocalizedString(@"Download Successful", @"QSUpdateController - update downloaded alert title");
-			alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?\n\n(Update from %@ → %@)", @"QSUpdateController - update available alert message"), [self currentVersionString], [self newVersionString]];
+				alert.informativeText = [NSString stringWithFormat:@"%@\n\n%@",
+																 NSLocalizedString(@"A new version of Quicksilver has been dowloaded, would you like to install and relaunch now?", @"QSUpdateController - update available install and relaunch message"),
+																 [NSString stringWithFormat:NSLocalizedString(@"(Update from %@ → %@)", @"Update string from version to version"), [self currentVersionString], [self newVersionString]]];
 			[alert addButtonWithTitle:NSLocalizedString(@"Install and Relaunch", @"QSUpdateController - update available alert default button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel Update", @"QSUpdateController - cancel update button")];
 			[alert addButtonWithTitle:NSLocalizedString(@"More Info", @"QSUpdateController - update available alert other button")];
