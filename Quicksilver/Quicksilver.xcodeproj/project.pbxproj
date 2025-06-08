@@ -1251,7 +1251,7 @@
 		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
 		604EAB042CDE5B1E005B3451 /* QSSwiftObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSwiftObj.swift; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
-		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91D1086EF67009D5C90 /* French */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A9341086F027009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
