@@ -40,6 +40,14 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([NSPasteboardTypeColor isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
 	}
+    if ([QSCommandType isEqualToString:type]) {
+        NSArray *data = [pasteboard propertyListForType:type];
+        if ([data count]) {
+            return data[0];
+        }
+        return nil;
+    }
+    
 	if ([NSPasteboardTypeFileURL isEqualToString:type] || [QSFilePathType isEqualToString:type] || [NSFilenamesPboardType isEqualToString:type]) {
 		return [pasteboard propertyListForType:type];
 	}
@@ -171,6 +179,11 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
+    if ([[pasteboard types] isEqualToArray:@[QSCommandType]]) {
+        QSCommand *cmd = [QSCommand commandWithDictionary:objectForPasteboardType(pasteboard, QSCommandType)];
+        return cmd;
+    }
+
     if (self = [self init]) {
         
         NSString *source = nil;
@@ -194,8 +207,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
             [self setObject:[value string] forType:QSTextType];
         }
-        if ([self objectForType:QSTextType])
+        if ([self objectForType:QSTextType]) {
             [self sniffString];
+        }
         
         if ([self isClipping]) {
             [self addContentsOfClipping:[self singleFilePath]];
