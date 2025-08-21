@@ -414,9 +414,12 @@
         int pid = [[NSProcessInfo processInfo] processIdentifier];
         NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
         
-        NSDictionary *errorDict = nil;
-        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
+        NSDictionary __block *errorDict = nil;
+        NSAppleScript __block *script;
         
+        QSGCDMainSync(^{
+            script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
+        });
 		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSGetArgumentCountCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
         
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
