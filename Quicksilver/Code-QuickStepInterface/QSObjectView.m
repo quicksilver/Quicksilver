@@ -237,11 +237,16 @@
 	else return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) ? NSDragOperationNone : NSDragOperationEvery;
 }
 
-- (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation {
+- (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
 	performingDrag = NO;
-//	NSLog(@"ended at %f %f %d", aPoint.x, aPoint.y, operation);
-	//	if (operation == NSDragOperationNone) NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, aPoint, NSZeroSize, nil, nil, nil);
+//	NSLog(@"ended at %f %f %d", screenPoint.x, screenPoint.y, operation);
+	//	if (operation == NSDragOperationNone) NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, screenPoint, NSZeroSize, nil, nil, nil);
 	//	if (operation == NSDragOperationMove) [self removeFromSuperview];
+	
+	// Check if drag was successful (not NSDragOperationNone) and close interface if preference is set
+	if (operation != NSDragOperationNone && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSCloseInterfaceOnSuccessfulDrop"]) {
+		[[self controller] hideMainWindow:self];
+	}
 }
 
 //Dragging

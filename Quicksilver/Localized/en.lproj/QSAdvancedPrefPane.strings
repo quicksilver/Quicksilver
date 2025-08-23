@@ -26,3 +26,5 @@
 
 "Double Delete Clears Object:title" = "Pressing the Delete key clears the whole search string";
 "QSHistoryMaxLength:title" = "Number of items in Quicksilver’s history";
+
+"QSCloseInterfaceOnSuccessfulDrop:title" = "Close the interface after a successful drag and drop";

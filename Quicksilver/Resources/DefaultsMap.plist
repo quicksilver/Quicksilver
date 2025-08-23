@@ -132,5 +132,15 @@
 		<key>type</key>
 		<string>text</string>
 	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>QSCloseInterfaceOnSuccessfulDrop</string>
+		<key>title</key>
+		<string>Close the interface after a successful drag and drop</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
 </array>
 </plist>
