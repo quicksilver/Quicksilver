@@ -2205,7 +2205,7 @@
 		E18001D007B2BBB800010DB0 /* QSCatalogPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCatalogPrefPane.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001D107B2BBB800010DB0 /* QSCatalogPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCatalogPrefPane.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001D407B2BBB800010DB0 /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; usesTabs = 0; };
-		E18001D507B2BBB800010DB0 /* QSController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSController.m; sourceTree = "<group>"; usesTabs = 1; };
+		E18001D507B2BBB800010DB0 /* QSController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = QSController.m; sourceTree = "<group>"; usesTabs = 0; };
 		E18001DA07B2BBB800010DB0 /* QSGetURLScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSGetURLScriptCommand.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001DB07B2BBB800010DB0 /* QSGetURLScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSGetURLScriptCommand.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001DC07B2BBB800010DB0 /* QSHelpersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHelpersPrefPane.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -4245,6 +4245,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F6B3E68085CE68E000735A8 /* Build configuration list for PBXNativeTarget "Quicksilver" */;
 			buildPhases = (
+				66CAE627153EF9AD0021BC65 /* Check Code Signing Certificate */,
 				8D1107270486CEB800E47090 /* Headers */,
 				8D1107290486CEB800E47090 /* Resources */,
 				E1C3BE5106EA0AC500B848D6 /* Copy Plists */,
@@ -4862,6 +4863,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Intentionally blank -- only purpose is to tell XCode about the existence of\n# `Configuration/Quicksilver.pch`, copied in the step above, for automatic\n# dependency resolution. Without this (or something like it), one gets a race\n# condition with a lot of `/tmp/QS/Configuration/Quicksilver.pch: file not found`\n# type errors the first time XCode builds, which mysteriously resolve upon a\n# second build.\n#\n# Confirmed working alternatives to this hack:\n#   - remove the `Copy Files` step above and use `cp -r` here instead\n#   - Add a second (redundant) `Copy Files` step that explicitly (re-)copies `Quicksilver.pch`\n";
+		};
+		66CAE627153EF9AD0021BC65 /* Check Code Signing Certificate */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Code Signing Certificate";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Check if Local Self-Signed certificate exists, fail if not found\n\nset -euf\n\n# Skip this check if running on GitHub CI\nif [ \"${CI:-}\" = \"true\" ] && [ \"${GITHUB_ACTIONS:-}\" = \"true\" ]; then\n    echo \"Running on GitHub CI - skipping certificate check\"\n    exit 0\nfi\n\n# Check if the Local Self-Signed certificate exists in the keychain\nif ! security find-identity -v -p codesigning | grep -q \"Local Self-Signed\"; then\n    echo \"ERROR: Local Self-Signed certificate not found!\"\n    echo \"Please run the following command to set up code signing:\"\n    echo \"  ${SRCROOT}/Tools/codesign/setup_cert.sh\"\n    echo \"\"\n    echo \"This will create a self-signed certificate for local development.\"\n    exit 1\nelse\n    echo \"Local Self-Signed certificate found.\"\nfi\n";
 		};
 		66CAE628153EF9AE0021BC65 /* Adjust Version-String */ = {
 			isa = PBXShellScriptBuildPhase;
