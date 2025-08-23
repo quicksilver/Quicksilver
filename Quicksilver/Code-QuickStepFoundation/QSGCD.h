@@ -33,7 +33,11 @@ inline void QSGCDQueueDelayed(dispatch_queue_t queue, NSTimeInterval delay, void
 
 inline void QSGCDMainSync(void (^block)(void))
 {
-    QSGCDQueueSync(dispatch_get_main_queue(), block);
+    if ([NSThread isMainThread]) {
+        block();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
 }
 
 inline void QSGCDMainAsync(void (^block)(void))
