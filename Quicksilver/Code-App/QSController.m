@@ -785,9 +785,8 @@ static QSController *defaultController = nil;
 }
 
 - (IBAction)showReleaseNotes:(id)sender {
-    
-	NSURL *appURL = (__bridge NSURL*)LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, nil);
-    [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] sharedSupportPath] stringByAppendingPathComponent:@"Changes.html"] withApplication:[appURL path]];
+  NSString *releaseNotesURL = @"https://github.com/quicksilver/Quicksilver/releases/latest";
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:releaseNotesURL]];
 }
 
 - (QSInterfaceController *)interfaceController { return [QSReg preferredCommandInterface];  }
