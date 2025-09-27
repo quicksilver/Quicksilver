@@ -322,9 +322,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		});
 	} else {
 #ifdef DEBUG
-			if (psn.highLongOfPSN != 0) {
-					NSLog(@"No object found for process %u", (unsigned int)psn.highLongOfPSN);
-			}
+		NSLog(@"No object found for process %u", (unsigned int)psn.highLongOfPSN);
 #endif
 	}
 }
