@@ -38,10 +38,14 @@
 }
 
 
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-	//NSLog(@"source");
-	if (isLocal) return NSDragOperationEvery;
-	else return NSDragOperationEvery;
+- (NSDragOperation) draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+		switch (context) {
+				case NSDraggingContextWithinApplication:
+						return NSDragOperationEvery;
+				case NSDraggingContextOutsideApplication:
+				default:
+						return NSDragOperationEvery;
+		}
 }
 
 - (BOOL)isOpaque {

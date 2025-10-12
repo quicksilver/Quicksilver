@@ -23,10 +23,16 @@
 - (BOOL)shouldCollapseAutoExpandedItemsForDeposited:(BOOL)deposited {
 	return NO;
 }
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-	if (isLocal) return NSDragOperationMove;
-	else return NSDragOperationCopy;
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+		switch (context) {
+				case NSDraggingContextWithinApplication:
+						return NSDragOperationMove;
+				case NSDraggingContextOutsideApplication:
+				default:
+						return NSDragOperationCopy;
+		}
 }
+
 - (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
 	if ([[self delegate] respondsToSelector:@selector(outlineView:itemIsSeparator:)]
 		 && [[self delegate] outlineView:self itemIsSeparator:[self itemAtRow:rowIndex]]) {
