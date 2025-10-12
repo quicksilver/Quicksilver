@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="157" y="15" width="447" height="404"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <value key="minSize" type="size" width="384" height="100"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="447" height="404"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="232" customClass="QSHotKeyField">
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="232" customClass="QSHotKeyField">
                         <rect key="frame" x="94" y="351" width="76" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="none" drawsBackground="YES" id="275">
@@ -52,8 +52,8 @@
                             <action selector="set:" target="232" id="248"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100">
-                        <rect key="frame" x="191" y="183" width="34" height="14"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100">
+                        <rect key="frame" x="186" y="181" width="34" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="right" title="0.00s" id="254">
                             <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0.00s" negativeFormat="###0.00" localizesFormat="NO" hasThousandSeparators="NO" thousandSeparator="," id="101">
                                 <attributedString key="attributedStringForZero">
@@ -74,8 +74,8 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="104">
-                        <rect key="frame" x="18" y="229" width="106" height="14"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="104">
+                        <rect key="frame" x="18" y="228" width="106" height="14"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Spacebar behavior:" id="256">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -83,8 +83,8 @@
                         </textFieldCell>
                     </textField>
                     <slider toolTip="Delay before searching to improve performance on slow machines" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="105">
-                        <rect key="frame" x="229" y="161" width="165" height="15"/>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" alignment="left" maxValue="0.5" doubleValue="0.5" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="257">
+                        <rect key="frame" x="222" y="158" width="169" height="17"/>
+                        <sliderCell key="cell" controlSize="mini" continuous="YES" alignment="left" maxValue="3" doubleValue="0.75" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="257">
                             <font key="font" size="12" name="Helvetica"/>
                         </sliderCell>
                         <connections>
@@ -92,7 +92,7 @@
                         </connections>
                     </slider>
                     <button toolTip="Automatically put Quicksilver into text mode if no results are found in the Catalog" translatesAutoresizingMaskIntoConstraints="NO" id="108">
-                        <rect key="frame" x="18" y="202" width="234" height="18"/>
+                        <rect key="frame" x="20" y="202" width="233" height="16"/>
                         <buttonCell key="cell" type="check" title="Switch to text mode if no match is found" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="259">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -102,7 +102,7 @@
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="109">
-                        <rect key="frame" x="18" y="181" width="22" height="18"/>
+                        <rect key="frame" x="20" y="180" width="14" height="16"/>
                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="260">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -111,16 +111,16 @@
                             <binding destination="187" name="value" keyPath="values.Reset Delay" id="194"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="116">
-                        <rect key="frame" x="37" y="184" width="131" height="13"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="116">
+                        <rect key="frame" x="32" y="182" width="131" height="13"/>
                         <textFieldCell key="cell" controlSize="small" enabled="NO" sendsActionOnEndEditing="YES" alignment="left" title="Reset search after:" usesSingleLineMode="YES" id="262">
                             <font key="font" metaFont="label"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="120">
-                        <rect key="frame" x="191" y="161" width="34" height="14"/>
+                    <textField focusRingType="none" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="120">
+                        <rect key="frame" x="186" y="159" width="34" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="right" title="0.00s" id="264">
                             <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0.00s" negativeFormat="-0.00" localizesFormat="NO" hasThousandSeparators="NO" thousandSeparator="," id="115">
                                 <attributedString key="attributedStringForZero">
@@ -142,11 +142,11 @@
                         </connections>
                     </textField>
                     <slider toolTip="Time to wait before new letters typed are considered a new search" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="122">
-                        <rect key="frame" x="229" y="183" width="165" height="15"/>
+                        <rect key="frame" x="222" y="180" width="169" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="165" id="Mjj-yN-eOE"/>
                         </constraints>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" alignment="left" minValue="0.5" maxValue="3" doubleValue="3" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="266">
+                        <sliderCell key="cell" controlSize="mini" continuous="YES" alignment="left" minValue="0.5" maxValue="5" doubleValue="3.0714285714285716" tickMarkPosition="below" numberOfTickMarks="8" sliderType="linear" id="266">
                             <font key="font" size="12" name="Helvetica"/>
                         </sliderCell>
                         <connections>
@@ -154,8 +154,8 @@
                             <binding destination="187" name="enabled" keyPath="values.Reset Delay" id="192"/>
                         </connections>
                     </slider>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="123">
-                        <rect key="frame" x="37" y="162" width="154" height="13"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="123">
+                        <rect key="frame" x="37" y="160" width="154" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="tgt-4W-0wy"/>
                         </constraints>
@@ -165,7 +165,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="157">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="157">
                         <rect key="frame" x="17" y="354" width="53" height="14"/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Shortcut:" id="270">
                             <font key="font" metaFont="smallSystem"/>
@@ -174,7 +174,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="161">
-                        <rect key="frame" x="271" y="303" width="91" height="22"/>
+                        <rect key="frame" x="267" y="300" width="87" height="22"/>
                         <popUpButtonCell key="cell" type="push" title="Command" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="20" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="171" id="271">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -210,7 +210,7 @@
                         </connections>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="170">
-                        <rect key="frame" x="195" y="303" width="74" height="22"/>
+                        <rect key="frame" x="197" y="300" width="70" height="22"/>
                         <popUpButtonCell key="cell" type="push" title="Double" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="2" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="156" id="272">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -234,13 +234,13 @@
                         </connections>
                     </popUpButton>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="185">
-                        <rect key="frame" x="19" y="270" width="407" height="5"/>
+                        <rect key="frame" x="19" y="268" width="407" height="5"/>
                     </box>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="367">
-                        <rect key="frame" x="19" y="144" width="407" height="5"/>
+                        <rect key="frame" x="19" y="142" width="407" height="5"/>
                     </box>
                     <button toolTip="Use a single key command to activate" translatesAutoresizingMaskIntoConstraints="NO" id="227">
-                        <rect key="frame" x="17" y="306" width="147" height="18"/>
+                        <rect key="frame" x="19" y="304" width="146" height="16"/>
                         <buttonCell key="cell" type="check" title="Modifier-only activation" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="274">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -250,7 +250,7 @@
                         </connections>
                     </button>
                     <button toolTip="Use a single key command to activate" translatesAutoresizingMaskIntoConstraints="NO" id="373">
-                        <rect key="frame" x="17" y="285" width="210" height="18"/>
+                        <rect key="frame" x="19" y="285" width="209" height="16"/>
                         <buttonCell key="cell" type="check" title="When activated, switch keyboard to" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="374">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -259,15 +259,15 @@
                             <binding destination="187" name="value" keyPath="values.QSSwitchKeyboardOnActivation" id="382"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="294">
-                        <rect key="frame" x="30" y="328" width="291" height="14"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="294">
+                        <rect key="frame" x="30" y="326" width="291" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Enter the hotkey you want to use to display Quicksilver" id="295">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="324">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="324">
                         <rect key="frame" x="17" y="379" width="65" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Activation" id="325">
                             <font key="font" metaFont="system"/>
@@ -275,8 +275,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="326">
-                        <rect key="frame" x="17" y="247" width="47" height="17"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="326">
+                        <rect key="frame" x="17" y="246" width="47" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search" id="327">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -284,22 +284,22 @@
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="328">
-                        <rect key="frame" x="182" y="68" width="19" height="27"/>
+                        <rect key="frame" x="182" y="64" width="19" height="28"/>
                         <stepperCell key="cell" alignment="left" increment="8" minValue="18" maxValue="50" doubleValue="18" autorepeat="NO" id="345"/>
                         <connections>
                             <binding destination="187" name="value" keyPath="values.QSResultViewRowHeight" id="347"/>
                         </connections>
                     </stepper>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="329">
-                        <rect key="frame" x="17" y="75" width="109" height="14"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="329">
+                        <rect key="frame" x="17" y="71" width="109" height="14"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Results Row Height:" id="344">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField toolTip="Sets the height of each row in the results window" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="330">
-                        <rect key="frame" x="141" y="71" width="36" height="21"/>
+                    <textField toolTip="Sets the height of each row in the results window" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="330">
+                        <rect key="frame" x="141" y="67" width="36" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="V0w-eM-7rL"/>
                         </constraints>
@@ -313,7 +313,7 @@
                         </connections>
                     </textField>
                     <popUpButton toolTip="Set when the results window appears for search results" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="331">
-                        <rect key="frame" x="123" y="44" width="100" height="22"/>
+                        <rect key="frame" x="122" y="40" width="96" height="22"/>
                         <popUpButtonCell key="cell" type="push" title="Manually" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="-1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="341" id="338">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -329,8 +329,8 @@
                             <binding destination="187" name="selectedTag" keyPath="values.Result Window Behavior" id="346"/>
                         </connections>
                     </popUpButton>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="332">
-                        <rect key="frame" x="17" y="49" width="106" height="14"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="332">
+                        <rect key="frame" x="17" y="45" width="106" height="14"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Show other results:" id="337">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -338,7 +338,7 @@
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="350">
-                        <rect key="frame" x="17" y="98" width="215" height="18"/>
+                        <rect key="frame" x="19" y="96" width="214" height="16"/>
                         <buttonCell key="cell" type="check" title="Focus action when displaying results" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="351">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -347,8 +347,8 @@
                             <binding destination="187" name="value" keyPath="values.QSJumpToActionOnResult" id="352"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="365">
-                        <rect key="frame" x="17" y="122" width="49" height="16"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="365">
+                        <rect key="frame" x="17" y="120" width="49" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Results" id="366">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -356,10 +356,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="376">
-                        <rect key="frame" x="231" y="282" width="131" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="125" id="p77-5v-wO9"/>
-                        </constraints>
+                        <rect key="frame" x="233" y="281" width="133" height="22"/>
                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="379" id="377">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -371,13 +368,16 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="125" id="p77-5v-wO9"/>
+                        </constraints>
                         <connections>
                             <binding destination="187" name="selectedObject" keyPath="values.QSForcedKeyboardIDOnActivation" id="384"/>
                             <binding destination="187" name="enabled" keyPath="values.QSSwitchKeyboardOnActivation" id="387"/>
                         </connections>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                        <rect key="frame" x="129" y="224" width="162" height="22"/>
+                        <rect key="frame" x="128" y="223" width="158" height="22"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="269">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>

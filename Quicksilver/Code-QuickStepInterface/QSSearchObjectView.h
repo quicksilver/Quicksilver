@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	
 	// whether or not the string in the underlying text editor should be 'sniffed' when editing (see QSObject_StringHandling.m - sniffString for more info)
 	BOOL shouldSniff;
+	BOOL hasMarkedTextState; // tracks input method composition state
     QSAction *alternateActionCounterpart;
 
 @public
