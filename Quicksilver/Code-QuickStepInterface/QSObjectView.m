@@ -232,9 +232,15 @@
 	// [self setNeedsDisplay:YES];
 }
 
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-	if (isLocal) return NSDragOperationMove;
-	else return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) ? NSDragOperationNone : NSDragOperationEvery;
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session
+sourceOperationMaskForDraggingContext:(NSDraggingContext) context {
+		switch (context) {
+				case NSDraggingContextWithinApplication:
+						return NSDragOperationMove;
+				case NSDraggingContextOutsideApplication:
+				default:
+						return ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) ? NSDragOperationNone : NSDragOperationEvery;
+		}
 }
 
 - (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {

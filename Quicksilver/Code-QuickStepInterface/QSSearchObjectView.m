@@ -75,6 +75,7 @@ NSMutableDictionary *bindingsDict = nil;
 	preferredEdge = NSMaxXEdge;
 	partialString = [[NSMutableString alloc] initWithCapacity:1];
 	[partialString setString:@""];
+	hasMarkedTextState = NO;
 
 	matchedString = nil;
 
@@ -1089,10 +1090,12 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     
 	if ([eventCharactersIgnoringModifiers isEqualToString:@" "]) {
-        if ([theEvent type] == NSEventTypeKeyDown) {
+        if ([theEvent type] == NSEventTypeKeyDown && ![self hasMarkedText]) {
             [self insertSpace:nil];
         }
-		return;
+			if (![self hasMarkedText]) {
+					return;
+			}
 	}
     
 	// ***warning  * have downshift move to indirect object
@@ -1662,10 +1665,31 @@ NSMutableDictionary *bindingsDict = nil;
     [self setMarkedText:aString selectedRange:selRange replacementRange:NSMakeRange(0, 0)];
 }
 
-- (void)setMarkedText:(id)aString selectedRange:(NSRange)selectedRange replacementRange:(NSRange)replacementRange {}
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selectedRange replacementRange:(NSRange)replacementRange {
+	// Set marked text state for input method composition
+	hasMarkedTextState = (aString != nil && [aString length] > 0);
 
-- (void)unmarkText {}
-- (BOOL)hasMarkedText { return NO; }
+	// Extend timers when input method is composing text
+	// This prevents the search from timing out while user is typing with input methods
+
+	// Extend search timer
+	if ([searchTimer isValid]) {
+		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay]]];
+	}
+
+	// Extend reset timer
+	if ([resetTimer isValid]) {
+		CGFloat resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
+		if (resetDelay) {
+			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
+		}
+	}
+}
+
+- (void)unmarkText {
+	hasMarkedTextState = NO;
+}
+- (BOOL)hasMarkedText { return hasMarkedTextState; }
 - (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
@@ -1693,11 +1717,10 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark Drag and Drop
 
-- (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation
-{
+- (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
 	[self updateHistory];
 	[self saveMnemonic];
-	[super draggedImage:anImage endedAt:aPoint operation:operation];
+	[super draggingSession:session endedAtPoint:screenPoint operation:operation];
 }
 @end
 
