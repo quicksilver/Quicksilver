@@ -1717,11 +1717,10 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark Drag and Drop
 
-- (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation
-{
+- (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
 	[self updateHistory];
 	[self saveMnemonic];
-	[super draggedImage:anImage endedAt:aPoint operation:operation];
+	[super draggingSession:session endedAtPoint:screenPoint operation:operation];
 }
 @end
 

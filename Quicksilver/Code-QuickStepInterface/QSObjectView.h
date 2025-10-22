@@ -14,7 +14,7 @@ typedef enum {
 } QSObjectDropMode;
 
 
-@interface QSObjectView : NSControl {
+@interface QSObjectView : NSControl <NSDraggingSource> {
 	NSString *searchString;
 	BOOL dragImageDraw;
 	BOOL dragAcceptDraw;
