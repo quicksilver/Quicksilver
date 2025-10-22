@@ -27,7 +27,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 7F6B3E45085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Preflight" */;
 			buildPhases = (
-				4D8A0B3410AB23B6006AF163 /* CopyFiles */,
 				600950E82ABB938B00F67DEB /* ShellScript */,
 				D4DCF31114D059DB006672AB /* Copy Markdown Python module and bltrversion */,
 			);
@@ -139,7 +138,6 @@
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
 		4D891783147595A5009C1C14 /* QSAppearancePrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891785147595A5009C1C14 /* QSAppearancePrefPane.strings */; };
 		4D891787147595AE009C1C14 /* QSSearchPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891789147595AE009C1C14 /* QSSearchPrefPane.strings */; };
-		4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4D8A0B3510AB23F7006AF163 /* Configuration */; };
 		4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
 		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1002,16 +1000,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 1;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D8A0B3410AB23B6006AF163 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = $QS_BUILD_ROOT;
-			dstSubfolderSpec = 0;
-			files = (
-				4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4862,7 +4850,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Intentionally blank -- only purpose is to tell XCode about the existence of\n# `Configuration/Quicksilver.pch`, copied in the step above, for automatic\n# dependency resolution. Without this (or something like it), one gets a race\n# condition with a lot of `/tmp/QS/Configuration/Quicksilver.pch: file not found`\n# type errors the first time XCode builds, which mysteriously resolve upon a\n# second build.\n#\n# Confirmed working alternatives to this hack:\n#   - remove the `Copy Files` step above and use `cp -r` here instead\n#   - Add a second (redundant) `Copy Files` step that explicitly (re-)copies `Quicksilver.pch`\n";
+			shellScript = "cp -r Configuration /tmp/QS/\n";
 		};
 		66CAE627153EF9AD0021BC65 /* Check Code Signing Certificate */ = {
 			isa = PBXShellScriptBuildPhase;
