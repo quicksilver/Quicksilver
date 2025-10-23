@@ -419,9 +419,6 @@ for file in filesToSubmit {
 
         fields["mod_date"] = iso.string(from: fileModificationDate(file))
         fields["is_app"] = "true"
-
-        // NOTE: The Ruby script references a checkIsUniversalBinary(...) helper which was not defined.
-        // This Swift port omits that check (there is no direct stdlib-only equivalent).
     } else {
         eprint("Unknown type \(ext) for file \(file)")
         continue
