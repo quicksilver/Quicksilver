@@ -96,13 +96,12 @@ func fileModificationDate(_ path: String) -> Date {
     }
 }
 
-func ensureDir(_ path: String) {
+func ensureDir(_ path: String) throws {
     var isDir: ObjCBool = false
     if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
         if isDir.boolValue { return }
-        try? FileManager.default.removeItem(atPath: path)
     }
-    try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true)
+    try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true)
 }
 
 func removeIfExists(_ path: String) {
@@ -272,7 +271,7 @@ let filesToSubmit = opts.files.filter(isSupportedFile)
 print("Submitting \"\(filesToSubmit.joined(separator: "\", \""))\" to \"\(apiURLStr)\"")
 
 // Ensure archive work directory exists
-ensureDir(ARCHIVE_DIR)
+try ensureDir(ARCHIVE_DIR)
 
 // MARK: - Helper: find plugin icon from Info.plist
 
@@ -334,7 +333,7 @@ for file in filesToSubmit {
         let baseName = ((file as NSString).lastPathComponent as NSString).deletingPathExtension
         let sanitized = baseName.replacingOccurrences(of: " ", with: "_")
         let archivePath = (ARCHIVE_DIR as NSString).appendingPathComponent("\(sanitized)-archive.zip")
-        ensureDir(ARCHIVE_DIR)
+        try ensureDir(ARCHIVE_DIR)
 
         let ditto = run("/usr/bin/ditto", ["-c","-z","--keepParent", file, archivePath])
         if ditto.status != 0 {
