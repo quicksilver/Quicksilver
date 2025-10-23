@@ -1,20 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -euf
-set -x
+set -Eeuf -o pipefail
 
 xcodebuild -version
 
-TOOLSDIR=$(cd "$(dirname "$0")" && pwd)
+TOOLSDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+readonly TOOLSDIR
+. "${TOOLSDIR}/utils.sh"
+
+cd "${TOOLSDIR}/.."
 
 CONFIGURATION=${1-Release}
 
 ## Cache settings to save time
 SETTINGS=/tmp/qs_build_settings
+xcb_args=(
+  -destination generic/platform=macos
+  -configuration "${CONFIGURATION}"
+  -scheme 'Quicksilver Distribution'
+)
 xcodebuild \
-  -destination generic/platform=macos \
-  -configuration "${CONFIGURATION}" \
-  -scheme 'Quicksilver Distribution' \
+  "${xcb_args[@]}" \
   -showBuildSettings |
   sort -u > "${SETTINGS}"
 
@@ -23,9 +29,6 @@ cp Quicksilver.entitlements /tmp/Quicksilver.entitlements
 
 SOURCE_ROOT=$(awk '$1 == "SOURCE_ROOT" { print $NF }' < "${SETTINGS}")
 BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
-
-## Create the directory (for logging purposes)
-mkdir -p "${BUILT_PRODUCTS_DIR}"
 
 # Tell xcode it's okay to clean these directories
 build_parent=$(dirname "${BUILT_PRODUCTS_DIR}")
@@ -41,46 +44,41 @@ LOG=${BUILT_PRODUCTS_DIR}/build.log
 touch "${LOG}"
 
 {
-  "${TOOLSDIR}"/qstest
+  if [[ -z "${QS_DONT_TEST:-}" ]]; then
+    "${TOOLSDIR}"/qstest
+  fi
 
+  if [[ "${CI:-}" = true ]] && [[ "${GITHUB_ACTIONS:-}" = true ]]; then
+    xcb_args+=(CODE_SIGN_IDENTITY=-)
+  fi
   xcodebuild \
     WARNING_CFLAGS="-w" \
-    -destination generic/platform=macos \
-    -configuration "${CONFIGURATION}" \
-    -scheme 'Quicksilver Distribution' \
+    "${xcb_args[@]}" \
     build
 } | tee "${LOG}"
 
 ## Build succeeded
-cd "${BUILT_PRODUCTS_DIR}"
+pushd "${BUILT_PRODUCTS_DIR}"
 
 ## Set the correct plist permissions
 chmod 644 Quicksilver.app/Contents/Info.plist
 
 ## Prepare the DMG directory
-DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
-mkdir -p "${DMG_TEMP}"
-
-cd "${DMG_TEMP}"
+mkdir -p ./dmg
+pushd ./dmg
 
 cp -a ../Quicksilver.app .
 cp "${SOURCE_ROOT}"/Resources/DMG_DS_Store ./.DS_Store
 ln -sf /Applications .
 cp "${SOURCE_ROOT}"/Resources/Images/QuicksilverDMG.icns ./.VolumeIcon.icns
 
-if [ -n "${QS_DONT_SIGN=}" ] || [ -n "${QS_BUILD_ONLY=}" ]; then
-  cd ..
+# Use an ad-hoc sig by default; follow with qssign if a production signature is required
+codesign --deep --force --sign "-" Quicksilver.app
 
-  echo "Skipping codesigning and using an ad-hoc signature for local testing instead"
-  codesign --deep --force --sign "-" Quicksilver.app
+popd
 
-  echo "Creating a zip build artifact for uploading."
-  ditto -c -k --keepParent Quicksilver.app Quicksilver.zip
-
-  exit 0
-fi
-
-"${TOOLSDIR}"/qssign
+echo "Creating a zip build artifact for uploading."
+ditto -c -k --keepParent Quicksilver.app Quicksilver.zip
 
 # Clean up settings if all went well
 rm -f -- "${SETTINGS}"

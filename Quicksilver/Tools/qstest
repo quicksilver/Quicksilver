@@ -1,6 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # USAGE: qstest scheme [...]
 # EXAMPLE: qstest "QuickStep Core" "QuickStep Foundation" "Core Support"
+# To build a testing config but not run tests: QS_DONT_TEST=1 ./qstest ...
 
 set -euf
 
@@ -22,33 +23,36 @@ main() {
 
   cd "${TOOLSDIR}/.."
 
-  xcodebuild build \
-    -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
-    -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-    -configuration Testing \
-    -scheme Quicksilver \
+  local xcb_args=(
+    -project "${TOOLSDIR}"/../Quicksilver.xcodeproj
+    -destination "platform=macOS,arch=${CURRENT_ARCH}"
+    -configuration Testing
     GCC_PREPROCESSOR_DEFINITIONS="TESTING"
+  )
+  if [[ "${CI:-}" = true ]] && [[ "${GITHUB_ACTIONS:-}" = true ]]; then
+    xcb_args+=(CODE_SIGN_IDENTITY=-)
+  fi
+  xcodebuild build \
+    -scheme Quicksilver \
+    "${xcb_args[@]}"
 
   # Having a `Testing` config built but not yet run can be nice for selecting a
   # target for `Instruments.app`
-  if [ -n "${QS_BUILD_ONLY=}" ]; then
+  if [[ -n "${QS_DONT_TEST:-}" ]]; then
     echo "Skipping tests"
     return 0
   fi
 
   echo "RUNNING UNIT TESTS..."
-  
+
   retval=0
   for scheme; do
     log "beginning tests for scheme: ${scheme}"
     xcodebuild test \
-      -project "${TOOLSDIR}"/../Quicksilver.xcodeproj \
-      -destination "platform=macOS,arch=${CURRENT_ARCH}" \
-      -configuration Testing \
       -scheme "${scheme}" \
-      GCC_PREPROCESSOR_DEFINITIONS="TESTING" || retval=$?
+      "${xcb_args[@]}"
 
-    if [ "${retval}" -ne 0 ]; then
+    if [[ "${retval}" -ne 0 ]]; then
       log "testing ${scheme} failed with exit code ${retval}"
       return "${retval}"
     fi
