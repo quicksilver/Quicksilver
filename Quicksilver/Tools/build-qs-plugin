@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+set -Eeuf -o pipefail
+set -x
+
+usage() {
+  printf 'USAGE:
+  CONFIGURATION=Release Tools/build-plugin /path/to/plugin
+'
+}
+
+log() {
+  echo "$*" > /dev/stderr
+}
+
+err() {
+  log "error: $*"
+  exit 1
+}
+
+json() {
+  # Usage: stdin is json content, $1 is python-formatted query
+  # Example: `xcodebuild -list -json | json '["project"]["configurations"][0]'`
+  # Using this instead of `jq` because we can't depend on all devs having $(jq)
+  # installed, but python is already a build dependency for QS
+  local query=$1
+  python3 -c '
+import json
+import sys
+
+stdin = sys.stdin.read()
+content = json.loads(stdin)
+
+json_keys = sys.argv[1]
+output = eval(f"{content}{json_keys}")
+
+# Strips quotes if there is a simple result
+if isinstance(output, str):
+  print(output)
+# Pretty-print arrays and dicts
+else:
+  print(json.dumps(output, indent=4))
+' "${query}"
+}
+
+main() {
+  local plugin_dir=${1:-}
+  # Fail early if plugin directory doesn't exit
+  if [[ ! -d "${plugin_dir}" ]]; then
+    usage
+    err "Plugin directory '${plugin_dir}' doesn't seem to exist"
+  fi
+
+  export CONFIGURATION=${CONFIGURATION:-Debug} QS_BUILD_ONLY=1
+
+  pushd "$(dirname "${BASH_SOURCE[0]}")"/..
+  xcodebuild \
+    -quiet \
+    -destination generic/platform=macos \
+    -configuration "${CONFIGURATION}" \
+    -scheme 'Quicksilver Distribution' \
+    build
+  popd
+
+  pushd "${plugin_dir}"
+  local project=$(find . -maxdepth 1 -name '*.xcodeproj' -not -iname "*test.xcodeproj" -print -quit)
+  local scheme_list
+  if [[ -z "${project}" ]]; then
+    scheme_list=$(xcodebuild -list -json || true)
+  else
+    scheme_list=$(xcodebuild -list -json -project "${project}")
+  fi
+
+  if [[ -z "${scheme_list}" ]]; then
+    err "unable to determine scheme list"
+  fi
+
+  local scheme=$(json '["project"]["targets"][0]' <<< "${scheme_list}")
+  log "Using default scheme: ${scheme}"
+
+  # Absence of a project can still build, but will error if `-project` is specified
+  local opts=(
+    -configuration "${CONFIGURATION}"
+    -scheme "${scheme}"
+    -destination 'generic/platform=macos'
+  )
+  if [[ -n "${project}" ]]; then
+    opts+=(-project "${project}")
+  fi
+  xcodebuild build -quiet "${opts[@]}"
+
+  local settings=$(xcodebuild -showBuildSettings -json)
+  local plugin_name=$(json '[0]["buildSettings"]["FULL_PRODUCT_NAME"]' <<< "${settings}")
+  local build_dir=$(json '[0]["buildSettings"]["BUILT_PRODUCTS_DIR"]' <<< "${settings}")
+  local expected="${build_dir}/${plugin_name}"
+
+  if [[ -d "${expected}" ]]; then
+    log "Plugin successfully built to ${expected}"
+  else
+    err "Did not find built plugin at ${expected}"
+  fi
+}
+main "$@"
