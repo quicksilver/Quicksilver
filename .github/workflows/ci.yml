@@ -56,7 +56,6 @@ jobs:
     env:
       MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
       MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
       NOTARIZING_ID: ${{ secrets.NOTARIZING_ID }}
@@ -92,11 +91,14 @@ jobs:
           base64 --decode --output "${certificate_path}" <<<"${MACOS_CERTIFICATE}"
           trap "rm -rf -- '${RUNNER_TEMP}'" EXIT
 
-          security create-keychain -p "${KEYCHAIN_PASSWORD}" "${keychain_path}"
+          keychain_pass=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 20)
+          echo "::add-mask::${keychain_pass}"
+
+          security create-keychain -p "${keychain_pass}" "${keychain_path}"
           security default-keychain -s "${keychain_path}"
           security set-keychain-settings -lut 21600 "${keychain_path}"
 
-          security unlock-keychain -p "${KEYCHAIN_PASSWORD}" "${keychain_path}"
+          security unlock-keychain -p "${keychain_pass}" "${keychain_path}"
 
           security import "${certificate_path}" \
             -P "${MACOS_CERTIFICATE_PASSWORD}" \
