@@ -43,12 +43,43 @@
 			<key>children</key>
 			<array>
 				<dict>
+					<key>icon</key>
+					<string>FinderIcon</string>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>com.apple.application</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>1</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>kind</key>
+						<string>Folder</string>
+						<key>path</key>
+						<string>/System/Library/CoreServices/Finder.app/Contents/Applications/</string>
+						<key>skipItem</key>
+						<integer>1</integer>
+						<key>type</key>
+						<string></string>
+					</dict>
 					<key>ID</key>
 					<string>QSPresetSidebarItems</string>
+					<key>name</key>
+					<string>Finder Sidebar Items</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetSidebarFavorites</string>
 					<key>icon</key>
 					<string>FinderIcon</string>
 					<key>name</key>
-					<string>Finder Sidebar Items</string>
+					<string>Finder Favorites</string>
 					<key>settings</key>
 					<dict>
 						<key>path</key>

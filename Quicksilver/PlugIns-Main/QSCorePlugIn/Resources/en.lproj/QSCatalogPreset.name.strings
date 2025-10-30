@@ -212,6 +212,8 @@
 	<string>Shelf &amp; Clipboard</string>
 	<key>QSPresetSidebarItems</key>
 	<string>Finder Sidebar</string>
+  <key>QSPresetSidebarFavorites</key>
+  <string>Finder Favorites</string>
 	<key>QSPresetSogudiShortcuts</key>
 	<string>Sogudi Shortcuts</string>
 	<key>QSPresetSpeakableItems</key>
