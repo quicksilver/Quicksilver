@@ -1233,7 +1233,7 @@
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6008C51E2AAF433900512CB2 /* QSPathsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSPathsTests.m; sourceTree = "<group>"; };
-		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
+		600950BC2ABB76AF00F67DEB /* QSCorePlugIn-Info-Testing.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "QSCorePlugIn-Info-Testing.plist"; sourceTree = "<group>"; };
 		604EAB042CDE5B1E005B3451 /* QSSwiftObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSwiftObj.swift; sourceTree = "<group>"; };
 		60FCBED02844C9770091AB6B /* OSAKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSAKit.framework; path = System/Library/Frameworks/OSAKit.framework; sourceTree = SDKROOT; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2086,7 +2086,7 @@
 		D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge4@2x.png"; sourceTree = "<group>"; };
 		D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge5@2x.png"; sourceTree = "<group>"; };
 		D48F231B1C99CCC4006504A8 /* QSSharedFileListSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSharedFileListSource.h; sourceTree = "<group>"; };
-		D48F231C1C99CCC4006504A8 /* QSSharedFileListSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSharedFileListSource.m; sourceTree = "<group>"; };
+		D48F231C1C99CCC4006504A8 /* QSSharedFileListSource.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = QSSharedFileListSource.m; sourceTree = "<group>"; usesTabs = 1; };
 		D48FC4FB1FBE89B4009600EB /* QSWebSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSWebSource.xib; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; usesTabs = 1; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -2186,7 +2186,7 @@
 		E180011607B2B48900010DB0 /* QSTextSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTextSource.m; sourceTree = "<group>"; };
 		E180011707B2B48900010DB0 /* QSWebSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSWebSource.h; sourceTree = "<group>"; };
 		E180011807B2B48900010DB0 /* QSWebSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWebSource.m; sourceTree = "<group>"; };
-		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 30; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
+		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 4; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
 		E18001C507B2BBB800010DB0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; usesTabs = 1; };
 		E18001C807B2BBB800010DB0 /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; usesTabs = 1; };
 		E18001C907B2BBB800010DB0 /* QSApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSApp.m; sourceTree = "<group>"; usesTabs = 1; };

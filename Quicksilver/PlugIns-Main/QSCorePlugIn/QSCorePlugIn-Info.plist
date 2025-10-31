@@ -652,7 +652,6 @@
 					<key>feature</key>
 					<integer>1</integer>
 				</dict>
-				
 			</array>
 			<key>catalogPath</key>
 			<string>/</string>
@@ -1139,8 +1138,8 @@
 			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
-            <key>runInMainThread</key>
-            <true/>
+			<key>runInMainThread</key>
+			<true/>
 		</dict>
 		<key>QSObjectShowChildMenu</key>
 		<dict>
