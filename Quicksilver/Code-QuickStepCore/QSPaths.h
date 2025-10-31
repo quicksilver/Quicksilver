@@ -30,7 +30,7 @@
 // URL to crash reporter server/script
 #define kCrashReporterURL       @"https://qs0.qsapp.com/crashreports/reporter.php"
 // Wiki page detailing why we collect crash reports
-#define kCrashReportsWikiURL     @"https://qsapp.com/wiki/Crash_Reports"
+#define kCrashReportsWikiURL     @"https://docs.qsapp.com/documentation/supporting-quicksilver/crash_reports"
 
 /**
  * Get the path to a subdirectory in the Quicksilver 'Application Support' directory
