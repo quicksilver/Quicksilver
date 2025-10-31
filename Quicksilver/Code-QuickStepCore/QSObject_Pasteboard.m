@@ -241,9 +241,17 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         NSString *textString = [data objectForKey:QSTextType];
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-            textString = [data objectForKey:NSPasteboardTypeURL];
+            id urlObject = [data objectForKey:NSPasteboardTypeURL];
+            // Handle case where URL might be NSData instead of NSString
+            if ([urlObject isKindOfClass:[NSData class]]) {
+                textString = [[NSString alloc] initWithData:urlObject encoding:NSUTF8StringEncoding];
+            } else if ([urlObject isKindOfClass:[NSString class]]) {
+                textString = urlObject;
+            }
         }
-        textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([textString isKindOfClass:[NSString class]]) {
+            textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
         
         static NSArray *namesAndKeys = nil;
         

@@ -476,7 +476,7 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj
 {
-    if (ident) {
+    if (ident && obj) {
         [self.objectDictionary setObject:obj forKey:ident];
     }
 }
