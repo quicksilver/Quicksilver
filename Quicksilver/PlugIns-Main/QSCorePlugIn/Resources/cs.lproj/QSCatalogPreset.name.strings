@@ -212,6 +212,8 @@
     <string>Přihrádka a Schránka</string>
     <key>QSPresetSidebarItems</key>
     <string>Přihrádka Finder</string>
+    <key>QSPresetSidebarFavorites</key>
+    <string>Oblíbené ve Finderu</string>
     <key>QSPresetSogudiShortcuts</key>
     <string>Klávesové zkratky Sogudi</string>
     <key>QSPresetSpeakableItems</key>
