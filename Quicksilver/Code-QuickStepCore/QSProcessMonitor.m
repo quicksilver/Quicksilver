@@ -302,7 +302,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		QSObject *procObject = [self imbuedFileProcessForDict:dict];
 		QSGCDMainAsync(^{
 			// This notif is used for the Events plugin 'Application Launched' event trigger
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
+			NSDictionary *userInfo = procObject ? [NSDictionary dictionaryWithObject:procObject forKey:@"object"] : nil;
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:userInfo];
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:self userInfo:dict];
 		});
 	}
