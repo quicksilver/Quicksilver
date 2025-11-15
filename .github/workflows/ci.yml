@@ -14,8 +14,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    env:
-      QS_DONT_SIGN: 1
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +21,6 @@ jobs:
       - name: Build debug version
         working-directory: Quicksilver
         run: |
-          ./Tools/codesign/setup_cert.sh
           ./Tools/qsrelease Debug
           mv /tmp/QS/build/Debug/Quicksilver{,-debug}.zip
       - name: Upload debug version
@@ -37,12 +34,7 @@ jobs:
           ./Tools/qsrelease
       - name: Prepare DMG_INGREDIENTS artifact
         working-directory: /tmp/QS/build/Release/
-        run: |
-          cp \
-            /tmp/qs_build_settings \
-            /tmp/Quicksilver.entitlements \
-            ./dmg/
-          tar -czvf ./dmg_ingredients.tar.gz ./dmg
+        run: tar -czvf ./dmg_ingredients.tar.gz ./dmg
       - name: Upload components for sign action
         uses: actions/upload-artifact@v4
         with:
@@ -53,16 +45,6 @@ jobs:
     needs: build
     runs-on: macos-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    env:
-      MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
-      MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-      SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
-      NOTARIZING_ID: ${{ secrets.NOTARIZING_ID }}
-      NOTARIZING_PASS: ${{ secrets.NOTARIZING_PASS }}
-
-      KEYCHAIN_PROFILE: "Quicksilver Notarization"
     steps:
       - name: Download dmg folder artifact
         uses: actions/download-artifact@v4
@@ -77,37 +59,23 @@ jobs:
             ./dmg/qs_build_settings \
             ./dmg/Quicksilver.entitlements \
             /tmp/
-          QS_INFO_VERSION=$(awk '/QS_INFO_VERSION/ { print $NF }' \
-            /tmp/qs_build_settings)
+          QS_INFO_VERSION=$(
+            awk '/QS_INFO_VERSION/ { print $NF }' /tmp/qs_build_settings
+          )
           echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Run Tools/qssign
+      - name: qssign
         working-directory: Quicksilver
+        env:
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
+          NOTARIZING_ID: ${{ secrets.NOTARIZING_ID }}
+          NOTARIZING_PASS: ${{ secrets.NOTARIZING_PASS }}
         run: |
-          # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
-          KEYCHAIN_PATH=${RUNNER_TEMP}/app-signing.keychain-db
-          CERTIFICATE_PATH=${RUNNER_TEMP}/build_certificate.p12
-          base64 --decode --output "${CERTIFICATE_PATH}" <<<"${MACOS_CERTIFICATE}"
-          trap "rm -rf -- '${RUNNER_TEMP}'" EXIT
-
-          security create-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
-          security default-keychain -s "${KEYCHAIN_PATH}"
-          security set-keychain-settings -lut 21600 "${KEYCHAIN_PATH}"
-
-          security unlock-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
-
-          security import "${CERTIFICATE_PATH}" \
-            -P "${MACOS_CERTIFICATE_PASSWORD}" \
-            -A -t cert -f pkcs12 -k "${KEYCHAIN_PATH}"
-          rm -- "${CERTIFICATE_PATH}"
-          xcrun notarytool store-credentials "${KEYCHAIN_PROFILE}" \
-            --apple-id "${NOTARIZING_ID}" \
-            --team-id "${SIGNING_IDENTITY}" \
-            --password "${NOTARIZING_PASS}"
-
-          ./Tools/qssign
+          ./Tools/qssign ./Quicksilver.app
       - name: Download debug artifact
         uses: actions/download-artifact@v4
         with:

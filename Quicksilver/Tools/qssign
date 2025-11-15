@@ -1,78 +1,139 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -euf
+set -Eeuf -o pipefail
 
-MOUNT_DIR="/Volumes/Quicksilver"
+TOOLSDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+readonly TOOLSDIR
+. "${TOOLSDIR}/utils.sh"
 
-if [ -d "${MOUNT_DIR}" ]; then
-  echo "error: ${MOUNT_DIR} exists. Please eject ${MOUNT_DIR} and re-run."
-  exit 1
-fi
+: "${KEYCHAIN_PROFILE:=Quicksilver Notarization}"
+: "${SIGNING_IDENTITY:=Developer ID Application}"
+readonly KEYCHAIN_PROFILE SIGNING_IDENTITY
 
-KEYCHAIN_PROFILE=${KEYCHAIN_PROFILE:-"Quicksilver Notarization"}
-SETTINGS=/tmp/qs_build_settings
-QS_INFO_VERSION=$(awk '$1 == "QS_INFO_VERSION" { print $NF }' < "${SETTINGS}")
-BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
-DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
+setup_ci_signing() {
+  # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+  local keychain_path=${RUNNER_TEMP?}/app-signing.keychain-db
+  local certificate_path=${RUNNER_TEMP}/build_certificate.p12
+  base64 --decode --output "${certificate_path}" <<< "${MACOS_CERTIFICATE?}"
+  # shellcheck disable=SC2064
+  trap "rm -rf -- '${RUNNER_TEMP}'" EXIT
 
-# Allow users to pass in a custom signing identity name for testing with
-# self-signed certs
-SIGNING_IDENTITY=${SIGNING_IDENTITY:-"Developer ID Application"}
+  # TODO: remove keychain pass from org secrets if not needed
+  # TODO: remove keychain pass from QS signing if not needed
+  local keychain_pass=$(
+    head -c 8192 /dev/urandom |
+      LC_ALL=C tr -dc A-Za-z0-9 |
+      head -c 20
+  )
+  echo "::add-mask::${keychain_pass}"
 
-# Codesign the whole app
-cd "${DMG_TEMP}"
+  security create-keychain -p "${keychain_pass}" "${keychain_path}"
+  security default-keychain -s "${keychain_path}"
+  security set-keychain-settings -lut 21600 "${keychain_path}"
 
-# QSDroplet.app must be signed *first* (inside-out)
-codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app/Contents/Resources/QSDroplet.app
-codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app
-codesign --verify --deep --strict --verbose=1 Quicksilver.app
-spctl --assess --verbose --type open --type exec Quicksilver.app
+  security unlock-keychain -p "${keychain_pass}" "${keychain_path}"
 
-QS_VERSIONED_DMG="Quicksilver ${QS_INFO_VERSION}.dmg"
+  security import "${certificate_path}" \
+    -P "${MACOS_CERTIFICATE_PASSWORD:?}" \
+    -A -t cert -f pkcs12 -k "${keychain_path}"
 
-cd ..
-hdiutil create \
-  -ov \
-  -fs HFS+ \
-  -volname "Quicksilver" \
-  -srcfolder "${DMG_TEMP}" \
-  -format UDRW \
-  -attach \
-  "${QS_VERSIONED_DMG}"
+  rm -- "${certificate_path}"
+}
 
-SetFile -c icnC "${MOUNT_DIR}"/.VolumeIcon.icns
-SetFile -a C . "${MOUNT_DIR}"
+sign_and_notarize_qs() {
+  local qsapp=${1?}
+  pushd "$(dirname "${qsapp?}")"
+  MOUNT_DIR="/Volumes/Quicksilver"
 
-hdiutil detach "${MOUNT_DIR}"
-hdiutil convert \
-  "${QS_VERSIONED_DMG}" \
-  -format UDZO \
-  -imagekey zlib-level=9 \
-  -ov \
-  -o "${QS_VERSIONED_DMG}"
+  if [[ -d "${MOUNT_DIR}" ]]; then
+    err "error: ${MOUNT_DIR} exists. Please eject ${MOUNT_DIR} and re-run."
+  fi
 
-codesign --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" "${QS_VERSIONED_DMG}"
-codesign --verify --deep --strict --verbose=1 "${QS_VERSIONED_DMG}"
+  SETTINGS=/tmp/qs_build_settings
+  QS_INFO_VERSION=$(awk '$1 == "QS_INFO_VERSION" { print $NF }' < "${SETTINGS}")
+  BUILT_PRODUCTS_DIR=$(awk '$1 == "BUILT_PRODUCTS_DIR" { print $NF }' < "${SETTINGS}")
+  DMG_TEMP=${BUILT_PRODUCTS_DIR}/dmg
 
-# Replace unsigned version of the app with the signed version; BSD cp won't overwrite
-rm -rf -- "${BUILT_PRODUCTS_DIR}/Quicksilver.app"
-cp -a \
-  "${DMG_TEMP}"/Quicksilver.app \
-  "${DMG_TEMP}"/Quicksilver.app/Contents/Info.plist \
-  "${BUILT_PRODUCTS_DIR}"
+  # Codesign the whole app
+  cd "${DMG_TEMP}"
 
-## Show the folder
-open "${BUILT_PRODUCTS_DIR}"
+  # QSDroplet.app must be signed *first* (inside-out)
+  codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app/Contents/Resources/QSDroplet.app
+  codesign --force --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" --entitlements /tmp/Quicksilver.entitlements Quicksilver.app
+  codesign --verify --deep --strict --verbose=1 Quicksilver.app
+  spctl --assess --verbose --type open --type exec Quicksilver.app
 
-submission_id=$(
-  xcrun notarytool submit "${QS_VERSIONED_DMG}" --keychain-profile "${KEYCHAIN_PROFILE}" |
-    awk '$1 ~ /^id:$/ { id=$2 } END { print id }'
-)
-xcrun notarytool wait "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
-xcrun notarytool log "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
+  QS_VERSIONED_DMG="Quicksilver ${QS_INFO_VERSION}.dmg"
 
-xcrun stapler staple -vvv "${QS_VERSIONED_DMG}"
-xcrun stapler validate -vvv "${QS_VERSIONED_DMG}"
+  cd ..
+  hdiutil create \
+    -ov \
+    -fs HFS+ \
+    -volname "Quicksilver" \
+    -srcfolder "${DMG_TEMP}" \
+    -format UDRW \
+    -attach \
+    "${QS_VERSIONED_DMG}"
 
-## Will fail with a self-signed cert
-spctl --assess --verbose --type open --context context:primary-signature "${QS_VERSIONED_DMG}"
+  SetFile -c icnC "${MOUNT_DIR}"/.VolumeIcon.icns
+  SetFile -a C . "${MOUNT_DIR}"
+
+  hdiutil detach "${MOUNT_DIR}"
+  hdiutil convert \
+    "${QS_VERSIONED_DMG}" \
+    -format UDZO \
+    -imagekey zlib-level=9 \
+    -ov \
+    -o "${QS_VERSIONED_DMG}"
+
+  codesign --deep --timestamp --options runtime --sign "${SIGNING_IDENTITY}" "${QS_VERSIONED_DMG}"
+  codesign --verify --deep --strict --verbose=1 "${QS_VERSIONED_DMG}"
+
+  # Replace unsigned version of the app with the signed version; BSD cp won't overwrite
+  rm -rf -- "${BUILT_PRODUCTS_DIR}/Quicksilver.app"
+  cp -a \
+    "${DMG_TEMP}"/Quicksilver.app \
+    "${DMG_TEMP}"/Quicksilver.app/Contents/Info.plist \
+    "${BUILT_PRODUCTS_DIR}"
+
+  ## Show the folder
+  open "${BUILT_PRODUCTS_DIR}"
+
+  xcrun notarytool store-credentials "${KEYCHAIN_PROFILE}" \
+    --apple-id "${NOTARIZING_ID?}" \
+    --team-id "${SIGNING_IDENTITY?}" \
+    --password "${NOTARIZING_PASS?}"
+
+  submission_id=$(
+    xcrun notarytool submit "${QS_VERSIONED_DMG}" --keychain-profile "${KEYCHAIN_PROFILE}" |
+      awk '$1 ~ /^id:$/ { id=$2 } END { print id }'
+  )
+  xcrun notarytool wait "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
+  xcrun notarytool log "${submission_id}" --keychain-profile "${KEYCHAIN_PROFILE}"
+
+  xcrun stapler staple -vvv "${QS_VERSIONED_DMG}"
+  xcrun stapler validate -vvv "${QS_VERSIONED_DMG}"
+
+  ## Will fail with a self-signed cert
+  spctl --assess --verbose --type open --context context:primary-signature "${QS_VERSIONED_DMG}"
+  popd
+}
+
+main() {
+  local target=${1:?}
+  if [[ "${CI:-}" = true ]] && [[ "${GITHUB_ACTIONS:-}" = true ]]; then
+    setup_ci_signing
+  fi
+  case "${target}" in
+    *Quicksilver.app)
+      sign_and_notarize_qs "${target}"
+      ;;
+    *.qsplugin)
+      codesign --force -vvv --deep --sign "${SIGNING_IDENTITY}" "${target}"
+      ;;
+    *)
+      err "qssign should be called with either a path to Quicksilver.app or a plugin to sign"
+      ;;
+  esac
+}
+main "$@"

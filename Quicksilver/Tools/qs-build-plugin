@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+set -Eeuf -o pipefail
+
+TOOLSDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+readonly TOOLSDIR
+. "${TOOLSDIR}/utils.sh"
+
+usage() {
+  printf 'USAGE:
+  CONFIGURATION=Release Tools/build-plugin /path/to/plugin
+'
+}
+
+main() {
+  local plugin_dir=${1:-}
+  # Fail early if plugin directory doesn't exit
+  if [[ ! -d "${plugin_dir}" ]]; then
+    usage
+    err "Plugin directory '${plugin_dir}' doesn't seem to exist"
+  fi
+
+  export CONFIGURATION=${CONFIGURATION:-Debug}
+
+  # build quicksilver to provide necessary frameworks
+  pushd "$(dirname "${BASH_SOURCE[0]}")"
+  ./qsrelease
+  popd
+
+  pushd "${plugin_dir}"
+  local project=$(find . -maxdepth 1 -name '*.xcodeproj' -not -iname "*test.xcodeproj" -print -quit)
+  local scheme_list
+  if [[ -z "${project}" ]]; then
+    scheme_list=$(xcodebuild -list -json || true)
+  else
+    scheme_list=$(xcodebuild -list -json -project "${project}")
+  fi
+
+  if [[ -z "${scheme_list}" ]]; then
+    err "unable to determine scheme list"
+  fi
+
+  local scheme=$(json '["project"]["targets"][0]' <<< "${scheme_list}")
+  log "Using default scheme: ${scheme}"
+
+  # Absence of a project can still build, but will error if `-project` is specified
+  local opts=(
+    -configuration "${CONFIGURATION}"
+    -scheme "${scheme}"
+    -destination 'generic/platform=macos'
+  )
+  if [[ -n "${project}" ]]; then
+    opts+=(-project "${project}")
+  fi
+  xcodebuild build -quiet "${opts[@]}"
+
+  local settings=$(xcodebuild -configuration "${CONFIGURATION}" -showBuildSettings -json)
+  local plugin_name=$(json '[0]["buildSettings"]["FULL_PRODUCT_NAME"]' <<< "${settings}")
+  local build_dir=$(json '[0]["buildSettings"]["BUILT_PRODUCTS_DIR"]' <<< "${settings}")
+  local expected="${build_dir}/${plugin_name}"
+
+  if [[ -d "${expected}" ]]; then
+    log "Plugin successfully built to ${expected}"
+  else
+    err "Did not find built plugin at ${expected}"
+  fi
+}
+main "$@"
