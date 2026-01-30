@@ -739,7 +739,6 @@
 }
 
 - (IBAction)shortCircuit:(id)sender {
-	//NSLog(@"scirr");
 	[self fireActionUpdateTimer];
 	NSArray *array = [aSelector resultArray];
     

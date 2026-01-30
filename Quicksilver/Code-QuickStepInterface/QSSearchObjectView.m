@@ -1376,13 +1376,14 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (void)insertSpace:(id)sender
-{
-	QSSearchSpaceBarBehavior behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+- (void)insertSpace:(id)sender {
+    QSSearchSpaceBarBehavior behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 
-    QSObject *newSelectedObject = [[super objectValue] resolvedObject];
-    QSAction *action = [[self actionSelector] objectValue];
+    QSObject *newSelectedObject = nil;
+    QSAction *action = nil;
     if (behavior == QSSearchSpaceBarBehaviorSmart) {
+        newSelectedObject = [[super objectValue] resolvedObject];
+        action = [[self actionSelector] objectValue];
         // override smart defaults with type-specific behavior (if defined)
         NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:kQSSmartSpace];
         if (typeBehavior) {
