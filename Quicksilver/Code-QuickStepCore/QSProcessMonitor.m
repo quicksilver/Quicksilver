@@ -167,10 +167,12 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
 	NSString *ident = [dict objectForKey:@"NSApplicationBundleIdentifier"];
 	NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
-	NSBundle *bundle = [NSBundle bundleWithIdentifier:ident];
+	
+	// We used to call the (slow) [NSBundle bundleWithIdentifier:ident], but we can pull this from dict instead
+	NSString *bundlePath = [dict objectForKey:@"BundlePath"];
 	QSObject *newObject = nil;
-	if (bundle && [appPath isEqualToString:[bundle executablePath]]) {
-		newObject = [QSObject fileObjectWithPath:[bundle bundlePath]];
+	if ([appPath isEqualToString: bundlePath]) {
+		newObject = [QSObject fileObjectWithPath:bundlePath];
 		//	NSLog(@"%@ %@", bundlePath, newObject);
 	}
 	
@@ -240,6 +242,33 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	return dict;
 }
 
+// Helper method to determine whether we want to include a process in the processes dict
+- (BOOL)includeApp:(NSRunningApplication *)app {
+	
+	// Background processes are excluded unless QSShowBackgroundProcesses is set
+	if ((app.activationPolicy == NSApplicationActivationPolicyProhibited) &&
+				![[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowBackgroundProcesses"])
+		return NO;
+	
+	// Get bundle info, if available
+	NSDictionary *bundleInfo;
+	if(app.bundleURL)
+		bundleInfo = [[NSBundle bundleWithURL:app.bundleURL] infoDictionary];
+	else
+		bundleInfo = nil;
+	
+	// Determine bundle type
+	NSString *fileType;
+	fileType = bundleInfo ? [bundleInfo objectForKey:@"CFBundlePackageType"] : @"NIL ";
+	
+	// Exclude all processes except for APPL (regular apps) and FNDR (Finder)
+	if(![fileType isEqualToString:@"APPL"] &&
+	   ![fileType isEqualToString:@"FNDR"])
+		return NO;
+	
+	return YES;
+}
+
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber {
 	
 	NSMutableDictionary *dict = [(NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask)) mutableCopy];
@@ -263,6 +292,21 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	dict = [dict copy];
 	return dict;
 }
+
+// Helper method to determine whether we want to include a process in the processes dict
+// Calls through to the NSRunningApplication-based method
+- (BOOL)includePSN:(ProcessSerialNumber)processSerialNumber {
+	pid_t pid;
+	NSRunningApplication *app;
+	
+	GetProcessPID(&processSerialNumber, &pid);
+	app = [NSRunningApplication runningApplicationWithProcessIdentifier: pid];
+	if(app)
+		return [self includeApp: app];
+	
+	return NO;
+}
+
 
 #pragma mark -
 #pragma mark Process Notifications
@@ -295,7 +339,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSDictionary *dict = [self infoForPSN:psn];
 	
 	// if we're including background processes (i.e. all processes) OR if it's a foreground process, reload
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowBackgroundProcesses"] || ![[dict objectForKey:@"LSBackgroundOnly"] boolValue]) {
+	if ([self includePSN: psn]) {
+		
+#ifdef DEBUG
+		NSLog(@"appLaunched: NSApplicationPath=%@", [dict objectForKey:@"NSApplicationPath"]);
+#endif
 		[self reloadProcesses];
 	}
 	if (dict) {
@@ -398,18 +446,23 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	
 	NSArray *tempProcesses = [[NSWorkspace sharedWorkspace] runningApplications];
 	NSMutableDictionary *procs = [[NSMutableDictionary alloc] initWithCapacity:tempProcesses.count];
+
+	
 	for (NSRunningApplication *app in tempProcesses) {
-		NSDictionary *info = [self infoForApp:app];
-		QSObject *procObject = [self imbuedFileProcessForDict:info];
-		NSNumber *pidValue = [NSNumber numberWithInt:app.processIdentifier];
-		
-		if (procObject) {
-			[procs setObject:procObject forKey:pidValue];
+		if ([self includeApp: app]) {
+			NSDictionary *info = [self infoForApp:app];
+			QSObject *procObject = [self imbuedFileProcessForDict:info];
+			NSNumber *pidValue = [NSNumber numberWithInt:app.processIdentifier];
+			
+			if (procObject) {
+				[procs setObject:procObject forKey:pidValue];
+			}
 		}
 	}
+	
 	processes = [procs copy];
 #ifdef DEBUG
-	NSLog(@"Reload time: %f ms", [date timeIntervalSinceNow]*-1000);
+	NSLog(@"_reloadProcesses: Reload time: %f ms for %d processes", [date timeIntervalSinceNow]*-1000, (int) procs.count);
 #endif
 
 	[self didChangeValueForKey:@"allProcesses"];
