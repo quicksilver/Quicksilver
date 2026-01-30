@@ -55,17 +55,22 @@ jobs:
         working-directory: /tmp/QS/build/Release/
         run: |
           tar -xzvf ./dmg_ingredients.tar.gz
-          mv \
-            ./dmg/qs_build_settings \
-            ./dmg/Quicksilver.entitlements \
-            /tmp/
-          QS_INFO_VERSION=$(
-            awk '/QS_INFO_VERSION/ { print $NF }' /tmp/qs_build_settings
+          QS_INFO_VERSION=$(\
+            /usr/libexec/PlistBuddy \
+              -c 'Print :CFBundleShortVersionString' \
+              ./dmg/Quicksilver.app/Contents/Info.plist
           )
           echo "QS_INFO_VERSION=${QS_INFO_VERSION}" >> "${GITHUB_ENV}"
+          cat > /tmp/qs_build_settings <<-EOF
+            QS_INFO_VERSION = ${QS_INFO_VERSION}
+            BUILT_PRODUCTS_DIR = /tmp/QS/build/Release
+          EOF
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Prepare signing inputs
+        run: |
+          cp Quicksilver/Quicksilver.entitlements /tmp/Quicksilver.entitlements
       - name: qssign
         working-directory: Quicksilver
         env:
