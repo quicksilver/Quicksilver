@@ -51,8 +51,11 @@ id QSPrefs;
 }
 
 + (void)showPrefs {
+	NSWindow *window = [[self sharedInstance] window];
+	[window orderFrontRegardless];
 	[NSApp activateIgnoringOtherApps:YES];
-	[[self sharedInstance] showWindow:nil];
+	[window makeKeyWindow];
+	[window makeMainWindow];
 }
 
 
