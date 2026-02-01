@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "QSCatalogEntry.h"
-#import <QSFoundation/QSThreadSafeMutableDictionary.h>`
+#import <QSFoundation/QSThreadSafeMutableDictionary.h>
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
