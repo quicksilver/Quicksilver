@@ -26,7 +26,7 @@
 #define kDonatePageURL			@"https://qsapp.com/donate.php"
 #define kChangelogURL           @"https://github.com/quicksilver/Quicksilver/releases/"
 #define kHelpURL                @"https://qsapp.com/manual/"
-#define kHelpSearchURL          @"https://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
+#define kHelpSearchURL          @"https://qsapp.com/manual/search?q=%@"
 // URL to crash reporter server/script
 #define kCrashReporterURL       @"https://qs0.qsapp.com/crashreports/reporter.php"
 // Wiki page detailing why we collect crash reports
