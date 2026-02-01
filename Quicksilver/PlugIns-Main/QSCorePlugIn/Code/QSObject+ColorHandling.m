@@ -32,5 +32,8 @@
 }
 - (NSString *)identifierForObject:(QSObject *)object {return nil;}
 - (NSString *)detailsOfObject:(QSObject *)object {return nil;}
-- (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object colorValue];  }
+- (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { 
+	NSColor *color = [object colorValue];
+	return color ? [NSKeyedArchiver archivedDataWithRootObject:color] : nil;
+}
 @end
