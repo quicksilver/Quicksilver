@@ -20,8 +20,8 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate, NSTouchBarDelegate>
 {
-    // the text mode text editor object
-    NSTextView *textModeEditor;
+	// the text mode text editor object
+	NSTextView *textModeEditor;
     
 	NSMutableString *partialString;
 	NSString 		*matchedString;
@@ -67,6 +67,7 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	BOOL shouldSniff;
 	BOOL hasMarkedTextState; // tracks input method composition state
     QSAction *alternateActionCounterpart;
+    NSMutableArray *textEditorConstraints; // constraints for autolayout of text editor scroll view
 
 @public
 	QSResultController *resultController;
