@@ -161,7 +161,7 @@
 }
 
 - (void)showMainWindow:(id)sender {
-    QSGCDMainAsync(^{
+    QSGCDMainSync(^{
         [[self window] makeKeyAndOrderFront:sender];
         // Switch the keyboard/hotkey on the main thread.
           if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
