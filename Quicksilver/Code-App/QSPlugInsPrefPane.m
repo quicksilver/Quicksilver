@@ -341,6 +341,13 @@
 
 - (BOOL)isItemExpanded:(id)item {return YES;}
 
+- (NSString *)normalizedSearchString:(NSString *)string {
+    // Remove diacritics (é -> e, ñ -> n, etc.) and punctuation
+    NSString *normalized = [[string stringByApplyingTransform:NSStringTransformStripDiacritics reverse:NO] stringByReplacingCharacterRunsFromSet:[NSCharacterSet characterSetWithCharactersInString:@"?-.,$'\""] withString:@""];
+    
+    return [normalized lowercaseString];
+}
+
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView {
 	NSMutableArray *predicates = [NSMutableArray array];
 	if (!ignoreView) {
@@ -364,8 +371,14 @@
 				break;
 		}
 	}
-	if (search)
-		[predicates addObject:[NSPredicate predicateWithFormat:@"name contains[cd] %@", search]];
+	if (search) {
+		NSString *normalizedSearch = [self normalizedSearchString:search];
+		[predicates addObject:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+			QSPlugIn *plugin = (QSPlugIn *)evaluatedObject;
+			NSString *normalizedName = [self normalizedSearchString:plugin.name];
+			return [normalizedName containsString:normalizedSearch];
+		}]];
+	}
 	if (category)
 		[predicates addObject:[NSPredicate predicateWithFormat:@"%@ IN SELF.categories", category]];
 	if (!mOptionKeyIsDown)
