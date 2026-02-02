@@ -359,7 +359,7 @@
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {
         if ([aObj indirectTypes]) {
-					// perform on background thread to not block main thread (avoids potential deadlock)
+					// Perform on background thread to not block main thread (avoids potential deadlock)
 					QSGCDAsync(^{
                 NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
                 [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
