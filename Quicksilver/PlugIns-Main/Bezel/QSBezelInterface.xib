@@ -71,8 +71,12 @@
                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="192">
                         <rect key="frame" x="514" y="4" width="16" height="16"/>
                     </progressIndicator>
-                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="205">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="205">
                         <rect key="frame" x="15" y="6" width="504" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="8XM-zF-hch"/>
+                            <constraint firstAttribute="width" priority="5" constant="500" id="VPq-JK-F5x"/>
+                        </constraints>
                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Small System Font Text" id="215">
                             <font key="font" metaFont="system" size="10"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
