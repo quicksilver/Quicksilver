@@ -76,6 +76,7 @@ typedef void(^QSPluginUpdatePromptBlock)(QSPluginUpdateStatus status);
 - (void)suggestOldPlugInRemoval;
 - (BOOL)liveLoadPlugIn:(QSPlugIn *)plugin;
 - (NSArray *)knownPlugInsWithWebInfo ;
+- (BOOL)pluginIsHosted:(NSString *)pluginID;
 //- (BOOL)shouldLoadPlugIn:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles;
 - (QSPlugIn *)plugInBundleWasInstalled:(NSBundle *)bundle;
 - (void)deletePlugIns:(NSArray *)deletePlugIns fromWindow:(NSWindow *)window;

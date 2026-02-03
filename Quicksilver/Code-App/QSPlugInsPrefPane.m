@@ -245,7 +245,32 @@
 
 - (IBAction)getInfo:(id)sender
 {
-	[pluginInfoPanel makeKeyAndOrderFront:sender];
+	// Get the selected plugin(s)
+	NSArray *selectedPlugins = [self selectedPlugIns];
+	if (!selectedPlugins || [selectedPlugins count] == 0) {
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+		return;
+	}
+	
+	// Get the first selected plugin
+	QSPlugIn *plugin = [selectedPlugins firstObject];
+	NSString *pluginIdentifier = [plugin identifier];
+	
+	if (!pluginIdentifier) {
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+		return;
+	}
+	
+	// Check if this plugin is hosted by Quicksilver
+	QSPlugInManager *manager = [QSPlugInManager sharedInstance];
+	if ([manager pluginIsHosted:pluginIdentifier]) {
+		// Plugin is hosted by Quicksilver - open the web page
+		NSString *urlString = [NSString stringWithFormat:@"https://qsapp.com/manual/plugins/s/?id=%@", pluginIdentifier];
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+	} else {
+		// Plugin is not hosted by Quicksilver - show info panel as before
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+	}
 }
 
 - (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates:nil];  }

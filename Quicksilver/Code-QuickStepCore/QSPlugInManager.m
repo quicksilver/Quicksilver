@@ -42,6 +42,7 @@
 		localPlugIns = [[NSMutableDictionary alloc] init];
 		knownPlugIns = [[NSMutableDictionary alloc] init];
 		loadedPlugIns = [[NSMutableDictionary alloc] init];
+		plugInWebData = [[NSMutableDictionary alloc] init];
 
 		receivedData = nil;
 		oldPlugIns = [[NSMutableArray alloc] init];
@@ -319,6 +320,14 @@
 	//availablePlugIns = [[plugIns allValues] retain];
 	return [knownPlugIns allValues];
 }
+
+- (BOOL)pluginIsHosted:(NSString *)pluginID {
+	if (!pluginID || !plugInWebData) {
+		return NO;
+	}
+	return [plugInWebData objectForKey:pluginID] != nil;
+}
+
 
 - (void)deletePlugIns:(NSArray *)deletePlugIns fromWindow:(NSWindow *)window {
 	NSArray *loaded = [[self loadedPlugIns] allValues];
