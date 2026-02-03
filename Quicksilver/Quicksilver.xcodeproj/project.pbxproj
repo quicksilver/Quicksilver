@@ -368,6 +368,7 @@
 		CD61BBCA192B199E00040609 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
 		CD61BBCB192B199F00040609 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		CD61BBCC192B19A100040609 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
+		CD632F7C2F31CF62007D0601 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD632F7A2F31CF4A007D0601 /* Vision.framework */; };
 		CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */; };
 		CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */; };
@@ -1767,6 +1768,7 @@
 		CD61BBB9192B18FA00040609 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CD61BBBF192B18FA00040609 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD61BBC1192B18FA00040609 /* Quicksilver_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Quicksilver_Tests.m; sourceTree = "<group>"; };
+		CD632F7A2F31CF4A007D0601 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPluginUpdaterWindowController.h; sourceTree = "<group>"; usesTabs = 1; };
 		CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPluginUpdaterWindowController.m; sourceTree = "<group>"; usesTabs = 1; };
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
@@ -2509,6 +2511,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD632F7C2F31CF62007D0601 /* Vision.framework in Frameworks */,
 				E1E8909007B29C8000478A69 /* QSFoundation.framework in Frameworks */,
 				E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */,
 				E1DEF88E066BCDBE00D943CB /* Carbon.framework in Frameworks */,
@@ -2650,6 +2653,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD632F7A2F31CF4A007D0601 /* Vision.framework */,
 				CD47C34D2D8D6E6700BDF493 /* CoreGraphics.framework */,
 				60FCBED02844C9770091AB6B /* OSAKit.framework */,
 				CD661C5519DBD341000F3695 /* AppKit.framework */,
