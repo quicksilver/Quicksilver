@@ -34,6 +34,7 @@ extern NSString *QSRankingIncludeOmitted;   // BOOL. Specifies whether the ranke
 	NSDictionary *usageMnemonics;
 	NSObject <QSStringRanker> *nameRanker;
 	NSObject <QSStringRanker> *labelRanker;
+	NSObject <QSStringRanker> *cacheRanker;
 }
 + (NSMutableArray *)rankedObjectsForAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)options;
 @end
