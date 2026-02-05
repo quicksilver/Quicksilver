@@ -363,7 +363,7 @@
 					QSGCDAsync(^{
                 NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
                 [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
-                    [indirectsForAllTypes addObjectsFromArray:[QSLib arrayForType:eachType]];
+                    [indirectsForAllTypes addObjectsFromArray:[QSLib scoredArrayForType:eachType]];
                 }];
                 NSArray *finalIndirects = ([indirectsForAllTypes count] > 0) ? [indirectsForAllTypes copy] : nil;
                 
