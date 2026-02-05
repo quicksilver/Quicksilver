@@ -841,11 +841,13 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 #endif
+
 	
     // ***Quicksilver's search algorithm is case insensitive
     string = [string lowercaseString];
     
-	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:self.searchArray];
+	// if we're in the action selector, don't do a scored search of all objects, only action objects matching the dObject/iObject
+	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:([self allowNonActions] ? self.searchArray : [[self controller] rankedActions])];
 	
 #ifdef DEBUG
     if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);

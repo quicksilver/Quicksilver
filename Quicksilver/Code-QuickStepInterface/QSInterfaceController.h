@@ -65,6 +65,7 @@
 - (void)showIndirectSelector:(id)sender;
 - (void)hideIndirectSelector:(id)sender;
 
+- (NSArray *)rankedActions;
 - (void)updateActions;
 - (void)updateActionsNow;
 
