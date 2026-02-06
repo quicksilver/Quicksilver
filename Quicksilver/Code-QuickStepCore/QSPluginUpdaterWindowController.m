@@ -183,7 +183,7 @@
         static NSString *css = nil;
         if (css == nil) {
             // CSS for making the web view blend in. !!-Not valid HTML (no <head>,<body>)
-            css = @"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>";
+            css = @"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";color:text;}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}@media (prefers-color-scheme:dark){body{color:#ffffff;}}@media (prefers-color-scheme:light){body{color:#000000;}}</style>";
         }
         WebFrame *wf = self.webView.mainFrame;
         [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];
