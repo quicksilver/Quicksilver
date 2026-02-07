@@ -210,6 +210,8 @@
 - (void)setHotKey:(NSDictionary *)dict {
 	QSTrigger *trigger = [self currentTrigger];
 	if (!dict || [[dict allKeys] count] == 0) {
+		// Disable the old hotkey event before clearing the trigger info
+		[self disableTrigger:trigger];
 		[[trigger info] removeObjectsForKeys:[NSArray arrayWithObjects:@"modifiers", @"keyCode", @"character", nil]];
     } else {
 		[[trigger info] addEntriesFromDictionary:dict];
