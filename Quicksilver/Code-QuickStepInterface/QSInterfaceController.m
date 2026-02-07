@@ -161,7 +161,7 @@
 }
 
 - (void)showMainWindow:(id)sender {
-    QSGCDMainAsync(^{
+    QSGCDMainSync(^{
         [[self window] makeKeyAndOrderFront:sender];
         // Switch the keyboard/hotkey on the main thread.
           if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
@@ -359,13 +359,21 @@
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {
         if ([aObj indirectTypes]) {
-            NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
-            [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
-                [indirectsForAllTypes addObjectsFromArray:[QSLib arrayForType:eachType]];
-            }];
-            if ([indirectsForAllTypes count]) {
-                indirects = [indirectsForAllTypes copy];
-            }
+					// Perform on background thread to not block main thread (avoids potential deadlock)
+					QSGCDAsync(^{
+                NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
+                [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
+                    [indirectsForAllTypes addObjectsFromArray:[QSLib scoredArrayForType:eachType]];
+                }];
+                NSArray *finalIndirects = ([indirectsForAllTypes count] > 0) ? [indirectsForAllTypes copy] : nil;
+                
+                // Update UI on main thread
+                QSGCDMainAsync(^{
+                    [self updateControl:self->iSelector withArray:finalIndirects];
+                    [self->iSelector setSearchMode:(finalIndirects ? SearchFilter : SearchFilterAll)];
+                });
+            });
+            return;
         }
     }
 	[self updateControl:iSelector withArray:indirects];
@@ -739,7 +747,6 @@
 }
 
 - (IBAction)shortCircuit:(id)sender {
-	//NSLog(@"scirr");
 	[self fireActionUpdateTimer];
 	NSArray *array = [aSelector resultArray];
     

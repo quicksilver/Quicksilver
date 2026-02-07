@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSBezelInterfaceController">
@@ -18,73 +20,105 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Bezel Interface" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="9" userLabel="mainWindow" customClass="QSBorderlessWindow">
+        <window title="Bezel Interface" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="9" userLabel="mainWindow" customClass="QSBorderlessWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="530" y="653" width="530" height="202"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="6" customClass="QSBezelBackgroundView">
-                <rect key="frame" x="0.0" y="0.0" width="530" height="202"/>
+                <rect key="frame" x="0.0" y="0.0" width="534" height="202"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView id="70" customClass="QSCollectingSearchObjectView">
-                        <rect key="frame" x="353" y="25" width="160" height="160"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="70" customClass="QSCollectingSearchObjectView">
+                        <rect key="frame" x="357" y="25" width="160" height="160"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="2WS-Lw-oPd"/>
+                            <constraint firstAttribute="height" constant="160" id="uE2-ih-h7n"/>
+                        </constraints>
                         <connections>
                             <outlet property="nextKeyView" destination="68" id="104"/>
                         </connections>
                     </customView>
-                    <customView id="69" customClass="QSSearchObjectView">
-                        <rect key="frame" x="185" y="25" width="160" height="160"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="69" customClass="QSSearchObjectView">
+                        <rect key="frame" x="187" y="25" width="160" height="160"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="J2y-Gv-9AS"/>
+                            <constraint firstAttribute="height" constant="160" id="odX-Di-9eK"/>
+                        </constraints>
                         <connections>
                             <outlet property="nextKeyView" destination="70" id="106"/>
                         </connections>
                     </customView>
-                    <customView id="68" customClass="QSCollectingSearchObjectView">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="68" customClass="QSCollectingSearchObjectView">
                         <rect key="frame" x="17" y="25" width="160" height="160"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="160" id="36i-uL-Sbv"/>
+                            <constraint firstAttribute="width" constant="160" id="wSz-7l-euD"/>
+                        </constraints>
                         <connections>
                             <outlet property="nextKeyView" destination="69" id="105"/>
                         </connections>
                     </customView>
-                    <textField verticalHuggingPriority="750" id="191">
-                        <rect key="frame" x="499" y="183" width="27" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="center" title="▾" id="214">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="191">
+                        <rect key="frame" x="515" y="184" width="15" height="16"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="center" title="•" id="214">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="192">
-                        <rect key="frame" x="505" y="4" width="16" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="192">
+                        <rect key="frame" x="514" y="4" width="16" height="16"/>
                     </progressIndicator>
-                    <textField verticalHuggingPriority="750" id="205">
-                        <rect key="frame" x="15" y="5" width="493" height="13"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="205">
+                        <rect key="frame" x="15" y="6" width="504" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="8XM-zF-hch"/>
+                            <constraint firstAttribute="width" priority="5" constant="500" id="VPq-JK-F5x"/>
+                        </constraints>
                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Small System Font Text" id="215">
-                            <font key="font" metaFont="miniSystem"/>
+                            <font key="font" metaFont="system" size="10"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button id="209" customClass="QSMenuButton">
-                        <rect key="frame" x="502" y="183" width="21" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="▾" bezelStyle="shadowlessSquare" alignment="center" transparent="YES" inset="2" id="216">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="209" customClass="QSMenuButton">
+                        <rect key="frame" x="514" y="184" width="16" height="16"/>
+                        <buttonCell key="cell" type="square" title="•" bezelStyle="shadowlessSquare" alignment="center" transparent="YES" inset="2" id="216">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="7O1-kM-3iK"/>
+                        </constraints>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="205" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="17" id="493-yT-Qse"/>
+                    <constraint firstAttribute="trailing" secondItem="191" secondAttribute="trailing" constant="6" id="8Y5-UA-WPX"/>
+                    <constraint firstAttribute="trailing" secondItem="70" secondAttribute="trailing" constant="17" id="AWM-2A-miL"/>
+                    <constraint firstItem="191" firstAttribute="top" secondItem="6" secondAttribute="top" constant="2" id="CcS-PH-x6y"/>
+                    <constraint firstItem="69" firstAttribute="leading" secondItem="68" secondAttribute="trailing" constant="10" id="Cto-e0-jSg"/>
+                    <constraint firstItem="205" firstAttribute="top" secondItem="68" secondAttribute="bottom" constant="6" id="HYI-nV-2H6"/>
+                    <constraint firstItem="69" firstAttribute="top" secondItem="6" secondAttribute="top" constant="17" id="JQH-KE-jPq"/>
+                    <constraint firstAttribute="trailing" secondItem="205" secondAttribute="trailing" constant="17" id="MZz-Uf-ngG"/>
+                    <constraint firstItem="70" firstAttribute="leading" secondItem="69" secondAttribute="trailing" constant="10" id="OFV-K7-nxF"/>
+                    <constraint firstItem="209" firstAttribute="top" secondItem="6" secondAttribute="top" constant="2" id="Rju-Y7-AYB"/>
+                    <constraint firstAttribute="trailing" secondItem="209" secondAttribute="trailing" constant="4" id="Zg0-Jt-iUy"/>
+                    <constraint firstAttribute="bottom" secondItem="192" secondAttribute="bottom" constant="4" id="fgP-oC-VDg"/>
+                    <constraint firstAttribute="bottom" secondItem="205" secondAttribute="bottom" constant="6" id="mzb-le-yYJ"/>
+                    <constraint firstItem="68" firstAttribute="top" secondItem="6" secondAttribute="top" constant="17" id="ndG-Fj-fd1"/>
+                    <constraint firstItem="70" firstAttribute="top" secondItem="6" secondAttribute="top" constant="17" id="qEI-cB-p8w"/>
+                    <constraint firstAttribute="trailing" secondItem="192" secondAttribute="trailing" constant="4" id="r4J-bm-72b"/>
+                    <constraint firstItem="68" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="17" id="seG-iP-8BA"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="81"/>
                 <outlet property="initialFirstResponder" destination="68" id="111"/>
             </connections>
+            <point key="canvasLocation" x="65" y="-102"/>
         </window>
     </objects>
 </document>

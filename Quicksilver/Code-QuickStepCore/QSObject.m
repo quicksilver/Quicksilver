@@ -737,6 +737,10 @@ NSSize QSMaxIconSize;
     }
 }
 
+- (NSString *)additionalSearchContext {
+  return [self objectForCache:kAdditionalSearchContext];
+}
+
 - (NSArray *)children {
 	if (!flags.childrenLoaded || ![self childrenValid])
 		[self loadChildren];

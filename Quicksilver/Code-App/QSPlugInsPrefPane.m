@@ -245,7 +245,32 @@
 
 - (IBAction)getInfo:(id)sender
 {
-	[pluginInfoPanel makeKeyAndOrderFront:sender];
+	// Get the selected plugin(s)
+	NSArray *selectedPlugins = [self selectedPlugIns];
+	if (!selectedPlugins || [selectedPlugins count] == 0) {
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+		return;
+	}
+	
+	// Get the first selected plugin
+	QSPlugIn *plugin = [selectedPlugins firstObject];
+	NSString *pluginIdentifier = [plugin identifier];
+	
+	if (!pluginIdentifier) {
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+		return;
+	}
+	
+	// Check if this plugin is hosted by Quicksilver
+	QSPlugInManager *manager = [QSPlugInManager sharedInstance];
+	if ([manager pluginIsHosted:pluginIdentifier]) {
+		// Plugin is hosted by Quicksilver - open the web page
+		NSString *urlString = [NSString stringWithFormat:@"https://qsapp.com/manual/plugins/s/?id=%@", pluginIdentifier];
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+	} else {
+		// Plugin is not hosted by Quicksilver - show info panel as before
+		[pluginInfoPanel makeKeyAndOrderFront:sender];
+	}
 }
 
 - (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates:nil];  }
@@ -341,6 +366,13 @@
 
 - (BOOL)isItemExpanded:(id)item {return YES;}
 
+- (NSString *)normalizedSearchString:(NSString *)string {
+    // Remove diacritics (é -> e, ñ -> n, etc.) and punctuation
+    NSString *normalized = [[string stringByApplyingTransform:NSStringTransformStripDiacritics reverse:NO] stringByReplacingCharacterRunsFromSet:[NSCharacterSet characterSetWithCharactersInString:@"?-.,$'\""] withString:@""];
+    
+    return [normalized lowercaseString];
+}
+
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView {
 	NSMutableArray *predicates = [NSMutableArray array];
 	if (!ignoreView) {
@@ -364,8 +396,14 @@
 				break;
 		}
 	}
-	if (search)
-		[predicates addObject:[NSPredicate predicateWithFormat:@"name contains[cd] %@", search]];
+	if (search) {
+		NSString *normalizedSearch = [self normalizedSearchString:search];
+		[predicates addObject:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+			QSPlugIn *plugin = (QSPlugIn *)evaluatedObject;
+			NSString *normalizedName = [self normalizedSearchString:plugin.name];
+			return [normalizedName containsString:normalizedSearch];
+		}]];
+	}
 	if (category)
 		[predicates addObject:[NSPredicate predicateWithFormat:@"%@ IN SELF.categories", category]];
 	if (!mOptionKeyIsDown)

@@ -37,7 +37,10 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectChildrenLoadDate @"QSObjectChildrenLoadDate"
 #define kQSContents               @"QSObjectContents"
 #define kQSObjectComponents       @"QSObjectComponents"
-#define kQSIsCombinedObject		  @"QSIsCombinedObject"
+#define kQSIsCombinedObject		    @"QSIsCombinedObject"
+#define kAdditionalSearchContext  @"QSAdditionalSearchContext"
+
+
 
 typedef struct _QSObjectFlags {
 	unsigned int		multiTyped:1;
@@ -143,6 +146,7 @@ typedef struct _QSObjectFlags {
 - (void)setIdentifier:(NSString *)newIdentifier;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
+- (NSString *)additionalSearchContext;
 - (NSArray *)children;
 - (void)setChildren:(NSArray *)newChildren;
 - (NSArray *)altChildren;

@@ -21,6 +21,7 @@
 #pragma mark QSObject Protocol
 - (NSString *)identifier {return nil;}
 - (NSString *)label {return nil;}
+- (NSString *)additionalSearchContext { return @""; }
 - (NSString *)name {return @"Object";}
 - (BOOL)enabled {return ![[QSLibrarian sharedInstance] itemIsOmitted:self];}
 - (void)setEnabled:(BOOL)flag {[[QSLibrarian sharedInstance] setItem:self isOmitted:!flag];}

@@ -669,6 +669,11 @@ static CGFloat searchSpeed = 0.0;
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
     BOOL includeOmitted = NO;
 	
+	// for the case where 'set' is a '[DefaultAction, [All Actions]]' then we need to take the 2nd element
+	if ([set count] == 2 && [set[1] isKindOfClass:[NSArray class]]) {
+		set = set[1];
+	}
+
 	// if we are searching within 'set' (i.e. we have drilled down or we have search results),
 	// then include any items that have been 'omitted' from the global catalog.
     if (set) {

@@ -81,15 +81,18 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[objectsInSet count]];
 
     BOOL includeOmitted = [[options objectForKey:QSRankingIncludeOmitted] boolValue];
-	QSBasicObject *thisObject;
     QSScoreForObjectIMP scoreForObjectIMP =
         (QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:options:)];
+    
+    NSObject *lock = [[NSObject alloc] init];
+    
     @autoreleasepool {
-        for (thisObject in objectsInSet) {
-            if (!includeOmitted && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
+        [objectsInSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id thisObject, NSUInteger idx, BOOL *stop) {
+            if (!includeOmitted && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) return;
+            
             id ranker = [thisObject ranker];
             
-            QSRankedObject *rankedObject;
+            QSRankedObject *rankedObject = nil;
             if ([ranker isKindOfClass:[QSDefaultObjectRanker class]]) {
                 rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:options:),
                                                      thisObject, anAbbreviation, options);
@@ -100,9 +103,11 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
             }
             
             if (rankedObject) {
-                [rankObjects addObject:rankedObject];
+                @synchronized(lock) {
+                    [rankObjects addObject:rankedObject];
+                }
             }
-        }
+        }];
     }
 	return rankObjects;
 }
@@ -122,10 +127,15 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	if (self = [super init]) {
 		nameRanker = nil;
 		labelRanker = nil;
+		cacheRanker = nil;
 		if ([object name])
 			nameRanker = [[QSCurrentStringRanker alloc] initWithString:[object name]];
 		if ([object label] && ![[object label] isEqualToString:[object name]])
 			labelRanker = [[QSCurrentStringRanker alloc] initWithString:[object label]];
+		// Initialize cache ranker with additional search context (e.g., OCR text from images)
+		id cacheContent = [object additionalSearchContext];
+		if (cacheContent && [cacheContent isKindOfClass:[NSString class]])
+			cacheRanker = [[QSCurrentStringRanker alloc] initWithString:(NSString *)cacheContent];
 		usageMnemonics = [[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]];
 	}
 	return self;
@@ -135,6 +145,7 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	usageMnemonics = nil;
 	nameRanker = nil;
 	labelRanker = nil;
+	cacheRanker = nil;
 }
 
 - (NSString*)description {
@@ -194,6 +205,15 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 			if (labelScore > newScore) {
 				newScore = labelScore;
                 matchedString = [labelRanker rankedString];
+			}
+		}
+		
+		// Also check cache for matches (e.g., OCR text from images)
+		if (cacheRanker) {
+			CGFloat cacheScore = (*scoreForAbbrevIMP) (cacheRanker, @selector(scoreForAbbreviation:), anAbbreviation);
+			if (cacheScore > newScore) {
+				newScore = cacheScore;
+				matchedString = [cacheRanker rankedString];
 			}
 		}
 	}

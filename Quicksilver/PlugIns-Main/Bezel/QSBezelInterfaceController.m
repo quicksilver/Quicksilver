@@ -7,8 +7,6 @@
 }
 
 - (void)windowDidLoad {
-	standardRect = centerRectInRect([[self window] frame], [[NSScreen mainScreen] frame]);
-
 	[super windowDidLoad];
 	QSWindow *window = (QSWindow *)[self window];
 	[window setLevel:NSPopUpMenuWindowLevel];
@@ -47,12 +45,15 @@
 		[theCell setTextColor:[NSColor whiteColor]];
 		[theCell setState:NSOnState];
 
-        [theCell setCellRadiusFactor:16];
-        
+		[theCell setCellRadiusFactor:18];
+
 		[theCell bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
 		[theCell bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
 	 }
 
+	// Calculate standardRect AFTER layout has been computed by autolayout
+	standardRect = centerRectInRect([[self window] frame], [[NSScreen mainScreen] frame]);
+	
 	[self contractWindow:nil];
 }
 
@@ -97,13 +98,21 @@
 }
 
 - (NSRect) rectForState:(BOOL)shouldExpand {
-	NSRect newRect = standardRect;
 	NSRect screenRect = [[NSScreen mainScreen] frame];
-	if (!shouldExpand) {
-		newRect.size.width -= NSMaxX([iSelector frame]) -NSMaxX([aSelector frame]);
-		newRect = centerRectInRect(newRect, [[NSScreen mainScreen] frame]);
+	NSRect newRect;
+	
+	if (shouldExpand) {
+		// Use the actual computed position of iSelector's right edge
+		CGFloat expandedWidth = NSMaxX([iSelector frame]) + 17; // 17 is the right margin constant
+		newRect = NSMakeRect(standardRect.origin.x, standardRect.origin.y, expandedWidth, standardRect.size.height);
+		newRect = centerRectInRect(newRect, screenRect);
+	} else {
+		// Use the actual layout-computed position of aSelector's right edge
+		CGFloat contractedWidth = NSMaxX([aSelector frame]) + 17; // 17 is the right margin constant
+		newRect = NSMakeRect(standardRect.origin.x, standardRect.origin.y, contractedWidth, standardRect.size.height);
+		newRect = centerRectInRect(newRect, screenRect);
 	}
-	return NSOffsetRect(centerRectInRect(newRect, screenRect), 0, NSHeight(screenRect) /8);
+	return NSOffsetRect(newRect, 0, NSHeight(screenRect) / 8);
 }
 
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {

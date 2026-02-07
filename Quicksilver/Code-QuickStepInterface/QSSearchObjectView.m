@@ -107,6 +107,7 @@ NSMutableDictionary *bindingsDict = nil;
 	resultsPadding = 0;
 	historyArray = [[NSMutableArray alloc] initWithCapacity:10];
 	parentStack = [[NSMutableArray alloc] initWithCapacity:10];
+	textEditorConstraints = [[NSMutableArray alloc] init];
 
 	validSearch = YES;
 	shouldSniff = YES;
@@ -789,6 +790,27 @@ NSMutableDictionary *bindingsDict = nil;
         [scrollView setDocumentView:[self textModeEditor]];
 		[self addSubview:scrollView];
         
+        // Apply autolayout constraints to scrollView instead of relying on frame
+        // This ensures the text editor stays in the correct position when parent layout changes
+        [scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        
+        // Clear any previous constraints
+        if (textEditorConstraints == nil) {
+            textEditorConstraints = [[NSMutableArray alloc] init];
+        } else {
+            [self removeConstraints:textEditorConstraints];
+            [textEditorConstraints removeAllObjects];
+        }
+        
+        // Pin scrollView to fill the bounds of this QSSearchObjectView
+        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:editorFrame.origin.y];
+        NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:editorFrame.origin.x];
+        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:editorFrame.size.width];
+        NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:editorFrame.size.height];
+        
+        [textEditorConstraints addObjectsFromArray:@[topConstraint, leftConstraint, widthConstraint, heightConstraint]];
+        [self addConstraints:textEditorConstraints];
+        
         // Don't show the text being entered in the background, just the icon
         [[self cell] setImagePosition:NSImageOnly];
 		[[self window] makeFirstResponder:[self textModeEditor]];
@@ -819,11 +841,13 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 #endif
+
 	
     // ***Quicksilver's search algorithm is case insensitive
     string = [string lowercaseString];
     
-	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:self.searchArray];
+	// if we're in the action selector, don't do a scored search of all objects, only action objects matching the dObject/iObject
+	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:([self allowNonActions] ? self.searchArray : [[self controller] rankedActions])];
 	
 #ifdef DEBUG
     if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
@@ -1376,13 +1400,14 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (void)insertSpace:(id)sender
-{
-	QSSearchSpaceBarBehavior behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+- (void)insertSpace:(id)sender {
+    QSSearchSpaceBarBehavior behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 
-    QSObject *newSelectedObject = [[super objectValue] resolvedObject];
-    QSAction *action = [[self actionSelector] objectValue];
+    QSObject *newSelectedObject = nil;
+    QSAction *action = nil;
     if (behavior == QSSearchSpaceBarBehaviorSmart) {
+        newSelectedObject = [[super objectValue] resolvedObject];
+        action = [[self actionSelector] objectValue];
         // override smart defaults with type-specific behavior (if defined)
         NSNumber *typeBehavior = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[newSelectedObject primaryType]] objectForKey:kQSSmartSpace];
         if (typeBehavior) {
@@ -1634,7 +1659,15 @@ NSMutableDictionary *bindingsDict = nil;
         [self setObjectValue:[QSObject objectWithString:string]];
     }
 	[self setMatchedString:nil];
-	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
+    
+    // Remove autolayout constraints before removing the scroll view
+    NSScrollView *scrollView = [[self currentEditor] enclosingScrollView];
+    if (textEditorConstraints && [textEditorConstraints count] > 0) {
+        [self removeConstraints:textEditorConstraints];
+        [textEditorConstraints removeAllObjects];
+    }
+    
+	[scrollView removeFromSuperview];
     [[self cell] setImagePosition:[[self cell] preferredImagePosition]];
 	[self setCurrentEditor:nil];
 }

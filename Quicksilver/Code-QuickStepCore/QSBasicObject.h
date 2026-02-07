@@ -15,6 +15,7 @@
 @protocol QSObject
 - (NSString *)identifier;
 - (NSString *)label;
+- (NSString *)additionalSearchContext;
 - (NSString *)name;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;

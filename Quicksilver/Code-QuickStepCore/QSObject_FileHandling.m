@@ -21,6 +21,7 @@
 #import "QSScreenshots.h"
 #import "QSPaths.h"
 #import <sys/mount.h>
+#import <Vision/Vision.h>
 
 #import "NSApplication_BLTRExtensions.h"
 
@@ -688,8 +689,66 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		[self setIdentifier:thisIdentifier];
 		[self setPrimaryType:QSFilePathType];
 		[self getNameFromFiles];
+    [self loadAdditionalSearchContext];
 	}
 	return self;
+}
+
+- (void)loadAdditionalSearchContext {
+  if (@available(macOS 10.15, *)) {
+    
+    // For images, use text recognition to extract any text and store as searchable context
+    NSString *path = [self validSingleFilePath];
+    if (!path) {
+      return;
+    }
+    
+    NSString *uti = [self fileUTI];
+    // Check if this is an image file
+    if (!QSTypeConformsTo(uti, (NSString *)kUTTypeImage)) {
+      return;
+    }
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:path];
+    if (!image) {
+      return;
+    }
+    
+    // Get the CGImage from NSImage
+    CGImageRef cgImage = [image CGImageForProposedRect:NULL context:NULL hints:nil];
+    if (!cgImage) {
+      return;
+    }
+    
+    // Create a text recognition request
+    VNRecognizeTextRequest *request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *request, NSError *error) {
+      if (error) {
+        NSLog(@"Text recognition error: %@", error);
+        return;
+      }
+      
+      NSMutableString *recognizedText = [NSMutableString string];
+      for (VNRecognizedTextObservation *observation in request.results) {
+        VNRecognizedText *text = [[observation topCandidates:1] firstObject];
+        if (text) {
+          [recognizedText appendFormat:@" %@", text.string];
+        }
+      }
+      
+      if ([recognizedText length] > 0) {
+        [self setObject:recognizedText forCache:kAdditionalSearchContext];
+      }
+    }];
+    
+    // Create an image request handler
+    VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCGImage:cgImage options:@{}];
+    
+    NSError *error = nil;
+    [handler performRequests:@[request] error:&error];
+    if (error) {
+      NSLog(@"Error performing text recognition: %@", error);
+    }
+  }
 }
 
 - (NSDictionary *)infoRecord {

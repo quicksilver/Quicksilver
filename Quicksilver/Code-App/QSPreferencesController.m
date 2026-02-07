@@ -51,8 +51,11 @@ id QSPrefs;
 }
 
 + (void)showPrefs {
+	NSWindow *window = [[self sharedInstance] window];
+	[window orderFrontRegardless];
 	[NSApp activateIgnoringOtherApps:YES];
-	[[self sharedInstance] showWindow:nil];
+	[window makeKeyWindow];
+	[window makeMainWindow];
 }
 
 
@@ -218,6 +221,18 @@ id QSPrefs;
 		[toolbar setSelectedItemIdentifier:@"QSMainMenuPrefPane"];
 		[self selectPaneWithIdentifier:@"QSMainMenuPrefPane"];
 	}
+    
+    [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event) {
+        if (([event modifierFlags] & NSEventModifierFlagCommand) && 
+            [[event charactersIgnoringModifiers] isEqualToString:@"f"]) {
+            // Ask current pane if it can handle focusing a search field
+            if (self.currentPane.searchField) {
+							[self.currentPane.searchField becomeFirstResponder];
+                return nil; // Consume the event
+            }
+        }
+        return event;
+    }];
 }
 
 - (BOOL)relaunchRequested {

@@ -250,6 +250,10 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	if ([[[app.bundleURL path] pathExtension] isEqualToString:@"xpc"]) {
 		return NO;
 	}
+	// Only include processes with valid bundle URLs
+	if (!app.bundleURL) {
+		return NO;
+	}
 	return YES;
 }
 
