@@ -13,6 +13,7 @@
                 <outlet property="guideView" destination="793" id="827"/>
                 <outlet property="progressField" destination="826" id="834"/>
                 <outlet property="progressIndicator" destination="871" id="876"/>
+                <outlet property="searchField" destination="862" id="xC4-rq-MN3"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>

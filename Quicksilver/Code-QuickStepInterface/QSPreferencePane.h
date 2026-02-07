@@ -20,6 +20,7 @@
 }
 
 @property (nonatomic, strong) NSDictionary *info;
+@property (assign) IBOutlet NSSearchField *searchField;
 
 - (id)initWithInfo:(NSDictionary *)info;
 - (void)requestRelaunch;
