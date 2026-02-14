@@ -351,33 +351,41 @@
     }
     QSAction *aObj = [aSelector objectValue];
     id actionProvider = [aObj provider];
-    NSArray *indirects = nil;
-    if (actionProvider && [actionProvider respondsToSelector:@selector(validIndirectObjectsForAction:directObject:)]) {
-        QSObject *directObject = [[dSelector objectValue] resolvedObject];
-        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:directObject];
-    }
-    // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
-    if(!indirects) {
-        if ([aObj indirectTypes]) {
-					// Perform on background thread to not block main thread (avoids potential deadlock)
-					QSGCDAsync(^{
-                NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
-                [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
-                    [indirectsForAllTypes addObjectsFromArray:[QSLib scoredArrayForType:eachType]];
-                }];
-                NSArray *finalIndirects = ([indirectsForAllTypes count] > 0) ? [indirectsForAllTypes copy] : nil;
-                
-                // Update UI on main thread
-                QSGCDMainAsync(^{
-                    [self updateControl:self->iSelector withArray:finalIndirects];
-                    [self->iSelector setSearchMode:(finalIndirects ? SearchFilter : SearchFilterAll)];
-                });
-            });
-            return;
+
+    // Capture UI state on the main thread before dispatching
+    QSObject *directObject = [[dSelector objectValue] resolvedObject];
+    NSString *actionIdentifier = [aObj identifier];
+    NSArray *indirectTypes = [aObj indirectTypes];
+    BOOL hasProvider = (actionProvider && [actionProvider respondsToSelector:@selector(validIndirectObjectsForAction:directObject:)]);
+
+    // Perform on background thread to avoid blocking main thread and prevent deadlock
+    // when action providers use concurrent enumeration that may dispatch_sync back to main
+    QSGCDAsync(^{
+        NSArray *indirects = nil;
+
+        if (hasProvider) {
+            indirects = [actionProvider validIndirectObjectsForAction:actionIdentifier directObject:directObject];
         }
-    }
-	[self updateControl:iSelector withArray:indirects];
-	[iSelector setSearchMode:(indirects?SearchFilter:SearchFilterAll)];
+
+        // If the validIndirectObjectsForAction... method hasn't been implemented or returned nil,
+        // attempt to get valid indirects from the action's 'indirectTypes'
+        if (!indirects && indirectTypes) {
+            NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
+            [indirectTypes enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
+                [indirectsForAllTypes addObjectsFromArray:[QSLib scoredArrayForType:eachType]];
+            }];
+            if ([indirectsForAllTypes count]) {
+                indirects = [indirectsForAllTypes copy];
+            }
+        }
+
+        NSArray *finalIndirects = indirects;
+        // Update UI on main thread
+        QSGCDMainAsync(^{
+            [self updateControl:self->iSelector withArray:finalIndirects];
+            [self->iSelector setSearchMode:(finalIndirects ? SearchFilter : SearchFilterAll)];
+        });
+    });
 }
 
 - (void)updateViewLocations {
