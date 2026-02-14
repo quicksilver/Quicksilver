@@ -18,6 +18,17 @@
 
 @implementation Quicksilver_Tests
 
+/// Wait for pending QSGCDAsync + QSGCDMainAsync operations to complete
+- (void)waitForAsyncUpdates {
+    XCTestExpectation *exp = [self expectationWithDescription:@"async updates"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [exp fulfill];
+        });
+    });
+    [self waitForExpectationsWithTimeout:2.0 handler:nil];
+}
+
 
 - (void)testActionsForURLObject {
     NSString *url = @"https://qsapp.com";
@@ -202,24 +213,28 @@
 
 	// UI tests hack: force the actions timer to fire now
 	[i fireActionUpdateTimer];
+	// Wait for async indirect object updates to complete
+	[self waitForAsyncUpdates];
 	XCTAssertNotNil([[i aSelector] objectValue]);
-	
+
 	// the iSelector should be closed
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
-	
+
 	NSEvent *searchForActionEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"open with" charactersIgnoringModifiers:@"open with" isARepeat:NO keyCode:0];
 	[[i aSelector] keyDown:searchForActionEvent];
+	// Wait for async indirect object updates to complete
+	[self waitForAsyncUpdates];
 	XCTAssertFalse([[i iSelector] isHidden]);
 	// iSelector should now be visible
 	XCTAssertTrue([self isViewVisible:[i iSelector] forController:i]);
-	
+
 	// Clear the first pane (use ⌃U is easiest)
 	NSEvent *clearEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:NSEventModifierFlagControl timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
 	[[i dSelector] keyDown:clearEvent];
 
 
 	XCTAssertNil([[i dSelector] objectValue]);
-	
+
 	// aSelector still has object until the action timer is fired
 	XCTAssertNotNil([[i aSelector] objectValue]);
 	// iSeletor still visible
@@ -227,7 +242,9 @@
 
 	// UI tests hack: force the actions timer to fire now
 	[i fireActionUpdateTimer];
-	
+	// Wait for async indirect object updates to complete
+	[self waitForAsyncUpdates];
+
 	XCTAssertNil([[i aSelector] objectValue]);
 	// the iSelector should be closed
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
