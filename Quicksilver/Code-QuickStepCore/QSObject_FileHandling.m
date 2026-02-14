@@ -860,7 +860,11 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (extension = [self objectForCache:@"extension"]) {
 		return extension;
 	}
-	NSURL *fileURL = [NSURL fileURLWithPath:[self singleFilePath]];
+	NSString *path = [self singleFilePath];
+	if (!path) {
+		return nil;
+	}
+	NSURL *fileURL = [NSURL fileURLWithPath:path];
 	extension = [fileURL pathExtension];
 	[self setObject:extension forCache:@"extension"];
 	return extension;
