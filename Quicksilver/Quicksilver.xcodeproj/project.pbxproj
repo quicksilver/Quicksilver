@@ -1563,7 +1563,7 @@
 		CD2FFC0116792D850028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0216792D860028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0316792D8A0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD2FFC0416792D8B0028FA8A /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD2FFC0416792D8B0028FA8A /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CD2FFC0716792D9A0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/About.strings; sourceTree = "<group>"; };
 		CD2FFC0916792DA10028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0A16792DA90028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSApplicationPrefPane.strings"; sourceTree = "<group>"; };
