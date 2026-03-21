@@ -70,6 +70,7 @@
 - (void)updateActionsNow;
 
 - (void)updateIndirectObjects;
+- (void)updateIndirectObjectsWithCompletion:(void (^)(void))completion;
 - (void)updateViewLocations;
 - (void)invalidateHide;
 
