@@ -235,9 +235,7 @@
             [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
             [url getResourceValue:&isPackage forKey:NSURLIsPackageKey error:nil];
 			if (depth && isDirectory && !isPackage) {
-                @autoreleasepool {
-                    moddate = [self path:[url path] wasModifiedAfter:date depth:depth--];
-                }
+                moddate = [self path:[url path] wasModifiedAfter:date depth:depth--];
 				if (moddate)
 					return moddate;
 			}

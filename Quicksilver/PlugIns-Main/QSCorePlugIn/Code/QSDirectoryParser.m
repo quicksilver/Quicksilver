@@ -49,13 +49,13 @@
 
     NSArray *properties = @[NSURLIsSymbolicLinkKey, NSURLIsAliasFileKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey];
     
+    NSMutableArray *array = [NSMutableArray array];
+    
     NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL:[NSURL fileURLWithPath:path]
                                       includingPropertiesForKeys:properties
                                                          options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsSubdirectoryDescendants
                                                     errorHandler:nil];
 	if (!enumerator) return nil;
-
-	NSMutableArray *array = [NSMutableArray array];
 
     for (NSURL *theURL in enumerator) {
         NSString *file = [theURL path];
@@ -74,10 +74,9 @@
 
         NSURL *targetURL = nil;
 
-
         if ([resources[NSURLIsAliasFileKey] boolValue]) {
             NSDictionary *newResources = [resources copy];
-            targetURL = [theURL copy];
+            targetURL = theURL;
 
             while ([newResources[NSURLIsAliasFileKey] boolValue]) {
                 // NB: `NSURLIsAliasFileKey` AND `NSURLIsSymbolicLinkKey`
@@ -85,20 +84,22 @@
                 // or even aliases to symlinks)
 
                 if ([newResources[NSURLIsSymbolicLinkKey] boolValue]) {
-                    NSURL *oldTarget = [targetURL copy];
-                    targetURL = [targetURL URLByReallyResolvingSymlinksInPath];
-                    if ([targetURL isEqual:oldTarget])
+                    NSURL *newTarget = [targetURL URLByReallyResolvingSymlinksInPath];
+                    if ([newTarget isEqual:targetURL])
                         break;
+                    targetURL = newTarget;
                 } else {
                     BOOL stale = NO;
-                    targetURL = [NSURL URLByResolvingBookmarkAtURL:targetURL
-                                                           options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
-                                               bookmarkDataIsStale:&stale
-                                                             error:&err];
+                    NSURL *resolvedURL = [NSURL URLByResolvingBookmarkAtURL:targetURL
+                                                               options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting
+                                                   bookmarkDataIsStale:&stale
+                                                                 error:&err];
 
-                    if (!targetURL) {
+                    if (!resolvedURL) {
                         NSLog(@"Error resolving %@alias at %@: %@", (stale ? @"stale " : @""), theURL, err);
+                        break;
                     }
+                    targetURL = resolvedURL;
                 }
                 newResources = [targetURL resourceValuesForKeys:properties error:&err];
             }
@@ -106,7 +107,7 @@
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
 
-        if (targetURL) {
+        if (targetURL && targetURL != theURL) {
             /* This was a symlink or an alias, grab the correct information */
             aliasSource = [NDAlias aliasWithContentsOfFile:file];
             aliasFile = file;
@@ -148,11 +149,13 @@
             shouldDescend = NO;
         
         if (depth && isDirectory && shouldDescend) {
-            @autoreleasepool {
-                [array addObjectsFromArray:[self objectsFromPath:[theURL path] depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
-            }
+            [array addObjectsFromArray:[self objectsFromPath:[theURL path] depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
         }
     }
+    
+    // Ensure enumerator is released, freeing file descriptors
+    enumerator = nil;
+
 #ifdef DEBUG
     if (VERBOSE) {
         NSLog(@"Scanning %@ took %ld µs",path,(long)(-[startDate timeIntervalSinceNow]*1000000));
