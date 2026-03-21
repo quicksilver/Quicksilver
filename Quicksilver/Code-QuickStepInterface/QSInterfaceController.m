@@ -472,8 +472,10 @@
             if (argumentCount == 2 || ([[[[self window] contentView] subviews] containsObject:iSelector] && [obj indirectOptional])) {
                 [self updateIndirectObjects];
             }
-            [self updateViewLocations];
         }
+        // Always update view locations when the action changes, including when
+        // it becomes nil (so the 3rd pane is hidden when actions are cleared)
+        [self updateViewLocations];
     } else if ([notif object] == iSelector) {
         [self updateViewLocations];
     }
