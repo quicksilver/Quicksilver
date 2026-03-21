@@ -12,7 +12,19 @@ on:
       - 'translations_**'
 
 jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Run unit tests
+        working-directory: Quicksilver
+        run: |
+          xcodebuild test -project Quicksilver.xcodeproj -scheme Quicksilver
+
   build:
+    needs: test
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
