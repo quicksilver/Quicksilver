@@ -345,8 +345,13 @@
 }
 
 - (void)updateIndirectObjects {
+    [self updateIndirectObjectsWithCompletion:nil];
+}
+
+- (void)updateIndirectObjectsWithCompletion:(void (^)(void))completion {
     // Don't update the indirect objects if this is a 'silent' update.
     if ([aSelector updatesSilently]) {
+        if (completion) completion();
         return;
     }
     QSAction *aObj = [aSelector objectValue];
@@ -384,6 +389,7 @@
         QSGCDMainAsync(^{
             [self updateControl:self->iSelector withArray:finalIndirects];
             [self->iSelector setSearchMode:(finalIndirects ? SearchFilter : SearchFilterAll)];
+            if (completion) completion();
         });
     });
 }
@@ -466,8 +472,10 @@
             if (argumentCount == 2 || ([[[[self window] contentView] subviews] containsObject:iSelector] && [obj indirectOptional])) {
                 [self updateIndirectObjects];
             }
-            [self updateViewLocations];
         }
+        // Always update view locations when the action changes, including when
+        // it becomes nil (so the 3rd pane is hidden when actions are cleared)
+        [self updateViewLocations];
     } else if ([notif object] == iSelector) {
         [self updateViewLocations];
     }
@@ -642,6 +650,20 @@
 
     QSAction *action = [aSelector objectValue];
 	NSInteger argumentCount = [action argumentCount];
+
+	if (argumentCount == 2) {
+		// for the case where we require an argument, update the indirects *then* perform the execute
+		[self updateIndirectObjectsWithCompletion:^{
+			[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
+		}];
+	} else {
+		// otherwise, just perform the execute straight away
+		[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
+	}
+	return;
+}
+
+- (void)performExecuteAction:(QSAction *)action argumentCount:(NSInteger)argumentCount cont:(BOOL)cont encapsulate:(BOOL)encapsulate {
 	if (argumentCount == 2) {
 		BOOL indirectIsRequired = ![action indirectOptional];
 		BOOL indirectIsInvalid = ![iSelector objectValue];
@@ -653,7 +675,7 @@
 		}
 		[QSExec noteIndirect:[iSelector objectValue] forAction:action];
 	}
-	
+
 	// add the object being executed to the history
 	[dSelector updateHistory];
 	// make sure to save mnemonics before interface is closed. Closing the interface clears the search string so they must be saved before this
@@ -663,7 +685,7 @@
 	if (argumentCount == 2) {
 		[iSelector saveMnemonic];
 	}
-	
+
 	if (encapsulate) {
 		[self encapsulateCommand];
 		return;
@@ -677,7 +699,7 @@
             [self executeCommandThreaded];
         });
     } else {
-        // action can only be run on main thread 
+        // action can only be run on main thread
         QSGCDMainSync(^{
             [self executeCommandThreaded];
         });

@@ -18,18 +18,6 @@
 
 @implementation Quicksilver_Tests
 
-/// Wait for pending QSGCDAsync + QSGCDMainAsync operations to complete
-- (void)waitForAsyncUpdates {
-    XCTestExpectation *exp = [self expectationWithDescription:@"async updates"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [exp fulfill];
-        });
-    });
-    [self waitForExpectationsWithTimeout:2.0 handler:nil];
-}
-
-
 - (void)testActionsForURLObject {
     NSString *url = @"https://qsapp.com";
     QSObject *object = [QSObject objectWithString:url];
@@ -204,52 +192,54 @@
 
 	NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
 	[[i dSelector] keyDown:typeAEvent];
-	
+
 	// dSelector is populated with an object
 	XCTAssertNotNil([[i dSelector] objectValue]);
-	
+
 	// aSelector is nil until the actions timer has fired
 	XCTAssertNil([[i aSelector] objectValue]);
 
-	// UI tests hack: force the actions timer to fire now
+	// Force the actions timer to fire now (synchronous)
 	[i fireActionUpdateTimer];
-	// Wait for async indirect object updates to complete
-	[self waitForAsyncUpdates];
 	XCTAssertNotNil([[i aSelector] objectValue]);
 
-	// the iSelector should be closed
+	// the iSelector should be closed (default action for "a" is single-arg)
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
 
+	// Type "open with" into aSelector to select a 2-arg action
 	NSEvent *searchForActionEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"open with" charactersIgnoringModifiers:@"open with" isARepeat:NO keyCode:0];
 	[[i aSelector] keyDown:searchForActionEvent];
-	// Wait for async indirect object updates to complete
-	[self waitForAsyncUpdates];
+
+	// Wait for indirect objects to be populated (deterministic via completion block)
+	XCTestExpectation *indirectsUpdated = [self expectationWithDescription:@"indirect objects updated"];
+	[i updateIndirectObjectsWithCompletion:^{
+		[indirectsUpdated fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+	// iSelector should now be visible (Open With is a 2-arg action)
 	XCTAssertFalse([[i iSelector] isHidden]);
-	// iSelector should now be visible
 	XCTAssertTrue([self isViewVisible:[i iSelector] forController:i]);
 
-	// Clear the first pane (use ⌃U is easiest)
+	// Clear the first pane (⌃U)
 	NSEvent *clearEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:NSEventModifierFlagControl timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"u" charactersIgnoringModifiers:@"u" isARepeat:NO keyCode:32];
 	[[i dSelector] keyDown:clearEvent];
-
 
 	XCTAssertNil([[i dSelector] objectValue]);
 
 	// aSelector still has object until the action timer is fired
 	XCTAssertNotNil([[i aSelector] objectValue]);
-	// iSeletor still visible
+	// iSelector still visible
 	XCTAssertTrue([self isViewVisible:[i iSelector] forController:i]);
 
-	// UI tests hack: force the actions timer to fire now
+	// Force the actions timer to fire — clears actions since dSelector is nil.
+	// searchObjectChanged: now calls updateViewLocations unconditionally,
+	// so the iSelector is hidden synchronously.
 	[i fireActionUpdateTimer];
-	// Wait for async indirect object updates to complete
-	[self waitForAsyncUpdates];
 
 	XCTAssertNil([[i aSelector] objectValue]);
 	// the iSelector should be closed
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
-	
-	
 }
 
 @end

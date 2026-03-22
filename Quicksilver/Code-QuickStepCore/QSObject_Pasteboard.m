@@ -124,6 +124,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	
 	if ([type isEqualToString:NSPasteboardTypeURL]) {
+		if ([pbData isKindOfClass:[NSData class]]) {
+			pbData = [[NSString alloc]  initWithData:pbData encoding:NSUTF8StringEncoding];
+		}
 		return [pbData hasPrefix:@"mailto:"] ? [pbData substringFromIndex:7] : pbData;
 	}
 	
