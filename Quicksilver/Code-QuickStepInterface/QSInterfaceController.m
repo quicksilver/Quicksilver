@@ -652,15 +652,22 @@
 	NSInteger argumentCount = [action argumentCount];
 
 	if (argumentCount == 2) {
-		// for the case where we require an argument, update the indirects *then* perform the execute
-		[self updateIndirectObjectsWithCompletion:^{
-			[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
-		}];
-	} else {
-		// otherwise, just perform the execute straight away
-		[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
+		BOOL indirectIsRequired = ![action indirectOptional];
+		BOOL indirectIsInvalid = ![iSelector objectValue];
+		BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
+		if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy)) {
+			// Indirect is needed but not yet available — the async update from
+			// searchObjectChanged: may not have completed yet. Explicitly fetch
+			// indirects and execute once they're ready.
+			[self updateIndirectObjectsWithCompletion:^{
+				[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
+			}];
+			return;
+		}
 	}
-	return;
+
+	// Indirect not needed, or user already provided one. Execute immediately.
+	[self performExecuteAction:action argumentCount:argumentCount cont:cont encapsulate:encapsulate];
 }
 
 - (void)performExecuteAction:(QSAction *)action argumentCount:(NSInteger)argumentCount cont:(BOOL)cont encapsulate:(BOOL)encapsulate {

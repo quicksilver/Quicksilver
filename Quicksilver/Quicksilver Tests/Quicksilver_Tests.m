@@ -11,7 +11,10 @@
 #import "QSController.h"
 #import "QSObject.h"
 #import "QSObject_FileHandling.h"
+#import "QSObject_StringHandling.h"
 #import "QSCollectingSearchObjectView.h"
+#import "QSAction.h"
+#import "QSTextProxy.h"
 
 @interface Quicksilver_Tests : XCTestCase
 @end
@@ -240,6 +243,158 @@
 	XCTAssertNil([[i aSelector] objectValue]);
 	// the iSelector should be closed
 	XCTAssertFalse([self isViewVisible:[i iSelector] forController:i]);
+}
+
+/**
+ * Regression test for the race condition introduced by making updateIndirectObjects
+ * fully async (commit e10140de). When the user presses Return in the 1st pane and
+ * the action requires an indirect (argumentCount == 2), the async indirect update
+ * may not have completed yet. executeCommand: should fetch indirects via completion
+ * block rather than beeping and moving focus to the 3rd pane.
+ *
+ * Simulates: type "a" in 1st pane → set a 2-arg action → press Return immediately
+ */
+- (void)testExecuteCommandWaitsForIndirectsWhenMissing {
+	QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+	XCTAssertNotNil(i);
+
+	// Type "a" into dSelector to get a file object
+	NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
+	[[i dSelector] keyDown:typeAEvent];
+	XCTAssertNotNil([[i dSelector] objectValue]);
+
+	// Fire the actions timer to populate actions synchronously
+	[i fireActionUpdateTimer];
+	XCTAssertNotNil([[i aSelector] objectValue]);
+
+	// Set a 2-arg action (Open With). This triggers searchObjectChanged: which
+	// calls updateIndirectObjects asynchronously (fire-and-forget).
+	QSAction *openWithAction = [QSAction actionWithIdentifier:@"FileOpenWithAction"];
+	XCTAssertNotNil(openWithAction, @"FileOpenWithAction must exist for this test");
+	[[i aSelector] setObjectValue:openWithAction];
+
+	// At this point, iSelector is likely empty because the async indirect update
+	// hasn't completed yet. This is the exact race condition we're testing.
+
+	// Call executeCommand: — this should NOT beep and NOT move focus to iSelector.
+	// With the fix, it detects the missing indirect and uses the completion path
+	// to fetch indirects before executing.
+	[i executeCommand:self];
+
+	// Wait for the async completion to process
+	XCTestExpectation *executed = [self expectationWithDescription:@"command executed via completion"];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[executed fulfill];
+		});
+	});
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+	// The first responder should NOT be iSelector — that would mean the bug occurred
+	// (beep + focus moved to 3rd pane, requiring a second Return press)
+	NSResponder *firstResponder = [[i window] firstResponder];
+	XCTAssertTrue(firstResponder != [i iSelector],
+				  @"Focus should not have moved to iSelector — the indirect objects race condition was not handled");
+}
+
+/**
+ * Regression test for the bug where executeCommand: unconditionally re-fetched
+ * indirect objects, overwriting user-entered content in the 3rd pane.
+ *
+ * Simulates: select file → choose "Open With" → select an app in 3rd pane → Return
+ * The user's selection in the 3rd pane must be preserved, not overwritten by a re-fetch.
+ */
+- (void)testExecuteCommandPreservesUserSelectedIndirect {
+	QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+	XCTAssertNotNil(i);
+
+	// Set a file object in dSelector
+	QSObject *fileObj = [QSObject fileObjectWithPath:@"/System"];
+	[[i dSelector] setObjectValue:fileObj];
+	XCTAssertNotNil([[i dSelector] objectValue]);
+
+	// Fire the actions timer
+	[i fireActionUpdateTimer];
+
+	// Set a 2-arg action
+	QSAction *openWithAction = [QSAction actionWithIdentifier:@"FileOpenWithAction"];
+	XCTAssertNotNil(openWithAction, @"FileOpenWithAction must exist for this test");
+	[[i aSelector] setObjectValue:openWithAction];
+
+	// Wait for the indirect objects to be fully populated
+	XCTestExpectation *indirectsReady = [self expectationWithDescription:@"indirects populated"];
+	[i updateIndirectObjectsWithCompletion:^{
+		[indirectsReady fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+	// Now simulate the user selecting a specific app in the 3rd pane.
+	// Use a known file object as the indirect selection.
+	QSObject *userSelectedApp = [QSObject fileObjectWithPath:@"/Applications/Safari.app"];
+	[[i iSelector] setObjectValue:userSelectedApp];
+	QSObject *indirectBeforeExecute = [[i iSelector] objectValue];
+	XCTAssertNotNil(indirectBeforeExecute, @"iSelector should have the user's selection");
+
+	// Call executeCommand: — this should use the user's selection, NOT re-fetch
+	[i executeCommand:self];
+
+	// Wait for any async operations to settle
+	XCTestExpectation *settled = [self expectationWithDescription:@"settled"];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[settled fulfill];
+		});
+	});
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+	// The key assertion: executeCommand: should NOT have moved focus to iSelector
+	// (which would indicate it re-fetched and found a problem with the indirect)
+	NSResponder *firstResponder = [[i window] firstResponder];
+	XCTAssertTrue(firstResponder != [i iSelector],
+				  @"executeCommand: should have used the user's existing indirect selection, not re-fetched");
+}
+
+/**
+ * End-to-end test for text mode: enter text mode in the 1st pane,
+ * type text, press Return, and verify the action fires.
+ *
+ * Simulates: press "." → type "hello" → press Return
+ */
+- (void)testTextModeReturnExecutesAction {
+	QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+	XCTAssertNotNil(i);
+
+	// Enter text mode on dSelector (equivalent to pressing ".")
+	[[i dSelector] transmogrify:self];
+	NSTextView *textEditor = [[i dSelector] textModeEditor];
+	XCTAssertNotNil(textEditor, @"Text mode editor should be active");
+
+	// Type text into the editor
+	[textEditor setString:@"hello"];
+	// Trigger the text change notification so dSelector updates its objectValue
+	[[NSNotificationCenter defaultCenter] postNotificationName:NSTextDidChangeNotification object:textEditor];
+
+	XCTAssertNotNil([[i dSelector] objectValue], @"dSelector should have a text object");
+
+	// Simulate pressing Return in text mode — this is what textView:doCommandBySelector:
+	// does: exit text mode, then call executeCommand:
+	[[i window] makeFirstResponder:[i dSelector]];
+	[i executeCommand:self];
+
+	// Wait for any async completion to process
+	XCTestExpectation *executed = [self expectationWithDescription:@"text mode command executed"];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[executed fulfill];
+		});
+	});
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+	// Verify: first responder should NOT be iSelector (would indicate the indirect
+	// race condition bug — beep + focus to 3rd pane)
+	NSResponder *firstResponder = [[i window] firstResponder];
+	XCTAssertTrue(firstResponder != [i iSelector],
+				  @"Text mode Return should execute the action, not move focus to the 3rd pane");
 }
 
 @end
