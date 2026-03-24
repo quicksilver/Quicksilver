@@ -39,7 +39,7 @@
     [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
     [proxy setName:name];
     [proxy setObject:targetID forMeta:@"target"];
-    
+
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
     [[i dSelector] selectObjectValue:proxy];
     [[i dSelector] moveRight:self];
@@ -49,23 +49,23 @@
 - (void)testCreateObjectFromRTFClipboard {
     // create an rtf string in the clipboard
     NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-    
+
     NSAttributedString *rtfString = [[NSAttributedString alloc] initWithRTF:[@"{\\rtf1\\ansi\\ansicpg1252\\cocoartf1187\\cocoasubrtf340\n{\\fonttbl\\f0\\fnil\\fcharset0 Monaco;}\n{\\colortbl;\\red255\\green0\\blue0;}\n\\margl1440\\margr1440\\vieww10800\\viewh8400\\viewkind0\n\\pard\\tx720\\tx1440\\tx2160\\tx2880\\tx3600\\tx4320\\tx5040\\tx5760\\tx6480\\tx7200\\tx7920\\tx8640\\ql\\qnatural\\pardirnatural\n\n\\f0\\fs24 \\cf1 hello}" dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
     [pboard clearContents];
     [pboard writeObjects:@[rtfString]];
-    
+
     // create a QSObject from the clipboard
     QSObject *obj = [QSObject objectWithPasteboard:pboard];
     XCTAssertTrue([obj containsType:NSPasteboardTypeRTF] && [[obj primaryType] isEqualToString:NSPasteboardTypeRTF]);
-    
+
     // now write this object to the pasteboard
     [pboard clearContents];
     XCTAssertTrue([obj putOnPasteboard:pboard]);
-    
+
     // read the object back from the pasteboard
     QSObject *obj2 = [QSObject objectWithPasteboard:pboard];
     XCTAssertTrue([obj2 containsType:NSPasteboardTypeRTF] && [[obj2 primaryType] isEqualToString:NSPasteboardTypeRTF]);
-    
+
 }
 
 // test to make sure when file objects are added to the clipboard, a string of their path is also copied
@@ -76,12 +76,12 @@
     XCTAssertEqualObjects([obj singleFilePath], path);
     XCTAssertTrue([obj putOnPasteboard:pboard] == YES);
     XCTAssertTrue([[pboard types] containsObject:NSPasteboardTypeFileURL]);
-    
+
     // for file objects, we don't write the QSTextType to the pasteboard - that messes with drag/drop in some applications
     XCTAssertFalse([[pboard types] containsObject:QSTextType]);
     NSArray *a = [pboard propertyListForType:NSPasteboardTypeFileURL];
     XCTAssertEqualObjects(a, @"file:///usr/bin/cd");
-    
+
     // try this for an imagined type that already has a string type set:
     obj = [QSObject fileObjectWithPath:path];
     NSString *textString = @"My Important String";
@@ -109,13 +109,13 @@
         return [pbitem propertyListForType:NSPasteboardTypeFileURL];
     }];
     XCTAssertEqualObjects(a, fileArray);
-    
+
     // now try re-creating the object from the pasteboard
     QSObject *newObj = [QSObject objectWithPasteboard:pboard];
     XCTAssertTrue([newObj containsType:QSFilePathType]);
     XCTAssertEqualObjects([newObj arrayForType:QSFilePathType], filePathArray);
 }
-    
+
 
 /**
  * In order to run these tests, you must select 'Quicksilver' as the scheme, as opposed to 'Quicksilver Distribution'
@@ -126,7 +126,7 @@
  */
 - (void)testClearingFirstPane
 {
-    
+
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
 
     // Test is sure to fail if we can't get the interface controller
@@ -134,7 +134,7 @@
 
     // Assumes the current interface can collect
     QSCollectingSearchObjectView *dSelector = (QSCollectingSearchObjectView *)[i dSelector];
-    
+
     // Make a couple of file objects and add them to the dSelector
     NSArray *paths = @[@"/System", @"/Users"];
     NSArray *objs = @[[QSObject fileObjectWithPath:paths[0]], [QSObject fileObjectWithPath:paths[1]]];
@@ -142,15 +142,15 @@
         [dSelector setObjectValue:o];
         [dSelector collect:o];
     }
-    
+
     // Ensure the collected objects are the same as those added
     XCTAssertEqualObjects([[dSelector objectValue] splitObjects], objs, @"Collected objects aren't correct");
-    
+
     // Call some action on the objects (Get File URL known to be problematic
     QSAction *getFileURLAction = [QSAction actionWithIdentifier:@"FileGetURLAction"];
     [[i aSelector] setObjectValue:getFileURLAction];
     [i executeCommandThreaded];
-    
+
     // Ensure the returned files are what we expected (for this action)
     NSString *fileURLs = [[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:paths returnValues:YES] componentsJoinedByString:@"\n"];
     QSObject *fileURLStringObject = [QSObject objectWithType:QSTextType value:fileURLs name:fileURLs];
@@ -166,16 +166,16 @@
     NSEvent *typeAEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
     // Simulate typing 'a' into the dSelector
     [[i dSelector] keyDown:typeAEvent];
-    
+
     XCTAssertEqualObjects(@"a", [[i dSelector] searchString], @"The search string typed into the dSelector is incorrect");
-    
+
     // Simulate opening a trigger like iTunes' 'Search Artists' (a.k.a. a search children action)
     QSAction *searchChildrenAction = [QSAction actionWithIdentifier:@"QSObjectSearchChildrenAction"];
     [[i aSelector] setObjectValue:searchChildrenAction];
     [i executeCommandThreaded];
-    
+
     [[i dSelector] keyDown:typeAEvent];
-    
+
     XCTAssertEqualObjects(@"a", [[i dSelector] searchString], @"The previous search string was not cleared when invoking a 'search children' command");
 }
 

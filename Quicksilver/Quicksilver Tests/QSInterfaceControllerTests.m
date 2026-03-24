@@ -7,12 +7,23 @@
 #import "QSInterfaceController.h"
 #import "QSController.h"
 #import "QSObject.h"
+#import "QSObject_FileHandling.h"
 #import "QSSearchObjectView.h"
 
 @interface QSInterfaceControllerTests : XCTestCase
 @end
 
 @implementation QSInterfaceControllerTests
+
+- (void)setUp {
+    [super setUp];
+    // Reset action and indirect panes between tests to prevent pollution.
+    // Do NOT clear dSelector — that destroys its result/source arrays which
+    // are populated from the catalog and needed for search-based tests.
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+    [i clearObjectView:[i aSelector]];
+    [i clearObjectView:[i iSelector]];
+}
 
 /// Wait for pending QSGCDAsync + QSGCDMainAsync operations to complete
 - (void)waitForAsyncUpdates {
@@ -224,19 +235,16 @@
     NSInteger originalArgCount = [action argumentCount];
     id originalIndirectOptional = [[action actionDict] objectForKey:kActionIndirectOptional];
 
-    // Force the action to appear as a 2-arg action with optional indirect.
+    // Force the action to appear as a 2-arg action with REQUIRED indirect.
     // argumentCount == 2 makes executeCommand: take the two-arg code path.
-    // indirectOptional ensures performExecuteAction: doesn't bail at the
-    // indirect validity check (since iSelector will be nil).
+    // Removing indirectOptional (defaults to NO) makes the indirect required,
+    // which triggers the deferred completion block path when iSelector is nil.
     [action setArgumentCount:2];
-    [[action actionDict] setObject:@YES forKey:kActionIndirectOptional];
+    [[action actionDict] removeObjectForKey:kActionIndirectOptional];
 
     // Track whether the notification fires synchronously (before executeCommand: returns)
     // vs asynchronously (in the completion block, after executeCommand: returns).
-    // Using queue:nil so the observer fires inline on the posting thread — if the
-    // notification is posted during executeCommand:, the block runs before it returns.
     __block BOOL notificationReceived = NO;
-    XCTestExpectation *exp = [self expectationWithDescription:@"Command eventually executed"];
 
     id observer = [[NSNotificationCenter defaultCenter]
         addObserverForName:QSCommandExecutedNotification
@@ -244,20 +252,20 @@
                      queue:nil
                 usingBlock:^(NSNotification *notif) {
                     notificationReceived = YES;
-                    [exp fulfill];
                 }];
 
     [i executeCommand:self];
 
     // Check IMMEDIATELY after executeCommand: returns, before spinning the run loop.
-    // With the fix: execution is deferred (async via completion block) → NO notification yet.
-    // Without the fix: execution ran synchronously inside executeCommand: → notification already fired.
+    // With the fix: indirect is required but missing (iSelector is nil), so execution
+    // is deferred to the updateIndirectObjectsWithCompletion: callback → no notification yet.
+    // Without the fix: execution ran synchronously inside executeCommand:.
     XCTAssertFalse(notificationReceived,
-        @"For 2-arg actions, execution must be deferred to the completion block. "
+        @"For 2-arg actions with required indirect, execution must be deferred to the completion block. "
         @"Synchronous execution indicates the race condition fix is missing.");
 
-    // Now wait for the async completion to verify the action DOES eventually fire.
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    // Allow the async completion to drain so it doesn't interfere with other tests
+    [self waitForAsyncUpdates];
 
     [[NSNotificationCenter defaultCenter] removeObserver:observer];
 
@@ -268,6 +276,112 @@
     } else {
         [[action actionDict] removeObjectForKey:kActionIndirectOptional];
     }
+}
+
+/**
+ * Regression test for the race condition introduced by making updateIndirectObjects
+ * fully async (commit e10140de). When the user presses Return and the action requires
+ * an indirect (argumentCount == 2), the async indirect update may not have completed.
+ * executeCommand: should fetch indirects via completion block rather than beeping.
+ *
+ * Uses setObjectValue: directly (not keyDown:) to avoid catalog search dependencies.
+ */
+- (void)testExecuteCommandWaitsForIndirectsWhenMissing {
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+    XCTAssertNotNil(i);
+
+    // Set a file object directly in dSelector
+    QSObject *fileObj = [QSObject fileObjectWithPath:@"/System"];
+    [[i dSelector] setObjectValue:fileObj];
+    XCTAssertNotNil([[i dSelector] objectValue]);
+
+    // Populate actions directly (don't rely on timer — it may have been
+    // invalidated by a previous test calling executeCommand:)
+    [i updateActionsNow];
+    XCTAssertNotNil([[i aSelector] objectValue]);
+
+    // Set a 2-arg action (Open With). This triggers searchObjectChanged: which
+    // calls updateIndirectObjects asynchronously (fire-and-forget).
+    QSAction *openWithAction = [QSAction actionWithIdentifier:@"FileOpenWithAction"];
+    XCTAssertNotNil(openWithAction, @"FileOpenWithAction must exist for this test");
+    [[i aSelector] setObjectValue:openWithAction];
+
+    // At this point, iSelector is likely empty because the async indirect update
+    // hasn't completed yet. This is the exact race condition we're testing.
+
+    // Listen for QSCommandExecutedNotification — posted after the action runs.
+    // With the fix: executeCommand: detects the missing indirect, defers to the
+    // completion block of updateIndirectObjectsWithCompletion:, which fetches
+    // indirects on a background thread then executes on main. The notification
+    // fires once execution completes, giving us a deterministic wait point.
+    // Without the fix: executeCommand: would synchronously beep and focus iSelector.
+    XCTestExpectation *commandExecuted = [self expectationWithDescription:@"command executed via deferred completion"];
+    id observer = [[NSNotificationCenter defaultCenter]
+        addObserverForName:QSCommandExecutedNotification
+                    object:nil
+                     queue:nil
+                usingBlock:^(NSNotification *notif) {
+                    [commandExecuted fulfill];
+                }];
+
+    [i executeCommand:self];
+
+    // Wait for the command to actually execute (deterministic — no GCD timing hacks)
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+
+    // The first responder should NOT be iSelector — that would mean the bug occurred
+    NSResponder *firstResponder = [[i window] firstResponder];
+    XCTAssertNotEqual(firstResponder, [i iSelector],
+        @"Focus should not have moved to iSelector — the indirect objects race condition was not handled");
+}
+
+/**
+ * Regression test: executeCommand: must NOT unconditionally re-fetch indirect objects,
+ * as that would overwrite user-entered content in the 3rd pane.
+ *
+ * Simulates: select file → choose "Open With" → select an app in 3rd pane → Return
+ * The user's selection in the 3rd pane must be preserved, not overwritten.
+ */
+- (void)testExecuteCommandPreservesUserSelectedIndirect {
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
+    XCTAssertNotNil(i);
+
+    // Set a file object in dSelector
+    QSObject *fileObj = [QSObject fileObjectWithPath:@"/System"];
+    [[i dSelector] setObjectValue:fileObj];
+    XCTAssertNotNil([[i dSelector] objectValue]);
+
+    // Populate actions directly (don't rely on timer state)
+    [i updateActionsNow];
+
+    // Set a 2-arg action
+    QSAction *openWithAction = [QSAction actionWithIdentifier:@"FileOpenWithAction"];
+    XCTAssertNotNil(openWithAction, @"FileOpenWithAction must exist for this test");
+    [[i aSelector] setObjectValue:openWithAction];
+
+    // Wait for the indirect objects to be fully populated
+    XCTestExpectation *indirectsReady = [self expectationWithDescription:@"indirects populated"];
+    [i updateIndirectObjectsWithCompletion:^{
+        [indirectsReady fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    // Now simulate the user selecting a specific app in the 3rd pane
+    QSObject *userSelectedApp = [QSObject fileObjectWithPath:@"/Applications/Safari.app"];
+    [[i iSelector] setObjectValue:userSelectedApp];
+    XCTAssertNotNil([[i iSelector] objectValue], @"iSelector should have the user's selection");
+
+    // Call executeCommand: — this should use the user's selection, NOT re-fetch
+    [i executeCommand:self];
+
+    // Wait for any async operations to settle
+    [self waitForAsyncUpdates];
+
+    // executeCommand: should NOT have moved focus to iSelector
+    NSResponder *firstResponder = [[i window] firstResponder];
+    XCTAssertNotEqual(firstResponder, [i iSelector],
+        @"executeCommand: should have used the user's existing indirect selection, not re-fetched");
 }
 
 @end
