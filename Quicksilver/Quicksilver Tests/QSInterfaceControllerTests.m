@@ -295,8 +295,9 @@
     [[i dSelector] setObjectValue:fileObj];
     XCTAssertNotNil([[i dSelector] objectValue]);
 
-    // Fire the actions timer to populate actions synchronously
-    [i fireActionUpdateTimer];
+    // Populate actions directly (don't rely on timer — it may have been
+    // invalidated by a previous test calling executeCommand:)
+    [i updateActionsNow];
     XCTAssertNotNil([[i aSelector] objectValue]);
 
     // Set a 2-arg action (Open With). This triggers searchObjectChanged: which
@@ -308,11 +309,26 @@
     // At this point, iSelector is likely empty because the async indirect update
     // hasn't completed yet. This is the exact race condition we're testing.
 
-    // Call executeCommand: — this should NOT beep and NOT move focus to iSelector.
+    // Listen for QSCommandExecutedNotification — posted after the action runs.
+    // With the fix: executeCommand: detects the missing indirect, defers to the
+    // completion block of updateIndirectObjectsWithCompletion:, which fetches
+    // indirects on a background thread then executes on main. The notification
+    // fires once execution completes, giving us a deterministic wait point.
+    // Without the fix: executeCommand: would synchronously beep and focus iSelector.
+    XCTestExpectation *commandExecuted = [self expectationWithDescription:@"command executed via deferred completion"];
+    id observer = [[NSNotificationCenter defaultCenter]
+        addObserverForName:QSCommandExecutedNotification
+                    object:nil
+                     queue:nil
+                usingBlock:^(NSNotification *notif) {
+                    [commandExecuted fulfill];
+                }];
+
     [i executeCommand:self];
 
-    // Wait for the async completion to process
-    [self waitForAsyncUpdates];
+    // Wait for the command to actually execute (deterministic — no GCD timing hacks)
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
 
     // The first responder should NOT be iSelector — that would mean the bug occurred
     NSResponder *firstResponder = [[i window] firstResponder];
@@ -336,8 +352,8 @@
     [[i dSelector] setObjectValue:fileObj];
     XCTAssertNotNil([[i dSelector] objectValue]);
 
-    // Fire the actions timer
-    [i fireActionUpdateTimer];
+    // Populate actions directly (don't rely on timer state)
+    [i updateActionsNow];
 
     // Set a 2-arg action
     QSAction *openWithAction = [QSAction actionWithIdentifier:@"FileOpenWithAction"];
