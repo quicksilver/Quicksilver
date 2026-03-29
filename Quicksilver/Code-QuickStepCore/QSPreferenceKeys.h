@@ -77,3 +77,6 @@ Following lines are no longer used in this project.
 
 // A boolean indicating whether the task viewer resizes automatically
 #define kQSResizeTaskViewerAutomatically @"QSResizeTaskViewerAutomatically"
+
+// A boolean indicating whether text from image extraction should be disabled or not
+#define kQSDisableExtractTextFromImages @"QSDisableExtractTextFromImages"

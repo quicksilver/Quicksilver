@@ -28,3 +28,5 @@
 "QSHistoryMaxLength:title" = "Number of items in Quicksilver’s history";
 
 "QSCloseInterfaceOnSuccessfulDrop:title" = "Close the interface after a successful drag and drop";
+
+"QSDisableExtractTextFromImages:title" = "Disable text extraction from images (disables searching for text in images)";
