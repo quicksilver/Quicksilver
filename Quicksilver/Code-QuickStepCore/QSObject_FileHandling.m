@@ -694,7 +694,13 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 	return self;
 }
 
+#define MAX_IMAGE_SCAN_SIZE 50 * 1024 * 1024 // 50MB
+
 - (void)loadAdditionalSearchContext {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSDisableExtractTextFromImages]) {
+    return;
+  }
+
   if (@available(macOS 10.15, *)) {
     
     // For images, use text recognition to extract any text and store as searchable context
@@ -709,45 +715,48 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
       return;
     }
     
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:path];
-    if (!image) {
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    
+    if (!fileURL) {
       return;
     }
     
-    // Get the CGImage from NSImage
-    CGImageRef cgImage = [image CGImageForProposedRect:NULL context:NULL hints:nil];
-    if (!cgImage) {
-      return;
-    }
+    // skip extracting text for images over 20MB
+    NSNumber *fileSize = nil;
+    [fileURL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:nil];
+    if ([fileSize unsignedLongLongValue] > MAX_IMAGE_SCAN_SIZE) return;
     
-    // Create a text recognition request
-    VNRecognizeTextRequest *request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *request, NSError *error) {
-      if (error) {
-        NSLog(@"Text recognition error: %@", error);
-        return;
-      }
-      
-      NSMutableString *recognizedText = [NSMutableString string];
-      for (VNRecognizedTextObservation *observation in request.results) {
-        VNRecognizedText *text = [[observation topCandidates:1] firstObject];
-        if (text) {
-          [recognizedText appendFormat:@" %@", text.string];
+    __weak __typeof(self) weakSelf = self;
+    QSGCDAsync(^{
+      // Create a text recognition request
+      VNRecognizeTextRequest *request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *request, NSError *error) {
+        if (error) {
+          NSLog(@"Text recognition error: %@", error);
+          return;
         }
-      }
+        
+        NSMutableString *recognizedText = [NSMutableString string];
+        for (VNRecognizedTextObservation *observation in request.results) {
+          VNRecognizedText *text = [[observation topCandidates:1] firstObject];
+          if (text) {
+            [recognizedText appendFormat:@" %@", text.string];
+          }
+        }
+        
+        if ([recognizedText length] > 0) {
+          [weakSelf setObject:recognizedText forCache:kAdditionalSearchContext];
+        }
+      }];
       
-      if ([recognizedText length] > 0) {
-        [self setObject:recognizedText forCache:kAdditionalSearchContext];
+      // Create an image request handler
+      VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithURL:fileURL options:@{}];
+      
+      NSError *error = nil;
+      [handler performRequests:@[request] error:&error];
+      if (error) {
+        NSLog(@"Error performing text recognition: %@", error);
       }
-    }];
-    
-    // Create an image request handler
-    VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCGImage:cgImage options:@{}];
-    
-    NSError *error = nil;
-    [handler performRequests:@[request] error:&error];
-    if (error) {
-      NSLog(@"Error performing text recognition: %@", error);
-    }
+    });
   }
 }
 

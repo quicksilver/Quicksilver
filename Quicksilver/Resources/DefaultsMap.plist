@@ -142,5 +142,15 @@
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>QSDisableExtractTextFromImages</string>
+		<key>title</key>
+		<string>Disable text extraction from images (disables searching for text in images)</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
 </array>
 </plist>
