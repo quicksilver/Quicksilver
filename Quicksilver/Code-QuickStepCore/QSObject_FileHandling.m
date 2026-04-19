@@ -696,45 +696,53 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 
 #define MAX_IMAGE_SCAN_SIZE 50 * 1024 * 1024 // 50MB
 
+static dispatch_queue_t _textRecognitionQueue;
+static dispatch_once_t _textRecognitionQueueToken;
+
 - (void)loadAdditionalSearchContext {
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSDisableExtractTextFromImages]) {
     return;
   }
 
   if (@available(macOS 10.15, *)) {
-    
+
     // For images, use text recognition to extract any text and store as searchable context
     NSString *path = [self validSingleFilePath];
     if (!path) {
       return;
     }
-    
+
     NSString *uti = [self fileUTI];
     // Check if this is an image file
     if (!QSTypeConformsTo(uti, (NSString *)kUTTypeImage)) {
       return;
     }
-    
+
     NSURL *fileURL = [NSURL fileURLWithPath:path];
-    
+
     if (!fileURL) {
       return;
     }
-    
-    // skip extracting text for images over 20MB
+
+    // skip extracting text for images over 50MB
     NSNumber *fileSize = nil;
     [fileURL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:nil];
     if ([fileSize unsignedLongLongValue] > MAX_IMAGE_SCAN_SIZE) return;
-    
+
     __weak __typeof(self) weakSelf = self;
-    QSGCDAsync(^{
+    // Use a serial queue to avoid overwhelming the system with concurrent Vision requests
+    dispatch_once(&_textRecognitionQueueToken, ^{
+      _textRecognitionQueue = dispatch_queue_create("quicksilver.textrecognition", DISPATCH_QUEUE_SERIAL);
+      dispatch_set_target_queue(_textRecognitionQueue, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0));
+    });
+    dispatch_async(_textRecognitionQueue, ^{
       // Create a text recognition request
       VNRecognizeTextRequest *request = [[VNRecognizeTextRequest alloc] initWithCompletionHandler:^(VNRequest *request, NSError *error) {
         if (error) {
           NSLog(@"Text recognition error: %@", error);
           return;
         }
-        
+
         NSMutableString *recognizedText = [NSMutableString string];
         for (VNRecognizedTextObservation *observation in request.results) {
           VNRecognizedText *text = [[observation topCandidates:1] firstObject];
