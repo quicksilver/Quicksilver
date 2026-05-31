@@ -822,8 +822,7 @@ static QSController *defaultController = nil;
 	return;
 #endif
 
-	MPAuthorizationStatus fullDisk = [MPPermissionsKit authorizationStatusForPermissionType:MPPermissionTypeFullDiskAccess];
-	if(![self hasAccessibilityPermission] || fullDisk != MPAuthorizationStatusAuthorized) {
+	if(![self hasAccessibilityPermission]) {
 		if (![accessibilityPermissionWindow isVisible]) {
 			[self showAccessibilityPrompt:nil];
 			return;
@@ -857,9 +856,9 @@ static QSController *defaultController = nil;
 		[calendarsButton setEnabled:!hasCalendars || !hasReminders];
 		[screenshotButton setEnabled:!hasScreenshot];
 
-		[closeAccessibilityWindowButton setEnabled:(hasAccessibility && hasFullDisk)];
+		[closeAccessibilityWindowButton setEnabled:hasAccessibility];
 		
-		if (hasAccessibility && hasFullDisk && hasCalendars && hasContacts && hasReminders && hasClickedScreenshotButton) {
+		if (hasAccessibility) {
 				[accessibilityPermissionWindow close];
 		} else if (!accessibilityChecker) {
 				accessibilityChecker = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
