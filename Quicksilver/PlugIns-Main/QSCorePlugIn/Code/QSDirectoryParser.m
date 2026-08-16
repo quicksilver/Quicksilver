@@ -9,6 +9,7 @@
 #import "QSDirectoryParser.h"
 
 #import "NDAlias+AliasFile.h"
+#import "NSURL_BLTRExtensions.h"
 
 
 @implementation QSDirectoryParser
@@ -138,7 +139,15 @@
         }
         
         if (include) {
-            QSObject *obj = [QSObject fileObjectWithFileURL:theURL];
+            NSURL *objectURL = theURL;
+            if (QSTypeConformsTo(type, (NSString *)kUTTypeApplication)) {
+                // Applications can be scanned via a cryptex backing path
+                // (e.g. /System/Cryptexes/App/System/Applications/Safari.app);
+                // catalog them at their user-visible path so every source
+                // yields the same object (#3125)
+                objectURL = [objectURL URLByResolvingToUserVisiblePath];
+            }
+            QSObject *obj = [QSObject fileObjectWithFileURL:objectURL];
             if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
             if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
             if (obj) [array addObject:obj];
