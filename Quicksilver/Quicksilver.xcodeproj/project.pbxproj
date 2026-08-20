@@ -178,6 +178,7 @@
 		6615228414F43355006FDCB4 /* PathWildcardsData in Resources */ = {isa = PBXBuildFile; fileRef = 6615228314F43355006FDCB4 /* PathWildcardsData */; };
 		66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */ = {isa = PBXBuildFile; fileRef = 66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */; };
+		664D3125202608170000A001 /* TestNSURLCanonicalPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 664D3125202608170000A000 /* TestNSURLCanonicalPath.m */; };
 		666E45FF150226200034E60A /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
 		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */; };
@@ -1259,6 +1260,7 @@
 		66448D9614F42790000FA2E2 /* QSFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66448D9714F42790000FA2E2 /* QSFoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSFoundationTests-Info.plist"; sourceTree = "<group>"; };
 		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QSFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
+		664D3125202608170000A000 /* TestNSURLCanonicalPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSURLCanonicalPath.m; path = "Tests/Tests-QSFoundation/TestNSURLCanonicalPath.m"; sourceTree = "<group>"; };
 		666E45EE150225EA0034E60A /* QSCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCoreTests-Info.plist"; sourceTree = "<group>"; };
 		66D11C6515022A75002EE6E5 /* QSEffectsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSEffectsTests-Info.plist"; sourceTree = "<group>"; };
@@ -2805,6 +2807,7 @@
 			children = (
 				CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */,
 				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
+				664D3125202608170000A000 /* TestNSURLCanonicalPath.m */,
 				4DF329D81EA2C5F0003CD3CE /* TestQSSense.m */,
 				CD72C74F2877C0D10040B065 /* TestNDHotkey.m */,
 			);
@@ -4961,6 +4964,7 @@
 				4DF329D91EA2C5F0003CD3CE /* TestQSSense.m in Sources */,
 				CD661C5419DBD2F3000F3695 /* TestNSApplicationMethods.m in Sources */,
 				66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */,
+				664D3125202608170000A001 /* TestNSURLCanonicalPath.m in Sources */,
 				CD72C7502877C0D10040B065 /* TestNDHotkey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
