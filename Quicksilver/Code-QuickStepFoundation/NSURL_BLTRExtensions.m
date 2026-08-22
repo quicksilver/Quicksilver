@@ -101,6 +101,81 @@ NSString *QSPasswordForHostUserType(NSString *host, NSString *user, SecProtocolT
 
 @end
 
+/* The system domain's Applications directories in every path form: as reported
+ * by NSSearchPathForDirectoriesInDomains, plus their symlink-resolved forms
+ * (e.g. /System/Cryptexes/App is a symlink to /System/Volumes/Preboot/Cryptexes/App,
+ * the form directory enumerators report) */
+static NSArray *QSSystemApplicationsDirectories(void) {
+    static NSArray *directories = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableSet *set = [NSMutableSet set];
+        for (NSString *dir in NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSSystemDomainMask, YES)) {
+            [set addObject:dir];
+            [set addObject:[dir stringByResolvingSymlinksInPath]];
+        }
+        directories = [set allObjects];
+    });
+    return directories;
+}
+
+/* YES if any directory between root and the last path component is a bundle */
+static BOOL QSPathHasBundleAncestor(NSString *root, NSArray *components, NSUInteger fromIndex) {
+    NSString *ancestor = root;
+    for (NSUInteger i = fromIndex; i + 1 < [components count]; i++) {
+        ancestor = [ancestor stringByAppendingPathComponent:components[i]];
+        NSNumber *isPackage = nil;
+        [[NSURL fileURLWithPath:ancestor] getResourceValue:&isPackage forKey:NSURLIsPackageKey error:NULL];
+        if ([isPackage boolValue]) return YES;
+    }
+    return NO;
+}
+
+@implementation NSURL (QSCanonicalPath)
+
+- (NSURL *)URLByMappingSystemApplicationsToLocalDomain {
+    if (![self isFileURL]) return self;
+
+    NSString *path = [self path];
+    NSArray *components = nil;
+    for (NSString *systemApps in QSSystemApplicationsDirectories()) {
+        if (![path hasPrefix:systemApps]) continue;
+        if (!components) components = [path pathComponents];
+
+        // Must be a descendant on a component boundary: /System/ApplicationsFoo
+        // shares the prefix string but isn't inside /System/Applications
+        NSArray *systemAppsComponents = [systemApps pathComponents];
+        NSUInteger prefixCount = [systemAppsComponents count];
+        if ([components count] <= prefixCount) continue;
+        if (![[components subarrayWithRange:NSMakeRange(0, prefixCount)] isEqualToArray:systemAppsComponents]) continue;
+
+        // Finder only merges the folder hierarchy; paths inside a bundle are not remapped
+        if (QSPathHasBundleAncestor(systemApps, components, prefixCount)) return self;
+
+        NSString *localApps = [NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES) firstObject];
+        NSArray *relativeComponents = [components subarrayWithRange:NSMakeRange(prefixCount, [components count] - prefixCount)];
+        return [NSURL fileURLWithPathComponents:[[localApps pathComponents] arrayByAddingObjectsFromArray:relativeComponents]];
+    }
+    return self;
+}
+
+- (NSURL *)URLByResolvingToUserVisiblePath {
+    NSURL *mappedURL = [self URLByMappingSystemApplicationsToLocalDomain];
+    if (mappedURL == self) return self; // not under a system Applications directory
+
+    // Only adopt the mapped path if it exists and refers to the same file
+    // (following symlinks, since the user-visible path may be a symlink to the
+    // backing location, like /Applications/Safari.app)
+    id selfIdentifier = nil, mappedIdentifier = nil;
+    [[self URLByResolvingSymlinksInPath] getResourceValue:&selfIdentifier forKey:NSURLFileResourceIdentifierKey error:NULL];
+    [[mappedURL URLByResolvingSymlinksInPath] getResourceValue:&mappedIdentifier forKey:NSURLFileResourceIdentifierKey error:NULL];
+    if (!selfIdentifier || !mappedIdentifier || ![selfIdentifier isEqual:mappedIdentifier]) return self;
+
+    return mappedURL;
+}
+
+@end
+
 @implementation NSURL (QSBookmarkHelpers)
 + (instancetype)URLByResolvingBookmarkAtURL:(NSURL *)bookmarkURL options:(NSURLBookmarkResolutionOptions)options bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error {
 
