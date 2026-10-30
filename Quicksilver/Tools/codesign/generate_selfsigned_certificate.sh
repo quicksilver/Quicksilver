@@ -24,13 +24,17 @@ openssl genrsa -out $certificateFile.key 2048
 # generate self-signed certificate
 openssl req -x509 -new -config $certificateFile.conf -nodes -key $certificateFile.key -extensions extensions -sha256 -days 3650 -out $certificateFile.crt
 
-openssl_version=$(openssl version)
-# openssl v3.x requires to pass -legacy
-# see https://www.misterpki.com/openssl-pkcs12-legacy/
-if [[ $openssl_version == OpenSSL\ 3* ]]; then
-  flag="-legacy"
-else
-  flag=""
-fi
 # wrap key and certificate into PKCS12
-openssl pkcs12 $flag -export -inkey $certificateFile.key -in $certificateFile.crt -out $certificateFile.p12 -passout pass:$certificatePassword
+#
+# We need to use a format compatible with what macOS expects. However, modern
+# `openssl` (such as the version installed by Homebrew) uses an incompatible format by
+# default. We could either:
+#
+# - pass `-legacy` to `openssl` when supported (but not when using the built-in
+#   macOS binary, which will reject it), or
+# - hardcode `openssl` to the macOS binary installation path.
+#
+# Here we do the latter, because it is simpler and Apple is reasonably likely to
+# keep compatibility in sync. See:
+# https://github.com/quicksilver/Quicksilver/issues/3139
+/usr/bin/openssl pkcs12 -export -inkey $certificateFile.key -in $certificateFile.crt -out $certificateFile.p12 -passout pass:$certificatePassword
