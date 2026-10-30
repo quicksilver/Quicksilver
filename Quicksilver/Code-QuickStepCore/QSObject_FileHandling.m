@@ -127,6 +127,12 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
     return nil;
 }
 
+/* The location the Finder presents a file at: /Applications for system apps
+ * like FindMy.app, the path itself for everything else */
+static NSString *QSDisplayPathForPath(NSString *path) {
+	return [[[[NSURL fileURLWithPath:path] URLByMappingSystemApplicationsToLocalDomain] path] stringByAbbreviatingWithTildeInPath];
+}
+
 - (NSString *)detailsOfObject:(QSObject *)object {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
@@ -134,7 +140,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([object isAlias] && ![object isUbiquitousItem]) { // isAlias returns YES for symlink or alias
 			// Symlink file
 			if (QSTypeConformsTo([object fileUTI], (NSString *)kUTTypeSymLink)) {
-				return [[path stringByResolvingSymlinksInPath] stringByAbbreviatingWithTildeInPath];
+				return QSDisplayPathForPath([path stringByResolvingSymlinksInPath]);
 			}
 			// Finder alias file
 			NSURL *fileURL = [NSURL fileURLWithPath:path];
@@ -169,7 +175,7 @@ NSArray *QSGetRecentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 
 		// normal file
-		return [path stringByAbbreviatingWithTildeInPath];
+		return QSDisplayPathForPath(path);
 		
 	} else if ([theFiles count] > 1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];

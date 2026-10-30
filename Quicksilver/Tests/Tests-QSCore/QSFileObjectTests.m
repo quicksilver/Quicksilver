@@ -72,6 +72,41 @@
     XCTAssertTrue(UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], (__bridge CFStringRef)@"public.script"), @"The fast logout script should be seen as a script by Quicksilver");
 }
 
+- (void)testCryptexApplicationDetails
+{
+    // Cryptex-backed apps should show their /Applications location, not a
+    // backing path under /System/Volumes/Preboot. Issue #3125
+    NSString *backingPath = [@"/Applications/Safari.app" stringByResolvingSymlinksInPath];
+    if ([backingPath isEqualToString:@"/Applications/Safari.app"]) {
+        XCTSkip(@"Safari is not cryptex-backed on this system");
+    }
+    QSFileSystemObjectHandler *handler = [[QSFileSystemObjectHandler alloc] init];
+    QSObject *object = [QSObject fileObjectWithPath:backingPath];
+    XCTAssertEqualObjects([handler detailsOfObject:object], @"/Applications/Safari.app");
+
+    // The /Applications symlink to the cryptex should show itself, not its target
+    object = [QSObject fileObjectWithPath:@"/Applications/Safari.app"];
+    XCTAssertEqualObjects([handler detailsOfObject:object], @"/Applications/Safari.app");
+}
+
+- (void)testSystemApplicationDetails
+{
+    // Apps in /System/Applications are shown by the Finder in /Applications,
+    // so that's what details should show. Issue #3125
+    NSString *terminalPath = @"/System/Applications/Utilities/Terminal.app";
+    if (![[NSFileManager defaultManager] fileExistsAtPath:terminalPath]) {
+        XCTSkip(@"Terminal.app is not in /System/Applications on this system");
+    }
+    QSFileSystemObjectHandler *handler = [[QSFileSystemObjectHandler alloc] init];
+    QSObject *object = [QSObject fileObjectWithPath:terminalPath];
+    XCTAssertEqualObjects([handler detailsOfObject:object], @"/Applications/Utilities/Terminal.app");
+
+    // ...but paths inside their bundles are not remapped
+    NSString *interiorPath = [terminalPath stringByAppendingPathComponent:@"Contents/Info.plist"];
+    object = [QSObject fileObjectWithPath:interiorPath];
+    XCTAssertEqualObjects([handler detailsOfObject:object], interiorPath);
+}
+
 - (void)testFileObject
 {
     NSString *path;

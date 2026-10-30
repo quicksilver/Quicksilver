@@ -50,6 +50,11 @@
 					<key>name</key>
 					<string>Applications</string>
 				</dict>
+				<!-- The App cryptex's Applications directory. Apps here (currently
+				     just Safari) also have an /Applications symlink and are picked up
+				     by the Applications preset above, and both scans produce the same
+				     object, so this is a fallback for a future cryptex app shipped
+				     without a symlink. See issues #2932 and #3125. -->
 				<dict>
 					<key>source</key>
 					<string>QSFileSystemObjectSource</string>
@@ -62,7 +67,7 @@
 							<string>com.apple.application</string>
 						</array>
 						<key>folderDepth</key>
-						<integer>1</integer>
+						<integer>3</integer>
 						<key>scanContents</key>
 						<integer>1</integer>
 						<key>kind</key>

@@ -8,6 +8,8 @@
 
 #import "NSWorkspace_BLTRExtensions.h"
 #import "NSApplication_BLTRExtensions.h"
+#import "NSArray_BLTRExtensions.h"
+#import "NSURL_BLTRExtensions.h"
 #include <signal.h>
 #include <unistd.h>
 
@@ -86,7 +88,10 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 - (NSArray *)allApplicationsURLs {
     CFArrayRef appURLs = NULL;
 	_LSCopyAllApplicationURLs(&appURLs);
-    return (__bridge_transfer NSArray *)appURLs;
+    NSArray *urls = (__bridge_transfer NSArray *)appURLs;
+    // Launch Services reports cryptex-shipped apps (e.g. Safari) at their
+    // backing location; resolve to the user-visible path (#3125)
+    return [urls arrayByPerformingSelector:@selector(URLByResolvingToUserVisiblePath)];
 }
 
 - (NSArray *)allApplications {
